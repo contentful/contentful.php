@@ -81,7 +81,7 @@ Apart from the configuration option, you can use the SDK without modifications w
 Documentation
 =============
 
-TBD
+[API Reference][3]
 
 License
 =======
@@ -90,3 +90,4 @@ Copyright (c) 2015 Contentful GmbH. Code released under the MIT license. See [LI
 
  [1]: https://www.contentful.com
  [2]: LICENSE
+ [3]: http://contentful.github.io/contentful.php/api/
