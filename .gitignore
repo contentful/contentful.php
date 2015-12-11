@@ -1,0 +1,6 @@
+composer.phar
+composer.lock
+vendor/
+build/
+.idea/
+.DS_Store
