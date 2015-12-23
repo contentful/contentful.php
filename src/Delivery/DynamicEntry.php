@@ -91,7 +91,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
                 $locale = $this->getSpace()->getDefaultLocale();
             }
 
-            $result = $value->$locale;
+            $result = $value->{$locale->getCode()};
             if ($getId && $fieldConfig->getType() === 'Link') {
                 return $result->getId();
             }
