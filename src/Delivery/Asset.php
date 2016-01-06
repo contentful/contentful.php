@@ -69,6 +69,11 @@ class Asset extends LocalizedResource implements \JsonSerializable
     {
         $localeCode = $this->getLocaleFromInput($locale);
 
+        // This checks happens after the call to getLocaleFromInput to make sure the Exception for invalid locales is still thrown.
+        if ($this->description === null) {
+            return null;
+        }
+
         return $this->description->$localeCode;
     }
 
