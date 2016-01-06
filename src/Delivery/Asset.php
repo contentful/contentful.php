@@ -6,8 +6,6 @@
 
 namespace Contentful\Delivery;
 
-use Contentful\Delivery\LocalizedResource;
-
 class Asset extends LocalizedResource implements \JsonSerializable
 {
     /**
