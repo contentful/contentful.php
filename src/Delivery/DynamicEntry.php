@@ -88,10 +88,14 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         if ($fieldConfig !== null && !$fieldConfig->isDisabled()) {
             $value = $this->fields->$fieldName;
             if (!$fieldConfig->isLocalized()) {
-                $locale = $this->getSpace()->getDefaultLocale();
+                $locale = $this->getSpace()->getDefaultLocale()->getCode();
             }
 
             $result = $value->$locale;
+            if ($getId && !($fieldConfig->getType() === 'Link' || ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link'))) {
+                trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+            }
+
             if ($getId && $fieldConfig->getType() === 'Link') {
                 return $result->getId();
             }
