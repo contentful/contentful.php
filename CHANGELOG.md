@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+* When GitHub is generating archieves, are few files with metadata are excluded.
+
 ### Fixed
 * Calling the get*Id Method on a field that is not a link or an array of links did not cause an error. (#2, originally reported by @andrewevansmith)
 * Accessing a non-localized field would fail with and throw a PHP notice.
