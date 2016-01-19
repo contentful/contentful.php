@@ -21,6 +21,8 @@ use Contentful\Query as BaseQuery;
  */
 class Client extends BaseClient
 {
+    const VERSION = '0.6.1-beta';
+
     /**
      * @var ResourceBuilder
      */
@@ -51,11 +53,16 @@ class Client extends BaseClient
 
         $instanceCache = new InstanceCache;
 
-        parent::__construct($token, $baseUri . $spaceId . '/', $instanceCache);
+        parent::__construct($token, $baseUri . $spaceId . '/');
 
         $this->preview = $preview;
         $this->instanceCache = $instanceCache;
         $this->builder = new ResourceBuilder($this, $instanceCache, $spaceId);
+    }
+
+    protected function getUserAgentAppName()
+    {
+        return 'ContentfulCDA/' . self::VERSION;
     }
 
     /**

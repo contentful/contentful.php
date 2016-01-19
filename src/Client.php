@@ -31,6 +31,7 @@ abstract class Client
     {
         $stack = HandlerStack::create();
         $stack->push(new BearerToken($token));
+        $headers['User-Agent'] = $this->getUserAgent();
 
         $this->httpClient = new GuzzleClient([
             'base_uri' => $baseUri,
@@ -59,6 +60,19 @@ abstract class Client
         }
 
         return $this->decodeJson($response->getBody());
+    }
+
+    abstract protected function getUserAgentAppName();
+
+    protected function getUserAgent()
+    {
+        $agent = $this->getUserAgentAppName() . ' GuzzleHttp/' . GuzzleClient::VERSION;
+        if (extension_loaded('curl') && function_exists('curl_version')) {
+            $agent .= ' curl/' . \curl_version()['version'];
+        }
+        $agent .= ' PHP/' . \PHP_VERSION;
+
+        return $agent;
     }
 
     /**

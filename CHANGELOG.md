@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+* Send a User-Agent header with API requests.
+
 ### Changed
 * When GitHub is generating archieves, are few files with metadata are excluded.
 
