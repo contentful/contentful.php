@@ -9,12 +9,19 @@
         <testsuite name="integration">
             <directory>tests/Integration</directory>
         </testsuite>
+        <testsuite name="e2e">
+            <directory>tests/E2E</directory>
+        </testsuite>
     </testsuites>
 
     <logging>
         <log type="coverage-html" target="build/coverage" title="contentful.php" charset="UTF-8" yui="true" highlight="true"
              lowUpperBound="35" highLowerBound="70" />
     </logging>
+
+    <listeners>
+        <listener class="PHPUnit_Util_Log_VCR" file="vendor/php-vcr/phpunit-testlistener-vcr/PHPUnit/Util/Log/VCR.php" />
+    </listeners>
 
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">

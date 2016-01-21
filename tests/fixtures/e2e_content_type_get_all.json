@@ -1,0 +1,85 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/content_types",
+        "headers": {
+            "Host": "cdn.contentful.com",
+            "Accept-Encoding": null,
+            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Authorization": "Bearer b4c0n73n7fu1",
+            "Accept": null
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "86400",
+            "Cache-Control": "max-age=0",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "ETag": "\"23331bafbfbf0bb27b38db0169e922a7\"",
+            "Server": "nginx",
+            "X-Contentful-Request-Id": "90a-880258898",
+            "Content-Length": "5618",
+            "Accept-Ranges": "bytes",
+            "Date": "Tue, 23 Feb 2016 17:07:12 GMT",
+            "Via": "1.1 varnish",
+            "Age": "7493",
+            "Connection": "keep-alive",
+            "X-Served-By": "cache-ams4126-AMS",
+            "X-Cache": "HIT",
+            "X-Cache-Hits": "1",
+            "Vary": "Accept-Encoding"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 5,\n  \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"fields\": [\n        {\n          \"name\": \"Name\",\n          \"id\": \"name\",\n          \"type\": \"Text\",\n          \"required\": true\n        },\n        {\n          \"name\": \"Center\",\n          \"id\": \"center\",\n          \"type\": \"Location\",\n          \"required\": true\n        }\n      ],\n      \"name\": \"City\",\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"type\": \"ContentType\",\n        \"id\": \"1t9IbcfdCk6m04uISSsaIK\",\n        \"revision\": 1,\n        \"createdAt\": \"2014-02-21T13:42:33.009Z\",\n        \"updatedAt\": \"2014-02-21T13:42:33.009Z\"\n      },\n      \"displayField\": \"name\"\n    },\n    {\n      \"fields\": [\n        {\n          \"id\": \"name\",\n          \"name\": \"Name\",\n          \"type\": \"Text\",\n          \"required\": true,\n          \"localized\": false\n        }\n      ],\n      \"name\": \"Cat\",\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"type\": \"ContentType\",\n        \"id\": \"63k4qdEi9aI8IQUGaYGg4O\",\n        \"revision\": 1,\n        \"createdAt\": \"2013-06-23T19:06:29.976Z\",\n        \"updatedAt\": \"2013-06-23T19:06:29.976Z\"\n      },\n      \"description\": \"Meow!\",\n      \"displayField\": \"name\"\n    },\n    {\n      \"fields\": [\n        {\n          \"id\": \"name\",\n          \"name\": \"Name\",\n          \"type\": \"Text\",\n          \"required\": true,\n          \"localized\": false\n        },\n        {\n          \"id\": \"description\",\n          \"name\": \"Description\",\n          \"type\": \"Text\",\n          \"required\": false,\n          \"localized\": false\n        },\n        {\n          \"id\": \"image\",\n          \"name\": \"Image\",\n          \"required\": false,\n          \"localized\": false,\n          \"type\": \"Link\",\n          \"linkType\": \"Asset\"\n        }\n      ],\n      \"name\": \"Dog\",\n      \"description\": \"Bark!\",\n      \"displayField\": \"name\",\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"type\": \"ContentType\",\n        \"id\": \"dog\",\n        \"revision\": 2,\n        \"createdAt\": \"2013-06-27T22:46:13.498Z\",\n        \"updatedAt\": \"2013-09-02T14:32:11.837Z\"\n      }\n    },\n    {\n      \"fields\": [\n        {\n          \"id\": \"name\",\n          \"name\": \"Name\",\n          \"type\": \"Text\",\n          \"required\": true,\n          \"localized\": true\n        },\n        {\n          \"id\": \"likes\",\n          \"name\": \"Likes\",\n          \"type\": \"Array\",\n          \"required\": false,\n          \"localized\": false,\n          \"items\": {\n            \"type\": \"Symbol\"\n          }\n        },\n        {\n          \"id\": \"color\",\n          \"name\": \"Color\",\n          \"type\": \"Symbol\",\n          \"required\": false,\n          \"localized\": false\n        },\n        {\n          \"id\": \"bestFriend\",\n          \"name\": \"Best Friend\",\n          \"type\": \"Link\",\n          \"required\": false,\n          \"localized\": false,\n          \"linkType\": \"Entry\"\n        },\n        {\n          \"id\": \"birthday\",\n          \"name\": \"Birthday\",\n          \"type\": \"Date\",\n          \"required\": false,\n          \"localized\": false\n        },\n        {\n          \"id\": \"lifes\",\n          \"name\": \"Lifes left\",\n          \"type\": \"Integer\",\n          \"required\": false,\n          \"localized\": false,\n          \"disabled\": true\n        },\n        {\n          \"id\": \"lives\",\n          \"name\": \"Lives left\",\n          \"type\": \"Integer\",\n          \"required\": false,\n          \"localized\": false\n        },\n        {\n          \"id\": \"image\",\n          \"name\": \"Image\",\n          \"required\": false,\n          \"localized\": false,\n          \"type\": \"Link\",\n          \"linkType\": \"Asset\"\n        }\n      ],\n      \"name\": \"Cat\",\n      \"displayField\": \"name\",\n      \"description\": \"Meow.\",\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"type\": \"ContentType\",\n        \"id\": \"cat\",\n        \"revision\": 2,\n        \"createdAt\": \"2013-06-27T22:46:12.852Z\",\n        \"updatedAt\": \"2013-09-02T13:14:47.863Z\"\n      }\n    },\n    {\n      \"fields\": [\n        {\n          \"id\": \"name\",\n          \"name\": \"Name\",\n          \"type\": \"Text\",\n          \"required\": true,\n          \"localized\": false\n        },\n        {\n          \"id\": \"description\",\n          \"name\": \"Description\",\n          \"type\": \"Text\",\n          \"required\": false,\n          \"localized\": false\n        },\n        {\n          \"id\": \"likes\",\n          \"name\": \"Likes\",\n          \"type\": \"Array\",\n          \"required\": false,\n          \"localized\": false,\n          \"items\": {\n            \"type\": \"Symbol\"\n          }\n        },\n        {\n          \"id\": \"image\",\n          \"name\": \"Image\",\n          \"required\": false,\n          \"localized\": false,\n          \"type\": \"Array\",\n          \"items\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Asset\"\n          },\n          \"disabled\": true\n        }\n      ],\n      \"name\": \"Human\",\n      \"displayField\": \"name\",\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"type\": \"ContentType\",\n        \"id\": \"human\",\n        \"revision\": 3,\n        \"createdAt\": \"2013-06-27T22:46:14.133Z\",\n        \"updatedAt\": \"2013-09-02T15:10:26.818Z\"\n      }\n    }\n  ]\n}\n"
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/",
+        "headers": {
+            "Host": "cdn.contentful.com",
+            "Accept-Encoding": null,
+            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Authorization": "Bearer b4c0n73n7fu1",
+            "Accept": null
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "86400",
+            "Cache-Control": "max-age=0",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "ETag": "\"14a17843cf0cf8b116801f96c1c6fe23\"",
+            "Server": "nginx",
+            "X-Contentful-Request-Id": "c40-587297209",
+            "Content-Length": "285",
+            "Accept-Ranges": "bytes",
+            "Date": "Tue, 23 Feb 2016 17:07:13 GMT",
+            "Via": "1.1 varnish",
+            "Age": "13972",
+            "Connection": "keep-alive",
+            "X-Served-By": "cache-ams4132-AMS",
+            "X-Cache": "HIT",
+            "X-Cache-Hits": "1",
+            "Vary": "Accept-Encoding"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"cfexampleapi\"\n  },\n  \"name\": \"Contentful Example API\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"English\"\n    },\n    {\n      \"code\": \"tlh\",\n      \"default\": false,\n      \"name\": \"Klingon\"\n    }\n  ]\n}\n"
+    }
+}]
