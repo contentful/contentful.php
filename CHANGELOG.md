@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+* Default headers were never actually sent
+
 ## [0.6.1-beta](https://github.com/contentful/contentful.php/tree/0.6.1-beta) (2015-01-19)
 
 ### Added

@@ -36,7 +36,7 @@ abstract class Client
         $this->httpClient = new GuzzleClient([
             'base_uri' => $baseUri,
             'handler' => $stack,
-            'header' => $headers
+            'headers' => $headers
         ]);
     }
 
