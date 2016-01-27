@@ -173,7 +173,7 @@ class Query
      */
     public function setLimit($limit)
     {
-        if ($limit !== null && $limit < 1 || $limit > 1000) {
+        if ($limit !== null && ($limit < 1 || $limit > 1000)) {
             throw new \RangeException('$maxResults must be between 0 and 1000, ' . $limit . ' given.');
         }
 
