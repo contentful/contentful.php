@@ -89,6 +89,22 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Contentful\Query::__construct
+     * @covers Contentful\Query::setLimit
+     * @covers Contentful\Query::getQueryData
+     * @covers Contentful\Query::getQueryString
+     */
+    public function testLimitSetNull()
+    {
+        $queryBuilder = new Query;
+        $queryBuilder->setLimit(150);
+
+        $queryBuilder->setLimit(null);
+
+        $this->assertEquals('', $queryBuilder->getQueryString());
+    }
+
+    /**
+     * @covers Contentful\Query::__construct
      * @covers Contentful\Query::setSkip
      * @covers Contentful\Query::getSkip
      */
