@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+* Compatibility with Symfony 3.
+
 ### Fixed
 
 * Default headers were never actually sent
