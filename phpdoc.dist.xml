@@ -13,6 +13,7 @@
     </transformer>
     <transformations>
         <template name="responsive-twig" />
+        <template name="xml" />
     </transformations>
     <files>
         <directory>src</directory>
