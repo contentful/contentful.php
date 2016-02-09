@@ -17,7 +17,7 @@ Setup
 To add this package to your `composer.json` and install it execute the following command:
 
 ```bash
-php composer.phar install contentful/contentful
+php composer.phar require contentful/contentful:@beta
 ````
 
 Then, if not already done, include the Composer autoloader:
