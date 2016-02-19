@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2016 Contentful GmbH
  * @license   MIT
  */
 
@@ -9,6 +9,7 @@ namespace Contentful;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Psr7;
 
 /**
  * Abstract client for common code for the different clients.
@@ -21,6 +22,11 @@ abstract class Client
     private $httpClient;
 
     /**
+     * @var string
+     */
+    private $baseUri;
+
+    /**
      * Client constructor.
      *
      * @param string $token
@@ -31,12 +37,10 @@ abstract class Client
     {
         $stack = HandlerStack::create();
         $stack->push(new BearerToken($token));
-        $headers['User-Agent'] = $this->getUserAgent();
 
+        $this->baseUri = $baseUri;
         $this->httpClient = new GuzzleClient([
-            'base_uri' => $baseUri,
-            'handler' => $stack,
-            'headers' => $headers
+            'handler' => $stack
         ]);
     }
 
@@ -49,8 +53,14 @@ abstract class Client
      */
     protected function request($method, $path, array $options = [])
     {
+        $query = isset($options['query']) ? $options['query'] : null;
+        if ($query) {
+            unset($options['query']);
+        }
+        $request = $this->buildRequest($method, $path, $query);
+
         try {
-            $response = $this->httpClient->request($method, $path, $options);
+            $response = $this->httpClient->send($request, $options);
         } catch (ClientException $e) {
             if ($e->getResponse()->getStatusCode() === 404) {
                 throw new ResourceNotFoundException(null, 0, $e);
@@ -60,6 +70,23 @@ abstract class Client
         }
 
         return $this->decodeJson($response->getBody());
+    }
+
+    private function buildRequest($method, $path, $query = null)
+    {
+        $uri = Psr7\Uri::resolve(Psr7\uri_for($this->baseUri), $path);
+
+        if ($query) {
+            if (is_array($query)) {
+                $query = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
+            }
+            if (!is_string($query)) {
+                throw new \InvalidArgumentException('query must be a string or array');
+            }
+            $uri = $uri->withQuery($query);
+        }
+
+        return new Psr7\Request($method, $uri, ['User-Agent' => $this->getUserAgent()], null);
     }
 
     abstract protected function getUserAgentAppName();
