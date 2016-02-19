@@ -31,9 +31,8 @@ abstract class Client
      *
      * @param string $token
      * @param string $baseUri
-     * @param array  $headers
      */
-    public function __construct($token, $baseUri, $headers = [])
+    public function __construct($token, $baseUri)
     {
         $stack = HandlerStack::create();
         $stack->push(new BearerToken($token));
