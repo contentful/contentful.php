@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [0.6.2-beta](https://github.com/contentful/contentful.php/tree/0.6.2-beta) (2015-02-22)
+## [0.6.2-beta](https://github.com/contentful/contentful.php/tree/0.6.2-beta) (2016-02-22)
 
 ### Added
 * Compatibility with Symfony 3.
@@ -15,10 +15,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Use PSR-7 internally.
 
 ### Fixed
-
 * Default headers were never actually sent
 
-## [0.6.1-beta](https://github.com/contentful/contentful.php/tree/0.6.1-beta) (2015-01-19)
+## [0.6.1-beta](https://github.com/contentful/contentful.php/tree/0.6.1-beta) (2016-01-19)
 
 ### Added
 * Send a User-Agent header with API requests.
