@@ -124,8 +124,18 @@ abstract class Client
         return new Psr7\Request($method, $uri, ['User-Agent' => $this->getUserAgent()], null);
     }
 
+    /**
+     * The name of the library to be used in the User-Agent header.
+     *
+     * @return string
+     */
     abstract protected function getUserAgentAppName();
 
+    /**
+     * Returns the value of the User-Agent header for any requests made to Contentful
+     *
+     * @return string
+     */
     protected function getUserAgent()
     {
         $agent = $this->getUserAgentAppName() . ' GuzzleHttp/' . GuzzleClient::VERSION;

@@ -63,6 +63,11 @@ class Client extends BaseClient
         $this->builder = new ResourceBuilder($this, $instanceCache, $spaceId);
     }
 
+    /**
+     * The name of the library to be used in the User-Agent header.
+     *
+     * @return string
+     */
     protected function getUserAgentAppName()
     {
         return 'ContentfulCDA/' . self::VERSION;
