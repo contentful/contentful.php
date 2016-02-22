@@ -6,9 +6,12 @@
 
 namespace Contentful;
 
+use Contentful\Log\NullLogger;
+use Contentful\Log\StandardTimer;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Exception\ClientException;
+use Contentful\Log\LoggerInterface;
 use GuzzleHttp\Psr7;
 
 /**
@@ -27,16 +30,29 @@ abstract class Client
     private $baseUri;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * @var string
+     */
+    private $api;
+
+    /**
      * Client constructor.
      *
-     * @param string $token
-     * @param string $baseUri
+     * @param string          $token
+     * @param string          $baseUri
+     * @param LoggerInterface $logger
      */
-    public function __construct($token, $baseUri)
+    public function __construct($token, $baseUri, $api, LoggerInterface $logger = null)
     {
         $stack = HandlerStack::create();
         $stack->push(new BearerToken($token));
+        $this->logger = $logger ?: new NullLogger();
 
+        $this->api = $api;
         $this->baseUri = $baseUri;
         $this->httpClient = new GuzzleClient([
             'handler' => $stack
@@ -52,6 +68,9 @@ abstract class Client
      */
     protected function request($method, $path, array $options = [])
     {
+        $timer = new StandardTimer;
+        $timer->start();
+
         $query = isset($options['query']) ? $options['query'] : null;
         if ($query) {
             unset($options['query']);
@@ -59,7 +78,26 @@ abstract class Client
         $request = $this->buildRequest($method, $path, $query);
 
         try {
-            $response = $this->httpClient->send($request, $options);
+            $response = $this->doRequest($request, $options);
+            $result = $this->decodeJson($response->getBody());
+        }
+        catch (\Exception $e) {
+            $timer->stop();
+            $this->logger->log('DELIVERY', $request, $timer, $e);
+
+            throw $e;
+        }
+
+        $timer->stop();
+        $this->logger->log('DELIVERY', $request, $timer, null);
+
+        return $result;
+    }
+
+    private function doRequest($request, $options)
+    {
+        try {
+            return $this->httpClient->send($request, $options);
         } catch (ClientException $e) {
             if ($e->getResponse()->getStatusCode() === 404) {
                 throw new ResourceNotFoundException(null, 0, $e);
@@ -67,8 +105,6 @@ abstract class Client
 
             throw $e;
         }
-
-        return $this->decodeJson($response->getBody());
     }
 
     private function buildRequest($method, $path, $query = null)

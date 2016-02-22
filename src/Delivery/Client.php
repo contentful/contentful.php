@@ -9,6 +9,7 @@ namespace Contentful\Delivery;
 use Contentful\Client as BaseClient;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Query as BaseQuery;
+use Contentful\Log\LoggerInterface;
 
 /**
  * A Client is used to communicate the Contentful Delivery API.
@@ -41,19 +42,21 @@ class Client extends BaseClient
     /**
      * Client constructor.
      *
-     * @param string  $token   Delivery API Access Token for the space used with this Client
-     * @param string  $spaceId ID of the space used with this Client.
-     * @param bool    $preview True to use the Preview API.
+     * @param string          $token   Delivery API Access Token for the space used with this Client
+     * @param string          $spaceId ID of the space used with this Client.
+     * @param bool            $preview True to use the Preview API.
+     * @param LoggerInterface $logger
      *
      * @api
      */
-    public function __construct($token, $spaceId, $preview = false)
+    public function __construct($token, $spaceId, $preview = false, LoggerInterface $logger = null)
     {
         $baseUri = $preview ? 'https://preview.contentful.com/spaces/' : 'https://cdn.contentful.com/spaces/';
+        $api = $preview ? 'PREVIEW' : 'DELIVERY';
 
         $instanceCache = new InstanceCache;
 
-        parent::__construct($token, $baseUri . $spaceId . '/');
+        parent::__construct($token, $baseUri . $spaceId . '/', $api, $logger);
 
         $this->preview = $preview;
         $this->instanceCache = $instanceCache;
