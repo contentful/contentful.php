@@ -5,8 +5,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.6.2-beta](https://github.com/contentful/contentful.php/tree/0.6.2-beta) (2015-02-22)
+
 ### Added
 * Compatibility with Symfony 3.
+* The ability to log information about requests made against the Contentful API.
+
+### Changed
+* Use PSR-7 internally.
 
 ### Fixed
 
@@ -28,5 +34,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 Initial release
 
-[Unreleased]: https://github.com/contentful/contentful.php/compare/0.6.0-beta...HEAD
-[0.6.0-beta]: https://github.com/contentful/contentful.php/tree/0.6.0-beta
+[Unreleased]: https://github.com/contentful/contentful.php/compare/0.6.2-beta...HEAD
