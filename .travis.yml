@@ -12,6 +12,10 @@ matrix:
    - php: hhvm
   fast_finish: true
 
+branches:
+  except:
+    - gh-pages
+
 install:
   - composer self-update
   - composer install
