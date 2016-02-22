@@ -26,5 +26,7 @@ class NullTimerTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($timer->getDuration());
         $timer->start();
         $this->assertNull($timer->getDuration());
+        $timer->stop();
+        $this->assertNull($timer->getDuration());
     }
 }
