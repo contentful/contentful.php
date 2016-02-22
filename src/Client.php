@@ -83,13 +83,13 @@ abstract class Client
         }
         catch (\Exception $e) {
             $timer->stop();
-            $this->logger->log('DELIVERY', $request, $timer, $e);
+            $this->logger->log($this->api, $request, $timer, $e);
 
             throw $e;
         }
 
         $timer->stop();
-        $this->logger->log('DELIVERY', $request, $timer, null);
+        $this->logger->log($this->api, $request, $timer, null);
 
         return $result;
     }
