@@ -7,7 +7,6 @@
 namespace Contentful\Delivery\Synchronization;
 
 use Contentful\Delivery\Client;
-use Contentful\Delivery\Query;
 use Contentful\Delivery\ResourceBuilder;
 
 /**
