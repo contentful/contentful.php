@@ -154,7 +154,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
                     ]
                 ] : null;
             default:
-                throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encounterted while trying to serialze to JSON.');
+                throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encountered while trying to serialze to JSON.');
         }
     }
 

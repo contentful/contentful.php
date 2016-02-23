@@ -293,7 +293,7 @@ class ResourceBuilder
                     return $this->formatValue($fieldConfig->getItemsType(), $value);
                 }, $value);
             default:
-                throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encounterted while trying to format value.');
+                throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encountered while trying to format value.');
         }
     }
 
