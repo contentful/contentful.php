@@ -86,6 +86,14 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
 
         $fieldConfig = $this->getContentType()->getField($fieldName);
         if ($fieldConfig !== null && !$fieldConfig->isDisabled()) {
+            if (!isset($this->fields->$fieldName)) {
+                if ($fieldConfig->getType() === 'Array') {
+                    return [];
+                }
+
+                return null;
+            }
+
             $value = $this->fields->$fieldName;
             if (!$fieldConfig->isLocalized()) {
                 $locale = $this->getSpace()->getDefaultLocale()->getCode();
