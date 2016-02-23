@@ -77,19 +77,21 @@ abstract class Client
         }
         $request = $this->buildRequest($method, $path, $query);
 
+        // We define this variable so it's also available in the catch block.
+        $response = null;
         try {
             $response = $this->doRequest($request, $options);
             $result = $this->decodeJson($response->getBody());
         }
         catch (\Exception $e) {
             $timer->stop();
-            $this->logger->log($this->api, $request, $timer, $e);
+            $this->logger->log($this->api, $request, $timer, $response, $e);
 
             throw $e;
         }
 
         $timer->stop();
-        $this->logger->log($this->api, $request, $timer, null);
+        $this->logger->log($this->api, $request, $timer, $response);
 
         return $result;
     }

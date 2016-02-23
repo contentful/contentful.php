@@ -61,6 +61,6 @@ class ArrayLogger implements LoggerInterface
      */
     public function log($api, RequestInterface $request, StandardTimer $timer, ResponseInterface $response = null, \Exception $exception = null)
     {
-        $this->logs[] = new LogEntry($api, $request, $timer->getDuration(), $exception);
+        $this->logs[] = new LogEntry($api, $request, $timer->getDuration(), $response, $exception);
     }
 }
