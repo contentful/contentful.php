@@ -176,9 +176,9 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         $fields = new \stdClass;
         $contentType = $this->getContentType();
         foreach ($this->fields as $fieldName => $fieldData) {
-            $fields->$fieldName = (object) [];
+            $fields->$fieldName = new \stdClass;
+            $fieldConfig = $contentType->getField($fieldName);
             foreach ($fieldData as $locale => $data) {
-                $fieldConfig = $contentType->getField($fieldName);
                 $fields->$fieldName->$locale = $this->formatValueForJson($data, $fieldConfig);
             }
         }
