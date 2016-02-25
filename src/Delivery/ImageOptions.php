@@ -44,6 +44,26 @@ class ImageOptions
     private $progressive = false;
 
     /**
+     * @var string|null
+     */
+    private $resizeFit;
+
+    /**
+     * @var string|null
+     */
+    private $resizeFocus;
+
+    /**
+     * @var float|null
+     */
+    private $radius;
+
+    /**
+     * @var string|null
+     */
+    private $backgroundColor;
+
+    /**
      * ImageOptions constructor.
      *
      * Empty, only included for forward compatibility.
@@ -65,7 +85,8 @@ class ImageOptions
             'w' => $this->width,
             'h' => $this->height,
             'fm' => $this->format,
-            'q' => $this->quality
+            'q' => $this->quality,
+            'r' => $this->radius
         ];
 
         if ($this->quality !== null || $this->progressive) {
@@ -73,6 +94,16 @@ class ImageOptions
         }
         if ($this->progressive) {
             $options['fl'] = 'progressive';
+        }
+        if ($this->resizeFit !== null) {
+            $options['fit'] = $this->resizeFit;
+
+            if ($this->resizeFit === 'thumb' && $this->resizeFocus !== null) {
+                $options['f'] = $this->resizeFocus;
+            }
+            if ($this->resizeFit === 'pad' && $this->backgroundColor !== null) {
+                $options['bg'] = 'rgb:' . substr($this->backgroundColor, 1);
+            }
         }
 
         return http_build_query($options, '', '&', PHP_QUERY_RFC3986);
@@ -187,7 +218,7 @@ class ImageOptions
     {
         $validValues = ['png', 'jpg'];
 
-        if ($format !== null && !in_array($format, $validValues)) {
+        if ($format !== null && !in_array($format, $validValues, true)) {
             throw new \InvalidArgumentException('Unknown format "' . $format . '" given. Expected "png", "jpg" or null');
         }
 
@@ -237,7 +268,7 @@ class ImageOptions
      *
      * @return bool
      *
-     * @bool
+     * @api
      */
     public function isProgressive()
     {
@@ -252,10 +283,170 @@ class ImageOptions
      * @param  bool|null $progressive
      *
      * @return $this
+     *
+     * @api
      */
     public function setProgressive($progressive = null)
     {
         $this->progressive = (bool) $progressive;
+
+        return $this;
+    }
+
+    /**
+     * Returns the behavior used for resizing images.
+     *
+     * @return null|string
+     *
+     * @api
+     */
+    public function getResizeFit()
+    {
+        return $this->resizeFit;
+    }
+
+    /**
+     * Change the behavior when resizing the image.
+     *
+     * By default, images are resized to fit inside the bounding box set trough setWidth and setHeight while retaining
+     * their aspect ratio.
+     *
+     * Possible values are:
+     * - null for the default value
+     * - 'pad' Same as the default, but add padding so that the generated image has exactly the given dimensions.
+     * - 'crop' Crop a part of the original image.
+     * - 'fill' Fill the given dimensions by cropping the image.
+     * - 'thumb' Create a thumbnail of detected faces from image, used with 'setFocus'.
+     * - 'scale' Scale the image regardless of the original aspect ratio.
+     *
+     * @param  string|null $resizeFit
+     *
+     * @return $this
+     *
+     * @throws \InvalidArgumentException For unknown values of $resizeBehavior
+     *
+     * @api
+     */
+    public function setResizeFit($resizeFit = null)
+    {
+        $validValues = ['pad', 'crop', 'fill', 'thumb', 'scale'];
+
+        if ($resizeFit !== null && !in_array($resizeFit, $validValues, true)) {
+            throw new \InvalidArgumentException('Unknown resize behavior "' . $resizeFit . '" given. Expected "pad", "crop", "fill", "thumb", "scale" or null');
+        }
+
+        $this->resizeFit = $resizeFit;
+
+        return $this;
+    }
+
+    /**
+     * Get the focus area for resizing.
+     *
+     * @return string|null
+     *
+     * @api
+     */
+    public function getResizeFocus()
+    {
+        return $this->resizeFocus;
+    }
+
+    /**
+     * Set the focus area when the resize fit is set to 'thumb'.
+     *
+     * Possible values are:
+     * - 'top', 'right', 'left', 'bottom'
+     * - A combination like 'bottom_right'
+     * - 'face' or 'faces' to focus the resizing via face detection
+     *
+     * @param  string|null $resizeFocus
+     *
+     * @return $this
+     *
+     * @throws \InvalidArgumentException For unknown values of $resizeFocus
+     *
+     * @api
+     */
+    public function setResizeFocus($resizeFocus = null)
+    {
+        $validValues = ['face', 'faces', 'top', 'bottom', 'right', 'left', 'top_right', 'top_left', 'bottom_right', 'bottom_left'];
+
+        if ($resizeFocus !== null && !in_array($resizeFocus, $validValues, true)) {
+            throw new \InvalidArgumentException('Unknown resize focus "' . $resizeFocus . '" given."');
+        }
+
+        $this->resizeFocus = $resizeFocus;
+
+        return $this;
+    }
+
+    /**
+     * Radius used to crop the image.
+     *
+     * @return float|null
+     *
+     * @api
+     */
+    public function getRadius()
+    {
+        return $this->radius;
+    }
+
+    /**
+     * Add rounded corners to your image or crop to a circle/elipsis
+     *
+     * @param  float|null $radius A float value defining the corner radius.
+     *
+     * @return $this
+     *
+     * @throws \InvalidArgumentException If $radius is negative
+     *
+     * @api
+     */
+    public function setRadius($radius = null)
+    {
+        if ($radius !== null && $radius < 0) {
+            throw new \InvalidArgumentException('Radius must not be negative');
+        }
+
+        $this->radius = $radius;
+
+        return $this;
+    }
+
+    /**
+     * Returns the background color used when padding an image.
+     *
+     * @return string|null
+     *
+     * @api
+     */
+    public function getBackgroundColor()
+    {
+        return $this->backgroundColor;
+    }
+
+    /**
+     * Background color, relevant if the resize fit type 'pad' is used.
+     *
+     * Expects a valid hexadecimal HTML color like '#9090ff'. Default is transparency.
+     *
+     * @param  string|null $backgroundColor
+     *
+     * @return $this
+     *
+     * @throws \InvalidArgumentException If the $backgroundColor is not in hexadecimal format.
+     *
+     * @api
+     */
+    public function setBackgroundColor($backgroundColor = null)
+    {
+        if (!preg_match('/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/', $backgroundColor)) {
+            throw new \InvalidArgumentException('Background color must be in hexadecimal format.');
+        }
+
+        $this->backgroundColor = $backgroundColor;
 
         return $this;
     }
