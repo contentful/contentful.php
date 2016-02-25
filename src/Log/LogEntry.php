@@ -99,4 +99,14 @@ class LogEntry
     {
         return $this->response;
     }
+
+    /**
+     * True if the requests errored.
+     *
+     * @return bool
+     */
+    public function isError()
+    {
+        return $this->exception !== null;
+    }
 }
