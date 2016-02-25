@@ -27,12 +27,12 @@ class LogEntry
     private $duration;
 
     /**
-     * @var ResponseInterface
+     * @var ResponseInterface|null
      */
     private $response;
 
     /**
-     * @var \Exception
+     * @var \Exception|null
      */
     private $exception;
 
@@ -90,5 +90,13 @@ class LogEntry
     public function getDuration()
     {
         return $this->duration;
+    }
+
+    /**
+     * @return ResponseInterface|null
+     */
+    public function getResponse()
+    {
+        return $this->response;
     }
 }

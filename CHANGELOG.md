@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 * Implemented missing functionality of Contentful Images API in ImageOptions.
+* Added the missing method LogEntry::getResponse
 
 ### Fixed
 * Logged requests were always shown as belonging to the Delivery API, even when the Preview API was used.
