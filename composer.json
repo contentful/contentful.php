@@ -18,5 +18,10 @@
     "psr-4": {
       "Contentful\\": "src/"
     }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.7-dev"
+    }
   }
 }
