@@ -22,7 +22,7 @@ use Contentful\Log\LoggerInterface;
  */
 class Client extends BaseClient
 {
-    const VERSION = '0.6.3-beta';
+    const VERSION = '0.6.4-dev';
 
     /**
      * @var ResourceBuilder
