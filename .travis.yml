@@ -17,8 +17,12 @@ branches:
     - gh-pages
 
 install:
+  - wget https://github.com/satooshi/php-coveralls/releases/download/v0.7.0/coveralls.phar
   - composer self-update
   - composer install
 
 script:
  - vendor/bin/phpunit -v
+
+after_success:
+ - travis_retry php coveralls.phar -v
