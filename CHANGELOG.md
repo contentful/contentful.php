@@ -5,8 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.6.3-beta](https://github.com/contentful/contentful.php/tree/0.6.3-beta) (2016-01-02)
+
 ### Added
-* Implemented missing functionality of Contentful Images API in ImageOptions.
+* Implemented missing functionality of the Contentful Images API in ImageOptions.
 * Added the missing method LogEntry::getResponse
 * Added LogEntry::isError
 
@@ -44,4 +46,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 Initial release
 
-[Unreleased]: https://github.com/contentful/contentful.php/compare/0.6.2-beta...HEAD
+[Unreleased]: https://github.com/contentful/contentful.php/compare/0.6.3-beta...HEAD
