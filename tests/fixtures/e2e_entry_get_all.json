@@ -5,7 +5,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -26,14 +27,14 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "ETag": "\"eb98ac2c666fe2bcfe2529b41dc7901d\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "ddd-68422699",
+            "X-Contentful-Request-Id": "58b-339316006",
             "Content-Length": "13947",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 29 Feb 2016 12:50:17 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:22 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-fra1244-FRA",
+            "X-Served-By": "cache-ams4138-AMS",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
             "Vary": "Accept-Encoding"
@@ -47,7 +48,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -68,16 +70,16 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "ETag": "\"14a17843cf0cf8b116801f96c1c6fe23\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "7c5-1223851158",
+            "X-Contentful-Request-Id": "58b-339315976",
             "Content-Length": "285",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 29 Feb 2016 12:50:18 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:22 GMT",
             "Via": "1.1 varnish",
-            "Age": "0",
+            "Age": "4",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-fra1220-FRA",
-            "X-Cache": "MISS",
-            "X-Cache-Hits": "0",
+            "X-Served-By": "cache-ams4123-AMS",
+            "X-Cache": "HIT",
+            "X-Cache-Hits": "1",
             "Vary": "Accept-Encoding"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"cfexampleapi\"\n  },\n  \"name\": \"Contentful Example API\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"English\"\n    },\n    {\n      \"code\": \"tlh\",\n      \"default\": false,\n      \"name\": \"Klingon\"\n    }\n  ]\n}\n"
@@ -89,7 +91,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -110,14 +113,14 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "ETag": "\"36f67a6fca4c9c11e2c802f65c0778c7\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "7c5-1223851164",
+            "X-Contentful-Request-Id": "ddd-70334985",
             "Content-Length": "712",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 29 Feb 2016 12:50:19 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:24 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-fra1239-FRA",
+            "X-Served-By": "cache-ams4145-AMS",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
             "Vary": "Accept-Encoding"
@@ -131,7 +134,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -152,14 +156,14 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "ETag": "\"d221cc26b7e58e2d7a51106d1ad9647b\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "58b-337406913",
+            "X-Contentful-Request-Id": "7c5-1225773241",
             "Content-Length": "883",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 29 Feb 2016 12:50:21 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:26 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-fra1233-FRA",
+            "X-Served-By": "cache-ams4137-AMS",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
             "Vary": "Accept-Encoding"
@@ -173,7 +177,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -194,14 +199,14 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "ETag": "\"9461fc26830f77b598aae949c2b4cb3d\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "ddd-68422724",
+            "X-Contentful-Request-Id": "ddd-70335015",
             "Content-Length": "555",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 29 Feb 2016 12:50:22 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:27 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-fra1230-FRA",
+            "X-Served-By": "cache-ams4140-AMS",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
             "Vary": "Accept-Encoding"
@@ -215,7 +220,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -236,14 +242,14 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "ETag": "\"d605b389177ef47c79f393138c7aa86d\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "7c5-1223851185",
+            "X-Contentful-Request-Id": "ddd-70335028",
             "Content-Length": "1141",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 29 Feb 2016 12:50:23 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:29 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-fra1239-FRA",
+            "X-Served-By": "cache-ams4127-AMS",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
             "Vary": "Accept-Encoding"
@@ -257,7 +263,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -278,16 +285,16 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "ETag": "\"4aa50f249fe6f367e4e134845429c2ac\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "58b-337406937",
+            "X-Contentful-Request-Id": "7c5-1225773179",
             "Content-Length": "1753",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 29 Feb 2016 12:50:25 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:30 GMT",
             "Via": "1.1 varnish",
-            "Age": "0",
+            "Age": "10",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-fra1239-FRA",
-            "X-Cache": "MISS",
-            "X-Cache-Hits": "0",
+            "X-Served-By": "cache-ams4140-AMS",
+            "X-Cache": "HIT",
+            "X-Cache-Hits": "1",
             "Vary": "Accept-Encoding"
         },
         "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"cat\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2013-06-27T22:46:12.852Z\",\n    \"updatedAt\": \"2013-09-02T13:14:47.863Z\",\n    \"revision\": 2\n  },\n  \"displayField\": \"name\",\n  \"name\": \"Cat\",\n  \"description\": \"Meow.\",\n  \"fields\": [\n    {\n      \"id\": \"name\",\n      \"name\": \"Name\",\n      \"type\": \"Text\",\n      \"localized\": true,\n      \"required\": true,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"likes\",\n      \"name\": \"Likes\",\n      \"type\": \"Array\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"items\": {\n        \"type\": \"Symbol\"\n      }\n    },\n    {\n      \"id\": \"color\",\n      \"name\": \"Color\",\n      \"type\": \"Symbol\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"bestFriend\",\n      \"name\": \"Best Friend\",\n      \"type\": \"Link\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"linkType\": \"Entry\"\n    },\n    {\n      \"id\": \"birthday\",\n      \"name\": \"Birthday\",\n      \"type\": \"Date\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"lifes\",\n      \"name\": \"Lifes left\",\n      \"type\": \"Integer\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": true\n    },\n    {\n      \"id\": \"lives\",\n      \"name\": \"Lives left\",\n      \"type\": \"Integer\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"image\",\n      \"name\": \"Image\",\n      \"type\": \"Link\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"linkType\": \"Asset\"\n    }\n  ]\n}\n"

@@ -5,7 +5,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -24,21 +25,21 @@
             "Access-Control-Max-Age": "86400",
             "Cache-Control": "max-age=0",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "ETag": "\"b29cebdb83da63c7e8a37488daab6665\"",
+            "ETag": "\"d10b6085948423740d052cbf1b784e9e\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "c40-587505421",
+            "X-Contentful-Request-Id": "ddd-70335059",
             "Content-Length": "5678",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 23 Feb 2016 17:07:15 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:34 GMT",
             "Via": "1.1 varnish",
-            "Age": "7483",
+            "Age": "0",
             "Connection": "keep-alive",
             "X-Served-By": "cache-ams4144-AMS",
-            "X-Cache": "HIT",
-            "X-Cache-Hits": "1",
+            "X-Cache": "MISS",
+            "X-Cache-Hits": "0",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 3,\n  \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"fields\": {\n        \"name\": {\n          \"en-US\": \"Happy Cat\",\n          \"tlh\": \"Quch vIghro'\"\n        },\n        \"bestFriend\": {\n          \"en-US\": {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\": \"Entry\",\n              \"id\": \"nyancat\"\n            }\n          }\n        },\n        \"likes\": {\n          \"en-US\": [\n            \"cheezburger\"\n          ]\n        },\n        \"color\": {\n          \"en-US\": \"gray\"\n        },\n        \"birthday\": {\n          \"en-US\": \"2003-10-28T23:00:00+00:00\"\n        },\n        \"lives\": {\n          \"en-US\": 1\n        },\n        \"image\": {\n          \"en-US\": {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\": \"Asset\",\n              \"id\": \"happycat\"\n            }\n          }\n        }\n      },\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"type\": \"Entry\",\n        \"contentType\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"ContentType\",\n            \"id\": \"cat\"\n          }\n        },\n        \"id\": \"happycat\",\n        \"revision\": 8,\n        \"createdAt\": \"2013-06-27T22:46:20.171Z\",\n        \"updatedAt\": \"2013-11-18T15:58:02.018Z\"\n      }\n    },\n    {\n      \"fields\": {\n        \"name\": {\n          \"en-US\": \"Garfield\",\n          \"tlh\": \"Garfield\"\n        },\n        \"likes\": {\n          \"en-US\": [\n            \"lasagna\"\n          ]\n        },\n        \"color\": {\n          \"en-US\": \"orange\"\n        },\n        \"lifes\": {\n          \"en-US\": null\n        },\n        \"lives\": {\n          \"en-US\": 9\n        },\n        \"birthday\": {\n          \"en-US\": \"1979-06-18T23:00:00+00:00\"\n        }\n      },\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"type\": \"Entry\",\n        \"contentType\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"ContentType\",\n            \"id\": \"cat\"\n          }\n        },\n        \"id\": \"garfield\",\n        \"revision\": 2,\n        \"createdAt\": \"2013-06-27T22:46:20.821Z\",\n        \"updatedAt\": \"2013-08-27T10:09:07.929Z\"\n      }\n    },\n    {\n      \"fields\": {\n        \"name\": {\n          \"en-US\": \"Nyan Cat\",\n          \"tlh\": \"Nyan vIghro'\"\n        },\n        \"likes\": {\n          \"en-US\": [\n            \"rainbows\",\n            \"fish\"\n          ]\n        },\n        \"color\": {\n          \"en-US\": \"rainbow\"\n        },\n        \"bestFriend\": {\n          \"en-US\": {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\": \"Entry\",\n              \"id\": \"happycat\"\n            }\n          }\n        },\n        \"birthday\": {\n          \"en-US\": \"2011-04-04T22:00:00+00:00\"\n        },\n        \"lives\": {\n          \"en-US\": 1337\n        },\n        \"image\": {\n          \"en-US\": {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\": \"Asset\",\n              \"id\": \"nyancat\"\n            }\n          }\n        }\n      },\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"type\": \"Entry\",\n        \"contentType\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"ContentType\",\n            \"id\": \"cat\"\n          }\n        },\n        \"id\": \"nyancat\",\n        \"revision\": 5,\n        \"createdAt\": \"2013-06-27T22:46:19.513Z\",\n        \"updatedAt\": \"2013-09-04T09:19:39.027Z\"\n      }\n    }\n  ],\n  \"includes\": {\n    \"Asset\": [\n      {\n        \"fields\": {\n          \"file\": {\n            \"en-US\": {\n              \"fileName\": \"happycatw.jpg\",\n              \"contentType\": \"image\/jpeg\",\n              \"details\": {\n                \"image\": {\n                  \"width\": 273,\n                  \"height\": 397\n                },\n                \"size\": 59939\n              },\n              \"url\": \"\/\/images.contentful.com\/cfexampleapi\/3MZPnjZTIskAIIkuuosCss\/382a48dfa2cb16c47aa2c72f7b23bf09\/happycatw.jpg\"\n            }\n          },\n          \"title\": {\n            \"en-US\": \"Happy Cat\"\n          }\n        },\n        \"sys\": {\n          \"space\": {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\": \"Space\",\n              \"id\": \"cfexampleapi\"\n            }\n          },\n          \"type\": \"Asset\",\n          \"id\": \"happycat\",\n          \"revision\": 2,\n          \"createdAt\": \"2013-09-02T14:56:34.267Z\",\n          \"updatedAt\": \"2013-09-02T15:11:24.361Z\"\n        }\n      },\n      {\n        \"fields\": {\n          \"title\": {\n            \"en-US\": \"Nyan Cat\"\n          },\n          \"file\": {\n            \"en-US\": {\n              \"fileName\": \"Nyan_cat_250px_frame.png\",\n              \"contentType\": \"image\/png\",\n              \"details\": {\n                \"image\": {\n                  \"width\": 250,\n                  \"height\": 250\n                },\n                \"size\": 12273\n              },\n              \"url\": \"\/\/images.contentful.com\/cfexampleapi\/4gp6taAwW4CmSgumq2ekUm\/9da0cd1936871b8d72343e895a00d611\/Nyan_cat_250px_frame.png\"\n            }\n          }\n        },\n        \"sys\": {\n          \"space\": {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\": \"Space\",\n              \"id\": \"cfexampleapi\"\n            }\n          },\n          \"type\": \"Asset\",\n          \"id\": \"nyancat\",\n          \"revision\": 1,\n          \"createdAt\": \"2013-09-02T14:56:34.240Z\",\n          \"updatedAt\": \"2013-09-02T14:56:34.240Z\"\n        }\n      }\n    ]\n  }\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 3,\n  \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"id\": \"happycat\",\n        \"type\": \"Entry\",\n        \"createdAt\": \"2013-06-27T22:46:20.171Z\",\n        \"updatedAt\": \"2013-11-18T15:58:02.018Z\",\n        \"revision\": 8,\n        \"contentType\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"ContentType\",\n            \"id\": \"cat\"\n          }\n        }\n      },\n      \"fields\": {\n        \"name\": {\n          \"en-US\": \"Happy Cat\",\n          \"tlh\": \"Quch vIghro'\"\n        },\n        \"likes\": {\n          \"en-US\": [\n            \"cheezburger\"\n          ]\n        },\n        \"color\": {\n          \"en-US\": \"gray\"\n        },\n        \"bestFriend\": {\n          \"en-US\": {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\": \"Entry\",\n              \"id\": \"nyancat\"\n            }\n          }\n        },\n        \"birthday\": {\n          \"en-US\": \"2003-10-28T23:00:00+00:00\"\n        },\n        \"lives\": {\n          \"en-US\": 1\n        },\n        \"image\": {\n          \"en-US\": {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\": \"Asset\",\n              \"id\": \"happycat\"\n            }\n          }\n        }\n      }\n    },\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"id\": \"garfield\",\n        \"type\": \"Entry\",\n        \"createdAt\": \"2013-06-27T22:46:20.821Z\",\n        \"updatedAt\": \"2013-08-27T10:09:07.929Z\",\n        \"revision\": 2,\n        \"contentType\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"ContentType\",\n            \"id\": \"cat\"\n          }\n        }\n      },\n      \"fields\": {\n        \"name\": {\n          \"en-US\": \"Garfield\",\n          \"tlh\": \"Garfield\"\n        },\n        \"likes\": {\n          \"en-US\": [\n            \"lasagna\"\n          ]\n        },\n        \"color\": {\n          \"en-US\": \"orange\"\n        },\n        \"birthday\": {\n          \"en-US\": \"1979-06-18T23:00:00+00:00\"\n        },\n        \"lifes\": {\n          \"en-US\": null\n        },\n        \"lives\": {\n          \"en-US\": 9\n        }\n      }\n    },\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"id\": \"nyancat\",\n        \"type\": \"Entry\",\n        \"createdAt\": \"2013-06-27T22:46:19.513Z\",\n        \"updatedAt\": \"2013-09-04T09:19:39.027Z\",\n        \"revision\": 5,\n        \"contentType\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"ContentType\",\n            \"id\": \"cat\"\n          }\n        }\n      },\n      \"fields\": {\n        \"name\": {\n          \"en-US\": \"Nyan Cat\",\n          \"tlh\": \"Nyan vIghro'\"\n        },\n        \"likes\": {\n          \"en-US\": [\n            \"rainbows\",\n            \"fish\"\n          ]\n        },\n        \"color\": {\n          \"en-US\": \"rainbow\"\n        },\n        \"bestFriend\": {\n          \"en-US\": {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\": \"Entry\",\n              \"id\": \"happycat\"\n            }\n          }\n        },\n        \"birthday\": {\n          \"en-US\": \"2011-04-04T22:00:00+00:00\"\n        },\n        \"lives\": {\n          \"en-US\": 1337\n        },\n        \"image\": {\n          \"en-US\": {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\": \"Asset\",\n              \"id\": \"nyancat\"\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"includes\": {\n    \"Asset\": [\n      {\n        \"sys\": {\n          \"space\": {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\": \"Space\",\n              \"id\": \"cfexampleapi\"\n            }\n          },\n          \"id\": \"happycat\",\n          \"type\": \"Asset\",\n          \"createdAt\": \"2013-09-02T14:56:34.267Z\",\n          \"updatedAt\": \"2013-09-02T15:11:24.361Z\",\n          \"revision\": 2\n        },\n        \"fields\": {\n          \"title\": {\n            \"en-US\": \"Happy Cat\"\n          },\n          \"file\": {\n            \"en-US\": {\n              \"url\": \"\/\/images.contentful.com\/cfexampleapi\/3MZPnjZTIskAIIkuuosCss\/382a48dfa2cb16c47aa2c72f7b23bf09\/happycatw.jpg\",\n              \"details\": {\n                \"size\": 59939,\n                \"image\": {\n                  \"width\": 273,\n                  \"height\": 397\n                }\n              },\n              \"fileName\": \"happycatw.jpg\",\n              \"contentType\": \"image\/jpeg\"\n            }\n          }\n        }\n      },\n      {\n        \"sys\": {\n          \"space\": {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\": \"Space\",\n              \"id\": \"cfexampleapi\"\n            }\n          },\n          \"id\": \"nyancat\",\n          \"type\": \"Asset\",\n          \"createdAt\": \"2013-09-02T14:56:34.240Z\",\n          \"updatedAt\": \"2013-09-02T14:56:34.240Z\",\n          \"revision\": 1\n        },\n        \"fields\": {\n          \"title\": {\n            \"en-US\": \"Nyan Cat\"\n          },\n          \"file\": {\n            \"en-US\": {\n              \"url\": \"\/\/images.contentful.com\/cfexampleapi\/4gp6taAwW4CmSgumq2ekUm\/9da0cd1936871b8d72343e895a00d611\/Nyan_cat_250px_frame.png\",\n              \"details\": {\n                \"size\": 12273,\n                \"image\": {\n                  \"width\": 250,\n                  \"height\": 250\n                }\n              },\n              \"fileName\": \"Nyan_cat_250px_frame.png\",\n              \"contentType\": \"image\/png\"\n            }\n          }\n        }\n      }\n    ]\n  }\n}\n"
     }
 },{
     "request": {
@@ -47,7 +48,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -68,16 +70,16 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "ETag": "\"14a17843cf0cf8b116801f96c1c6fe23\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "c40-587297209",
+            "X-Contentful-Request-Id": "58b-339315976",
             "Content-Length": "285",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 23 Feb 2016 17:07:15 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:34 GMT",
             "Via": "1.1 varnish",
-            "Age": "13975",
+            "Age": "16",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-ams4125-AMS",
+            "X-Served-By": "cache-ams4140-AMS",
             "X-Cache": "HIT",
-            "X-Cache-Hits": "2",
+            "X-Cache-Hits": "1",
             "Vary": "Accept-Encoding"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"cfexampleapi\"\n  },\n  \"name\": \"Contentful Example API\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"English\"\n    },\n    {\n      \"code\": \"tlh\",\n      \"default\": false,\n      \"name\": \"Klingon\"\n    }\n  ]\n}\n"
@@ -89,7 +91,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -108,20 +111,20 @@
             "Access-Control-Max-Age": "86400",
             "Cache-Control": "max-age=0",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "ETag": "\"311dab6ef7fafc9f223a427ddd896e3e\"",
+            "ETag": "\"4aa50f249fe6f367e4e134845429c2ac\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "c40-587505321",
-            "Content-Length": "1578",
+            "X-Contentful-Request-Id": "7c5-1225773179",
+            "Content-Length": "1753",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 23 Feb 2016 17:07:16 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:35 GMT",
             "Via": "1.1 varnish",
-            "Age": "13974",
+            "Age": "14",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-ams4127-AMS",
+            "X-Served-By": "cache-ams4135-AMS",
             "X-Cache": "HIT",
             "X-Cache-Hits": "1",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"fields\": [\n    {\n      \"id\": \"name\",\n      \"name\": \"Name\",\n      \"type\": \"Text\",\n      \"required\": true,\n      \"localized\": true\n    },\n    {\n      \"id\": \"likes\",\n      \"name\": \"Likes\",\n      \"type\": \"Array\",\n      \"required\": false,\n      \"localized\": false,\n      \"items\": {\n        \"type\": \"Symbol\"\n      }\n    },\n    {\n      \"id\": \"color\",\n      \"name\": \"Color\",\n      \"type\": \"Symbol\",\n      \"required\": false,\n      \"localized\": false\n    },\n    {\n      \"id\": \"bestFriend\",\n      \"name\": \"Best Friend\",\n      \"type\": \"Link\",\n      \"required\": false,\n      \"localized\": false,\n      \"linkType\": \"Entry\"\n    },\n    {\n      \"id\": \"birthday\",\n      \"name\": \"Birthday\",\n      \"type\": \"Date\",\n      \"required\": false,\n      \"localized\": false\n    },\n    {\n      \"id\": \"lifes\",\n      \"name\": \"Lifes left\",\n      \"type\": \"Integer\",\n      \"required\": false,\n      \"localized\": false,\n      \"disabled\": true\n    },\n    {\n      \"id\": \"lives\",\n      \"name\": \"Lives left\",\n      \"type\": \"Integer\",\n      \"required\": false,\n      \"localized\": false\n    },\n    {\n      \"id\": \"image\",\n      \"name\": \"Image\",\n      \"required\": false,\n      \"localized\": false,\n      \"type\": \"Link\",\n      \"linkType\": \"Asset\"\n    }\n  ],\n  \"name\": \"Cat\",\n  \"displayField\": \"name\",\n  \"description\": \"Meow.\",\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"type\": \"ContentType\",\n    \"id\": \"cat\",\n    \"revision\": 2,\n    \"createdAt\": \"2013-06-27T22:46:12.852Z\",\n    \"updatedAt\": \"2013-09-02T13:14:47.863Z\"\n  }\n}\n"
+        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"cat\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2013-06-27T22:46:12.852Z\",\n    \"updatedAt\": \"2013-09-02T13:14:47.863Z\",\n    \"revision\": 2\n  },\n  \"displayField\": \"name\",\n  \"name\": \"Cat\",\n  \"description\": \"Meow.\",\n  \"fields\": [\n    {\n      \"id\": \"name\",\n      \"name\": \"Name\",\n      \"type\": \"Text\",\n      \"localized\": true,\n      \"required\": true,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"likes\",\n      \"name\": \"Likes\",\n      \"type\": \"Array\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"items\": {\n        \"type\": \"Symbol\"\n      }\n    },\n    {\n      \"id\": \"color\",\n      \"name\": \"Color\",\n      \"type\": \"Symbol\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"bestFriend\",\n      \"name\": \"Best Friend\",\n      \"type\": \"Link\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"linkType\": \"Entry\"\n    },\n    {\n      \"id\": \"birthday\",\n      \"name\": \"Birthday\",\n      \"type\": \"Date\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"lifes\",\n      \"name\": \"Lifes left\",\n      \"type\": \"Integer\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": true\n    },\n    {\n      \"id\": \"lives\",\n      \"name\": \"Lives left\",\n      \"type\": \"Integer\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"image\",\n      \"name\": \"Image\",\n      \"type\": \"Link\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"linkType\": \"Asset\"\n    }\n  ]\n}\n"
     }
 }]

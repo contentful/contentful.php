@@ -5,7 +5,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -26,16 +27,16 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "ETag": "\"29f2c21be26360c424f617d8592cf6f9\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "c40-587505761",
+            "X-Contentful-Request-Id": "ddd-70335220",
             "Content-Length": "97",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 23 Feb 2016 17:07:20 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:52 GMT",
             "Via": "1.1 varnish",
-            "Age": "7424",
+            "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-ams4145-AMS",
-            "X-Cache": "HIT",
-            "X-Cache-Hits": "1",
+            "X-Served-By": "cache-ams4133-AMS",
+            "X-Cache": "MISS",
+            "X-Cache-Hits": "0",
             "Vary": "Accept-Encoding"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 0,\n  \"skip\": 0,\n  \"limit\": 100,\n  \"items\": []\n}\n"

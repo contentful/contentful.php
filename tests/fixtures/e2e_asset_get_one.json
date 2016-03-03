@@ -5,7 +5,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -24,21 +25,21 @@
             "Access-Control-Max-Age": "86400",
             "Cache-Control": "max-age=0",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "ETag": "\"efe0a8adfa4de542d957064a2385469c\"",
+            "ETag": "\"ea482b8bda14cbaaa532d80da667461f\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "405-1407930180",
+            "X-Contentful-Request-Id": "ddd-70334924",
             "Content-Length": "769",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 23 Feb 2016 17:07:12 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:19 GMT",
             "Via": "1.1 varnish",
-            "Age": "7495",
+            "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-ams4139-AMS",
-            "X-Cache": "HIT",
-            "X-Cache-Hits": "1",
+            "X-Served-By": "cache-ams4141-AMS",
+            "X-Cache": "MISS",
+            "X-Cache-Hits": "0",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"fields\": {\n    \"title\": {\n      \"en-US\": \"Nyan Cat\"\n    },\n    \"file\": {\n      \"en-US\": {\n        \"fileName\": \"Nyan_cat_250px_frame.png\",\n        \"contentType\": \"image\/png\",\n        \"details\": {\n          \"image\": {\n            \"width\": 250,\n            \"height\": 250\n          },\n          \"size\": 12273\n        },\n        \"url\": \"\/\/images.contentful.com\/cfexampleapi\/4gp6taAwW4CmSgumq2ekUm\/9da0cd1936871b8d72343e895a00d611\/Nyan_cat_250px_frame.png\"\n      }\n    }\n  },\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"type\": \"Asset\",\n    \"id\": \"nyancat\",\n    \"revision\": 1,\n    \"createdAt\": \"2013-09-02T14:56:34.240Z\",\n    \"updatedAt\": \"2013-09-02T14:56:34.240Z\"\n  }\n}\n"
+        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"nyancat\",\n    \"type\": \"Asset\",\n    \"createdAt\": \"2013-09-02T14:56:34.240Z\",\n    \"updatedAt\": \"2013-09-02T14:56:34.240Z\",\n    \"revision\": 1\n  },\n  \"fields\": {\n    \"title\": {\n      \"en-US\": \"Nyan Cat\"\n    },\n    \"file\": {\n      \"en-US\": {\n        \"url\": \"\/\/images.contentful.com\/cfexampleapi\/4gp6taAwW4CmSgumq2ekUm\/9da0cd1936871b8d72343e895a00d611\/Nyan_cat_250px_frame.png\",\n        \"details\": {\n          \"size\": 12273,\n          \"image\": {\n            \"width\": 250,\n            \"height\": 250\n          }\n        },\n        \"fileName\": \"Nyan_cat_250px_frame.png\",\n        \"contentType\": \"image\/png\"\n      }\n    }\n  }\n}\n"
     }
 },{
     "request": {
@@ -47,7 +48,8 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.3-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -68,16 +70,16 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "ETag": "\"14a17843cf0cf8b116801f96c1c6fe23\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "c40-587297209",
+            "X-Contentful-Request-Id": "58b-339315976",
             "Content-Length": "285",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 23 Feb 2016 17:07:12 GMT",
+            "Date": "Thu, 03 Mar 2016 15:01:19 GMT",
             "Via": "1.1 varnish",
-            "Age": "13971",
+            "Age": "1",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-ams4133-AMS",
+            "X-Served-By": "cache-ams4147-AMS",
             "X-Cache": "HIT",
-            "X-Cache-Hits": "4",
+            "X-Cache-Hits": "1",
             "Vary": "Accept-Encoding"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"cfexampleapi\"\n  },\n  \"name\": \"Contentful Example API\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"English\"\n    },\n    {\n      \"code\": \"tlh\",\n      \"default\": false,\n      \"name\": \"Klingon\"\n    }\n  ]\n}\n"
