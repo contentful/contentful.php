@@ -110,6 +110,15 @@ abstract class Client
         }
     }
 
+    /**
+     * @param  string            $method
+     * @param  string            $path
+     * @param  array|string|null $query
+     *
+     * @return Psr7\Request
+     *
+     * @throws \InvalidArgumentException If $query is not a valid type
+     */
     private function buildRequest($method, $path, $query = null)
     {
         $contentTypes = [
