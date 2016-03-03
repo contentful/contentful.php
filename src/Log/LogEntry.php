@@ -9,7 +9,7 @@ namespace Contentful\Log;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class LogEntry
+class LogEntry implements \Serializable
 {
     /**
      * @var string
@@ -108,5 +108,27 @@ class LogEntry
     public function isError()
     {
         return $this->exception !== null;
+    }
+
+    public function serialize()
+    {
+        return serialize((object) [
+            'api' => $this->api,
+            'duration' => $this->duration,
+            'exception' => $this->exception,
+            'request' => \GuzzleHttp\Psr7\str($this->request),
+            'response' => \GuzzleHttp\Psr7\str($this->response)
+        ]);
+    }
+
+    public function unserialize($serialized)
+    {
+        $data = unserialize($serialized);
+
+        $this->api = $data->api;
+        $this->duration = $data->duration;
+        $this->exception = $data->exception;
+        $this->request = \GuzzleHttp\Psr7\parse_request($data->request);
+        $this->response = \GuzzleHttp\Psr7\parse_response($data->response);
     }
 }
