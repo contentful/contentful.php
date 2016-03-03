@@ -44,6 +44,7 @@ abstract class Client
      *
      * @param string          $token
      * @param string          $baseUri
+     * @param string          $api
      * @param LoggerInterface $logger
      */
     public function __construct($token, $baseUri, $api, LoggerInterface $logger = null)
