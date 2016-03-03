@@ -112,6 +112,12 @@ abstract class Client
 
     private function buildRequest($method, $path, $query = null)
     {
+        $contentTypes = [
+            'DELIVERY' => 'application/vnd.contentful.delivery.v1+json',
+            'PREVIEW' => 'application/vnd.contentful.delivery.v1+json',
+            'MANAGEMENT' => 'application/vnd.contentful.management.v1+json'
+        ];
+
         $uri = Psr7\Uri::resolve(Psr7\uri_for($this->baseUri), $path);
 
         if ($query) {
@@ -124,7 +130,10 @@ abstract class Client
             $uri = $uri->withQuery($query);
         }
 
-        return new Psr7\Request($method, $uri, ['User-Agent' => $this->getUserAgent()], null);
+        return new Psr7\Request($method, $uri, [
+            'User-Agent' => $this->getUserAgent(),
+            'Content-Type' => $contentTypes[$this->api]
+        ], null);
     }
 
     /**
