@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [0.6.3-beta](https://github.com/contentful/contentful.php/tree/0.6.4-beta) (2016-03-03)
+## [0.6.4-beta](https://github.com/contentful/contentful.php/tree/0.6.4-beta) (2016-03-03)
 
 ### Added
 * Made LogEntry implement Serializable.
