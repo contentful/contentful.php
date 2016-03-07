@@ -5,7 +5,7 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.5-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
@@ -25,21 +25,21 @@
             "Access-Control-Max-Age": "86400",
             "Cache-Control": "max-age=0",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "ETag": "\"4aa50f249fe6f367e4e134845429c2ac\"",
+            "ETag": "\"33a722ccf302d9a00d08dcab4ff59667\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "7c5-1225773179",
-            "Content-Length": "1753",
+            "X-Contentful-Request-Id": "ddd-72512906",
+            "Content-Length": "1780",
             "Accept-Ranges": "bytes",
-            "Date": "Thu, 03 Mar 2016 15:01:21 GMT",
+            "Date": "Mon, 07 Mar 2016 15:57:14 GMT",
             "Via": "1.1 varnish",
-            "Age": "0",
+            "Age": "4960",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-ams4123-AMS",
-            "X-Cache": "MISS",
-            "X-Cache-Hits": "0",
+            "X-Served-By": "cache-ams4129-AMS",
+            "X-Cache": "HIT",
+            "X-Cache-Hits": "1",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"cat\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2013-06-27T22:46:12.852Z\",\n    \"updatedAt\": \"2013-09-02T13:14:47.863Z\",\n    \"revision\": 2\n  },\n  \"displayField\": \"name\",\n  \"name\": \"Cat\",\n  \"description\": \"Meow.\",\n  \"fields\": [\n    {\n      \"id\": \"name\",\n      \"name\": \"Name\",\n      \"type\": \"Text\",\n      \"localized\": true,\n      \"required\": true,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"likes\",\n      \"name\": \"Likes\",\n      \"type\": \"Array\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"items\": {\n        \"type\": \"Symbol\"\n      }\n    },\n    {\n      \"id\": \"color\",\n      \"name\": \"Color\",\n      \"type\": \"Symbol\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"bestFriend\",\n      \"name\": \"Best Friend\",\n      \"type\": \"Link\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"linkType\": \"Entry\"\n    },\n    {\n      \"id\": \"birthday\",\n      \"name\": \"Birthday\",\n      \"type\": \"Date\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"lifes\",\n      \"name\": \"Lifes left\",\n      \"type\": \"Integer\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": true\n    },\n    {\n      \"id\": \"lives\",\n      \"name\": \"Lives left\",\n      \"type\": \"Integer\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"image\",\n      \"name\": \"Image\",\n      \"type\": \"Link\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"linkType\": \"Asset\"\n    }\n  ]\n}\n"
+        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"cat\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2013-06-27T22:46:12.852Z\",\n    \"updatedAt\": \"2013-09-02T13:14:47.863Z\",\n    \"revision\": 2\n  },\n  \"displayField\": \"name\",\n  \"name\": \"Cat\",\n  \"description\": \"Meow.\",\n  \"fields\": [\n    {\n      \"id\": \"name\",\n      \"name\": \"Name\",\n      \"type\": \"Text\",\n      \"localized\": true,\n      \"required\": true,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"likes\",\n      \"name\": \"Likes\",\n      \"type\": \"Array\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"items\": {\n        \"type\": \"Symbol\",\n        \"validations\": []\n      }\n    },\n    {\n      \"id\": \"color\",\n      \"name\": \"Color\",\n      \"type\": \"Symbol\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"bestFriend\",\n      \"name\": \"Best Friend\",\n      \"type\": \"Link\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"linkType\": \"Entry\"\n    },\n    {\n      \"id\": \"birthday\",\n      \"name\": \"Birthday\",\n      \"type\": \"Date\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"lifes\",\n      \"name\": \"Lifes left\",\n      \"type\": \"Integer\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": true\n    },\n    {\n      \"id\": \"lives\",\n      \"name\": \"Lives left\",\n      \"type\": \"Integer\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"image\",\n      \"name\": \"Image\",\n      \"type\": \"Link\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"linkType\": \"Asset\"\n    }\n  ]\n}\n"
     }
 },{
     "request": {
@@ -48,7 +48,7 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.4-beta GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.5-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
@@ -70,16 +70,16 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "ETag": "\"14a17843cf0cf8b116801f96c1c6fe23\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "58b-339315976",
+            "X-Contentful-Request-Id": "7c5-1227976161",
             "Content-Length": "285",
             "Accept-Ranges": "bytes",
-            "Date": "Thu, 03 Mar 2016 15:01:21 GMT",
+            "Date": "Mon, 07 Mar 2016 15:57:14 GMT",
             "Via": "1.1 varnish",
-            "Age": "3",
+            "Age": "4962",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-ams4135-AMS",
+            "X-Served-By": "cache-ams4131-AMS",
             "X-Cache": "HIT",
-            "X-Cache-Hits": "1",
+            "X-Cache-Hits": "2",
             "Vary": "Accept-Encoding"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"cfexampleapi\"\n  },\n  \"name\": \"Contentful Example API\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"English\"\n    },\n    {\n      \"code\": \"tlh\",\n      \"default\": false,\n      \"name\": \"Klingon\"\n    }\n  ]\n}\n"

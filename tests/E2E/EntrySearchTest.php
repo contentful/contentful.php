@@ -60,7 +60,7 @@ class EntrySearchTest extends \PHPUnit_Framework_TestCase
         $entries = $this->client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
-        $this->assertCount(10, $entries);
+        $this->assertCount(9, $entries);
     }
 
     /**
