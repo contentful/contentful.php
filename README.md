@@ -81,7 +81,9 @@ Apart from the configuration option, you can use the SDK without modifications w
 Documentation
 =============
 
-[API Reference][3]
+* [SDK API Reference][3]
+* Check the [Contentful for PHP] page for tutorials, example apps, and more information on other ways of using PHP with Contentful
+* [CDA REST API reference][5] for additional details on the Delivery API
 
 License
 =======
@@ -91,3 +93,5 @@ Copyright (c) 2015 Contentful GmbH. Code released under the MIT license. See [LI
  [1]: https://www.contentful.com
  [2]: LICENSE
  [3]: http://contentful.github.io/contentful.php/api/
+ [4]: https://www.contentful.com/developers/docs/php/
+ [5]: https://www.contentful.com/developers/docs/references/content-delivery-api/
