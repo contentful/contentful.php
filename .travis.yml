@@ -22,6 +22,8 @@ install:
   - composer install
 
 script:
+ - vendor/bin/parallel-lint src/
+ - vendor/bin/parallel-lint tests/
  - vendor/bin/phpunit -v
 
 after_success:
