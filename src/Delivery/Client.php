@@ -61,13 +61,14 @@ class Client extends BaseClient
 
         $this->spaceId = $spaceId;
 
-        $instanceCache = $this->setInstanceCache();
+        
 
         parent::__construct($token, $baseUri . $spaceId . '/', $api, $logger);
 
         $this->preview = $preview;
-        $this->instanceCache = $instanceCache;
-        $this->builder = $this->setResourceBuilder();
+        
+        $this->setInstanceCache();
+        $this->setResourceBuilder();
     }
 
     /**
