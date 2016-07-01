@@ -132,6 +132,38 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test for https://github.com/contentful/contentful.php/issues/9
+     */
+    public function testFieldNameIncludesId()
+    {
+        $ct = new ContentType(
+            'Cat',
+            'Meow.',
+            [
+                new ContentTypeField('name', 'Name', 'Text', null, null, null, true, true),
+                new ContentTypeField('youTubeId', 'YouTube', 'Symbol', null, null, false, false),
+            ],
+            'name',
+            new SystemProperties('cat', 'ContentType', $this->space, null, 2, new \DateTimeImmutable('2013-06-27T22:46:12.852Z'), new \DateTimeImmutable('2013-09-02T13:14:47.863Z'))
+        );
+
+        $entry = new DynamicEntry(
+            (object) [
+                'name' => (object) [
+                    'en-US' => 'Test Entry'
+                ],
+                'youTubeId' => (object) [
+                    'en-US' => 'l6xdPQ_O8e8',
+                ]
+            ],
+            new SystemProperties('nyancat', 'Entry', $this->space, $ct, 5, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
+            null
+        );
+
+        $this->assertEquals('l6xdPQ_O8e8', $entry->getYouTubeId());
+    }
+
+    /**
      * @expectedException PHPUnit_Framework_Error
      */
     public function testNonExistingMethod()

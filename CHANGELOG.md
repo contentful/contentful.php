@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+* Fix [#9](https://github.com/contentful/contentful.php/issues/9) Trying to retrieve fields that end with "Id" fails.
+
 ## [0.6.4-beta](https://github.com/contentful/contentful.php/tree/0.6.4-beta) (2016-03-03)
 
 ### Added

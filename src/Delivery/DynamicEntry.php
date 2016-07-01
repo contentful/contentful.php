@@ -79,12 +79,15 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
 
         $fieldName = lcfirst(substr($name, 3));
         $getId = false;
-        if (substr($fieldName, -2) === 'Id') {
+
+        $fieldConfig = $this->getContentType()->getField($fieldName);
+        // If the field name doesn't exist, that might be because we're looking for the ID of reference, try that next.
+        if ($fieldConfig === null && substr($fieldName, -2) === 'Id') {
             $fieldName = substr($fieldName, 0, -2);
+            $fieldConfig = $this->getContentType()->getField($fieldName);
             $getId = true;
         }
 
-        $fieldConfig = $this->getContentType()->getField($fieldName);
         if ($fieldConfig !== null && !$fieldConfig->isDisabled()) {
             if (!isset($this->fields->$fieldName)) {
                 if ($fieldConfig->getType() === 'Array') {
