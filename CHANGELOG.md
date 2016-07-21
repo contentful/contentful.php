@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+* Raised the minimum Guzzle version to 6.2.1.
+  This version addressed the HTTP_PROXY security vulnerability (CVE-2016-5385).
+
 ### Fixed
 * Fix [#9](https://github.com/contentful/contentful.php/issues/9) Trying to retrieve fields that end with "Id" fails.
 
