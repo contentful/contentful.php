@@ -4,9 +4,9 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/entries?sys.id%5Bin%5D=finn%2Cjake&locale=%2A",
         "headers": {
             "Host": "cdn.contentful.com",
-            "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.5-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.5-dev GuzzleHttp\/6.2.1 curl\/7.43.0 PHP\/7.0.9",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -21,20 +21,22 @@
             "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
             "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Expose-Headers": "Etag, Etag",
             "Access-Control-Max-Age": "86400",
             "Cache-Control": "max-age=0",
+            "Content-Encoding": "gzip",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "ETag": "\"37f8f411f51ed0ce1d86a32b9e21a57c\"",
+            "ETag": "W\/\"37f8f411f51ed0ce1d86a32b9e21a57c\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "58b-341493679",
-            "Content-Length": "2750",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "58b-839514777",
+            "Content-Length": "762",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 07 Mar 2016 15:57:34 GMT",
+            "Date": "Fri, 29 Jul 2016 10:59:04 GMT",
             "Via": "1.1 varnish",
-            "Age": "4974",
+            "Age": "1833",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-ams4126-AMS",
+            "X-Served-By": "cache-ams4120-AMS",
             "X-Cache": "HIT",
             "X-Cache-Hits": "1",
             "Vary": "Accept-Encoding"
@@ -47,9 +49,9 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/",
         "headers": {
             "Host": "cdn.contentful.com",
-            "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.5-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.5-dev GuzzleHttp\/6.2.1 curl\/7.43.0 PHP\/7.0.9",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -64,25 +66,26 @@
             "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
             "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Expose-Headers": "Etag, Etag",
             "Access-Control-Max-Age": "86400",
             "Cache-Control": "max-age=0",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "ETag": "\"14a17843cf0cf8b116801f96c1c6fe23\"",
+            "ETag": "\"17f6b9f68596176aed46fa020bf235af\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "7c5-1227976161",
-            "Content-Length": "285",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "ddd-341911211",
+            "Content-Length": "344",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 07 Mar 2016 15:57:34 GMT",
+            "Date": "Fri, 29 Jul 2016 10:59:04 GMT",
             "Via": "1.1 varnish",
-            "Age": "4983",
+            "Age": "1853",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-ams4140-AMS",
+            "X-Served-By": "cache-ams4440-AMS",
             "X-Cache": "HIT",
             "X-Cache-Hits": "1",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"cfexampleapi\"\n  },\n  \"name\": \"Contentful Example API\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"English\"\n    },\n    {\n      \"code\": \"tlh\",\n      \"default\": false,\n      \"name\": \"Klingon\"\n    }\n  ]\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"cfexampleapi\"\n  },\n  \"name\": \"Contentful Example API\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"English\",\n      \"fallbackCode\": null\n    },\n    {\n      \"code\": \"tlh\",\n      \"default\": false,\n      \"name\": \"Klingon\",\n      \"fallbackCode\": \"en-US\"\n    }\n  ]\n}\n"
     }
 },{
     "request": {
@@ -90,9 +93,9 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/content_types\/human",
         "headers": {
             "Host": "cdn.contentful.com",
-            "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.5-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.5-dev GuzzleHttp\/6.2.1 curl\/7.43.0 PHP\/7.0.9",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -107,25 +110,27 @@
             "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
             "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Expose-Headers": "Etag, Etag",
             "Access-Control-Max-Age": "86400",
             "Cache-Control": "max-age=0",
+            "Content-Encoding": "gzip",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "ETag": "\"5423d39a8facea175b768db86c07363c\"",
+            "ETag": "W\/\"33acd862ac64172571d117020e1c74e0\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "58b-341468077",
-            "Content-Length": "1195",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "4c3-1127088201",
+            "Content-Length": "420",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 07 Mar 2016 15:57:35 GMT",
+            "Date": "Fri, 29 Jul 2016 10:59:05 GMT",
             "Via": "1.1 varnish",
-            "Age": "4973",
+            "Age": "1845",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-ams4128-AMS",
+            "X-Served-By": "cache-ams4148-AMS",
             "X-Cache": "HIT",
             "X-Cache-Hits": "1",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"human\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2013-06-27T22:46:14.133Z\",\n    \"updatedAt\": \"2013-09-02T15:10:26.818Z\",\n    \"revision\": 3\n  },\n  \"displayField\": \"name\",\n  \"name\": \"Human\",\n  \"description\": null,\n  \"fields\": [\n    {\n      \"id\": \"name\",\n      \"name\": \"Name\",\n      \"type\": \"Text\",\n      \"localized\": false,\n      \"required\": true,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"description\",\n      \"name\": \"Description\",\n      \"type\": \"Text\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"likes\",\n      \"name\": \"Likes\",\n      \"type\": \"Array\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"items\": {\n        \"type\": \"Symbol\",\n        \"validations\": []\n      }\n    },\n    {\n      \"id\": \"image\",\n      \"name\": \"Image\",\n      \"type\": \"Array\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": true,\n      \"items\": {\n        \"type\": \"Link\",\n        \"validations\": [],\n        \"linkType\": \"Asset\"\n      }\n    }\n  ]\n}\n"
+        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"human\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2013-06-27T22:46:14.133Z\",\n    \"updatedAt\": \"2013-09-02T15:10:26.818Z\",\n    \"revision\": 3\n  },\n  \"displayField\": \"name\",\n  \"name\": \"Human\",\n  \"description\": null,\n  \"fields\": [\n    {\n      \"id\": \"name\",\n      \"name\": \"Name\",\n      \"type\": \"Text\",\n      \"localized\": false,\n      \"required\": true,\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"description\",\n      \"name\": \"Description\",\n      \"type\": \"Text\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"likes\",\n      \"name\": \"Likes\",\n      \"type\": \"Array\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"omitted\": false,\n      \"items\": {\n        \"type\": \"Symbol\",\n        \"validations\": []\n      }\n    },\n    {\n      \"id\": \"image\",\n      \"name\": \"Image\",\n      \"type\": \"Array\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": true,\n      \"omitted\": false,\n      \"items\": {\n        \"type\": \"Link\",\n        \"validations\": [],\n        \"linkType\": \"Asset\"\n      }\n    }\n  ]\n}\n"
     }
 },{
     "request": {
@@ -133,9 +138,9 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/content_types\/dog",
         "headers": {
             "Host": "cdn.contentful.com",
-            "Accept-Encoding": null,
-            "User-Agent": "ContentfulCDA\/0.6.5-dev GuzzleHttp\/6.1.1 curl\/7.43.0 PHP\/7.0.3",
+            "User-Agent": "ContentfulCDA\/0.6.5-dev GuzzleHttp\/6.2.1 curl\/7.43.0 PHP\/7.0.9",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1",
             "Accept": null
         }
@@ -150,24 +155,25 @@
             "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
             "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Expose-Headers": "Etag, Etag",
             "Access-Control-Max-Age": "86400",
             "Cache-Control": "max-age=0",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "ETag": "\"d221cc26b7e58e2d7a51106d1ad9647b\"",
+            "ETag": "\"47105ca4f2da4279fcd74f0ecb349236\"",
             "Server": "nginx",
-            "X-Contentful-Request-Id": "ddd-72512980",
-            "Content-Length": "883",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "4c3-1127088181",
+            "Content-Length": "955",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 07 Mar 2016 15:57:36 GMT",
+            "Date": "Fri, 29 Jul 2016 10:59:05 GMT",
             "Via": "1.1 varnish",
-            "Age": "4973",
+            "Age": "1847",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-ams4138-AMS",
+            "X-Served-By": "cache-ams4149-AMS",
             "X-Cache": "HIT",
             "X-Cache-Hits": "2",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"dog\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2013-06-27T22:46:13.498Z\",\n    \"updatedAt\": \"2013-09-02T14:32:11.837Z\",\n    \"revision\": 2\n  },\n  \"displayField\": \"name\",\n  \"name\": \"Dog\",\n  \"description\": \"Bark!\",\n  \"fields\": [\n    {\n      \"id\": \"name\",\n      \"name\": \"Name\",\n      \"type\": \"Text\",\n      \"localized\": false,\n      \"required\": true,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"description\",\n      \"name\": \"Description\",\n      \"type\": \"Text\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"image\",\n      \"name\": \"Image\",\n      \"type\": \"Link\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"linkType\": \"Asset\"\n    }\n  ]\n}\n"
+        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"dog\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2013-06-27T22:46:13.498Z\",\n    \"updatedAt\": \"2013-09-02T14:32:11.837Z\",\n    \"revision\": 2\n  },\n  \"displayField\": \"name\",\n  \"name\": \"Dog\",\n  \"description\": \"Bark!\",\n  \"fields\": [\n    {\n      \"id\": \"name\",\n      \"name\": \"Name\",\n      \"type\": \"Text\",\n      \"localized\": false,\n      \"required\": true,\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"description\",\n      \"name\": \"Description\",\n      \"type\": \"Text\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"image\",\n      \"name\": \"Image\",\n      \"type\": \"Link\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"omitted\": false,\n      \"linkType\": \"Asset\"\n    }\n  ]\n}\n"
     }
 }]

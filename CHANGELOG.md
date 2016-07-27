@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+* Added gzip compression for API requests.
+
 ### Changed
 * Raised the minimum Guzzle version to 6.2.1.
   This version addressed the HTTP_PROXY security vulnerability (CVE-2016-5385).
