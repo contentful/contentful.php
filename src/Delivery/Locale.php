@@ -61,7 +61,7 @@ class Locale implements \JsonSerializable
      *
      * @return string
      *
-     * Api
+     * @api
      */
     public function getName()
     {
