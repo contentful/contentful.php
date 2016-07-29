@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2016 Contentful GmbH
  * @license   MIT
  */
 
@@ -16,14 +16,14 @@ abstract class LocalizedResource
      *
      * @var string
      */
-    protected $localeCode;
+    private $localeCode;
 
     /**
      * List of codes for all the locales available in the space this resource belongs to
      *
      * @var string[]
      */
-    private $availableLocales = [];
+    protected $availableLocales = [];
 
     /**
      * LocalizedResource constructor.

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2016 Contentful GmbH
  * @license   MIT
  */
 
@@ -20,6 +20,11 @@ class Space implements \JsonSerializable
      * @var Locale[]
      */
     private $locales = [];
+
+    /**
+     * @var Locale[]
+     */
+    private $localesMap = [];
 
     /**
      * @var Locale
@@ -44,9 +49,9 @@ class Space implements \JsonSerializable
         $this->locales = $locales;
 
         foreach ($locales as $locale) {
+            $this->localesMap[$locale->getCode()] = $locale;
             if ($locale->isDefault()) {
                 $this->defaultLocale = $locale;
-                break;
             }
         }
         $this->sys = $sys;
@@ -70,6 +75,22 @@ class Space implements \JsonSerializable
     public function getLocales()
     {
         return $this->locales;
+    }
+
+    /**
+     * @param  $localeCode string Code of the locale to fetch the object for
+     *
+     * @return Locale
+     *
+     * @throws \RuntimeException When no locale with the given code exists
+     */
+    public function getLocale($localeCode)
+    {
+        if (!isset($this->localesMap[$localeCode])) {
+            throw new \InvalidArgumentException("No Locale with the code '" . $localeCode . "' exists in this space.'");
+        }
+
+        return $this->localesMap[$localeCode];
     }
 
     /**

@@ -20,7 +20,7 @@ class MissingFieldsTest extends \PHPUnit_Framework_TestCase
         $client = new Client('irrelevant', 'rue07lqzt1co');
 
         // First we load the Space
-        $client->reviveJson('{"sys":{"type":"Space","id":"rue07lqzt1co"},"name":"Product Catalog App (App Stor)","locales":[{"code":"en-US","default":true,"name":"U.S. English"}]}');
+        $client->reviveJson('{"sys":{"type":"Space","id":"rue07lqzt1co"},"name":"Product Catalog App (App Stor)","locales":[{"code":"en-US","default":true,"name":"U.S. English","fallbackCode":null}]}');
 
         // then the Content Type
         $client->reviveJson('{"fields":[{"name":"Company name","id":"companyName","type":"Text","required":true},{"name":"Logo","id":"logo","type":"Link","linkType":"Asset"},{"name":"Description","id":"companyDescription","type":"Text"},{"name":"Website","id":"website","type":"Symbol"},{"name":"Twitter","id":"twitter","type":"Symbol"},{"name":"Email","id":"email","type":"Symbol"},{"name":"Phone #","id":"phone","type":"Array","items":{"type":"Symbol"}}],"name":"Brand","displayField":"companyName","sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"rue07lqzt1co"}},"type":"ContentType","id":"sFzTZbSuM8coEwygeUYes","revision":1,"createdAt":"2015-01-15T16:02:08.382Z","updatedAt":"2015-01-15T16:02:08.382Z"}}');

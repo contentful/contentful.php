@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2016 Contentful GmbH
  * @license   MIT
  */
 
@@ -35,7 +35,7 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testReviveJsonSpaceMismatch()
     {
-        $json = '{"sys": {"type": "Space","id": "wrongspace"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English"},{"code": "tlh","default": false,"name": "Klingon"}]}';
+        $json = '{"sys": {"type": "Space","id": "wrongspace"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English", "fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon", "fallbackCode": "en-US"}]}';
 
         $this->client->reviveJson($json);
     }
@@ -52,7 +52,7 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
 
     public function testReviveJsonSpace()
     {
-        $json = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English"},{"code": "tlh","default": false,"name": "Klingon"}]}';
+        $json = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
 
         $obj = $this->client->reviveJson($json);
 
@@ -74,7 +74,7 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testReviveAndEncodeJson($json)
     {
-        $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English"},{"code": "tlh","default": false,"name": "Klingon"}]}';
+        $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
         $this->client->reviveJson($space);
 
         $obj = $this->client->reviveJson($json);
@@ -84,7 +84,7 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
 
     public function testReviveJsonEntry()
     {
-        $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English"},{"code": "tlh","default": false,"name": "Klingon"}]}';
+        $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
         $ct = '{"fields": [{"id": "name","name": "Name","type": "Text","required": true,"localized": true},{"id": "likes","name": "Likes","type": "Array","required": false,"localized": false,"items": {"type": "Symbol"}},{"id": "color","name": "Color","type": "Symbol","required": false,"localized": false},{"id": "bestFriend","name": "Best Friend","type": "Link","required": false,"localized": false,"linkType": "Entry"},{"id": "birthday","name": "Birthday","type": "Date","required": false,"localized": false},{"id": "lifes","name": "Lifes left","type": "Integer","required": false,"localized": false,"disabled": true},{"id": "lives","name": "Lives left","type": "Integer","required": false,"localized": false},{"id": "image","name": "Image","required": false,"localized": false,"type": "Link","linkType": "Asset"}],"name": "Cat","displayField": "name","description": "Meow.","sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"type": "ContentType","id": "cat","revision": 2,"createdAt": "2013-06-27T22:46:12.852Z","updatedAt": "2013-09-02T13:14:47.863Z"}}';
         $json = '{"fields": {"name": {"en-US": "Nyan Cat","tlh": "Nyan vIghro\'"},"likes": {"en-US": ["rainbows","fish"]},"color": {"en-US": "rainbow"},"bestFriend": {"en-US": {"sys": {"type": "Link","linkType": "Entry","id": "happycat"}}},"birthday": {"en-US": "2011-04-04T22:00:00.000Z"},"lives": {"en-US": 1337},"image": {"en-US": {"sys": {"type": "Link","linkType": "Asset","id": "nyancat"}}}},"sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"type": "Entry","contentType": {"sys": {"type": "Link","linkType": "ContentType","id": "cat"}},"id": "nyancat","revision": 5,"createdAt": "2013-06-27T22:46:19.513Z","updatedAt": "2013-09-04T09:19:39.027Z"}}';
 
