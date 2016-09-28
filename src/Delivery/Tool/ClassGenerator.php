@@ -275,7 +275,7 @@ class ClassGenerator
     protected function generateJsonSerialize(ContentType $contentType)
     {
         $defaultLocale = $contentType->getSpace()->getDefaultLocale()->getCode();
-        $fields = array_filter($contentType->getFields(), function($field) {
+        $fields = array_filter($contentType->getFields(), function ($field) {
             return !$field->isDisabled();
         });
         $fieldCount = count($fields);
@@ -292,7 +292,7 @@ class ClassGenerator
             $i++;
             // We'll handle localized links in a second loop as they need a bit more logic
             if ($field->isLocalized()) {
-                if ($this->isSimpleType($field->getType()) || ($field->getType() === 'Array' && $this->isSimpleType($field->getItemsType())) ) {
+                if ($this->isSimpleType($field->getType()) || ($field->getType() === 'Array' && $this->isSimpleType($field->getItemsType()))) {
                     $lines[] = '<spaces><spaces><spaces>\'' . $field->getId() .  '\' => $this->' . $this->getPropertyName($field) . ($i !== $fieldCount ? ',' : '');
                 } else {
                     $lines[] = '<spaces><spaces><spaces>\'' . $field->getId() . '\' => new \stdClass' . ($i !== $fieldCount ? ',' : '');
@@ -302,7 +302,7 @@ class ClassGenerator
             }
 
             $lines[] = '<spaces><spaces><spaces>\'' . $field->getId() . '\' => [';
-            if ($this->isSimpleType($field->getType()) || ($field->getType() === 'Array' && $this->isSimpleType($field->getItemsType())) ) {
+            if ($this->isSimpleType($field->getType()) || ($field->getType() === 'Array' && $this->isSimpleType($field->getItemsType()))) {
                 $lines[] = '<spaces><spaces><spaces><spaces>\'' . $defaultLocale . '\' => $this->' . $this->getPropertyName($field);
             } elseif ($field->getType() === 'Link') {
                 $lines[] = '<spaces><spaces><spaces><spaces>\'' . $defaultLocale . '\' => (object) [';
@@ -374,7 +374,8 @@ class ClassGenerator
      *
      * @return bool
      */
-    protected function isSimpleType($type) {
+    protected function isSimpleType($type)
+    {
         return $type === 'Symbol' || $type === 'Text' || $type === 'Integer' || $type === 'Integer' || $type === 'Number' || $type === 'Boolean' || $type === 'Date' || $type === 'Location' || $type === 'Object';
     }
 

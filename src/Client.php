@@ -83,8 +83,7 @@ abstract class Client
         try {
             $response = $this->doRequest($request, $options);
             $result = $this->decodeJson($response->getBody());
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $timer->stop();
             $this->logger->log($this->api, $request, $timer, $response, $e);
 

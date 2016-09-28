@@ -250,7 +250,7 @@ class ResourceBuilder
     private function buildField(ContentTypeField $fieldConfig, $fieldData)
     {
         $result = new \stdClass;
-        foreach($fieldData as $locale => $value) {
+        foreach ($fieldData as $locale => $value) {
             $result->$locale = $this->formatValue($fieldConfig, $value);
         }
 
@@ -269,8 +269,7 @@ class ResourceBuilder
     {
         if ($fieldConfig instanceof ContentTypeField) {
             $type = $fieldConfig->getType();
-        }
-        else {
+        } else {
             $type = $fieldConfig;
         }
 
