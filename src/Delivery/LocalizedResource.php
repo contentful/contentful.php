@@ -87,7 +87,8 @@ abstract class LocalizedResource
      *
      * @api
      */
-    protected function getLocaleFromInput($input = null) {
+    protected function getLocaleFromInput($input = null)
+    {
         if ($input instanceof Locale) {
             $input = $input->getCode();
         }
