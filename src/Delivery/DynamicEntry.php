@@ -69,6 +69,11 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         return $this->sys->getContentType();
     }
 
+    public function getFields()
+    {
+        return $this->fields;
+    }
+
     public function __call($name, $arguments)
     {
         if (substr($name, 0, 3) !== 'get') {
