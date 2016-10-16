@@ -27,6 +27,11 @@ abstract class Client
     /**
      * @var string
      */
+    private $token;
+
+    /**
+     * @var string
+     */
     private $baseUri;
 
     /**
@@ -51,6 +56,7 @@ abstract class Client
     {
         $stack = HandlerStack::create();
         $stack->push(new BearerToken($token));
+        $this->token = $token;
         $this->logger = $logger ?: new NullLogger();
 
         $this->api = $api;
@@ -58,6 +64,16 @@ abstract class Client
         $this->httpClient = new GuzzleClient([
             'handler' => $stack
         ]);
+    }
+
+    public function setHttpClient(GuzzleClient $httpClient)
+    {
+        // Ensure that the BearerToken middleware is added to the custom client
+        $httpClient->getConfig('handler')->push(new BearerToken($this->token));
+
+        $this->httpClient = $httpClient;
+
+        return $this;
     }
 
     /**
