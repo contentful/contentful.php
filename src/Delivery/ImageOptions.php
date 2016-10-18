@@ -216,7 +216,7 @@ class ImageOptions
      */
     public function setFormat($format = null)
     {
-        $validValues = ['png', 'jpg'];
+        $validValues = ['png', 'jpg', 'webp'];
 
         if ($format !== null && !in_array($format, $validValues, true)) {
             throw new \InvalidArgumentException('Unknown format "' . $format . '" given. Expected "png", "jpg" or null');
