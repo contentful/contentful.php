@@ -5,8 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+**ATTENTION**: This release contains breaking changes. Please take extra care when updating to this version.
+
 ### Added
 * Added support for the `webp` format in the Images API.
+* Introduced `RateLimitExceededException` for more specific error handling. **[BREAKING]**
 
 ## [0.6.5-beta](https://github.com/contentful/contentful.php/tree/0.6.5-beta) (2016-09-10)
 
