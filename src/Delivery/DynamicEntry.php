@@ -6,6 +6,8 @@
 
 namespace Contentful\Delivery;
 
+use Contentful\ResourceNotFoundException;
+
 class DynamicEntry extends LocalizedResource implements EntryInterface
 {
     /**
@@ -120,12 +122,14 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             return $result->getId();
         }
 
-        if ($result instanceof Link) {
-            return $client->resolveLink($result);
-        }
-
         if ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link') {
-            return array_map($getId ? [$this, 'mapIdValues'] : [$this, 'mapValues'], $result);
+            if ($getId) {
+                return array_map([$this, 'mapIdValues'], $result);
+            }
+
+            return array_filter(array_map([$this, 'mapValues'], $result), function ($value) {
+                return !$value instanceof \Exception;
+            });
         }
 
         return $result;
@@ -139,7 +143,11 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     private function mapValues($value)
     {
         if ($value instanceof Link) {
-            return $this->client->resolveLink($value);
+            try {
+                return $this->client->resolveLink($value);
+            } catch (ResourceNotFoundException $e) {
+                return $e;
+            }
         }
 
         return $value;
