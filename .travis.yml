@@ -16,15 +16,18 @@ branches:
   except:
     - gh-pages
 
+before_install:
+ - wget https://github.com/satooshi/php-coveralls/releases/download/v0.7.0/coveralls.phar
+ - wget -O phpunit.phar https://phar.phpunit.de/phpunit-4.8.27.phar
+
 install:
-  - wget https://github.com/satooshi/php-coveralls/releases/download/v0.7.0/coveralls.phar
   - composer self-update
   - composer install
 
 script:
  - vendor/bin/parallel-lint src/
  - vendor/bin/parallel-lint tests/
- - vendor/bin/phpunit -v
+ - php phpunit.phar -v
 
 after_success:
  - travis_retry php coveralls.phar -v
