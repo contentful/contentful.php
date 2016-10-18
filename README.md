@@ -82,7 +82,7 @@ Documentation
 =============
 
 * [SDK API Reference][3]
-* Check the [Contentful for PHP] page for tutorials, example apps, and more information on other ways of using PHP with Contentful
+* Check the [Contentful for PHP][4] page for tutorials, example apps, and more information on other ways of using PHP with Contentful
 * [CDA REST API reference][5] for additional details on the Delivery API
 
 License
