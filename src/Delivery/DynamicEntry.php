@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2016 Contentful GmbH
  * @license   MIT
  */
 
@@ -69,9 +69,15 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         return $this->sys->getContentType();
     }
 
+    /**
+     * @param  string $name
+     * @param  array  $arguments
+     *
+     * @return mixed
+     */
     public function __call($name, $arguments)
     {
-        if (substr($name, 0, 3) !== 'get') {
+        if (0 !== strpos($name, 'get')) {
             trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
         }
         $client = $this->client;
@@ -88,51 +94,65 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             $getId = true;
         }
 
-        if ($fieldConfig !== null && !$fieldConfig->isDisabled()) {
-            if (!isset($this->fields->$fieldName)) {
-                if ($fieldConfig->getType() === 'Array') {
-                    return [];
-                }
-
-                return null;
-            }
-
-            $value = $this->fields->$fieldName;
-            if (!$fieldConfig->isLocalized()) {
-                $locale = $this->getSpace()->getDefaultLocale()->getCode();
-            }
-
-            $result = $value->$locale;
-            if ($getId && !($fieldConfig->getType() === 'Link' || ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link'))) {
-                trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
-            }
-
-            if ($getId && $fieldConfig->getType() === 'Link') {
-                return $result->getId();
-            }
-
-            if ($result instanceof Link) {
-                return $client->resolveLink($result);
-            }
-
-            if ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link') {
-                return array_map(function ($value) use ($getId, $client) {
-                    if ($getId) {
-                        return $value->getId();
-                    }
-
-                    if ($value instanceof Link) {
-                        return $client->resolveLink($value);
-                    }
-
-                    return $value;
-                }, $result);
-            }
-
-            return $result;
+        if ($fieldConfig === null || $fieldConfig->isDisabled()) {
+            trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
         }
 
-        trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+        if (!isset($this->fields->$fieldName)) {
+            if ($fieldConfig->getType() === 'Array') {
+                return [];
+            }
+
+            return null;
+        }
+
+        if ($getId && !($fieldConfig->getType() === 'Link' || ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link'))) {
+            trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+        }
+
+        $value = $this->fields->$fieldName;
+        if (!$fieldConfig->isLocalized()) {
+            $locale = $this->getSpace()->getDefaultLocale()->getCode();
+        }
+
+        $result = $value->$locale;
+        if ($getId && $fieldConfig->getType() === 'Link') {
+            return $result->getId();
+        }
+
+        if ($result instanceof Link) {
+            return $client->resolveLink($result);
+        }
+
+        if ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link') {
+            return array_map($getId ? [$this, 'mapIdValues'] : [$this, 'mapValues'], $result);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param  mixed $value
+     *
+     * @return mixed
+     */
+    private function mapValues($value)
+    {
+        if ($value instanceof Link) {
+            return $this->client->resolveLink($value);
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param  Link|DynamicEntry|Asset $value
+     *
+     * @return string
+     */
+    private function mapIdValues($value)
+    {
+        return $value->getId();
     }
 
     private function formatSimpleValueForJson($value, $type, $linkType)
