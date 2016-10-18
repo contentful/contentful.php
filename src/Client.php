@@ -104,6 +104,9 @@ abstract class Client
             if ($e->getResponse()->getStatusCode() === 404) {
                 throw new ResourceNotFoundException(null, 0, $e);
             }
+            if ($e->getResponse()->getStatusCode() === 429) {
+                throw new RateLimitExceededException(null, 0, $e);
+            }
 
             throw $e;
         }
