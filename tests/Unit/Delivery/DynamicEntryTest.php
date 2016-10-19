@@ -7,12 +7,15 @@
 namespace Contentful\Tests\Unit\Delivery;
 
 use Contentful\Delivery\Asset;
+use Contentful\Delivery\Client;
 use Contentful\Delivery\ContentType;
 use Contentful\Delivery\ContentTypeField;
 use Contentful\Delivery\DynamicEntry;
+use Contentful\Delivery\Link;
 use Contentful\Delivery\Locale;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
+use Contentful\ResourceNotFoundException;
 
 class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 {
@@ -161,6 +164,71 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals('l6xdPQ_O8e8', $entry->getYouTubeId());
+    }
+
+    public function testOneToManyReferenceWithMissingEntry()
+    {
+        $ct = new ContentType(
+            'Cat',
+            'Meow.',
+            [
+                new ContentTypeField('name', 'Name', 'Text', null, null, null, true, true),
+                new ContentTypeField('friends', 'Friends', 'Array', null, 'Link', false, false),
+            ],
+            'name',
+            new SystemProperties('cat', 'ContentType', $this->space, null, 2, new \DateTimeImmutable('2013-06-27T22:46:12.852Z'), new \DateTimeImmutable('2013-09-02T13:14:47.863Z'))
+        );
+
+        $client = $this->getMockBuilder(Client::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $crookshanksEntry = new DynamicEntry(
+            (object) [
+                'name' => (object) [
+                    'en-US' => 'Crookshanks'
+                ],
+                'friends' => (object) [
+                    'en-US' => []
+                ]
+            ],
+            new SystemProperties('crookshanks', 'Entry', $this->space, $ct, 5, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
+            $client
+        );
+
+        $garfieldEntry = new DynamicEntry(
+            (object) [
+                'name' => (object) [
+                    'en-US' => 'Garfield'
+                ],
+                'friends' => (object) [
+                    'en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')]
+                ]
+            ],
+            new SystemProperties('garfield', 'Entry', $this->space, $ct, 56, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
+            $client
+        );
+
+        $client->expects($this->any())
+            ->method('resolveLink')
+            ->willReturnCallback(function(Link $link) use ($garfieldEntry, $crookshanksEntry) {
+                $id = $link->getId();
+
+                if ($id === 'garfield') {
+                    return $garfieldEntry;
+                }
+                if ($id === 'crookshanks') {
+                    return $crookshanksEntry;
+                }
+
+                return new ResourceNotFoundException;
+            });
+
+
+        $friends = $garfieldEntry->getFriends();
+
+        $this->assertCount(1, $friends);
+        $this->assertSame($crookshanksEntry, $friends[0]);
     }
 
     /**
