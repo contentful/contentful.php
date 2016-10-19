@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2016 Contentful GmbH
  * @license   MIT
  */
 
@@ -22,8 +22,8 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     public function testGetDefaultLocale()
     {
         $resource = new ConcreteLocalizedResource([
-            new Locale('de-DE', 'German (Germany)'),
-            new Locale('en-US', 'English (United States)', true)
+            new Locale('de-DE', 'German (Germany)', 'en-US'),
+            new Locale('en-US', 'English (United States)', null, true)
         ]);
 
         $this->assertEquals('en-US', $resource->getLocale());
@@ -41,8 +41,8 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     public function testSetGetLocaleString()
     {
         $resource = new ConcreteLocalizedResource([
-            new Locale('de-DE', 'German (Germany)'),
-            new Locale('en-US', 'English (United States)', true)
+            new Locale('de-DE', 'German (Germany)', 'en-US'),
+            new Locale('en-US', 'English (United States)', null, true)
         ]);
 
         $resource->setLocale('de-DE');
@@ -60,11 +60,11 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetLocaleObject()
     {
-        $deLocale = new Locale('de-DE', 'German (Germany)');
+        $deLocale = new Locale('de-DE', 'German (Germany)', 'en-US');
 
         $resource = new ConcreteLocalizedResource([
             $deLocale,
-            new Locale('en-US', 'English (United States)', true)
+            new Locale('en-US', 'English (United States)', null, true)
         ]);
 
         $resource->setLocale($deLocale);
@@ -85,8 +85,8 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     public function testSetGetLocaleInvalid()
     {
         $resource = new ConcreteLocalizedResource([
-            new Locale('de-DE', 'German (Germany)'),
-            new Locale('en-US', 'English (United States)', true)
+            new Locale('de-DE', 'German (Germany)', 'en-US'),
+            new Locale('en-US', 'English (United States)', null, true)
         ]);
 
         $resource->setLocale('fr-FR');
@@ -103,8 +103,8 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     public function testGetLocaleFromInputDefault()
     {
         $resource = new ConcreteLocalizedResource([
-            new Locale('de-DE', 'German (Germany)'),
-            new Locale('en-US', 'English (United States)', true)
+            new Locale('de-DE', 'German (Germany)', 'en-US'),
+            new Locale('en-US', 'English (United States)', null, true)
         ]);
 
         $this->assertEquals('en-US', $resource->getLocaleFromInput());
@@ -121,8 +121,8 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     public function testGetLocaleFromInputString()
     {
         $resource = new ConcreteLocalizedResource([
-            new Locale('de-DE', 'German (Germany)'),
-            new Locale('en-US', 'English (United States)', true)
+            new Locale('de-DE', 'German (Germany)', 'en-US'),
+            new Locale('en-US', 'English (United States)', null, true)
         ]);
 
         $this->assertEquals('de-DE', $resource->getLocaleFromInput('de-DE'));
@@ -138,11 +138,11 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLocaleFromInputObject()
     {
-        $deLocale = new Locale('de-DE', 'German (Germany)');
+        $deLocale = new Locale('de-DE', 'German (Germany)', 'en-US');
 
         $resource = new ConcreteLocalizedResource([
             $deLocale,
-            new Locale('en-US', 'English (United States)', true)
+            new Locale('en-US', 'English (United States)', null, true)
         ]);
 
         $this->assertEquals('de-DE', $resource->getLocaleFromInput($deLocale));
@@ -162,8 +162,8 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     public function testGetLocaleFromInputInvalid()
     {
         $resource = new ConcreteLocalizedResource([
-            new Locale('de-DE', 'German (Germany)'),
-            new Locale('en-US', 'English (United States)', true)
+            new Locale('de-DE', 'German (Germany)', 'en-US'),
+            new Locale('en-US', 'English (United States)', null, true)
         ]);
 
         $resource->getLocaleFromInput('en-GB');

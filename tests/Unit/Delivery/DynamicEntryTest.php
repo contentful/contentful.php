@@ -37,14 +37,14 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $defaultLocale = new Locale('en-US', 'English (United States)', true);
+        $defaultLocale = new Locale('en-US', 'English (United States)', null, true);
 
         $space->method('getId')
             ->willReturn('cfexampleapi');
         $space->method('getLocales')
             ->willReturn([
                 $defaultLocale,
-                new Locale('tlh', 'Klingon')
+                new Locale('tlh', 'Klingon', 'en-US')
             ]);
         $space->method('getDefaultLocale')
             ->willReturn($defaultLocale);
