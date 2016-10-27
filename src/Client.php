@@ -9,7 +9,6 @@ namespace Contentful;
 use Contentful\Log\NullLogger;
 use Contentful\Log\StandardTimer;
 use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Exception\ClientException;
 use Contentful\Log\LoggerInterface;
 use GuzzleHttp\Psr7;
@@ -38,6 +37,11 @@ abstract class Client
      * @var string
      */
     private $api;
+    
+    /**
+     * @var string
+     */
+    private $token;
 
     /**
      * Client constructor.
@@ -49,15 +53,12 @@ abstract class Client
      */
     public function __construct($token, $baseUri, $api, LoggerInterface $logger = null)
     {
-        $stack = HandlerStack::create();
-        $stack->push(new BearerToken($token));
+        $this->token = $token;
         $this->logger = $logger ?: new NullLogger();
 
         $this->api = $api;
         $this->baseUri = $baseUri;
-        $this->httpClient = new GuzzleClient([
-            'handler' => $stack
-        ]);
+        $this->httpClient = new GuzzleClient();
     }
 
     /**
@@ -144,7 +145,8 @@ abstract class Client
         return new Psr7\Request($method, $uri, [
             'User-Agent' => $this->getUserAgent(),
             'Content-Type' => $contentTypes[$this->api],
-            'Accept-Encoding' => 'gzip'
+            'Accept-Encoding' => 'gzip',
+            'Authorization' => 'Bearer ' . $this->token,
         ], null);
     }
 
