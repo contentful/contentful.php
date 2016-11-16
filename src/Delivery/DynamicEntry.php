@@ -136,6 +136,10 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             return $result->getId();
         }
 
+        if ($result instanceof Link) {
+            return $client->resolveLink($result);
+        }
+
         if ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link') {
             if ($getId) {
                 return array_map([$this, 'mapIdValues'], $result);

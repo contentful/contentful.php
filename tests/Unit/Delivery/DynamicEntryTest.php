@@ -132,6 +132,65 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new \DateTimeImmutable('2013-09-04T09:19:39.027Z'), $entry->getUpdatedAt());
         $this->assertEquals($this->space, $entry->getSpace());
         $this->assertEquals($this->ct, $entry->getContentType());
+        $this->assertEquals('happycat', $entry->getBestFriend()->getId());
+    }
+
+    public function testLinkResolution()
+    {
+        $ct = new ContentType(
+            'Cat',
+            'Meow.',
+            [
+                new ContentTypeField('name', 'Name', 'Text', null, null, null, true, true),
+                new ContentTypeField('friend', 'Friend', 'Link', null, null, false, false),
+            ],
+            'name',
+            new SystemProperties('cat', 'ContentType', $this->space, null, 2, new \DateTimeImmutable('2013-06-27T22:46:12.852Z'), new \DateTimeImmutable('2013-09-02T13:14:47.863Z'))
+        );
+
+        $client = $this->getMockBuilder(Client::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $crookshanksEntry = new DynamicEntry(
+            (object) [
+                'name' => (object) [
+                    'en-US' => 'Crookshanks'
+                ]
+            ],
+            new SystemProperties('crookshanks', 'Entry', $this->space, $ct, 5, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
+            $client
+        );
+
+        $garfieldEntry = new DynamicEntry(
+            (object) [
+                'name' => (object) [
+                    'en-US' => 'Garfield'
+                ],
+                'friend' => (object) [
+                    'en-US' => new Link('crookshanks', 'Entry')
+                ]
+            ],
+            new SystemProperties('garfield', 'Entry', $this->space, $ct, 56, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
+            $client
+        );
+
+        $client->expects($this->any())
+            ->method('resolveLink')
+            ->willReturnCallback(function(Link $link) use ($garfieldEntry, $crookshanksEntry) {
+                $id = $link->getId();
+
+                if ($id === 'garfield') {
+                    return $garfieldEntry;
+                }
+                if ($id === 'crookshanks') {
+                    return $crookshanksEntry;
+                }
+
+                return new ResourceNotFoundException;
+            });
+
+        $this->assertSame($crookshanksEntry, $garfieldEntry->getFriend());
     }
 
     /**
