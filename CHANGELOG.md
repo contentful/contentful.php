@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 * Added support for the `webp` format in the Images API.
 * Introduced `RateLimitExceededException` for more specific error handling. **[BREAKING]**
+* Allow injecting a custom Guzzle instance into `Client`.
 
 ### Changed
 * Changed the behavior of getting an array of links to not throw an exception when one of them has been deleted from the space. ([#19](https://github.com/contentful/contentful.php/pull/19))
