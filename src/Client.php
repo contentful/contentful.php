@@ -66,6 +66,13 @@ abstract class Client
         ]);
     }
 
+    /**
+     * Override the default httpClient
+     *
+     * @param GuzzleClient $httpClient
+     *
+     * @return self
+     */
     public function setHttpClient(GuzzleClient $httpClient)
     {
         // Ensure that the BearerToken middleware is added to the custom client
