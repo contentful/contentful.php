@@ -1,7 +1,7 @@
 contentful.php
 ===============
 
-[![Build Status](https://travis-ci.org/contentful/contentful.php.svg)](https://travis-ci.org/contentful/contentful.php)
+[![Build Status](https://travis-ci.org/contentful/contentful.php.svg?branch=master)](https://travis-ci.org/contentful/contentful.php)
 
 PHP SDK for [Contentful's][1] Content Delivery API.
 
