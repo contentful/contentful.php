@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2016 Contentful GmbH
  * @license   MIT
  */
 
@@ -51,11 +51,18 @@ class Asset extends LocalizedResource implements \JsonSerializable
      *
      * @param  Locale|string|null $locale
      *
-     * @return string
+     * @return string|null
+     *
+     * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
      */
     public function getTitle($locale = null)
     {
         $localeCode = $this->getLocaleFromInput($locale);
+
+        // This checks happens after the call to getLocaleFromInput to make sure the Exception for invalid locales is still thrown.
+        if ($this->title === null) {
+            return null;
+        }
 
         return $this->title->$localeCode;
     }
@@ -63,7 +70,9 @@ class Asset extends LocalizedResource implements \JsonSerializable
     /**
      * @param  Locale|string|null $locale
      *
-     * @return string
+     * @return string|null
+     *
+     * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
      */
     public function getDescription($locale = null)
     {
@@ -81,6 +90,8 @@ class Asset extends LocalizedResource implements \JsonSerializable
      * @param  Locale|string|null $locale
      *
      * @return File
+     *
+     * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
      */
     public function getFile($locale = null)
     {
@@ -162,11 +173,14 @@ class Asset extends LocalizedResource implements \JsonSerializable
     {
         $obj = (object) [
             'fields' => (object) [
-                'title' => $this->title,
                 'file' => $this->file
             ],
             'sys' => $this->sys
         ];
+
+        if ($this->title !== null) {
+            $obj->fields->title = $this->title;
+        }
 
         if ($this->description !== null) {
             $obj->fields->description = $this->description;

@@ -134,7 +134,7 @@ class ResourceBuilder
         $files = (object) array_map([$this, 'buildFile'], (array) $fields->file);
 
         $asset = new Asset(
-            $fields->title,
+            isset($fields->title) ? $fields->title : null,
             isset($fields->description) ? $fields->description : null,
             $files,
             $this->buildSystemProperties($data->sys)
