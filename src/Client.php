@@ -8,6 +8,7 @@ namespace Contentful;
 
 use Contentful\Log\NullLogger;
 use Contentful\Log\StandardTimer;
+use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
 use Contentful\Log\LoggerInterface;
@@ -19,7 +20,7 @@ use GuzzleHttp\Psr7;
 abstract class Client
 {
     /**
-     * @var GuzzleClient
+     * @var GuzzleClientInterface
      */
     private $httpClient;
 
@@ -46,19 +47,20 @@ abstract class Client
     /**
      * Client constructor.
      *
-     * @param string          $token
-     * @param string          $baseUri
-     * @param string          $api
-     * @param LoggerInterface $logger
+     * @param string                $token
+     * @param string                $baseUri
+     * @param string                $api
+     * @param LoggerInterface       $logger
+     * @param GuzzleClientInterface $guzzle
      */
-    public function __construct($token, $baseUri, $api, LoggerInterface $logger = null)
+    public function __construct($token, $baseUri, $api, LoggerInterface $logger = null, GuzzleClientInterface $guzzle = null)
     {
         $this->token = $token;
         $this->logger = $logger ?: new NullLogger();
 
         $this->api = $api;
         $this->baseUri = $baseUri;
-        $this->httpClient = new GuzzleClient();
+        $this->httpClient = $guzzle ?: new GuzzleClient();
     }
 
     /**

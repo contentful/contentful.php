@@ -1,11 +1,12 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2016 Contentful GmbH
  * @license   MIT
  */
 
 namespace Contentful\Delivery;
 
+use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use Contentful\Client as BaseClient;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Query as BaseQuery;
@@ -42,21 +43,22 @@ class Client extends BaseClient
     /**
      * Client constructor.
      *
-     * @param string          $token   Delivery API Access Token for the space used with this Client
-     * @param string          $spaceId ID of the space used with this Client.
-     * @param bool            $preview True to use the Preview API.
-     * @param LoggerInterface $logger
+     * @param string                $token   Delivery API Access Token for the space used with this Client
+     * @param string                $spaceId ID of the space used with this Client.
+     * @param bool                  $preview True to use the Preview API.
+     * @param LoggerInterface       $logger
+     * @param GuzzleClientInterface $guzzle
      *
      * @api
      */
-    public function __construct($token, $spaceId, $preview = false, LoggerInterface $logger = null)
+    public function __construct($token, $spaceId, $preview = false, LoggerInterface $logger = null, GuzzleClientInterface $guzzle = null)
     {
         $baseUri = $preview ? 'https://preview.contentful.com/spaces/' : 'https://cdn.contentful.com/spaces/';
         $api = $preview ? 'PREVIEW' : 'DELIVERY';
 
         $instanceCache = new InstanceCache;
 
-        parent::__construct($token, $baseUri . $spaceId . '/', $api, $logger);
+        parent::__construct($token, $baseUri . $spaceId . '/', $api, $logger, $guzzle);
 
         $this->preview = $preview;
         $this->instanceCache = $instanceCache;
