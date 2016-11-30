@@ -116,18 +116,11 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         if (!$fieldConfig->isLocalized()) {
             $locale = $this->getSpace()->getDefaultLocale()->getCode();
         } else {
-            $loopCounter = 0;
-            while (!isset($value->$locale)) {
-                $locale = $this->getSpace()->getLocale($locale)->getFallbackCode();
-                if ($locale === null) {
-                    // We've reach the end of the fallback chain and there's no value
-                    return null;
-                }
-                $loopCounter++;
-                // The number is arbitrary
-                if ($loopCounter > 128) {
-                    throw new \RuntimeException('Possible endless loop when trying to walk the locale fallback chain.');
-                }
+            $locale = $this->loopThroughFallbackChain($value, $locale, $this->getSpace());
+
+            // We've reach the end of the fallback chain and there's no value
+            if ($locale === null) {
+                return null;
             }
         }
 

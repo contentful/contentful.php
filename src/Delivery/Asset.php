@@ -64,7 +64,9 @@ class Asset extends LocalizedResource implements \JsonSerializable
             return null;
         }
 
-        return $this->title->$localeCode;
+        $localeCode = $this->loopThroughFallbackChain($this->title, $localeCode, $this->getSpace());
+
+        return $localeCode === null ? null : $this->title->$localeCode;
     }
 
     /**
@@ -83,7 +85,9 @@ class Asset extends LocalizedResource implements \JsonSerializable
             return null;
         }
 
-        return $this->description->$localeCode;
+        $localeCode = $this->loopThroughFallbackChain($this->description, $localeCode, $this->getSpace());
+
+        return $localeCode === null ? null : $this->description->$localeCode;
     }
 
     /**
