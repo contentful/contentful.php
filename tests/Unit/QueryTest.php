@@ -364,4 +364,20 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('limit=150&skip=10&content_type=cat&order=sys.createdAt&sys.id=nyancat&sys.updatedAt%5Blte%5D=2013-01-01T00%3A00%3A00%2B00%3A00', (string) $queryBuilder->getQueryString());
     }
+
+    /**
+     * @covers Contentful\Query::__construct
+     * @covers Contentful\Query::select
+     * @covers Contentful\Query::getQueryString
+     */
+    public function testQueryWithSelect()
+    {
+        $queryBuilder = new Query;
+        $queryBuilder
+            ->select(['foobar1', 'sys.id'])
+            ->setContentType('cat')
+            ->where('sys.id', 'foobar');
+
+        $this->assertEquals('content_type=cat&sys.id=foobar&select=foobar1%2Csys.id', $queryBuilder->getQueryString());
+    }
 }

@@ -70,6 +70,13 @@ class Query
     private $whereConditions = [];
 
     /**
+     * Filter entity result
+     *
+     * @var array
+     */
+    private $select = [];    
+    
+    /**
      * Query constructor.
      *
      * Empty for now, included for forward compatibility.
@@ -110,7 +117,11 @@ class Query
             }
             $data[$key] = $whereCondition->value;
         }
-
+        
+        if (count($this->select) > 0) {
+            $data['select'] = implode(',', $this->select);
+        }
+        
         return $data;
     }
 
@@ -349,4 +360,20 @@ class Query
 
         return $this;
     }
+
+    /**
+     * The select operator allows you to choose what to return from an entity.
+     * You provide a json path and the API will return the property at that path
+     *
+     * @param array $select
+     * @return $this
+     *
+     * @api
+     */
+    public function select(array $select)
+    {
+        $this->select = $select;
+
+        return $this;
+    }    
 }
