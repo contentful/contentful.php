@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -271,6 +271,10 @@ class ResourceBuilder
             $type = $fieldConfig->getType();
         } else {
             $type = $fieldConfig;
+        }
+
+        if ($value === null) {
+            return null;
         }
 
         switch ($type) {
