@@ -9,6 +9,7 @@ namespace Contentful\Tests\E2E;
 use Contentful\Delivery\Client;
 use Contentful\ResourceArray;
 use Contentful\Delivery\DynamicEntry;
+use Contentful\Delivery\Asset;
 
 class EntryBasicTest extends \PHPUnit_Framework_TestCase
 {
@@ -41,5 +42,22 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(DynamicEntry::class, $entry);
         $this->assertEquals('nyancat', $entry->getId());
+    }
+
+    /**
+     * @vcr e2e_entry_lazy_loading.json
+     */
+    public function testLazyLoading()
+    {
+        $entry = $this->client->getEntry('nyancat');
+        $bestFriend = $entry->getBestFriend();
+
+        $this->assertInstanceOf(DynamicEntry::class, $entry);
+        $this->assertEquals('happycat', $bestFriend->getId());
+
+        $image = $entry->getImage();
+
+        $this->assertInstanceOf(Asset::class, $image);
+        $this->assertEquals('nyancat', $image->getId());
     }
 }
