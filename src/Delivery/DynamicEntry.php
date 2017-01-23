@@ -16,6 +16,11 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     private $fields;
 
     /**
+     * @var array
+     */
+    private $resolvedLinks = [];
+
+    /**
      * @var SystemProperties
      */
     protected $sys;
@@ -39,6 +44,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         $this->fields = $fields;
         $this->sys = $sys;
         $this->client = $client;
+        $this->resolvedLinks = [];
     }
 
     public function getId()
@@ -130,7 +136,15 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         }
 
         if ($result instanceof Link) {
-            return $client->resolveLink($result);
+            $cacheId = $result->getLinkType() . '-' . $result->getId();
+            if (isset($this->resolvedLinks[$cacheId])) {
+                return $this->resolvedLinks[$cacheId];
+            }
+
+            $resolvedObj = $client->resolveLink($result);
+            $this->resolvedLinks[$cacheId] = $resolvedObj;
+
+            return $resolvedObj;
         }
 
         if ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link') {

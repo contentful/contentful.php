@@ -84,10 +84,6 @@ class Client extends BaseClient
      */
     public function getAsset($id)
     {
-        if ($this->instanceCache->hasAsset($id)) {
-            return $this->instanceCache->getAsset($id);
-        }
-
         return $this->requestAndBuild('GET', 'assets/' . $id, [
             'query' => ['locale' => '*']
         ]);
@@ -151,10 +147,6 @@ class Client extends BaseClient
      */
     public function getEntry($id)
     {
-        if ($this->instanceCache->hasEntry($id)) {
-            return $this->instanceCache->getEntry($id);
-        }
-
         return $this->requestAndBuild('GET', 'entries/' . $id, [
             'query' => ['locale' => '*']
         ]);

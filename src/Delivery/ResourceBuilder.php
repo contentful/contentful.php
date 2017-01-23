@@ -59,21 +59,33 @@ class ResourceBuilder
      */
     public function buildObjectsFromRawData($data)
     {
-        $type = $data->sys->type;
+        return $this->doBuildObjectsFromRawData($data);
+    }
 
-        if ($type === 'Array' && isset($data->includes)) {
-            $this->processIncludes($data->includes);
-        }
+    /**
+     * Build objects based on PHP classes from the raw JSON based objects.
+     *
+     * @param  object      $data
+     * @param  array|null  $rawDataList
+     * @param  int         $depthCount
+     *
+     * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedEntry|ResourceArray
+     */
+    private function doBuildObjectsFromRawData($data, array $rawDataList = null, $depthCount = 0)
+    {
+        $type = $data->sys->type;
 
         switch ($type) {
             case 'Array':
-                return $this->buildArray($data);
+                $itemList = $this->buildArrayDataList($data);
+
+                return $this->buildArray($data, $itemList);
             case 'Asset':
                 return $this->buildAsset($data);
             case 'ContentType':
                 return $this->buildContentType($data);
             case 'Entry':
-                return $this->buildEntry($data);
+                return $this->buildEntry($data, $rawDataList, $depthCount);
             case 'Space':
                 return $this->buildSpace($data);
             case 'DeletedAsset':
@@ -86,34 +98,67 @@ class ResourceBuilder
     }
 
     /**
-     * Process the includes of an API response.
+     * Builds two hash maps of all the entries and assets that are in a response. These are later used to create
+     * the correct object graph.
      *
-     * @param object $includes
+     * @param  object $data
+     *
+     * @return array
      */
-    private function processIncludes($includes)
+    private function buildArrayDataList($data)
     {
-        if (isset($includes->Asset)) {
-            foreach ($includes->Asset as $asset) {
-                $this->buildAsset($asset);
+        $entries = [];
+        $assets = [];
+
+        if (isset($data->includes)) {
+            if (isset($data->includes->Entry)) {
+                foreach ($data->includes->Entry as $item) {
+                    $entries[$item->sys->id] = $item;
+                }
+            }
+
+            if (isset($data->includes->Asset)) {
+                foreach ($data->includes->Asset as $item) {
+                    $assets[$item->sys->id] = $item;
+                }
             }
         }
-        if (isset($includes->Entry)) {
-            foreach ($includes->Entry as $entry) {
-                $this->buildEntry($entry);
+
+        foreach ($data->items as $item) {
+            switch ($item->sys->type) {
+                case 'Asset':
+                    $assets[$item->sys->id] = $item;
+                    break;
+                case 'Entry':
+                    $entries[$item->sys->id] = $item;
+                    break;
+                default:
+                    // We ignore everything else since it's either cached elsewhere or won't need to be linked
             }
         }
+
+        return [
+            'asset' => $assets,
+            'entry' => $entries
+        ];
     }
 
     /**
      * Build a ResourceArray.
      *
-     * @param  object $data
+     * @param  object     $data
+     * @param  array|null $rawDataList
      *
      * @return ResourceArray
      */
-    private function buildArray($data)
+    private function buildArray($data, array $rawDataList = null)
     {
-        $items = array_map([$this, 'buildObjectsFromRawData'], $data->items);
+        $items = [];
+        $depthCount = 0;
+        foreach ($data->items as $item) {
+            $items[] = $this->doBuildObjectsFromRawData($item, $rawDataList, $depthCount);
+        }
+
         return new ResourceArray($items, $data->total, $data->limit, $data->skip);
     }
 
@@ -126,10 +171,6 @@ class ResourceBuilder
      */
     private function buildAsset($data)
     {
-        if ($this->instanceCache->hasAsset($data->sys->id)) {
-            return $this->instanceCache->getAsset($data->sys->id);
-        }
-
         $fields = $data->fields;
         $files = (object) array_map([$this, 'buildFile'], (array) $fields->file);
 
@@ -139,7 +180,6 @@ class ResourceBuilder
             $files,
             $this->buildSystemProperties($data->sys)
         );
-        $this->instanceCache->addAsset($asset);
 
         return $asset;
     }
@@ -199,25 +239,22 @@ class ResourceBuilder
     /**
      * Creates a DynamicEntry or a subclass thereof.
      *
-     * @param  object $data
+     * @param  object     $data
+     * @param  array|null $rawDataList
+     * @param  int        $depthCount
      *
      * @return DynamicEntry
      */
-    private function buildEntry($data)
+    private function buildEntry($data, array $rawDataList = null, $depthCount = 0)
     {
-        if ($this->instanceCache->hasEntry($data->sys->id)) {
-            return $this->instanceCache->getEntry($data->sys->id);
-        }
-
         $sys = $this->buildSystemProperties($data->sys);
-        $fields = $this->buildFields($sys->getContentType(), $data->fields);
+        $fields = $this->buildFields($sys->getContentType(), $data->fields, $rawDataList, $depthCount);
 
         $entry = new DynamicEntry(
             $fields,
             $sys,
             $this->client
         );
-        $this->instanceCache->addEntry($entry);
 
         return $entry;
     }
@@ -225,10 +262,12 @@ class ResourceBuilder
     /**
      * @param ContentType $contentType
      * @param object      $fields
+     * @param array|null  $rawDataList
+     * @param int         $depthCount
      *
      * @return object
      */
-    private function buildFields(ContentType $contentType, $fields)
+    private function buildFields(ContentType $contentType, $fields, array $rawDataList = null, $depthCount = 0)
     {
         $result = new \stdClass();
         foreach ($fields as $name => $fieldData) {
@@ -236,7 +275,7 @@ class ResourceBuilder
             if ($fieldConfig->isDisabled()) {
                 continue;
             }
-            $result->$name = $this->buildField($fieldConfig, $fieldData);
+            $result->$name = $this->buildField($fieldConfig, $fieldData, $rawDataList, $depthCount);
         }
         return $result;
     }
@@ -244,14 +283,16 @@ class ResourceBuilder
     /**
      * @param ContentTypeField $fieldConfig
      * @param object           $fieldData
+     * @param array|null       $rawDataList
+     * @param int              $depthCount
      *
      * @return object
      */
-    private function buildField(ContentTypeField $fieldConfig, $fieldData)
+    private function buildField(ContentTypeField $fieldConfig, $fieldData, array $rawDataList = null, $depthCount = 0)
     {
         $result = new \stdClass;
         foreach ($fieldData as $locale => $value) {
-            $result->$locale = $this->formatValue($fieldConfig, $value);
+            $result->$locale = $this->formatValue($fieldConfig, $value, $rawDataList, $depthCount);
         }
 
         return $result;
@@ -261,11 +302,13 @@ class ResourceBuilder
      * Transforms values from the original JSON representation to an appropriate PHP representation.
      *
      * @param  ContentTypeField|string $fieldConfig Must be a ContentTypeField if the type is Array
-     * @param  mixed $value
+     * @param  mixed                   $value
+     * @param  array|null              $rawDataList
+     * @param  int                     $depthCount
      *
      * @return array|Asset|DynamicEntry|Link|Location|\DateTimeImmutable
      */
-    private function formatValue($fieldConfig, $value)
+    private function formatValue($fieldConfig, $value, array $rawDataList = null, $depthCount = 0)
     {
         if ($fieldConfig instanceof ContentTypeField) {
             $type = $fieldConfig->getType();
@@ -290,10 +333,10 @@ class ResourceBuilder
             case 'Location':
                 return new Location($value->lat, $value->lon);
             case 'Link':
-                return $this->buildLink($value);
+                return $this->buildLink($value, $rawDataList, $depthCount);
             case 'Array':
-                return array_map(function ($value) use ($fieldConfig) {
-                    return $this->formatValue($fieldConfig->getItemsType(), $value);
+                return array_map(function ($value) use ($fieldConfig, $rawDataList, $depthCount) {
+                    return $this->formatValue($fieldConfig->getItemsType(), $value, $rawDataList, $depthCount);
                 }, $value);
             default:
                 throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encountered while trying to format value.');
@@ -303,27 +346,30 @@ class ResourceBuilder
     /**
      * When an instance of the target already exists, it is returned. If not, a Link is created as placeholder.
      *
-     * @param  object $data
+     * @param  object     $data
+     * @param  array|null $rawDataList
+     * @param  int        $depthCount
      *
      * @return Asset|DynamicEntry|Link
      *
      * @throws \InvalidArgumentException When encountering an unexpected link type. Only links to assets and entries are currently handled.
      */
-    private function buildLink($data)
+    private function buildLink($data, array $rawDataList = null, $depthCount = 0)
     {
         $id = $data->sys->id;
         $type = $data->sys->linkType;
 
         if ($type === 'Asset') {
-            if ($this->instanceCache->hasAsset($id)) {
-                return $this->instanceCache->getAsset($id);
+            if (isset($rawDataList['asset'][$id])) {
+                return $this->buildAsset($rawDataList['asset'][$id]);
             }
 
             return new Link($id, $type);
         }
         if ($type === 'Entry') {
-            if ($this->instanceCache->hasEntry($id)) {
-                return $this->instanceCache->getEntry($id);
+            if (isset($rawDataList['entry'][$id]) && $depthCount < 20) {
+                $depthCount++;
+                return $this->buildEntry($rawDataList['entry'][$id], $rawDataList, $depthCount);
             }
 
             return new Link($id, $type);
