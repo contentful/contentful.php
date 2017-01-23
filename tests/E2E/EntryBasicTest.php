@@ -60,4 +60,22 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Asset::class, $image);
         $this->assertEquals('nyancat', $image->getId());
     }
+
+    /**
+     * @vcr e2e_entry_lazy_loading_cached.json
+     */
+    public function testLazyLoadIsCached()
+    {
+        $nyancat = $this->client->getEntry('nyancat');
+        $bestFriend = $nyancat->getBestFriend();
+
+        // Locally it's cached
+        $this->assertEquals('happycat', $bestFriend->getId());
+        $this->assertSame($bestFriend, $nyancat->getBestFriend());
+
+        // but not globally
+        $happycat = $this->client->getEntry('happycat');
+        $this->assertEquals($bestFriend->getId(), $happycat->getId());
+        $this->assertNotSame($bestFriend, $happycat);
+    }
 }
