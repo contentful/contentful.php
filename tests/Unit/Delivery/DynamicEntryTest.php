@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -93,27 +93,27 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->willReturn('nyancat');
 
         $this->entry = new DynamicEntry(
-            (object) [
-                'name' => (object) [
+            [
+                'name' => [
                     'en-US' => 'Nyan Cat',
                     'tlh' => 'Nyan vIghro\''
                 ],
-                'likes' => (object) [
+                'likes' => [
                     'en-US' => ['rainbows', 'fish']
                 ],
-                'color' => (object) [
+                'color' => [
                     'en-US' => 'rainbow',
                 ],
-                'bestFriend' => (object) [
+                'bestFriend' => [
                     'en-US' => $mockEntry
                 ],
-                'birthday' => (object) [
+                'birthday' => [
                     'en-US' => new \DateTimeImmutable('2011-04-04T22:00:00+00:00')
                 ],
-                'lives' => (object) [
+                'lives' => [
                     'en-US' =>  1337
                 ],
-                'image' => (object) [
+                'image' => [
                     'en-US' => $mockAsset
                 ],
             ],
@@ -153,8 +153,8 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $crookshanksEntry = new DynamicEntry(
-            (object) [
-                'name' => (object) [
+            [
+                'name' => [
                     'en-US' => 'Crookshanks'
                 ]
             ],
@@ -163,11 +163,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         );
 
         $garfieldEntry = new DynamicEntry(
-            (object) [
-                'name' => (object) [
+            [
+                'name' => [
                     'en-US' => 'Garfield'
                 ],
-                'friend' => (object) [
+                'friend' => [
                     'en-US' => new Link('crookshanks', 'Entry')
                 ]
             ],
@@ -210,11 +210,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         );
 
         $entry = new DynamicEntry(
-            (object) [
-                'name' => (object) [
+            [
+                'name' => [
                     'en-US' => 'Test Entry'
                 ],
-                'youTubeId' => (object) [
+                'youTubeId' => [
                     'en-US' => 'l6xdPQ_O8e8',
                 ]
             ],
@@ -243,11 +243,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $crookshanksEntry = new DynamicEntry(
-            (object) [
-                'name' => (object) [
+            [
+                'name' => [
                     'en-US' => 'Crookshanks'
                 ],
-                'friends' => (object) [
+                'friends' => [
                     'en-US' => []
                 ]
             ],
@@ -256,11 +256,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         );
 
         $garfieldEntry = new DynamicEntry(
-            (object) [
-                'name' => (object) [
+            [
+                'name' => [
                     'en-US' => 'Garfield'
                 ],
-                'friends' => (object) [
+                'friends' => [
                     'en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')]
                 ]
             ],

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -11,7 +11,7 @@ use Contentful\ResourceNotFoundException;
 class DynamicEntry extends LocalizedResource implements EntryInterface
 {
     /**
-     * @var object
+     * @var array
      */
     private $fields;
 
@@ -33,11 +33,11 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     /**
      * Entry constructor.
      *
-     * @param object           $fields
+     * @param array           $fields
      * @param SystemProperties $sys
      * @param Client|null      $client
      */
-    public function __construct($fields, SystemProperties $sys, Client $client = null)
+    public function __construct(array $fields, SystemProperties $sys, Client $client = null)
     {
         parent::__construct($sys->getSpace()->getLocales());
 
@@ -106,7 +106,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
         }
 
-        if (!isset($this->fields->$fieldName)) {
+        if (!isset($this->fields[$fieldName])) {
             if ($fieldConfig->getType() === 'Array') {
                 return [];
             }
@@ -118,7 +118,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
         }
 
-        $value = $this->fields->$fieldName;
+        $value = $this->fields[$fieldName];
         if (!$fieldConfig->isLocalized()) {
             $locale = $this->getSpace()->getDefaultLocale()->getCode();
         } else {
@@ -130,7 +130,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             }
         }
 
-        $result = $value->$locale;
+        $result = $value[$locale];
         if ($getId && $fieldConfig->getType() === 'Link') {
             return $result->getId();
         }

@@ -53,11 +53,11 @@ class ResourceBuilder
     /**
      * Build objects based on PHP classes from the raw JSON based objects.
      *
-     * @param  object $data
+     * @param  array $data
      *
      * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedEntry|ResourceArray
      */
-    public function buildObjectsFromRawData($data)
+    public function buildObjectsFromRawData(array $data)
     {
         return $this->doBuildObjectsFromRawData($data);
     }
@@ -65,15 +65,15 @@ class ResourceBuilder
     /**
      * Build objects based on PHP classes from the raw JSON based objects.
      *
-     * @param  object      $data
+     * @param  array       $data
      * @param  array|null  $rawDataList
      * @param  int         $depthCount
      *
      * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedEntry|ResourceArray
      */
-    private function doBuildObjectsFromRawData($data, array $rawDataList = null, $depthCount = 0)
+    private function doBuildObjectsFromRawData(array $data, array $rawDataList = null, $depthCount = 0)
     {
-        $type = $data->sys->type;
+        $type = $data['sys']['type'];
 
         switch ($type) {
             case 'Array':
@@ -101,36 +101,34 @@ class ResourceBuilder
      * Builds two hash maps of all the entries and assets that are in a response. These are later used to create
      * the correct object graph.
      *
-     * @param  object $data
+     * @param  array $data
      *
      * @return array
      */
-    private function buildArrayDataList($data)
+    private function buildArrayDataList(array $data)
     {
         $entries = [];
         $assets = [];
 
-        if (isset($data->includes)) {
-            if (isset($data->includes->Entry)) {
-                foreach ($data->includes->Entry as $item) {
-                    $entries[$item->sys->id] = $item;
-                }
-            }
-
-            if (isset($data->includes->Asset)) {
-                foreach ($data->includes->Asset as $item) {
-                    $assets[$item->sys->id] = $item;
-                }
+        if (isset($data['includes']['Entry'])) {
+            foreach ($data['includes']['Entry'] as $item) {
+                $entries[$item['sys']['id']] = $item;
             }
         }
 
-        foreach ($data->items as $item) {
-            switch ($item->sys->type) {
+        if (isset($data['includes']['Asset'])) {
+            foreach ($data['includes']['Asset'] as $item) {
+                $assets[$item['sys']['id']] = $item;
+            }
+        }
+
+        foreach ($data['items'] as $item) {
+            switch ($item['sys']['type']) {
                 case 'Asset':
-                    $assets[$item->sys->id] = $item;
+                    $assets[$item['sys']['id']] = $item;
                     break;
                 case 'Entry':
-                    $entries[$item->sys->id] = $item;
+                    $entries[$item['sys']['id']] = $item;
                     break;
                 default:
                     // We ignore everything else since it's either cached elsewhere or won't need to be linked
@@ -146,39 +144,39 @@ class ResourceBuilder
     /**
      * Build a ResourceArray.
      *
-     * @param  object     $data
+     * @param  array      $data
      * @param  array|null $rawDataList
      *
      * @return ResourceArray
      */
-    private function buildArray($data, array $rawDataList = null)
+    private function buildArray(array $data, array $rawDataList = null)
     {
         $items = [];
         $depthCount = 0;
-        foreach ($data->items as $item) {
+        foreach ($data['items'] as $item) {
             $items[] = $this->doBuildObjectsFromRawData($item, $rawDataList, $depthCount);
         }
 
-        return new ResourceArray($items, $data->total, $data->limit, $data->skip);
+        return new ResourceArray($items, $data['total'], $data['limit'], $data['skip']);
     }
 
     /**
      * Build an Asset.
      *
-     * @param  object $data
+     * @param  array $data
      *
      * @return Asset
      */
-    private function buildAsset($data)
+    private function buildAsset(array $data)
     {
-        $fields = $data->fields;
-        $files = (object) array_map([$this, 'buildFile'], (array) $fields->file);
+        $fields = $data['fields'];
+        $files = array_map([$this, 'buildFile'], $fields['file']);
 
         $asset = new Asset(
-            isset($fields->title) ? $fields->title : null,
-            isset($fields->description) ? $fields->description : null,
+            isset($fields['title']) ? $fields['title'] : null,
+            isset($fields['description']) ? $fields['description'] : null,
             $files,
-            $this->buildSystemProperties($data->sys)
+            $this->buildSystemProperties($data['sys'])
         );
 
         return $asset;
@@ -187,46 +185,46 @@ class ResourceBuilder
     /**
      * Creates a File or a subclass thereof.
      *
-     * @param  object $data
+     * @param  array $data
      *
      * @return File|ImageFile
      */
-    private function buildFile($data)
+    private function buildFile(array $data)
     {
-        $details = $data->details;
-        if (isset($details->image)) {
+        $details = $data['details'];
+        if (isset($details['image'])) {
             return new ImageFile(
-                $data->fileName,
-                $data->contentType,
-                $data->url,
-                $details->size,
-                $details->image->width,
-                $details->image->height
+                $data['fileName'],
+                $data['contentType'],
+                $data['url'],
+                $details['size'],
+                $details['image']['width'],
+                $details['image']['height']
             );
         }
 
-        return new File($data->fileName, $data->contentType, $data->url, $details->size);
+        return new File($data['fileName'], $data['contentType'], $data['url'], $details['size']);
     }
 
     /**
      * Creates a ContentType.
      *
-     * @param  object $data
+     * @param  array $data
      *
      * @return ContentType|null
      */
-    private function buildContentType($data)
+    private function buildContentType(array $data)
     {
-        if ($this->instanceCache->hasContentType($data->sys->id)) {
-            return $this->instanceCache->getContentType($data->sys->id);
+        if ($this->instanceCache->hasContentType($data['sys']['id'])) {
+            return $this->instanceCache->getContentType($data['sys']['id']);
         }
 
-        $sys = $this->buildSystemProperties($data->sys);
-        $fields = array_map([$this, 'buildContentTypeField'], $data->fields);
-        $displayField = isset($data->displayField) ? $data->displayField : null;
+        $sys = $this->buildSystemProperties($data['sys']);
+        $fields = array_map([$this, 'buildContentTypeField'], $data['fields']);
+        $displayField = isset($data['displayField']) ? $data['displayField'] : null;
         $contentType = new ContentType(
-            $data->name,
-            isset($data->description) ? $data->description : null,
+            $data['name'],
+            isset($data['description']) ? $data['description'] : null,
             $fields,
             $displayField,
             $sys
@@ -239,16 +237,16 @@ class ResourceBuilder
     /**
      * Creates a DynamicEntry or a subclass thereof.
      *
-     * @param  object     $data
+     * @param  array      $data
      * @param  array|null $rawDataList
      * @param  int        $depthCount
      *
      * @return DynamicEntry
      */
-    private function buildEntry($data, array $rawDataList = null, $depthCount = 0)
+    private function buildEntry(array $data, array $rawDataList = null, $depthCount = 0)
     {
-        $sys = $this->buildSystemProperties($data->sys);
-        $fields = $this->buildFields($sys->getContentType(), $data->fields, $rawDataList, $depthCount);
+        $sys = $this->buildSystemProperties($data['sys']);
+        $fields = $this->buildFields($sys->getContentType(), $data['fields'], $rawDataList, $depthCount);
 
         $entry = new DynamicEntry(
             $fields,
@@ -261,38 +259,38 @@ class ResourceBuilder
 
     /**
      * @param ContentType $contentType
-     * @param object      $fields
+     * @param array       $fields
      * @param array|null  $rawDataList
      * @param int         $depthCount
      *
-     * @return object
+     * @return array
      */
-    private function buildFields(ContentType $contentType, $fields, array $rawDataList = null, $depthCount = 0)
+    private function buildFields(ContentType $contentType, array $fields, array $rawDataList = null, $depthCount = 0)
     {
-        $result = new \stdClass();
+        $result = [];
         foreach ($fields as $name => $fieldData) {
             $fieldConfig = $contentType->getField($name);
             if ($fieldConfig->isDisabled()) {
                 continue;
             }
-            $result->$name = $this->buildField($fieldConfig, $fieldData, $rawDataList, $depthCount);
+            $result[$name] = $this->buildField($fieldConfig, $fieldData, $rawDataList, $depthCount);
         }
         return $result;
     }
 
     /**
      * @param ContentTypeField $fieldConfig
-     * @param object           $fieldData
+     * @param array            $fieldData
      * @param array|null       $rawDataList
      * @param int              $depthCount
      *
-     * @return object
+     * @return array
      */
-    private function buildField(ContentTypeField $fieldConfig, $fieldData, array $rawDataList = null, $depthCount = 0)
+    private function buildField(ContentTypeField $fieldConfig, array $fieldData, array $rawDataList = null, $depthCount = 0)
     {
-        $result = new \stdClass;
+        $result = [];
         foreach ($fieldData as $locale => $value) {
-            $result->$locale = $this->formatValue($fieldConfig, $value, $rawDataList, $depthCount);
+            $result[$locale] = $this->formatValue($fieldConfig, $value, $rawDataList, $depthCount);
         }
 
         return $result;
@@ -331,7 +329,7 @@ class ResourceBuilder
             case 'Date':
                 return new \DateTimeImmutable($value, new \DateTimeZone('UTC'));
             case 'Location':
-                return new Location($value->lat, $value->lon);
+                return new Location($value['lat'], $value['lon']);
             case 'Link':
                 return $this->buildLink($value, $rawDataList, $depthCount);
             case 'Array':
@@ -346,7 +344,7 @@ class ResourceBuilder
     /**
      * When an instance of the target already exists, it is returned. If not, a Link is created as placeholder.
      *
-     * @param  object     $data
+     * @param  array      $data
      * @param  array|null $rawDataList
      * @param  int        $depthCount
      *
@@ -354,10 +352,10 @@ class ResourceBuilder
      *
      * @throws \InvalidArgumentException When encountering an unexpected link type. Only links to assets and entries are currently handled.
      */
-    private function buildLink($data, array $rawDataList = null, $depthCount = 0)
+    private function buildLink(array $data, array $rawDataList = null, $depthCount = 0)
     {
-        $id = $data->sys->id;
-        $type = $data->sys->linkType;
+        $id = $data['sys']['id'];
+        $type = $data['sys']['linkType'];
 
         if ($type === 'Asset') {
             if (isset($rawDataList['asset'][$id])) {
@@ -399,16 +397,16 @@ class ResourceBuilder
     }
 
     /**
-     * @param  object $data
+     * @param  array $data
      *
-     * @return Space|null
+     * @return Space
      *
      * @throws SpaceMismatchException When attempting to build a different Space than the one this ResourceBuilder is configured to handle.
      */
-    private function buildSpace($data)
+    private function buildSpace(array $data)
     {
-        if ($data->sys->id !== $this->spaceId) {
-            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "' . $this->spaceId . '" but was asked to build a resource for the space "' . $data->sys->id . '"."');
+        if ($data['sys']['id'] !== $this->spaceId) {
+            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "' . $this->spaceId . '" but was asked to build a resource for the space "' . $data['sys']['id'] . '"."');
         }
 
         if ($this->instanceCache->hasSpace()) {
@@ -416,74 +414,74 @@ class ResourceBuilder
         }
 
         $locales = [];
-        foreach ($data->locales as $locale) {
-            $locales[] = new Locale($locale->code, $locale->name, $locale->fallbackCode, $locale->default);
+        foreach ($data['locales'] as $locale) {
+            $locales[] = new Locale($locale['code'], $locale['name'], $locale['fallbackCode'], $locale['default']);
         }
-        $sys = $this->buildSystemProperties($data->sys);
-        $space = new Space($data->name, $locales, $sys);
+        $sys = $this->buildSystemProperties($data['sys']);
+        $space = new Space($data['name'], $locales, $sys);
         $this->instanceCache->setSpace($space);
 
         return $space;
     }
 
     /**
-     * @param  object $sys
+     * @param  array $sys
      *
      * @return SystemProperties
      */
-    private function buildSystemProperties($sys)
+    private function buildSystemProperties(array $sys)
     {
         return new SystemProperties(
-            isset($sys->id) ? $sys->id : null,
-            isset($sys->type) ? $sys->type : null,
-            isset($sys->space) ? $this->getSpace($sys->space->sys->id) : null,
-            isset($sys->contentType) ? $this->client->getContentType($sys->contentType->sys->id) : null,
-            isset($sys->revision) ? $sys->revision : null,
-            isset($sys->createdAt) ? new \DateTimeImmutable($sys->createdAt) : null,
-            isset($sys->updatedAt) ? new \DateTimeImmutable($sys->updatedAt) : null,
-            isset($sys->deletedAt) ? new \DateTimeImmutable($sys->deletedAt) : null
+            isset($sys['id']) ? $sys['id'] : null,
+            isset($sys['type']) ? $sys['type'] : null,
+            isset($sys['space']) ? $this->getSpace($sys['space']['sys']['id']) : null,
+            isset($sys['contentType']) ? $this->client->getContentType($sys['contentType']['sys']['id']) : null,
+            isset($sys['revision']) ? $sys['revision'] : null,
+            isset($sys['createdAt']) ? new \DateTimeImmutable($sys['createdAt']) : null,
+            isset($sys['updatedAt']) ? new \DateTimeImmutable($sys['updatedAt']) : null,
+            isset($sys['deletedAt']) ? new \DateTimeImmutable($sys['deletedAt']) : null
         );
     }
 
     /**
-     * @param  object $data
+     * @param  array $data
      *
      * @return DeletedAsset
      */
-    private function buildDeletedAsset($data)
+    private function buildDeletedAsset(array $data)
     {
-        $sys = $this->buildSystemProperties($data->sys);
+        $sys = $this->buildSystemProperties($data['sys']);
         return new DeletedAsset($sys);
     }
 
     /**
-     * @param  object $data
+     * @param  array $data
      *
      * @return DeletedEntry
      */
-    private function buildDeletedEntry($data)
+    private function buildDeletedEntry(array $data)
     {
-        $sys = $this->buildSystemProperties($data->sys);
+        $sys = $this->buildSystemProperties($data['sys']);
         return new DeletedEntry($sys);
     }
 
     /**
-     * @param  object $data
+     * @param  array $data
      *
      * @return ContentTypeField
      */
-    private function buildContentTypeField($data)
+    private function buildContentTypeField(array $data)
     {
         return new ContentTypeField(
-            $data->id,
-            $data->name,
-            $data->type,
-            isset($data->linkType) ? $data->linkType : null,
-            isset($data->items) && isset($data->items->type) ? $data->items->type : null,
-            isset($data->items) && isset($data->items->linkType) ? $data->items->linkType : null,
-            isset($data->required) ? $data->required : false,
-            isset($data->localized) ? $data->localized : false,
-            isset($data->disabled) ? $data->disabled : false
+            $data['id'],
+            $data['name'],
+            $data['type'],
+            isset($data['linkType']) ? $data['linkType'] : null,
+            isset($data['items']) && isset($data['items']['type']) ? $data['items']['type'] : null,
+            isset($data['items']) && isset($data['items']['linkType']) ? $data['items']['linkType'] : null,
+            isset($data['required']) ? $data['required'] : false,
+            isset($data['localized']) ? $data['localized'] : false,
+            isset($data['disabled']) ? $data['disabled'] : false
         );
     }
 }

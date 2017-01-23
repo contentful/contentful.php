@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -72,15 +72,15 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->asset = new Asset(
-            (object) [
+            [
                 'en-US' => 'Nyan Cat',
                 'de-DE' => 'Kater Karlo'
             ],
-            (object) [
+            [
                 'en-US' => 'A picture of Nyan Cat',
                 'de-DE' => 'Ein Bild von Nyan Cat'
             ],
-            (object) ['en-US' => $this->file],
+            ['en-US' => $this->file],
             new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))
         );
     }
@@ -141,9 +141,9 @@ class AssetTest extends \PHPUnit_Framework_TestCase
     public function testGetDescriptionWhenNoDescription()
     {
         $asset = new Asset(
-            (object) ['en-US' => 'Nyan Cat'],
+            ['en-US' => 'Nyan Cat'],
             null,
-            (object) ['en-US' => $this->file],
+            ['en-US' => $this->file],
             new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))
         );
 
@@ -154,8 +154,8 @@ class AssetTest extends \PHPUnit_Framework_TestCase
     {
         $asset = new Asset(
             null,
-            (object) ['en-US' => 'A picture of Nyan Cat'],
-            (object) ['en-US' => $this->file],
+            ['en-US' => 'A picture of Nyan Cat'],
+            ['en-US' => $this->file],
             new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))
         );
 
@@ -170,9 +170,9 @@ class AssetTest extends \PHPUnit_Framework_TestCase
     public function testJsonSerializeWithoutDescription()
     {
         $asset = new Asset(
-            (object) ['en-US' => 'Nyan Cat'],
+            ['en-US' => 'Nyan Cat'],
             null,
-            (object) ['en-US' => $this->file],
+            ['en-US' => $this->file],
             new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))
         );
 

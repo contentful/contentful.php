@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -96,14 +96,14 @@ class Manager
      */
     private function buildResult($data)
     {
-        if (isset($data->nextSyncUrl)) {
+        if (isset($data['nextSyncUrl'])) {
             $done = true;
-            $token = $this->getTokenFromUrl($data->nextSyncUrl);
+            $token = $this->getTokenFromUrl($data['nextSyncUrl']);
         } else {
             $done = false;
-            $token = $this->getTokenFromUrl($data->nextPageUrl);
+            $token = $this->getTokenFromUrl($data['nextPageUrl']);
         }
-        $items = array_map([$this->builder, 'buildObjectsFromRawData'], $data->items);
+        $items = array_map([$this->builder, 'buildObjectsFromRawData'], $data['items']);
 
         return new Result($items, $token, $done);
     }
