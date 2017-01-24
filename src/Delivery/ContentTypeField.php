@@ -61,7 +61,7 @@ class ContentTypeField implements \JsonSerializable
      *
      * @var string|null
      */
-    private $itemsType = null;
+    private $itemsType;
 
     /**
      * (Array of links only) Type of links.
@@ -72,7 +72,7 @@ class ContentTypeField implements \JsonSerializable
      *
      * @var string|null
      */
-    private $itemsLinkType = null;
+    private $itemsLinkType;
 
     /**
      * Describes whether the Field is mandatory.

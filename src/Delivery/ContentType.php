@@ -29,7 +29,7 @@ class ContentType implements \JsonSerializable
     /**
      * The fields, keyed by ID.
      *
-     * @var array
+     * @var \Contentful\Delivery\ContentTypeField[]
      */
     private $fields = [];
 
@@ -38,7 +38,7 @@ class ContentType implements \JsonSerializable
      *
      * @var string|null
      */
-    private $displayField = null;
+    private $displayField;
 
     /**
      * @var SystemProperties

@@ -37,7 +37,7 @@ class Manager
      * @param Client          $client
      * @param ResourceBuilder $builder
      *
-     * @see Contentful\Delivery\Client::get
+     * @see \Contentful\Delivery\Client::get
      * @internal
      */
     public function __construct(Client $client, ResourceBuilder $builder)

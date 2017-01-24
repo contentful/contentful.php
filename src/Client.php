@@ -68,7 +68,7 @@ abstract class Client
      * @param string $path
      * @param array  $options
      *
-     * @return array|object
+     * @return array
      */
     protected function request($method, $path, array $options = [])
     {
@@ -178,7 +178,7 @@ abstract class Client
     /**
      * @param  string $json JSON encoded object or array
      *
-     * @return object|array
+     * @return array
      *
      * @throws \RuntimeException On invalid JSON
      */
