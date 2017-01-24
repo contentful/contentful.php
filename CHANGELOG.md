@@ -14,9 +14,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 * Changed the behavior of getting an array of links to not throw an exception when one of them has been deleted from the space. ([#19](https://github.com/contentful/contentful.php/pull/19))
-* Drop `BearerToken` to make it easier to inject custom Guzzle instances. **[BREAKING]**
 * Removed the caching of `Asset` and `Entry` instances. **[BREAKING]**
 * Changed the internal data format from object to array. This should make no observable difference to the public API.
+
+### Removed
+* Dropped `BearerToken` to make it easier to inject custom Guzzle instances. **[BREAKING]**
 
 ### Fixed
 * Assets that have no title would throw an uncaught exception.
