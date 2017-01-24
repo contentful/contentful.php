@@ -1,6 +1,6 @@
 <?php
-/**
- * @copyright 2015-2016 Contentful GmbH
+/*
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -107,7 +107,7 @@ abstract class LocalizedResource
     }
 
     /**
-     * @param object                     $valueMap
+     * @param array                      $valueMap
      * @param string                     $localeCode
      * @param \Contentful\Delivery\Space $space
      *
@@ -115,10 +115,10 @@ abstract class LocalizedResource
      *
      * @throws \RuntimeException If we detect an endless loop
      */
-    protected function loopThroughFallbackChain($valueMap, $localeCode, Space $space)
+    protected function loopThroughFallbackChain(array $valueMap, $localeCode, Space $space)
     {
         $loopCounter = 0;
-        while (!isset($valueMap->$localeCode)) {
+        while (!isset($valueMap[$localeCode])) {
             $localeCode = $space->getLocale($localeCode)->getFallbackCode();
             if ($localeCode === null) {
                 // We've reach the end of the fallback chain and there's no value

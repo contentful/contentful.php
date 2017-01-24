@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -9,17 +9,17 @@ namespace Contentful\Delivery;
 class Asset extends LocalizedResource implements \JsonSerializable
 {
     /**
-     * @var object
+     * @var array
      */
     private $title;
 
     /**
-     * @var object
+     * @var array
      */
     private $description;
 
     /**
-     * @var object
+     * @var array
      */
     private $file;
 
@@ -31,9 +31,9 @@ class Asset extends LocalizedResource implements \JsonSerializable
     /**
      * Asset constructor.
      *
-     * @param object           $title
-     * @param object           $description
-     * @param object           $file
+     * @param array            $title
+     * @param array            $description
+     * @param array            $file
      * @param SystemProperties $sys
      */
     public function __construct($title, $description, $file, SystemProperties $sys)
@@ -66,7 +66,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
 
         $localeCode = $this->loopThroughFallbackChain($this->title, $localeCode, $this->getSpace());
 
-        return $localeCode === null ? null : $this->title->$localeCode;
+        return $localeCode === null ? null : $this->title[$localeCode];
     }
 
     /**
@@ -87,7 +87,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
 
         $localeCode = $this->loopThroughFallbackChain($this->description, $localeCode, $this->getSpace());
 
-        return $localeCode === null ? null : $this->description->$localeCode;
+        return $localeCode === null ? null : $this->description[$localeCode];
     }
 
     /**
@@ -101,7 +101,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
     {
         $localeCode = $this->getLocaleFromInput($locale);
 
-        return $this->file->$localeCode;
+        return $this->file[$localeCode];
     }
 
     /**

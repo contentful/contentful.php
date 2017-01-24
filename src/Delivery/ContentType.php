@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -29,7 +29,7 @@ class ContentType implements \JsonSerializable
     /**
      * The fields, keyed by ID.
      *
-     * @var object
+     * @var array
      */
     private $fields = [];
 

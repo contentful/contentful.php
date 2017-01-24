@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -184,7 +184,7 @@ abstract class Client
      */
     protected function decodeJson($json)
     {
-        $result = json_decode($json);
+        $result = json_decode($json, true);
         if ($result === null) {
             throw new \RuntimeException(json_last_error_msg(), json_last_error());
         }
