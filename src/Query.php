@@ -104,11 +104,11 @@ class Query
             $data['order'] = $dir . $this->order;
         }
         foreach ($this->whereConditions as $whereCondition) {
-            $key = $whereCondition->field;
-            if ($whereCondition->operator !== null) {
-                $key .= '[' . $whereCondition->operator . ']';
+            $key = $whereCondition['field'];
+            if ($whereCondition['operator'] !== null) {
+                $key .= '[' . $whereCondition['operator'] . ']';
             }
-            $data[$key] = $whereCondition->value;
+            $data[$key] = $whereCondition['value'];
         }
 
         return $data;
@@ -341,11 +341,11 @@ class Query
             $value = $value->queryStringFormatted();
         }
 
-        array_push($this->whereConditions, (object) [
+        $this->whereConditions[] = [
             'field' => $field,
             'value' => $value,
             'operator' => $operator
-        ]);
+        ];
 
         return $this;
     }
