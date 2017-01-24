@@ -175,19 +175,32 @@ class Asset extends LocalizedResource implements \JsonSerializable
      */
     public function jsonSerialize()
     {
+        $entryLocale = $this->sys->getLocale();
+
         $obj = (object) [
-            'fields' => (object) [
-                'file' => $this->file
-            ],
+            'fields' => (object) [],
             'sys' => $this->sys
         ];
+        if ($entryLocale) {
+            $obj->fields->file = $this->file[$entryLocale];
+        } else {
+            $obj->fields->file = $this->file;
+        }
 
         if ($this->title !== null) {
-            $obj->fields->title = $this->title;
+            if ($entryLocale) {
+                $obj->fields->title = $this->title[$entryLocale];
+            } else {
+                $obj->fields->title = $this->title;
+            }
         }
 
         if ($this->description !== null) {
-            $obj->fields->description = $this->description;
+            if ($entryLocale) {
+                $obj->fields->description = $this->description[$entryLocale];
+            } else {
+                $obj->fields->description = $this->description;
+            }
         }
 
         return $obj;

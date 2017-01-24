@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -41,17 +41,25 @@ class Client extends BaseClient
     private $preview;
 
     /**
+     * @var string|null
+     */
+    private $defaultLocale;
+
+    /**
      * Client constructor.
      *
-     * @param string                $token   Delivery API Access Token for the space used with this Client
-     * @param string                $spaceId ID of the space used with this Client.
-     * @param bool                  $preview True to use the Preview API.
+     * @param string                $token         Delivery API Access Token for the space used with this Client
+     * @param string                $spaceId       ID of the space used with this Client.
+     * @param bool                  $preview       True to use the Preview API.
      * @param LoggerInterface       $logger
      * @param GuzzleClientInterface $guzzle
+     * @param string|null           $defaultLocale The default is to fetch the Space's default locale. Set to a locale
+     *                                             string, e.g. "en-US" to fetch content in that locale. Set it to "*"
+     *                                             to fetch content in all locales.
      *
      * @api
      */
-    public function __construct($token, $spaceId, $preview = false, LoggerInterface $logger = null, GuzzleClientInterface $guzzle = null)
+    public function __construct($token, $spaceId, $preview = false, LoggerInterface $logger = null, GuzzleClientInterface $guzzle = null, $defaultLocale = null)
     {
         $baseUri = $preview ? 'https://preview.contentful.com/spaces/' : 'https://cdn.contentful.com/spaces/';
         $api = $preview ? 'PREVIEW' : 'DELIVERY';
@@ -76,16 +84,18 @@ class Client extends BaseClient
     }
 
     /**
-     * @param  string $id
+     * @param  string      $id
+     * @param  string|null $locale
      *
      * @return Asset
      *
      * @api
      */
-    public function getAsset($id)
+    public function getAsset($id, $locale = null)
     {
+        $locale = $locale === null ? $this->defaultLocale : $locale;
         return $this->requestAndBuild('GET', 'assets/' . $id, [
-            'query' => ['locale' => '*']
+            'query' => ['locale' => $locale]
         ]);
     }
 
@@ -100,7 +110,9 @@ class Client extends BaseClient
     {
         $query = $query !== null ? $query : new BaseQuery;
         $queryData = $query->getQueryData();
-        $queryData['locale'] = '*';
+        if (!isset($queryData['locale'])) {
+            $queryData['locale'] = $this->defaultLocale;
+        }
 
         return $this->requestAndBuild('GET', 'assets', [
             'query' => $queryData
@@ -139,16 +151,18 @@ class Client extends BaseClient
     }
 
     /**
-     * @param  string $id
+     * @param  string      $id
+     * @param  string|null $locale
      *
      * @return EntryInterface
      *
      * @api
      */
-    public function getEntry($id)
+    public function getEntry($id, $locale = null)
     {
+        $locale = $locale === null ? $this->defaultLocale : $locale;
         return $this->requestAndBuild('GET', 'entries/' . $id, [
-            'query' => ['locale' => '*']
+            'query' => ['locale' => $locale]
         ]);
     }
 
@@ -163,7 +177,9 @@ class Client extends BaseClient
     {
         $query = $query !== null ? $query : new BaseQuery;
         $queryData = $query->getQueryData();
-        $queryData['locale'] = '*';
+        if (!isset($queryData['locale'])) {
+            $queryData['locale'] = $this->defaultLocale;
+        }
 
         return $this->requestAndBuild('GET', 'entries', [
             'query' => $queryData
