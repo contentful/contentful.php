@@ -210,7 +210,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
                     ]
                 ] : null;
             default:
-                throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encountered while trying to serialze to JSON.');
+                throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encountered while trying to serialize to JSON.');
         }
     }
 
@@ -246,7 +246,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * Unfortunately PHP has no eeasy way to create a nice, ISO 8601 formatted date string with miliseconds and Z
+     * Unfortunately PHP has no easy way to create a nice, ISO 8601 formatted date string with milliseconds and Z
      * as the time zone specifier. Thus this hack.
      *
      * @param  \DateTimeImmutable $dt

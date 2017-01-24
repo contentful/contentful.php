@@ -195,7 +195,7 @@ class SystemProperties implements \JsonSerializable
     }
 
     /**
-     * Unfortunately PHP has no eeasy way to create a nice, ISO 8601 formatted date string with miliseconds and Z
+     * Unfortunately PHP has no easy way to create a nice, ISO 8601 formatted date string with milliseconds and Z
      * as the time zone specifier. Thus this hack.
      *
      * @param  \DateTimeImmutable $dt

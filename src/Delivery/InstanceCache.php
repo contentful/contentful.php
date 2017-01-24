@@ -21,7 +21,7 @@ class InstanceCache
     /**
      * InstanceCache constructor.
      *
-     * Currently empty but exists for forward compatability.
+     * Currently empty but exists for forward compatibility.
      */
     public function __construct()
     {

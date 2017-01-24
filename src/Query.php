@@ -35,7 +35,7 @@ class Query
     private $skip;
 
     /**
-     * The field to order the retrived results by
+     * The field to order the retrieved results by
      *
      * @var string|null
      */
@@ -140,7 +140,7 @@ class Query
     public function setSkip($skip)
     {
         if ($skip !== null && $skip < 0) {
-            throw new \RangeException('$skip must be 0 or larget, ' . $skip . ' given.');
+            throw new \RangeException('$skip must be 0 or larger, ' . $skip . ' given.');
         }
 
         $this->skip = $skip;
