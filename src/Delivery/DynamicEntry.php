@@ -229,13 +229,19 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
 
     public function jsonSerialize()
     {
+        $entryLocale = $this->sys->getLocale();
+
         $fields = new \stdClass;
         $contentType = $this->getContentType();
         foreach ($this->fields as $fieldName => $fieldData) {
             $fields->$fieldName = new \stdClass;
             $fieldConfig = $contentType->getField($fieldName);
-            foreach ($fieldData as $locale => $data) {
-                $fields->$fieldName->$locale = $this->formatValueForJson($data, $fieldConfig);
+            if ($entryLocale) {
+                $fields->$fieldName = $this->formatValueForJson($fieldData[$entryLocale], $fieldConfig);
+            } else {
+                foreach ($fieldData as $locale => $data) {
+                    $fields->$fieldName->$locale = $this->formatValueForJson($data, $fieldConfig);
+                }
             }
         }
 

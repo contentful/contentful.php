@@ -11,6 +11,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Added support for the `webp` format in the Images API.
 * Introduced `RateLimitExceededException` for more specific error handling. **[BREAKING]**
 * Allow injecting a custom Guzzle instance into `Client`.
+* Allow fetching content in a single locale by adding the locale code to the query. **[BREAKING]**
+  **MIGRATION:** To retain the old behavior set the default locale to `'*''` when creating the client. This could look
+  like: `new Client($token, $spaceID, false, null, null, '*')`
+* Allow setting the locale in which you work when creating the client.
 
 ### Changed
 * Changed the behavior of getting an array of links to not throw an exception when one of them has been deleted from the space. ([#19](https://github.com/contentful/contentful.php/pull/19))

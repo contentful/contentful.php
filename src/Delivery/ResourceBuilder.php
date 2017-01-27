@@ -169,14 +169,17 @@ class ResourceBuilder
      */
     private function buildAsset(array $data)
     {
+        $sys = $this->buildSystemProperties($data['sys']);
+        $locale = $sys->getLocale();
+
         $fields = $data['fields'];
-        $files = array_map([$this, 'buildFile'], $fields['file']);
+        $files = array_map([$this, 'buildFile'], $this->normalizeFieldData($fields['file'], $locale));
 
         $asset = new Asset(
-            isset($fields['title']) ? $fields['title'] : null,
-            isset($fields['description']) ? $fields['description'] : null,
+            isset($fields['title']) ? $this->normalizeFieldData($fields['title'], $locale) : null,
+            isset($fields['description']) ? $this->normalizeFieldData($fields['description'], $locale) : null,
             $files,
-            $this->buildSystemProperties($data['sys'])
+            $sys
         );
 
         return $asset;
@@ -246,26 +249,46 @@ class ResourceBuilder
     private function buildEntry(array $data, array $rawDataList = null, $depthCount = 0)
     {
         $sys = $this->buildSystemProperties($data['sys']);
-        $fields = $this->buildFields($sys->getContentType(), $data['fields'], $rawDataList, $depthCount);
+        $locale = $sys->getLocale();
+        $fields = $this->buildFields($sys->getContentType(), $data['fields'], $locale, $rawDataList, $depthCount);
 
         $entry = new DynamicEntry(
             $fields,
             $sys,
             $this->client
         );
+        if ($locale) {
+            $entry->setLocale($locale);
+        }
 
         return $entry;
     }
 
     /**
+     * @param mixed $fieldData
+     * @param string|null $locale
+     *
+     * @return array
+     */
+    private function normalizeFieldData($fieldData, $locale)
+    {
+        if (!$locale) {
+            return $fieldData;
+        }
+
+        return [$locale => $fieldData];
+    }
+
+    /**
      * @param ContentType $contentType
      * @param array       $fields
+     * @param string|null $locale
      * @param array|null  $rawDataList
      * @param int         $depthCount
      *
      * @return array
      */
-    private function buildFields(ContentType $contentType, array $fields, array $rawDataList = null, $depthCount = 0)
+    private function buildFields(ContentType $contentType, array $fields, $locale, array $rawDataList = null, $depthCount = 0)
     {
         $result = [];
         foreach ($fields as $name => $fieldData) {
@@ -273,7 +296,7 @@ class ResourceBuilder
             if ($fieldConfig->isDisabled()) {
                 continue;
             }
-            $result[$name] = $this->buildField($fieldConfig, $fieldData, $rawDataList, $depthCount);
+            $result[$name] = $this->buildField($fieldConfig, $this->normalizeFieldData($fieldData, $locale), $rawDataList, $depthCount);
         }
         return $result;
     }
@@ -439,7 +462,8 @@ class ResourceBuilder
             isset($sys['revision']) ? $sys['revision'] : null,
             isset($sys['createdAt']) ? new \DateTimeImmutable($sys['createdAt']) : null,
             isset($sys['updatedAt']) ? new \DateTimeImmutable($sys['updatedAt']) : null,
-            isset($sys['deletedAt']) ? new \DateTimeImmutable($sys['deletedAt']) : null
+            isset($sys['deletedAt']) ? new \DateTimeImmutable($sys['deletedAt']) : null,
+            isset($sys['locale']) ? $sys['locale'] : null
         );
     }
 
