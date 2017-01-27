@@ -28,17 +28,22 @@ class Client extends BaseClient
     /**
      * @var ResourceBuilder
      */
-    private $builder;
+    protected $builder;
 
     /**
      * @var InstanceCache
      */
-    private $instanceCache;
+    protected $instanceCache;
 
     /**
      * @var bool
      */
-    private $preview;
+    protected $preview;
+
+    /**
+     * @var string
+     */
+    protected $spaceId;
 
     /**
      * @var string|null
@@ -64,13 +69,16 @@ class Client extends BaseClient
         $baseUri = $preview ? 'https://preview.contentful.com/spaces/' : 'https://cdn.contentful.com/spaces/';
         $api = $preview ? 'PREVIEW' : 'DELIVERY';
 
-        $instanceCache = new InstanceCache;
+        $this->spaceId = $spaceId;
+
+        
 
         parent::__construct($token, $baseUri . $spaceId . '/', $api, $logger, $guzzle);
 
         $this->preview = $preview;
-        $this->instanceCache = $instanceCache;
-        $this->builder = new ResourceBuilder($this, $instanceCache, $spaceId);
+        
+        $this->setInstanceCache();
+        $this->setResourceBuilder();
     }
 
     /**
@@ -292,6 +300,48 @@ class Client extends BaseClient
 
         return new Manager($this, $this->builder);
     }
+
+    /**
+     * Set the resource builder object
+     *
+     * @return Client
+     */
+    protected function setResourceBuilder()
+    {
+        $this->builder = new ResourceBuilder($this, $this->getInstanceCache(), $this->spaceId);
+        return $this;
+    }
+
+    /**
+     * Get the resource builder instance
+     *
+     * @return ResourceBuilder
+     */
+    protected function getResourceBuilder()
+    {
+        return $this->builder;
+    }
+
+    /**
+     * Set the resource builder object
+     *
+     * @return Client
+     */
+    protected function setInstanceCache()
+    {
+        $this->instanceCache = new InstanceCache();
+        return $this;
+    }
+
+    /**
+     * Get the resource builder instance
+     *
+     * @return InstanceCache
+     */
+    protected function getInstanceCache()
+    {
+        return $this->instanceCache;
+    }    
 
     private function requestAndBuild($method, $path, array $options = [])
     {
