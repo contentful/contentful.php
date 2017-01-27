@@ -368,6 +368,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Contentful\Query::__construct
      * @covers Contentful\Query::select
+     * @covers Contentful\Query::setContentType
+     * @covers Contentful\Query::getQueryData
      * @covers Contentful\Query::getQueryString
      */
     public function testQueryWithSelect()
@@ -375,9 +377,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $queryBuilder = new Query;
         $queryBuilder
             ->select(['foobar1', 'sys.id'])
-            ->setContentType('cat')
-            ->where('sys.id', 'foobar');
+            ->setContentType('cat');
 
-        $this->assertEquals('content_type=cat&sys.id=foobar&select=foobar1%2Csys.id', $queryBuilder->getQueryString());
+        $this->assertEquals('content_type=cat&select=foobar1%2Csys.id', $queryBuilder->getQueryString());
     }
 }

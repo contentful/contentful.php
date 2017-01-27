@@ -365,7 +365,8 @@ class Query
      * The select operator allows you to choose what to return from an entity.
      * You provide a json path and the API will return the property at that path
      *
-     * @param array $select
+     * @param  array $select
+     *
      * @return $this
      *
      * @api
