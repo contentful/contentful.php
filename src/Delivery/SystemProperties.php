@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -39,6 +39,11 @@ class SystemProperties implements \JsonSerializable
     private $revision;
 
     /**
+     * @var string|null
+     */
+    private $locale;
+
+    /**
      * @var \DateTimeImmutable|null
      */
     private $createdAt;
@@ -64,10 +69,11 @@ class SystemProperties implements \JsonSerializable
      * @param \DateTimeImmutable|null $createdAt
      * @param \DateTimeImmutable|null $updatedAt
      * @param \DateTimeImmutable|null $deletedAt
+     * @param string|null             $locale
      */
     public function __construct($id, $type, Space $space = null, ContentType $contentType = null, $revision = null,
                                 \DateTimeImmutable $createdAt = null, \DateTimeImmutable $updatedAt = null,
-                                \DateTimeImmutable $deletedAt = null)
+                                \DateTimeImmutable $deletedAt = null, $locale = null)
     {
         $this->id = $id;
         $this->type = $type;
@@ -77,6 +83,7 @@ class SystemProperties implements \JsonSerializable
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
         $this->deletedAt = $deletedAt;
+        $this->locale = $locale;
     }
 
     /**
@@ -117,6 +124,14 @@ class SystemProperties implements \JsonSerializable
     public function getRevision()
     {
         return $this->revision;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLocale()
+    {
+        return $this->locale;
     }
 
     /**
@@ -181,6 +196,9 @@ class SystemProperties implements \JsonSerializable
         if ($this->revision !== null) {
             $obj->revision = $this->revision;
         }
+        if ($this->locale !== null) {
+            $obj->locale = $this->locale;
+        }
         if ($this->createdAt !== null) {
             $obj->createdAt = $this->formatDateForJson($this->createdAt);
         }
@@ -195,7 +213,7 @@ class SystemProperties implements \JsonSerializable
     }
 
     /**
-     * Unfortunately PHP has no eeasy way to create a nice, ISO 8601 formatted date string with miliseconds and Z
+     * Unfortunately PHP has no easy way to create a nice, ISO 8601 formatted date string with milliseconds and Z
      * as the time zone specifier. Thus this hack.
      *
      * @param  \DateTimeImmutable $dt

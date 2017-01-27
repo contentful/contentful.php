@@ -11,7 +11,7 @@ use Contentful\Delivery\ContentType;
 /**
  * A sync Query can be used to limit what type of resources and events should be synced
  *
- * @see Contentful\Delivery\Synchronization\Mananager Synchronization\Mananager
+ * @see \Contentful\Delivery\Synchronization\Mananager Synchronization\Mananager
  * @api
  */
 class Query
@@ -28,7 +28,7 @@ class Query
      *
      * @var string|null
      */
-    private $contentType = null;
+    private $contentType;
 
     /**
      * Query constructor.

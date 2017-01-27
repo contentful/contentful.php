@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -11,9 +11,14 @@ use Contentful\ResourceNotFoundException;
 class DynamicEntry extends LocalizedResource implements EntryInterface
 {
     /**
-     * @var object
+     * @var array
      */
     private $fields;
+
+    /**
+     * @var array
+     */
+    private $resolvedLinks = [];
 
     /**
      * @var SystemProperties
@@ -28,17 +33,18 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     /**
      * Entry constructor.
      *
-     * @param object           $fields
+     * @param array           $fields
      * @param SystemProperties $sys
      * @param Client|null      $client
      */
-    public function __construct($fields, SystemProperties $sys, Client $client = null)
+    public function __construct(array $fields, SystemProperties $sys, Client $client = null)
     {
         parent::__construct($sys->getSpace()->getLocales());
 
         $this->fields = $fields;
         $this->sys = $sys;
         $this->client = $client;
+        $this->resolvedLinks = [];
     }
 
     public function getId()
@@ -100,7 +106,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
         }
 
-        if (!isset($this->fields->$fieldName)) {
+        if (!isset($this->fields[$fieldName])) {
             if ($fieldConfig->getType() === 'Array') {
                 return [];
             }
@@ -112,32 +118,33 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
         }
 
-        $value = $this->fields->$fieldName;
+        $value = $this->fields[$fieldName];
         if (!$fieldConfig->isLocalized()) {
             $locale = $this->getSpace()->getDefaultLocale()->getCode();
         } else {
-            $loopCounter = 0;
-            while (!isset($value->$locale)) {
-                $locale = $this->getSpace()->getLocale($locale)->getFallbackCode();
-                if ($locale === null) {
-                    // We've reach the end of the fallback chain and there's no value
-                    return null;
-                }
-                $loopCounter++;
-                // The number is arbitrary
-                if ($loopCounter > 128) {
-                    throw new \RuntimeException('Possible endless loop when trying to walk the locale fallback chain.');
-                }
+            $locale = $this->loopThroughFallbackChain($value, $locale, $this->getSpace());
+
+            // We've reach the end of the fallback chain and there's no value
+            if ($locale === null) {
+                return null;
             }
         }
 
-        $result = $value->$locale;
+        $result = $value[$locale];
         if ($getId && $fieldConfig->getType() === 'Link') {
             return $result->getId();
         }
 
         if ($result instanceof Link) {
-            return $client->resolveLink($result);
+            $cacheId = $result->getLinkType() . '-' . $result->getId();
+            if (isset($this->resolvedLinks[$cacheId])) {
+                return $this->resolvedLinks[$cacheId];
+            }
+
+            $resolvedObj = $client->resolveLink($result);
+            $this->resolvedLinks[$cacheId] = $resolvedObj;
+
+            return $resolvedObj;
         }
 
         if ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link') {
@@ -203,7 +210,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
                     ]
                 ] : null;
             default:
-                throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encountered while trying to serialze to JSON.');
+                throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encountered while trying to serialize to JSON.');
         }
     }
 
@@ -222,13 +229,19 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
 
     public function jsonSerialize()
     {
+        $entryLocale = $this->sys->getLocale();
+
         $fields = new \stdClass;
         $contentType = $this->getContentType();
         foreach ($this->fields as $fieldName => $fieldData) {
             $fields->$fieldName = new \stdClass;
             $fieldConfig = $contentType->getField($fieldName);
-            foreach ($fieldData as $locale => $data) {
-                $fields->$fieldName->$locale = $this->formatValueForJson($data, $fieldConfig);
+            if ($entryLocale) {
+                $fields->$fieldName = $this->formatValueForJson($fieldData[$entryLocale], $fieldConfig);
+            } else {
+                foreach ($fieldData as $locale => $data) {
+                    $fields->$fieldName->$locale = $this->formatValueForJson($data, $fieldConfig);
+                }
             }
         }
 
@@ -239,7 +252,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * Unfortunately PHP has no eeasy way to create a nice, ISO 8601 formatted date string with miliseconds and Z
+     * Unfortunately PHP has no easy way to create a nice, ISO 8601 formatted date string with milliseconds and Z
      * as the time zone specifier. Thus this hack.
      *
      * @param  \DateTimeImmutable $dt

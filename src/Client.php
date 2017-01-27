@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -68,7 +68,7 @@ abstract class Client
      * @param string $path
      * @param array  $options
      *
-     * @return array|object
+     * @return array
      */
     protected function request($method, $path, array $options = [])
     {
@@ -178,13 +178,13 @@ abstract class Client
     /**
      * @param  string $json JSON encoded object or array
      *
-     * @return object|array
+     * @return array
      *
      * @throws \RuntimeException On invalid JSON
      */
     protected function decodeJson($json)
     {
-        $result = json_decode($json);
+        $result = json_decode($json, true);
         if ($result === null) {
             throw new \RuntimeException(json_last_error_msg(), json_last_error());
         }

@@ -101,7 +101,7 @@ class LogEntry implements \Serializable
     }
 
     /**
-     * True if the requests errored.
+     * True if the requests threw an error.
      *
      * @return bool
      */

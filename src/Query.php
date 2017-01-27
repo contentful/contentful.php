@@ -35,7 +35,7 @@ class Query
     private $skip;
 
     /**
-     * The field to order the retrived results by
+     * The field to order the retrieved results by
      *
      * @var string|null
      */
@@ -111,11 +111,11 @@ class Query
             $data['order'] = $dir . $this->order;
         }
         foreach ($this->whereConditions as $whereCondition) {
-            $key = $whereCondition->field;
-            if ($whereCondition->operator !== null) {
-                $key .= '[' . $whereCondition->operator . ']';
+            $key = $whereCondition['field'];
+            if ($whereCondition['operator'] !== null) {
+                $key .= '[' . $whereCondition['operator'] . ']';
             }
-            $data[$key] = $whereCondition->value;
+            $data[$key] = $whereCondition['value'];
         }
         
         if (count($this->select) > 0) {
@@ -151,7 +151,7 @@ class Query
     public function setSkip($skip)
     {
         if ($skip !== null && $skip < 0) {
-            throw new \RangeException('$skip must be 0 or larget, ' . $skip . ' given.');
+            throw new \RangeException('$skip must be 0 or larger, ' . $skip . ' given.');
         }
 
         $this->skip = $skip;
@@ -352,11 +352,11 @@ class Query
             $value = $value->queryStringFormatted();
         }
 
-        array_push($this->whereConditions, (object) [
+        $this->whereConditions[] = [
             'field' => $field,
             'value' => $value,
             'operator' => $operator
-        ]);
+        ];
 
         return $this;
     }

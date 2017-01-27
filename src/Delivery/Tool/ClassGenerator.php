@@ -34,7 +34,7 @@ class ClassGenerator
     /**
      * ClassGenerator constructor.
      *
-     * Empty constructor provided for forward compatability.
+     * Empty constructor provided for forward compatibility.
      *
      * @api
      */
