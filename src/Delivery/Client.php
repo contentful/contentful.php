@@ -71,6 +71,7 @@ class Client extends BaseClient
         $this->preview = $preview;
         $this->instanceCache = $instanceCache;
         $this->builder = new ResourceBuilder($this, $instanceCache, $spaceId);
+        $this->defaultLocale = $defaultLocale;
     }
 
     /**
