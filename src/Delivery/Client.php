@@ -11,6 +11,7 @@ use Contentful\Client as BaseClient;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Query as BaseQuery;
 use Contentful\Log\LoggerInterface;
+use Contentful\ResourceNotFoundException;
 
 /**
  * A Client is used to communicate the Contentful Delivery API.
@@ -214,16 +215,19 @@ class Client extends BaseClient
      */
     public function resolveLink(Link $link)
     {
-        $id = $link->getId();
-        $type = $link->getLinkType();
+        try {
+            $id = $link->getId();
+            $type = $link->getLinkType();
 
-        switch ($link->getLinkType()) {
-            case 'Entry':
-                return $this->getEntry($id);
-            case 'Asset':
-                return $this->getAsset($id);
-            default:
-                throw new \InvalidArgumentException('Tyring to resolve link for unknown type "' . $type . '".');
+            switch ($link->getLinkType()) {
+                case 'Entry':
+                    return $this->getEntry($id);
+                case 'Asset':
+                    return $this->getAsset($id);
+                default:
+                    throw new \InvalidArgumentException('Tyring to resolve link for unknown type "' . $type . '".');
+        } catch (ResourceNotFoundException $e) {
+            return [];
         }
     }
 
