@@ -1,10 +1,10 @@
 <?php
 /**
- * @copyright 2016 Contentful GmbH
+ * @copyright 2016-2017 Contentful GmbH
  * @license   MIT
  */
 
-namespace Contentful;
+namespace Contentful\Exception;
 
 /**
  * A RateLimitExceededException is thrown when there have been too many requests.

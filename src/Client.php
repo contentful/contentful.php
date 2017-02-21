@@ -8,6 +8,8 @@ namespace Contentful;
 
 use Contentful\Log\NullLogger;
 use Contentful\Log\StandardTimer;
+use Contentful\Exception\ResourceNotFoundException;
+use Contentful\Exception\RateLimitExceededException;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;

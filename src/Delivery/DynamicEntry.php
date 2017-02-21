@@ -6,7 +6,7 @@
 
 namespace Contentful\Delivery;
 
-use Contentful\ResourceNotFoundException;
+use Contentful\Exception\ResourceNotFoundException;
 
 class DynamicEntry extends LocalizedResource implements EntryInterface
 {
