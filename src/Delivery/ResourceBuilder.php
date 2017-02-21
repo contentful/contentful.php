@@ -398,7 +398,7 @@ class ResourceBuilder
                 return $value;
             case 'Date':
                 if (is_numeric($value)) {
-                    return (new \DateTimeImmutable())->setTimestamp((int) $value);
+                    return (new \DateTimeImmutable())->setTimestamp(((int) $value) / 1000);
                 }
 
                 return new \DateTimeImmutable($value, new \DateTimeZone('UTC'));
