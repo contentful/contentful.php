@@ -11,6 +11,9 @@ use Contentful\Client as BaseClient;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Query as BaseQuery;
 use Contentful\Log\LoggerInterface;
+use Psr\Cache\CacheItemInterface;
+use Psr\Cache\CacheItemPoolInterface;
+use Psr\SimpleCache\CacheInterface;
 
 /**
  * A Client is used to communicate the Contentful Delivery API.
@@ -31,9 +34,14 @@ class Client extends BaseClient
     private $builder;
 
     /**
-     * @var InstanceCache
+     * @var CacheInterface
      */
-    private $instanceCache;
+    private $cache;
+
+    /**
+     * @var string
+     */
+    private $spaceId;
 
     /**
      * @var bool
@@ -48,29 +56,37 @@ class Client extends BaseClient
     /**
      * Client constructor.
      *
-     * @param string                $token         Delivery API Access Token for the space used with this Client
-     * @param string                $spaceId       ID of the space used with this Client.
-     * @param bool                  $preview       True to use the Preview API.
-     * @param LoggerInterface       $logger
+     * @param string $token Delivery API Access Token for the space used with this Client
+     * @param string $spaceId ID of the space used with this Client.
+     * @param bool $preview True to use the Preview API.
+     * @param CacheInterface $cache
+     * @param LoggerInterface $logger
      * @param GuzzleClientInterface $guzzle
-     * @param string|null           $defaultLocale The default is to fetch the Space's default locale. Set to a locale
+     * @param string|null $defaultLocale The default is to fetch the Space's default locale. Set to a locale
      *                                             string, e.g. "en-US" to fetch content in that locale. Set it to "*"
      *                                             to fetch content in all locales.
      *
      * @api
      */
-    public function __construct($token, $spaceId, $preview = false, LoggerInterface $logger = null, GuzzleClientInterface $guzzle = null, $defaultLocale = null)
-    {
+    public function __construct(
+        $token,
+        $spaceId,
+        $preview = false,
+        CacheInterface $cache = null,
+        LoggerInterface $logger = null,
+        GuzzleClientInterface $guzzle = null,
+        $defaultLocale = null
+    ) {
+        $this->spaceId = $spaceId;
         $baseUri = $preview ? 'https://preview.contentful.com/spaces/' : 'https://cdn.contentful.com/spaces/';
         $api = $preview ? 'PREVIEW' : 'DELIVERY';
 
-        $instanceCache = new InstanceCache;
-
-        parent::__construct($token, $baseUri . $spaceId . '/', $api, $logger, $guzzle);
+        parent::__construct($token, $baseUri . $this->spaceId . '/', $api, $logger, $guzzle);
 
         $this->preview = $preview;
-        $this->instanceCache = $instanceCache;
-        $this->builder = new ResourceBuilder($this, $instanceCache, $spaceId);
+
+        $this->cache = $cache ?: new InstanceCache();
+        $this->builder = new ResourceBuilder($this, $this->spaceId);
         $this->defaultLocale = $defaultLocale;
     }
 
@@ -85,7 +101,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @param  string      $id
+     * @param  string $id
      * @param  string|null $locale
      *
      * @return Asset
@@ -95,9 +111,24 @@ class Client extends BaseClient
     public function getAsset($id, $locale = null)
     {
         $locale = $locale === null ? $this->defaultLocale : $locale;
-        return $this->requestAndBuild('GET', 'assets/' . $id, [
+
+        $cacheKeyInfo = array($id, $locale);
+        $cacheKey = $this->getCacheKey('Asset', $cacheKeyInfo);
+        $asset = $this->cache->get($cacheKey, null);
+
+        if ($asset !== null && $asset instanceof Asset) {
+            return $asset;
+        }
+
+        $asset = $this->requestAndBuild('GET', 'assets/' . $id, [
             'query' => ['locale' => $locale]
         ]);
+
+        if ($asset !== null && $asset instanceof Asset) {
+            $this->cache->set($cacheKey, $asset);
+        }
+
+        return $asset;
     }
 
     /**
@@ -115,9 +146,22 @@ class Client extends BaseClient
             $queryData['locale'] = $this->defaultLocale;
         }
 
-        return $this->requestAndBuild('GET', 'assets', [
+        $queryKey = $this->getCacheKey('Asset', $queryData);
+        $queries = $this->cache->get('queries', null);
+        if (is_array($queries) && array_key_exists($queryKey, $queries)) {
+            return $queries[$queryKey];
+        }
+
+        $queryResult =  $this->requestAndBuild('GET', 'assets', [
             'query' => $queryData
         ]);
+
+        if (!is_array($queries)) {
+            $queries = array();
+        }
+
+        $queries[$queryKey] = $queryResult;
+        return $queryResult;
     }
 
     /**
@@ -129,11 +173,20 @@ class Client extends BaseClient
      */
     public function getContentType($id)
     {
-        if ($this->instanceCache->hasContentType($id)) {
-            return $this->instanceCache->getContentType($id);
+        $cacheKey = $this->getCacheKey('ContentType', array($id));
+        $contentType = $this->cache->get($cacheKey, null);
+
+        if ($contentType !== null && $contentType instanceof ContentType) {
+            return $contentType;
         }
 
-        return $this->requestAndBuild('GET', 'content_types/' . $id);
+        $contentType = $this->requestAndBuild('GET', 'content_types/' . $id);
+
+        if ($contentType !== null && $contentType instanceof ContentType) {
+            $this->cache->set($cacheKey, $contentType);
+        }
+
+        return $contentType;
     }
 
     /**
@@ -146,13 +199,27 @@ class Client extends BaseClient
     public function getContentTypes(BaseQuery $query = null)
     {
         $query = $query !== null ? $query : new BaseQuery;
-        return $this->requestAndBuild('GET', 'content_types', [
+
+        $queryKey = $this->getCacheKey('ContentType', array());
+        $queries = $this->cache->get('queries', null);
+        if (is_array($queries) && array_key_exists($queryKey, $queries)) {
+            return $queries[$queryKey];
+        }
+
+        $queryResult = $this->requestAndBuild('GET', 'content_types', [
             'query' => $query->getQueryData()
         ]);
+
+        if (!is_array($queries)) {
+            $queries = array();
+        }
+
+        $queries[$queryKey] = $queryResult;
+        return $queryResult;
     }
 
     /**
-     * @param  string      $id
+     * @param  string $id
      * @param  string|null $locale
      *
      * @return EntryInterface
@@ -162,9 +229,24 @@ class Client extends BaseClient
     public function getEntry($id, $locale = null)
     {
         $locale = $locale === null ? $this->defaultLocale : $locale;
-        return $this->requestAndBuild('GET', 'entries/' . $id, [
+
+        $cacheKeyInfo = array($id, $locale);
+        $cacheKey = $this->getCacheKey('Entry', $cacheKeyInfo);
+        $entry = $this->cache->get($cacheKey, null);
+
+        if ($entry !== null && $entry instanceof EntryInterface) {
+            return $entry;
+        }
+
+        $entry = $this->requestAndBuild('GET', 'entries/' . $id, [
             'query' => ['locale' => $locale]
         ]);
+
+        if ($entry !== null && $entry instanceof EntryInterface) {
+            $this->cache->set($cacheKey, $entry);
+        }
+
+        return $entry;
     }
 
     /**
@@ -182,9 +264,22 @@ class Client extends BaseClient
             $queryData['locale'] = $this->defaultLocale;
         }
 
-        return $this->requestAndBuild('GET', 'entries', [
+        $queryKey = $this->getCacheKey('Entry', array());
+        $queries = $this->cache->get('queries', null);
+        if (is_array($queries) && array_key_exists($queryKey, $queries)) {
+            return $queries[$queryKey];
+        }
+
+        $queryResult = $this->requestAndBuild('GET', 'entries', [
             'query' => $queryData
         ]);
+
+        if (!is_array($queries)) {
+            $queries = array();
+        }
+
+        $queries[$queryKey] = $queryResult;
+        return $queryResult;
     }
 
     /**
@@ -194,11 +289,20 @@ class Client extends BaseClient
      */
     public function getSpace()
     {
-        if ($this->instanceCache->hasSpace()) {
-            return $this->instanceCache->getSpace();
+        $cacheKey = $this->getCacheKey('Space', array($this->spaceId));
+        $space = $this->cache->get($cacheKey, null);
+
+        if ($space !== null && $space instanceof Space) {
+            return $space;
         }
 
-        return $this->requestAndBuild('GET', '');
+        $space = $this->requestAndBuild('GET', '');
+
+        if ($space !== null && $space instanceof Space) {
+            $this->cache->set($cacheKey, $space);
+        }
+
+        return $space;
     }
 
     /**
@@ -297,5 +401,22 @@ class Client extends BaseClient
     private function requestAndBuild($method, $path, array $options = [])
     {
         return $this->builder->buildObjectsFromRawData($this->request($method, $path, $options));
+    }
+
+    /**
+     * Retrieve cache key
+     *
+     * @param string $sysType
+     * @param array $cacheKeyInfo
+     * @return string
+     */
+    private function getCacheKey($sysType, $cacheKeyInfo)
+    {
+        $cacheKeyInfo[] = $sysType;
+
+        $cacheKey = implode('|', $cacheKeyInfo);
+        $cacheKey = sha1($cacheKey);
+
+        return $cacheKey;
     }
 }

@@ -24,10 +24,6 @@ class ResourceBuilder
      */
     private $client;
 
-    /**
-     * @var InstanceCache
-     */
-    private $instanceCache;
 
     /**
      * The ID of the space this ResourceBuilder is responsible for.
@@ -40,13 +36,11 @@ class ResourceBuilder
      * ResourceBuilder constructor.
      *
      * @param Client        $client
-     * @param InstanceCache $instanceCache
      * @param string        $spaceId
      */
-    public function __construct(DeliveryClient $client, InstanceCache $instanceCache, $spaceId)
+    public function __construct(DeliveryClient $client, $spaceId)
     {
         $this->client = $client;
-        $this->instanceCache = $instanceCache;
         $this->spaceId = $spaceId;
     }
 
@@ -218,10 +212,6 @@ class ResourceBuilder
      */
     private function buildContentType(array $data)
     {
-        if ($this->instanceCache->hasContentType($data['sys']['id'])) {
-            return $this->instanceCache->getContentType($data['sys']['id']);
-        }
-
         $sys = $this->buildSystemProperties($data['sys']);
         $fields = array_map([$this, 'buildContentTypeField'], $data['fields']);
         $displayField = isset($data['displayField']) ? $data['displayField'] : null;
@@ -232,7 +222,6 @@ class ResourceBuilder
             $displayField,
             $sys
         );
-        $this->instanceCache->addContentType($contentType);
 
         return $contentType;
     }
@@ -432,17 +421,12 @@ class ResourceBuilder
             throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "' . $this->spaceId . '" but was asked to build a resource for the space "' . $data['sys']['id'] . '"."');
         }
 
-        if ($this->instanceCache->hasSpace()) {
-            return $this->instanceCache->getSpace();
-        }
-
         $locales = [];
         foreach ($data['locales'] as $locale) {
             $locales[] = new Locale($locale['code'], $locale['name'], $locale['fallbackCode'], $locale['default']);
         }
         $sys = $this->buildSystemProperties($data['sys']);
         $space = new Space($data['name'], $locales, $sys);
-        $this->instanceCache->setSpace($space);
 
         return $space;
     }
