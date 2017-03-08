@@ -100,9 +100,9 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('happycat', $bestFriend->getId());
         $this->assertSame($bestFriend, $nyancat->getBestFriend());
 
-        // but not globally
+        // but also globally
         $happycat = $this->client->getEntry('happycat');
         $this->assertEquals($bestFriend->getId(), $happycat->getId());
-        $this->assertNotSame($bestFriend, $happycat);
+        $this->assertSame($bestFriend, $happycat);
     }
 }
