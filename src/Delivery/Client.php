@@ -11,8 +11,6 @@ use Contentful\Client as BaseClient;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Query as BaseQuery;
 use Contentful\Log\LoggerInterface;
-use Psr\Cache\CacheItemInterface;
-use Psr\Cache\CacheItemPoolInterface;
 use Psr\SimpleCache\CacheInterface;
 
 /**
