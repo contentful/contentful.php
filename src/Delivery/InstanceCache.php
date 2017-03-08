@@ -12,7 +12,7 @@ class InstanceCache implements CacheInterface
     /**
      * @var array cached instances
      */
-    private $instances = array();
+    private $instances = [];
 
     /**
      * @var string control characters for keys, reserved by PSR-16
@@ -67,10 +67,10 @@ class InstanceCache implements CacheInterface
             throw new InvalidArgumentException("Invalid TTL: " . print_r($ttl, true));
         }
 
-        $this->instances[$key] = array(
+        $this->instances[$key] = [
             'value' => $value,
             'expires_at' => $expiresAt
-        );
+        ];
 
         return true;
     }
@@ -104,7 +104,7 @@ class InstanceCache implements CacheInterface
      */
     public function clear()
     {
-        $this->instances = array();
+        $this->instances = [];
         return true;
     }
 
@@ -126,7 +126,7 @@ class InstanceCache implements CacheInterface
             throw new InvalidArgumentException("Keys must be either of type array or Traversable!");
         }
 
-        $list = array();
+        $list = [];
 
         foreach ($keys as $key) {
             $list[$key] = $this->get($key, $default);

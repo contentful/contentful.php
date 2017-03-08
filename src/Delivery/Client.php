@@ -110,7 +110,7 @@ class Client extends BaseClient
     {
         $locale = $locale === null ? $this->defaultLocale : $locale;
 
-        $cacheKeyInfo = array($id, $locale);
+        $cacheKeyInfo = [$id, $locale];
         $cacheKey = $this->getCacheKey('Asset', $cacheKeyInfo);
         $asset = $this->cache->get($cacheKey, null);
 
@@ -155,7 +155,7 @@ class Client extends BaseClient
         ]);
 
         if (!is_array($queries)) {
-            $queries = array();
+            $queries = [];
         }
 
         $queries[$queryKey] = $queryResult;
@@ -172,7 +172,7 @@ class Client extends BaseClient
      */
     public function getContentType($id)
     {
-        $cacheKey = $this->getCacheKey('ContentType', array($id));
+        $cacheKey = $this->getCacheKey('ContentType', [$id]);
         $contentType = $this->cache->get($cacheKey, null);
 
         if ($contentType !== null && $contentType instanceof ContentType) {
@@ -199,7 +199,7 @@ class Client extends BaseClient
     {
         $query = $query !== null ? $query : new BaseQuery;
 
-        $queryKey = $this->getCacheKey('ContentType', array());
+        $queryKey = $this->getCacheKey('ContentType', []);
         $queries = $this->cache->get('queries', null);
         if (is_array($queries) && array_key_exists($queryKey, $queries)) {
             return $queries[$queryKey];
@@ -210,7 +210,7 @@ class Client extends BaseClient
         ]);
 
         if (!is_array($queries)) {
-            $queries = array();
+            $queries = [];
         }
 
         $queries[$queryKey] = $queryResult;
@@ -230,7 +230,7 @@ class Client extends BaseClient
     {
         $locale = $locale === null ? $this->defaultLocale : $locale;
 
-        $cacheKeyInfo = array($id, $locale);
+        $cacheKeyInfo = [$id, $locale];
         $cacheKey = $this->getCacheKey('Entry', $cacheKeyInfo);
         $entry = $this->cache->get($cacheKey, null);
 
@@ -264,8 +264,8 @@ class Client extends BaseClient
             $queryData['locale'] = $this->defaultLocale;
         }
 
-        $queryKey = $this->getCacheKey('Entry', array());
-        $queries = $this->cache->get('queries', array());
+        $queryKey = $this->getCacheKey('Entry', []);
+        $queries = $this->cache->get('queries', []);
         if (array_key_exists($queryKey, $queries)) {
             return $queries[$queryKey];
         }
@@ -286,7 +286,7 @@ class Client extends BaseClient
      */
     public function getSpace()
     {
-        $cacheKey = $this->getCacheKey('Space', array($this->spaceId));
+        $cacheKey = $this->getCacheKey('Space', [$this->spaceId]);
         $space = $this->cache->get($cacheKey, null);
 
         if ($space !== null && $space instanceof Space) {
@@ -346,16 +346,16 @@ class Client extends BaseClient
 
         switch (get_class($result)) {
             case Space::class:
-                $cacheKey = $this->getCacheKey('Space', array($result->getId()));
+                $cacheKey = $this->getCacheKey('Space', [$result->getId()]);
                 break;
             case ContentType::class:
-                $cacheKey = $this->getCacheKey('ContentType', array($result->getId()));
+                $cacheKey = $this->getCacheKey('ContentType', [$result->getId()]);
                 break;
             case Asset::class:
-                $cacheKey = $this->getCacheKey('Asset', array($result->getId()));
+                $cacheKey = $this->getCacheKey('Asset', [$result->getId()]);
                 break;
             case DynamicEntry::class:
-                $cacheKey = $this->getCacheKey('Entry', array($result->getId()));
+                $cacheKey = $this->getCacheKey('Entry', [$result->getId()]);
                 break;
             default:
                 $cacheKey = '';
