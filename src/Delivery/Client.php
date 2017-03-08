@@ -159,6 +159,7 @@ class Client extends BaseClient
         }
 
         $queries[$queryKey] = $queryResult;
+        $this->cache->set('queries', $queries);
         return $queryResult;
     }
 
@@ -213,6 +214,7 @@ class Client extends BaseClient
         }
 
         $queries[$queryKey] = $queryResult;
+        $this->cache->set('queries', $queries);
         return $queryResult;
     }
 
@@ -263,8 +265,8 @@ class Client extends BaseClient
         }
 
         $queryKey = $this->getCacheKey('Entry', array());
-        $queries = $this->cache->get('queries', null);
-        if (is_array($queries) && array_key_exists($queryKey, $queries)) {
+        $queries = $this->cache->get('queries', array());
+        if (array_key_exists($queryKey, $queries)) {
             return $queries[$queryKey];
         }
 
@@ -272,11 +274,8 @@ class Client extends BaseClient
             'query' => $queryData
         ]);
 
-        if (!is_array($queries)) {
-            $queries = array();
-        }
-
         $queries[$queryKey] = $queryResult;
+        $this->cache->set('queries', $queries);
         return $queryResult;
     }
 
@@ -343,8 +342,30 @@ class Client extends BaseClient
     public function reviveJson($json)
     {
         $data = $this->decodeJson($json);
+        $result = $this->builder->buildObjectsFromRawData($data);
 
-        return $this->builder->buildObjectsFromRawData($data);
+        switch (get_class($result)) {
+            case Space::class:
+                $cacheKey = $this->getCacheKey('Space', array($result->getId()));
+                break;
+            case ContentType::class:
+                $cacheKey = $this->getCacheKey('ContentType', array($result->getId()));
+                break;
+            case Asset::class:
+                $cacheKey = $this->getCacheKey('Asset', array($result->getId()));
+                break;
+            case DynamicEntry::class:
+                $cacheKey = $this->getCacheKey('Entry', array($result->getId()));
+                break;
+            default:
+                $cacheKey = '';
+        }
+
+        if ($cacheKey !== '') {
+            $this->cache->set($cacheKey, $result);
+        }
+
+        return $result;
     }
 
     /**
@@ -408,9 +429,11 @@ class Client extends BaseClient
      * @param array $cacheKeyInfo
      * @return string
      */
-    private function getCacheKey($sysType, $cacheKeyInfo)
+    private function getCacheKey($sysType, array $cacheKeyInfo)
     {
-        $cacheKeyInfo[] = $sysType;
+        if ($sysType !== '') {
+            $cacheKeyInfo[] = $sysType;
+        }
 
         $cacheKey = implode('|', $cacheKeyInfo);
         $cacheKey = sha1($cacheKey);

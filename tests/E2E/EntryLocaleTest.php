@@ -71,7 +71,7 @@ class EntryLocaleTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLocaleFromClient()
     {
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, null, 'tlh');
+        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, null, null, 'tlh');
 
         $query = (new Query)
             ->setContentType('cat');
