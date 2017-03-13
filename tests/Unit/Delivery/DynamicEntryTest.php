@@ -291,6 +291,55 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @see https://github.com/contentful/contentful.php/issues/54
+     */
+    public function testSingleLocale()
+    {
+        $mockEntry = $this->getMockBuilder(DynamicEntry::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mockEntry->method('getId')
+            ->willReturn('happycat');
+
+        $mockAsset = $this->getMockBuilder(Asset::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mockAsset->method('getId')
+            ->willReturn('nyancat');
+
+        $entry = new DynamicEntry(
+            [
+                'name' => [
+                    'tlh' => 'Nyan vIghro\''
+                ],
+                'likes' => [
+                    'tlh' => ['rainbows', 'fish']
+                ],
+                'color' => [
+                    'tlh' => 'rainbow',
+                ],
+                'bestFriend' => [
+                    'tlh' => $mockEntry
+                ],
+                'birthday' => [
+                    'tlh' => new \DateTimeImmutable('2011-04-04T22:00:00+00:00')
+                ],
+                'lives' => [
+                    'tlh' =>  1337
+                ],
+                'image' => [
+                    'tlh' => $mockAsset
+                ],
+            ],
+            new SystemProperties('nyancat', 'Entry', $this->space, $this->ct, 5, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
+            null
+        );
+        $entry->setLocale('tlh');
+
+        $this->assertEquals(['rainbows', 'fish'], $entry->getLikes());
+    }
+
+    /**
      * @expectedException PHPUnit_Framework_Error
      */
     public function testNonExistingMethod()

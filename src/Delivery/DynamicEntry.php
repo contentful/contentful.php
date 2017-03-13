@@ -120,7 +120,9 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
 
         $value = $this->fields[$fieldName];
         if (!$fieldConfig->isLocalized()) {
-            $locale = $this->getSpace()->getDefaultLocale()->getCode();
+            if (!isset($value[$locale])) {
+                $locale = $this->getSpace()->getDefaultLocale()->getCode();
+            }
         } else {
             $locale = $this->loopThroughFallbackChain($value, $locale, $this->getSpace());
 
