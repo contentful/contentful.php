@@ -18,7 +18,9 @@ class GzipEncodingTest extends \PHPUnit_Framework_TestCase
     public function testContentEncodingHeader()
     {
         $logger = new ArrayLogger;
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', false, $logger);
+        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, [
+            'logger' => $logger
+        ]);
 
         $query = (new Query())
             ->setLocale('*');

@@ -21,6 +21,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Removed the caching of `Asset` and `Entry` instances. **[BREAKING]**
 * Changed the internal data format from object to array. This should make no observable difference to the public API.
 * Moved all Exception classes to their own namespace. **[BREAKING]**
+* Changed the signature of the constructor of `Contentful\Delivery\Client`. Several options are now in an options array. **[BREAKING]**
 
 ### Removed
 * Dropped `BearerToken` to make it easier to inject custom Guzzle instances. **[BREAKING]**
