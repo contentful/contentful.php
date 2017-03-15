@@ -119,7 +119,16 @@ class Query
         }
         
         if (count($this->select) > 0) {
-            $data['select'] = implode(',', $this->select);
+            // We always request all metadata to ensure the ResourceBuilder has everything it needs.
+            $select = ['sys'];
+            foreach ($this->select as $part) {
+                if ($part === 'sys' || strpos($part, 'sys.') === 0) {
+                    continue;
+                }
+                $select[] = $part;
+            }
+
+            $data['select'] = implode(',', $select);
         }
         
         return $data;
@@ -363,7 +372,9 @@ class Query
 
     /**
      * The select operator allows you to choose what to return from an entity.
-     * You provide a json path and the API will return the property at that path
+     * You provide one or multiple JSON paths and the API will return the properties at those paths.
+     *
+     * To only request the metadata simply query for 'sys'.
      *
      * @param  array $select
      *

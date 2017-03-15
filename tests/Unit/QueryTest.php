@@ -374,11 +374,22 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testQueryWithSelect()
     {
-        $queryBuilder = new Query;
-        $queryBuilder
-            ->select(['foobar1', 'sys.id'])
+        $queryBuilder = (new Query)
+            ->select(['foobar1'])
             ->setContentType('cat');
 
-        $this->assertEquals('content_type=cat&select=foobar1%2Csys.id', $queryBuilder->getQueryString());
+        $this->assertEquals('content_type=cat&select=sys%2Cfoobar1', $queryBuilder->getQueryString());
+
+        $queryBuilder = (new Query)
+            ->select(['foobar2'])
+            ->setContentType('cat');
+
+        $this->assertEquals('content_type=cat&select=sys%2Cfoobar2', $queryBuilder->getQueryString());
+
+        $queryBuilder = (new Query)
+            ->select(['sys'])
+            ->setContentType('cat');
+
+        $this->assertEquals('content_type=cat&select=sys', $queryBuilder->getQueryString());
     }
 }
