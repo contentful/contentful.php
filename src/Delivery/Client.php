@@ -108,6 +108,22 @@ class Client extends BaseClient
     }
 
     /**
+     * @param  string      $id
+     * @param  string|null $locale
+     *
+     * @return array
+     *
+     * @api
+     */
+    public function getAssetRaw($id, $locale = null)
+    {
+        $locale = $locale === null ? $this->defaultLocale : $locale;
+        return $this->request('GET', 'assets/' . $id, [
+            'query' => ['locale' => $locale]
+        ]);
+    }
+
+    /**
      * @param  BaseQuery|null $query
      *
      * @return \Contentful\ResourceArray
@@ -123,6 +139,26 @@ class Client extends BaseClient
         }
 
         return $this->requestAndBuild('GET', 'assets', [
+            'query' => $queryData
+        ]);
+    }
+
+    /**
+     * @param  BaseQuery|null $query
+     *
+     * @return array
+     *
+     * @api
+     */
+    public function getAssetsRaw(BaseQuery $query = null)
+    {
+        $query = $query !== null ? $query : new BaseQuery;
+        $queryData = $query->getQueryData();
+        if (!isset($queryData['locale'])) {
+            $queryData['locale'] = $this->defaultLocale;
+        }
+
+        return $this->request('GET', 'assets', [
             'query' => $queryData
         ]);
     }
@@ -144,6 +180,18 @@ class Client extends BaseClient
     }
 
     /**
+     * @param  string $id
+     *
+     * @return array
+     *
+     * @api
+     */
+    public function getContentTypeRaw($id)
+    {
+        return $this->request('GET', 'content_types/' . $id);
+    }
+
+    /**
      * @param  BaseQuery|null $query
      *
      * @return \Contentful\ResourceArray
@@ -154,6 +202,21 @@ class Client extends BaseClient
     {
         $query = $query !== null ? $query : new BaseQuery;
         return $this->requestAndBuild('GET', 'content_types', [
+            'query' => $query->getQueryData()
+        ]);
+    }
+
+    /**
+     * @param  BaseQuery|null $query
+     *
+     * @return array
+     *
+     * @api
+     */
+    public function getContentTypesRaw(BaseQuery $query = null)
+    {
+        $query = $query !== null ? $query : new BaseQuery;
+        return $this->request('GET', 'content_types', [
             'query' => $query->getQueryData()
         ]);
     }
@@ -170,6 +233,22 @@ class Client extends BaseClient
     {
         $locale = $locale === null ? $this->defaultLocale : $locale;
         return $this->requestAndBuild('GET', 'entries/' . $id, [
+            'query' => ['locale' => $locale]
+        ]);
+    }
+
+    /**
+     * @param  string      $id
+     * @param  string|null $locale
+     *
+     * @return array
+     *
+     * @api
+     */
+    public function getEntryRaw($id, $locale = null)
+    {
+        $locale = $locale === null ? $this->defaultLocale : $locale;
+        return $this->request('GET', 'entries/' . $id, [
             'query' => ['locale' => $locale]
         ]);
     }
@@ -195,6 +274,26 @@ class Client extends BaseClient
     }
 
     /**
+     * @param  BaseQuery $query
+     *
+     * @return array
+     *
+     * @api
+     */
+    public function getEntriesRaw(BaseQuery $query = null)
+    {
+        $query = $query !== null ? $query : new BaseQuery;
+        $queryData = $query->getQueryData();
+        if (!isset($queryData['locale'])) {
+            $queryData['locale'] = $this->defaultLocale;
+        }
+
+        return $this->request('GET', 'entries', [
+            'query' => $queryData
+        ]);
+    }
+
+    /**
      * @return \Contentful\Delivery\Space
      *
      * @api
@@ -206,6 +305,16 @@ class Client extends BaseClient
         }
 
         return $this->requestAndBuild('GET', '');
+    }
+
+    /**
+     * @return array
+     *
+     * @api
+     */
+    public function getSpaceRaw()
+    {
+        return $this->request('GET', '');
     }
 
     /**
