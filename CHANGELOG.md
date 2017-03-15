@@ -13,7 +13,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Allow injecting a custom Guzzle instance into `Client`.
 * Allow fetching content in a single locale by adding the locale code to the query. **[BREAKING]**
   **MIGRATION:** To retain the old behavior set the default locale to `'*''` when creating the client. This could look
-  like: `new Client($token, $spaceID, false, null, null, '*')`
+  like: `new Client($token, $spaceID, false, null, ['defaultLocale => '*'])`
 * Allow setting the locale in which you work when creating the client.
 
 ### Changed
