@@ -13,13 +13,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Allow injecting a custom Guzzle instance into `Client`.
 * Allow fetching content in a single locale by adding the locale code to the query. **[BREAKING]**
   **MIGRATION:** To retain the old behavior set the default locale to `'*''` when creating the client. This could look
-  like: `new Client($token, $spaceID, false, null, null, '*')`
+  like: `new Client($token, $spaceID, false, null, ['defaultLocale => '*'])`
 * Allow setting the locale in which you work when creating the client.
+* Allow overriding the URI used to connect with the Contentful API.
 
 ### Changed
 * Changed the behavior of getting an array of links to not throw an exception when one of them has been deleted from the space. ([#19](https://github.com/contentful/contentful.php/pull/19))
 * Removed the caching of `Asset` and `Entry` instances. **[BREAKING]**
 * Changed the internal data format from object to array. This should make no observable difference to the public API.
+* Moved all Exception classes to their own namespace. **[BREAKING]**
+* Changed the signature of the constructor of `Contentful\Delivery\Client`. Several options are now in an options array. **[BREAKING]**
 
 ### Removed
 * Dropped `BearerToken` to make it easier to inject custom Guzzle instances. **[BREAKING]**

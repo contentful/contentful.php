@@ -65,4 +65,20 @@ class EntryLocaleTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertEquals('Nyan vIghro\'', $entries[0]->getName());
     }
+
+    /**
+     * @vcr e2e_entry_locale_from_client.json
+     */
+    public function testGetLocaleFromClient()
+    {
+        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', false, 'tlh');
+
+        $query = (new Query)
+            ->setContentType('cat');
+        $entries = $client->getEntries($query);
+
+        $this->assertInstanceOf(ResourceArray::class, $entries);
+        $this->assertEquals('Nyan vIghro\'', $entries[0]->getName());
+        $this->assertNull($entries[0]->getName('en-US'));
+    }
 }

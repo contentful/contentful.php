@@ -15,7 +15,7 @@ use Contentful\Delivery\Link;
 use Contentful\Delivery\Locale;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
-use Contentful\ResourceNotFoundException;
+use Contentful\Exception\ResourceNotFoundException;
 
 class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 {

@@ -6,11 +6,9 @@
 
 namespace Contentful\Delivery;
 
-use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use Contentful\Client as BaseClient;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Query as BaseQuery;
-use Contentful\Log\LoggerInterface;
 
 /**
  * A Client is used to communicate the Contentful Delivery API.
@@ -51,18 +49,35 @@ class Client extends BaseClient
      * @param string                $token         Delivery API Access Token for the space used with this Client
      * @param string                $spaceId       ID of the space used with this Client.
      * @param bool                  $preview       True to use the Preview API.
-     * @param LoggerInterface       $logger
-     * @param GuzzleClientInterface $guzzle
      * @param string|null           $defaultLocale The default is to fetch the Space's default locale. Set to a locale
      *                                             string, e.g. "en-US" to fetch content in that locale. Set it to "*"
      *                                             to fetch content in all locales.
+     * @param array                 $options       An array of optional configuration options. The following keys are possible:
+     *                                              * guzzle      Override the guzzle instance used by the Contentful client
+     *                                              * logger      Inject a Contentful logger
+     *                                              * uriOverride Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/'). The trailing slash is required.
      *
      * @api
      */
-    public function __construct($token, $spaceId, $preview = false, LoggerInterface $logger = null, GuzzleClientInterface $guzzle = null, $defaultLocale = null)
+    public function __construct($token, $spaceId, $preview = false, $defaultLocale = null, array $options = [])
     {
-        $baseUri = $preview ? 'https://preview.contentful.com/spaces/' : 'https://cdn.contentful.com/spaces/';
+        $baseUri = $preview ? 'https://preview.contentful.com/' : 'https://cdn.contentful.com/';
         $api = $preview ? 'PREVIEW' : 'DELIVERY';
+
+        $options = array_replace([
+            'guzzle' => null,
+            'logger' => null,
+            'uriOverride' => null,
+        ], $options);
+
+        $guzzle = $options['guzzle'];
+        $logger = $options['logger'];
+        $uriOverride = $options['uriOverride'];
+
+        if ($uriOverride !== null) {
+            $baseUri = $uriOverride;
+        }
+        $baseUri .= 'spaces/';
 
         $instanceCache = new InstanceCache;
 
@@ -71,6 +86,7 @@ class Client extends BaseClient
         $this->preview = $preview;
         $this->instanceCache = $instanceCache;
         $this->builder = new ResourceBuilder($this, $instanceCache, $spaceId);
+        $this->defaultLocale = $defaultLocale;
     }
 
     /**
