@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   like: `new Client($token, $spaceID, false, null, ['defaultLocale => '*'])`
 * Allow setting the locale in which you work when creating the client.
 * Allow overriding the URI used to connect with the Contentful API.
+* The `select` operator can now be specified on queries.
 
 ### Changed
 * Changed the behavior of getting an array of links to not throw an exception when one of them has been deleted from the space. ([#19](https://github.com/contentful/contentful.php/pull/19))

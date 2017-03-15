@@ -70,6 +70,13 @@ class Query
     private $whereConditions = [];
 
     /**
+     * Filter entity result
+     *
+     * @var array
+     */
+    private $select = [];    
+    
+    /**
      * Query constructor.
      *
      * Empty for now, included for forward compatibility.
@@ -110,7 +117,20 @@ class Query
             }
             $data[$key] = $whereCondition['value'];
         }
+        
+        if (count($this->select) > 0) {
+            // We always request all metadata to ensure the ResourceBuilder has everything it needs.
+            $select = ['sys'];
+            foreach ($this->select as $part) {
+                if ($part === 'sys' || strpos($part, 'sys.') === 0) {
+                    continue;
+                }
+                $select[] = $part;
+            }
 
+            $data['select'] = implode(',', $select);
+        }
+        
         return $data;
     }
 
@@ -349,4 +369,23 @@ class Query
 
         return $this;
     }
+
+    /**
+     * The select operator allows you to choose what to return from an entity.
+     * You provide one or multiple JSON paths and the API will return the properties at those paths.
+     *
+     * To only request the metadata simply query for 'sys'.
+     *
+     * @param  array $select
+     *
+     * @return $this
+     *
+     * @api
+     */
+    public function select(array $select)
+    {
+        $this->select = $select;
+
+        return $this;
+    }    
 }

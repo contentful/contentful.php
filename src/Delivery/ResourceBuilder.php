@@ -250,7 +250,10 @@ class ResourceBuilder
     {
         $sys = $this->buildSystemProperties($data['sys']);
         $locale = $sys->getLocale();
-        $fields = $this->buildFields($sys->getContentType(), $data['fields'], $locale, $rawDataList, $depthCount);
+        $fields = [];
+        if (isset($data['fields'])) {
+            $fields = $this->buildFields($sys->getContentType(), $data['fields'], $locale, $rawDataList, $depthCount);
+        }
 
         $entry = new DynamicEntry(
             $fields,
