@@ -11,6 +11,7 @@ use Contentful\Log\StandardTimer;
 use Contentful\Exception\ResourceNotFoundException;
 use Contentful\Exception\RateLimitExceededException;
 use Contentful\Exception\InvalidQueryException;
+use Contentful\Exception\AccessTokenInvalidException;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
@@ -118,6 +119,12 @@ abstract class Client
                 $result = $this->decodeJson($response->getBody());
                 if ($result['sys']['id'] === 'InvalidQuery') {
                     throw new InvalidQueryException($result['message'], 0, $e);
+                }
+            }
+            if ($response->getStatusCode() === 401) {
+                $result = $this->decodeJson($response->getBody());
+                if ($result['sys']['id'] === 'AccessTokenInvalid') {
+                    throw new AccessTokenInvalidException($result['message'], 0, $e);
                 }
             }
 

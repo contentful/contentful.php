@@ -12,6 +12,16 @@ use Contentful\Delivery\Query;
 class ErrorTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @expectedException \Contentful\Exception\AccessTokenInvalidException
+     * @vcr e2e_error_access_token_invalid.json
+     */
+    public function testAccessTokenInvalid()
+    {
+        $client = new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi');
+        $client->getEntries();
+    }
+
+    /**
      * @expectedException \Contentful\Exception\InvalidQueryException
      * @vcr e2e_error_invalid_query.json
      */
