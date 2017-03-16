@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Allow overriding the URI used to connect with the Contentful API.
 * The `select` operator can now be specified on queries.
 * Introduced `InvalidQueryException` for more specific error handling. **[BREAKING]**
+* Introduced `AccessTokenInvalidException` for more specific error handling. **[BREAKING]**
 
 ### Changed
 * Changed the behavior of getting an array of links to not throw an exception when one of them has been deleted from the space. ([#19](https://github.com/contentful/contentful.php/pull/19))
