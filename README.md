@@ -88,7 +88,7 @@ Documentation
 License
 =======
 
-Copyright (c) 2015-2016 Contentful GmbH. Code released under the MIT license. See [LICENSE][2] for further details.
+Copyright (c) 2015-2017 Contentful GmbH. Code released under the MIT license. See [LICENSE][2] for further details.
 
  [1]: https://www.contentful.com
  [2]: LICENSE
