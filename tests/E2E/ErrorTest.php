@@ -12,6 +12,17 @@ use Contentful\Delivery\Query;
 class ErrorTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @expectedException \Contentful\Exception\ResourceNotFoundException
+     * @vcr e2e_error_resource_not_found.json
+     */
+    public function testResourceNotFound()
+    {
+        $client = new Client('b4c0n73n7fu1', 'cfexampleapi');
+
+        $client->getEntry('not-existing');
+    }
+
+    /**
      * @expectedException \Contentful\Exception\AccessTokenInvalidException
      * @vcr e2e_error_access_token_invalid.json
      */
