@@ -110,7 +110,8 @@ abstract class Client
         } catch (ClientException $e) {
             $response = $e->getResponse();
             if ($response->getStatusCode() === 404) {
-                throw new ResourceNotFoundException(null, 0, $e);
+                $result = $this->decodeJson($response->getBody());
+                throw new ResourceNotFoundException($result['message'], 0, $e);
             }
             if ($response->getStatusCode() === 429) {
                 throw new RateLimitExceededException(null, 0, $e);
