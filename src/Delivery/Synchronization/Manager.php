@@ -30,20 +30,27 @@ class Manager
     private $builder;
 
     /**
+     * @var bool
+     */
+    private $preview;
+
+    /**
      * Manager constructor.
      *
      * Do not instantiate this class yourself, use Contentful\Delivery\Client::getSynchronizationManager instead.
      *
      * @param Client          $client
      * @param ResourceBuilder $builder
+     * @param bool            $preview
      *
      * @see \Contentful\Delivery\Client::get
      * @internal
      */
-    public function __construct(Client $client, ResourceBuilder $builder)
+    public function __construct(Client $client, ResourceBuilder $builder, $preview)
     {
         $this->client = $client;
         $this->builder = $builder;
+        $this->preview = $preview;
     }
 
     /**
@@ -51,7 +58,7 @@ class Manager
      *
      * By calling Result::isDone it can be checked if there's another page of results, if so call `continueSync` to get the next page.
      *
-     * A Query can be used to reduce only a subset of the space.
+     * A Query can be used to return only a subset of the space.
      *
      * @param  Query|null $query
      *
@@ -74,11 +81,16 @@ class Manager
      *
      * @return Result
      *
+     * @throws \RuntimeException If this method is used for a subsequent sync when used with the Preview API.
+     *
      * @api
      */
     public function continueSync($token)
     {
         if ($token instanceof Result) {
+            if ($this->preview && $token->isDone()) {
+                throw new \RuntimeException();
+            }
             $token = $token->getToken();
         }
 
@@ -103,7 +115,12 @@ class Manager
             $done = false;
             $token = $this->getTokenFromUrl($data['nextPageUrl']);
         }
-        $items = array_map([$this->builder, 'buildObjectsFromRawData'], $data['items']);
+        $items = array_map(function ($item) {
+            if (isset($item['sys']['locale'])) {
+                unset($item['sys']['locale']);
+            }
+            $this->builder->buildObjectsFromRawData($item);
+        }, $data['items']);
 
         return new Result($items, $token, $done);
     }

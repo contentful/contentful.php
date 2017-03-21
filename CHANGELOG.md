@@ -28,6 +28,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Changed the internal data format from object to array. This should make no observable difference to the public API.
 * Moved all Exception classes to their own namespace. **[BREAKING]**
 * Changed the signature of the constructor of `Contentful\Delivery\Client`. Several options are now in an options array. **[BREAKING]**
+* The Sync API can now also be used with the Preview API. Only initial syncs are supported.
 
 ### Removed
 * Dropped `BearerToken` to make it easier to inject custom Guzzle instances. **[BREAKING]**
