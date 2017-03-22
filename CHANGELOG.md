@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * The `select` operator can now be specified on queries.
 * Introduced `InvalidQueryException` for more specific error handling. **[BREAKING]**
 * Introduced `AccessTokenInvalidException` for more specific error handling. **[BREAKING]**
+* Support for the `all` operator and passing arrays as `$value` in `Query::where()`.
 
 ### Changed
 * Changed the behavior of getting an array of links to not throw an exception when one of them has been deleted from the space. ([#19](https://github.com/contentful/contentful.php/pull/19))
