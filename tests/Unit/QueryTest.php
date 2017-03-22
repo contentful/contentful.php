@@ -172,6 +172,21 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Contentful\Query::__construct
+     * @covers Contentful\Query::orderBy
+     * @covers Contentful\Query::getQueryData
+     * @covers Contentful\Query::getQueryString
+     */
+    public function testFilterOrderByMultiple()
+    {
+        $queryBuilder = (new Query)
+            ->orderBy('sys.createdAt')
+            ->orderBy('sys.updatedAt', true);
+
+        $this->assertEquals('order=sys.createdAt%2C-sys.updatedAt', $queryBuilder->getQueryString());
+    }
+
+    /**
+     * @covers Contentful\Query::__construct
      * @covers Contentful\Query::setContentType
      * @covers Contentful\Query::getContentType
      */
