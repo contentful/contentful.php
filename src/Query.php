@@ -35,13 +35,6 @@ class Query
     private $skip;
 
     /**
-     * The field to order the retrieved results by
-     *
-     * @var string|null
-     */
-    private $order;
-
-    /**
      * For entries, limit results to this content type
      *
      * @var string|null
@@ -56,11 +49,11 @@ class Query
     private $mimeTypeGroup;
 
     /**
-     * Whether the order of the retrieved results should be reversed.
+     * List of fields to order by
      *
-     * @var bool
+     * @var array
      */
-    private $orderReversed = false;
+    private $orderConditions = [];
 
     /**
      * List of fields for filters
@@ -103,12 +96,13 @@ class Query
             'mimetype_group' => $this->mimeTypeGroup
         ];
 
-        if ($this->order !== null) {
-            $dir = '';
-            if ($this->orderReversed) {
-                $dir .= '-';
+        if (count($this->orderConditions) > 0) {
+            $parts = [];
+            foreach ($this->orderConditions as $condition) {
+                $parts[] = ($condition['reverse'] ? '-' : '') . $condition['field'];
             }
-            $data['order'] = $dir . $this->order;
+
+            $data['order'] = implode(',', $parts);
         }
         foreach ($this->whereConditions as $whereCondition) {
             $key = $whereCondition['field'];
@@ -218,7 +212,7 @@ class Query
      * Set the order of the items retrieved by this query.
      *
      * Note that when ordering Entries by fields you must set the content_type URI query parameter to the ID of
-     * the Content Type you want to filter by.
+     * the Content Type you want to filter by. Can be called multiple times to order by multiple values.
      *
      * @param  string|null $field
      * @param  bool        $reverse
@@ -229,8 +223,10 @@ class Query
      */
     public function orderBy($field, $reverse = false)
     {
-        $this->order = $field;
-        $this->orderReversed = $reverse;
+        $this->orderConditions[] = [
+            'field' => $field,
+            'reverse' => $reverse
+        ];
 
         return $this;
     }
@@ -273,6 +269,8 @@ class Query
      * @param  string|null $group
      *
      * @return $this
+     *
+     * @throws \InvalidArgumentException if $group is not a valid value
      *
      * @api
      */
