@@ -291,22 +291,17 @@ class Client extends BaseClient
     }
 
     /**
-     * Get an instance of the synchronization manager.
+     * Get an instance of the synchronization manager. Note that with the Preview API only an inital sync
+     * is giving valid results.
      *
      * @return Manager
-     *
-     * @throws \RuntimeException If this method is called while using the Preview API.
      *
      * @see https://www.contentful.com/developers/docs/concepts/sync/ Sync API
      * @api
      */
     public function getSynchronizationManager()
     {
-        if ($this->preview) {
-            throw new \RuntimeException('SynchronizationManager is not available for the Preview API.');
-        }
-
-        return new Manager($this, $this->builder);
+        return new Manager($this, $this->builder, $this->preview);
     }
 
     private function requestAndBuild($method, $path, array $options = [])
