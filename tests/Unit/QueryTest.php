@@ -293,6 +293,20 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Contentful\Query::__construct
      * @covers Contentful\Query::where
+     * @covers Contentful\Query::getQueryData
+     * @covers Contentful\Query::getQueryString
+     */
+    public function testWhereArray()
+    {
+        $queryBuilder = new Query;
+        $queryBuilder->where('fields.favoriteColor', ['blue', 'red'], 'all');
+
+        $this->assertEquals('fields.favoriteColor%5Ball%5D=blue%2Cred', $queryBuilder->getQueryString());
+    }
+
+    /**
+     * @covers Contentful\Query::__construct
+     * @covers Contentful\Query::where
      *
      * @expectedException \InvalidArgumentException
      */

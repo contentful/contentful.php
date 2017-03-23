@@ -10,6 +10,8 @@ use Contentful\Log\NullLogger;
 use Contentful\Log\StandardTimer;
 use Contentful\Exception\ResourceNotFoundException;
 use Contentful\Exception\RateLimitExceededException;
+use Contentful\Exception\InvalidQueryException;
+use Contentful\Exception\AccessTokenInvalidException;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
@@ -106,11 +108,25 @@ abstract class Client
         try {
             return $this->httpClient->send($request, $options);
         } catch (ClientException $e) {
-            if ($e->getResponse()->getStatusCode() === 404) {
-                throw new ResourceNotFoundException(null, 0, $e);
+            $response = $e->getResponse();
+            if ($response->getStatusCode() === 404) {
+                $result = $this->decodeJson($response->getBody());
+                throw new ResourceNotFoundException($result['message'], 0, $e);
             }
-            if ($e->getResponse()->getStatusCode() === 429) {
+            if ($response->getStatusCode() === 429) {
                 throw new RateLimitExceededException(null, 0, $e);
+            }
+            if ($response->getStatusCode() === 400) {
+                $result = $this->decodeJson($response->getBody());
+                if ($result['sys']['id'] === 'InvalidQuery') {
+                    throw new InvalidQueryException($result['message'], 0, $e);
+                }
+            }
+            if ($response->getStatusCode() === 401) {
+                $result = $this->decodeJson($response->getBody());
+                if ($result['sys']['id'] === 'AccessTokenInvalid') {
+                    throw new AccessTokenInvalidException($result['message'], 0, $e);
+                }
             }
 
             throw $e;

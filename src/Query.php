@@ -194,7 +194,7 @@ class Query
     public function setLimit($limit)
     {
         if ($limit !== null && ($limit < 1 || $limit > 1000)) {
-            throw new \RangeException('$maxResults must be between 0 and 1000, ' . $limit . ' given.');
+            throw new \RangeException('$maxResults must be between 1 and 1000, ' . $limit . ' given.');
         }
 
         $this->limit = $limit;
@@ -314,6 +314,7 @@ class Query
      *
      * Valid operators are
      * - ne
+     * - all
      * - in
      * - nin
      * - exists
@@ -325,10 +326,10 @@ class Query
      * - near
      * - within
      *
-     * @param  string                                         $field
-     * @param  string|\DateTimeInterface|\Contentful\Location $value
-     * @param  string|null                                    $operator The operator to use for this condition.
-     *                                                                  Default is strict equality.
+     * @param  string                                               $field
+     * @param  string|array|\DateTimeInterface|\Contentful\Location $value
+     * @param  string|null                                          $operator The operator to use for this condition.
+     *                                                                        Default is strict equality.
      * @return $this
      *
      * @throws \InvalidArgumentException If $operator is not one of the valid values
@@ -338,7 +339,8 @@ class Query
     public function where($field, $value, $operator = null)
     {
         $validOperators = [
-            'ne', // No equal
+            'ne', // Not equal
+            'all', // Multiple values
             'in', // Includes
             'nin', // Excludes
             'exists', // Exists
@@ -359,6 +361,9 @@ class Query
         }
         if ($value instanceof Location) {
             $value = $value->queryStringFormatted();
+        }
+        if (is_array($value)) {
+            $value = implode(',', $value);
         }
 
         $this->whereConditions[] = [

@@ -17,6 +17,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Allow setting the locale in which you work when creating the client.
 * Allow overriding the URI used to connect with the Contentful API.
 * The `select` operator can now be specified on queries.
+* Introduced `InvalidQueryException` for more specific error handling. **[BREAKING]**
+* Introduced `AccessTokenInvalidException` for more specific error handling. **[BREAKING]**
+* Support for the `all` operator and passing arrays as `$value` in `Query::where()`.
 
 ### Changed
 * Changed the behavior of getting an array of links to not throw an exception when one of them has been deleted from the space. ([#19](https://github.com/contentful/contentful.php/pull/19))
@@ -33,6 +36,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Handling of missing values for a locale in Assets. Solved by implementing fallback locales for Assets too.
 * Fields that have the literal value `null` are now treated like they don't exist. Previously they might have causes a
 fatal error. **Note:** This does not 100% match the behaviour of the Contentful API.
+* The error message for `Query::setLimit` was incorrect.
 
 ## [0.6.5-beta](https://github.com/contentful/contentful.php/tree/0.6.5-beta) (2016-09-10)
 
