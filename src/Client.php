@@ -13,6 +13,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Exception\ClientException;
 use Contentful\Log\LoggerInterface;
 use GuzzleHttp\Psr7;
+use Symfony\Component\Cache\Adapter\AdapterInterface as CacheAdapterInterface;
 
 /**
  * Abstract client for common code for the different clients.
@@ -22,22 +23,27 @@ abstract class Client
     /**
      * @var GuzzleClient
      */
-    private $httpClient;
+    protected $httpClient;
 
     /**
      * @var string
      */
-    private $baseUri;
+    protected $baseUri;
 
     /**
      * @var LoggerInterface
      */
-    private $logger;
+    protected $logger;
 
     /**
      * @var string
      */
-    private $api;
+    protected $api;
+
+    /**
+     * @var CacheAdapterInterface
+     */
+    protected $cache;
 
     /**
      * Client constructor.
@@ -45,13 +51,16 @@ abstract class Client
      * @param string          $token
      * @param string          $baseUri
      * @param string          $api
+     * @param CacheAdapterInterface $cache
      * @param LoggerInterface $logger
      */
-    public function __construct($token, $baseUri, $api, LoggerInterface $logger = null)
+    public function __construct($token, $baseUri, $api, CacheAdapterInterface $cache, LoggerInterface $logger = null)
     {
         $stack = HandlerStack::create();
         $stack->push(new BearerToken($token));
         $this->logger = $logger ?: new NullLogger();
+
+        $this->cache = $cache;
 
         $this->api = $api;
         $this->baseUri = $baseUri;
@@ -78,26 +87,36 @@ abstract class Client
         }
         $request = $this->buildRequest($method, $path, $query);
 
-        // We define this variable so it's also available in the catch block.
-        $response = null;
         try {
-            $response = $this->doRequest($request, $options);
-            $result = $this->decodeJson($response->getBody());
+            $cacheKey = preg_replace('#[{}()\/\\@:]+#', '', $request->getUri());
+
+            $cacheItem = $this->cache->getItem($cacheKey);
+            if (! $cacheItem->isHit()) {
+                $cacheItem->set($this->getContents($request, $options));
+                $this->cache->save($cacheItem);
+            }
+
+            $result = $this->decodeJson($cacheItem->get());
         }
         catch (\Exception $e) {
             $timer->stop();
-            $this->logger->log($this->api, $request, $timer, $response, $e);
 
             throw $e;
         }
 
         $timer->stop();
-        $this->logger->log($this->api, $request, $timer, $response);
 
         return $result;
     }
 
-    private function doRequest($request, $options)
+    protected function getContents($request, $options)
+    {
+        $response = $this->doRequest($request, $options);
+
+        return $response->getBody()->getContents();
+    }
+
+    protected function doRequest($request, $options)
     {
         try {
             return $this->httpClient->send($request, $options);
@@ -119,7 +138,7 @@ abstract class Client
      *
      * @throws \InvalidArgumentException If $query is not a valid type
      */
-    private function buildRequest($method, $path, $query = null)
+    protected function buildRequest($method, $path, $query = null)
     {
         $contentTypes = [
             'DELIVERY' => 'application/vnd.contentful.delivery.v1+json',

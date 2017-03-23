@@ -10,6 +10,7 @@ use Contentful\Client as BaseClient;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Query as BaseQuery;
 use Contentful\Log\LoggerInterface;
+use Symfony\Component\Cache\Adapter\AdapterInterface as CacheAdapterInterface;
 
 /**
  * A Client is used to communicate the Contentful Delivery API.
@@ -45,18 +46,19 @@ class Client extends BaseClient
      * @param string          $token   Delivery API Access Token for the space used with this Client
      * @param string          $spaceId ID of the space used with this Client.
      * @param bool            $preview True to use the Preview API.
+     * @param CacheAdapterInterface $cache
      * @param LoggerInterface $logger
      *
      * @api
      */
-    public function __construct($token, $spaceId, $preview = false, LoggerInterface $logger = null)
+    public function __construct($token, $spaceId, $preview = false, CacheAdapterInterface $cache, LoggerInterface $logger = null)
     {
         $baseUri = $preview ? 'https://preview.contentful.com/spaces/' : 'https://cdn.contentful.com/spaces/';
         $api = $preview ? 'PREVIEW' : 'DELIVERY';
 
         $instanceCache = new InstanceCache;
 
-        parent::__construct($token, $baseUri . $spaceId . '/', $api, $logger);
+        parent::__construct($token, $baseUri . $spaceId . '/', $api, $cache, $logger);
 
         $this->preview = $preview;
         $this->instanceCache = $instanceCache;
