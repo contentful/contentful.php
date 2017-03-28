@@ -67,7 +67,7 @@ class Query
      *
      * @var array
      */
-    private $select = [];    
+    private $select = [];
     
     /**
      * Query constructor.
@@ -390,5 +390,5 @@ class Query
         $this->select = $select;
 
         return $this;
-    }    
+    }
 }

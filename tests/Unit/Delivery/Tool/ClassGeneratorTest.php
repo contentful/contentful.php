@@ -23,12 +23,12 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetClass($id, $className)
     {
-       $generator = new ClassGenerator;
-       $contentType = $this->getMockBuilder(ContentType::class)
+        $generator = new ClassGenerator;
+        $contentType = $this->getMockBuilder(ContentType::class)
            ->disableOriginalConstructor()
            ->getMock();
 
-       $contentType->method('getId')
+        $contentType->method('getId')
            ->willReturn($id);
 
         $this->assertEquals($className, $generator->getClassName($contentType));
