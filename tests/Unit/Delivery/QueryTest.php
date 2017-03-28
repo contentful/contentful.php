@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -36,5 +36,33 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $query->setInclude(50);
 
         $this->assertEquals('include=50', $query->getQueryString());
+    }
+
+    /**
+     * @covers Contentful\Delivery\Query::__construct
+     * @covers Contentful\Delivery\Query::setLocale
+     * @covers Contentful\Delivery\Query::getLocale
+     */
+    public function testGetSetLocale()
+    {
+        $query = new Query;
+        $query->setLocale('de-DE');
+
+        $this->assertEquals('de-DE', $query->getLocale());
+    }
+
+    /**
+     * @covers Contentful\Delivery\Query::__construct
+     * @covers Contentful\Delivery\Query::setLocale
+     * @covers Contentful\Delivery\Query::getQueryData
+     * @covers Contentful\Query::getQueryData
+     * @covers Contentful\Query::getQueryString
+     */
+    public function testQueryStringLocale()
+    {
+        $query = new Query;
+        $query->setLocale('de-DE');
+
+        $this->assertEquals('locale=de-DE', $query->getQueryString());
     }
 }

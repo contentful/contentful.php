@@ -394,7 +394,7 @@ class ImageOptions
     }
 
     /**
-     * Add rounded corners to your image or crop to a circle/elipsis
+     * Add rounded corners to your image or crop to a circle/ellipsis
      *
      * @param  float|null $radius A float value defining the corner radius.
      *

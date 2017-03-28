@@ -11,10 +11,34 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Added support for the `webp` format in the Images API.
 * Introduced `RateLimitExceededException` for more specific error handling. **[BREAKING]**
 * Allow injecting a custom Guzzle instance into `Client`.
+* Allow fetching content in a single locale by adding the locale code to the query. **[BREAKING]**
+  **MIGRATION:** To retain the old behavior set the default locale to `'*''` when creating the client. This could look
+  like: `new Client($token, $spaceID, false, null, ['defaultLocale => '*'])`
+* Allow setting the locale in which you work when creating the client.
+* Allow overriding the URI used to connect with the Contentful API.
+* The `select` operator can now be specified on queries.
+* Introduced `InvalidQueryException` for more specific error handling. **[BREAKING]**
+* Introduced `AccessTokenInvalidException` for more specific error handling. **[BREAKING]**
+* Support for the `all` operator and passing arrays as `$value` in `Query::where()`.
+* Support for ordering by multiple fields.
 
 ### Changed
 * Changed the behavior of getting an array of links to not throw an exception when one of them has been deleted from the space. ([#19](https://github.com/contentful/contentful.php/pull/19))
-* Drop `BearerToken` to make it easier to inject custom Guzzle instances. **[BREAKING]**
+* Removed the caching of `Asset` and `Entry` instances. **[BREAKING]**
+* Changed the internal data format from object to array. This should make no observable difference to the public API.
+* Moved all Exception classes to their own namespace. **[BREAKING]**
+* Changed the signature of the constructor of `Contentful\Delivery\Client`. Several options are now in an options array. **[BREAKING]**
+* The Sync API can now also be used with the Preview API. Only initial syncs are supported.
+
+### Removed
+* Dropped `BearerToken` to make it easier to inject custom Guzzle instances. **[BREAKING]**
+
+### Fixed
+* Assets that have no title would throw an uncaught exception.
+* Handling of missing values for a locale in Assets. Solved by implementing fallback locales for Assets too.
+* Fields that have the literal value `null` are now treated like they don't exist. Previously they might have causes a
+fatal error. **Note:** This does not 100% match the behaviour of the Contentful API.
+* The error message for `Query::setLimit` was incorrect.
 
 ## [0.6.5-beta](https://github.com/contentful/contentful.php/tree/0.6.5-beta) (2016-09-10)
 

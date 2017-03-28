@@ -1,13 +1,14 @@
 <?php
 
-use Symfony\CS\Config\Config;
-use Symfony\CS\Finder\DefaultFinder;
-use Symfony\CS\FixerInterface;
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
 
-$finder = DefaultFinder::create()
+$finder = Finder::create()
     ->in('src');
 
 return Config::create()
-    ->finder($finder)
-    ->level(FixerInterface::PSR2_LEVEL)
+    ->setFinder($finder)
+    ->setRules(array(
+      '@PSR2' => true
+    ))
     ->setUsingCache(true);

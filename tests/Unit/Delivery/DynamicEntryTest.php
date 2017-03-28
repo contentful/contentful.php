@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -15,7 +15,7 @@ use Contentful\Delivery\Link;
 use Contentful\Delivery\Locale;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
-use Contentful\ResourceNotFoundException;
+use Contentful\Exception\ResourceNotFoundException;
 
 class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 {
@@ -93,27 +93,27 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->willReturn('nyancat');
 
         $this->entry = new DynamicEntry(
-            (object) [
-                'name' => (object) [
+            [
+                'name' => [
                     'en-US' => 'Nyan Cat',
                     'tlh' => 'Nyan vIghro\''
                 ],
-                'likes' => (object) [
+                'likes' => [
                     'en-US' => ['rainbows', 'fish']
                 ],
-                'color' => (object) [
+                'color' => [
                     'en-US' => 'rainbow',
                 ],
-                'bestFriend' => (object) [
+                'bestFriend' => [
                     'en-US' => $mockEntry
                 ],
-                'birthday' => (object) [
+                'birthday' => [
                     'en-US' => new \DateTimeImmutable('2011-04-04T22:00:00+00:00')
                 ],
-                'lives' => (object) [
+                'lives' => [
                     'en-US' =>  1337
                 ],
-                'image' => (object) [
+                'image' => [
                     'en-US' => $mockAsset
                 ],
             ],
@@ -153,8 +153,8 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $crookshanksEntry = new DynamicEntry(
-            (object) [
-                'name' => (object) [
+            [
+                'name' => [
                     'en-US' => 'Crookshanks'
                 ]
             ],
@@ -163,11 +163,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         );
 
         $garfieldEntry = new DynamicEntry(
-            (object) [
-                'name' => (object) [
+            [
+                'name' => [
                     'en-US' => 'Garfield'
                 ],
-                'friend' => (object) [
+                'friend' => [
                     'en-US' => new Link('crookshanks', 'Entry')
                 ]
             ],
@@ -210,11 +210,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         );
 
         $entry = new DynamicEntry(
-            (object) [
-                'name' => (object) [
+            [
+                'name' => [
                     'en-US' => 'Test Entry'
                 ],
-                'youTubeId' => (object) [
+                'youTubeId' => [
                     'en-US' => 'l6xdPQ_O8e8',
                 ]
             ],
@@ -243,11 +243,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $crookshanksEntry = new DynamicEntry(
-            (object) [
-                'name' => (object) [
+            [
+                'name' => [
                     'en-US' => 'Crookshanks'
                 ],
-                'friends' => (object) [
+                'friends' => [
                     'en-US' => []
                 ]
             ],
@@ -256,11 +256,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         );
 
         $garfieldEntry = new DynamicEntry(
-            (object) [
-                'name' => (object) [
+            [
+                'name' => [
                     'en-US' => 'Garfield'
                 ],
-                'friends' => (object) [
+                'friends' => [
                     'en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')]
                 ]
             ],
@@ -288,6 +288,55 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(1, $friends);
         $this->assertSame($crookshanksEntry, $friends[0]);
+    }
+
+    /**
+     * @see https://github.com/contentful/contentful.php/issues/54
+     */
+    public function testSingleLocale()
+    {
+        $mockEntry = $this->getMockBuilder(DynamicEntry::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mockEntry->method('getId')
+            ->willReturn('happycat');
+
+        $mockAsset = $this->getMockBuilder(Asset::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mockAsset->method('getId')
+            ->willReturn('nyancat');
+
+        $entry = new DynamicEntry(
+            [
+                'name' => [
+                    'tlh' => 'Nyan vIghro\''
+                ],
+                'likes' => [
+                    'tlh' => ['rainbows', 'fish']
+                ],
+                'color' => [
+                    'tlh' => 'rainbow',
+                ],
+                'bestFriend' => [
+                    'tlh' => $mockEntry
+                ],
+                'birthday' => [
+                    'tlh' => new \DateTimeImmutable('2011-04-04T22:00:00+00:00')
+                ],
+                'lives' => [
+                    'tlh' =>  1337
+                ],
+                'image' => [
+                    'tlh' => $mockAsset
+                ],
+            ],
+            new SystemProperties('nyancat', 'Entry', $this->space, $this->ct, 5, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
+            null
+        );
+        $entry->setLocale('tlh');
+
+        $this->assertEquals(['rainbows', 'fish'], $entry->getLikes());
     }
 
     /**

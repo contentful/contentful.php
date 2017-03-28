@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -8,6 +8,10 @@ namespace Contentful;
 
 use Contentful\Log\NullLogger;
 use Contentful\Log\StandardTimer;
+use Contentful\Exception\ResourceNotFoundException;
+use Contentful\Exception\RateLimitExceededException;
+use Contentful\Exception\InvalidQueryException;
+use Contentful\Exception\AccessTokenInvalidException;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
@@ -68,7 +72,7 @@ abstract class Client
      * @param string $path
      * @param array  $options
      *
-     * @return array|object
+     * @return array
      */
     protected function request($method, $path, array $options = [])
     {
@@ -104,11 +108,25 @@ abstract class Client
         try {
             return $this->httpClient->send($request, $options);
         } catch (ClientException $e) {
-            if ($e->getResponse()->getStatusCode() === 404) {
-                throw new ResourceNotFoundException(null, 0, $e);
+            $response = $e->getResponse();
+            if ($response->getStatusCode() === 404) {
+                $result = $this->decodeJson($response->getBody());
+                throw new ResourceNotFoundException($result['message'], 0, $e);
             }
-            if ($e->getResponse()->getStatusCode() === 429) {
+            if ($response->getStatusCode() === 429) {
                 throw new RateLimitExceededException(null, 0, $e);
+            }
+            if ($response->getStatusCode() === 400) {
+                $result = $this->decodeJson($response->getBody());
+                if ($result['sys']['id'] === 'InvalidQuery') {
+                    throw new InvalidQueryException($result['message'], 0, $e);
+                }
+            }
+            if ($response->getStatusCode() === 401) {
+                $result = $this->decodeJson($response->getBody());
+                if ($result['sys']['id'] === 'AccessTokenInvalid') {
+                    throw new AccessTokenInvalidException($result['message'], 0, $e);
+                }
             }
 
             throw $e;
@@ -178,13 +196,13 @@ abstract class Client
     /**
      * @param  string $json JSON encoded object or array
      *
-     * @return object|array
+     * @return array
      *
      * @throws \RuntimeException On invalid JSON
      */
     protected function decodeJson($json)
     {
-        $result = json_decode($json);
+        $result = json_decode($json, true);
         if ($result === null) {
             throw new \RuntimeException(json_last_error_msg(), json_last_error());
         }

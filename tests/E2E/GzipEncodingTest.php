@@ -1,6 +1,6 @@
 <?php
 /*
- * @copyright 2016 Contentful GmbH
+ * @copyright 2016-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -8,6 +8,7 @@ namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Client;
 use Contentful\Log\ArrayLogger;
+use Contentful\Delivery\Query;
 
 class GzipEncodingTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,9 +18,13 @@ class GzipEncodingTest extends \PHPUnit_Framework_TestCase
     public function testContentEncodingHeader()
     {
         $logger = new ArrayLogger;
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', false, $logger);
+        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, [
+            'logger' => $logger
+        ]);
 
-        $client->getEntries();
+        $query = (new Query())
+            ->setLocale('*');
+        $client->getEntries($query);
 
         $logEntry = $logger->getLogs()[0];
 

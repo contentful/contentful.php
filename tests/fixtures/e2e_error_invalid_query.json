@@ -1,0 +1,44 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/entries?name=0",
+        "headers": {
+            "Host": "cdn.contentful.com",
+            "User-Agent": "ContentfulCDA\/0.7.0-dev GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.0.14",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer b4c0n73n7fu1",
+            "Accept": null
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "400",
+            "message": "Bad Request"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "86400",
+            "Cache-Control": "max-age=0",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "b871986b66a33cecd8e4b62202f3809c",
+            "Content-Length": "438",
+            "Accept-Ranges": "bytes",
+            "Date": "Thu, 16 Mar 2017 16:32:40 GMT",
+            "Via": "1.1 varnish",
+            "Age": "0",
+            "Connection": "keep-alive",
+            "X-Served-By": "cache-hhn1522-HHN",
+            "X-Cache": "MISS",
+            "X-Cache-Hits": "0",
+            "X-Timer": "S1489681960.119344,VS0,VE215"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"InvalidQuery\"\n  },\n  \"message\": \"The query you sent was invalid. Probably a filter or ordering specification is not applicable to the type of a field.\",\n  \"details\": {\n    \"errors\": [\n      {\n        \"name\": \"unknown\",\n        \"path\": [\n          \"name\"\n        ],\n        \"details\": \"The path \\\"name\\\" is not recognized\"\n      }\n    ]\n  },\n  \"requestId\": \"b871986b66a33cecd8e4b62202f3809c\"\n}\n"
+    }
+}]

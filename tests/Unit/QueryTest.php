@@ -172,6 +172,21 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Contentful\Query::__construct
+     * @covers Contentful\Query::orderBy
+     * @covers Contentful\Query::getQueryData
+     * @covers Contentful\Query::getQueryString
+     */
+    public function testFilterOrderByMultiple()
+    {
+        $queryBuilder = (new Query)
+            ->orderBy('sys.createdAt')
+            ->orderBy('sys.updatedAt', true);
+
+        $this->assertEquals('order=sys.createdAt%2C-sys.updatedAt', $queryBuilder->getQueryString());
+    }
+
+    /**
+     * @covers Contentful\Query::__construct
      * @covers Contentful\Query::setContentType
      * @covers Contentful\Query::getContentType
      */
@@ -293,6 +308,20 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Contentful\Query::__construct
      * @covers Contentful\Query::where
+     * @covers Contentful\Query::getQueryData
+     * @covers Contentful\Query::getQueryString
+     */
+    public function testWhereArray()
+    {
+        $queryBuilder = new Query;
+        $queryBuilder->where('fields.favoriteColor', ['blue', 'red'], 'all');
+
+        $this->assertEquals('fields.favoriteColor%5Ball%5D=blue%2Cred', $queryBuilder->getQueryString());
+    }
+
+    /**
+     * @covers Contentful\Query::__construct
+     * @covers Contentful\Query::where
      *
      * @expectedException \InvalidArgumentException
      */
@@ -363,5 +392,33 @@ class QueryTest extends \PHPUnit_Framework_TestCase
             ->where('sys.updatedAt', new \DateTimeImmutable('2013-01-01T00:00:00Z'), 'lte');
 
         $this->assertEquals('limit=150&skip=10&content_type=cat&order=sys.createdAt&sys.id=nyancat&sys.updatedAt%5Blte%5D=2013-01-01T00%3A00%3A00%2B00%3A00', (string) $queryBuilder->getQueryString());
+    }
+
+    /**
+     * @covers Contentful\Query::__construct
+     * @covers Contentful\Query::select
+     * @covers Contentful\Query::setContentType
+     * @covers Contentful\Query::getQueryData
+     * @covers Contentful\Query::getQueryString
+     */
+    public function testQueryWithSelect()
+    {
+        $queryBuilder = (new Query)
+            ->select(['foobar1'])
+            ->setContentType('cat');
+
+        $this->assertEquals('content_type=cat&select=sys%2Cfoobar1', $queryBuilder->getQueryString());
+
+        $queryBuilder = (new Query)
+            ->select(['foobar2'])
+            ->setContentType('cat');
+
+        $this->assertEquals('content_type=cat&select=sys%2Cfoobar2', $queryBuilder->getQueryString());
+
+        $queryBuilder = (new Query)
+            ->select(['sys'])
+            ->setContentType('cat');
+
+        $this->assertEquals('content_type=cat&select=sys', $queryBuilder->getQueryString());
     }
 }

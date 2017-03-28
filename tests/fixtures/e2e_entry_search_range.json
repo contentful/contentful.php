@@ -1,10 +1,10 @@
 [{
     "request": {
         "method": "GET",
-        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/entries?sys.updatedAt%5Blte%5D=2013-01-01T00%3A00%3A00%2B00%3A00&locale=%2A",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/entries?sys.updatedAt%5Blte%5D=2013-01-01T00%3A00%3A00%2B00%3A00",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "ContentfulCDA\/0.7.0-dev GuzzleHttp\/6.2.1 curl\/7.49.1 PHP\/7.0.9",
+            "User-Agent": "ContentfulCDA\/0.7.0-dev GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.0.14",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1",
@@ -27,18 +27,18 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "ETag": "\"29f2c21be26360c424f617d8592cf6f9\"",
             "Server": "Contentful",
-            "X-Content-Type-Options": "nosniff, nosniff",
-            "X-Contentful-Request-Id": "3884136b34716b1bdd08c416f718c009",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "0e4492602d7dae759c6eafcfea16b6c2",
             "Content-Length": "97",
             "Accept-Ranges": "bytes",
-            "Date": "Wed, 30 Nov 2016 14:08:50 GMT",
+            "Date": "Thu, 16 Mar 2017 16:49:54 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-lcy1124-LCY",
+            "X-Served-By": "cache-hhn1530-HHN",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
-            "X-Timer": "S1480514930.102148,VS0,VE93",
+            "X-Timer": "S1489682994.690146,VS0,VE110",
             "Vary": "Accept-Encoding"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 0,\n  \"skip\": 0,\n  \"limit\": 100,\n  \"items\": []\n}\n"

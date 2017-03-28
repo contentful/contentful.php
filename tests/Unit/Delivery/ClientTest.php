@@ -31,14 +31,4 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($client->isPreview());
     }
-
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function testGetSynchronizationPreview()
-    {
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', true);
-
-        $client->getSynchronizationManager();
-    }
 }

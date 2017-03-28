@@ -35,13 +35,6 @@ class Query
     private $skip;
 
     /**
-     * The field to order the retrived results by
-     *
-     * @var string|null
-     */
-    private $order;
-
-    /**
      * For entries, limit results to this content type
      *
      * @var string|null
@@ -56,11 +49,11 @@ class Query
     private $mimeTypeGroup;
 
     /**
-     * Whether the order of the retrieved results should be reversed.
+     * List of fields to order by
      *
-     * @var bool
+     * @var array
      */
-    private $orderReversed = false;
+    private $orderConditions = [];
 
     /**
      * List of fields for filters
@@ -69,6 +62,13 @@ class Query
      */
     private $whereConditions = [];
 
+    /**
+     * Filter entity result
+     *
+     * @var array
+     */
+    private $select = [];    
+    
     /**
      * Query constructor.
      *
@@ -96,21 +96,35 @@ class Query
             'mimetype_group' => $this->mimeTypeGroup
         ];
 
-        if ($this->order !== null) {
-            $dir = '';
-            if ($this->orderReversed) {
-                $dir .= '-';
+        if (count($this->orderConditions) > 0) {
+            $parts = [];
+            foreach ($this->orderConditions as $condition) {
+                $parts[] = ($condition['reverse'] ? '-' : '') . $condition['field'];
             }
-            $data['order'] = $dir . $this->order;
+
+            $data['order'] = implode(',', $parts);
         }
         foreach ($this->whereConditions as $whereCondition) {
-            $key = $whereCondition->field;
-            if ($whereCondition->operator !== null) {
-                $key .= '[' . $whereCondition->operator . ']';
+            $key = $whereCondition['field'];
+            if ($whereCondition['operator'] !== null) {
+                $key .= '[' . $whereCondition['operator'] . ']';
             }
-            $data[$key] = $whereCondition->value;
+            $data[$key] = $whereCondition['value'];
         }
+        
+        if (count($this->select) > 0) {
+            // We always request all metadata to ensure the ResourceBuilder has everything it needs.
+            $select = ['sys'];
+            foreach ($this->select as $part) {
+                if ($part === 'sys' || strpos($part, 'sys.') === 0) {
+                    continue;
+                }
+                $select[] = $part;
+            }
 
+            $data['select'] = implode(',', $select);
+        }
+        
         return $data;
     }
 
@@ -140,7 +154,7 @@ class Query
     public function setSkip($skip)
     {
         if ($skip !== null && $skip < 0) {
-            throw new \RangeException('$skip must be 0 or larget, ' . $skip . ' given.');
+            throw new \RangeException('$skip must be 0 or larger, ' . $skip . ' given.');
         }
 
         $this->skip = $skip;
@@ -174,7 +188,7 @@ class Query
     public function setLimit($limit)
     {
         if ($limit !== null && ($limit < 1 || $limit > 1000)) {
-            throw new \RangeException('$maxResults must be between 0 and 1000, ' . $limit . ' given.');
+            throw new \RangeException('$maxResults must be between 1 and 1000, ' . $limit . ' given.');
         }
 
         $this->limit = $limit;
@@ -198,7 +212,7 @@ class Query
      * Set the order of the items retrieved by this query.
      *
      * Note that when ordering Entries by fields you must set the content_type URI query parameter to the ID of
-     * the Content Type you want to filter by.
+     * the Content Type you want to filter by. Can be called multiple times to order by multiple values.
      *
      * @param  string|null $field
      * @param  bool        $reverse
@@ -209,8 +223,10 @@ class Query
      */
     public function orderBy($field, $reverse = false)
     {
-        $this->order = $field;
-        $this->orderReversed = $reverse;
+        $this->orderConditions[] = [
+            'field' => $field,
+            'reverse' => $reverse
+        ];
 
         return $this;
     }
@@ -254,6 +270,8 @@ class Query
      *
      * @return $this
      *
+     * @throws \InvalidArgumentException if $group is not a valid value
+     *
      * @api
      */
     public function setMimeTypeGroup($group)
@@ -294,6 +312,7 @@ class Query
      *
      * Valid operators are
      * - ne
+     * - all
      * - in
      * - nin
      * - exists
@@ -305,10 +324,10 @@ class Query
      * - near
      * - within
      *
-     * @param  string                                         $field
-     * @param  string|\DateTimeInterface|\Contentful\Location $value
-     * @param  string|null                                    $operator The operator to use for this condition.
-     *                                                                  Default is strict equality.
+     * @param  string                                               $field
+     * @param  string|array|\DateTimeInterface|\Contentful\Location $value
+     * @param  string|null                                          $operator The operator to use for this condition.
+     *                                                                        Default is strict equality.
      * @return $this
      *
      * @throws \InvalidArgumentException If $operator is not one of the valid values
@@ -318,7 +337,8 @@ class Query
     public function where($field, $value, $operator = null)
     {
         $validOperators = [
-            'ne', // No equal
+            'ne', // Not equal
+            'all', // Multiple values
             'in', // Includes
             'nin', // Excludes
             'exists', // Exists
@@ -340,13 +360,35 @@ class Query
         if ($value instanceof Location) {
             $value = $value->queryStringFormatted();
         }
+        if (is_array($value)) {
+            $value = implode(',', $value);
+        }
 
-        array_push($this->whereConditions, (object) [
+        $this->whereConditions[] = [
             'field' => $field,
             'value' => $value,
             'operator' => $operator
-        ]);
+        ];
 
         return $this;
     }
+
+    /**
+     * The select operator allows you to choose what to return from an entity.
+     * You provide one or multiple JSON paths and the API will return the properties at those paths.
+     *
+     * To only request the metadata simply query for 'sys'.
+     *
+     * @param  array $select
+     *
+     * @return $this
+     *
+     * @api
+     */
+    public function select(array $select)
+    {
+        $this->select = $select;
+
+        return $this;
+    }    
 }
