@@ -13,7 +13,8 @@
     "require-dev": {
         "php-vcr/phpunit-testlistener-vcr": "^1.1",
         "jakub-onderka/php-parallel-lint": "^0.9.2",
-        "jakub-onderka/php-console-highlighter": "^0.3.2"
+        "jakub-onderka/php-console-highlighter": "^0.3.2",
+        "friendsofphp/php-cs-fixer": "~2"
     },
     "autoload": {
         "psr-4": {

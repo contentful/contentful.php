@@ -177,7 +177,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 
         $client->expects($this->any())
             ->method('resolveLink')
-            ->willReturnCallback(function(Link $link) use ($garfieldEntry, $crookshanksEntry) {
+            ->willReturnCallback(function (Link $link) use ($garfieldEntry, $crookshanksEntry) {
                 $id = $link->getId();
 
                 if ($id === 'garfield') {
@@ -270,7 +270,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 
         $client->expects($this->any())
             ->method('resolveLink')
-            ->willReturnCallback(function(Link $link) use ($garfieldEntry, $crookshanksEntry) {
+            ->willReturnCallback(function (Link $link) use ($garfieldEntry, $crookshanksEntry) {
                 $id = $link->getId();
 
                 if ($id === 'garfield') {
