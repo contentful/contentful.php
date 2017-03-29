@@ -249,7 +249,7 @@ class Client extends BaseClient
      *
      * @return Asset|ContentType|DynamicEntry|Space|Synchronization\DeletedAsset|Synchronization\DeletedEntry|\Contentful\ResourceArray
      *
-     * @throws SpaceMismatchException When attempting to revive JSON belonging to a different space
+     * @throws \Contentful\Exception\SpaceMismatchException When attempting to revive JSON belonging to a different space
      *
      * @api
      */

@@ -11,6 +11,7 @@ use Contentful\Delivery\Synchronization\DeletedAsset;
 use Contentful\Delivery\Synchronization\DeletedEntry;
 use Contentful\Location;
 use Contentful\ResourceArray;
+use Contentful\Exception\SpaceMismatchException;
 
 /**
  * The ResourceBuilder is responsible for turning the responses from the API into instances of PHP classes.
