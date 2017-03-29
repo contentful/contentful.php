@@ -135,6 +135,13 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('happycat', $entry->getBestFriend()->getId());
     }
 
+    public function testIdGetter()
+    {
+        $entry = $this->entry;
+
+        $this->assertEquals('happycat', $entry->getBestFriendId());
+    }
+
     public function testLinkResolution()
     {
         $ct = new ContentType(
