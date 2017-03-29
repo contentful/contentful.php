@@ -91,20 +91,23 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         $client = $this->client;
         $locale = $this->getLocaleFromInput(isset($arguments[0]) ? $arguments[0] : null);
 
-        $fieldName = lcfirst(substr($name, 3));
+        $fieldName = substr($name, 3);
         $getId = false;
 
-        $fieldConfig = $this->getContentType()->getField($fieldName);
+        $fieldConfig = $this->getFieldConfigForName($fieldName);
         // If the field name doesn't exist, that might be because we're looking for the ID of reference, try that next.
         if ($fieldConfig === null && substr($fieldName, -2) === 'Id') {
             $fieldName = substr($fieldName, 0, -2);
-            $fieldConfig = $this->getContentType()->getField($fieldName);
+            $fieldConfig = $this->getFieldConfigForName($fieldName);
             $getId = true;
         }
 
         if ($fieldConfig === null || $fieldConfig->isDisabled()) {
             trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
         }
+
+        // Since DynamicEntry::getFieldForName manipulates the field name let's make sure we got the correct one
+        $fieldName = $fieldConfig->getId();
 
         if (!isset($this->fields[$fieldName])) {
             if ($fieldConfig->getType() === 'Array') {
@@ -160,6 +163,18 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         }
 
         return $result;
+    }
+
+    private function getFieldConfigForName($fieldName)
+    {
+        // Let's try the lower case version first, it's the more common one
+        $field = $this->getContentType()->getField(lcfirst($fieldName));
+
+        if ($field !== null) {
+            return $field;
+        }
+
+        return $this->getContentType()->getField($fieldName);
     }
 
     /**

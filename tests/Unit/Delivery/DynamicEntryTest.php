@@ -65,6 +65,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                 new ContentTypeField('likes', 'Likes', 'Array', null, 'Symbol', false, false),
                 new ContentTypeField('color', 'Color', 'Symbol', null, null, false, false),
                 new ContentTypeField('bestFriend', 'Best Friend', 'Link', 'Entry', null, false, false),
+                new ContentTypeField('Enemy', 'Enemy', 'Link', 'Entry', null, false, false),
                 new ContentTypeField('birthday', 'Birthday', 'Date', null, null, false, false),
                 new ContentTypeField('lifes', 'Lifes left', 'Integer', null, null, false, false, true),
                 new ContentTypeField('lives', 'Lives left', 'Integer', null, null, false, false),
@@ -86,6 +87,12 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $mockEntry->method('getId')
             ->willReturn('happycat');
 
+        $mockEntryEnemy = $this->getMockBuilder(DynamicEntry::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mockEntryEnemy->method('getId')
+            ->willReturn('garfield');
+
         $mockAsset = $this->getMockBuilder(Asset::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -106,6 +113,9 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                 ],
                 'bestFriend' => [
                     'en-US' => $mockEntry
+                ],
+                'Enemy' => [
+                    'en-US' => $mockEntryEnemy
                 ],
                 'birthday' => [
                     'en-US' => new \DateTimeImmutable('2011-04-04T22:00:00+00:00')
@@ -133,6 +143,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->space, $entry->getSpace());
         $this->assertEquals($this->ct, $entry->getContentType());
         $this->assertEquals('happycat', $entry->getBestFriend()->getId());
+        $this->assertEquals('garfield', $entry->getEnemy()->getId());
     }
 
     public function testIdGetter()
@@ -140,6 +151,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $entry = $this->entry;
 
         $this->assertEquals('happycat', $entry->getBestFriendId());
+        $this->assertEquals('garfield', $entry->getEnemyId());
     }
 
     public function testLinkResolution()
@@ -386,6 +398,6 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 
     public function testJsonSerialize()
     {
-        $this->assertJsonStringEqualsJsonString('{"fields":{"name":{"en-US":"Nyan Cat","tlh":"Nyan vIghro\'"},"likes":{"en-US":["rainbows","fish"]},"color":{"en-US":"rainbow"},"bestFriend":{"en-US":{"sys":{"type":"Link","linkType":"Entry","id":"happycat"}}},"birthday":{"en-US":"2011-04-04T22:00:00.000Z"},"lives":{"en-US":1337},"image":{"en-US":{"sys":{"type":"Link","linkType":"Asset","id":"nyancat"}}}},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"type":"Entry","contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"cat"}},"id":"nyancat","revision":5,"createdAt":"2013-06-27T22:46:19.513Z","updatedAt":"2013-09-04T09:19:39.027Z"}}', json_encode($this->entry));
+        $this->assertJsonStringEqualsJsonString('{"fields":{"name":{"en-US":"Nyan Cat","tlh":"Nyan vIghro\'"},"likes":{"en-US":["rainbows","fish"]},"color":{"en-US":"rainbow"},"bestFriend":{"en-US":{"sys":{"type":"Link","linkType":"Entry","id":"happycat"}}},"Enemy":{"en-US":{"sys":{"type":"Link","linkType":"Entry","id":"garfield"}}},"birthday":{"en-US":"2011-04-04T22:00:00.000Z"},"lives":{"en-US":1337},"image":{"en-US":{"sys":{"type":"Link","linkType":"Asset","id":"nyancat"}}}},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"type":"Entry","contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"cat"}},"id":"nyancat","revision":5,"createdAt":"2013-06-27T22:46:19.513Z","updatedAt":"2013-09-04T09:19:39.027Z"}}', json_encode($this->entry));
     }
 }
