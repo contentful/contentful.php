@@ -40,6 +40,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Fields that have the literal value `null` are now treated like they don't exist. Previously they might have causes a
 fatal error. **Note:** This does not 100% match the behaviour of the Contentful API.
 * The error message for `Query::setLimit` was incorrect.
+* Allow accessing fields where the first letter of the ID is capitalized. ([#68](https://github.com/contentful/contentful.php/pull/68))
 
 ## [0.6.5-beta](https://github.com/contentful/contentful.php/tree/0.6.5-beta) (2016-09-10)
 
