@@ -5,6 +5,7 @@ php:
   - 5.5
   - 5.6
   - 7.0
+  - 7.1
 
 matrix:
   fast_finish: true
@@ -14,8 +15,9 @@ branches:
     - gh-pages
 
 before_install:
- - wget https://github.com/satooshi/php-coveralls/releases/download/v0.7.0/coveralls.phar
- - wget -O phpunit.phar https://phar.phpunit.de/phpunit-4.8.27.phar
+ - wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
+ - if [ "${TRAVIS_PHP_VERSION:0:3}" == "5.5" ]; then PHPUNIT_VERSION=4.8; else PHPUNIT_VERSION=5.7; fi
+ - wget -O phpunit.phar https://phar.phpunit.de/phpunit-${PHPUNIT_VERSION}.phar
 
 install:
   - composer self-update
