@@ -32,6 +32,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 * Dropped `BearerToken` to make it easier to inject custom Guzzle instances. **[BREAKING]**
+* The class generator has been removed. It was unusable.
 
 ### Fixed
 * Assets that have no title would throw an uncaught exception.
