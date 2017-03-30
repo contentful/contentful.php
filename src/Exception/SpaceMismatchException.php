@@ -1,10 +1,10 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
-namespace Contentful\Delivery;
+namespace Contentful\Exception;
 
 /**
  * A SpaceMismatchException is thrown when attempting to create a Resource for a different Space than the one configured for the client.
