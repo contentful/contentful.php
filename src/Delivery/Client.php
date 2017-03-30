@@ -7,6 +7,9 @@
 namespace Contentful\Delivery;
 
 use Contentful\Client as BaseClient;
+use Contentful\Delivery\Cache\FilesystemCache;
+use Contentful\Delivery\Cache\NullCache;
+use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Query as BaseQuery;
 
@@ -44,6 +47,11 @@ class Client extends BaseClient
     private $defaultLocale;
 
     /**
+     * @var \Contentful\Delivery\Cache\CacheInterface
+     */
+    private $cacheManager;
+
+    /**
      * Client constructor.
      *
      * @param string                $token         Delivery API Access Token for the space used with this Client
@@ -56,6 +64,7 @@ class Client extends BaseClient
      *                                              * guzzle      Override the guzzle instance used by the Contentful client
      *                                              * logger      Inject a Contentful logger
      *                                              * uriOverride Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/'). The trailing slash is required.
+     *                                              * cacheDir    Path to the cache directory to be used to read metadata. The client never writes to the cache, use the CLI to warm up the cache.
      *
      * @api
      */
@@ -68,24 +77,25 @@ class Client extends BaseClient
             'guzzle' => null,
             'logger' => null,
             'uriOverride' => null,
+            'cacheDir' => null
         ], $options);
 
         $guzzle = $options['guzzle'];
         $logger = $options['logger'];
         $uriOverride = $options['uriOverride'];
+        $cacheDir = $options['cacheDir'];
 
         if ($uriOverride !== null) {
             $baseUri = $uriOverride;
         }
         $baseUri .= 'spaces/';
 
-        $instanceCache = new InstanceCache;
-
         parent::__construct($token, $baseUri . $spaceId . '/', $api, $logger, $guzzle);
 
         $this->preview = $preview;
-        $this->instanceCache = $instanceCache;
-        $this->builder = new ResourceBuilder($this, $instanceCache, $spaceId);
+        $this->instanceCache = new InstanceCache;
+        $this->cacheManager = $cacheDir === null ? new NullCache : new FilesystemCache($cacheDir, $spaceId);
+        $this->builder = new ResourceBuilder($this, $this->instanceCache, $this->cacheManager, $spaceId);
         $this->defaultLocale = $defaultLocale;
     }
 
@@ -146,6 +156,11 @@ class Client extends BaseClient
     {
         if ($this->instanceCache->hasContentType($id)) {
             return $this->instanceCache->getContentType($id);
+        }
+
+        $cache = $this->cacheManager->readContentType($id);
+        if ($cache !== null) {
+            return $this->reviveJson($cache);
         }
 
         return $this->requestAndBuild('GET', 'content_types/' . $id);
@@ -211,6 +226,11 @@ class Client extends BaseClient
     {
         if ($this->instanceCache->hasSpace()) {
             return $this->instanceCache->getSpace();
+        }
+
+        $cache = $this->cacheManager->readSpace();
+        if ($cache !== null) {
+            return $this->reviveJson($cache);
         }
 
         return $this->requestAndBuild('GET', '');

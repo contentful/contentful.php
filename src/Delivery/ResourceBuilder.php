@@ -9,6 +9,8 @@ namespace Contentful\Delivery;
 use Contentful\Delivery\Client as DeliveryClient;
 use Contentful\Delivery\Synchronization\DeletedAsset;
 use Contentful\Delivery\Synchronization\DeletedEntry;
+use Contentful\Delivery\Cache\InstanceCache;
+use Contentful\Delivery\Cache\CacheInterface;
 use Contentful\Location;
 use Contentful\ResourceArray;
 use Contentful\Exception\SpaceMismatchException;
@@ -31,6 +33,11 @@ class ResourceBuilder
     private $instanceCache;
 
     /**
+     * @var CacheInterface
+     */
+    private $filesystemCache;
+
+    /**
      * The ID of the space this ResourceBuilder is responsible for.
      *
      * @var string
@@ -44,10 +51,11 @@ class ResourceBuilder
      * @param InstanceCache $instanceCache
      * @param string        $spaceId
      */
-    public function __construct(DeliveryClient $client, InstanceCache $instanceCache, $spaceId)
+    public function __construct(DeliveryClient $client, InstanceCache $instanceCache, CacheInterface $filesystemCache, $spaceId)
     {
         $this->client = $client;
         $this->instanceCache = $instanceCache;
+        $this->filesystemCache = $filesystemCache;
         $this->spaceId = $spaceId;
     }
 
@@ -221,6 +229,11 @@ class ResourceBuilder
     {
         if ($this->instanceCache->hasContentType($data['sys']['id'])) {
             return $this->instanceCache->getContentType($data['sys']['id']);
+        }
+
+        $cache = $this->filesystemCache->readContentType($data['sys']['id']);
+        if ($cache !== null) {
+            return $this->client->reviveJson($cache);
         }
 
         $sys = $this->buildSystemProperties($data['sys']);
