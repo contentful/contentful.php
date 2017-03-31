@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -39,7 +39,7 @@ class ImageFileTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetter()
     {
-        $this->assertEquals('//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png', $this->file->getUrl());
+        $this->assertEquals('https://images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png', $this->file->getUrl());
         $this->assertEquals(250, $this->file->getWidth());
         $this->assertEquals(250, $this->file->getHeight());
     }
@@ -61,7 +61,7 @@ class ImageFileTest extends \PHPUnit_Framework_TestCase
             ->willReturn('fm=jpg&q=50');
 
         $this->assertEquals(
-            '//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png?fm=jpg&q=50',
+            'https://images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png?fm=jpg&q=50',
             $this->file->getUrl($stub)
         );
     }

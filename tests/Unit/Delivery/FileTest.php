@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -36,8 +36,24 @@ class FileTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('Nyan_cat_250px_frame.png', $this->file->getFileName());
         $this->assertEquals('image/png', $this->file->getContentType());
-        $this->assertEquals('//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png', $this->file->getUrl());
+        $this->assertEquals('https://images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png', $this->file->getUrl());
         $this->assertEquals(12273, $this->file->getSize());
+    }
+
+    /**
+     * @covers \Contentful\Delivery\File::__construct
+     * @covers \Contentful\Delivery\File::getUrl
+     */
+    public function testNoUlrChangeWithProtocol()
+    {
+        $file = new File(
+            'Nyan_cat_250px_frame.png',
+            'image/png',
+            'http://images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png',
+            12273
+        );
+
+        $this->assertEquals('http://images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png', $file->getUrl());
     }
 
     /**
