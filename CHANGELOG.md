@@ -29,6 +29,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Moved all Exception classes to their own namespace. **[BREAKING]**
 * Changed the signature of the constructor of `Contentful\Delivery\Client`. Several options are now in an options array. **[BREAKING]**
 * The Sync API can now also be used with the Preview API. Only initial syncs are supported.
+* Dist zip files no longer include the tests directory. If you need them use `composer install --prefer-source`.
 
 ### Removed
 * Dropped `BearerToken` to make it easier to inject custom Guzzle instances. **[BREAKING]**
