@@ -1,0 +1,45 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/entries\/not-existing",
+        "headers": {
+            "Host": "cdn.contentful.com",
+            "User-Agent": "ContentfulCDA\/0.7.0-dev GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer b4c0n73n7fu1",
+            "Accept": null
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "404",
+            "message": "Not Found"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "86400",
+            "Cache-Control": "max-age=0",
+            "Content-Encoding": "gzip",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "16c3b44eb9b9ea8222393ad2e83e0b8d",
+            "Content-Length": "189",
+            "Accept-Ranges": "bytes",
+            "Date": "Wed, 29 Mar 2017 12:54:04 GMT",
+            "Via": "1.1 varnish",
+            "Age": "0",
+            "Connection": "keep-alive",
+            "X-Served-By": "cache-hhn1522-HHN",
+            "X-Cache": "MISS",
+            "X-Cache-Hits": "0",
+            "X-Timer": "S1490792044.084452,VS0,VE254"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"NotFound\"\n  },\n  \"message\": \"The resource could not be found.\",\n  \"details\": {\n    \"type\": \"Entry\",\n    \"id\": \"not-existing\",\n    \"space\": \"cfexampleapi\"\n  },\n  \"requestId\": \"16c3b44eb9b9ea8222393ad2e83e0b8d\"\n}\n"
+    }
+}]
