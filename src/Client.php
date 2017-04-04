@@ -114,7 +114,9 @@ abstract class Client
                 throw new ResourceNotFoundException($result['message'], 0, $e);
             }
             if ($response->getStatusCode() === 429) {
-                throw new RateLimitExceededException(null, 0, $e);
+                $result = $this->decodeJson($response->getBody());
+                $rateLimitReset = (int) $response->getHeader('X-Contentful-RateLimit-Reset')[0];
+                throw new RateLimitExceededException($result['message'], 0, $e, $rateLimitReset);
             }
             if ($response->getStatusCode() === 400) {
                 $result = $this->decodeJson($response->getBody());

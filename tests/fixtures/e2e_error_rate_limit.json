@@ -1,0 +1,37 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/entries?limit=1",
+        "headers": {
+            "Host": "preview.contentful.com",
+            "User-Agent": "ContentfulCDA\/0.7.0-dev GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.3",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963",
+            "Accept": null
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "429",
+            "message": ""
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "1728000",
+            "Content-Type": "application\/vnd.contentful.management.v1+json",
+            "Date": "Tue, 04 Apr 2017 15:19:14 GMT",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-RateLimit-Reset": "2446",
+            "X-Contentful-Request-Id": "81ab30f29b9ea208d7d5803c44d91f1e",
+            "Content-Length": "323",
+            "Connection": "keep-alive"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"RateLimitExceeded\"\n  },\n  \"message\": \"You have exceeded the rate limit of the Organization this Space belongs to by making too many API requests within a short timespan. Please wait a moment before trying the request again.\",\n  \"requestId\": \"81ab30f29b9ea208d7d5803c44d91f1e\"\n}\n"
+    }
+}]
