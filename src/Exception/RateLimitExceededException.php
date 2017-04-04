@@ -16,4 +16,33 @@ namespace Contentful\Exception;
  */
 class RateLimitExceededException extends \RuntimeException
 {
+    /**
+     * @var int|null
+     */
+    private $rateLimitReset;
+
+    /**
+     * RateLimitExceededException constructor.
+     *
+     * @param string          $message
+     * @param int             $code
+     * @param Throwable|null  $previous
+     * @param int|null        $rateLimitReset
+     */
+    public function __construct($message = "", $code = 0, \Exception $previous = null, $rateLimitReset = null)
+    {
+        parent::__construct($message, $code, $previous);
+
+        $this->rateLimitReset = $rateLimitReset;
+    }
+
+    /**
+     * Returns the number of seconds until the rate limit expires.
+     *
+     * @return int|null
+     */
+    public function getRateLimitReset()
+    {
+        return $this->rateLimitReset;
+    }
 }

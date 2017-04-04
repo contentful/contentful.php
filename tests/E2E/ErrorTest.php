@@ -9,6 +9,8 @@ namespace Contentful\Tests\E2E;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
 
+use Contentful\Exception\RateLimitExceededException;
+
 class ErrorTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -43,5 +45,26 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
             ->where('name', 0);
 
         $client->getEntries($query);
+    }
+
+    /**
+     * @expectedException \Contentful\Exception\RateLimitExceededException
+     * @vcr e2e_error_rate_limit.json
+     */
+    public function testRateLimitExceeded()
+    {
+        $client = new Client('8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963', 'bc32cj3kyfet', true);
+        $query = new Query();
+
+        try {
+            for ($i = 1; $i < 25; $i++) {
+                $query->setLimit($i);
+                $client->getEntries($query);
+            }
+        } catch (RateLimitExceededException $e) {
+            $this->assertInternalType('int', $e->getRateLimitReset());
+
+            throw $e;
+        }
     }
 }
