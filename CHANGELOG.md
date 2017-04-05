@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 * Added support for the `webp` format in the Images API.
-* Introduced `RateLimitExceededException` for more specific error handling. **[BREAKING]**
+* Introduced `RateLimitExceededException`, `InvalidQueryException` and `AccessTokenInvalidException` for more specific error handling. **[BREAKING]**
 * Allow injecting a custom Guzzle instance into `Client`.
 * Allow fetching content in a single locale by adding the locale code to the query. **[BREAKING]**
   **MIGRATION:** To retain the old behavior set the default locale to `'*''` when creating the client. This could look
@@ -17,8 +17,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Allow setting the locale in which you work when creating the client.
 * Allow overriding the URI used to connect with the Contentful API.
 * The `select` operator can now be specified on queries.
-* Introduced `InvalidQueryException` for more specific error handling. **[BREAKING]**
-* Introduced `AccessTokenInvalidException` for more specific error handling. **[BREAKING]**
 * Support for the `all` operator and passing arrays as `$value` in `Query::where()`.
 * Support for ordering by multiple fields.
 * The space metadata and the content types can now be cached with a CLI command.
@@ -39,7 +37,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 * Assets that have no title would throw an uncaught exception.
-* Handling of missing values for a locale in Assets. Solved by implementing fallback locales for Assets too.
+* Handling of missing values for a locale in Assets. Solved by implementing fallback locales for Assets too. ([#38](https://github.com/contentful/contentful.php/issues/38))
 * Fields that have the literal value `null` are now treated like they don't exist. Previously they might have causes a
 fatal error. **Note:** This does not 100% match the behaviour of the Contentful API.
 * The error message for `Query::setLimit` was incorrect.
