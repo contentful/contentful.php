@@ -4,7 +4,10 @@
  * @license   MIT
  */
 
-namespace Contentful\Delivery;
+namespace Contentful\Delivery\Cache;
+
+use Contentful\Delivery\Space;
+use Contentful\Delivery\ContentType;
 
 class InstanceCache
 {
