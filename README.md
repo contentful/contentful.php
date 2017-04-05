@@ -10,7 +10,7 @@ PHP SDK for [Contentful's][1] Content Delivery API.
 
 The SDK requires at least PHP 5.5.9. PHP 7 is supported.
 
-The SDK is currently in beta. The API might change at any time. 
+The SDK is currently in beta, however the API should not see any major changes.
 
 Setup
 =====
@@ -78,6 +78,13 @@ $client = new \Contentful\Delivery\Client('access-token', 'space-id', true);
 
 Apart from the configuration option, you can use the SDK without modifications with one exception: you need to obtain a preview access token, which you can get in the "API" tab of the Contentful app. In preview mode, data can be invalid, because no validation is performed on unpublished entries. Your app needs to deal with that. Be aware that the access token is read-write and should in no case be shipped with a production app.
 
+### Default Locale
+
+When working with localized content it can be tedious to specify the locale on every request. Alternatively, a locale can be specified on the client constructor. This value then overrides the space's default locale. To retrieve all content in German, the code would look like this:
+
+```php
+$client = new \Contentful\Delivery\Client('access-token', 'space-id', false, 'de-DE');
+```
 
 Documentation
 =============
