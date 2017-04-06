@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [0.7.0-beta](https://github.com/contentful/contentful.php/tree/0.7.0-beta) (2017-04-06)
 
 **ATTENTION**: This release contains breaking changes. Please take extra care when updating to this version.
 
@@ -103,5 +103,3 @@ fatal error. **Note:** This does not 100% match the behaviour of the Contentful 
 ## [0.6.0-beta](https://github.com/contentful/contentful.php/tree/0.6.0-beta) (2015-12-11)
 
 Initial release
-
-[Unreleased]: https://github.com/contentful/contentful.php/compare/0.6.4-beta...HEAD
