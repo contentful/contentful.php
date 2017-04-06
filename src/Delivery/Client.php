@@ -324,6 +324,13 @@ class Client extends BaseClient
         return new Manager($this, $this->builder, $this->preview);
     }
 
+    /**
+     * @param  string $method
+     * @param  string $path
+     * @param  array $options
+     *
+     * @return Asset|ContentType|DynamicEntry|Space|Synchronization\DeletedAsset|Synchronization\DeletedEntry|\Contentful\ResourceArray
+     */
     private function requestAndBuild($method, $path, array $options = [])
     {
         return $this->builder->buildObjectsFromRawData($this->request($method, $path, $options));

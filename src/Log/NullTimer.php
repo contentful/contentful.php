@@ -28,11 +28,17 @@ class NullTimer implements TimerInterface
     {
     }
 
+    /**
+     * @return bool
+     */
     public function isRunning()
     {
         return false;
     }
 
+    /**
+     * @return null
+     */
     public function getDuration()
     {
         return null;

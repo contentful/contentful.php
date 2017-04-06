@@ -49,7 +49,7 @@ class ArrayLogger implements LoggerInterface
     /**
      * Log information about a request.
      *
-     * @param float                  $api
+     * @param string                 $api
      * @param RequestInterface       $request
      * @param StandardTimer          $timer
      * @param ResponseInterface|null $response

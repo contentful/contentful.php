@@ -12,13 +12,24 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class CacheWarmer
 {
+    /**
+     * @var Client
+     */
     private $client;
 
+    /**
+     * CacheWarmer constructor.
+     *
+     * @param Client $client
+     */
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
 
+    /**
+     * @param string $cacheDir
+     */
     public function warmUp($cacheDir)
     {
         $fs = new Filesystem();

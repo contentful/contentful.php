@@ -8,7 +8,15 @@ namespace Contentful\Delivery\Cache;
 
 interface CacheInterface
 {
+    /**
+     * @return string|null
+     */
     public function readSpace();
 
+    /**
+     * @param  string $id
+     *
+     * @return string|null
+     */
     public function readContentType($id);
 }

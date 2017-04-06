@@ -165,6 +165,11 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         return $result;
     }
 
+    /**
+     * @param  string $fieldName
+     *
+     * @return ContentTypeField|null
+     */
     private function getFieldConfigForName($fieldName)
     {
         // Let's try the lower case version first, it's the more common one
@@ -205,6 +210,13 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         return $value->getId();
     }
 
+    /**
+     * @param  mixed $value
+     * @param  string $type
+     * @param  string $linkType
+     *
+     * @return mixed
+     */
     private function formatSimpleValueForJson($value, $type, $linkType)
     {
         switch ($type) {
@@ -231,6 +243,12 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         }
     }
 
+    /**
+     * @param  mixed $value
+     * @param  ContentTypeField $fieldConfig
+     *
+     * @return mixed
+     */
     private function formatValueForJson($value, ContentTypeField $fieldConfig)
     {
         $type = $fieldConfig->getType();

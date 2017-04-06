@@ -31,6 +31,17 @@ class NullLogger implements LoggerInterface
         return new NullTimer;
     }
 
+    /**
+     * Log information about a request.
+     *
+     * @param  string                  $api
+     * @param  RequestInterface       $request
+     * @param  StandardTimer          $timer
+     * @param  ResponseInterface|null $response
+     * @param  \Exception|null        $exception
+     *
+     * @return void
+     */
     public function log($api, RequestInterface $request, StandardTimer $timer, ResponseInterface $response = null, \Exception $exception = null)
     {
     }

@@ -47,9 +47,10 @@ class ResourceBuilder
     /**
      * ResourceBuilder constructor.
      *
-     * @param Client        $client
-     * @param InstanceCache $instanceCache
-     * @param string        $spaceId
+     * @param Client         $client
+     * @param InstanceCache  $instanceCache
+     * @param CacheInterface $filesystemCache
+     * @param string         $spaceId
      */
     public function __construct(DeliveryClient $client, InstanceCache $instanceCache, CacheInterface $filesystemCache, $spaceId)
     {
