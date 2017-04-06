@@ -17,6 +17,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
 use Contentful\Log\LoggerInterface;
 use GuzzleHttp\Psr7;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * Abstract client for common code for the different clients.
@@ -103,7 +104,13 @@ abstract class Client
         return $result;
     }
 
-    private function doRequest($request, $options)
+    /**
+     * @param  RequestInterface $request
+     * @param  array            $options
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     */
+    private function doRequest(RequestInterface $request, array $options)
     {
         try {
             return $this->httpClient->send($request, $options);
