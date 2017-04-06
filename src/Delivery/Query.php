@@ -50,18 +50,6 @@ class Query extends BaseQuery
     }
 
     /**
-     * Get the amount of levels of links that should be resolved.
-     *
-     * @return int|null
-     *
-     * @api
-     */
-    public function getInclude()
-    {
-        return $this->include;
-    }
-
-    /**
      * Set the amount of levels of links that should be resolved.
      *
      * @param  int|null $include
@@ -75,18 +63,6 @@ class Query extends BaseQuery
         $this->include = $include;
 
         return $this;
-    }
-
-    /**
-     * Gets the locale for which content should be retrieved.
-     *
-     * @return string|null
-     *
-     * @api
-     */
-    public function getLocale()
-    {
-        return $this->locale;
     }
 
     /**
