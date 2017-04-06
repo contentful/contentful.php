@@ -24,7 +24,7 @@ use Contentful\Query as BaseQuery;
  */
 class Client extends BaseClient
 {
-    const VERSION = '0.7.0-beta';
+    const VERSION = '0.8.0-dev';
 
     /**
      * @var ResourceBuilder
