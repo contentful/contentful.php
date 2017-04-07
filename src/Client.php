@@ -203,6 +203,12 @@ abstract class Client
                     throw new Exception\InvalidQueryException($result['message'], 0, $e);
                 }
             }
+            if ($response->getStatusCode() === 403) {
+                $result = self::decodeJson($response->getBody());
+                if ($result['sys']['id'] === 'Forbidden') {
+                    throw new Exception\ForbiddenException($result['message'], 0, $e);
+                }
+            }
             if ($response->getStatusCode() === 401) {
                 $result = self::decodeJson($response->getBody());
                 if ($result['sys']['id'] === 'AccessTokenInvalid') {
