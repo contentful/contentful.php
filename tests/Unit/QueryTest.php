@@ -27,19 +27,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Contentful\Query::__construct
      * @covers Contentful\Query::setLimit
-     * @covers Contentful\Query::getLimit
-     */
-    public function testGetSetLimit()
-    {
-        $queryBuilder = new Query;
-        $queryBuilder->setLimit(150);
-
-        $this->assertEquals(150, $queryBuilder->getLimit());
-    }
-
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setLimit
      * @covers Contentful\Query::getQueryData
      * @covers Contentful\Query::getQueryString
      */
@@ -101,19 +88,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $queryBuilder->setLimit(null);
 
         $this->assertEquals('', $queryBuilder->getQueryString());
-    }
-
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setSkip
-     * @covers Contentful\Query::getSkip
-     */
-    public function testGetSetSkip()
-    {
-        $queryBuilder = new Query;
-        $queryBuilder->setSkip(10);
-
-        $this->assertEquals(10, $queryBuilder->getSkip());
     }
 
     /**
@@ -188,20 +162,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Contentful\Query::__construct
      * @covers Contentful\Query::setContentType
-     * @covers Contentful\Query::getContentType
-     */
-    public function testGetSetContentType()
-    {
-        $queryBuilder = new Query;
-        $queryBuilder->setContentType('cat');
-
-        $this->assertEquals('cat', $queryBuilder->getContentType());
-    }
-
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setContentType
-     * @covers Contentful\Query::getContentType
+     * @covers Contentful\Query::getQueryString
+     *
+     * @uses Contentful\Query::getQueryData
      */
     public function testGetSetContentTypeFromObject()
     {
@@ -215,7 +178,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
         $queryBuilder->setContentType($contentType);
 
-        $this->assertEquals('cat', $queryBuilder->getContentType());
+        $this->assertEquals('content_type=cat', $queryBuilder->getQueryString());
     }
 
     /**
@@ -329,19 +292,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     {
         $queryBuilder = new Query;
         $queryBuilder->where('sys.id', 'nyancat', 'wrong');
-    }
-
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setMimeTypeGroup
-     * @covers Contentful\Query::getMimeTypeGroup
-     */
-    public function testGetSetMimeTypeGroup()
-    {
-        $queryBuilder = new Query;
-        $queryBuilder->setMimeTypeGroup('image');
-
-        $this->assertEquals('image', $queryBuilder->getMimeTypeGroup());
     }
 
     /**

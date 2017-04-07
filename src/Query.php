@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -163,18 +163,6 @@ class Query
     }
 
     /**
-     * Returns the index of the first result to retrieve. Can return NULL if no index is specified.
-     *
-     * @return int|null
-     *
-     * @api
-     */
-    public function getSkip()
-    {
-        return $this->skip;
-    }
-
-    /**
      * Set the maximum number of results to retrieve. To reset set to NULL;
      *
      * @param  int|null $limit The maximum number of results to retrieve, must be between 1 and 1000 or null
@@ -194,18 +182,6 @@ class Query
         $this->limit = $limit;
 
         return $this;
-    }
-
-    /**
-     * Returns the maximum number of results to retrieve. Can return NULL if no maximum is defined.
-     *
-     * @return int|null
-     *
-     * @api
-     */
-    public function getLimit()
-    {
-        return $this->limit;
     }
 
     /**
@@ -254,18 +230,6 @@ class Query
     }
 
     /**
-     * Returns the name of the content type for which results will be retrieved. Can be NULL if no content type is set
-     *
-     * @return string|null The name of the content type results will be limited to
-     *
-     * @api
-     */
-    public function getContentType()
-    {
-        return $this->contentType;
-    }
-
-    /**
      * @param  string|null $group
      *
      * @return $this
@@ -297,14 +261,6 @@ class Query
         $this->mimeTypeGroup = $group;
 
         return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getMimeTypeGroup()
-    {
-        return $this->mimeTypeGroup;
     }
 
     /**

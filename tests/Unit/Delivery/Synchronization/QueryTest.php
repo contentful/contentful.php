@@ -23,18 +23,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('initial=1', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Delivery\Synchronization\Query::__construct
-     * @covers Contentful\Delivery\Synchronization\Query::setType
-     * @covers Contentful\Delivery\Synchronization\Query::getType
-     */
-    public function testGetSetType()
-    {
-        $queryBuilder = new Query;
-        $queryBuilder->setType('Entry');
-
-        $this->assertEquals('Entry', $queryBuilder->getType());
-    }
 
     /**
      * @covers Contentful\Delivery\Synchronization\Query::__construct
@@ -67,23 +55,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Contentful\Delivery\Synchronization\Query::__construct
      * @covers Contentful\Delivery\Synchronization\Query::setContentType
-     * @covers Contentful\Delivery\Synchronization\Query::getContentType
+     * @covers Contentful\Delivery\Synchronization\Query::getQueryString
      *
-     * @uses Contentful\Delivery\Synchronization\Query::setType
-     */
-    public function testGetSetContentType()
-    {
-        $queryBuilder = new Query;
-        $queryBuilder->setContentType('cat');
-
-        $this->assertEquals('cat', $queryBuilder->getContentType());
-    }
-
-    /**
-     * @covers Contentful\Delivery\Synchronization\Query::__construct
-     * @covers Contentful\Delivery\Synchronization\Query::setContentType
-     * @covers Contentful\Delivery\Synchronization\Query::getContentType
-     *
+     * @uses Contentful\Delivery\Synchronization\Query::getQueryData
      * @uses Contentful\Delivery\Synchronization\Query::setType
      */
     public function testGetSetContentTypeFromObject()
@@ -98,7 +72,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
         $queryBuilder->setContentType($contentType);
 
-        $this->assertEquals('cat', $queryBuilder->getContentType());
+        $this->assertEquals('initial=1&type=Entry&content_type=cat', $queryBuilder->getQueryString());
     }
 
     /**

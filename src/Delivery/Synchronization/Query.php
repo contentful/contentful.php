@@ -72,18 +72,6 @@ class Query
     /**
      * Set the Type of event or resource to sync.
      *
-     * May be null if everything is synced.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set the Type of event or resource to sync.
-     *
      * Set to null to sync everything.
      *
      * Valid values for $type are:
@@ -112,18 +100,6 @@ class Query
         $this->type = $type;
 
         return $this;
-    }
-
-    /**
-     * Returns the name of the content type for which results will be retrieved. Can be NULL if no content type is set
-     *
-     * @return string|null The name of the content type results will be limited to
-     *
-     * @api
-     */
-    public function getContentType()
-    {
-        return $this->contentType;
     }
 
     /**
