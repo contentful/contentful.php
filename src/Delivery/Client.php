@@ -12,6 +12,7 @@ use Contentful\Delivery\Cache\NullCache;
 use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Query as BaseQuery;
+use Contentful\Link;
 
 /**
  * A Client is used to communicate the Contentful Delivery API.

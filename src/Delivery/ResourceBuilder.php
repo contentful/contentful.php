@@ -13,6 +13,7 @@ use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Cache\CacheInterface;
 use Contentful\Location;
 use Contentful\ResourceArray;
+use Contentful\Link;
 use Contentful\Exception\SpaceMismatchException;
 
 /**

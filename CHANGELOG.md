@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 **ATTENTION**: This release contains breaking changes. Please take extra care when updating to this version.
 
+### Changed
+* Renamed `Contentful\Delivery\Link` to `Contentful\Link`. **[BREAKING]**
+
 ### Removed
 * Removed all get* methods except `getQueryData()` and `getQueryString()` from the various query classes. **[BREAKING]**
 
