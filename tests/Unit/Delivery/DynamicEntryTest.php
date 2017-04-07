@@ -299,7 +299,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                     return $crookshanksEntry;
                 }
 
-                return new ResourceNotFoundException;
+                throw new ResourceNotFoundException;
             });
 
 
@@ -307,6 +307,39 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(1, $friends);
         $this->assertSame($crookshanksEntry, $friends[0]);
+    }
+
+    public function testGetIdsOfLinksArray()
+    {
+        $ct = new ContentType(
+            'Cat',
+            'Meow.',
+            [
+                new ContentTypeField('name', 'Name', 'Text', null, null, null, true, true),
+                new ContentTypeField('friends', 'Friends', 'Array', null, 'Link', false, false),
+            ],
+            'name',
+            new SystemProperties('cat', 'ContentType', $this->space, null, 2, new \DateTimeImmutable('2013-06-27T22:46:12.852Z'), new \DateTimeImmutable('2013-09-02T13:14:47.863Z'))
+        );
+
+        $client = $this->getMockBuilder(Client::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $garfieldEntry = new DynamicEntry(
+            [
+                'name' => [
+                    'en-US' => 'Garfield'
+                ],
+                'friends' => [
+                    'en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')]
+                ]
+            ],
+            new SystemProperties('garfield', 'Entry', $this->space, $ct, 56, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
+            $client
+        );
+
+        $this->assertEquals(['crookshanks', 'nyancat'], $garfieldEntry->getFriendsId());
     }
 
     /**

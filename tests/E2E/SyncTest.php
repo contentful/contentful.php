@@ -49,4 +49,17 @@ class SyncTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Result::class, $result);
         $this->assertTrue($result->isDone());
     }
+
+    /**
+     * @vcr e2e_sync_preview_continue.json
+     * @expectedException \RuntimeException
+     */
+    public function testPreviewSyncContinue()
+    {
+        $manager = (new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', true))
+            ->getSynchronizationManager();
+
+        $result = $manager->startSync();
+        $manager->continueSync($result);
+    }
 }
