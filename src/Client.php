@@ -329,4 +329,14 @@ abstract class Client
 
         return $result;
     }
+
+    protected function encodeJson($object)
+    {
+        $result = \GuzzleHttp\json_encode($object, JSON_UNESCAPED_UNICODE);
+        if ($result === null) {
+            throw new \RuntimeException(json_last_error_msg(), json_last_error());
+        }
+
+        return $result;
+    }
 }
