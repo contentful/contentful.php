@@ -3,7 +3,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/ContentfulBundle/compare/0.7.0-beta...HEAD)
+## [Unreleased](https://github.com/contentful/contentful.php/compare/0.7.0-beta...HEAD)
+
+**ATTENTION**: This release contains breaking changes. Please take extra care when updating to this version.
 
 ### Removed
 * Removed all get* methods except `getQueryData()` and `getQueryString()` from the various query classes. **[BREAKING]**
