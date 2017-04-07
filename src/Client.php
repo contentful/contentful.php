@@ -90,7 +90,7 @@ abstract class Client
         $response = null;
         try {
             $response = $this->doRequest($request, $options);
-            $result = $this->decodeJson($response->getBody());
+            $result = self::decodeJson($response->getBody());
         } catch (\Exception $e) {
             $timer->stop();
             $this->logger->log($this->api, $request, $timer, $response, $e);
@@ -117,22 +117,22 @@ abstract class Client
         } catch (ClientException $e) {
             $response = $e->getResponse();
             if ($response->getStatusCode() === 404) {
-                $result = $this->decodeJson($response->getBody());
+                $result = self::decodeJson($response->getBody());
                 throw new ResourceNotFoundException($result['message'], 0, $e);
             }
             if ($response->getStatusCode() === 429) {
-                $result = $this->decodeJson($response->getBody());
+                $result = self::decodeJson($response->getBody());
                 $rateLimitReset = (int) $response->getHeader('X-Contentful-RateLimit-Reset')[0];
                 throw new RateLimitExceededException($result['message'], 0, $e, $rateLimitReset);
             }
             if ($response->getStatusCode() === 400) {
-                $result = $this->decodeJson($response->getBody());
+                $result = self::decodeJson($response->getBody());
                 if ($result['sys']['id'] === 'InvalidQuery') {
                     throw new InvalidQueryException($result['message'], 0, $e);
                 }
             }
             if ($response->getStatusCode() === 401) {
-                $result = $this->decodeJson($response->getBody());
+                $result = self::decodeJson($response->getBody());
                 if ($result['sys']['id'] === 'AccessTokenInvalid') {
                     throw new AccessTokenInvalidException($result['message'], 0, $e);
                 }
@@ -208,8 +208,10 @@ abstract class Client
      * @return array
      *
      * @throws \RuntimeException On invalid JSON
+     *
+     * @internal
      */
-    protected function decodeJson($json)
+    public static function decodeJson($json)
     {
         $result = json_decode($json, true);
         if ($result === null) {
