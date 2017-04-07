@@ -49,7 +49,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
         $spaceId = 'cfexampleapi';
         $fs = new Filesystem;
 
-        // MAke extra sure there's nothing cached
+        // Make extra sure there's nothing cached
         $fs->remove($cacheDir);
 
         $client = new Client('b4c0n73n7fu1', $spaceId, false, null, ['cacheDir' => $cacheDir]);
