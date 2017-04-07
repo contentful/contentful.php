@@ -145,7 +145,18 @@ abstract class Client
         if ($query) {
             unset($options['query']);
         }
-        $request = $this->buildRequest($method, $path, $query);
+
+        $additionalHeaders = isset($options['additionalHeaders']) ? $options['additionalHeaders'] : [];
+        if (!empty($additionalHeaders)) {
+            unset($options['additionalHeaders']);
+        }
+
+        $body = isset($options['body']) ? $options['body'] : null;
+        if ($body) {
+            unset($options['body']);
+        }
+
+        $request = $this->buildRequest($method, $path, $query, $additionalHeaders, $body);
 
         // We define this variable so it's also available in the catch block.
         $response = null;
@@ -207,12 +218,14 @@ abstract class Client
      * @param  string            $method
      * @param  string            $path
      * @param  array|string|null $query
+     * @param  array             $additionalHeaders
+     * @param  string            $body
      *
      * @return Psr7\Request
      *
      * @throws \InvalidArgumentException If $query is not a valid type
      */
-    private function buildRequest($method, $path, $query = null)
+    private function buildRequest($method, $path, $query = null, array $additionalHeaders = [], $body = null)
     {
         $contentTypes = [
             'DELIVERY' => 'application/vnd.contentful.delivery.v1+json',
@@ -231,13 +244,19 @@ abstract class Client
             }
             $uri = $uri->withQuery($query);
         }
-
-        return new Psr7\Request($method, $uri, [
+        $headers = [
             'X-Contentful-User-Agent' => $this->contentfulUserAgent,
             'Accept' => $contentTypes[$this->api],
             'Accept-Encoding' => 'gzip',
             'Authorization' => 'Bearer ' . $this->token,
-        ], null);
+        ];
+        if ($body) {
+            $headers['Content-Type'] = $contentTypes[$this->api];
+        }
+
+        $headers = array_merge($headers, $additionalHeaders);
+
+        return new Psr7\Request($method, $uri, $headers, $body);
     }
 
     /**
