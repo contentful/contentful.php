@@ -14,7 +14,7 @@ use Contentful\Exception\RateLimitExceededException;
 class ErrorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException \Contentful\Exception\ResourceNotFoundException
+     * @expectedException \Contentful\Exception\NotFoundException
      * @vcr e2e_error_resource_not_found.json
      */
     public function testResourceNotFound()

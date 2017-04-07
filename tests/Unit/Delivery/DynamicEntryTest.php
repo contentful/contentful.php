@@ -15,7 +15,7 @@ use Contentful\Link;
 use Contentful\Delivery\Locale;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
-use Contentful\Exception\ResourceNotFoundException;
+use Contentful\Exception\NotFoundException;
 
 class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 {
@@ -206,7 +206,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                     return $crookshanksEntry;
                 }
 
-                return new ResourceNotFoundException;
+                return new NotFoundException;
             });
 
         $this->assertSame($crookshanksEntry, $garfieldEntry->getFriend());
@@ -299,7 +299,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                     return $crookshanksEntry;
                 }
 
-                throw new ResourceNotFoundException;
+                throw new NotFoundException;
             });
 
 
