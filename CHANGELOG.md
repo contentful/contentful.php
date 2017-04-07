@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * `CacheWarmer` wrote incorrect data for content types.
 * Retrieving a cached content type would cause the maximum function nesting level to be exceeded.
 * Correctly set the `Accept` header for API versioning. Previously the `Content-Type` header was set instead.
+* Serializing a `LogEntry` would fail if no response has been set.
 
 ## [0.7.0-beta](https://github.com/contentful/contentful.php/tree/0.7.0-beta) (2017-04-06)
 
