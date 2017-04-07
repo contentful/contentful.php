@@ -49,7 +49,7 @@ class CacheWarmer
         $fs->dumpFile($spacePath . '/space.json', json_encode($space));
 
         foreach ($contentTypes as $contentType) {
-            $fs->dumpFile($spacePath . '/ct-' . $contentType->getId() . '.json', json_encode($space));
+            $fs->dumpFile($spacePath . '/ct-' . $contentType->getId() . '.json', json_encode($contentType));
         }
     }
 }

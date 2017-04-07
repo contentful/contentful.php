@@ -234,7 +234,7 @@ class ResourceBuilder
 
         $cache = $this->filesystemCache->readContentType($data['sys']['id']);
         if ($cache !== null) {
-            return $this->client->reviveJson($cache);
+            $data = DeliveryClient::decodeJson($cache);
         }
 
         $sys = $this->buildSystemProperties($data['sys']);

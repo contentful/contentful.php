@@ -275,7 +275,7 @@ class Client extends BaseClient
      */
     public function reviveJson($json)
     {
-        $data = $this->decodeJson($json);
+        $data = self::decodeJson($json);
 
         return $this->builder->buildObjectsFromRawData($data);
     }
