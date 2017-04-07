@@ -173,7 +173,7 @@ abstract class Client
 
         return new Psr7\Request($method, $uri, [
             'User-Agent' => $this->getUserAgent(),
-            'Content-Type' => $contentTypes[$this->api],
+            'Accept' => $contentTypes[$this->api],
             'Accept-Encoding' => 'gzip',
             'Authorization' => 'Bearer ' . $this->token,
         ], null);
