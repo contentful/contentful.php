@@ -19,7 +19,7 @@ class ArrayLoggerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(TimerInterface::class, $logger->getTimer());
     }
 
-    public function testGetTimerIsAlwaysNullTimer()
+    public function testGetTimerIsAlwaysStandardTimer()
     {
         $logger = new ArrayLogger;
 
