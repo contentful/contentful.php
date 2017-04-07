@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 * The `FilesystemCache` would try to read cached content types from the wrong file name.
+* `CacheWarmer` wrote incorrect data for content types.
 
 ## [0.7.0-beta](https://github.com/contentful/contentful.php/tree/0.7.0-beta) (2017-04-06)
 
