@@ -53,7 +53,7 @@ class FilesystemCache implements CacheInterface
      */
     public function readContentType($id)
     {
-        $path = $this->cacheDir . '/ct' . $id . '.json';
+        $path = $this->cacheDir . '/ct-' . $id . '.json';
         if (!$this->fs->exists($path)) {
             return null;
         }
