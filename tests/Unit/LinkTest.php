@@ -17,4 +17,11 @@ class LinkTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('123', $link->getId());
         $this->assertEquals('Entry', $link->getLinkType());
     }
+
+    public function testJsonSerialize()
+    {
+        $link = new Link('123', 'Entry');
+
+        $this->assertJsonStringEqualsJsonString('{"sys": {"type": "Link", "id": "123", "linkType": "Entry"}}', json_encode($link));
+    }
 }
