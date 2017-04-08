@@ -1,15 +1,13 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
-namespace Contentful\Delivery;
+namespace Contentful;
 
 /**
  * A link encodes a reference to a resource.
- *
- * @package Contentful\Delivery
  */
 class Link
 {

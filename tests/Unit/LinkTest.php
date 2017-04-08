@@ -1,19 +1,19 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
-namespace Contentful\Tests\Unit\Delivery;
+namespace Contentful\Tests\Unit;
 
-use Contentful\Delivery\Link;
+use Contentful\Link;
 
 class LinkTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Contentful\Delivery\Link::__construct
-     * @covers Contentful\Delivery\Link::getId
-     * @covers Contentful\Delivery\Link::getLinkType
+     * @covers \Contentful\Link::__construct
+     * @covers \Contentful\Link::getId
+     * @covers \Contentful\Link::getLinkType
      */
     public function testGetter()
     {

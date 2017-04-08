@@ -11,7 +11,7 @@ use Contentful\Delivery\Client;
 use Contentful\Delivery\ContentType;
 use Contentful\Delivery\ContentTypeField;
 use Contentful\Delivery\DynamicEntry;
-use Contentful\Delivery\Link;
+use Contentful\Link;
 use Contentful\Delivery\Locale;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
