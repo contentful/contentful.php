@@ -6,7 +6,7 @@
 
 namespace Contentful\Delivery;
 
-use Contentful\Exception\ResourceNotFoundException;
+use Contentful\Exception\NotFoundException;
 use Contentful\Link;
 
 class DynamicEntry extends LocalizedResource implements EntryInterface
@@ -193,7 +193,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         if ($value instanceof Link) {
             try {
                 return $this->client->resolveLink($value);
-            } catch (ResourceNotFoundException $e) {
+            } catch (NotFoundException $e) {
                 return $e;
             }
         }

@@ -8,7 +8,7 @@ namespace Contentful;
 
 use Contentful\Log\NullLogger;
 use Contentful\Log\StandardTimer;
-use Contentful\Exception\ResourceNotFoundException;
+use Contentful\Exception\NotFoundException;
 use Contentful\Exception\RateLimitExceededException;
 use Contentful\Exception\InvalidQueryException;
 use Contentful\Exception\AccessTokenInvalidException;
@@ -118,7 +118,7 @@ abstract class Client
             $response = $e->getResponse();
             if ($response->getStatusCode() === 404) {
                 $result = self::decodeJson($response->getBody());
-                throw new ResourceNotFoundException($result['message'], 0, $e);
+                throw new NotFoundException($result['message'], 0, $e);
             }
             if ($response->getStatusCode() === 429) {
                 $result = self::decodeJson($response->getBody());
