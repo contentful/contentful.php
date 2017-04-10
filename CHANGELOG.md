@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Renamed a few classes to move them outside the Delivery namespace. **[BREAKING]**
   * `Contentful\Delivery\Link` to `Contentful\Link`
   * `Contentful\Delivery\ImageOptions` to `Contentful\ImageOptions`
+  * `Contentful\Delivery\File` to `Contentful\File`
+  * `Contentful\Delivery\ImageFile` to `Contentful\ImageFile`
 * Renamed `ResourceNotFoundException` to `NotFoundException` to match the names the API uses. **[BREAKING]**
 
 ### Removed
