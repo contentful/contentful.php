@@ -1,13 +1,13 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
 namespace Contentful\Tests\Unit\Delivery;
 
 use Contentful\Delivery\ImageFile;
-use Contentful\Delivery\ImageOptions;
+use Contentful\ImageOptions;
 
 class ImageFileTest extends \PHPUnit_Framework_TestCase
 {

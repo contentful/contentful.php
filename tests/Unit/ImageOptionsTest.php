@@ -1,18 +1,18 @@
 <?php
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\Delivery\ImageOptions;
+use Contentful\ImageOptions;
 
 class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testNoOptions()
     {
@@ -22,9 +22,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setWidth
-     * @covers Contentful\Delivery\ImageOptions::getWidth
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setWidth
+     * @covers \Contentful\ImageOptions::getWidth
      */
     public function testGetSetWidth()
     {
@@ -37,9 +37,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setWidth
-     * @covers Contentful\Delivery\ImageOptions::getWidth
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setWidth
+     * @covers \Contentful\ImageOptions::getWidth
      */
     public function testGetSetWidthNull()
     {
@@ -52,9 +52,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setWidth
-     * @covers Contentful\Delivery\ImageOptions::getWidth
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setWidth
+     * @covers \Contentful\ImageOptions::getWidth
      *
      * @expectedException \InvalidArgumentException
      */
@@ -65,9 +65,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setWidth
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setWidth
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryWidth()
     {
@@ -78,9 +78,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setHeight
-     * @covers Contentful\Delivery\ImageOptions::getHeight
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setHeight
+     * @covers \Contentful\ImageOptions::getHeight
      */
     public function testGetSetHeight()
     {
@@ -93,9 +93,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setHeight
-     * @covers Contentful\Delivery\ImageOptions::getHeight
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setHeight
+     * @covers \Contentful\ImageOptions::getHeight
      */
     public function testGetSetHeightNull()
     {
@@ -108,9 +108,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setHeight
-     * @covers Contentful\Delivery\ImageOptions::getHeight
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setHeight
+     * @covers \Contentful\ImageOptions::getHeight
      *
      * @expectedException \InvalidArgumentException
      */
@@ -121,9 +121,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setHeight
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setHeight
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryHeight()
     {
@@ -134,9 +134,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setFormat
-     * @covers Contentful\Delivery\ImageOptions::getFormat
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setFormat
+     * @covers \Contentful\ImageOptions::getFormat
      */
     public function testGetSetFormat()
     {
@@ -149,9 +149,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setFormat
-     * @covers Contentful\Delivery\ImageOptions::getFormat
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setFormat
+     * @covers \Contentful\ImageOptions::getFormat
      */
     public function testGetSetFormatNull()
     {
@@ -164,8 +164,8 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setFormat
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setFormat
      *
      * @expectedException \InvalidArgumentException
      */
@@ -176,9 +176,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setFormat
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setFormat
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryFormat()
     {
@@ -189,9 +189,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setQuality
-     * @covers Contentful\Delivery\ImageOptions::getQuality
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setQuality
+     * @covers \Contentful\ImageOptions::getQuality
      */
     public function testGetSetQuality()
     {
@@ -204,9 +204,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setQuality
-     * @covers Contentful\Delivery\ImageOptions::getQuality
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setQuality
+     * @covers \Contentful\ImageOptions::getQuality
      */
     public function testGetSetQualityNull()
     {
@@ -219,9 +219,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setQuality
-     * @covers Contentful\Delivery\ImageOptions::getQuality
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setQuality
+     * @covers \Contentful\ImageOptions::getQuality
      *
      * @expectedException \InvalidArgumentException
      */
@@ -232,9 +232,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setQuality
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setQuality
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryQuality()
     {
@@ -245,11 +245,11 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setFormat
-     * @covers Contentful\Delivery\ImageOptions::setQuality
-     * @covers Contentful\Delivery\ImageOptions::getFormat
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setFormat
+     * @covers \Contentful\ImageOptions::setQuality
+     * @covers \Contentful\ImageOptions::getFormat
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryQualityOverridesFormat()
     {
@@ -263,8 +263,8 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::isProgressive
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::isProgressive
      */
     public function testGetProgressiveDefault()
     {
@@ -273,9 +273,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setProgressive
-     * @covers Contentful\Delivery\ImageOptions::isProgressive
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setProgressive
+     * @covers \Contentful\ImageOptions::isProgressive
      */
     public function testGetSetProgressive()
     {
@@ -286,9 +286,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setProgressive
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setProgressive
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryProgressive()
     {
@@ -299,11 +299,11 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setFormat
-     * @covers Contentful\Delivery\ImageOptions::setProgressive
-     * @covers Contentful\Delivery\ImageOptions::getFormat
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setFormat
+     * @covers \Contentful\ImageOptions::setProgressive
+     * @covers \Contentful\ImageOptions::getFormat
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryProgressiveOverridesFormat()
     {
@@ -317,9 +317,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setResizeFit
-     * @covers Contentful\Delivery\ImageOptions::getResizeFit
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setResizeFit
+     * @covers \Contentful\ImageOptions::getResizeFit
      */
     public function testGetSetResizeFit()
     {
@@ -330,8 +330,8 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setResizeFit
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setResizeFit
      *
      * @expectedException \InvalidArgumentException
      */
@@ -342,9 +342,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setResizeFit
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setResizeFit
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryResizeFit()
     {
@@ -355,9 +355,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setResizeFocus
-     * @covers Contentful\Delivery\ImageOptions::getResizeFocus
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setResizeFocus
+     * @covers \Contentful\ImageOptions::getResizeFocus
      */
     public function testGetSetResizeFocus()
     {
@@ -368,8 +368,8 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setResizeFocus
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setResizeFocus
      *
      * @expectedException \InvalidArgumentException
      */
@@ -380,10 +380,10 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setResizeFit
-     * @covers Contentful\Delivery\ImageOptions::setResizeFocus
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setResizeFit
+     * @covers \Contentful\ImageOptions::setResizeFocus
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryResizeFocus()
     {
@@ -395,9 +395,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setResizeFocus
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setResizeFocus
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryResizeFocusIgnoredWithoutFit()
     {
@@ -408,9 +408,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setRadius
-     * @covers Contentful\Delivery\ImageOptions::getRadius
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setRadius
+     * @covers \Contentful\ImageOptions::getRadius
      */
     public function testGetSetRadius()
     {
@@ -421,8 +421,8 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setRadius
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setRadius
      *
      * @expectedException \InvalidArgumentException
      */
@@ -433,9 +433,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setRadius
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setRadius
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryRadius()
     {
@@ -446,9 +446,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setBackgroundColor
-     * @covers Contentful\Delivery\ImageOptions::getBackgroundColor
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setBackgroundColor
+     * @covers \Contentful\ImageOptions::getBackgroundColor
      */
     public function testGetSetBackgroundColorSixDigits()
     {
@@ -459,9 +459,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setBackgroundColor
-     * @covers Contentful\Delivery\ImageOptions::getBackgroundColor
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setBackgroundColor
+     * @covers \Contentful\ImageOptions::getBackgroundColor
      */
     public function testGetSetBackgroundColorThreeDigits()
     {
@@ -472,9 +472,9 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setBackgroundColor
-     * @covers Contentful\Delivery\ImageOptions::getBackgroundColor
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setBackgroundColor
+     * @covers \Contentful\ImageOptions::getBackgroundColor
      */
     public function testGetSetBackgroundColorUpperCase()
     {
@@ -485,8 +485,8 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setBackgroundColor
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setBackgroundColor
      *
      * @expectedException \InvalidArgumentException
      */
@@ -497,8 +497,8 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setBackgroundColor
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setBackgroundColor
      *
      * @expectedException \InvalidArgumentException
      */
@@ -509,8 +509,8 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setBackgroundColor
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setBackgroundColor
      *
      * @expectedException \InvalidArgumentException
      */
@@ -521,10 +521,10 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setResizeFit
-     * @covers Contentful\Delivery\ImageOptions::setBackgroundColor
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setResizeFit
+     * @covers \Contentful\ImageOptions::setBackgroundColor
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryBackgroundColor()
     {
@@ -536,13 +536,13 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageOptions::__construct
-     * @covers Contentful\Delivery\ImageOptions::setWidth
-     * @covers Contentful\Delivery\ImageOptions::setHeight
-     * @covers Contentful\Delivery\ImageOptions::setFormat
-     * @covers Contentful\Delivery\ImageOptions::setQuality
-     * @covers Contentful\Delivery\ImageOptions::setProgressive
-     * @covers Contentful\Delivery\ImageOptions::getQueryString
+     * @covers \Contentful\ImageOptions::__construct
+     * @covers \Contentful\ImageOptions::setWidth
+     * @covers \Contentful\ImageOptions::setHeight
+     * @covers \Contentful\ImageOptions::setFormat
+     * @covers \Contentful\ImageOptions::setQuality
+     * @covers \Contentful\ImageOptions::setProgressive
+     * @covers \Contentful\ImageOptions::getQueryString
      */
     public function testQueryCombined()
     {
