@@ -10,6 +10,10 @@ use Contentful\Query;
 use Contentful\Location;
 use Contentful\Delivery\ContentType;
 
+class FakeQuery extends Query
+{
+}
+
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -19,7 +23,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterWithNoOptions()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
 
         $this->assertEquals('', $queryBuilder->getQueryString());
     }
@@ -32,7 +36,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterWithLimit()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->setLimit(150);
 
         $this->assertEquals('limit=150', $queryBuilder->getQueryString());
@@ -46,7 +50,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testLimitThrowsOnValueTooLarge()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->setLimit(1500);
     }
 
@@ -58,7 +62,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testLimitThrowsOnValueZero()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->setLimit(0);
     }
 
@@ -70,7 +74,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testLimitThrowsOnValueNegative()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->setLimit(-1);
     }
 
@@ -82,7 +86,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testLimitSetNull()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->setLimit(150);
 
         $queryBuilder->setLimit(null);
@@ -98,7 +102,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterWithSkip()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->setSkip(10);
 
         $this->assertEquals('skip=10', $queryBuilder->getQueryString());
@@ -112,7 +116,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testSkipThrowsOnValueNegative()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->setSkip(-1);
     }
 
@@ -124,7 +128,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterOrderBy()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->orderBy('sys.createdAt');
 
         $this->assertEquals('order=sys.createdAt', $queryBuilder->getQueryString());
@@ -138,7 +142,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterOrderByReversed()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->orderBy('sys.createdAt', true);
 
         $this->assertEquals('order=-sys.createdAt', $queryBuilder->getQueryString());
@@ -152,7 +156,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterOrderByMultiple()
     {
-        $queryBuilder = (new Query)
+        $queryBuilder = (new FakeQuery)
             ->orderBy('sys.createdAt')
             ->orderBy('sys.updatedAt', true);
 
@@ -168,7 +172,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSetContentTypeFromObject()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $contentType = $this->getMockBuilder(ContentType::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -189,7 +193,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterByContentType()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->setContentType('cat');
 
         $this->assertEquals('content_type=cat', $queryBuilder->getQueryString());
@@ -203,7 +207,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhere()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->where('sys.id', 'nyancat');
 
         $this->assertEquals('sys.id=nyancat', $queryBuilder->getQueryString());
@@ -217,7 +221,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhereOperator()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->where('sys.id', 'nyancat', 'ne');
 
         $this->assertEquals('sys.id%5Bne%5D=nyancat', $queryBuilder->getQueryString());
@@ -231,7 +235,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhereDateTime()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->where('sys.updatedAt', new \DateTimeImmutable('2013-01-01T00:00:00Z'), 'lte');
 
         $this->assertEquals('sys.updatedAt%5Blte%5D=2013-01-01T00%3A00%3A00%2B00%3A00', $queryBuilder->getQueryString());
@@ -245,7 +249,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhereDateTimeResetsSeconds()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->where('sys.updatedAt', new \DateTimeImmutable('2013-01-01T12:30:35Z'), 'lte');
 
         $this->assertEquals('sys.updatedAt%5Blte%5D=2013-01-01T12%3A30%3A00%2B00%3A00', $queryBuilder->getQueryString());
@@ -262,7 +266,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhereLocation()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->where('fields.center', new Location(15.0, 17.8), 'near');
 
         $this->assertEquals('fields.center%5Bnear%5D=15%2C17.8', $queryBuilder->getQueryString());
@@ -276,7 +280,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhereArray()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->where('fields.favoriteColor', ['blue', 'red'], 'all');
 
         $this->assertEquals('fields.favoriteColor%5Ball%5D=blue%2Cred', $queryBuilder->getQueryString());
@@ -290,7 +294,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhereUnknownOperator()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->where('sys.id', 'nyancat', 'wrong');
     }
 
@@ -302,7 +306,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetMimeTypeGroupInvalid()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->setMimeTypeGroup('invalid');
     }
 
@@ -314,7 +318,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterByMimeTypeGroup()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder->setMimeTypeGroup('image');
 
         $this->assertEquals('mimetype_group=image', $queryBuilder->getQueryString());
@@ -332,7 +336,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterCombined()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new FakeQuery;
         $queryBuilder
             ->setContentType('cat')
             ->setLimit(150)
@@ -353,19 +357,19 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testQueryWithSelect()
     {
-        $queryBuilder = (new Query)
+        $queryBuilder = (new FakeQuery)
             ->select(['foobar1'])
             ->setContentType('cat');
 
         $this->assertEquals('content_type=cat&select=sys%2Cfoobar1', $queryBuilder->getQueryString());
 
-        $queryBuilder = (new Query)
+        $queryBuilder = (new FakeQuery)
             ->select(['foobar2'])
             ->setContentType('cat');
 
         $this->assertEquals('content_type=cat&select=sys%2Cfoobar2', $queryBuilder->getQueryString());
 
-        $queryBuilder = (new Query)
+        $queryBuilder = (new FakeQuery)
             ->select(['sys'])
             ->setContentType('cat');
 
