@@ -8,9 +8,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 **ATTENTION**: This release contains breaking changes. Please take extra care when updating to this version.
 
 ### Changed
-* Renamed `Contentful\Delivery\Link` to `Contentful\Link`. **[BREAKING]**
+* Renamed a few classes to move them outside the Delivery namespace. **[BREAKING]**
+  * `Contentful\Delivery\Link` to `Contentful\Link`
+  * `Contentful\Delivery\ImageOptions` to `Contentful\ImageOptions`
 * Renamed `ResourceNotFoundException` to `NotFoundException` to match the names the API uses. **[BREAKING]**
-* Renamed `Contentful\Delivery\ImageOptions` to `Contentful\ImageOptions`. **[BREAKING]**
 
 ### Removed
 * Removed all get* methods except `getQueryData()` and `getQueryString()` from the various query classes. **[BREAKING]**
