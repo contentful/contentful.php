@@ -13,7 +13,7 @@ use Contentful\Delivery\ContentType;
  *
  * @api
  */
-class Query
+abstract class Query
 {
     /**
      * ISO8601 but with the seconds forced to 0.

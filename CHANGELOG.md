@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   * `Contentful\Delivery\File` to `Contentful\File`
   * `Contentful\Delivery\ImageFile` to `Contentful\ImageFile`
 * Renamed `ResourceNotFoundException` to `NotFoundException` to match the names the API uses. **[BREAKING]**
+* Turned `Contentful\Query` into an abstract class to promote separation between CDA and CMA SDKs. **[BREAKING]**
 
 ### Removed
 * Removed all get* methods except `getQueryData()` and `getQueryString()` from the various query classes. **[BREAKING]**

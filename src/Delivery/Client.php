@@ -11,7 +11,6 @@ use Contentful\Delivery\Cache\FilesystemCache;
 use Contentful\Delivery\Cache\NullCache;
 use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Synchronization\Manager;
-use Contentful\Query as BaseQuery;
 use Contentful\Link;
 
 /**
@@ -127,15 +126,15 @@ class Client extends BaseClient
     }
 
     /**
-     * @param  BaseQuery|null $query
+     * @param  Query|null $query
      *
      * @return \Contentful\ResourceArray
      *
      * @api
      */
-    public function getAssets(BaseQuery $query = null)
+    public function getAssets(Query $query = null)
     {
-        $query = $query !== null ? $query : new BaseQuery;
+        $query = $query !== null ? $query : new Query;
         $queryData = $query->getQueryData();
         if (!isset($queryData['locale'])) {
             $queryData['locale'] = $this->defaultLocale;
@@ -168,15 +167,15 @@ class Client extends BaseClient
     }
 
     /**
-     * @param  BaseQuery|null $query
+     * @param  Query|null $query
      *
      * @return \Contentful\ResourceArray
      *
      * @api
      */
-    public function getContentTypes(BaseQuery $query = null)
+    public function getContentTypes(Query $query = null)
     {
-        $query = $query !== null ? $query : new BaseQuery;
+        $query = $query !== null ? $query : new Query;
         return $this->requestAndBuild('GET', 'content_types', [
             'query' => $query->getQueryData()
         ]);
@@ -199,15 +198,15 @@ class Client extends BaseClient
     }
 
     /**
-     * @param  BaseQuery $query
+     * @param  Query $query
      *
      * @return \Contentful\ResourceArray
      *
      * @api
      */
-    public function getEntries(BaseQuery $query = null)
+    public function getEntries(Query $query = null)
     {
-        $query = $query !== null ? $query : new BaseQuery;
+        $query = $query !== null ? $query : new Query;
         $queryData = $query->getQueryData();
         if (!isset($queryData['locale'])) {
             $queryData['locale'] = $this->defaultLocale;
