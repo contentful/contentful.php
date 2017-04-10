@@ -14,6 +14,8 @@ use Contentful\Delivery\Cache\CacheInterface;
 use Contentful\Location;
 use Contentful\ResourceArray;
 use Contentful\Link;
+use Contentful\File;
+use Contentful\ImageFile;
 use Contentful\Exception\SpaceMismatchException;
 
 /**

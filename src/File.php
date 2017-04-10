@@ -1,10 +1,10 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
-namespace Contentful\Delivery;
+namespace Contentful;
 
 class File implements \JsonSerializable
 {

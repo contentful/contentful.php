@@ -6,7 +6,7 @@
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\Delivery\ImageFile;
+use Contentful\ImageFile;
 use Contentful\ImageOptions;
 
 class ImageFileTest extends \PHPUnit_Framework_TestCase
@@ -29,13 +29,13 @@ class ImageFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageFile::__construct
-     * @covers Contentful\Delivery\ImageFile::getUrl
-     * @covers Contentful\Delivery\ImageFile::getWidth
-     * @covers Contentful\Delivery\ImageFile::getHeight
+     * @covers \Contentful\ImageFile::__construct
+     * @covers \Contentful\ImageFile::getUrl
+     * @covers \Contentful\ImageFile::getWidth
+     * @covers \Contentful\ImageFile::getHeight
      *
-     * @covers Contentful\Delivery\File::__construct
-     * @covers Contentful\Delivery\File::getUrl
+     * @covers \Contentful\File::__construct
+     * @covers \Contentful\File::getUrl
      */
     public function testGetter()
     {
@@ -45,11 +45,11 @@ class ImageFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageFile::__construct
-     * @covers Contentful\Delivery\ImageFile::getUrl
+     * @covers \Contentful\ImageFile::__construct
+     * @covers \Contentful\ImageFile::getUrl
      *
-     * @covers Contentful\Delivery\File::__construct
-     * @covers Contentful\Delivery\File::getUrl
+     * @covers \Contentful\File::__construct
+     * @covers \Contentful\File::getUrl
      */
     public function testWithImageOptions()
     {
@@ -67,11 +67,11 @@ class ImageFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\ImageFile::__construct
-     * @covers Contentful\Delivery\ImageFile::jsonSerialize
+     * @covers \Contentful\ImageFile::__construct
+     * @covers \Contentful\ImageFile::jsonSerialize
      *
-     * @covers Contentful\Delivery\File::__construct
-     * @covers Contentful\Delivery\File::jsonSerialize
+     * @covers \Contentful\File::__construct
+     * @covers \Contentful\File::jsonSerialize
      */
     public function testJsonSerialize()
     {

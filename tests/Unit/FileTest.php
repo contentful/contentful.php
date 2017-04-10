@@ -6,7 +6,7 @@
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\Delivery\File;
+use Contentful\File;
 
 class FileTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,11 +26,11 @@ class FileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\File::__construct
-     * @covers Contentful\Delivery\File::getFileName
-     * @covers Contentful\Delivery\File::getContentType
-     * @covers Contentful\Delivery\File::getUrl
-     * @covers Contentful\Delivery\File::getSize
+     * @covers \Contentful\File::__construct
+     * @covers \Contentful\File::getFileName
+     * @covers \Contentful\File::getContentType
+     * @covers \Contentful\File::getUrl
+     * @covers \Contentful\File::getSize
      */
     public function testGetter()
     {
@@ -41,8 +41,8 @@ class FileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\File::__construct
-     * @covers Contentful\Delivery\File::jsonSerialize
+     * @covers \Contentful\File::__construct
+     * @covers \Contentful\File::jsonSerialize
      */
     public function testJsonSerialize()
     {
