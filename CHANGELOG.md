@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 * Renamed `Contentful\Delivery\Link` to `Contentful\Link`. **[BREAKING]**
 * Renamed `ResourceNotFoundException` to `NotFoundException` to match the names the API uses. **[BREAKING]**
+* Renamed `Contentful\Delivery\ImageOptions` to `Contentful\ImageOptions`. **[BREAKING]**
 
 ### Removed
 * Removed all get* methods except `getQueryData()` and `getQueryString()` from the various query classes. **[BREAKING]**
