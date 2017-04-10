@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 Contentful GmbH
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -77,6 +77,10 @@ class File implements \JsonSerializable
      */
     public function getUrl()
     {
+        if (substr($this->url, 0, 2) === '//') {
+            return 'https:' . $this->url;
+        }
+
         return $this->url;
     }
 

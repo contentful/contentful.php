@@ -50,6 +50,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Changed the signature of the constructor of `Contentful\Delivery\Client`. Several options are now in an options array. **[BREAKING]**
 * The Sync API can now also be used with the Preview API. Only initial syncs are supported.
 * Dist zip files no longer include the tests directory. If you need them use `composer install --prefer-source`.
+* `File::getUrl` always returns the URL to the file prefixed with a protocol. Previously it would have been a protocol relative URL. **[BREAKING]**
 
 ### Removed
 * Dropped `BearerToken` to make it easier to inject custom Guzzle instances. **[BREAKING]**
