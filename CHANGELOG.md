@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/0.8.0-beta...HEAD)
+## [0.8.1-beta](https://github.com/contentful/contentful.php/tree/0.8.0-beta) (2017-04-11)
 
 ### Fixed
 * The caching of resolved links does not work for an array of links.
