@@ -27,7 +27,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     protected $sys;
 
     /**
-     * @var Client
+     * @var Client|null
      */
     protected $client;
 
@@ -89,7 +89,6 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         if (0 !== strpos($name, 'get')) {
             trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
         }
-        $client = $this->client;
         $locale = $this->getLocaleFromInput(isset($arguments[0]) ? $arguments[0] : null);
 
         $fieldName = substr($name, 3);
@@ -142,15 +141,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         }
 
         if ($result instanceof Link) {
-            $cacheId = $result->getLinkType() . '-' . $result->getId();
-            if (isset($this->resolvedLinks[$cacheId])) {
-                return $this->resolvedLinks[$cacheId];
-            }
-
-            $resolvedObj = $client->resolveLink($result);
-            $this->resolvedLinks[$cacheId] = $resolvedObj;
-
-            return $resolvedObj;
+            return $this->resolveLinkWithCache($result);
         }
 
         if ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link') {
@@ -164,6 +155,26 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         }
 
         return $result;
+    }
+
+    /**
+     * Resolves a Link into an Entry or Asset. Resolved links are cached local to the object.
+     *
+     * @param  Link $link
+     *
+     * @return Asset|EntryInterface|null
+     */
+    private function resolveLinkWithCache(Link $link)
+    {
+        $cacheId = $link->getLinkType() . '-' . $link->getId();
+        if (isset($this->resolvedLinks[$cacheId])) {
+            return $this->resolvedLinks[$cacheId];
+        }
+
+        $resolvedObj = $this->client->resolveLink($link);
+        $this->resolvedLinks[$cacheId] = $resolvedObj;
+
+        return $resolvedObj;
     }
 
     /**
@@ -192,7 +203,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     {
         if ($value instanceof Link) {
             try {
-                return $this->client->resolveLink($value);
+                return $this->resolveLinkWithCache($value);
             } catch (NotFoundException $e) {
                 return $e;
             }
