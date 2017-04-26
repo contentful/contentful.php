@@ -313,11 +313,7 @@ class ResourceBuilder
     {
         $result = [];
         foreach ($fields as $name => $fieldData) {
-            $fieldConfig = $contentType->getField($name);
-            if ($fieldConfig->isDisabled()) {
-                continue;
-            }
-            $result[$name] = $this->buildField($fieldConfig, $this->normalizeFieldData($fieldData, $locale), $rawDataList, $depthCount);
+            $result[$name] = $this->buildField($contentType->getField($name), $this->normalizeFieldData($fieldData, $locale), $rawDataList, $depthCount);
         }
         return $result;
     }

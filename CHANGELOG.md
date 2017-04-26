@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/0.8.1-beta...HEAD)
 
+### Added
+* Content in disabled fields can now be read.
+
 ## [0.8.1-beta](https://github.com/contentful/contentful.php/tree/0.8.0-beta) (2017-04-11)
 
 ### Fixed
