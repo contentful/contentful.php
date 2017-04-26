@@ -10,15 +10,13 @@ PHP SDK for [Contentful's][1] Content Delivery API.
 
 The SDK requires at least PHP 5.5.9. PHP 7 is supported.
 
-The SDK is currently in beta, however the API should not see any major changes.
-
 Setup
 =====
 
 To add this package to your `composer.json` and install it execute the following command:
 
 ```bash
-php composer.phar require contentful/contentful:@beta
+php composer.phar require contentful/contentful
 ````
 
 Then, if not already done, include the Composer autoloader:
