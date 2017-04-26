@@ -67,7 +67,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                 new ContentTypeField('bestFriend', 'Best Friend', 'Link', 'Entry', null, false, false),
                 new ContentTypeField('Enemy', 'Enemy', 'Link', 'Entry', null, false, false),
                 new ContentTypeField('birthday', 'Birthday', 'Date', null, null, false, false),
-                new ContentTypeField('lifes', 'Lifes left', 'Integer', null, null, false, false, true),
+                new ContentTypeField('lifes', 'Lifes left', 'Integer', null, null, false, false, false, true),
                 new ContentTypeField('lives', 'Lives left', 'Integer', null, null, false, false),
                 new ContentTypeField('image', 'Image', 'Link', 'Asset', null, false, false)
             ],
@@ -123,6 +123,9 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                 'lives' => [
                     'en-US' =>  1337
                 ],
+                'lifes' => [
+                    'en-US' =>  42
+                ],
                 'image' => [
                     'en-US' => $mockAsset
                 ],
@@ -152,6 +155,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('happycat', $entry->getBestFriendId());
         $this->assertEquals('garfield', $entry->getEnemyId());
+    }
+
+    public function testAccessingDisabledField()
+    {
+        $this->assertEquals(42, $this->entry->getLifes());
     }
 
     public function testLinkResolution()
@@ -431,6 +439,6 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 
     public function testJsonSerialize()
     {
-        $this->assertJsonStringEqualsJsonString('{"fields":{"name":{"en-US":"Nyan Cat","tlh":"Nyan vIghro\'"},"likes":{"en-US":["rainbows","fish"]},"color":{"en-US":"rainbow"},"bestFriend":{"en-US":{"sys":{"type":"Link","linkType":"Entry","id":"happycat"}}},"Enemy":{"en-US":{"sys":{"type":"Link","linkType":"Entry","id":"garfield"}}},"birthday":{"en-US":"2011-04-04T22:00:00.000Z"},"lives":{"en-US":1337},"image":{"en-US":{"sys":{"type":"Link","linkType":"Asset","id":"nyancat"}}}},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"type":"Entry","contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"cat"}},"id":"nyancat","revision":5,"createdAt":"2013-06-27T22:46:19.513Z","updatedAt":"2013-09-04T09:19:39.027Z"}}', json_encode($this->entry));
+        $this->assertJsonStringEqualsJsonString('{"fields":{"name":{"en-US":"Nyan Cat","tlh":"Nyan vIghro\'"},"likes":{"en-US":["rainbows","fish"]},"color":{"en-US":"rainbow"},"bestFriend":{"en-US":{"sys":{"type":"Link","linkType":"Entry","id":"happycat"}}},"Enemy":{"en-US":{"sys":{"type":"Link","linkType":"Entry","id":"garfield"}}},"birthday":{"en-US":"2011-04-04T22:00:00.000Z"},"lives":{"en-US":1337},"lifes":{"en-US":42},"image":{"en-US":{"sys":{"type":"Link","linkType":"Asset","id":"nyancat"}}}},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"type":"Entry","contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"cat"}},"id":"nyancat","revision":5,"createdAt":"2013-06-27T22:46:19.513Z","updatedAt":"2013-09-04T09:19:39.027Z"}}', json_encode($this->entry));
     }
 }
