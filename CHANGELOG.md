@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/1.0.0...HEAD)
 
+### Fixed
+* Retrieving assets with the Preview API fails if no file is set. ([#99](https://github.com/contentful/contentful.php/pull/99)).
 
 ## [1.0.0](https://github.com/contentful/contentful.php/tree/1.0.0) (2017-04-26)
 

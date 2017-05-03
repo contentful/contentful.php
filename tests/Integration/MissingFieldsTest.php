@@ -30,4 +30,21 @@ class MissingFieldsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($entry->getTwitter());
     }
+
+    public function testMissingFieldsInAssets()
+    {
+        $client = new Client('irrelevant', 'cfexampleapi', true);
+
+        // First we load the Space
+        $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
+        $client->reviveJson($space);
+
+        // than the asset
+        $assetJson = '{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"id":"nyancat","type":"Asset","createdAt":"2013-09-02T14:56:34.240Z","updatedAt":"2013-09-02T14:56:34.240Z","revision":1,"locale":"en-US"},"fields":{}}';
+
+        $asset = $client->reviveJson($assetJson);
+        $this->assertNull($asset->getTitle());
+        $this->assertNull($asset->getDescription());
+        $this->assertNull($asset->getFile());
+    }
 }
