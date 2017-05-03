@@ -101,6 +101,11 @@ class Asset extends LocalizedResource implements \JsonSerializable
     {
         $localeCode = $this->getLocaleFromInput($locale);
 
+        // This checks happens after the call to getLocaleFromInput to make sure the Exception for invalid locales is still thrown.
+        if ($this->file === null) {
+            return null;
+        }
+
         return $this->file[$localeCode];
     }
 
@@ -181,10 +186,12 @@ class Asset extends LocalizedResource implements \JsonSerializable
             'fields' => (object) [],
             'sys' => $this->sys
         ];
-        if ($entryLocale) {
-            $obj->fields->file = $this->file[$entryLocale];
-        } else {
-            $obj->fields->file = $this->file;
+        if ($this->file !== null) {
+            if ($entryLocale) {
+                $obj->fields->file = $this->file[$entryLocale];
+            } else {
+                $obj->fields->file = $this->file;
+            }
         }
 
         if ($this->title !== null) {
