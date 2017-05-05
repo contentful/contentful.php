@@ -12,9 +12,11 @@
         "symfony/filesystem": "~2.7|~3.0"
     },
     "require-dev": {
+        "ext-soap": "*",
         "php-vcr/phpunit-testlistener-vcr": "^1.1",
         "jakub-onderka/php-parallel-lint": "^0.9.2",
-        "jakub-onderka/php-console-highlighter": "^0.3.2"
+        "jakub-onderka/php-console-highlighter": "^0.3.2",
+        "phpunit/phpunit": "^4.8"
     },
     "autoload": {
         "psr-4": {
