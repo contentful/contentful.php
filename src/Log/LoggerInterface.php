@@ -29,5 +29,5 @@ interface LoggerInterface
      *
      * @return void
      */
-    public function log($api, RequestInterface $request, StandardTimer $timer, ResponseInterface $response = null, \Exception $exception = null);
+    public function log($api, RequestInterface $request, TimerInterface $timer, ResponseInterface $response = null, \Exception $exception = null);
 }
