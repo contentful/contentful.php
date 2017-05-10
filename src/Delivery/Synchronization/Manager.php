@@ -102,11 +102,11 @@ class Manager
     /**
      * Build a Result from the API response.
      *
-     * @param  object $data
+     * @param  array $data
      *
      * @return Result
      */
-    private function buildResult($data)
+    private function buildResult(array $data)
     {
         if (isset($data['nextSyncUrl'])) {
             $done = true;
