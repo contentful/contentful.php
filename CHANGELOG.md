@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 * Retrieving assets with the Preview API fails if no file is set. ([#99](https://github.com/contentful/contentful.php/pull/99)).
+* When lazy-loading a linked entry, it would always be fetched in the default locale. ([#109](https://github.com/contentful/contentful.php/pull/109)).
 
 ## [1.0.0](https://github.com/contentful/contentful.php/tree/1.0.0) (2017-04-26)
 
