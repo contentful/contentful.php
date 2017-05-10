@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/1.0.0...HEAD)
 
+### Changed
+* The minimum required version of `guzzlehttp/psr7` is now 1.4.
+
 ### Fixed
 * Retrieving assets with the Preview API fails if no file is set. ([#99](https://github.com/contentful/contentful.php/pull/99)).
 

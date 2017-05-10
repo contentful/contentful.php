@@ -159,7 +159,7 @@ abstract class Client
             'MANAGEMENT' => 'application/vnd.contentful.management.v1+json'
         ];
 
-        $uri = Psr7\Uri::resolve(Psr7\uri_for($this->baseUri), $path);
+        $uri = Psr7\UriResolver::resolve(new Psr7\Uri($this->baseUri), new Psr7\Uri($path));
 
         if ($query) {
             if (is_array($query)) {
