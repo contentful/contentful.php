@@ -12,3 +12,4 @@
 /phpunit-api-coverage.xml export-ignore
 /tests export-ignore
 /sami.php export-ignore
+/scripts export-ignore
