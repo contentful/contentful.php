@@ -30,7 +30,7 @@ abstract class Client
     private $httpClient;
 
     /**
-     * @var string
+     * @var Psr7\Uri
      */
     private $baseUri;
 
@@ -64,7 +64,7 @@ abstract class Client
         $this->logger = $logger ?: new NullLogger();
 
         $this->api = $api;
-        $this->baseUri = $baseUri;
+        $this->baseUri = new Psr7\Uri($baseUri);
         $this->httpClient = $guzzle ?: new GuzzleClient();
     }
 
@@ -159,7 +159,7 @@ abstract class Client
             'MANAGEMENT' => 'application/vnd.contentful.management.v1+json'
         ];
 
-        $uri = Psr7\UriResolver::resolve(new Psr7\Uri($this->baseUri), new Psr7\Uri($path));
+        $uri = Psr7\UriResolver::resolve($this->baseUri, new Psr7\Uri($path));
 
         if ($query) {
             if (is_array($query)) {
