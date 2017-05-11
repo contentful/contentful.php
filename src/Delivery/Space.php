@@ -11,6 +11,8 @@ namespace Contentful\Delivery;
  */
 class Space implements \JsonSerializable
 {
+    use HasSystemProperties;
+
     /**
      * @var string
      */
@@ -30,11 +32,6 @@ class Space implements \JsonSerializable
      * @var Locale
      */
     private $defaultLocale;
-
-    /**
-     * @var SystemProperties
-     */
-    private $sys;
 
     /**
      * Space constructor.
@@ -101,16 +98,6 @@ class Space implements \JsonSerializable
     public function getDefaultLocale()
     {
         return $this->defaultLocale;
-    }
-
-    /**
-     * Returns the id of this space.
-     *
-     * @return string|null
-     */
-    public function getId()
-    {
-        return $this->sys->getId();
     }
 
     /**

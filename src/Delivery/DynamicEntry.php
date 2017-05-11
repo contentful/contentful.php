@@ -11,6 +11,8 @@ use Contentful\Link;
 
 class DynamicEntry extends LocalizedResource implements EntryInterface
 {
+    use HasSystemProperties;
+
     /**
      * @var array
      */
@@ -20,11 +22,6 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
      * @var array
      */
     private $resolvedLinks = [];
-
-    /**
-     * @var SystemProperties
-     */
-    protected $sys;
 
     /**
      * @var Client|null
@@ -46,36 +43,6 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         $this->sys = $sys;
         $this->client = $client;
         $this->resolvedLinks = [];
-    }
-
-    public function getId()
-    {
-        return $this->sys->getId();
-    }
-
-    public function getRevision()
-    {
-        return $this->sys->getRevision();
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->sys->getUpdatedAt();
-    }
-
-    public function getCreatedAt()
-    {
-        return $this->sys->getCreatedAt();
-    }
-
-    public function getSpace()
-    {
-        return $this->sys->getSpace();
-    }
-
-    public function getContentType()
-    {
-        return $this->sys->getContentType();
     }
 
     /**

@@ -12,6 +12,8 @@ namespace Contentful\Delivery;
  */
 class ContentType implements \JsonSerializable
 {
+    use HasSystemProperties;
+
     /**
      * Name of the Content Type.
      *
@@ -39,11 +41,6 @@ class ContentType implements \JsonSerializable
      * @var string|null
      */
     private $displayField;
-
-    /**
-     * @var SystemProperties
-     */
-    private $sys;
 
     /**
      * ContentType constructor.
@@ -136,66 +133,6 @@ class ContentType implements \JsonSerializable
             return null;
         }
         return $this->getField($this->displayField);
-    }
-
-    /**
-     * Returns the ID of this content type.
-     *
-     * @return string
-     *
-     * @api
-     */
-    public function getId()
-    {
-        return $this->sys->getId();
-    }
-
-    /**
-     * Returns the revision of this content type.
-     *
-     * @return int
-     *
-     * @api
-     */
-    public function getRevision()
-    {
-        return $this->sys->getRevision();
-    }
-
-    /**
-     * Returns the time when this content type was last updated.
-     *
-     * @return \DateTimeImmutable
-     *
-     * @api
-     */
-    public function getUpdatedAt()
-    {
-        return $this->sys->getUpdatedAt();
-    }
-
-    /**
-     * Returns the time when this content type was created.
-     *
-     * @return \DateTimeImmutable
-     *
-     * @api
-     */
-    public function getCreatedAt()
-    {
-        return $this->sys->getCreatedAt();
-    }
-
-    /**
-     * Returns the space this content type belongs to.
-     *
-     * @return Space
-     *
-     * @api
-     */
-    public function getSpace()
-    {
-        return $this->sys->getSpace();
     }
 
     /**

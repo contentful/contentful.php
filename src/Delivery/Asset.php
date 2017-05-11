@@ -8,6 +8,8 @@ namespace Contentful\Delivery;
 
 class Asset extends LocalizedResource implements \JsonSerializable
 {
+    use HasSystemProperties;
+
     /**
      * @var array
      */
@@ -22,11 +24,6 @@ class Asset extends LocalizedResource implements \JsonSerializable
      * @var array
      */
     private $file;
-
-    /**
-     * @var SystemProperties
-     */
-    private $sys;
 
     /**
      * Asset constructor.
@@ -107,66 +104,6 @@ class Asset extends LocalizedResource implements \JsonSerializable
         }
 
         return $this->file[$localeCode];
-    }
-
-    /**
-     * Returns the ID of this Asset.
-     *
-     * @return string
-     *
-     * @api
-     */
-    public function getId()
-    {
-        return $this->sys->getId();
-    }
-
-    /**
-     * Returns the Revision of this Asset.
-     *
-     * @return int
-     *
-     * @api
-     */
-    public function getRevision()
-    {
-        return $this->sys->getRevision();
-    }
-
-    /**
-     * Returns the time when this Asset was last changed.
-     *
-     * @return \DateTimeImmutable
-     *
-     * @api
-     */
-    public function getUpdatedAt()
-    {
-        return $this->sys->getUpdatedAt();
-    }
-
-    /**
-     * Returns the time when this Asset was created.
-     *
-     * @return \DateTimeImmutable
-     *
-     * @api
-     */
-    public function getCreatedAt()
-    {
-        return $this->sys->getCreatedAt();
-    }
-
-    /**
-     * Returns the Space this Asset belongs to.
-     *
-     * @return Space
-     *
-     * @api
-     */
-    public function getSpace()
-    {
-        return $this->sys->getSpace();
     }
 
     /**
