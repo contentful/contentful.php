@@ -6,6 +6,8 @@
 
 namespace Contentful\Tests\Unit\Delivery\Synchronization;
 
+use Contentful\Delivery\ContentType;
+use Contentful\Delivery\Synchronization\DeletedEntry;
 use Contentful\Delivery\Synchronization\DeletedResource;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
@@ -52,6 +54,43 @@ class DeletedResourceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new \DateTimeImmutable('2014-08-11T08:30:42.559Z'), $resource->getCreatedAt());
         $this->assertEquals(new \DateTimeImmutable('2014-08-12T08:30:42.559Z'), $resource->getUpdatedAt());
         $this->assertEquals(new \DateTimeImmutable('2014-08-13T08:30:42.559Z'), $resource->getDeletedAt());
+    }
+
+    public function testContentTypeDeletedEntry()
+    {
+        $space = $this->getMockBuilder(Space::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $deletedEntry = new DeletedEntry(new SystemProperties(
+            '4rPdazIwWkuuKEAQgemSmO',
+            'DeletedEntry',
+            $space,
+            null,
+            1,
+            new \DateTimeImmutable('2014-08-11T08:30:42.559Z'),
+            new \DateTimeImmutable('2014-08-12T08:30:42.559Z'),
+            new \DateTimeImmutable('2014-08-13T08:30:42.559Z')
+        ));
+
+        $this->assertNull($deletedEntry->getContentType());
+
+        $ct = $this->getMockBuilder(ContentType::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $deletedEntry = new DeletedEntry(new SystemProperties(
+            '4rPdazIwWkuuKEAQgemSmO',
+            'DeletedEntry',
+            $space,
+            $ct,
+            1,
+            new \DateTimeImmutable('2014-08-11T08:30:42.559Z'),
+            new \DateTimeImmutable('2014-08-12T08:30:42.559Z'),
+            new \DateTimeImmutable('2014-08-13T08:30:42.559Z')
+        ));
+
+        $this->assertEquals($ct, $deletedEntry->getContentType());
     }
 
     /**

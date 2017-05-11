@@ -16,7 +16,7 @@ abstract class DeletedResource implements \JsonSerializable
     /**
      * @var SystemProperties
      */
-    private $sys;
+    protected $sys;
 
     /**
      * DeletedResource constructor.
