@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/1.0.0...HEAD)
 
+### Added
+* Implemented `DeletedEntry::getContentType()` to be used with webhooks. ([#101](https://github.com/contentful/contentful.php/pull/101))
+
 ### Changed
 * The minimum required version of `guzzlehttp/psr7` is now 1.4.
 
