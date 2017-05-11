@@ -24,7 +24,7 @@ use Contentful\Link;
  */
 class Client extends BaseClient
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.1.0';
 
     /**
      * @var ResourceBuilder
