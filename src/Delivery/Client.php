@@ -239,7 +239,8 @@ class Client extends BaseClient
     /**
      * Resolve a link to it's resource.
      *
-     * @param Link $link
+     * @param  Link        $link
+     * @param  string|null $locale
      *
      * @return Asset|EntryInterface
      *
@@ -247,16 +248,16 @@ class Client extends BaseClient
      *
      * @internal
      */
-    public function resolveLink(Link $link)
+    public function resolveLink(Link $link, $locale = null)
     {
         $id = $link->getId();
         $type = $link->getLinkType();
 
         switch ($link->getLinkType()) {
             case 'Entry':
-                return $this->getEntry($id);
+                return $this->getEntry($id, $locale);
             case 'Asset':
-                return $this->getAsset($id);
+                return $this->getAsset($id, $locale);
             default:
                 throw new \InvalidArgumentException('Tyring to resolve link for unknown type "' . $type . '".');
         }

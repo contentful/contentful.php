@@ -170,9 +170,11 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         if (isset($this->resolvedLinks[$cacheId])) {
             return $this->resolvedLinks[$cacheId];
         }
-
-        $resolvedObj = $this->client->resolveLink($link);
+        // If we knew whether the entry was constructed from the single locale or the multi-locale form, we could be
+        // more efficient but we don't so we aren't.
+        $resolvedObj = $this->client->resolveLink($link, '*');
         $this->resolvedLinks[$cacheId] = $resolvedObj;
+        $resolvedObj->setLocale($this->getLocale());
 
         return $resolvedObj;
     }

@@ -81,4 +81,16 @@ class EntryLocaleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Nyan vIghro\'', $entries[0]->getName());
         $this->assertNull($entries[0]->getName('en-US'));
     }
+
+    /**
+     * @vcr e2e_entry_locale_lazy_loading.json
+     */
+    public function testLocaleUsedWithLazyLoading()
+    {
+        $client = new Client('b4c0n73n7fu1', 'cfexampleapi');
+
+        $happycat = $client->getEntry('happycat', 'tlh');
+        $nyancat = $happycat->getBestFriend();
+        $this->assertEquals('Nyan vIghro\'', $nyancat->getName());
+    }
 }
