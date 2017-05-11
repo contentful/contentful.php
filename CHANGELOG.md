@@ -12,8 +12,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * The minimum required version of `guzzlehttp/psr7` is now 1.4.
 
 ### Fixed
-* Retrieving assets with the Preview API fails if no file is set. ([#99](https://github.com/contentful/contentful.php/pull/99)).
-* When lazy-loading a linked entry, it would always be fetched in the default locale. ([#109](https://github.com/contentful/contentful.php/pull/109)).
+* Retrieving assets with the Preview API fails if no file is set. ([#99](https://github.com/contentful/contentful.php/pull/99))
+* When lazy-loading a linked entry, it would always be fetched in the default locale. ([#109](https://github.com/contentful/contentful.php/pull/109))
 
 ## [1.0.0](https://github.com/contentful/contentful.php/tree/1.0.0) (2017-04-26)
 
@@ -61,7 +61,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   like: `new Client($token, $spaceID, false, null, ['defaultLocale => '*'])`
 * Allow setting the locale in which you work when creating the client.
 * Allow overriding the URI used to connect with the Contentful API.
-* The `select` operator can now be specified on queries.
+* The `select` operator can now be specified on queries. Thanks @Haehnchen.
 * Support for the `all` operator and passing arrays as `$value` in `Query::where()`.
 * Support for ordering by multiple fields.
 * The space metadata and the content types can now be cached with a CLI command.
@@ -77,7 +77,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Dist zip files no longer include the tests directory. If you need them use `composer install --prefer-source`.
 
 ### Removed
-* Dropped `BearerToken` to make it easier to inject custom Guzzle instances. **[BREAKING]**
+* Dropped `BearerToken` to make it easier to inject custom Guzzle instances. Thanks @Haehnchen. **[BREAKING]**
 * The class generator has been removed. It was unusable.
 
 ### Fixed
@@ -98,7 +98,7 @@ fatal error. **Note:** This does not 100% match the behaviour of the Contentful 
   This version addressed the HTTP_PROXY security vulnerability (CVE-2016-5385).
 
 ### Fixed
-* Fix [#9](https://github.com/contentful/contentful.php/issues/9) Trying to retrieve fields that end with "Id" fails.
+* Trying to retrieve fields that end with "Id" fails. [#9](https://github.com/contentful/contentful.php/issues/9)
 
 ## [0.6.4-beta](https://github.com/contentful/contentful.php/tree/0.6.4-beta) (2016-03-03)
 
@@ -142,7 +142,7 @@ fatal error. **Note:** This does not 100% match the behaviour of the Contentful 
 * When GitHub is generating archieves, are few files with metadata are excluded.
 
 ### Fixed
-* Calling the get*Id Method on a field that is not a link or an array of links did not cause an error. (#2, originally reported by @andrewevansmith)
+* Calling the get*Id Method on a field that is not a link or an array of links did not cause an error. ([#2](https://github.com/contentful/contentful.php/pull/2))
 * Accessing a non-localized field would fail with and throw a PHP notice.
 
 ## [0.6.0-beta](https://github.com/contentful/contentful.php/tree/0.6.0-beta) (2015-12-11)
