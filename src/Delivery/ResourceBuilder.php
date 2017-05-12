@@ -80,11 +80,10 @@ class ResourceBuilder
      *
      * @param  array       $data
      * @param  array|null  $rawDataList
-     * @param  int         $depthCount
      *
      * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedEntry|ResourceArray
      */
-    private function doBuildObjectsFromRawData(array $data, array $rawDataList = null, $depthCount = 0)
+    private function doBuildObjectsFromRawData(array $data, array $rawDataList = null)
     {
         $type = $data['sys']['type'];
 
@@ -94,11 +93,21 @@ class ResourceBuilder
 
                 return $this->buildArray($data, $itemList);
             case 'Asset':
+                $id = $data['sys']['id'];
+                if (isset($rawDataList['asset'][$id]) && $rawDataList['asset'][$id] instanceof Asset) {
+                    return $rawDataList['asset'][$id];
+                }
+
                 return $this->buildAsset($data);
             case 'ContentType':
                 return $this->buildContentType($data);
             case 'Entry':
-                return $this->buildEntry($data, $rawDataList, $depthCount);
+                $id = $data['sys']['id'];
+                if (isset($rawDataList['entry'][$id]) && $rawDataList['entry'][$id] instanceof DynamicEntry) {
+                    return $rawDataList['entry'][$id];
+                }
+
+                return $this->buildEntry($data, $rawDataList);
             case 'Space':
                 return $this->buildSpace($data);
             case 'DeletedAsset':
@@ -122,30 +131,37 @@ class ResourceBuilder
     {
         $entries = [];
         $assets = [];
+        $rawEntries = [];
 
         if (isset($data['includes']['Entry'])) {
             foreach ($data['includes']['Entry'] as $item) {
-                $entries[$item['sys']['id']] = $item;
+                $rawEntries[$item['sys']['id']] = $item;
+                $entries[$item['sys']['id']] = $this->buildEntry($item);
             }
         }
 
         if (isset($data['includes']['Asset'])) {
             foreach ($data['includes']['Asset'] as $item) {
-                $assets[$item['sys']['id']] = $item;
+                $assets[$item['sys']['id']] = $this->buildAsset($item);
             }
         }
 
         foreach ($data['items'] as $item) {
             switch ($item['sys']['type']) {
                 case 'Asset':
-                    $assets[$item['sys']['id']] = $item;
+                    $assets[$item['sys']['id']] = $this->buildAsset($item);
                     break;
                 case 'Entry':
-                    $entries[$item['sys']['id']] = $item;
+                    $rawEntries[$item['sys']['id']] = $item;
+                    $entries[$item['sys']['id']] = $this->buildEntry($item);
                     break;
                 default:
                     // We ignore everything else since it's either cached elsewhere or won't need to be linked
             }
+        }
+
+        foreach ($entries as $id => $entry) {
+            $this->updateEntry($entry, $rawEntries[$id], $entries);
         }
 
         return [
@@ -165,9 +181,8 @@ class ResourceBuilder
     private function buildArray(array $data, array $rawDataList = null)
     {
         $items = [];
-        $depthCount = 0;
         foreach ($data['items'] as $item) {
-            $items[] = $this->doBuildObjectsFromRawData($item, $rawDataList, $depthCount);
+            $items[] = $this->doBuildObjectsFromRawData($item, $rawDataList);
         }
 
         return new ResourceArray($items, $data['total'], $data['limit'], $data['skip']);
@@ -260,17 +275,16 @@ class ResourceBuilder
      *
      * @param  array      $data
      * @param  array|null $rawDataList
-     * @param  int        $depthCount
      *
      * @return DynamicEntry
      */
-    private function buildEntry(array $data, array $rawDataList = null, $depthCount = 0)
+    private function buildEntry(array $data, array $rawDataList = null)
     {
         $sys = $this->buildSystemProperties($data['sys']);
         $locale = $sys->getLocale();
         $fields = [];
         if (isset($data['fields'])) {
-            $fields = $this->buildFields($sys->getContentType(), $data['fields'], $locale, $rawDataList, $depthCount);
+            $fields = $this->buildFields($sys->getContentType(), $data['fields'], $locale, $rawDataList);
         }
 
         $entry = new DynamicEntry(
@@ -283,6 +297,24 @@ class ResourceBuilder
         }
 
         return $entry;
+    }
+
+    private function updateEntry(DynamicEntry $entry, array $data, array $entryList)
+    {
+        $sys = $this->buildSystemProperties($data['sys']);
+        $locale = $sys->getLocale();
+        $fields = [];
+        if (isset($data['fields'])) {
+            $fields = $this->buildFields($sys->getContentType(), $data['fields'], $locale, ['entry' => $entryList]);
+        }
+
+        // bad rouven, don't use hacks like this
+        $entry->__construct($fields,
+            $sys,
+            $this->client);
+        if ($locale) {
+            $entry->setLocale($locale);
+        }
     }
 
     /**
@@ -305,15 +337,14 @@ class ResourceBuilder
      * @param array       $fields
      * @param string|null $locale
      * @param array|null  $rawDataList
-     * @param int         $depthCount
      *
      * @return array
      */
-    private function buildFields(ContentType $contentType, array $fields, $locale, array $rawDataList = null, $depthCount = 0)
+    private function buildFields(ContentType $contentType, array $fields, $locale, array $rawDataList = null)
     {
         $result = [];
         foreach ($fields as $name => $fieldData) {
-            $result[$name] = $this->buildField($contentType->getField($name), $this->normalizeFieldData($fieldData, $locale), $rawDataList, $depthCount);
+            $result[$name] = $this->buildField($contentType->getField($name), $this->normalizeFieldData($fieldData, $locale), $rawDataList);
         }
         return $result;
     }
@@ -322,15 +353,14 @@ class ResourceBuilder
      * @param ContentTypeField $fieldConfig
      * @param array            $fieldData
      * @param array|null       $rawDataList
-     * @param int              $depthCount
      *
      * @return array
      */
-    private function buildField(ContentTypeField $fieldConfig, array $fieldData, array $rawDataList = null, $depthCount = 0)
+    private function buildField(ContentTypeField $fieldConfig, array $fieldData, array $rawDataList = null)
     {
         $result = [];
         foreach ($fieldData as $locale => $value) {
-            $result[$locale] = $this->formatValue($fieldConfig, $value, $rawDataList, $depthCount);
+            $result[$locale] = $this->formatValue($fieldConfig, $value, $rawDataList);
         }
 
         return $result;
@@ -342,11 +372,10 @@ class ResourceBuilder
      * @param  ContentTypeField|string $fieldConfig Must be a ContentTypeField if the type is Array
      * @param  mixed                   $value
      * @param  array|null              $rawDataList
-     * @param  int                     $depthCount
      *
      * @return array|Asset|DynamicEntry|Link|Location|\DateTimeImmutable
      */
-    private function formatValue($fieldConfig, $value, array $rawDataList = null, $depthCount = 0)
+    private function formatValue($fieldConfig, $value, array $rawDataList = null)
     {
         if ($fieldConfig instanceof ContentTypeField) {
             $type = $fieldConfig->getType();
@@ -371,10 +400,10 @@ class ResourceBuilder
             case 'Location':
                 return new Location($value['lat'], $value['lon']);
             case 'Link':
-                return $this->buildLink($value, $rawDataList, $depthCount);
+                return $this->buildLink($value, $rawDataList);
             case 'Array':
-                return array_map(function ($value) use ($fieldConfig, $rawDataList, $depthCount) {
-                    return $this->formatValue($fieldConfig->getItemsType(), $value, $rawDataList, $depthCount);
+                return array_map(function ($value) use ($fieldConfig, $rawDataList) {
+                    return $this->formatValue($fieldConfig->getItemsType(), $value, $rawDataList);
                 }, $value);
             default:
                 throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encountered while trying to format value.');
@@ -386,28 +415,28 @@ class ResourceBuilder
      *
      * @param  array      $data
      * @param  array|null $rawDataList
-     * @param  int        $depthCount
      *
      * @return Asset|DynamicEntry|Link
      *
      * @throws \InvalidArgumentException When encountering an unexpected link type. Only links to assets and entries are currently handled.
      */
-    private function buildLink(array $data, array $rawDataList = null, $depthCount = 0)
+    private function buildLink(array $data, array $rawDataList = null)
     {
         $id = $data['sys']['id'];
         $type = $data['sys']['linkType'];
 
         if ($type === 'Asset') {
             if (isset($rawDataList['asset'][$id])) {
-                return $this->buildAsset($rawDataList['asset'][$id]);
+                return $rawDataList['asset'][$id];
             }
 
             return new Link($id, $type);
         }
         if ($type === 'Entry') {
-            if (isset($rawDataList['entry'][$id]) && $depthCount < 20) {
-                $depthCount++;
-                return $this->buildEntry($rawDataList['entry'][$id], $rawDataList, $depthCount);
+            if (isset($rawDataList['entry'][$id])) {
+                if ($rawDataList['entry'][$id] instanceof DynamicEntry) {
+                    return $rawDataList['entry'][$id];
+                }
             }
 
             return new Link($id, $type);
