@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 * Implemented `ResourceArray::getItems` to allow access to the values of a `ResourceArray` as an actual PHP array.
+* Send the new `X-Contentful-User-Agent` header.
 
 ## [1.1.0](https://github.com/contentful/contentful.php/tree/1.1.0) (2017-05-11)
 

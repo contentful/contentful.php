@@ -104,9 +104,9 @@ class Client extends BaseClient
      *
      * @return string
      */
-    protected function getUserAgentAppName()
+    protected function getSdkNameAndVersion()
     {
-        return 'ContentfulCDA/' . self::VERSION;
+        return 'contentful.php/' . self::VERSION;
     }
 
     /**

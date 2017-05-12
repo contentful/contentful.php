@@ -50,6 +50,31 @@ abstract class Client
     private $token;
 
     /**
+     * @var string
+     */
+    private $applicationName;
+
+    /**
+     * @var string
+     */
+    private $applicationVersion;
+
+    /**
+     * @var string
+     */
+    private $integrationName;
+
+    /**
+     * @var string
+     */
+    private $integrationVersion;
+
+    /*
+     * @var string|null
+     */
+    private $contentfulUserAgent;
+
+    /**
      * Client constructor.
      *
      * @param string                $token
@@ -66,6 +91,45 @@ abstract class Client
         $this->api = $api;
         $this->baseUri = new Psr7\Uri($baseUri);
         $this->httpClient = $guzzle ?: new GuzzleClient();
+        $this->contentfulUserAgent = $this->getContentfulUserAgent();
+    }
+
+    /**
+     * Set the application name and version. The values are used as part of the X-Contentful-User-Agent header.
+     *
+     * @param string|null $name
+     * @param string|null $version
+     *
+     * @return $this
+     */
+    public function setApplication($name, $version = null)
+    {
+        $this->applicationName = $name;
+        $this->applicationVersion = $version;
+
+        // Update the cached value
+        $this->contentfulUserAgent = $this->getContentfulUserAgent();
+
+        return $this;
+    }
+
+    /**
+     * Set the application name and version. The values are used as part of the X-Contentful-User-Agent header.
+     *
+     * @param string|null $name
+     * @param string|null $version
+     *
+     * @return $this
+     */
+    public function setIntegration($name, $version = null)
+    {
+        $this->integrationName = $name;
+        $this->integrationVersion = $version;
+
+        // Update the cached value
+        $this->contentfulUserAgent = $this->getContentfulUserAgent();
+
+        return $this;
     }
 
     /**
@@ -172,7 +236,7 @@ abstract class Client
         }
 
         return new Psr7\Request($method, $uri, [
-            'User-Agent' => $this->getUserAgent(),
+            'X-Contentful-User-Agent' => $this->contentfulUserAgent,
             'Accept' => $contentTypes[$this->api],
             'Accept-Encoding' => 'gzip',
             'Authorization' => 'Bearer ' . $this->token,
@@ -184,22 +248,51 @@ abstract class Client
      *
      * @return string
      */
-    abstract protected function getUserAgentAppName();
+    abstract protected function getSdkNameAndVersion();
 
     /**
      * Returns the value of the User-Agent header for any requests made to Contentful
      *
      * @return string
      */
-    protected function getUserAgent()
+    protected function getContentfulUserAgent()
     {
-        $agent = $this->getUserAgentAppName() . ' GuzzleHttp/' . GuzzleClient::VERSION;
-        if (extension_loaded('curl') && function_exists('curl_version')) {
-            $agent .= ' curl/' . \curl_version()['version'];
-        }
-        $agent .= ' PHP/' . \PHP_VERSION;
+        $possibleOperatingSystems = [
+            'WINNT' => 'Windows',
+            'Darwin' => 'macOS'
+        ];
 
-        return $agent;
+        $parts = [
+            'app' => '',
+            'integration' => '',
+            'sdk' => $this->getSdkNameAndVersion(),
+            'platform' => 'PHP/' . \PHP_VERSION,
+            'os' => isset($possibleOperatingSystems[PHP_OS]) ? $possibleOperatingSystems[PHP_OS] : 'Linux'
+        ];
+
+        if ($this->applicationName !== null) {
+            $parts['app'] = $this->applicationName;
+            if ($this->applicationVersion !== null) {
+                $parts['app'] .= '/' . $this->applicationVersion;
+            }
+        }
+
+        if ($this->integrationName !== null) {
+            $parts['integration'] = $this->integrationName;
+            if ($this->integrationVersion !== null) {
+                $parts['integration'] .= '/' . $this->integrationVersion;
+            }
+        }
+
+        $agent = '';
+        foreach ($parts as $key => $value) {
+            if ($value === '') {
+                continue;
+            }
+            $agent .= $key . ' ' . $value . '; ';
+        }
+
+        return trim($agent);
     }
 
     /**
