@@ -65,6 +65,13 @@ class ResourceArrayTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $count);
     }
 
+    public function testGetItems()
+    {
+        $arr = new ResourceArray(['abc', 'def'], 10, 2, 0);
+
+        $this->assertEquals(['abc', 'def'], $arr->getItems());
+    }
+
     /**
      * @expectedException \BadMethodCallException
      */

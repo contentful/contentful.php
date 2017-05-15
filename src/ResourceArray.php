@@ -88,6 +88,18 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
     }
 
     /**
+     * Get the returned values as a PHP array.
+     *
+     * @return array
+     *
+     * @api
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
      * Returns an object to be used by `json_encode` to serialize objects of this class.
      *
      * @return object
