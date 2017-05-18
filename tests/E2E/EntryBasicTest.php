@@ -105,4 +105,19 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($bestFriend->getId(), $happycat->getId());
         $this->assertNotSame($bestFriend, $happycat);
     }
+
+    /**
+     * @vcr e2e_entry_withing_graph_identical.json
+     */
+    public function testEntriesWithinGraphAreIdentical()
+    {
+        $query = (new Query)
+            ->where('sys.id', 'nyancat');
+        $nyancat = $this->client->getEntries($query)[0];
+        $bestFriend = $nyancat->getBestFriend();
+        $bestFriendsBestFriend = $bestFriend->getBestFriend();
+
+        $this->assertEquals('nyancat', $bestFriendsBestFriend->getId());
+        $this->assertSame($nyancat, $bestFriendsBestFriend);
+    }
 }
