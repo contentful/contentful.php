@@ -8,10 +8,7 @@ namespace Contentful;
 
 use Contentful\Log\NullLogger;
 use Contentful\Log\StandardTimer;
-use Contentful\Exception\NotFoundException;
-use Contentful\Exception\RateLimitExceededException;
-use Contentful\Exception\InvalidQueryException;
-use Contentful\Exception\AccessTokenInvalidException;
+use Contentful\Exception;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
@@ -182,23 +179,23 @@ abstract class Client
             $response = $e->getResponse();
             if ($response->getStatusCode() === 404) {
                 $result = self::decodeJson($response->getBody());
-                throw new NotFoundException($result['message'], 0, $e);
+                throw new Exception\NotFoundException($result['message'], 0, $e);
             }
             if ($response->getStatusCode() === 429) {
                 $result = self::decodeJson($response->getBody());
                 $rateLimitReset = (int) $response->getHeader('X-Contentful-RateLimit-Reset')[0];
-                throw new RateLimitExceededException($result['message'], 0, $e, $rateLimitReset);
+                throw new Exception\RateLimitExceededException($result['message'], 0, $e, $rateLimitReset);
             }
             if ($response->getStatusCode() === 400) {
                 $result = self::decodeJson($response->getBody());
                 if ($result['sys']['id'] === 'InvalidQuery') {
-                    throw new InvalidQueryException($result['message'], 0, $e);
+                    throw new Exception\InvalidQueryException($result['message'], 0, $e);
                 }
             }
             if ($response->getStatusCode() === 401) {
                 $result = self::decodeJson($response->getBody());
                 if ($result['sys']['id'] === 'AccessTokenInvalid') {
-                    throw new AccessTokenInvalidException($result['message'], 0, $e);
+                    throw new Exception\AccessTokenInvalidException($result['message'], 0, $e);
                 }
             }
 
