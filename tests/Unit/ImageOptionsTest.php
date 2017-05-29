@@ -310,7 +310,8 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $options = new ImageOptions;
         $options
             ->setFormat('png')
-            ->setProgressive(true);;
+            ->setProgressive(true);
+        ;
 
         $this->assertSame('jpg', $options->getFormat());
         $this->assertSame('fm=jpg&fl=progressive', $options->getQueryString());

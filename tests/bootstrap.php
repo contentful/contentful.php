@@ -7,7 +7,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
  *
  * @return array
  */
-function clean_headers_array(\VCR\Request $request) {
+function clean_headers_array(\VCR\Request $request)
+{
     // @todo This can be done much more nicely with PHP 5.6 and ARRAY_FILTER_USE_BOTH
     $headers = array_filter($request->getHeaders());
 
@@ -25,7 +26,7 @@ function clean_headers_array(\VCR\Request $request) {
 \VCR\VCR::configure()
     ->setMode('once')
     ->setStorage('json')
-    ->addRequestMatcher('custom_headers', function(\VCR\Request $first, \VCR\Request $second) {
+    ->addRequestMatcher('custom_headers', function (\VCR\Request $first, \VCR\Request $second) {
         $first = clean_headers_array($first);
         $second = clean_headers_array($second);
 
@@ -35,4 +36,3 @@ function clean_headers_array(\VCR\Request $request) {
 
 \VCR\VCR::turnOn();
 \VCR\VCR::turnOff();
-
