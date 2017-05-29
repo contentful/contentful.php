@@ -222,6 +222,12 @@ abstract class Client
                     throw new Exception\AccessTokenInvalidException($result['message'], 0, $e);
                 }
             }
+            if ($response->getStatusCode() === 422) {
+                $result = self::decodeJson($response->getBody());
+                if ($result['sys']['id'] === 'ValidationFailed') {
+                    throw new Exception\ValidationFailedException($result['message'], 0, $e);
+                }
+            }
 
             throw $e;
         }
