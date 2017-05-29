@@ -206,6 +206,9 @@ abstract class Client
                 if ($result['sys']['id'] === 'InvalidQuery') {
                     throw new Exception\InvalidQueryException($result['message'], 0, $e);
                 }
+                if ($result['sys']['id'] === 'UnknownKey') {
+                    throw new Exception\UnknownKeyException($result['message'], 0, $e);
+                }
             }
             if ($response->getStatusCode() === 403) {
                 $result = self::decodeJson($response->getBody());
