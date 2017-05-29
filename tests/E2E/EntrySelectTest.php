@@ -9,8 +9,6 @@ namespace Contentful\Tests\E2E;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
-use Contentful\Delivery\DynamicEntry;
-use Contentful\Delivery\Asset;
 
 class EntrySelectTest extends \PHPUnit_Framework_TestCase
 {

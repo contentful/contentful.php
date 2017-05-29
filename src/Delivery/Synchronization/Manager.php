@@ -119,6 +119,7 @@ class Manager
             if (isset($item['sys']['locale'])) {
                 unset($item['sys']['locale']);
             }
+
             return $this->builder->buildObjectsFromRawData($item);
         }, $data['items']);
 

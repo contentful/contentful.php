@@ -120,6 +120,7 @@ class Client extends BaseClient
     public function getAsset($id, $locale = null)
     {
         $locale = $locale === null ? $this->defaultLocale : $locale;
+
         return $this->requestAndBuild('GET', 'assets/' . $id, [
             'query' => ['locale' => $locale]
         ]);
@@ -176,6 +177,7 @@ class Client extends BaseClient
     public function getContentTypes(Query $query = null)
     {
         $query = $query !== null ? $query : new Query;
+
         return $this->requestAndBuild('GET', 'content_types', [
             'query' => $query->getQueryData()
         ]);
@@ -192,6 +194,7 @@ class Client extends BaseClient
     public function getEntry($id, $locale = null)
     {
         $locale = $locale === null ? $this->defaultLocale : $locale;
+
         return $this->requestAndBuild('GET', 'entries/' . $id, [
             'query' => ['locale' => $locale]
         ]);

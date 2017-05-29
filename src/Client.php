@@ -8,7 +8,6 @@ namespace Contentful;
 
 use Contentful\Log\NullLogger;
 use Contentful\Log\StandardTimer;
-use Contentful\Exception;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
@@ -40,7 +39,7 @@ abstract class Client
      * @var string
      */
     private $api;
-    
+
     /**
      * @var string
      */

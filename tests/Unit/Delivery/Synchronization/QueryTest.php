@@ -23,7 +23,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('initial=1', $queryBuilder->getQueryString());
     }
 
-
     /**
      * @covers Contentful\Delivery\Synchronization\Query::__construct
      * @covers Contentful\Delivery\Synchronization\Query::setType
