@@ -1,0 +1,35 @@
+preset: psr2
+
+enabled:
+ - short_array_syntax
+ - blank_line_after_opening_tag
+ - blank_line_before_return
+ - cast_spaces
+ - concat_with_spaces
+ - function_typehint_space
+ - hash_to_slash_comment
+ - include
+ - lowercase_cast
+ - magic_constant_casing
+ - method_separation
+ - native_function_casing
+ - no_blank_lines_after_class_opening
+ - no_empty_comment
+ - no_empty_phpdoc
+ - no_empty_statement
+ - no_extra_consecutive_blank_lines
+ - no_short_bool_cast
+ - no_unneeded_control_parentheses
+ - no_unused_imports
+ - no_useless_else
+ - no_useless_return
+ - no_whitespace_in_blank_line
+ - normalize_index_brace
+ - object_operator_without_whitespace
+ - self_accessor
+ - short_scalar_cast
+ - single_blank_line_before_namespace
+ - standardize_not_equals
+ - ternary_operator_spaces
+ - trim_array_spaces
+ - whitespace_after_comma_in_array
