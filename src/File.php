@@ -6,7 +6,7 @@
 
 namespace Contentful;
 
-class File implements \JsonSerializable
+class File implements FileInterface
 {
     /**
      * @var string
