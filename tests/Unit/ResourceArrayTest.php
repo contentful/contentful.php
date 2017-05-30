@@ -7,8 +7,6 @@
 namespace Contentful\Tests\Unit;
 
 use Contentful\ResourceArray;
-use Contentful\Location;
-use Contentful\Delivery\ContentType;
 
 class ResourceArrayTest extends \PHPUnit_Framework_TestCase
 {

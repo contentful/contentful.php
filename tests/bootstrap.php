@@ -32,7 +32,7 @@ function clean_headers_array(\VCR\Request $request)
 
         return $first == $second;
     })
-    ->enableRequestMatchers(['method', 'url', 'query_string', 'host', 'body', 'post_fields', 'custom_headers']);;
+    ->enableRequestMatchers(['method', 'url', 'query_string', 'host', 'body', 'post_fields', 'custom_headers']);
 
 \VCR\VCR::turnOn();
 \VCR\VCR::turnOff();

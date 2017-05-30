@@ -135,6 +135,7 @@ class ContentType implements \JsonSerializable
         if (null === $this->displayField) {
             return null;
         }
+
         return $this->getField($this->displayField);
     }
 

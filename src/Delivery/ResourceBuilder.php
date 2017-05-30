@@ -346,6 +346,7 @@ class ResourceBuilder
         foreach ($fields as $name => $fieldData) {
             $result[$name] = $this->buildField($contentType->getField($name), $this->normalizeFieldData($fieldData, $locale), $rawDataList);
         }
+
         return $result;
     }
 
@@ -521,6 +522,7 @@ class ResourceBuilder
     private function buildDeletedAsset(array $data)
     {
         $sys = $this->buildSystemProperties($data['sys']);
+
         return new DeletedAsset($sys);
     }
 
@@ -532,6 +534,7 @@ class ResourceBuilder
     private function buildDeletedEntry(array $data)
     {
         $sys = $this->buildSystemProperties($data['sys']);
+
         return new DeletedEntry($sys);
     }
 

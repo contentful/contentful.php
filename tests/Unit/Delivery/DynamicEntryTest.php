@@ -310,7 +310,6 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                 throw new NotFoundException;
             });
 
-
         $friends = $garfieldEntry->getFriends();
 
         $this->assertCount(1, $friends);

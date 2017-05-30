@@ -68,7 +68,7 @@ abstract class Query
      * @var array
      */
     private $select = [];
-    
+
     /**
      * Query constructor.
      *
@@ -111,7 +111,7 @@ abstract class Query
             }
             $data[$key] = $whereCondition['value'];
         }
-        
+
         if (count($this->select) > 0) {
             // We always request all metadata to ensure the ResourceBuilder has everything it needs.
             $select = ['sys'];
@@ -124,7 +124,7 @@ abstract class Query
 
             $data['select'] = implode(',', $select);
         }
-        
+
         return $data;
     }
 

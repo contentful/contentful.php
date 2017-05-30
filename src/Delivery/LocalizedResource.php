@@ -6,8 +6,6 @@
 
 namespace Contentful\Delivery;
 
-use Contentful\Delivery\Space;
-
 /**
  * A LocalizedResource can store information for multiple locales. The methods in this base class allow switching between the locales.
  */
@@ -60,7 +58,7 @@ abstract class LocalizedResource
         }
 
         if (!in_array($locale, $this->availableLocales)) {
-            throw new \InvalidArgumentException('Trying to switch to invalid locale ' . $locale. '. Available locales are '. implode(', ', $this->availableLocales) . '.');
+            throw new \InvalidArgumentException('Trying to switch to invalid locale ' . $locale . '. Available locales are ' . implode(', ', $this->availableLocales) . '.');
         }
 
         $this->localeCode = $locale;
@@ -100,7 +98,7 @@ abstract class LocalizedResource
         }
 
         if (!in_array($input, $this->availableLocales)) {
-            throw new \InvalidArgumentException('Trying to use invalid locale ' . $input . '. Available locales are '. implode(', ', $this->availableLocales) . '.');
+            throw new \InvalidArgumentException('Trying to use invalid locale ' . $input . '. Available locales are ' . implode(', ', $this->availableLocales) . '.');
         }
 
         return $input;

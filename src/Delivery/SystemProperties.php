@@ -223,6 +223,7 @@ class SystemProperties implements \JsonSerializable
     private function formatDateForJson(\DateTimeImmutable $dt)
     {
         $dt = $dt->setTimezone(new \DateTimeZone('Etc/UTC'));
+
         return $dt->format('Y-m-d\TH:i:s.') . str_pad(floor($dt->format('u')/1000), 3, '0', STR_PAD_LEFT) . 'Z';
     }
 }
