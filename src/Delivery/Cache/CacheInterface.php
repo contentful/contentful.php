@@ -14,7 +14,7 @@ interface CacheInterface
     public function readSpace();
 
     /**
-     * @param  string $id
+     * @param string $id
      *
      * @return string|null
      */

@@ -6,8 +6,8 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Query;
 use Contentful\Delivery\Client;
+use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
 
 class EntrySearchTest extends \PHPUnit_Framework_TestCase

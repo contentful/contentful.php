@@ -49,11 +49,11 @@ class Asset extends LocalizedResource implements \JsonSerializable
     /**
      * The title of the asset.
      *
-     * @param  Locale|string|null $locale
-     *
-     * @return string|null
+     * @param Locale|string|null $locale
      *
      * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
+     *
+     * @return string|null
      */
     public function getTitle($locale = null)
     {
@@ -61,7 +61,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
 
         // This checks happens after the call to getLocaleFromInput to make sure the Exception for invalid locales is still thrown.
         if ($this->title === null) {
-            return null;
+            return;
         }
 
         $localeCode = $this->loopThroughFallbackChain($this->title, $localeCode, $this->getSpace());
@@ -70,11 +70,11 @@ class Asset extends LocalizedResource implements \JsonSerializable
     }
 
     /**
-     * @param  Locale|string|null $locale
-     *
-     * @return string|null
+     * @param Locale|string|null $locale
      *
      * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
+     *
+     * @return string|null
      */
     public function getDescription($locale = null)
     {
@@ -82,7 +82,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
 
         // This checks happens after the call to getLocaleFromInput to make sure the Exception for invalid locales is still thrown.
         if ($this->description === null) {
-            return null;
+            return;
         }
 
         $localeCode = $this->loopThroughFallbackChain($this->description, $localeCode, $this->getSpace());
@@ -91,11 +91,11 @@ class Asset extends LocalizedResource implements \JsonSerializable
     }
 
     /**
-     * @param  Locale|string|null $locale
-     *
-     * @return \Contentful\File
+     * @param Locale|string|null $locale
      *
      * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
+     *
+     * @return \Contentful\File
      */
     public function getFile($locale = null)
     {
@@ -103,7 +103,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
 
         // This checks happens after the call to getLocaleFromInput to make sure the Exception for invalid locales is still thrown.
         if ($this->file === null) {
-            return null;
+            return;
         }
 
         return $this->file[$localeCode];
@@ -184,7 +184,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
 
         $obj = (object) [
             'fields' => (object) [],
-            'sys' => $this->sys
+            'sys'    => $this->sys,
         ];
         if ($this->file !== null) {
             if ($entryLocale) {

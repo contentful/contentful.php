@@ -18,11 +18,10 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterWithNoOptions()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new Query();
 
         $this->assertEquals('initial=1', $queryBuilder->getQueryString());
     }
-
 
     /**
      * @covers Contentful\Delivery\Synchronization\Query::__construct
@@ -32,7 +31,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetTypeInvalidValue()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new Query();
         $queryBuilder->setType('Invalid');
     }
 
@@ -46,7 +45,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterByType()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new Query();
         $queryBuilder->setType('Entry');
 
         $this->assertEquals('initial=1&type=Entry', $queryBuilder->getQueryString());
@@ -62,7 +61,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSetContentTypeFromObject()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new Query();
         $contentType = $this->getMockBuilder(ContentType::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -85,7 +84,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterByContentType()
     {
-        $queryBuilder = new Query;
+        $queryBuilder = new Query();
         $queryBuilder->setContentType('cat');
 
         $this->assertEquals('initial=1&type=Entry&content_type=cat', $queryBuilder->getQueryString());

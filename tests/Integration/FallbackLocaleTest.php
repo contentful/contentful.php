@@ -12,7 +12,7 @@ use Contentful\Delivery\Client;
  * The fallback chain set up is the following
  * af -> zu-ZA -> en-US -> NULL
  * ne-NP -> NULL
- * bs_BA -> en-US -> NULL
+ * bs_BA -> en-US -> NULL.
  */
 class FallbackLocaleTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,7 +30,7 @@ class FallbackLocaleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * No ne-NP
+     * No ne-NP.
      */
     public function testNoNeNP()
     {
@@ -41,7 +41,7 @@ class FallbackLocaleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * No zu-ZA
+     * No zu-ZA.
      */
     public function testNoZuZA()
     {
@@ -52,7 +52,7 @@ class FallbackLocaleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * No af and zu-ZA
+     * No af and zu-ZA.
      */
     public function testNoAfNoZuZa()
     {
@@ -65,7 +65,7 @@ class FallbackLocaleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * No bs-BA
+     * No bs-BA.
      */
     public function testNoBsBa()
     {
@@ -77,7 +77,7 @@ class FallbackLocaleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * No af
+     * No af.
      */
     public function testNoAf()
     {

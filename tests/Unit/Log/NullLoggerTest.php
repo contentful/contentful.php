@@ -14,14 +14,14 @@ class NullLoggerTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetTimerSatisfiesInterface()
     {
-        $logger = new NullLogger;
+        $logger = new NullLogger();
 
         $this->assertInstanceOf(TimerInterface::class, $logger->getTimer());
     }
 
     public function testGetTimerIsAlwaysNullTimer()
     {
-        $logger = new NullLogger;
+        $logger = new NullLogger();
 
         $this->assertInstanceOf(NullTimer::class, $logger->getTimer());
     }

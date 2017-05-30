@@ -9,22 +9,23 @@ namespace Contentful\Delivery\Synchronization;
 use Contentful\Delivery\ContentType;
 
 /**
- * A sync Query can be used to limit what type of resources and events should be synced
+ * A sync Query can be used to limit what type of resources and events should be synced.
  *
  * @see \Contentful\Delivery\Synchronization\Mananager Synchronization\Mananager
+ *
  * @api
  */
 class Query
 {
     /**
-     * Limit the sync to event to a specific type
+     * Limit the sync to event to a specific type.
      *
      * @var string
      */
     private $type = 'all';
 
     /**
-     * For entries, limit results to this content type
+     * For entries, limit results to this content type.
      *
      * @var string|null
      */
@@ -49,9 +50,9 @@ class Query
     public function getQueryData()
     {
         $data = [
-            'initial' => true,
-            'type' => $this->type !== 'all' ? $this->type : null,
-            'content_type' => $this->contentType
+            'initial'      => true,
+            'type'         => $this->type !== 'all' ? $this->type : null,
+            'content_type' => $this->contentType,
         ];
 
         return $data;
@@ -82,11 +83,11 @@ class Query
      *  - DeletedAsset
      *  - DeletedEntry
      *
-     * @param  string|null $type
-     *
-     * @return $this
+     * @param string|null $type
      *
      * @throws \InvalidArgumentException When an invalid $type is set.
+     *
+     * @return $this
      *
      * @api
      */
@@ -94,7 +95,7 @@ class Query
     {
         $validTypes = ['all', 'Asset', 'Entry', 'Deletion', 'DeletedAsset', 'DeletedEntry'];
         if (!in_array($type, $validTypes)) {
-            throw new \InvalidArgumentException('Unexpected type ' . $type);
+            throw new \InvalidArgumentException('Unexpected type '.$type);
         }
 
         $this->type = $type;
@@ -105,7 +106,7 @@ class Query
     /**
      * Set the content type to which results should be limited. Set to NULL to not filter for a content type.
      *
-     * @param  ContentType|string|null $contentType
+     * @param ContentType|string|null $contentType
      *
      * @return $this
      *
