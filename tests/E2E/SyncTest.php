@@ -9,7 +9,6 @@ namespace Contentful\Tests\E2E;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\DynamicEntry;
 use Contentful\Delivery\Synchronization\Result;
-use Contentful\Tests\Unit\Delivery\DynamicEntryTest;
 
 class SyncTest extends \PHPUnit_Framework_TestCase
 {

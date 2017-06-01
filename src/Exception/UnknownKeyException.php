@@ -7,7 +7,7 @@
 namespace Contentful\Exception;
 
 /**
- * An UnknownKeyException is thrown when persisting an object with a key that is not recognized by the API
+ * An UnknownKeyException is thrown when persisting an object with a key that is not recognized by the API.
  *
  * @api
  */

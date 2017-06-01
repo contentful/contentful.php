@@ -6,8 +6,8 @@
 
 namespace Contentful\Delivery\Cache;
 
-use Contentful\Delivery\Space;
 use Contentful\Delivery\ContentType;
+use Contentful\Delivery\Space;
 
 class InstanceCache
 {
@@ -51,7 +51,7 @@ class InstanceCache
     }
 
     /**
-     * Whether the space has been cached or not
+     * Whether the space has been cached or not.
      *
      * @return bool
      */
@@ -61,21 +61,21 @@ class InstanceCache
     }
 
     /**
-     * @param  string $id
+     * @param string $id
      *
      * @return ContentType|null
      */
     public function getContentType($id)
     {
         if (!isset($this->contentTypes[$id])) {
-            return null;
+            return;
         }
 
         return $this->contentTypes[$id];
     }
 
     /**
-     * @param  string $id
+     * @param string $id
      *
      * @return bool
      */

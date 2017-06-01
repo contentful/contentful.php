@@ -7,8 +7,8 @@
 namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Client;
-use Contentful\ResourceArray;
 use Contentful\Delivery\ContentType;
+use Contentful\ResourceArray;
 
 class ContentTypeBasicTest extends \PHPUnit_Framework_TestCase
 {

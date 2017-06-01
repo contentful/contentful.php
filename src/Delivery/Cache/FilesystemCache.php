@@ -23,13 +23,13 @@ class FilesystemCache implements CacheInterface
     /**
      * FilesystemCache constructor.
      *
-     * @param  string $cacheDir
-     * @param  string $spaceId
+     * @param string $cacheDir
+     * @param string $spaceId
      */
     public function __construct($cacheDir, $spaceId)
     {
-        $this->fs = new Filesystem;
-        $this->cacheDir = $cacheDir . '/' . $spaceId;
+        $this->fs = new Filesystem();
+        $this->cacheDir = $cacheDir.'/'.$spaceId;
     }
 
     /**
@@ -37,25 +37,25 @@ class FilesystemCache implements CacheInterface
      */
     public function readSpace()
     {
-        $path = $this->cacheDir . '/space.json';
+        $path = $this->cacheDir.'/space.json';
 
         if (!$this->fs->exists($path)) {
-            return null;
+            return;
         }
 
         return file_get_contents($path);
     }
 
     /**
-     * @param  string $id
+     * @param string $id
      *
      * @return string|null
      */
     public function readContentType($id)
     {
-        $path = $this->cacheDir . '/ct-' . $id . '.json';
+        $path = $this->cacheDir.'/ct-'.$id.'.json';
         if (!$this->fs->exists($path)) {
-            return null;
+            return;
         }
 
         return file_get_contents($path);

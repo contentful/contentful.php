@@ -11,11 +11,11 @@ use Contentful\Delivery\Client;
 use Contentful\Delivery\ContentType;
 use Contentful\Delivery\ContentTypeField;
 use Contentful\Delivery\DynamicEntry;
-use Contentful\Link;
 use Contentful\Delivery\Locale;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
 use Contentful\Exception\NotFoundException;
+use Contentful\Link;
 
 class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 {
@@ -47,7 +47,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $space->method('getLocales')
             ->willReturn([
                 $defaultLocale,
-                new Locale('tlh', 'Klingon', 'en-US')
+                new Locale('tlh', 'Klingon', 'en-US'),
             ]);
         $space->method('getDefaultLocale')
             ->willReturn($defaultLocale);
@@ -69,7 +69,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                 new ContentTypeField('birthday', 'Birthday', 'Date', null, null, false, false),
                 new ContentTypeField('lifes', 'Lifes left', 'Integer', null, null, false, false, false, true),
                 new ContentTypeField('lives', 'Lives left', 'Integer', null, null, false, false),
-                new ContentTypeField('image', 'Image', 'Link', 'Asset', null, false, false)
+                new ContentTypeField('image', 'Image', 'Link', 'Asset', null, false, false),
             ],
             'name',
             new SystemProperties('cat', 'ContentType', $space, null, 2, new \DateTimeImmutable('2013-06-27T22:46:12.852Z'), new \DateTimeImmutable('2013-09-02T13:14:47.863Z'))
@@ -103,31 +103,31 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             [
                 'name' => [
                     'en-US' => 'Nyan Cat',
-                    'tlh' => 'Nyan vIghro\''
+                    'tlh'   => 'Nyan vIghro\'',
                 ],
                 'likes' => [
-                    'en-US' => ['rainbows', 'fish']
+                    'en-US' => ['rainbows', 'fish'],
                 ],
                 'color' => [
                     'en-US' => 'rainbow',
                 ],
                 'bestFriend' => [
-                    'en-US' => $mockEntry
+                    'en-US' => $mockEntry,
                 ],
                 'Enemy' => [
-                    'en-US' => $mockEntryEnemy
+                    'en-US' => $mockEntryEnemy,
                 ],
                 'birthday' => [
-                    'en-US' => new \DateTimeImmutable('2011-04-04T22:00:00+00:00')
+                    'en-US' => new \DateTimeImmutable('2011-04-04T22:00:00+00:00'),
                 ],
                 'lives' => [
-                    'en-US' =>  1337
+                    'en-US' => 1337,
                 ],
                 'lifes' => [
-                    'en-US' =>  42
+                    'en-US' => 42,
                 ],
                 'image' => [
-                    'en-US' => $mockAsset
+                    'en-US' => $mockAsset,
                 ],
             ],
             new SystemProperties('nyancat', 'Entry', $this->space, $this->ct, 5, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
@@ -182,8 +182,8 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $crookshanksEntry = new DynamicEntry(
             [
                 'name' => [
-                    'en-US' => 'Crookshanks'
-                ]
+                    'en-US' => 'Crookshanks',
+                ],
             ],
             new SystemProperties('crookshanks', 'Entry', $this->space, $ct, 5, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
             $client
@@ -192,11 +192,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $garfieldEntry = new DynamicEntry(
             [
                 'name' => [
-                    'en-US' => 'Garfield'
+                    'en-US' => 'Garfield',
                 ],
                 'friend' => [
-                    'en-US' => new Link('crookshanks', 'Entry')
-                ]
+                    'en-US' => new Link('crookshanks', 'Entry'),
+                ],
             ],
             new SystemProperties('garfield', 'Entry', $this->space, $ct, 56, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
             $client
@@ -204,7 +204,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 
         $client->expects($this->any())
             ->method('resolveLink')
-            ->willReturnCallback(function(Link $link) use ($garfieldEntry, $crookshanksEntry) {
+            ->willReturnCallback(function (Link $link) use ($garfieldEntry, $crookshanksEntry) {
                 $id = $link->getId();
 
                 if ($id === 'garfield') {
@@ -214,14 +214,14 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                     return $crookshanksEntry;
                 }
 
-                return new NotFoundException;
+                return new NotFoundException();
             });
 
         $this->assertSame($crookshanksEntry, $garfieldEntry->getFriend());
     }
 
     /**
-     * Test for https://github.com/contentful/contentful.php/issues/9
+     * Test for https://github.com/contentful/contentful.php/issues/9.
      */
     public function testFieldNameIncludesId()
     {
@@ -239,11 +239,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $entry = new DynamicEntry(
             [
                 'name' => [
-                    'en-US' => 'Test Entry'
+                    'en-US' => 'Test Entry',
                 ],
                 'youTubeId' => [
                     'en-US' => 'l6xdPQ_O8e8',
-                ]
+                ],
             ],
             new SystemProperties('nyancat', 'Entry', $this->space, $ct, 5, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
             null
@@ -272,11 +272,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $crookshanksEntry = new DynamicEntry(
             [
                 'name' => [
-                    'en-US' => 'Crookshanks'
+                    'en-US' => 'Crookshanks',
                 ],
                 'friends' => [
-                    'en-US' => []
-                ]
+                    'en-US' => [],
+                ],
             ],
             new SystemProperties('crookshanks', 'Entry', $this->space, $ct, 5, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
             $client
@@ -285,11 +285,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $garfieldEntry = new DynamicEntry(
             [
                 'name' => [
-                    'en-US' => 'Garfield'
+                    'en-US' => 'Garfield',
                 ],
                 'friends' => [
-                    'en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')]
-                ]
+                    'en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')],
+                ],
             ],
             new SystemProperties('garfield', 'Entry', $this->space, $ct, 56, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
             $client
@@ -297,7 +297,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 
         $client->expects($this->any())
             ->method('resolveLink')
-            ->willReturnCallback(function(Link $link) use ($garfieldEntry, $crookshanksEntry) {
+            ->willReturnCallback(function (Link $link) use ($garfieldEntry, $crookshanksEntry) {
                 $id = $link->getId();
 
                 if ($id === 'garfield') {
@@ -307,9 +307,8 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                     return $crookshanksEntry;
                 }
 
-                throw new NotFoundException;
+                throw new NotFoundException();
             });
-
 
         $friends = $garfieldEntry->getFriends();
 
@@ -337,11 +336,11 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $garfieldEntry = new DynamicEntry(
             [
                 'name' => [
-                    'en-US' => 'Garfield'
+                    'en-US' => 'Garfield',
                 ],
                 'friends' => [
-                    'en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')]
-                ]
+                    'en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')],
+                ],
             ],
             new SystemProperties('garfield', 'Entry', $this->space, $ct, 56, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),
             $client
@@ -370,25 +369,25 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $entry = new DynamicEntry(
             [
                 'name' => [
-                    'tlh' => 'Nyan vIghro\''
+                    'tlh' => 'Nyan vIghro\'',
                 ],
                 'likes' => [
-                    'tlh' => ['rainbows', 'fish']
+                    'tlh' => ['rainbows', 'fish'],
                 ],
                 'color' => [
                     'tlh' => 'rainbow',
                 ],
                 'bestFriend' => [
-                    'tlh' => $mockEntry
+                    'tlh' => $mockEntry,
                 ],
                 'birthday' => [
-                    'tlh' => new \DateTimeImmutable('2011-04-04T22:00:00+00:00')
+                    'tlh' => new \DateTimeImmutable('2011-04-04T22:00:00+00:00'),
                 ],
                 'lives' => [
-                    'tlh' =>  1337
+                    'tlh' => 1337,
                 ],
                 'image' => [
-                    'tlh' => $mockAsset
+                    'tlh' => $mockAsset,
                 ],
             ],
             new SystemProperties('nyancat', 'Entry', $this->space, $this->ct, 5, new \DateTimeImmutable('2013-06-27T22:46:19.513Z'), new \DateTimeImmutable('2013-09-04T09:19:39.027Z')),

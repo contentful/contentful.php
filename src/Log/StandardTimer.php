@@ -83,7 +83,7 @@ class StandardTimer implements TimerInterface
     public function getDuration()
     {
         if (!$this->isStarted || !$this->isStopped) {
-            return null;
+            return;
         }
 
         return $this->endTime - $this->startTime;

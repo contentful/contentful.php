@@ -6,10 +6,10 @@
 
 namespace Contentful\Tests\E2E;
 
+use Contentful\Delivery\Asset;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
-use Contentful\Delivery\Asset;
 
 class AssetBasicTest extends \PHPUnit_Framework_TestCase
 {

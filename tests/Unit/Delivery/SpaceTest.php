@@ -16,6 +16,7 @@ class SpaceTest extends \PHPUnit_Framework_TestCase
      * @covers Contentful\Delivery\Space::__construct
      * @covers Contentful\Delivery\Space::getId
      * @covers Contentful\Delivery\Space::getName
+     *
      * @uses Contentful\Delivery\Space::getLocale
      * @covers Contentful\Delivery\Space::getLocales
      * @covers Contentful\Delivery\Space::getDefaultLocale

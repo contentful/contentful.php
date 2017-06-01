@@ -6,13 +6,12 @@
 
 namespace Contentful;
 
+use Contentful\Log\LoggerInterface;
 use Contentful\Log\NullLogger;
 use Contentful\Log\StandardTimer;
-use Contentful\Exception;
-use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Exception\ClientException;
-use Contentful\Log\LoggerInterface;
 use GuzzleHttp\Psr7;
 use Psr\Http\Message\RequestInterface;
 
@@ -40,7 +39,7 @@ abstract class Client
      * @var string
      */
     private $api;
-    
+
     /**
      * @var string
      */
@@ -138,7 +137,7 @@ abstract class Client
      */
     protected function request($method, $path, array $options = [])
     {
-        $timer = new StandardTimer;
+        $timer = new StandardTimer();
         $timer->start();
 
         $query = isset($options['query']) ? $options['query'] : null;
@@ -181,8 +180,8 @@ abstract class Client
     }
 
     /**
-     * @param  RequestInterface $request
-     * @param  array            $options
+     * @param RequestInterface $request
+     * @param array            $options
      *
      * @return \Psr\Http\Message\ResponseInterface|null
      */
@@ -234,22 +233,22 @@ abstract class Client
     }
 
     /**
-     * @param  string            $method
-     * @param  string            $path
-     * @param  array|string|null $query
-     * @param  array             $additionalHeaders
-     * @param  string            $body
-     *
-     * @return Psr7\Request
+     * @param string            $method
+     * @param string            $path
+     * @param array|string|null $query
+     * @param array             $additionalHeaders
+     * @param string            $body
      *
      * @throws \InvalidArgumentException If $query is not a valid type
+     *
+     * @return Psr7\Request
      */
     private function buildRequest($method, $path, $query = null, array $additionalHeaders = [], $body = null)
     {
         $contentTypes = [
-            'DELIVERY' => 'application/vnd.contentful.delivery.v1+json',
-            'PREVIEW' => 'application/vnd.contentful.delivery.v1+json',
-            'MANAGEMENT' => 'application/vnd.contentful.management.v1+json'
+            'DELIVERY'   => 'application/vnd.contentful.delivery.v1+json',
+            'PREVIEW'    => 'application/vnd.contentful.delivery.v1+json',
+            'MANAGEMENT' => 'application/vnd.contentful.management.v1+json',
         ];
 
         $uri = Psr7\UriResolver::resolve($this->baseUri, new Psr7\Uri($path));
@@ -265,9 +264,9 @@ abstract class Client
         }
         $headers = [
             'X-Contentful-User-Agent' => $this->contentfulUserAgent,
-            'Accept' => $contentTypes[$this->api],
-            'Accept-Encoding' => 'gzip',
-            'Authorization' => 'Bearer ' . $this->token,
+            'Accept'                  => $contentTypes[$this->api],
+            'Accept-Encoding'         => 'gzip',
+            'Authorization'           => 'Bearer '.$this->token,
         ];
         if ($body) {
             $headers['Content-Type'] = $contentTypes[$this->api];
@@ -286,36 +285,36 @@ abstract class Client
     abstract protected function getSdkNameAndVersion();
 
     /**
-     * Returns the value of the User-Agent header for any requests made to Contentful
+     * Returns the value of the User-Agent header for any requests made to Contentful.
      *
      * @return string
      */
     protected function getContentfulUserAgent()
     {
         $possibleOperatingSystems = [
-            'WINNT' => 'Windows',
-            'Darwin' => 'macOS'
+            'WINNT'  => 'Windows',
+            'Darwin' => 'macOS',
         ];
 
         $parts = [
-            'app' => '',
+            'app'         => '',
             'integration' => '',
-            'sdk' => $this->getSdkNameAndVersion(),
-            'platform' => 'PHP/' . \PHP_VERSION,
-            'os' => isset($possibleOperatingSystems[PHP_OS]) ? $possibleOperatingSystems[PHP_OS] : 'Linux'
+            'sdk'         => $this->getSdkNameAndVersion(),
+            'platform'    => 'PHP/'.\PHP_VERSION,
+            'os'          => isset($possibleOperatingSystems[PHP_OS]) ? $possibleOperatingSystems[PHP_OS] : 'Linux',
         ];
 
         if ($this->applicationName !== null) {
             $parts['app'] = $this->applicationName;
             if ($this->applicationVersion !== null) {
-                $parts['app'] .= '/' . $this->applicationVersion;
+                $parts['app'] .= '/'.$this->applicationVersion;
             }
         }
 
         if ($this->integrationName !== null) {
             $parts['integration'] = $this->integrationName;
             if ($this->integrationVersion !== null) {
-                $parts['integration'] .= '/' . $this->integrationVersion;
+                $parts['integration'] .= '/'.$this->integrationVersion;
             }
         }
 
@@ -324,18 +323,18 @@ abstract class Client
             if ($value === '') {
                 continue;
             }
-            $agent .= $key . ' ' . $value . '; ';
+            $agent .= $key.' '.$value.'; ';
         }
 
         return trim($agent);
     }
 
     /**
-     * @param  string $json JSON encoded object or array
-     *
-     * @return array
+     * @param string $json JSON encoded object or array
      *
      * @throws \RuntimeException On invalid JSON
+     *
+     * @return array
      *
      * @internal
      */

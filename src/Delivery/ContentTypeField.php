@@ -98,15 +98,15 @@ class ContentTypeField implements \JsonSerializable
     /**
      * ContentTypeField constructor.
      *
-     * @param string       $id
-     * @param string       $name
-     * @param string       $type
-     * @param string|null  $linkType
-     * @param string|null  $itemsType
-     * @param string|null  $itemsLinkType
-     * @param bool         $required
-     * @param bool         $localized
-     * @param bool         $disabled
+     * @param string      $id
+     * @param string      $name
+     * @param string      $type
+     * @param string|null $linkType
+     * @param string|null $itemsType
+     * @param string|null $itemsLinkType
+     * @param bool        $required
+     * @param bool        $localized
+     * @param bool        $disabled
      */
     public function __construct($id, $name, $type, $linkType = null, $itemsType = null, $itemsLinkType = null, $required = false, $localized = false, $disabled = false)
     {
@@ -189,7 +189,7 @@ class ContentTypeField implements \JsonSerializable
     }
 
     /**
-     * Returns true if this field is required
+     * Returns true if this field is required.
      *
      * @return bool
      *
@@ -276,11 +276,11 @@ class ContentTypeField implements \JsonSerializable
     public function jsonSerialize()
     {
         $obj = (object) [
-            'name' => $this->name,
-            'id' => $this->id,
-            'type' => $this->type,
-            'required' => $this->required,
-            'localized' => $this->localized
+            'name'      => $this->name,
+            'id'        => $this->id,
+            'type'      => $this->type,
+            'required'  => $this->required,
+            'localized' => $this->localized,
         ];
 
         if ($this->linkType !== null) {
@@ -288,7 +288,7 @@ class ContentTypeField implements \JsonSerializable
         }
         if ($this->type === 'Array') {
             $obj->items = (object) [
-                'type' => $this->itemsType
+                'type' => $this->itemsType,
             ];
             if ($this->itemsType === 'Link') {
                 $obj->items->linkType = $this->itemsLinkType;

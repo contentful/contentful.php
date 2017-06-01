@@ -9,8 +9,6 @@ namespace Contentful\Tests\E2E;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
-use Contentful\Delivery\DynamicEntry;
-use Contentful\Delivery\Asset;
 
 class EntrySelectTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,7 +27,7 @@ class EntrySelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testSelectOnlyMetatdata()
     {
-        $query = (new Query)
+        $query = (new Query())
             ->setContentType('cat')
             ->select(['sys'])
             ->where('sys.id', 'nyancat')
@@ -46,7 +44,7 @@ class EntrySelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testSelectOnlyOneField()
     {
-        $query = (new Query)
+        $query = (new Query())
             ->setContentType('cat')
             ->select(['fields.name'])
             ->where('sys.id', 'nyancat')
