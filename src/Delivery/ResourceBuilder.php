@@ -6,17 +6,17 @@
 
 namespace Contentful\Delivery;
 
+use Contentful\Delivery\Cache\CacheInterface;
+use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Client as DeliveryClient;
 use Contentful\Delivery\Synchronization\DeletedAsset;
 use Contentful\Delivery\Synchronization\DeletedEntry;
-use Contentful\Delivery\Cache\InstanceCache;
-use Contentful\Delivery\Cache\CacheInterface;
-use Contentful\Location;
-use Contentful\ResourceArray;
-use Contentful\Link;
+use Contentful\Exception\SpaceMismatchException;
 use Contentful\File;
 use Contentful\ImageFile;
-use Contentful\Exception\SpaceMismatchException;
+use Contentful\Link;
+use Contentful\Location;
+use Contentful\ResourceArray;
 
 /**
  * The ResourceBuilder is responsible for turning the responses from the API into instances of PHP classes.
@@ -66,7 +66,7 @@ class ResourceBuilder
     /**
      * Build objects based on PHP classes from the raw JSON based objects.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedEntry|ResourceArray
      */
@@ -78,8 +78,8 @@ class ResourceBuilder
     /**
      * Build objects based on PHP classes from the raw JSON based objects.
      *
-     * @param  array       $data
-     * @param  array|null  $rawDataList
+     * @param array      $data
+     * @param array|null $rawDataList
      *
      * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedEntry|ResourceArray
      */
@@ -115,7 +115,7 @@ class ResourceBuilder
             case 'DeletedEntry':
                 return $this->buildDeletedEntry($data);
             default:
-                throw new \InvalidArgumentException('Unexpected type "' . $type . '"" while trying to build object.');
+                throw new \InvalidArgumentException('Unexpected type "'.$type.'"" while trying to build object.');
         }
     }
 
@@ -123,7 +123,7 @@ class ResourceBuilder
      * Builds two hash maps of all the entries and assets that are in a response. These are later used to create
      * the correct object graph.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return array
      */
@@ -166,15 +166,15 @@ class ResourceBuilder
 
         return [
             'asset' => $assets,
-            'entry' => $entries
+            'entry' => $entries,
         ];
     }
 
     /**
      * Build a ResourceArray.
      *
-     * @param  array      $data
-     * @param  array|null $rawDataList
+     * @param array      $data
+     * @param array|null $rawDataList
      *
      * @return ResourceArray
      */
@@ -191,7 +191,7 @@ class ResourceBuilder
     /**
      * Build an Asset.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return Asset
      */
@@ -216,7 +216,7 @@ class ResourceBuilder
     /**
      * Creates a File or a subclass thereof.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return File|ImageFile
      */
@@ -240,7 +240,7 @@ class ResourceBuilder
     /**
      * Creates a ContentType.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return ContentType|null
      */
@@ -273,8 +273,8 @@ class ResourceBuilder
     /**
      * Creates a DynamicEntry or a subclass thereof.
      *
-     * @param  array      $data
-     * @param  array|null $rawDataList
+     * @param array      $data
+     * @param array|null $rawDataList
      *
      * @return DynamicEntry
      */
@@ -318,7 +318,7 @@ class ResourceBuilder
     }
 
     /**
-     * @param mixed $fieldData
+     * @param mixed       $fieldData
      * @param string|null $locale
      *
      * @return array
@@ -346,6 +346,7 @@ class ResourceBuilder
         foreach ($fields as $name => $fieldData) {
             $result[$name] = $this->buildField($contentType->getField($name), $this->normalizeFieldData($fieldData, $locale), $rawDataList);
         }
+
         return $result;
     }
 
@@ -369,9 +370,9 @@ class ResourceBuilder
     /**
      * Transforms values from the original JSON representation to an appropriate PHP representation.
      *
-     * @param  ContentTypeField|string $fieldConfig Must be a ContentTypeField if the type is Array
-     * @param  mixed                   $value
-     * @param  array|null              $rawDataList
+     * @param ContentTypeField|string $fieldConfig Must be a ContentTypeField if the type is Array
+     * @param mixed                   $value
+     * @param array|null              $rawDataList
      *
      * @return array|Asset|DynamicEntry|Link|Location|\DateTimeImmutable
      */
@@ -384,7 +385,7 @@ class ResourceBuilder
         }
 
         if ($value === null) {
-            return null;
+            return;
         }
 
         switch ($type) {
@@ -406,19 +407,19 @@ class ResourceBuilder
                     return $this->formatValue($fieldConfig->getItemsType(), $value, $rawDataList);
                 }, $value);
             default:
-                throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encountered while trying to format value.');
+                throw new \InvalidArgumentException('Unexpected field type "'.$type.'" encountered while trying to format value.');
         }
     }
 
     /**
      * When an instance of the target already exists, it is returned. If not, a Link is created as placeholder.
      *
-     * @param  array      $data
-     * @param  array|null $rawDataList
-     *
-     * @return Asset|DynamicEntry|Link
+     * @param array      $data
+     * @param array|null $rawDataList
      *
      * @throws \InvalidArgumentException When encountering an unexpected link type. Only links to assets and entries are currently handled.
+     *
+     * @return Asset|DynamicEntry|Link
      */
     private function buildLink(array $data, array $rawDataList = null)
     {
@@ -443,39 +444,39 @@ class ResourceBuilder
         }
 
         throw new \InvalidArgumentException(
-            'Encountered unexpected resource type "' . $type . '"" while constructing link.'
+            'Encountered unexpected resource type "'.$type.'"" while constructing link.'
         );
     }
 
     /**
      * Retrieves the Space from the API.
      *
-     * @param  string $spaceId
-     *
-     * @return Space
+     * @param string $spaceId
      *
      * @throws SpaceMismatchException When attempting to get a different Space than the one this ResourceBuilder is configured to handle.
+     *
+     * @return Space
      */
     private function getSpace($spaceId)
     {
         if ($spaceId !== $this->spaceId) {
-            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "' . $this->spaceId . '" but was asked to build a resource for the space "' . $spaceId . '"."');
+            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "'.$this->spaceId.'" but was asked to build a resource for the space "'.$spaceId.'"."');
         }
 
         return $this->client->getSpace();
     }
 
     /**
-     * @param  array $data
-     *
-     * @return Space
+     * @param array $data
      *
      * @throws SpaceMismatchException When attempting to build a different Space than the one this ResourceBuilder is configured to handle.
+     *
+     * @return Space
      */
     private function buildSpace(array $data)
     {
         if ($data['sys']['id'] !== $this->spaceId) {
-            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "' . $this->spaceId . '" but was asked to build a resource for the space "' . $data['sys']['id'] . '"."');
+            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "'.$this->spaceId.'" but was asked to build a resource for the space "'.$data['sys']['id'].'"."');
         }
 
         if ($this->instanceCache->hasSpace()) {
@@ -494,7 +495,7 @@ class ResourceBuilder
     }
 
     /**
-     * @param  array $sys
+     * @param array $sys
      *
      * @return SystemProperties
      */
@@ -514,29 +515,31 @@ class ResourceBuilder
     }
 
     /**
-     * @param  array $data
+     * @param array $data
      *
      * @return DeletedAsset
      */
     private function buildDeletedAsset(array $data)
     {
         $sys = $this->buildSystemProperties($data['sys']);
+
         return new DeletedAsset($sys);
     }
 
     /**
-     * @param  array $data
+     * @param array $data
      *
      * @return DeletedEntry
      */
     private function buildDeletedEntry(array $data)
     {
         $sys = $this->buildSystemProperties($data['sys']);
+
         return new DeletedEntry($sys);
     }
 
     /**
-     * @param  array $data
+     * @param array $data
      *
      * @return ContentTypeField
      */

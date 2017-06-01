@@ -6,8 +6,8 @@
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\Delivery\LocalizedResource;
 use Contentful\Delivery\Locale;
+use Contentful\Delivery\LocalizedResource;
 
 class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +23,7 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     {
         $resource = new ConcreteLocalizedResource([
             new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
         $this->assertEquals('en-US', $resource->getLocale());
@@ -42,7 +42,7 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     {
         $resource = new ConcreteLocalizedResource([
             new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
         $resource->setLocale('de-DE');
@@ -64,7 +64,7 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
 
         $resource = new ConcreteLocalizedResource([
             $deLocale,
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
         $resource->setLocale($deLocale);
@@ -86,7 +86,7 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     {
         $resource = new ConcreteLocalizedResource([
             new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
         $resource->setLocale('fr-FR');
@@ -104,7 +104,7 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     {
         $resource = new ConcreteLocalizedResource([
             new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
         $this->assertEquals('en-US', $resource->getLocaleFromInput());
@@ -122,7 +122,7 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     {
         $resource = new ConcreteLocalizedResource([
             new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
         $this->assertEquals('de-DE', $resource->getLocaleFromInput('de-DE'));
@@ -142,7 +142,7 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
 
         $resource = new ConcreteLocalizedResource([
             $deLocale,
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
         $this->assertEquals('de-DE', $resource->getLocaleFromInput($deLocale));
@@ -163,7 +163,7 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     {
         $resource = new ConcreteLocalizedResource([
             new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
         $resource->getLocaleFromInput('en-GB');

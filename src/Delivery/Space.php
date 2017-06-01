@@ -39,9 +39,9 @@ class Space implements \JsonSerializable
     /**
      * Space constructor.
      *
-     * @param string           $name     Name of this space.
-     * @param Locale[]         $locales  Locales supported by this space.
-     * @param SystemProperties $sys      Metadata for this space.
+     * @param string           $name    Name of this space.
+     * @param Locale[]         $locales Locales supported by this space.
+     * @param SystemProperties $sys     Metadata for this space.
      */
     public function __construct($name, array $locales, SystemProperties $sys)
     {
@@ -80,14 +80,14 @@ class Space implements \JsonSerializable
     /**
      * @param  $localeCode string Code of the locale to fetch the object for
      *
-     * @return Locale
-     *
      * @throws \RuntimeException When no locale with the given code exists
+     *
+     * @return Locale
      */
     public function getLocale($localeCode)
     {
         if (!isset($this->localesMap[$localeCode])) {
-            throw new \InvalidArgumentException("No Locale with the code '" . $localeCode . "' exists in this space.'");
+            throw new \InvalidArgumentException("No Locale with the code '".$localeCode."' exists in this space.'");
         }
 
         return $this->localesMap[$localeCode];
@@ -123,9 +123,9 @@ class Space implements \JsonSerializable
     public function jsonSerialize()
     {
         return (object) [
-            'sys' => $this->sys,
-            'name' => $this->name,
-            'locales' => $this->locales
+            'sys'     => $this->sys,
+            'name'    => $this->name,
+            'locales' => $this->locales,
         ];
     }
 }

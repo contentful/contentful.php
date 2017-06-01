@@ -15,6 +15,7 @@ use Contentful\Delivery\ResourceBuilder;
  * It provides notifications about added, updated and deleted assets and entries.
  *
  * @see https://www.contentful.com/developers/docs/concepts/sync/ Sync API
+ *
  * @api
  */
 class Manager
@@ -44,6 +45,7 @@ class Manager
      * @param bool            $preview
      *
      * @see \Contentful\Delivery\Client::get
+     *
      * @internal
      */
     public function __construct(Client $client, ResourceBuilder $builder, $preview)
@@ -60,7 +62,7 @@ class Manager
      *
      * A Query can be used to return only a subset of the space.
      *
-     * @param  Query|null $query
+     * @param Query|null $query
      *
      * @return Result
      *
@@ -68,7 +70,7 @@ class Manager
      */
     public function startSync(Query $query = null)
     {
-        $query = $query !== null ? $query : new Query;
+        $query = $query !== null ? $query : new Query();
         $response = $this->client->syncRequest($query->getQueryData());
 
         return $this->buildResult($response);
@@ -77,11 +79,11 @@ class Manager
     /**
      * Continues the synchronization either at the next page or with the results since the initial synchronization.
      *
-     * @param  string $token
-     *
-     * @return Result
+     * @param string $token
      *
      * @throws \RuntimeException If this method is used for a subsequent sync when used with the Preview API.
+     *
+     * @return Result
      *
      * @api
      */
@@ -102,7 +104,7 @@ class Manager
     /**
      * Build a Result from the API response.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return Result
      */
@@ -119,6 +121,7 @@ class Manager
             if (isset($item['sys']['locale'])) {
                 unset($item['sys']['locale']);
             }
+
             return $this->builder->buildObjectsFromRawData($item);
         }, $data['items']);
 
@@ -128,7 +131,7 @@ class Manager
     /**
      * Parses the sync_token out of an URL supplied by the API.
      *
-     * @param  string $url The nextSyncUrl or nextPageUrl from an API response.
+     * @param string $url The nextSyncUrl or nextPageUrl from an API response.
      *
      * @return string
      */

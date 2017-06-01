@@ -26,10 +26,10 @@ class RateLimitExceededException extends \RuntimeException
      *
      * @param string          $message
      * @param int             $code
-     * @param \Exception|null  $previous
+     * @param \Exception|null $previous
      * @param int|null        $rateLimitReset
      */
-    public function __construct($message = "", $code = 0, \Exception $previous = null, $rateLimitReset = null)
+    public function __construct($message = '', $code = 0, \Exception $previous = null, $rateLimitReset = null)
     {
         parent::__construct($message, $code, $previous);
 

@@ -9,8 +9,6 @@ namespace Contentful\Tests\E2E;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
-use Contentful\Delivery\DynamicEntry;
-use Contentful\Delivery\Asset;
 
 class EntryLocaleTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,7 +27,7 @@ class EntryLocaleTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAll()
     {
-        $query = (new Query)
+        $query = (new Query())
             ->setContentType('cat')
             ->setLocale('*');
         $entries = $this->client->getEntries($query);
@@ -43,7 +41,7 @@ class EntryLocaleTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetEnUs()
     {
-        $query = (new Query)
+        $query = (new Query())
             ->setContentType('cat')
             ->setLocale('en-US');
         $entries = $this->client->getEntries($query);
@@ -57,7 +55,7 @@ class EntryLocaleTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetTlh()
     {
-        $query = (new Query)
+        $query = (new Query())
             ->setContentType('cat')
             ->setLocale('tlh');
         $entries = $this->client->getEntries($query);
@@ -73,7 +71,7 @@ class EntryLocaleTest extends \PHPUnit_Framework_TestCase
     {
         $client = new Client('b4c0n73n7fu1', 'cfexampleapi', false, 'tlh');
 
-        $query = (new Query)
+        $query = (new Query())
             ->setContentType('cat');
         $entries = $client->getEntries($query);
 

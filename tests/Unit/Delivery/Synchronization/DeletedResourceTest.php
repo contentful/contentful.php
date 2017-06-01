@@ -7,9 +7,9 @@
 namespace Contentful\Tests\Unit\Delivery\Synchronization;
 
 use Contentful\Delivery\ContentType;
+use Contentful\Delivery\Space;
 use Contentful\Delivery\Synchronization\DeletedEntry;
 use Contentful\Delivery\Synchronization\DeletedResource;
-use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
 
 class DeletedResourceTest extends \PHPUnit_Framework_TestCase

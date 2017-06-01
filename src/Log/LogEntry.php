@@ -50,7 +50,7 @@ class LogEntry implements \Serializable
     public function __construct($api, RequestInterface $request, $duration, ResponseInterface $response = null, \Exception $exception = null)
     {
         if (!in_array($api, ['DELIVERY', 'PREVIEW', 'MANAGEMENT'], true)) {
-            throw new \InvalidArgumentException('Unknown API type "' . $api . '"');
+            throw new \InvalidArgumentException('Unknown API type "'.$api.'"');
         }
 
         $this->api = $api;
@@ -113,11 +113,11 @@ class LogEntry implements \Serializable
     public function serialize()
     {
         $data = [
-            'api' => $this->api,
-            'duration' => $this->duration,
+            'api'       => $this->api,
+            'duration'  => $this->duration,
             'exception' => $this->exception,
-            'request' => \GuzzleHttp\Psr7\str($this->request),
-            'response' => null
+            'request'   => \GuzzleHttp\Psr7\str($this->request),
+            'response'  => null,
         ];
 
         if ($this->response !== null) {

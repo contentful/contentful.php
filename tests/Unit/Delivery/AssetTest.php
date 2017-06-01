@@ -7,10 +7,10 @@
 namespace Contentful\Tests\Unit\Delivery;
 
 use Contentful\Delivery\Asset;
-use Contentful\ImageFile;
 use Contentful\Delivery\Locale;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
+use Contentful\ImageFile;
 
 class AssetTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,13 +45,13 @@ class AssetTest extends \PHPUnit_Framework_TestCase
             ->willReturn([
                 $defaultLocale,
                 $klingonLocale,
-                $germanLocale
+                $germanLocale,
             ]);
         $space->method('getLocale')
             ->will(self::returnValueMap([
                 ['en-US', $defaultLocale],
                 ['tlh', $klingonLocale],
-                ['de-DE', $germanLocale]
+                ['de-DE', $germanLocale],
             ]));
         $space->method('getDefaultLocale')
             ->willReturn($defaultLocale);
@@ -74,11 +74,11 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         $this->asset = new Asset(
             [
                 'en-US' => 'Nyan Cat',
-                'de-DE' => 'Kater Karlo'
+                'de-DE' => 'Kater Karlo',
             ],
             [
                 'en-US' => 'A picture of Nyan Cat',
-                'de-DE' => 'Ein Bild von Nyan Cat'
+                'de-DE' => 'Ein Bild von Nyan Cat',
             ],
             ['en-US' => $this->file],
             new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))

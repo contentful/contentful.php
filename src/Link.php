@@ -34,7 +34,7 @@ class Link implements \JsonSerializable
     }
 
     /**
-     * Get the ID of the referenced resource
+     * Get the ID of the referenced resource.
      *
      * @return string
      */
@@ -68,10 +68,10 @@ class Link implements \JsonSerializable
     {
         return (object) [
             'sys' => (object) [
-                'type' => 'Link',
-                'id' => $this->id,
-                'linkType' => $this->linkType
-            ]
+                'type'     => 'Link',
+                'id'       => $this->id,
+                'linkType' => $this->linkType,
+            ],
         ];
     }
 }
