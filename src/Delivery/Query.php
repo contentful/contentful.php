@@ -6,7 +6,7 @@
 
 namespace Contentful\Delivery;
 
-use \Contentful\Query as BaseQuery;
+use Contentful\Query as BaseQuery;
 
 /**
  * A Query is used to filter and order collections when making API requests.
@@ -23,7 +23,7 @@ class Query extends BaseQuery
     private $include;
 
     /**
-     * The locale for which to query
+     * The locale for which to query.
      *
      * @var string|null
      */
@@ -52,7 +52,7 @@ class Query extends BaseQuery
     /**
      * Set the amount of levels of links that should be resolved.
      *
-     * @param  int|null $include
+     * @param int|null $include
      *
      * @return $this
      *

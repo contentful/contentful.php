@@ -112,12 +112,12 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
     {
         return (object) [
             'sys' => (object) [
-                'type' => 'Array'
+                'type' => 'Array',
             ],
             'total' => $this->total,
             'limit' => $this->limit,
-            'skip' => $this->skip,
-            'items' => $this->items
+            'skip'  => $this->skip,
+            'items' => $this->items,
         ];
     }
 
@@ -127,6 +127,7 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return int
      *
      * @see http://php.net/manual/en/countable.count.php Countable::count
+     *
      * @api
      */
     public function count()
@@ -140,6 +141,7 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return \Traversable
      *
      * @see http://php.net/manual/en/iteratoraggregate.getiterator.php IteratorAggregate::getIterator
+     *
      * @api
      */
     public function getIterator()
@@ -153,6 +155,7 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return bool
      *
      * @see http://php.net/manual/en/arrayaccess.offsetexists.php ArrayAccess::offsetExists
+     *
      * @api
      */
     public function offsetExists($offset)
@@ -166,6 +169,7 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return mixed
      *
      * @see http://php.net/manual/en/arrayaccess.offsetget.php ArrayAccess::offsetGet
+     *
      * @api
      */
     public function offsetGet($offset)
@@ -185,7 +189,7 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      */
     public function offsetSet($offset, $value)
     {
-        throw new \BadMethodCallException(__CLASS__ . ' is a readonly array.');
+        throw new \BadMethodCallException(__CLASS__.' is a readonly array.');
     }
 
     /**
@@ -199,6 +203,6 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      */
     public function offsetUnset($offset)
     {
-        throw new \BadMethodCallException(__CLASS__ . ' is a readonly array.');
+        throw new \BadMethodCallException(__CLASS__.' is a readonly array.');
     }
 }

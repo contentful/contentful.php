@@ -12,7 +12,7 @@ class NullTimerTest extends \PHPUnit_Framework_TestCase
 {
     public function testTimerNeverRuns()
     {
-        $timer = new NullTimer;
+        $timer = new NullTimer();
 
         $this->assertFalse($timer->isRunning());
         $timer->start();
@@ -21,7 +21,7 @@ class NullTimerTest extends \PHPUnit_Framework_TestCase
 
     public function testTimerDurationAlwaysNull()
     {
-        $timer = new NullTimer;
+        $timer = new NullTimer();
 
         $this->assertNull($timer->getDuration());
         $timer->start();

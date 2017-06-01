@@ -6,22 +6,20 @@
 
 namespace Contentful\Delivery;
 
-use Contentful\Delivery\Space;
-
 /**
  * A LocalizedResource can store information for multiple locales. The methods in this base class allow switching between the locales.
  */
 abstract class LocalizedResource
 {
     /**
-     * The code of the currently active locale
+     * The code of the currently active locale.
      *
      * @var string
      */
     private $localeCode;
 
     /**
-     * List of codes for all the locales available in the space this resource belongs to
+     * List of codes for all the locales available in the space this resource belongs to.
      *
      * @var string[]
      */
@@ -45,11 +43,11 @@ abstract class LocalizedResource
     /**
      * Set the locale for this instance. All future calls to a getter will return the information for this locale.
      *
-     * @param  Locale|string $locale The locale code as string or an instance of Locale.
-     *
-     * @return $this
+     * @param Locale|string $locale The locale code as string or an instance of Locale.
      *
      * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
+     *
+     * @return $this
      *
      * @api
      */
@@ -60,7 +58,7 @@ abstract class LocalizedResource
         }
 
         if (!in_array($locale, $this->availableLocales)) {
-            throw new \InvalidArgumentException('Trying to switch to invalid locale ' . $locale. '. Available locales are '. implode(', ', $this->availableLocales) . '.');
+            throw new \InvalidArgumentException('Trying to switch to invalid locale '.$locale.'. Available locales are '.implode(', ', $this->availableLocales).'.');
         }
 
         $this->localeCode = $locale;
@@ -81,11 +79,11 @@ abstract class LocalizedResource
     }
 
     /**
-     * @param  Locale|string|null $input
-     *
-     * @return string
+     * @param Locale|string|null $input
      *
      * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
+     *
+     * @return string
      *
      * @api
      */
@@ -100,7 +98,7 @@ abstract class LocalizedResource
         }
 
         if (!in_array($input, $this->availableLocales)) {
-            throw new \InvalidArgumentException('Trying to use invalid locale ' . $input . '. Available locales are '. implode(', ', $this->availableLocales) . '.');
+            throw new \InvalidArgumentException('Trying to use invalid locale '.$input.'. Available locales are '.implode(', ', $this->availableLocales).'.');
         }
 
         return $input;
@@ -111,9 +109,9 @@ abstract class LocalizedResource
      * @param string                     $localeCode
      * @param \Contentful\Delivery\Space $space
      *
-     * @return string|null The locale code for which a value can be found. null if the end of the chain has been reached.
-     *
      * @throws \RuntimeException If we detect an endless loop
+     *
+     * @return string|null The locale code for which a value can be found. null if the end of the chain has been reached.
      */
     protected function loopThroughFallbackChain(array $valueMap, $localeCode, Space $space)
     {
@@ -122,7 +120,7 @@ abstract class LocalizedResource
             $localeCode = $space->getLocale($localeCode)->getFallbackCode();
             if ($localeCode === null) {
                 // We've reach the end of the fallback chain and there's no value
-                return null;
+                return;
             }
             $loopCounter++;
             // The number is arbitrary

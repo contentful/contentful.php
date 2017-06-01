@@ -18,9 +18,9 @@ class CacheTest extends \PHPUnit_Framework_TestCase
      */
     public function testCacheWarmupClear()
     {
-        $cacheDir = __DIR__ . '/../../build/cache';
+        $cacheDir = __DIR__.'/../../build/cache';
         $spaceId = 'cfexampleapi';
-        $fs = new Filesystem;
+        $fs = new Filesystem();
 
         // To be safe, we start with an empty state
         $fs->remove($cacheDir);
@@ -30,14 +30,14 @@ class CacheTest extends \PHPUnit_Framework_TestCase
         $clearer = new CacheClearer($spaceId);
 
         $warmer->warmUp($cacheDir);
-        $this->assertTrue($fs->exists($cacheDir . '/' . $spaceId));
-        $this->assertTrue($fs->exists($cacheDir . '/' . $spaceId . '/space.json'));
+        $this->assertTrue($fs->exists($cacheDir.'/'.$spaceId));
+        $this->assertTrue($fs->exists($cacheDir.'/'.$spaceId.'/space.json'));
 
-        $rawSpace = json_decode(file_get_contents($cacheDir . '/' . $spaceId . '/space.json'), true);
+        $rawSpace = json_decode(file_get_contents($cacheDir.'/'.$spaceId.'/space.json'), true);
         $this->assertEquals($spaceId, $rawSpace['sys']['id']);
 
         $clearer->clear($cacheDir);
-        $this->assertFalse($fs->exists($cacheDir . '/' . $spaceId));
+        $this->assertFalse($fs->exists($cacheDir.'/'.$spaceId));
     }
 
     /**
@@ -45,9 +45,9 @@ class CacheTest extends \PHPUnit_Framework_TestCase
      */
     public function testApiWorksWithEmptyCache()
     {
-        $cacheDir = __DIR__ . '/../../build/cache';
+        $cacheDir = __DIR__.'/../../build/cache';
         $spaceId = 'cfexampleapi';
-        $fs = new Filesystem;
+        $fs = new Filesystem();
 
         // Make extra sure there's nothing cached
         $fs->remove($cacheDir);
@@ -62,9 +62,9 @@ class CacheTest extends \PHPUnit_Framework_TestCase
      */
     public function testAccessCachedContent()
     {
-        $cacheDir = __DIR__ . '/../../build/cache';
+        $cacheDir = __DIR__.'/../../build/cache';
         $spaceId = 'cfexampleapi';
-        $fs = new Filesystem;
+        $fs = new Filesystem();
 
         // To be safe, we start with an empty state
         $fs->remove($cacheDir);

@@ -8,8 +8,6 @@ namespace Contentful\Delivery;
 
 /**
  * A SystemProperties instance contains the metadata of a resource.
- *
- * @package Contentful\Delivery
  */
 class SystemProperties implements \JsonSerializable
 {
@@ -167,7 +165,7 @@ class SystemProperties implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $obj = new \stdClass;
+        $obj = new \stdClass();
 
         if ($this->id !== null) {
             $obj->id = $this->id;
@@ -178,19 +176,19 @@ class SystemProperties implements \JsonSerializable
         if ($this->space !== null) {
             $obj->space = (object) [
                 'sys' => (object) [
-                    'type' => 'Link',
+                    'type'     => 'Link',
                     'linkType' => 'Space',
-                    'id' => $this->space->getId()
-                ]
+                    'id'       => $this->space->getId(),
+                ],
             ];
         }
         if ($this->contentType !== null) {
             $obj->contentType = (object) [
                 'sys' => (object) [
-                    'type' => 'Link',
+                    'type'     => 'Link',
                     'linkType' => 'ContentType',
-                    'id' => $this->contentType->getId()
-                ]
+                    'id'       => $this->contentType->getId(),
+                ],
             ];
         }
         if ($this->revision !== null) {
@@ -216,13 +214,14 @@ class SystemProperties implements \JsonSerializable
      * Unfortunately PHP has no easy way to create a nice, ISO 8601 formatted date string with milliseconds and Z
      * as the time zone specifier. Thus this hack.
      *
-     * @param  \DateTimeImmutable $dt
+     * @param \DateTimeImmutable $dt
      *
      * @return string ISO 8601 formatted date
      */
     private function formatDateForJson(\DateTimeImmutable $dt)
     {
         $dt = $dt->setTimezone(new \DateTimeZone('Etc/UTC'));
-        return $dt->format('Y-m-d\TH:i:s.') . str_pad(floor($dt->format('u')/1000), 3, '0', STR_PAD_LEFT) . 'Z';
+
+        return $dt->format('Y-m-d\TH:i:s.').str_pad(floor($dt->format('u') / 1000), 3, '0', STR_PAD_LEFT).'Z';
     }
 }

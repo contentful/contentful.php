@@ -13,16 +13,14 @@ class NullCache implements CacheInterface
      */
     public function readSpace()
     {
-        return null;
     }
 
     /**
-     * @param  string $id
+     * @param string $id
      *
      * @return null
      */
     public function readContentType($id)
     {
-        return null;
     }
 }

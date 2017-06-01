@@ -6,9 +6,9 @@
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\Delivery\SystemProperties;
-use Contentful\Delivery\Space;
 use Contentful\Delivery\ContentType;
+use Contentful\Delivery\Space;
+use Contentful\Delivery\SystemProperties;
 
 class SystemPropertiesTest extends \PHPUnit_Framework_TestCase
 {

@@ -34,7 +34,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     /**
      * Entry constructor.
      *
-     * @param array           $fields
+     * @param array            $fields
      * @param SystemProperties $sys
      * @param Client|null      $client
      */
@@ -79,15 +79,15 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * @param  string $name
-     * @param  array  $arguments
+     * @param string $name
+     * @param array  $arguments
      *
      * @return mixed
      */
     public function __call($name, $arguments)
     {
         if (0 !== strpos($name, 'get')) {
-            trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+            trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', E_USER_ERROR);
         }
         $locale = $this->getLocaleFromInput(isset($arguments[0]) ? $arguments[0] : null);
 
@@ -103,7 +103,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         }
 
         if ($fieldConfig === null) {
-            trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+            trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', E_USER_ERROR);
         }
 
         // Since DynamicEntry::getFieldForName manipulates the field name let's make sure we got the correct one
@@ -114,11 +114,11 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
                 return [];
             }
 
-            return null;
+            return;
         }
 
         if ($getId && !($fieldConfig->getType() === 'Link' || ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link'))) {
-            trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+            trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', E_USER_ERROR);
         }
 
         $value = $this->fields[$fieldName];
@@ -131,7 +131,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
 
             // We've reach the end of the fallback chain and there's no value
             if ($locale === null) {
-                return null;
+                return;
             }
         }
 
@@ -160,13 +160,13 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     /**
      * Resolves a Link into an Entry or Asset. Resolved links are cached local to the object.
      *
-     * @param  Link $link
+     * @param Link $link
      *
      * @return Asset|EntryInterface|null
      */
     private function resolveLinkWithCache(Link $link)
     {
-        $cacheId = $link->getLinkType() . '-' . $link->getId();
+        $cacheId = $link->getLinkType().'-'.$link->getId();
         if (isset($this->resolvedLinks[$cacheId])) {
             return $this->resolvedLinks[$cacheId];
         }
@@ -180,7 +180,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * @param  string $fieldName
+     * @param string $fieldName
      *
      * @return ContentTypeField|null
      */
@@ -197,7 +197,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * @param  mixed $value
+     * @param mixed $value
      *
      * @return mixed
      */
@@ -215,7 +215,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * @param  Link|DynamicEntry|Asset $value
+     * @param Link|DynamicEntry|Asset $value
      *
      * @return string
      */
@@ -225,9 +225,9 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * @param  mixed $value
-     * @param  string $type
-     * @param  string $linkType
+     * @param mixed  $value
+     * @param string $type
+     * @param string $linkType
      *
      * @return mixed
      */
@@ -247,19 +247,19 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             case 'Link':
                 return $value ? (object) [
                     'sys' => (object) [
-                        'type' => 'Link',
+                        'type'     => 'Link',
                         'linkType' => $linkType,
-                        'id' => $value->getId()
-                    ]
+                        'id'       => $value->getId(),
+                    ],
                 ] : null;
             default:
-                throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encountered while trying to serialize to JSON.');
+                throw new \InvalidArgumentException('Unexpected field type "'.$type.'" encountered while trying to serialize to JSON.');
         }
     }
 
     /**
-     * @param  mixed $value
-     * @param  ContentTypeField $fieldConfig
+     * @param mixed            $value
+     * @param ContentTypeField $fieldConfig
      *
      * @return mixed
      */
@@ -280,10 +280,10 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     {
         $entryLocale = $this->sys->getLocale();
 
-        $fields = new \stdClass;
+        $fields = new \stdClass();
         $contentType = $this->getContentType();
         foreach ($this->fields as $fieldName => $fieldData) {
-            $fields->$fieldName = new \stdClass;
+            $fields->$fieldName = new \stdClass();
             $fieldConfig = $contentType->getField($fieldName);
             if ($entryLocale) {
                 $fields->$fieldName = $this->formatValueForJson($fieldData[$entryLocale], $fieldConfig);
@@ -295,8 +295,8 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
         }
 
         return (object) [
-            'sys' => $this->sys,
-            'fields' => $fields
+            'sys'    => $this->sys,
+            'fields' => $fields,
         ];
     }
 
@@ -304,13 +304,14 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
      * Unfortunately PHP has no easy way to create a nice, ISO 8601 formatted date string with milliseconds and Z
      * as the time zone specifier. Thus this hack.
      *
-     * @param  \DateTimeImmutable $dt
+     * @param \DateTimeImmutable $dt
      *
      * @return string ISO 8601 formatted date
      */
     private function formatDateForJson(\DateTimeImmutable $dt)
     {
         $dt = $dt->setTimezone(new \DateTimeZone('Etc/UTC'));
-        return $dt->format('Y-m-d\TH:i:s.') . str_pad(floor($dt->format('u')/1000), 3, '0', STR_PAD_LEFT) . 'Z';
+
+        return $dt->format('Y-m-d\TH:i:s.').str_pad(floor($dt->format('u') / 1000), 3, '0', STR_PAD_LEFT).'Z';
     }
 }

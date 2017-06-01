@@ -19,7 +19,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testQueryStringInclude()
     {
-        $query = new Query;
+        $query = new Query();
         $query->setInclude(50);
 
         $this->assertEquals('include=50', $query->getQueryString());
@@ -34,7 +34,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     public function testQueryStringLocale()
     {
-        $query = new Query;
+        $query = new Query();
         $query->setLocale('de-DE');
 
         $this->assertEquals('locale=de-DE', $query->getQueryString());

@@ -8,7 +8,6 @@ namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
-
 use Contentful\Exception\RateLimitExceededException;
 
 class ErrorTest extends \PHPUnit_Framework_TestCase

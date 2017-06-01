@@ -48,13 +48,13 @@ class ContentType implements \JsonSerializable
     /**
      * ContentType constructor.
      *
-     * @param  string                                  $name
-     * @param  string|null                             $description
-     * @param  \Contentful\Delivery\ContentTypeField[] $fields
-     * @param  string|null                             $displayField
-     * @param  SystemProperties                        $sys
+     * @param string                                  $name
+     * @param string|null                             $description
+     * @param \Contentful\Delivery\ContentTypeField[] $fields
+     * @param string|null                             $displayField
+     * @param SystemProperties                        $sys
      */
-    public function __construct($name, $description, array $fields, $displayField = null, SystemProperties $sys)
+    public function __construct($name, $description, array $fields, $displayField, SystemProperties $sys)
     {
         $this->name = $name;
         $this->description = $description;
@@ -106,7 +106,7 @@ class ContentType implements \JsonSerializable
      *
      * If the field does not exist, null is returned.
      *
-     * @param  string  $fieldId
+     * @param string $fieldId
      *
      * @return \Contentful\Delivery\ContentTypeField|null
      *
@@ -115,7 +115,7 @@ class ContentType implements \JsonSerializable
     public function getField($fieldId)
     {
         if (!isset($this->fields[$fieldId])) {
-            return null;
+            return;
         }
 
         return $this->fields[$fieldId];
@@ -133,8 +133,9 @@ class ContentType implements \JsonSerializable
     public function getDisplayField()
     {
         if (null === $this->displayField) {
-            return null;
+            return;
         }
+
         return $this->getField($this->displayField);
     }
 
@@ -210,11 +211,11 @@ class ContentType implements \JsonSerializable
     public function jsonSerialize()
     {
         return (object) [
-            'name' => $this->name,
-            'description' => $this->description,
+            'name'         => $this->name,
+            'description'  => $this->description,
             'displayField' => $this->displayField,
-            'sys' => $this->sys,
-            'fields' => array_values($this->fields)
+            'sys'          => $this->sys,
+            'fields'       => array_values($this->fields),
         ];
     }
 }

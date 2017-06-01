@@ -6,11 +6,11 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Client;
-use Contentful\ResourceArray;
-use Contentful\Delivery\DynamicEntry;
 use Contentful\Delivery\Asset;
+use Contentful\Delivery\Client;
+use Contentful\Delivery\DynamicEntry;
 use Contentful\Delivery\Query;
+use Contentful\ResourceArray;
 
 /**
  * Test that objects can be constructed successfullly in various scenarios.
@@ -111,7 +111,7 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
      */
     public function testEntriesWithinGraphAreIdentical()
     {
-        $query = (new Query)
+        $query = (new Query())
             ->where('sys.id', 'nyancat');
         $nyancat = $this->client->getEntries($query)[0];
         $bestFriend = $nyancat->getBestFriend();

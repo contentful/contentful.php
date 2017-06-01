@@ -7,8 +7,8 @@
 namespace Contentful\Tests\Unit\Delivery;
 
 use Contentful\Delivery\ContentType;
-use Contentful\Delivery\Space;
 use Contentful\Delivery\ContentTypeField;
+use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
 
 class ContentTypeTest extends \PHPUnit_Framework_TestCase
@@ -32,7 +32,6 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
      * @uses Contentful\Delivery\SystemProperties::getCreatedAt
      * @uses Contentful\Delivery\SystemProperties::getUpdatedAt
      * @uses Contentful\Delivery\SystemProperties::getRevision
-     *
      * @uses Contentful\Delivery\ContentTypeField::__construct
      * @uses Contentful\Delivery\ContentTypeField::getId
      * @uses Contentful\Delivery\ContentTypeField::getName
@@ -51,7 +50,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
             [
                 $displayField,
                 new ContentTypeField('likes', 'Likes', 'Array', null, 'Symbol', null),
-                new ContentTypeField('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true)
+                new ContentTypeField('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true),
             ],
             $displayField->getId(),
             new SystemProperties('human', 'ContentType', $space, null, 3, new \DateTimeImmutable('2013-06-27T22:46:14.133Z'), new \DateTimeImmutable('2013-09-02T15:10:26.818Z'))
@@ -82,7 +81,6 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
      *
      * @uses Contentful\Delivery\SystemProperties::__construct
      * @uses Contentful\Delivery\SystemProperties::getId
-     *
      * @uses Contentful\Delivery\ContentTypeField::__construct
      * @uses Contentful\Delivery\ContentTypeField::getId
      */
@@ -97,7 +95,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
             null,
             [
                 new ContentTypeField('likes', 'Likes', 'Array', null, 'Symbol', null),
-                new ContentTypeField('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true)
+                new ContentTypeField('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true),
             ],
             null,
             new SystemProperties('human', 'ContentType', $space, null, 3, new \DateTimeImmutable('2013-06-27T22:46:14.133Z'), new \DateTimeImmutable('2013-09-02T15:10:26.818Z'))
@@ -116,13 +114,9 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
      * @uses Contentful\Delivery\SystemProperties::getId
      * @uses Contentful\Delivery\SystemProperties::jsonSerialize
      * @uses Contentful\Delivery\SystemProperties::formatDateForJson
-     *
      * @uses Contentful\Delivery\ContentTypeField::__construct
      * @uses Contentful\Delivery\ContentTypeField::getId
      * @uses Contentful\Delivery\ContentTypeField::jsonSerialize
-     *
-     *
-     * For some reason phpunit claims this method is executed, no idea why.
      * @uses Contentful\Delivery\SystemProperties::getCreatedAt
      */
     public function testJsonSerialize()
@@ -142,7 +136,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
             [
                 $displayField,
                 new ContentTypeField('likes', 'Likes', 'Array', null, 'Symbol', null),
-                new ContentTypeField('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true)
+                new ContentTypeField('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true),
             ],
             $displayField->getId(),
             new SystemProperties('human', 'ContentType', $space, null, 3, new \DateTimeImmutable('2013-06-27T22:46:14.133Z'), new \DateTimeImmutable('2013-09-02T15:10:26.818Z'))

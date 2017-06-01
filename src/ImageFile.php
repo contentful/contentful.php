@@ -69,9 +69,9 @@ class ImageFile extends File
      */
     public function getUrl(ImageOptions $options = null)
     {
-        $query = $options !== null ? '?' . $options->getQueryString() : '';
+        $query = $options !== null ? '?'.$options->getQueryString() : '';
 
-        return parent::getUrl() . $query;
+        return parent::getUrl().$query;
     }
 
     /**
@@ -87,8 +87,8 @@ class ImageFile extends File
     {
         $obj = parent::jsonSerialize();
         $obj->details->image = (object) [
-            'width' => $this->width,
-            'height' => $this->height
+            'width'  => $this->width,
+            'height' => $this->height,
         ];
 
         return $obj;
