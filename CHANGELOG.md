@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 * Retrieving a list of entries that contained multiple loops creates too many objects. **[BREAKING]** ([#105](https://github.com/contentful/contentful.php/pull/105))
   The new behavior is, that any entry that appears multiple times in the graph of the response will be the same instance.
+* The `contentful` script used to warm up/clear the cache was not marked as a binary in `composer.json` and thus not published to `vendor/bin`.
 
 ## [1.2.0](https://github.com/contentful/contentful.php/tree/1.2.0) (2017-05-16)
 
