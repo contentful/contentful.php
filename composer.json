@@ -21,6 +21,7 @@
             "Contentful\\": "src/"
         }
     },
+    "bin": ["bin/contentful"],
     "extra": {
         "branch-alias": {
             "dev-master": "2.0.0-dev"
