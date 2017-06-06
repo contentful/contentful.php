@@ -16,11 +16,6 @@ class FakeQuery extends Query
 
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testFilterWithNoOptions()
     {
         $queryBuilder = new FakeQuery;
@@ -28,12 +23,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setLimit
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testFilterWithLimit()
     {
         $queryBuilder = new FakeQuery;
@@ -43,9 +32,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setLimit
-     *
      * @expectedException \RangeException
      */
     public function testLimitThrowsOnValueTooLarge()
@@ -55,9 +41,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setLimit
-     *
      * @expectedException \RangeException
      */
     public function testLimitThrowsOnValueZero()
@@ -67,9 +50,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setLimit
-     *
      * @expectedException \RangeException
      */
     public function testLimitThrowsOnValueNegative()
@@ -78,12 +58,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $queryBuilder->setLimit(-1);
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setLimit
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testLimitSetNull()
     {
         $queryBuilder = new FakeQuery;
@@ -94,12 +68,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setSkip
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testFilterWithSkip()
     {
         $queryBuilder = new FakeQuery;
@@ -109,9 +77,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setSkip
-     *
      * @expectedException \RangeException
      */
     public function testSkipThrowsOnValueNegative()
@@ -120,12 +85,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $queryBuilder->setSkip(-1);
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::orderBy
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testFilterOrderBy()
     {
         $queryBuilder = new FakeQuery;
@@ -134,12 +93,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('order=sys.createdAt', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::orderBy
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testFilterOrderByReversed()
     {
         $queryBuilder = new FakeQuery;
@@ -148,12 +101,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('order=-sys.createdAt', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::orderBy
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testFilterOrderByMultiple()
     {
         $queryBuilder = (new FakeQuery)
@@ -163,13 +110,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('order=sys.createdAt%2C-sys.updatedAt', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setContentType
-     * @covers Contentful\Query::getQueryString
-     *
-     * @uses Contentful\Query::getQueryData
-     */
     public function testGetSetContentTypeFromObject()
     {
         $queryBuilder = new FakeQuery;
@@ -185,12 +125,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('content_type=cat', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setContentType
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testFilterByContentType()
     {
         $queryBuilder = new FakeQuery;
@@ -199,12 +133,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('content_type=cat', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::where
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testWhere()
     {
         $queryBuilder = new FakeQuery;
@@ -213,12 +141,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('sys.id=nyancat', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::where
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testWhereOperator()
     {
         $queryBuilder = new FakeQuery;
@@ -227,12 +149,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('sys.id%5Bne%5D=nyancat', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::where
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testWhereDateTime()
     {
         $queryBuilder = new FakeQuery;
@@ -241,12 +157,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('sys.updatedAt%5Blte%5D=2013-01-01T00%3A00%3A00%2B00%3A00', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::where
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testWhereDateTimeResetsSeconds()
     {
         $queryBuilder = new FakeQuery;
@@ -255,15 +165,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('sys.updatedAt%5Blte%5D=2013-01-01T12%3A30%3A00%2B00%3A00', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::where
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     *
-     * @uses Contentful\Location::__construct
-     * @uses Contentful\Location::queryStringFormatted
-     */
     public function testWhereLocation()
     {
         $queryBuilder = new FakeQuery;
@@ -272,12 +173,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('fields.center%5Bnear%5D=15%2C17.8', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::where
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testWhereArray()
     {
         $queryBuilder = new FakeQuery;
@@ -287,9 +182,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::where
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testWhereUnknownOperator()
@@ -299,9 +191,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setMimeTypeGroup
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testSetMimeTypeGroupInvalid()
@@ -310,12 +199,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $queryBuilder->setMimeTypeGroup('invalid');
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setMimeTypeGroup
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testFilterByMimeTypeGroup()
     {
         $queryBuilder = new FakeQuery;
@@ -324,16 +207,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('mimetype_group=image', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::setContentType
-     * @covers Contentful\Query::setLimit
-     * @covers Contentful\Query::setSkip
-     * @covers Contentful\Query::orderBy
-     * @covers Contentful\Query::where
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testFilterCombined()
     {
         $queryBuilder = new FakeQuery;
@@ -348,13 +221,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('limit=150&skip=10&content_type=cat&order=sys.createdAt&sys.id=nyancat&sys.updatedAt%5Blte%5D=2013-01-01T00%3A00%3A00%2B00%3A00', (string) $queryBuilder->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Query::__construct
-     * @covers Contentful\Query::select
-     * @covers Contentful\Query::setContentType
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testQueryWithSelect()
     {
         $queryBuilder = (new FakeQuery)

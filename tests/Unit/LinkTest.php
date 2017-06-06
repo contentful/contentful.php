@@ -10,11 +10,6 @@ use Contentful\Link;
 
 class LinkTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Contentful\Link::__construct
-     * @covers \Contentful\Link::getId
-     * @covers \Contentful\Link::getLinkType
-     */
     public function testGetter()
     {
         $link = new Link('123', 'Entry');

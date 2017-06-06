@@ -10,11 +10,6 @@ use Contentful\Location;
 
 class LocationTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Contentful\Location::__construct
-     * @covers \Contentful\Location::getLatitude
-     * @covers \Contentful\Location::getLongitude
-     */
     public function testGetters()
     {
         $lat = 15.0;
@@ -25,10 +20,6 @@ class LocationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($long, $loc->getLongitude());
     }
 
-    /**
-     * @covers \Contentful\Location::__construct
-     * @covers \Contentful\Location::jsonSerialize
-     */
     public function testJsonSerialization()
     {
         $loc = new Location(15.0, 17.8);
@@ -36,10 +27,6 @@ class LocationTest extends \PHPUnit_Framework_TestCase
         $this->assertJsonStringEqualsJsonString('{"lat":15,"long":17.8}', json_encode($loc));
     }
 
-    /**
-     * @covers \Contentful\Location::__construct
-     * @covers \Contentful\Location::queryStringFormatted
-     */
     public function testQueryStringFormatted()
     {
         $loc = new Location(15.0, 17.8);

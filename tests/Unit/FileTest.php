@@ -25,13 +25,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers \Contentful\File::__construct
-     * @covers \Contentful\File::getFileName
-     * @covers \Contentful\File::getContentType
-     * @covers \Contentful\File::getUrl
-     * @covers \Contentful\File::getSize
-     */
     public function testGetter()
     {
         $this->assertEquals('Nyan_cat_250px_frame.png', $this->file->getFileName());
@@ -40,10 +33,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(12273, $this->file->getSize());
     }
 
-    /**
-     * @covers \Contentful\File::__construct
-     * @covers \Contentful\File::jsonSerialize
-     */
     public function testJsonSerialize()
     {
         $this->assertJsonStringEqualsJsonString(

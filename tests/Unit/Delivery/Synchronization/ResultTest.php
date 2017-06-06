@@ -10,12 +10,6 @@ use Contentful\Delivery\Synchronization\Result;
 
 class ResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers Contentful\Delivery\Synchronization\Result::__construct
-     * @covers Contentful\Delivery\Synchronization\Result::getItems
-     * @covers Contentful\Delivery\Synchronization\Result::getToken
-     * @covers Contentful\Delivery\Synchronization\Result::isDone
-     */
     public function testGetter()
     {
         $arr = [];

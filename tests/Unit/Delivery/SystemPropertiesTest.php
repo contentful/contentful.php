@@ -12,17 +12,6 @@ use Contentful\Delivery\ContentType;
 
 class SystemPropertiesTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers Contentful\Delivery\SystemProperties::__construct
-     * @covers Contentful\Delivery\SystemProperties::getId
-     * @covers Contentful\Delivery\SystemProperties::getType
-     * @covers Contentful\Delivery\SystemProperties::getSpace
-     * @covers Contentful\Delivery\SystemProperties::getContentType
-     * @covers Contentful\Delivery\SystemProperties::getRevision
-     * @covers Contentful\Delivery\SystemProperties::getCreatedAt
-     * @covers Contentful\Delivery\SystemProperties::getUpdatedAt
-     * @covers Contentful\Delivery\SystemProperties::getDeletedAt
-     */
     public function testGetter()
     {
         $space = $this->getMockBuilder(Space::class)
@@ -54,11 +43,6 @@ class SystemPropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new \DateTimeImmutable('2014-08-13T08:30:42.559Z'), $sys->getDeletedAt());
     }
 
-    /**
-     * @covers Contentful\Delivery\SystemProperties::__construct
-     * @covers Contentful\Delivery\SystemProperties::jsonSerialize
-     * @covers Contentful\Delivery\SystemProperties::formatDateForJson
-     */
     public function testJsonSerializeSpace()
     {
         $sys = new SystemProperties('123', 'Space');
@@ -69,11 +53,6 @@ class SystemPropertiesTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers Contentful\Delivery\SystemProperties::__construct
-     * @covers Contentful\Delivery\SystemProperties::jsonSerialize
-     * @covers Contentful\Delivery\SystemProperties::formatDateForJson
-     */
     public function testJsonSerializeDeletedResource()
     {
         $space = $this->getMockBuilder(Space::class)
@@ -100,11 +79,6 @@ class SystemPropertiesTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers Contentful\Delivery\SystemProperties::__construct
-     * @covers Contentful\Delivery\SystemProperties::jsonSerialize
-     * @covers Contentful\Delivery\SystemProperties::formatDateForJson
-     */
     public function testJsonSerializeEntry()
     {
         $space = $this->getMockBuilder(Space::class)

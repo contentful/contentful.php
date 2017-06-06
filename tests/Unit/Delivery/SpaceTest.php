@@ -12,20 +12,6 @@ use Contentful\Delivery\SystemProperties;
 
 class SpaceTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers Contentful\Delivery\Space::__construct
-     * @covers Contentful\Delivery\Space::getId
-     * @covers Contentful\Delivery\Space::getName
-     * @uses Contentful\Delivery\Space::getLocale
-     * @covers Contentful\Delivery\Space::getLocales
-     * @covers Contentful\Delivery\Space::getDefaultLocale
-     *
-     * @uses Contentful\Delivery\Locale::__construct
-     * @uses Contentful\Delivery\Locale::isDefault
-     * @uses Contentful\Delivery\Locale::getCode
-     * @uses Contentful\Delivery\SystemProperties::__construct
-     * @uses Contentful\Delivery\SystemProperties::getId
-     */
     public function testGetter()
     {
         $localeDe = new Locale('de-DE', 'German (Germany)', null, true);
@@ -41,18 +27,6 @@ class SpaceTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($localeEn, $space->getLocale('en-US'));
     }
 
-    /**
-     * @covers Contentful\Delivery\Space::__construct
-     * @covers Contentful\Delivery\Space::getId
-     * @covers Contentful\Delivery\Space::jsonSerialize
-     *
-     * @uses Contentful\Delivery\Locale::__construct
-     * @uses Contentful\Delivery\Locale::isDefault
-     * @uses Contentful\Delivery\Locale::getCode
-     * @uses Contentful\Delivery\Locale::jsonSerialize
-     * @uses Contentful\Delivery\SystemProperties::__construct
-     * @uses Contentful\Delivery\SystemProperties::jsonSerialize
-     */
     public function testJsonSerialization()
     {
         $localeDe = new Locale('de-DE', 'German (Germany)', null, true);
