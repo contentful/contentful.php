@@ -28,15 +28,6 @@ class ImageFileTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers \Contentful\ImageFile::__construct
-     * @covers \Contentful\ImageFile::getUrl
-     * @covers \Contentful\ImageFile::getWidth
-     * @covers \Contentful\ImageFile::getHeight
-     *
-     * @covers \Contentful\File::__construct
-     * @covers \Contentful\File::getUrl
-     */
     public function testGetter()
     {
         $this->assertEquals('//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png', $this->file->getUrl());
@@ -44,13 +35,6 @@ class ImageFileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(250, $this->file->getHeight());
     }
 
-    /**
-     * @covers \Contentful\ImageFile::__construct
-     * @covers \Contentful\ImageFile::getUrl
-     *
-     * @covers \Contentful\File::__construct
-     * @covers \Contentful\File::getUrl
-     */
     public function testWithImageOptions()
     {
         $stub = $this->getMockBuilder(ImageOptions::class)
@@ -66,13 +50,6 @@ class ImageFileTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers \Contentful\ImageFile::__construct
-     * @covers \Contentful\ImageFile::jsonSerialize
-     *
-     * @covers \Contentful\File::__construct
-     * @covers \Contentful\File::jsonSerialize
-     */
     public function testJsonSerialize()
     {
         $this->assertJsonStringEqualsJsonString(

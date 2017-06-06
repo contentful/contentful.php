@@ -14,23 +14,6 @@ use Contentful\Delivery\SystemProperties;
 
 class DeletedResourceTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers Contentful\Delivery\Synchronization\DeletedResource::__construct
-     * @covers Contentful\Delivery\Synchronization\DeletedResource::getId
-     * @covers Contentful\Delivery\Synchronization\DeletedResource::getSpace
-     * @covers Contentful\Delivery\Synchronization\DeletedResource::getRevision
-     * @covers Contentful\Delivery\Synchronization\DeletedResource::getCreatedAt
-     * @covers Contentful\Delivery\Synchronization\DeletedResource::getUpdatedAt
-     * @covers Contentful\Delivery\Synchronization\DeletedResource::getDeletedAt
-     *
-     * @uses Contentful\Delivery\SystemProperties::__construct
-     * @uses Contentful\Delivery\SystemProperties::getId
-     * @uses Contentful\Delivery\SystemProperties::getSpace
-     * @uses Contentful\Delivery\SystemProperties::getRevision
-     * @uses Contentful\Delivery\SystemProperties::getCreatedAt
-     * @uses Contentful\Delivery\SystemProperties::getUpdatedAt
-     * @uses Contentful\Delivery\SystemProperties::getDeletedAt
-     */
     public function testGetter()
     {
         $space = $this->getMockBuilder(Space::class)
@@ -93,14 +76,6 @@ class DeletedResourceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($ct, $deletedEntry->getContentType());
     }
 
-    /**
-     * @covers Contentful\Delivery\Synchronization\DeletedResource::__construct
-     * @covers Contentful\Delivery\Synchronization\DeletedResource::jsonSerialize
-     *
-     * @uses Contentful\Delivery\SystemProperties::__construct
-     * @uses Contentful\Delivery\SystemProperties::jsonSerialize
-     * @uses Contentful\Delivery\SystemProperties::formatDateForJson
-     */
     public function testJsonSerialize()
     {
         $space = $this->getMockBuilder(Space::class)

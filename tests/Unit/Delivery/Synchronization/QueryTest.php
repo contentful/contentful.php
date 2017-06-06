@@ -11,11 +11,6 @@ use Contentful\Delivery\Synchronization\Query;
 
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers Contentful\Delivery\Synchronization\Query::__construct
-     * @covers Contentful\Delivery\Synchronization\Query::getQueryData
-     * @covers Contentful\Delivery\Synchronization\Query::getQueryString
-     */
     public function testFilterWithNoOptions()
     {
         $queryBuilder = new Query;
@@ -24,9 +19,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\Synchronization\Query::__construct
-     * @covers Contentful\Delivery\Synchronization\Query::setType
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testSetTypeInvalidValue()
@@ -36,11 +28,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\Synchronization\Query::__construct
-     * @covers Contentful\Delivery\Synchronization\Query::setType
-     * @covers Contentful\Delivery\Synchronization\Query::getQueryData
-     * @covers Contentful\Delivery\Synchronization\Query::getQueryString
-     *
      * @uses Contentful\Delivery\Synchronization\Query::setType
      */
     public function testFilterByType()
@@ -52,10 +39,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\Synchronization\Query::__construct
-     * @covers Contentful\Delivery\Synchronization\Query::setContentType
-     * @covers Contentful\Delivery\Synchronization\Query::getQueryString
-     *
      * @uses Contentful\Delivery\Synchronization\Query::getQueryData
      * @uses Contentful\Delivery\Synchronization\Query::setType
      */
@@ -75,11 +58,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\Synchronization\Query::__construct
-     * @covers Contentful\Delivery\Synchronization\Query::setContentType
-     * @covers Contentful\Delivery\Synchronization\Query::getQueryData
-     * @covers Contentful\Delivery\Synchronization\Query::getQueryString
-     *
      * @uses Contentful\Delivery\Synchronization\Query::setType
      */
     public function testFilterByContentType()

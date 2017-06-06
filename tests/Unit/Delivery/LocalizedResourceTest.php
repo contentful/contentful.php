@@ -11,14 +11,6 @@ use Contentful\Delivery\Locale;
 
 class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers Contentful\Delivery\LocalizedResource::__construct
-     * @covers Contentful\Delivery\LocalizedResource::getLocale
-     *
-     * @uses Contentful\Delivery\Locale::__construct
-     * @uses Contentful\Delivery\Locale::getCode
-     * @uses Contentful\Delivery\Locale::isDefault
-     */
     public function testGetDefaultLocale()
     {
         $resource = new ConcreteLocalizedResource([
@@ -29,15 +21,6 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('en-US', $resource->getLocale());
     }
 
-    /**
-     * @covers Contentful\Delivery\LocalizedResource::__construct
-     * @covers Contentful\Delivery\LocalizedResource::setLocale
-     * @covers Contentful\Delivery\LocalizedResource::getLocale
-     *
-     * @uses Contentful\Delivery\Locale::__construct
-     * @uses Contentful\Delivery\Locale::getCode
-     * @uses Contentful\Delivery\Locale::isDefault
-     */
     public function testSetGetLocaleString()
     {
         $resource = new ConcreteLocalizedResource([
@@ -49,15 +32,6 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('de-DE', $resource->getLocale());
     }
 
-    /**
-     * @covers Contentful\Delivery\LocalizedResource::__construct
-     * @covers Contentful\Delivery\LocalizedResource::setLocale
-     * @covers Contentful\Delivery\LocalizedResource::getLocale
-     *
-     * @uses Contentful\Delivery\Locale::__construct
-     * @uses Contentful\Delivery\Locale::getCode
-     * @uses Contentful\Delivery\Locale::isDefault
-     */
     public function testSetGetLocaleObject()
     {
         $deLocale = new Locale('de-DE', 'German (Germany)', 'en-US');
@@ -72,13 +46,6 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\LocalizedResource::__construct
-     * @covers Contentful\Delivery\LocalizedResource::setLocale
-     *
-     * @uses Contentful\Delivery\Locale::__construct
-     * @uses Contentful\Delivery\Locale::getCode
-     * @uses Contentful\Delivery\Locale::isDefault
-     *
      * @expectedException        \InvalidArgumentException
      * @expectedExceptionMessage Trying to switch to invalid locale fr-FR. Available locales are de-DE, en-US.
      */
@@ -92,14 +59,6 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
         $resource->setLocale('fr-FR');
     }
 
-    /**
-     * @covers Contentful\Delivery\LocalizedResource::__construct
-     * @covers Contentful\Delivery\LocalizedResource::getLocaleFromInput
-     *
-     * @uses Contentful\Delivery\Locale::__construct
-     * @uses Contentful\Delivery\Locale::getCode
-     * @uses Contentful\Delivery\Locale::isDefault
-     */
     public function testGetLocaleFromInputDefault()
     {
         $resource = new ConcreteLocalizedResource([
@@ -110,14 +69,6 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('en-US', $resource->getLocaleFromInput());
     }
 
-    /**
-     * @covers Contentful\Delivery\LocalizedResource::__construct
-     * @covers Contentful\Delivery\LocalizedResource::getLocaleFromInput
-     *
-     * @uses Contentful\Delivery\Locale::__construct
-     * @uses Contentful\Delivery\Locale::getCode
-     * @uses Contentful\Delivery\Locale::isDefault
-     */
     public function testGetLocaleFromInputString()
     {
         $resource = new ConcreteLocalizedResource([
@@ -128,14 +79,6 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('de-DE', $resource->getLocaleFromInput('de-DE'));
     }
 
-    /**
-     * @covers Contentful\Delivery\LocalizedResource::__construct
-     * @covers Contentful\Delivery\LocalizedResource::getLocaleFromInput
-     *
-     * @uses Contentful\Delivery\Locale::__construct
-     * @uses Contentful\Delivery\Locale::getCode
-     * @uses Contentful\Delivery\Locale::isDefault
-     */
     public function testGetLocaleFromInputObject()
     {
         $deLocale = new Locale('de-DE', 'German (Germany)', 'en-US');
@@ -149,13 +92,6 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Contentful\Delivery\LocalizedResource::__construct
-     * @covers Contentful\Delivery\LocalizedResource::getLocaleFromInput
-     *
-     * @uses Contentful\Delivery\Locale::__construct
-     * @uses Contentful\Delivery\Locale::getCode
-     * @uses Contentful\Delivery\Locale::isDefault
-     *
      * @expectedException        \InvalidArgumentException
      * @expectedExceptionMessage Trying to use invalid locale en-GB. Available locales are de-DE, en-US.
      */

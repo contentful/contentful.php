@@ -13,30 +13,6 @@ use Contentful\Delivery\SystemProperties;
 
 class ContentTypeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers Contentful\Delivery\ContentType::__construct
-     * @covers Contentful\Delivery\ContentType::getId
-     * @covers Contentful\Delivery\ContentType::getName
-     * @covers Contentful\Delivery\ContentType::getDescription
-     * @covers Contentful\Delivery\ContentType::getSpace
-     * @covers Contentful\Delivery\ContentType::getDisplayField
-     * @covers Contentful\Delivery\ContentType::getCreatedAt
-     * @covers Contentful\Delivery\ContentType::getUpdatedAt
-     * @covers Contentful\Delivery\ContentType::getRevision
-     * @covers Contentful\Delivery\ContentType::getField
-     * @covers Contentful\Delivery\ContentType::getFields
-     *
-     * @uses Contentful\Delivery\SystemProperties::__construct
-     * @uses Contentful\Delivery\SystemProperties::getId
-     * @uses Contentful\Delivery\SystemProperties::getSpace
-     * @uses Contentful\Delivery\SystemProperties::getCreatedAt
-     * @uses Contentful\Delivery\SystemProperties::getUpdatedAt
-     * @uses Contentful\Delivery\SystemProperties::getRevision
-     *
-     * @uses Contentful\Delivery\ContentTypeField::__construct
-     * @uses Contentful\Delivery\ContentTypeField::getId
-     * @uses Contentful\Delivery\ContentTypeField::getName
-     */
     public function testGetter()
     {
         $space = $this->getMockBuilder(Space::class)
@@ -74,18 +50,6 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($displayField, $fields['name']);
     }
 
-    /**
-     * @covers Contentful\Delivery\ContentType::__construct
-     * @covers Contentful\Delivery\ContentType::getDescription
-     * @covers Contentful\Delivery\ContentType::getField
-     * @covers Contentful\Delivery\ContentType::getDisplayField
-     *
-     * @uses Contentful\Delivery\SystemProperties::__construct
-     * @uses Contentful\Delivery\SystemProperties::getId
-     *
-     * @uses Contentful\Delivery\ContentTypeField::__construct
-     * @uses Contentful\Delivery\ContentTypeField::getId
-     */
     public function testGetterNotExisting()
     {
         $space = $this->getMockBuilder(Space::class)
@@ -108,23 +72,6 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($contentType->getDisplayField());
     }
 
-    /**
-     * @covers Contentful\Delivery\ContentType::__construct
-     * @covers Contentful\Delivery\ContentType::jsonSerialize
-     *
-     * @uses Contentful\Delivery\SystemProperties::__construct
-     * @uses Contentful\Delivery\SystemProperties::getId
-     * @uses Contentful\Delivery\SystemProperties::jsonSerialize
-     * @uses Contentful\Delivery\SystemProperties::formatDateForJson
-     *
-     * @uses Contentful\Delivery\ContentTypeField::__construct
-     * @uses Contentful\Delivery\ContentTypeField::getId
-     * @uses Contentful\Delivery\ContentTypeField::jsonSerialize
-     *
-     *
-     * For some reason phpunit claims this method is executed, no idea why.
-     * @uses Contentful\Delivery\SystemProperties::getCreatedAt
-     */
     public function testJsonSerialize()
     {
         $space = $this->getMockBuilder(Space::class)

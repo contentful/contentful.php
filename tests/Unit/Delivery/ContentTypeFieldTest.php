@@ -10,18 +10,6 @@ use Contentful\Delivery\ContentTypeField;
 
 class ContentTypeFieldTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers Contentful\Delivery\ContentTypeField::__construct
-     * @covers Contentful\Delivery\ContentTypeField::getId
-     * @covers Contentful\Delivery\ContentTypeField::getName
-     * @covers Contentful\Delivery\ContentTypeField::getType
-     * @covers Contentful\Delivery\ContentTypeField::getLinkType
-     * @covers Contentful\Delivery\ContentTypeField::getItemsLinkType
-     * @covers Contentful\Delivery\ContentTypeField::getItemsType
-     * @covers Contentful\Delivery\ContentTypeField::isRequired
-     * @covers Contentful\Delivery\ContentTypeField::isLocalized
-     * @covers Contentful\Delivery\ContentTypeField::isDisabled
-     */
     public function testGetter()
     {
         $field = new ContentTypeField(
@@ -47,10 +35,6 @@ class ContentTypeFieldTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(false, $field->isDisabled());
     }
 
-    /**
-     * @covers Contentful\Delivery\ContentTypeField::__construct
-     * @covers Contentful\Delivery\ContentTypeField::jsonSerialize
-     */
     public function testJsonSerialize()
     {
         $field1 = new ContentTypeField(

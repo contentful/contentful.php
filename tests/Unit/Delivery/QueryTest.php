@@ -10,13 +10,6 @@ use Contentful\Delivery\Query;
 
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers Contentful\Delivery\Query::__construct
-     * @covers Contentful\Delivery\Query::setInclude
-     * @covers Contentful\Delivery\Query::getQueryData
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testQueryStringInclude()
     {
         $query = new Query;
@@ -25,13 +18,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('include=50', $query->getQueryString());
     }
 
-    /**
-     * @covers Contentful\Delivery\Query::__construct
-     * @covers Contentful\Delivery\Query::setLocale
-     * @covers Contentful\Delivery\Query::getQueryData
-     * @covers Contentful\Query::getQueryData
-     * @covers Contentful\Query::getQueryString
-     */
     public function testQueryStringLocale()
     {
         $query = new Query;

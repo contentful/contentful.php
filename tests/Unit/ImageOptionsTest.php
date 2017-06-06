@@ -10,10 +10,6 @@ use Contentful\ImageOptions;
 
 class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testNoOptions()
     {
         $options = new ImageOptions;
@@ -21,11 +17,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setWidth
-     * @covers \Contentful\ImageOptions::getWidth
-     */
     public function testGetSetWidth()
     {
         $width = 50;
@@ -36,11 +27,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($width, $options->getWidth());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setWidth
-     * @covers \Contentful\ImageOptions::getWidth
-     */
     public function testGetSetWidthNull()
     {
         $width = null;
@@ -52,10 +38,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setWidth
-     * @covers \Contentful\ImageOptions::getWidth
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testSetWidthNegative()
@@ -64,11 +46,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $options->setWidth(-50);
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setWidth
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryWidth()
     {
         $options = new ImageOptions;
@@ -77,11 +54,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('w=50', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setHeight
-     * @covers \Contentful\ImageOptions::getHeight
-     */
     public function testGetSetHeight()
     {
         $height = 50;
@@ -92,11 +64,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($height, $options->getHeight());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setHeight
-     * @covers \Contentful\ImageOptions::getHeight
-     */
     public function testGetSetHeightNull()
     {
         $height = null;
@@ -108,10 +75,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setHeight
-     * @covers \Contentful\ImageOptions::getHeight
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testSetHeightNegative()
@@ -120,11 +83,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $options->setHeight(-50);
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setHeight
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryHeight()
     {
         $options = new ImageOptions;
@@ -133,11 +91,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('h=50', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setFormat
-     * @covers \Contentful\ImageOptions::getFormat
-     */
     public function testGetSetFormat()
     {
         $format = 'png';
@@ -148,11 +101,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($format, $options->getFormat());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setFormat
-     * @covers \Contentful\ImageOptions::getFormat
-     */
     public function testGetSetFormatNull()
     {
         $format = null;
@@ -164,9 +112,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setFormat
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testSetFormatInvalid()
@@ -175,11 +120,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $options->setFormat('invalid');
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setFormat
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryFormat()
     {
         $options = new ImageOptions;
@@ -188,11 +128,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('fm=png', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setQuality
-     * @covers \Contentful\ImageOptions::getQuality
-     */
     public function testGetSetQuality()
     {
         $quality = 50;
@@ -203,11 +138,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($quality, $options->getQuality());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setQuality
-     * @covers \Contentful\ImageOptions::getQuality
-     */
     public function testGetSetQualityNull()
     {
         $quality = null;
@@ -219,10 +149,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setQuality
-     * @covers \Contentful\ImageOptions::getQuality
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testSetQualityNegative()
@@ -231,11 +157,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $options->setQuality(-50);
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setQuality
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryQuality()
     {
         $options = new ImageOptions;
@@ -244,13 +165,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('fm=jpg&q=50', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setFormat
-     * @covers \Contentful\ImageOptions::setQuality
-     * @covers \Contentful\ImageOptions::getFormat
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryQualityOverridesFormat()
     {
         $options = new ImageOptions;
@@ -262,21 +176,12 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('fm=jpg&q=50', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::isProgressive
-     */
     public function testGetProgressiveDefault()
     {
         $options = new ImageOptions;
         $this->assertFalse($options->isProgressive());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setProgressive
-     * @covers \Contentful\ImageOptions::isProgressive
-     */
     public function testGetSetProgressive()
     {
         $options = new ImageOptions;
@@ -285,11 +190,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($options->isProgressive());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setProgressive
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryProgressive()
     {
         $options = new ImageOptions;
@@ -298,13 +198,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('fm=jpg&fl=progressive', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setFormat
-     * @covers \Contentful\ImageOptions::setProgressive
-     * @covers \Contentful\ImageOptions::getFormat
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryProgressiveOverridesFormat()
     {
         $options = new ImageOptions;
@@ -316,11 +209,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('fm=jpg&fl=progressive', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setResizeFit
-     * @covers \Contentful\ImageOptions::getResizeFit
-     */
     public function testGetSetResizeFit()
     {
         $options = new ImageOptions;
@@ -330,9 +218,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setResizeFit
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testSetResizeFitInvalid()
@@ -341,11 +226,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $options->setResizeFit('invalid');
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setResizeFit
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryResizeFit()
     {
         $options = new ImageOptions;
@@ -354,11 +234,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('fit=pad', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setResizeFocus
-     * @covers \Contentful\ImageOptions::getResizeFocus
-     */
     public function testGetSetResizeFocus()
     {
         $options = new ImageOptions;
@@ -368,9 +243,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setResizeFocus
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testSetResizeFocusInvalid()
@@ -379,12 +251,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $options->setResizeFocus('invalid');
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setResizeFit
-     * @covers \Contentful\ImageOptions::setResizeFocus
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryResizeFocus()
     {
         $options = new ImageOptions;
@@ -394,11 +260,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('fit=thumb&f=top', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setResizeFocus
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryResizeFocusIgnoredWithoutFit()
     {
         $options = new ImageOptions;
@@ -407,11 +268,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setRadius
-     * @covers \Contentful\ImageOptions::getRadius
-     */
     public function testGetSetRadius()
     {
         $options = new ImageOptions;
@@ -421,9 +277,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setRadius
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testSetRadiusNegative()
@@ -432,11 +285,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $options->setRadius(-13.2);
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setRadius
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryRadius()
     {
         $options = new ImageOptions;
@@ -445,11 +293,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('r=50.3', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setBackgroundColor
-     * @covers \Contentful\ImageOptions::getBackgroundColor
-     */
     public function testGetSetBackgroundColorSixDigits()
     {
         $options = new ImageOptions;
@@ -458,11 +301,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('#a0f326', $options->getBackgroundColor());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setBackgroundColor
-     * @covers \Contentful\ImageOptions::getBackgroundColor
-     */
     public function testGetSetBackgroundColorThreeDigits()
     {
         $options = new ImageOptions;
@@ -471,11 +309,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('#0AF', $options->getBackgroundColor());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setBackgroundColor
-     * @covers \Contentful\ImageOptions::getBackgroundColor
-     */
     public function testGetSetBackgroundColorUpperCase()
     {
         $options = new ImageOptions;
@@ -485,9 +318,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setBackgroundColor
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testSetBackgroundColorTooShort()
@@ -497,9 +327,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setBackgroundColor
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testSetBackgroundInvalidCharacter()
@@ -509,9 +336,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setBackgroundColor
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testSetBackgroundNoHash()
@@ -520,12 +344,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $options->setBackgroundColor('A0F326');
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setResizeFit
-     * @covers \Contentful\ImageOptions::setBackgroundColor
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryBackgroundColor()
     {
         $options = new ImageOptions;
@@ -535,15 +353,6 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('fit=pad&bg=rgb%3Aa0f326', $options->getQueryString());
     }
 
-    /**
-     * @covers \Contentful\ImageOptions::__construct
-     * @covers \Contentful\ImageOptions::setWidth
-     * @covers \Contentful\ImageOptions::setHeight
-     * @covers \Contentful\ImageOptions::setFormat
-     * @covers \Contentful\ImageOptions::setQuality
-     * @covers \Contentful\ImageOptions::setProgressive
-     * @covers \Contentful\ImageOptions::getQueryString
-     */
     public function testQueryCombined()
     {
         $options = new ImageOptions;

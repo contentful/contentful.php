@@ -10,13 +10,6 @@ use Contentful\Delivery\Locale;
 
 class LocaleTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Contentful\Delivery\Locale::__construct
-     * @covers \Contentful\Delivery\Locale::getCode
-     * @covers \Contentful\Delivery\Locale::getName
-     * @covers \Contentful\Delivery\Locale::getFallbackCode
-     * @covers \Contentful\Delivery\Locale::isDefault
-     */
     public function testGetters()
     {
         $code = 'en-US';
@@ -31,20 +24,12 @@ class LocaleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($default, $locale->isDefault());
     }
 
-    /**
-     * @covers \Contentful\Delivery\Locale::__construct
-     * @covers \Contentful\Delivery\Locale::isDefault
-     */
     public function testWithDefault()
     {
         $locale = new Locale('en-US', 'English (United States)', null);
         $this->assertFalse($locale->isDefault());
     }
 
-    /**
-     * @covers \Contentful\Delivery\Locale::__construct
-     * @covers \Contentful\Delivery\Locale::jsonSerialize
-     */
     public function testJsonSerialization()
     {
         $locale = new Locale('en-US', 'English (United States)', null);
