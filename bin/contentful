@@ -1,7 +1,16 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . '../vendor/autoload.php';
+$paths = [
+    __DIR__.'/../vendor/autoload.php', // locally
+    __DIR__.'/../../../autoload.php' // dependency
+];
+foreach ($paths as $path) {
+    if (is_file($path)) {
+        require_once $path;
+        break;
+    }
+}
 
 $application = new Contentful\Console\Application;
 $application->run();
