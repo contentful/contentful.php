@@ -6,6 +6,8 @@
 
 namespace Contentful\Delivery;
 
+use Contentful\File\FileInterface;
+
 class Asset extends LocalizedResource implements \JsonSerializable
 {
     /**
@@ -93,7 +95,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
     /**
      * @param  Locale|string|null $locale
      *
-     * @return \Contentful\File\File
+     * @return FileInterface
      *
      * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
      */

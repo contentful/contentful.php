@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 * `Link` implements the `JsonSerializable` interface. This is done in preparation for the upcoming CMA SDK.
+* `UploadFile` class now manages files which aren't yet processed (for preview API) **[BREAKING]**.
 
 ### Fixed
 * Retrieving a list of entries that contained multiple loops creates too many objects. **[BREAKING]** ([#105](https://github.com/contentful/contentful.php/pull/105))

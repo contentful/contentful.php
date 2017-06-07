@@ -11,6 +11,7 @@ use Contentful\File\ImageFile;
 use Contentful\Delivery\Locale;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
+use Contentful\File\FileInterface;
 
 class AssetTest extends \PHPUnit_Framework_TestCase
 {
@@ -91,6 +92,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('Nyan Cat', $asset->getTitle());
         $this->assertEquals('A picture of Nyan Cat', $asset->getDescription());
+        $this->assertInstanceOf(FileInterface::class, $asset->getFile());
         $this->assertSame($this->file, $asset->getFile());
 
         $this->assertEquals('nyancat', $asset->getId());
