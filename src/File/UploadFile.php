@@ -6,7 +6,7 @@
 
 namespace Contentful\File;
 
-class File implements FileInterface
+class UploadFile implements FileInterface
 {
     /**
      * @var string
@@ -21,27 +21,13 @@ class File implements FileInterface
     /**
      * @var string
      */
-    private $url;
+    private $upload;
 
-    /**
-     * @var int
-     */
-    private $size;
-
-    /**
-     * File constructor.
-     *
-     * @param string $fileName
-     * @param string $contentType
-     * @param string $url
-     * @param int    $size         Size in bytes
-     */
-    public function __construct($fileName, $contentType, $url, $size)
+    public function __construct($fileName, $contentType, $upload)
     {
         $this->fileName = $fileName;
         $this->contentType = $contentType;
-        $this->url = $url;
-        $this->size = $size;
+        $this->upload = $upload;
     }
 
     /**
@@ -69,27 +55,13 @@ class File implements FileInterface
     }
 
     /**
-     * The Url where this file can be retrieved.
-     *
      * @return string
      *
      * @api
      */
-    public function getUrl()
+    public function getUpload()
     {
-        return $this->url;
-    }
-
-    /**
-     * The size in bytes of this file.
-     *
-     * @return int
-     *
-     * @api
-     */
-    public function getSize()
-    {
-        return $this->size;
+        return $this->upload;
     }
 
     /**
@@ -98,18 +70,13 @@ class File implements FileInterface
      * @return object
      *
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
-     *
-     * @api
      */
     public function jsonSerialize()
     {
         return (object) [
             'fileName' => $this->fileName,
             'contentType' => $this->contentType,
-            'details' => (object) [
-                'size' => $this->size
-            ],
-            'url' => $this->url
+            'upload' => $this->upload
         ];
     }
 }
