@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/1.2.0...HEAD)
 
 ### Added
-* `UploadFile` class now manages files which aren't yet processed (for preview API) **[BREAKING]**.
+* `UploadFile` class now manages files which aren't yet processed (for preview API) **[BREAKING]**. `Contentful\Delivery\Asset::getFile` now returns `Contentful\Delivery\File\FileInterface` instead of one of `File|ImageFile`. If you were type hinting on either one of those, please now use the interface or add `UploadFile` to the possible types.
 
 ### Fixed
 * Retrieving a list of entries that contained multiple loops creates too many objects. **[BREAKING]** ([#105](https://github.com/contentful/contentful.php/pull/105))
@@ -14,7 +14,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * The `contentful` script used to warm up/clear the cache was not marked as a binary in `composer.json` and thus not published to `vendor/bin`.
 
 ### Changed
-* Moved file management classes to a sub-namespace `Contentful\File`.
+* Moved file management classes to a sub-namespace `Contentful\File` **[BREAKING]**.
+  * `Contentful\File` to `Contentful\File\File`
+  * `Contentful\ImageFile` to `Contentful\File\ImageFile`
+  * `Contentful\ImageOptions` to `Contentful\File\ImageOptions`
 
 ## [1.2.0](https://github.com/contentful/contentful.php/tree/1.2.0) (2017-05-16)
 
