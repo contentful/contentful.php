@@ -1,0 +1,79 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/preview.contentful.com\/spaces\/88dyiqcr7go8\/assets\/3S1ngcWajSia6I4sssQwyK",
+        "headers": {
+            "Host": "preview.contentful.com",
+            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.5",
+            "X-Contentful-User-Agent": "sdk contentful.php\/2.0.0-dev; platform PHP\/7.1.5; os macOS;",
+            "Accept": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer 81c469d7241ca02349388602dfc14107157063a6901c378a56e1835d688970bf"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "1728000",
+            "CF-Cache-Name": "content_delivery",
+            "CF-Organization-Id": "3ubGFD1MWA6VgVYbIwSBg8",
+            "CF-Space-Id": "88dyiqcr7go8",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Date": "Wed, 07 Jun 2017 14:09:17 GMT",
+            "ETag": "\"1b6d07fb410fa5f098bab33f3c679afe\"",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "a57909b56d862e2ec2704798d2664723",
+            "Content-Length": "847",
+            "Connection": "keep-alive"
+        },
+        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"88dyiqcr7go8\"\n      }\n    },\n    \"type\": \"Asset\",\n    \"id\": \"3S1ngcWajSia6I4sssQwyK\",\n    \"revision\": 1,\n    \"createdAt\": \"2017-06-07T12:10:05.519Z\",\n    \"updatedAt\": \"2017-06-07T12:10:07.260Z\",\n    \"locale\": \"en-US\"\n  },\n  \"fields\": {\n    \"title\": \"Ernest Hemingway (1950)\",\n    \"description\": \"Hemingway in the cabin of his boat Pilar, off the coast of Cuba\",\n    \"file\": {\n      \"url\": \"\/\/images.contentful.com\/88dyiqcr7go8\/3S1ngcWajSia6I4sssQwyK\/9d88a2312a246debc64a0e18549d2983\/Ernest_Hemingway_1950.jpg\",\n      \"details\": {\n        \"size\": 2290561,\n        \"image\": {\n          \"width\": 2940,\n          \"height\": 2934\n        }\n      },\n      \"fileName\": \"Ernest_Hemingway_1950.jpg\",\n      \"contentType\": \"image\/jpeg\"\n    }\n  }\n}\n"
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/preview.contentful.com\/spaces\/88dyiqcr7go8\/",
+        "headers": {
+            "Host": "preview.contentful.com",
+            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.5",
+            "X-Contentful-User-Agent": "sdk contentful.php\/2.0.0-dev; platform PHP\/7.1.5; os macOS;",
+            "Accept": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer 81c469d7241ca02349388602dfc14107157063a6901c378a56e1835d688970bf"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "1728000",
+            "CF-Cache-Name": "content_delivery",
+            "CF-Organization-Id": "3ubGFD1MWA6VgVYbIwSBg8",
+            "CF-Space-Id": "88dyiqcr7go8",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Date": "Wed, 07 Jun 2017 14:09:17 GMT",
+            "ETag": "\"5112736b760c64deb2957b99592f5b5f\"",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "7dc7886fdd99efc2a2b10dd1fa5e48af",
+            "Content-Length": "233",
+            "Connection": "keep-alive"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"88dyiqcr7go8\"\n  },\n  \"name\": \"File States Testing\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"U.S. English\",\n      \"fallbackCode\": null\n    }\n  ]\n}\n"
+    }
+}]

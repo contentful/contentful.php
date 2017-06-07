@@ -1,0 +1,79 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/preview.contentful.com\/spaces\/88dyiqcr7go8\/assets\/40sXgDkoROKsOsOAgSmU0W",
+        "headers": {
+            "Host": "preview.contentful.com",
+            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.5",
+            "X-Contentful-User-Agent": "sdk contentful.php\/2.0.0-dev; platform PHP\/7.1.5; os macOS;",
+            "Accept": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer 81c469d7241ca02349388602dfc14107157063a6901c378a56e1835d688970bf"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "1728000",
+            "CF-Cache-Name": "content_delivery",
+            "CF-Organization-Id": "3ubGFD1MWA6VgVYbIwSBg8",
+            "CF-Space-Id": "88dyiqcr7go8",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Date": "Wed, 07 Jun 2017 14:09:16 GMT",
+            "ETag": "\"4a9eab66f7c73694e0ae0e9a9ffb999d\"",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "39f54e81ad788b49d92f9e3fc32a7510",
+            "Content-Length": "661",
+            "Connection": "keep-alive"
+        },
+        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"88dyiqcr7go8\"\n      }\n    },\n    \"type\": \"Asset\",\n    \"id\": \"40sXgDkoROKsOsOAgSmU0W\",\n    \"revision\": 0,\n    \"createdAt\": \"2017-06-07T13:59:44.400Z\",\n    \"updatedAt\": \"2017-06-07T14:00:08.272Z\",\n    \"locale\": \"en-US\"\n  },\n  \"fields\": {\n    \"title\": \"The Great Gatsby\",\n    \"file\": {\n      \"url\": \"\/\/assets.contentful.com\/88dyiqcr7go8\/40sXgDkoROKsOsOAgSmU0W\/123a29a0298537e9f897d705d3f633b9\/the_great_gatsby.txt\",\n      \"details\": {\n        \"size\": 1474\n      },\n      \"fileName\": \"the_great_gatsby.txt\",\n      \"contentType\": \"text\/plain\"\n    }\n  }\n}\n"
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/preview.contentful.com\/spaces\/88dyiqcr7go8\/",
+        "headers": {
+            "Host": "preview.contentful.com",
+            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.5",
+            "X-Contentful-User-Agent": "sdk contentful.php\/2.0.0-dev; platform PHP\/7.1.5; os macOS;",
+            "Accept": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer 81c469d7241ca02349388602dfc14107157063a6901c378a56e1835d688970bf"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "1728000",
+            "CF-Cache-Name": "content_delivery",
+            "CF-Organization-Id": "3ubGFD1MWA6VgVYbIwSBg8",
+            "CF-Space-Id": "88dyiqcr7go8",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Date": "Wed, 07 Jun 2017 14:09:16 GMT",
+            "ETag": "\"5112736b760c64deb2957b99592f5b5f\"",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "efac458fde555b4b7de298e9b52c5a5e",
+            "Content-Length": "233",
+            "Connection": "keep-alive"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"88dyiqcr7go8\"\n  },\n  \"name\": \"File States Testing\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"U.S. English\",\n      \"fallbackCode\": null\n    }\n  ]\n}\n"
+    }
+}]

@@ -6,7 +6,7 @@
 
 namespace Contentful\File;
 
-class File implements FileInterface
+class UploadFile implements FileInterface
 {
     /**
      * @var string
@@ -21,35 +21,19 @@ class File implements FileInterface
     /**
      * @var string
      */
-    private $url;
+    private $upload;
 
-    /**
-     * @var int
-     */
-    private $size;
-
-    /**
-     * File constructor.
-     *
-     * @param string $fileName
-     * @param string $contentType
-     * @param string $url
-     * @param int    $size         Size in bytes
-     */
-    public function __construct($fileName, $contentType, $url, $size)
+    public function __construct($fileName, $contentType, $upload)
     {
         $this->fileName = $fileName;
         $this->contentType = $contentType;
-        $this->url = $url;
-        $this->size = $size;
+        $this->upload = $upload;
     }
 
     /**
      * The name of this file
      *
      * @return string
-     *
-     * @api
      */
     public function getFileName()
     {
@@ -57,11 +41,21 @@ class File implements FileInterface
     }
 
     /**
+     * @param string $fileName
+     *
+     * @return $this
+     */
+    public function setFileName($fileName)
+    {
+        $this->fileName = $fileName;
+
+        return $this;
+    }
+
+    /**
      * The Content- (or MIME-)Type of this file.
      *
      * @return string
-     *
-     * @api
      */
     public function getContentType()
     {
@@ -69,27 +63,35 @@ class File implements FileInterface
     }
 
     /**
-     * The Url where this file can be retrieved.
+     * @param string $contentType
      *
-     * @return string
-     *
-     * @api
+     * @return $this
      */
-    public function getUrl()
+    public function setContentType($contentType)
     {
-        return $this->url;
+        $this->contentType = $contentType;
+
+        return $this;
     }
 
     /**
-     * The size in bytes of this file.
-     *
-     * @return int
-     *
-     * @api
+     * @return string
      */
-    public function getSize()
+    public function getUpload()
     {
-        return $this->size;
+        return $this->upload;
+    }
+
+    /**
+     * @param string $upload
+     *
+     * @return $this
+     */
+    public function setUpload($upload)
+    {
+        $this->upload = $upload;
+
+        return $this;
     }
 
     /**
@@ -98,18 +100,13 @@ class File implements FileInterface
      * @return object
      *
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
-     *
-     * @api
      */
     public function jsonSerialize()
     {
         return (object) [
             'fileName' => $this->fileName,
             'contentType' => $this->contentType,
-            'details' => (object) [
-                'size' => $this->size
-            ],
-            'url' => $this->url
+            'upload' => $this->upload
         ];
     }
 }
