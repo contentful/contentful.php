@@ -4,7 +4,7 @@
  * @license   MIT
  */
 
-namespace Contentful;
+namespace Contentful\File;
 
 /**
  * ImageOptions allows specifying extended options to the Contentful Image API .

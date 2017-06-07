@@ -4,7 +4,7 @@
  * @license   MIT
  */
 
-namespace Contentful;
+namespace Contentful\File;
 
 class File implements \JsonSerializable
 {

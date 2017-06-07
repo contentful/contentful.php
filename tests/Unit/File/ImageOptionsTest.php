@@ -6,7 +6,7 @@
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\ImageOptions;
+use Contentful\File\ImageOptions;
 
 class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 {
