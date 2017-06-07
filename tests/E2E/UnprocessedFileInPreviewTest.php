@@ -7,11 +7,9 @@
 namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Client;
-use Contentful\File\File;
-use Contentful\File\ImageFile;
 use Contentful\File\UploadFile;
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class UnprocessedFileInPreviewTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Client
@@ -24,32 +22,19 @@ class FileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @vcr e2e_file_get_regular_file.json
-     */
-    public function testGetRegularFile()
-    {
-        $asset = $this->client->getAsset('40sXgDkoROKsOsOAgSmU0W');
-
-        $this->assertInstanceOf(File::class, $asset->getFile());
-    }
-
-    /**
-     * @vcr e2e_file_get_image_file.json
-     */
-    public function testGetImageFile()
-    {
-        $asset = $this->client->getAsset('3S1ngcWajSia6I4sssQwyK');
-
-        $this->assertInstanceOf(ImageFile::class, $asset->getFile());
-    }
-
-    /**
      * @vcr e2e_file_get_unprocessed_file.json
      */
     public function testGetUnprocessedFile()
     {
         $asset = $this->client->getAsset('147y8r7Fx4YSEWYAQyggui');
 
-        $this->assertInstanceOf(UploadFile::class, $asset->getFile());
+        $file = $asset->getFile();
+
+        $this->assertInstanceOf(UploadFile::class, $file);
+        $this->assertEquals('fitzgerald', $file->getFileName());
+        $this->assertEquals(
+            'https://upload.wikimedia.org/wikipedia/commons/5/5c/F_Scott_Fitzgerald_1921.jpg',
+            $file->getUpload()
+        );
     }
 }

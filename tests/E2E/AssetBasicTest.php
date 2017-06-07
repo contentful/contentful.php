@@ -6,6 +6,7 @@
 
 namespace Contentful\Tests\E2E;
 
+use Contentful\File\ImageFile;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
@@ -54,6 +55,7 @@ class AssetBasicTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(Asset::class, $asset);
         $this->assertEquals('nyancat', $asset->getId());
+        $this->assertInstanceOf(ImageFile::class, $asset->getFile());
     }
 
     /**
