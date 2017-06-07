@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/1.2.0...HEAD)
 
+### Added
+* `UploadFile` class now manages files which aren't yet processed (for preview API) **[BREAKING]**.
+
 ### Fixed
 * Retrieving a list of entries that contained multiple loops creates too many objects. **[BREAKING]** ([#105](https://github.com/contentful/contentful.php/pull/105))
   The new behavior is, that any entry that appears multiple times in the graph of the response will be the same instance.
