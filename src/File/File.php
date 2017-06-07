@@ -4,9 +4,9 @@
  * @license   MIT
  */
 
-namespace Contentful;
+namespace Contentful\File;
 
-class File implements \JsonSerializable
+class File implements FileInterface
 {
     /**
      * @var string

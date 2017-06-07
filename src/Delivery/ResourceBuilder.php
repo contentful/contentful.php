@@ -14,8 +14,10 @@ use Contentful\Delivery\Cache\CacheInterface;
 use Contentful\Location;
 use Contentful\ResourceArray;
 use Contentful\Link;
-use Contentful\File;
-use Contentful\ImageFile;
+use Contentful\File\File;
+use Contentful\File\FileInterface;
+use Contentful\File\ImageFile;
+use Contentful\File\UploadFile;
 use Contentful\Exception\SpaceMismatchException;
 
 /**
@@ -218,10 +220,14 @@ class ResourceBuilder
      *
      * @param  array $data
      *
-     * @return File|ImageFile
+     * @return FileInterface
      */
     private function buildFile(array $data)
     {
+        if (isset($data['upload'])) {
+            return new UploadFile($data['fileName'], $data['contentType'], $data['upload']);
+        }
+
         $details = $data['details'];
         if (isset($details['image'])) {
             return new ImageFile(
