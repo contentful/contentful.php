@@ -4,7 +4,7 @@
  * @license   MIT
  */
 
-namespace Contentful;
+namespace Contentful\File;
 
 class ImageFile extends File
 {
