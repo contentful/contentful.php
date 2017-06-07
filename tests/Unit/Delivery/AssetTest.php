@@ -7,7 +7,7 @@
 namespace Contentful\Tests\Unit\Delivery;
 
 use Contentful\Delivery\Asset;
-use Contentful\ImageFile;
+use Contentful\File\ImageFile;
 use Contentful\Delivery\Locale;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;

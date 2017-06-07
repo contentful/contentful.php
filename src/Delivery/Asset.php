@@ -93,7 +93,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
     /**
      * @param  Locale|string|null $locale
      *
-     * @return \Contentful\File
+     * @return \Contentful\File\File
      *
      * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
      */
