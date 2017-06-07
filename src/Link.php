@@ -9,7 +9,7 @@ namespace Contentful;
 /**
  * A link encodes a reference to a resource.
  */
-class Link
+class Link implements \JsonSerializable
 {
     /**
      * @var string
@@ -55,5 +55,23 @@ class Link
     public function getLinkType()
     {
         return $this->linkType;
+    }
+
+    /**
+     * Returns an object to be used by `json_encode` to serialize objects of this class.
+     *
+     * @return object
+     *
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
+     */
+    public function jsonSerialize()
+    {
+        return (object) [
+            'sys' => (object) [
+                'type' => 'Link',
+                'id' => $this->id,
+                'linkType' => $this->linkType
+            ]
+        ];
     }
 }
