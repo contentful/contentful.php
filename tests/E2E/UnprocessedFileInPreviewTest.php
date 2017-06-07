@@ -11,7 +11,7 @@ use Contentful\File\File;
 use Contentful\File\ImageFile;
 use Contentful\File\UploadFile;
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class UnprocessedFileInPreviewTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Client
