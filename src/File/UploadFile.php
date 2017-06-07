@@ -34,6 +34,8 @@ class UploadFile implements FileInterface
      * The name of this file
      *
      * @return string
+     *
+     * @api
      */
     public function getFileName()
     {
@@ -41,21 +43,11 @@ class UploadFile implements FileInterface
     }
 
     /**
-     * @param string $fileName
-     *
-     * @return $this
-     */
-    public function setFileName($fileName)
-    {
-        $this->fileName = $fileName;
-
-        return $this;
-    }
-
-    /**
      * The Content- (or MIME-)Type of this file.
      *
      * @return string
+     *
+     * @api
      */
     public function getContentType()
     {
@@ -63,35 +55,13 @@ class UploadFile implements FileInterface
     }
 
     /**
-     * @param string $contentType
-     *
-     * @return $this
-     */
-    public function setContentType($contentType)
-    {
-        $this->contentType = $contentType;
-
-        return $this;
-    }
-
-    /**
      * @return string
+     *
+     * @api
      */
     public function getUpload()
     {
         return $this->upload;
-    }
-
-    /**
-     * @param string $upload
-     *
-     * @return $this
-     */
-    public function setUpload($upload)
-    {
-        $this->upload = $upload;
-
-        return $this;
     }
 
     /**
