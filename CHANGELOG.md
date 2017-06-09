@@ -89,7 +89,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Support for the `all` operator and passing arrays as `$value` in `Query::where()`.
 * Support for ordering by multiple fields.
 * The space metadata and the content types can now be cached with a CLI command.
-* Support for caching the Space and Content Types. The cache has to be manualy warmed and cleared.
+* Support for caching the Space and Content Types. The cache has to be manually warmed and cleared.
 
 ### Changed
 * Changed the behavior of getting an array of links to not throw an exception when one of them has been deleted from the space. ([#19](https://github.com/contentful/contentful.php/pull/19))
@@ -163,7 +163,7 @@ fatal error. **Note:** This does not 100% match the behaviour of the Contentful 
 * Send a User-Agent header with API requests.
 
 ### Changed
-* When GitHub is generating archieves, are few files with metadata are excluded.
+* When GitHub is generating archives, are few files with metadata are excluded.
 
 ### Fixed
 * Calling the get*Id Method on a field that is not a link or an array of links did not cause an error. ([#2](https://github.com/contentful/contentful.php/pull/2))

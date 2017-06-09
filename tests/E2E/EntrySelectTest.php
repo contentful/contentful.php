@@ -25,7 +25,7 @@ class EntrySelectTest extends \PHPUnit_Framework_TestCase
     /**
      * @vcr e2e_entry_select_metadata.json
      */
-    public function testSelectOnlyMetatdata()
+    public function testSelectOnlyMetadata()
     {
         $query = (new Query)
             ->setContentType('cat')

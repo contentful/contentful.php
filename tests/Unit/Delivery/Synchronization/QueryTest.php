@@ -27,9 +27,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $queryBuilder->setType('Invalid');
     }
 
-    /**
-     * @uses Contentful\Delivery\Synchronization\Query::setType
-     */
     public function testFilterByType()
     {
         $queryBuilder = new Query;
@@ -38,10 +35,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('initial=1&type=Entry', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @uses Contentful\Delivery\Synchronization\Query::getQueryData
-     * @uses Contentful\Delivery\Synchronization\Query::setType
-     */
     public function testGetSetContentTypeFromObject()
     {
         $queryBuilder = new Query;
@@ -57,9 +50,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('initial=1&type=Entry&content_type=cat', $queryBuilder->getQueryString());
     }
 
-    /**
-     * @uses Contentful\Delivery\Synchronization\Query::setType
-     */
     public function testFilterByContentType()
     {
         $queryBuilder = new Query;
