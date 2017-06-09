@@ -46,12 +46,12 @@ class WarmUpCacheCommand extends Command
 
         if (!$fs->exists($cacheDir)) {
             throw new \InvalidArgumentException(
-                sprintf("Cache directory '<info>%s</info>' does not exist.", $cacheDir)
+                sprintf("Cache directory '%s' does not exist.", $cacheDir)
             );
         }
         if (!is_writable($cacheDir)) {
             throw new \InvalidArgumentException(
-                sprintf("Cache directory '<info>%s</info>' can not be written to.", $cacheDir)
+                sprintf("Cache directory '%s' can not be written to.", $cacheDir)
             );
         }
 
