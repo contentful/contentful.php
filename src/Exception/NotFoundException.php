@@ -11,6 +11,6 @@ namespace Contentful\Exception;
  *
  * @api
  */
-class NotFoundException extends \RuntimeException
+class NotFoundException extends ApiException
 {
 }

@@ -172,33 +172,28 @@ abstract class Client
      */
     private function doRequest(RequestInterface $request, array $options)
     {
+        $exceptionMap = [
+            'InvalidQuery' => Exception\InvalidQueryException::class,
+            'AccessTokenInvalid' => Exception\AccessTokenInvalidException::class,
+            'NotFound' => Exception\NotFoundException::class,
+            'RateLimitExceeded' => Exception\RateLimitExceededException::class
+        ];
+
         try {
             return $this->httpClient->send($request, $options);
         } catch (ClientException $e) {
-            $response = $e->getResponse();
-            if ($response->getStatusCode() === 404) {
-                $result = self::decodeJson($response->getBody());
-                throw new Exception\NotFoundException($result['message'], 0, $e);
-            }
-            if ($response->getStatusCode() === 429) {
-                $result = self::decodeJson($response->getBody());
-                $rateLimitReset = (int) $response->getHeader('X-Contentful-RateLimit-Reset')[0];
-                throw new Exception\RateLimitExceededException($result['message'], 0, $e, $rateLimitReset);
-            }
-            if ($response->getStatusCode() === 400) {
-                $result = self::decodeJson($response->getBody());
-                if ($result['sys']['id'] === 'InvalidQuery') {
-                    throw new Exception\InvalidQueryException($result['message'], 0, $e);
-                }
-            }
-            if ($response->getStatusCode() === 401) {
-                $result = self::decodeJson($response->getBody());
-                if ($result['sys']['id'] === 'AccessTokenInvalid') {
-                    throw new Exception\AccessTokenInvalidException($result['message'], 0, $e);
-                }
+            if (!$e->hasResponse()) {
+                throw $e;
             }
 
-            throw $e;
+            $data = self::decodeJson($e->getResponse()->getBody());
+            $errorId = $data['sys']['id'];
+
+            if (!isset($exceptionMap[$errorId])) {
+                throw $e;
+            }
+
+            throw new $exceptionMap[$errorId]($e);
         }
     }
 
