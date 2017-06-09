@@ -162,14 +162,13 @@ class ResourceBuilder
             }
         }
 
+        $dataList = ['asset' => $assets, 'entry' => $entries];
+
         foreach ($entries as $id => $entry) {
-            $this->updateEntry($entry, $rawEntries[$id], $entries);
+            $this->updateEntry($entry, $rawEntries[$id], $dataList);
         }
 
-        return [
-            'asset' => $assets,
-            'entry' => $entries
-        ];
+        return $dataList;
     }
 
     /**
@@ -305,13 +304,13 @@ class ResourceBuilder
         return $entry;
     }
 
-    private function updateEntry(DynamicEntry $entry, array $data, array $entryList)
+    private function updateEntry(DynamicEntry $entry, array $data, array $dataList)
     {
         $sys = $this->buildSystemProperties($data['sys']);
         $locale = $sys->getLocale();
         $fields = [];
         if (isset($data['fields'])) {
-            $fields = $this->buildFields($sys->getContentType(), $data['fields'], $locale, ['entry' => $entryList]);
+            $fields = $this->buildFields($sys->getContentType(), $data['fields'], $locale, $dataList);
         }
 
         // bad rouven, don't use hacks like this
