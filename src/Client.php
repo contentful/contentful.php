@@ -203,15 +203,15 @@ abstract class Client
     }
 
     /**
-     * @param  string            $method
-     * @param  string            $path
-     * @param  array|string|null $query
+     * @param  string     $method
+     * @param  string     $path
+     * @param  array|null $query
      *
      * @return Psr7\Request
      *
      * @throws \InvalidArgumentException If $query is not a valid type
      */
-    private function buildRequest($method, $path, $query = null)
+    private function buildRequest($method, $path, array $query = null)
     {
         $contentTypes = [
             'DELIVERY' => 'application/vnd.contentful.delivery.v1+json',
@@ -222,13 +222,8 @@ abstract class Client
         $uri = Psr7\UriResolver::resolve($this->baseUri, new Psr7\Uri($path));
 
         if ($query) {
-            if (is_array($query)) {
-                $query = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
-            }
-            if (!is_string($query)) {
-                throw new \InvalidArgumentException('query must be a string or array');
-            }
-            $uri = $uri->withQuery($query);
+            $serializedQuery = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
+            $uri = $uri->withQuery($serializedQuery);
         }
 
         return new Psr7\Request($method, $uri, [
