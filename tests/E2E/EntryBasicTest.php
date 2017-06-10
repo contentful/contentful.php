@@ -7,6 +7,7 @@
 namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Client;
+use Contentful\Log\ArrayLogger;
 use Contentful\ResourceArray;
 use Contentful\Delivery\DynamicEntry;
 use Contentful\Delivery\Asset;
@@ -119,5 +120,26 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('nyancat', $bestFriendsBestFriend->getId());
         $this->assertSame($nyancat, $bestFriendsBestFriend);
+    }
+
+    /**
+     * @vcr e2e_entry_assets_resolved_from_includes.json
+     */
+    public function testAssetsResolvedFromIncludes()
+    {
+        $logger = new ArrayLogger;
+        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, [
+            'logger' => $logger
+        ]);
+
+        $query = (new Query)
+            ->where('sys.id', 'nyancat');
+        $nyancat = $client->getEntries($query)[0];
+        $image = $nyancat->getImage();
+
+        $this->assertEquals('nyancat', $image->getId());
+
+        // There should be 4 and only 4 requests: the entries with the query, the space and the cat content type
+        $this->assertCount(3, $logger->getLogs());
     }
 }

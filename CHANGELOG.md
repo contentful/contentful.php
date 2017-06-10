@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   The new behavior is, that any entry that appears multiple times in the graph of the response will be the same instance.
 * The `contentful` script used to warm up/clear the cache was not marked as a binary in `composer.json` and thus not published to `vendor/bin`.
 * In console commands `<info>` can't be used as part of an Exception message. ([#129](https://github.com/contentful/contentful.php/pull/129))
+* Assets that are part of includes would not be resolved and always fetched again.
 
 ### Changed
 * Moved file classes to a sub-namespace `Contentful\File` **[BREAKING]**.
