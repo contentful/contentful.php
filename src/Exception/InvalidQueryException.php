@@ -12,6 +12,6 @@ namespace Contentful\Exception;
  *
  * @api
  */
-class InvalidQueryException extends \RuntimeException
+class InvalidQueryException extends ApiException
 {
 }

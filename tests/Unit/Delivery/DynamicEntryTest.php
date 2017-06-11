@@ -16,6 +16,8 @@ use Contentful\Delivery\Locale;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
 use Contentful\Exception\NotFoundException;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Psr7\Request;
 
 class DynamicEntryTest extends \PHPUnit_Framework_TestCase
 {
@@ -307,7 +309,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                     return $crookshanksEntry;
                 }
 
-                throw new NotFoundException;
+                throw new NotFoundException(new ClientException('abc', new Request('GET', '')));
             });
 
         $friends = $garfieldEntry->getFriends();

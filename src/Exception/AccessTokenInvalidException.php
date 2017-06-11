@@ -11,6 +11,6 @@ namespace Contentful\Exception;
  *
  * @api
  */
-class AccessTokenInvalidException extends \RuntimeException
+class AccessTokenInvalidException extends ApiException
 {
 }
