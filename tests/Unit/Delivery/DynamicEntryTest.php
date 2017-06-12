@@ -216,7 +216,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
                     return $crookshanksEntry;
                 }
 
-                return new NotFoundException;
+                return new NotFoundException(new ClientException('abc', new Request('GET', '')));
             });
 
         $this->assertSame($crookshanksEntry, $garfieldEntry->getFriend());
