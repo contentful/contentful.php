@@ -105,9 +105,19 @@ class Client extends BaseClient
      *
      * @return string
      */
-    protected function getSdkNameAndVersion()
+    protected function getSdkName()
     {
-        return 'contentful.php/' . self::VERSION;
+        return 'contentful.php';
+    }
+
+    /**
+     * The version of the library to be used in the User-Agent header.
+     *
+     * @return string
+     */
+    protected function getSdkVersion()
+    {
+        return self::VERSION;
     }
 
     /**

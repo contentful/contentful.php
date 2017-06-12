@@ -46,29 +46,9 @@ abstract class Client
     private $token;
 
     /**
-     * @var string
+     * @var UserAgentGenerator
      */
-    private $applicationName;
-
-    /**
-     * @var string
-     */
-    private $applicationVersion;
-
-    /**
-     * @var string
-     */
-    private $integrationName;
-
-    /**
-     * @var string
-     */
-    private $integrationVersion;
-
-    /*
-     * @var string|null
-     */
-    private $contentfulUserAgent;
+    private $userAgentGenerator;
 
     /**
      * Client constructor.
@@ -87,7 +67,7 @@ abstract class Client
         $this->api = $api;
         $this->baseUri = new Psr7\Uri($baseUri);
         $this->httpClient = $guzzle ?: new GuzzleClient();
-        $this->contentfulUserAgent = $this->getContentfulUserAgent();
+        $this->userAgentGenerator = new UserAgentGenerator($this->getSdkName(), $this->getSdkVersion());
     }
 
     /**
@@ -100,17 +80,13 @@ abstract class Client
      */
     public function setApplication($name, $version = null)
     {
-        $this->applicationName = $name;
-        $this->applicationVersion = $version;
-
-        // Update the cached value
-        $this->contentfulUserAgent = $this->getContentfulUserAgent();
+        $this->userAgentGenerator->setApplication($name, $version);
 
         return $this;
     }
 
     /**
-     * Set the application name and version. The values are used as part of the X-Contentful-User-Agent header.
+     * Set the integration name and version. The values are used as part of the X-Contentful-User-Agent header.
      *
      * @param string|null $name
      * @param string|null $version
@@ -119,11 +95,7 @@ abstract class Client
      */
     public function setIntegration($name, $version = null)
     {
-        $this->integrationName = $name;
-        $this->integrationVersion = $version;
-
-        // Update the cached value
-        $this->contentfulUserAgent = $this->getContentfulUserAgent();
+        $this->userAgentGenerator->setIntegration($name, $version);
 
         return $this;
     }
@@ -238,7 +210,7 @@ abstract class Client
             $uri = $uri->withQuery($serializedQuery);
         }
         $headers = [
-            'X-Contentful-User-Agent' => $this->contentfulUserAgent,
+            'X-Contentful-User-Agent' => $this->userAgentGenerator->getUserAgent(),
             'Accept' => $contentTypes[$this->api],
             'Accept-Encoding' => 'gzip',
             'Authorization' => 'Bearer ' . $this->token,
@@ -257,50 +229,12 @@ abstract class Client
      *
      * @return string
      */
-    abstract protected function getSdkNameAndVersion();
+    abstract protected function getSdkName();
 
     /**
-     * Returns the value of the User-Agent header for any requests made to Contentful
+     * The version of the library to be used in the User-Agent header.
      *
      * @return string
      */
-    protected function getContentfulUserAgent()
-    {
-        $possibleOperatingSystems = [
-            'WINNT' => 'Windows',
-            'Darwin' => 'macOS'
-        ];
-
-        $parts = [
-            'app' => '',
-            'integration' => '',
-            'sdk' => $this->getSdkNameAndVersion(),
-            'platform' => 'PHP/' . \PHP_VERSION,
-            'os' => isset($possibleOperatingSystems[PHP_OS]) ? $possibleOperatingSystems[PHP_OS] : 'Linux'
-        ];
-
-        if ($this->applicationName !== null) {
-            $parts['app'] = $this->applicationName;
-            if ($this->applicationVersion !== null) {
-                $parts['app'] .= '/' . $this->applicationVersion;
-            }
-        }
-
-        if ($this->integrationName !== null) {
-            $parts['integration'] = $this->integrationName;
-            if ($this->integrationVersion !== null) {
-                $parts['integration'] .= '/' . $this->integrationVersion;
-            }
-        }
-
-        $agent = '';
-        foreach ($parts as $key => $value) {
-            if ($value === '') {
-                continue;
-            }
-            $agent .= $key . ' ' . $value . '; ';
-        }
-
-        return trim($agent);
-    }
+    abstract protected function getSdkVersion();
 }
