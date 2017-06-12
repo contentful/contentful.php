@@ -6,6 +6,8 @@
 
 namespace Contentful\Delivery;
 
+use Contentful\DateHelper;
+
 /**
  * A SystemProperties instance contains the metadata of a resource.
  *
@@ -200,30 +202,15 @@ class SystemProperties implements \JsonSerializable
             $obj->locale = $this->locale;
         }
         if ($this->createdAt !== null) {
-            $obj->createdAt = $this->formatDateForJson($this->createdAt);
+            $obj->createdAt = DateHelper::formatForJson($this->createdAt);
         }
         if ($this->updatedAt !== null) {
-            $obj->updatedAt = $this->formatDateForJson($this->updatedAt);
+            $obj->updatedAt = DateHelper::formatForJson($this->updatedAt);
         }
         if ($this->deletedAt !== null) {
-            $obj->deletedAt = $this->formatDateForJson($this->deletedAt);
+            $obj->deletedAt = DateHelper::formatForJson($this->deletedAt);
         }
 
         return $obj;
-    }
-
-    /**
-     * Unfortunately PHP has no easy way to create a nice, ISO 8601 formatted date string with milliseconds and Z
-     * as the time zone specifier. Thus this hack.
-     *
-     * @param  \DateTimeImmutable $dt
-     *
-     * @return string ISO 8601 formatted date
-     */
-    private function formatDateForJson(\DateTimeImmutable $dt)
-    {
-        $dt = $dt->setTimezone(new \DateTimeZone('Etc/UTC'));
-
-        return $dt->format('Y-m-d\TH:i:s.') . str_pad(floor($dt->format('u')/1000), 3, '0', STR_PAD_LEFT) . 'Z';
     }
 }

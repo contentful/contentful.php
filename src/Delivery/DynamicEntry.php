@@ -7,6 +7,7 @@
 namespace Contentful\Delivery;
 
 use Contentful\Exception\NotFoundException;
+use Contentful\DateHelper;
 use Contentful\Link;
 
 class DynamicEntry extends LocalizedResource implements EntryInterface
@@ -243,7 +244,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             case 'Object':
                 return $value;
             case 'Date':
-                return $this->formatDateForJson($value);
+                return DateHelper::formatForJson($value);
             case 'Link':
                 return $value ? (object) [
                     'sys' => (object) [
@@ -298,20 +299,5 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             'sys' => $this->sys,
             'fields' => $fields
         ];
-    }
-
-    /**
-     * Unfortunately PHP has no easy way to create a nice, ISO 8601 formatted date string with milliseconds and Z
-     * as the time zone specifier. Thus this hack.
-     *
-     * @param  \DateTimeImmutable $dt
-     *
-     * @return string ISO 8601 formatted date
-     */
-    private function formatDateForJson(\DateTimeImmutable $dt)
-    {
-        $dt = $dt->setTimezone(new \DateTimeZone('Etc/UTC'));
-
-        return $dt->format('Y-m-d\TH:i:s.') . str_pad(floor($dt->format('u')/1000), 3, '0', STR_PAD_LEFT) . 'Z';
     }
 }
