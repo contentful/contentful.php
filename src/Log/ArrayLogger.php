@@ -51,7 +51,7 @@ class ArrayLogger implements LoggerInterface
      *
      * @param string                 $api
      * @param RequestInterface       $request
-     * @param StandardTimer          $timer
+     * @param TimerInterface         $timer
      * @param ResponseInterface|null $response
      * @param \Exception|null        $exception
      *
@@ -59,7 +59,7 @@ class ArrayLogger implements LoggerInterface
      *
      * @throws \InvalidArgumentException When $api is an unrecognized value
      */
-    public function log($api, RequestInterface $request, StandardTimer $timer, ResponseInterface $response = null, \Exception $exception = null)
+    public function log($api, RequestInterface $request, TimerInterface $timer, ResponseInterface $response = null, \Exception $exception = null)
     {
         $this->logs[] = new LogEntry($api, $request, $timer->getDuration(), $response, $exception);
     }
