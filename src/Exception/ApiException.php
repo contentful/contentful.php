@@ -6,7 +6,7 @@
 
 namespace Contentful\Exception;
 
-use Contentful\Client;
+use Contentful\JsonHelper;
 use GuzzleHttp\Exception\RequestException as GuzzleRequestException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -66,7 +66,7 @@ abstract class ApiException extends \RuntimeException
         }
 
         try {
-            $result = Client::decodeJson($response->getBody());
+            $result = JsonHelper::decode($response->getBody());
             if (isset($result['message'])) {
                 return $result['message'];
             }

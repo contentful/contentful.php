@@ -11,6 +11,7 @@ use Contentful\Delivery\Synchronization\DeletedAsset;
 use Contentful\Delivery\Synchronization\DeletedEntry;
 use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Cache\CacheInterface;
+use Contentful\JsonHelper;
 use Contentful\Location;
 use Contentful\ResourceArray;
 use Contentful\Link;
@@ -257,7 +258,7 @@ class ResourceBuilder
 
         $cache = $this->filesystemCache->readContentType($data['sys']['id']);
         if ($cache !== null) {
-            $data = DeliveryClient::decodeJson($cache);
+            $data = JsonHelper::decode($cache);
         }
 
         $sys = $this->buildSystemProperties($data['sys']);

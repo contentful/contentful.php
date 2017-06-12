@@ -150,7 +150,7 @@ abstract class Client
         $response = null;
         try {
             $response = $this->doRequest($request, $options);
-            $result = self::decodeJson($response->getBody());
+            $result = JsonHelper::decode($response->getBody());
         } catch (\Exception $e) {
             $timer->stop();
             $this->logger->log($this->api, $request, $timer, $response, $e);
@@ -186,7 +186,7 @@ abstract class Client
                 throw $e;
             }
 
-            $data = self::decodeJson($e->getResponse()->getBody());
+            $data = JsonHelper::decode($e->getResponse()->getBody());
             $errorId = $data['sys']['id'];
 
             if (!isset($exceptionMap[$errorId])) {
@@ -279,24 +279,5 @@ abstract class Client
         }
 
         return trim($agent);
-    }
-
-    /**
-     * @param  string $json JSON encoded object or array
-     *
-     * @return array
-     *
-     * @throws \RuntimeException On invalid JSON
-     *
-     * @internal
-     */
-    public static function decodeJson($json)
-    {
-        $result = json_decode($json, true);
-        if ($result === null) {
-            throw new \RuntimeException(json_last_error_msg(), json_last_error());
-        }
-
-        return $result;
     }
 }
