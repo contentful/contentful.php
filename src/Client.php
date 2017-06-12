@@ -7,7 +7,6 @@
 namespace Contentful;
 
 use Contentful\Log\NullLogger;
-use Contentful\Log\StandardTimer;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
@@ -109,7 +108,7 @@ abstract class Client
      */
     protected function request($method, $path, array $options = [])
     {
-        $timer = new StandardTimer;
+        $timer = $this->logger->getTimer();
         $timer->start();
 
         $query = isset($options['query']) ? $options['query'] : null;
