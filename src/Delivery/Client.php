@@ -25,7 +25,7 @@ use Contentful\JsonHelper;
  */
 class Client extends BaseClient
 {
-    const VERSION = '2.0.0-dev';
+    const VERSION = '2.0.0';
 
     /**
      * @var ResourceBuilder
