@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/2.0.0...HEAD)
 
+### Fixed
+* `ResourceBuilder` now correctly handles locale when building referenced assets.
+
 ## [2.0.0](https://github.com/contentful/contentful.php/tree/2.0.0) (2017-06-13)
 
 **ATTENTION**: This release contains breaking changes. Please take extra care when updating to this version.

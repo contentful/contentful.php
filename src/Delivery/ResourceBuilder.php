@@ -211,6 +211,9 @@ class ResourceBuilder
             $files,
             $sys
         );
+        if ($locale) {
+            $asset->setLocale($locale);
+        }
 
         return $asset;
     }
