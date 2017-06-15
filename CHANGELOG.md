@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 * `ResourceBuilder` now correctly handles locale when building referenced assets.
+* `Asset::getFile` now uses fallback chain logic to determine the locale to use.
 
 ## [2.0.0](https://github.com/contentful/contentful.php/tree/2.0.0) (2017-06-13)
 

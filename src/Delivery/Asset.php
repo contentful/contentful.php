@@ -108,7 +108,9 @@ class Asset extends LocalizedResource implements \JsonSerializable
             return null;
         }
 
-        return $this->file[$localeCode];
+        $localeCode = $this->loopThroughFallbackChain($this->file, $localeCode, $this->getSpace());
+
+        return $localeCode === null ? null : $this->file[$localeCode];
     }
 
     /**
