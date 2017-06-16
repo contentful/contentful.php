@@ -158,13 +158,6 @@ abstract class Client
      */
     private function doRequest(RequestInterface $request, array $options)
     {
-        $exceptionMap = [
-            'InvalidQuery' => Exception\InvalidQueryException::class,
-            'AccessTokenInvalid' => Exception\AccessTokenInvalidException::class,
-            'NotFound' => Exception\NotFoundException::class,
-            'RateLimitExceeded' => Exception\RateLimitExceededException::class
-        ];
-
         try {
             return $this->httpClient->send($request, $options);
         } catch (ClientException $e) {
@@ -174,6 +167,7 @@ abstract class Client
 
             $data = JsonHelper::decode($e->getResponse()->getBody());
             $errorId = $data['sys']['id'];
+            $exceptionMap = $this->getExceptionMap();
 
             if (!isset($exceptionMap[$errorId])) {
                 throw $e;
@@ -221,6 +215,19 @@ abstract class Client
         $headers = array_merge($headers, $additionalHeaders);
 
         return new Psr7\Request($method, $uri, $headers, $body);
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function getExceptionMap()
+    {
+        return [
+            'InvalidQuery' => Exception\InvalidQueryException::class,
+            'AccessTokenInvalid' => Exception\AccessTokenInvalidException::class,
+            'NotFound' => Exception\NotFoundException::class,
+            'RateLimitExceeded' => Exception\RateLimitExceededException::class
+        ];
     }
 
     /**
