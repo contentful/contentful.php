@@ -118,7 +118,7 @@ class ResourceBuilder
             case 'DeletedEntry':
                 return $this->buildDeletedEntry($data);
             default:
-                throw new \InvalidArgumentException('Unexpected type "' . $type . '"" while trying to build object.');
+                throw new \InvalidArgumentException('Unexpected type "' . $type . '" while trying to build object.');
         }
     }
 
@@ -469,7 +469,7 @@ class ResourceBuilder
     private function getSpace($spaceId)
     {
         if ($spaceId !== $this->spaceId) {
-            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "' . $this->spaceId . '" but was asked to build a resource for the space "' . $spaceId . '"."');
+            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "' . $this->spaceId . '" but was asked to build a resource for the space "' . $spaceId . '".');
         }
 
         return $this->client->getSpace();
@@ -485,7 +485,7 @@ class ResourceBuilder
     private function buildSpace(array $data)
     {
         if ($data['sys']['id'] !== $this->spaceId) {
-            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "' . $this->spaceId . '" but was asked to build a resource for the space "' . $data['sys']['id'] . '"."');
+            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "' . $this->spaceId . '" but was asked to build a resource for the space "' . $data['sys']['id'] . '".');
         }
 
         if ($this->instanceCache->hasSpace()) {

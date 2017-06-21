@@ -8,6 +8,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 * Allow the exception map in `Client` to be overridden. This is done in preparation of the upcoming CMA SDK.
 
+### Fixed
+* Slight fixes to error messages in exceptions thrown in the `ResourceBuilder`.
+
 ## [2.0.1](https://github.com/contentful/contentful.php/tree/2.0.1) (2017-06-16)
 
 ### Fixed
