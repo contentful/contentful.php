@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 * Allow the exception map in `Client` to be overridden. This is done in preparation of the upcoming CMA SDK.
+* The third parameter `$options` of the `Client::request()` method now accepts an optional value with key `baseUri`. This is in preparation for the CMA SDK.
 
 ### Fixed
 * Slight fixes to error messages in exceptions thrown in the `ResourceBuilder`.
