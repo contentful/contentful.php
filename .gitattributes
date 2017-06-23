@@ -10,3 +10,4 @@
 /phpunit.xml.dist export-ignore
 /phpunit-api-coverage.xml export-ignore
 /tests export-ignore
+/sami.php export-ignore
