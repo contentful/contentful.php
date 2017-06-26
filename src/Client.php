@@ -100,9 +100,13 @@ abstract class Client
     }
 
     /**
-     * @param string $method
-     * @param string $path
-     * @param array  $options
+     * @param string $method  The HTTP method
+     * @param string $path    The URI path
+     * @param array  $options An array of optional parameters. The following keys are accepted:
+     *                         * query             An array of query parameters that will be appended to the URI
+     *                         * additionalHeaders An array of headers that will be added to the request
+     *                         * body              The request body
+     *                         * baseUri           A string that can be used to override the default client base URI
      *
      * @return array|null
      */
@@ -126,7 +130,12 @@ abstract class Client
             unset($options['body']);
         }
 
-        $request = $this->buildRequest($method, $path, $query, $additionalHeaders, $body);
+        $baseUri = isset($options['baseUri']) ? $options['baseUri'] : null;
+        if ($baseUri) {
+            unset($options['baseUri']);
+        }
+
+        $request = $this->buildRequest($method, $path, $query, $additionalHeaders, $body, $baseUri);
 
         // We define this variable so it's also available in the catch block.
         $response = null;
@@ -178,17 +187,18 @@ abstract class Client
     }
 
     /**
-     * @param  string     $method
-     * @param  string     $path
-     * @param  array|null $query
-     * @param  array             $additionalHeaders
-     * @param  string            $body
+     * @param string     $method
+     * @param string     $path
+     * @param array|null $query
+     * @param array      $additionalHeaders
+     * @param string     $body
+     * @param string     $baseUri
      *
      * @return Psr7\Request
      *
      * @throws \InvalidArgumentException If $query is not a valid type
      */
-    private function buildRequest($method, $path, array $query = null, array $additionalHeaders = [], $body = null)
+    private function buildRequest($method, $path, array $query = null, array $additionalHeaders = [], $body = null, $baseUri = null)
     {
         $contentTypes = [
             'DELIVERY' => 'application/vnd.contentful.delivery.v1+json',
@@ -196,7 +206,9 @@ abstract class Client
             'MANAGEMENT' => 'application/vnd.contentful.management.v1+json'
         ];
 
-        $uri = Psr7\UriResolver::resolve($this->baseUri, new Psr7\Uri($path));
+        $baseUri = $baseUri ? new Psr7\Uri($baseUri) : $this->baseUri;
+
+        $uri = Psr7\UriResolver::resolve($baseUri, new Psr7\Uri($path));
 
         if ($query) {
             $serializedQuery = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
