@@ -5,6 +5,7 @@ use PhpCsFixer\Finder;
 
 $finder = Finder::create()
     ->in('bin')
+    ->in('scripts')
     ->in('src')
     ->in('tests');
 
