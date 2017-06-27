@@ -8,7 +8,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 * Allow the exception map in `Client` to be overridden. This is done in preparation of the upcoming CMA SDK.
 * The third parameter `$options` of the `Client::request()` method now accepts an optional value with key `baseUri`. This is in preparation for the CMA SDK.
-* Revamped the [reference documentation](https://contentful.github.io/contentful.php/api/) to be based on Sami and to include previous versions of the SDK. 
+* Revamped the [reference documentation](https://contentful.github.io/contentful.php/api/) to be based on Sami and to include previous versions of the SDK.
+* `LocalUploadFile` now handles asset files which have been uploaded to `upload.contentful.com` but have yet to be processed. This fixes a possible edge case, and it's also done in preparation for the upcoming CMA SDK.
 
 ### Fixed
 * Slight fixes to error messages in exceptions thrown in the `ResourceBuilder`.
