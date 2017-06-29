@@ -6,21 +6,22 @@
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\File\UploadFile;
+use Contentful\Link;
+use Contentful\File\LocalUploadFile;
 
-class UploadFileTest extends \PHPUnit_Framework_TestCase
+class LocalUploadFileTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var UploadFile
+     * @var LocalUploadFile
      */
     protected $file;
 
     public function setUp()
     {
-        $this->file = new UploadFile(
+        $this->file = new LocalUploadFile(
             'the_great_gatsby.txt',
             'image/png',
-            'https://www.example.com/the_great_gatsby.txt'
+            new Link('1reper3p12RdEVfC13QsUR', 'Upload')
         );
     }
 
@@ -28,13 +29,13 @@ class UploadFileTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('the_great_gatsby.txt', $this->file->getFileName());
         $this->assertEquals('image/png', $this->file->getContentType());
-        $this->assertEquals('https://www.example.com/the_great_gatsby.txt', $this->file->getUpload());
+        $this->assertEquals(new Link('1reper3p12RdEVfC13QsUR', 'Upload'), $this->file->getUploadFrom());
     }
 
     public function testJsonSerialize()
     {
         $this->assertJsonStringEqualsJsonString(
-            '{"fileName":"the_great_gatsby.txt","contentType":"image/png","upload": "https://www.example.com/the_great_gatsby.txt"}',
+            '{"fileName":"the_great_gatsby.txt","contentType":"image\/png","uploadFrom":{"sys":{"type":"Link","id":"1reper3p12RdEVfC13QsUR","linkType":"Upload"}}}',
             json_encode($this->file)
         );
     }

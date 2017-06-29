@@ -20,6 +20,7 @@ use Contentful\File\FileInterface;
 use Contentful\File\ImageFile;
 use Contentful\File\UploadFile;
 use Contentful\Exception\SpaceMismatchException;
+use Contentful\File\LocalUploadFile;
 
 /**
  * The ResourceBuilder is responsible for turning the responses from the API into instances of PHP classes.
@@ -227,6 +228,16 @@ class ResourceBuilder
      */
     private function buildFile(array $data)
     {
+        if (isset($data['uploadFrom'])) {
+            // We bypass the buildLink method and instantiate a Link directly because
+            // the Upload system type is not actually present in the CDA/CPA.
+            return new LocalUploadFile(
+                $data['fileName'],
+                $data['contentType'],
+                new Link($data['uploadFrom']['sys']['id'], $data['uploadFrom']['sys']['linkType'])
+            );
+        }
+
         if (isset($data['upload'])) {
             return new UploadFile($data['fileName'], $data['contentType'], $data['upload']);
         }
