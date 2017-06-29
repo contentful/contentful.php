@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 * Slight fixes to error messages in exceptions thrown in the `ResourceBuilder`.
+* Adds a missing exception message in `SynchronizationManager::continueSync()`.
 
 ## [2.0.1](https://github.com/contentful/contentful.php/tree/2.0.1) (2017-06-16)
 
