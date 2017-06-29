@@ -43,7 +43,7 @@ class Manager
      * @param ResourceBuilder $builder
      * @param bool            $preview
      *
-     * @see \Contentful\Delivery\Client::get
+     * @see \Contentful\Delivery\Client::getSynchronizationManager()
      * @internal
      */
     public function __construct(Client $client, ResourceBuilder $builder, $preview)
@@ -89,7 +89,7 @@ class Manager
     {
         if ($token instanceof Result) {
             if ($this->preview && $token->isDone()) {
-                throw new \RuntimeException();
+                throw new \RuntimeException('Can not continue syncing when using the Content Preview API.');
             }
             $token = $token->getToken();
         }
