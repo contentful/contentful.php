@@ -167,6 +167,8 @@ class Client extends BaseClient
     public function getContentType($id)
     {
         if ($this->instanceCache->hasContentType($id)) {
+            $this->nullifyResponseInfo();
+
             return $this->instanceCache->getContentType($id);
         }
 
@@ -239,6 +241,8 @@ class Client extends BaseClient
     public function getSpace()
     {
         if ($this->instanceCache->hasSpace()) {
+            $this->nullifyResponseInfo();
+
             return $this->instanceCache->getSpace();
         }
 

@@ -267,6 +267,8 @@ class ResourceBuilder
     private function buildContentType(array $data)
     {
         if ($this->instanceCache->hasContentType($data['sys']['id'])) {
+            $this->client->nullifyResponseInfo();
+
             return $this->instanceCache->getContentType($data['sys']['id']);
         }
 
@@ -500,6 +502,8 @@ class ResourceBuilder
         }
 
         if ($this->instanceCache->hasSpace()) {
+            $this->client->nullifyResponseInfo();
+
             return $this->instanceCache->getSpace();
         }
 
