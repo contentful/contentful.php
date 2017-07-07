@@ -12,6 +12,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
 use Contentful\Log\LoggerInterface;
 use GuzzleHttp\Psr7;
+
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -50,6 +51,16 @@ abstract class Client
     private $userAgentGenerator;
 
     /**
+     * @var ResponseInfo
+     */
+    private $lastResponseInfo;
+
+    /**
+     * @var string
+     */
+    private $responseInfoClass;
+
+    /**
      * Client constructor.
      *
      * @param string                $token
@@ -66,6 +77,7 @@ abstract class Client
         $this->api = $api;
         $this->baseUri = new Psr7\Uri($baseUri);
         $this->httpClient = $guzzle ?: new GuzzleClient();
+        $this->responseInfoClass = '\\Contentful\\' . ucfirst(strtolower($this->api)) . '\\ResponseInfo';
         $this->userAgentGenerator = new UserAgentGenerator($this->getSdkName(), $this->getSdkVersion());
     }
 
@@ -156,6 +168,8 @@ abstract class Client
         $timer->stop();
         $this->logger->log($this->api, $request, $timer, $response);
 
+        $this->lastResponseInfo = $response !== null ? new $this->responseInfoClass($response) : null;
+
         return $result;
     }
 
@@ -240,6 +254,25 @@ abstract class Client
             'NotFound' => Exception\NotFoundException::class,
             'RateLimitExceeded' => Exception\RateLimitExceededException::class
         ];
+    }
+
+    /**
+     * @return ResponseInfo
+     */
+    public function getLastResponseInfo()
+    {
+        return $this->lastResponseInfo;
+    }
+
+    /**
+     * This should be called when a request has been made through the SDK,
+     * but the result was stored in cache, so the API wasn't really called.
+     *
+     * @return
+     */
+    public function nullifyResponseInfo()
+    {
+        $this->lastResponseInfo = null;
     }
 
     /**
