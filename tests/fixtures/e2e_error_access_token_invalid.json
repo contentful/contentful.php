@@ -5,7 +5,7 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.0.0-dev; platform PHP\/7.1.4; os macOS;",
+            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50"
@@ -27,18 +27,18 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "426753a1639d40c23ad4cbf085a072c7",
+            "X-Contentful-Request-Id": "875ddb0113a4b3fe565dfec2ed7d5140",
             "Content-Length": "198",
             "Accept-Ranges": "bytes",
-            "Date": "Fri, 12 May 2017 16:29:29 GMT",
+            "Date": "Thu, 06 Jul 2017 11:37:25 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1533-HHN",
+            "X-Served-By": "cache-hhn1521-HHN",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
-            "X-Timer": "S1494606569.291796,VS0,VE124"
+            "X-Timer": "S1499341046.713677,VS0,VE129"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"AccessTokenInvalid\"\n  },\n  \"message\": \"The access token you sent could not be found or is invalid.\",\n  \"requestId\": \"426753a1639d40c23ad4cbf085a072c7\"\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"AccessTokenInvalid\"\n  },\n  \"message\": \"The access token you sent could not be found or is invalid.\",\n  \"requestId\": \"875ddb0113a4b3fe565dfec2ed7d5140\"\n}\n"
     }
 }]
