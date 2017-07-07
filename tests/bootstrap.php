@@ -26,6 +26,7 @@ function clean_headers_array(\VCR\Request $request)
 \VCR\VCR::configure()
     ->setMode('once')
     ->setStorage('json')
+    ->setCassettePath('tests/recordings')
     ->addRequestMatcher('custom_headers', function (\VCR\Request $first, \VCR\Request $second) {
         $first = clean_headers_array($first);
         $second = clean_headers_array($second);
