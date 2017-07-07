@@ -5,7 +5,7 @@
         "headers": {
             "Host": "cdn.contentful.com",
             "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.0.0-dev; platform PHP\/7.1.4; os macOS;",
+            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1"
@@ -28,17 +28,17 @@
             "ETag": "\"17f6b9f68596176aed46fa020bf235af\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "501f9089cf6b60df6a86af9b0271dba1",
+            "X-Contentful-Request-Id": "619faf018600aa22a357db0a4914a39f",
             "Content-Length": "344",
             "Accept-Ranges": "bytes",
-            "Date": "Fri, 12 May 2017 16:29:38 GMT",
+            "Date": "Thu, 06 Jul 2017 11:37:35 GMT",
             "Via": "1.1 varnish",
-            "Age": "16558",
+            "Age": "52",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1531-HHN",
+            "X-Served-By": "cache-hhn1535-HHN",
             "X-Cache": "HIT",
-            "X-Cache-Hits": "2",
-            "X-Timer": "S1494606578.237387,VS0,VE0",
+            "X-Cache-Hits": "3",
+            "X-Timer": "S1499341055.136753,VS0,VE0",
             "Vary": "Accept-Encoding"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"cfexampleapi\"\n  },\n  \"name\": \"Contentful Example API\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"English\",\n      \"fallbackCode\": null\n    },\n    {\n      \"code\": \"tlh\",\n      \"default\": false,\n      \"name\": \"Klingon\",\n      \"fallbackCode\": \"en-US\"\n    }\n  ]\n}\n"

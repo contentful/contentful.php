@@ -5,7 +5,7 @@
         "headers": {
             "Host": "preview.contentful.com",
             "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.0.0-dev; platform PHP\/7.1.4; os macOS;",
+            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963"
@@ -27,11 +27,11 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Fri, 12 May 2017 16:29:30 GMT",
+            "Date": "Thu, 06 Jul 2017 11:37:26 GMT",
             "ETag": "\"7811d6aca5f5ee099a7c2f1c18ad8a76\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "2c6e687f26dceb9e1196fb9b62ebb899",
+            "X-Contentful-Request-Id": "e623744275cf93e3bcdab4c02ed19eab",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -44,7 +44,7 @@
         "headers": {
             "Host": "preview.contentful.com",
             "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.0.0-dev; platform PHP\/7.1.4; os macOS;",
+            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963"
@@ -66,11 +66,11 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Fri, 12 May 2017 16:29:30 GMT",
+            "Date": "Thu, 06 Jul 2017 11:37:27 GMT",
             "ETag": "\"855535eed9d54df2150444800f46014b\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "b12e3b653fc23f36292276d6186d0d86",
+            "X-Contentful-Request-Id": "d1e72ad55e6f4a3ede3ab1ff712484d7",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -83,7 +83,7 @@
         "headers": {
             "Host": "preview.contentful.com",
             "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.0.0-dev; platform PHP\/7.1.4; os macOS;",
+            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963"
@@ -105,11 +105,11 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Fri, 12 May 2017 16:29:31 GMT",
+            "Date": "Thu, 06 Jul 2017 11:37:27 GMT",
             "ETag": "\"cbc5b5d83c973167418a4471026b905a\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "a4e492be84c9d80397f94e70bd363113",
+            "X-Contentful-Request-Id": "016ffb636b944e3aac7b4bfa4018b8b2",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -122,7 +122,7 @@
         "headers": {
             "Host": "preview.contentful.com",
             "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.0.0-dev; platform PHP\/7.1.4; os macOS;",
+            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963"
@@ -144,11 +144,11 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Fri, 12 May 2017 16:29:32 GMT",
+            "Date": "Thu, 06 Jul 2017 11:37:28 GMT",
             "ETag": "\"338dd33cc9eb29b8d29e842bfa1261ed\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "b9f0a29d93860e06e23a0d1adab89a85",
+            "X-Contentful-Request-Id": "1437131aade0db3482e7d994ad0c3776",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -161,7 +161,7 @@
         "headers": {
             "Host": "preview.contentful.com",
             "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.0.0-dev; platform PHP\/7.1.4; os macOS;",
+            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963"
@@ -183,11 +183,11 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Fri, 12 May 2017 16:29:32 GMT",
+            "Date": "Thu, 06 Jul 2017 11:37:28 GMT",
             "ETag": "\"f0c7e0348a98f28f1164eed6719c1d33\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "af4575a4701d3f26d1d70bd55fe946e3",
+            "X-Contentful-Request-Id": "8432fd093c5d0d4ca467fda60987a904",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -200,7 +200,7 @@
         "headers": {
             "Host": "preview.contentful.com",
             "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.0.0-dev; platform PHP\/7.1.4; os macOS;",
+            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963"
@@ -219,14 +219,14 @@
             "Access-Control-Expose-Headers": "Etag",
             "Access-Control-Max-Age": "1728000",
             "Content-Type": "application\/vnd.contentful.management.v1+json",
-            "Date": "Fri, 12 May 2017 16:29:33 GMT",
+            "Date": "Thu, 06 Jul 2017 11:37:29 GMT",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-RateLimit-Reset": "2727",
-            "X-Contentful-Request-Id": "4d0274fb176b51ae43a64b98639a3090",
+            "X-Contentful-RateLimit-Reset": "3151",
+            "X-Contentful-Request-Id": "cfa4c885ffc732738160ded264b20b01",
             "Content-Length": "323",
             "Connection": "keep-alive"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"RateLimitExceeded\"\n  },\n  \"message\": \"You have exceeded the rate limit of the Organization this Space belongs to by making too many API requests within a short timespan. Please wait a moment before trying the request again.\",\n  \"requestId\": \"4d0274fb176b51ae43a64b98639a3090\"\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"RateLimitExceeded\"\n  },\n  \"message\": \"You have exceeded the rate limit of the Organization this Space belongs to by making too many API requests within a short timespan. Please wait a moment before trying the request again.\",\n  \"requestId\": \"cfa4c885ffc732738160ded264b20b01\"\n}\n"
     }
 }]
