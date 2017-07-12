@@ -6,36 +6,27 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Client;
-use Contentful\Log\ArrayLogger;
 use Contentful\ResourceArray;
 use Contentful\Delivery\DynamicEntry;
 use Contentful\Delivery\Asset;
 use Contentful\Delivery\Query;
+use Contentful\Tests\Delivery\End2EndTestCase;
 
 /**
  * Test that objects can be constructed successfullly in various scenarios.
  */
-class EntryBasicTest extends \PHPUnit_Framework_TestCase
+class EntryBasicTest extends End2EndTestCase
 {
-    /**
-     * @var Client
-     */
-    private $client;
-
-    public function setUp()
-    {
-        $this->client = new Client('b4c0n73n7fu1', 'cfexampleapi');
-    }
-
     /**
      * @vcr e2e_entry_get_all_locale_all.json
      */
     public function testGetAll()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query())
             ->setLocale('*');
-        $assets = $this->client->getEntries($query);
+        $assets = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $assets);
     }
@@ -45,7 +36,9 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAllDefaultLocale()
     {
-        $assets = $this->client->getEntries();
+        $client = $this->getClient('cfexampleapi');
+
+        $assets = $client->getEntries();
 
         $this->assertInstanceOf(ResourceArray::class, $assets);
     }
@@ -55,7 +48,9 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetOne()
     {
-        $entry = $this->client->getEntry('nyancat', '*');
+        $client = $this->getClient('cfexampleapi');
+
+        $entry = $client->getEntry('nyancat', '*');
 
         $this->assertInstanceOf(DynamicEntry::class, $entry);
         $this->assertEquals('nyancat', $entry->getId());
@@ -66,7 +61,9 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetOneDefaultLocale()
     {
-        $entry = $this->client->getEntry('nyancat');
+        $client = $this->getClient('cfexampleapi');
+
+        $entry = $client->getEntry('nyancat');
 
         $this->assertInstanceOf(DynamicEntry::class, $entry);
         $this->assertEquals('nyancat', $entry->getId());
@@ -77,7 +74,9 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
      */
     public function testLazyLoading()
     {
-        $entry = $this->client->getEntry('nyancat');
+        $client = $this->getClient('cfexampleapi');
+
+        $entry = $client->getEntry('nyancat');
         $bestFriend = $entry->getBestFriend();
 
         $this->assertInstanceOf(DynamicEntry::class, $entry);
@@ -94,7 +93,9 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
      */
     public function testLazyLoadIsCached()
     {
-        $nyancat = $this->client->getEntry('nyancat');
+        $client = $this->getClient('cfexampleapi');
+
+        $nyancat = $client->getEntry('nyancat');
         $bestFriend = $nyancat->getBestFriend();
 
         // Locally it's cached
@@ -102,7 +103,7 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($bestFriend, $nyancat->getBestFriend());
 
         // but not globally
-        $happycat = $this->client->getEntry('happycat');
+        $happycat = $client->getEntry('happycat');
         $this->assertEquals($bestFriend->getId(), $happycat->getId());
         $this->assertNotSame($bestFriend, $happycat);
     }
@@ -112,9 +113,11 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
      */
     public function testEntriesWithinGraphAreIdentical()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query)
             ->where('sys.id', 'nyancat');
-        $nyancat = $this->client->getEntries($query)[0];
+        $nyancat = $client->getEntries($query)[0];
         $bestFriend = $nyancat->getBestFriend();
         $bestFriendsBestFriend = $bestFriend->getBestFriend();
 
@@ -127,10 +130,8 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
      */
     public function testAssetsResolvedFromIncludes()
     {
-        $logger = new ArrayLogger;
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, [
-            'logger' => $logger
-        ]);
+        $client = $this->getClient('cfexampleapi_logger');
+        $logger = $client->getLogger();
 
         $query = (new Query)
             ->where('sys.id', 'nyancat');
@@ -139,7 +140,7 @@ class EntryBasicTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('nyancat', $image->getId());
 
-        // There should be 4 and only 4 requests: the entries with the query, the space and the cat content type
+        // There should be 3 and only 3 requests: the entries with the query, the space and the cat content type
         $this->assertCount(3, $logger->getLogs());
     }
 }

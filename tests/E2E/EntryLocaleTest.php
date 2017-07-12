@@ -6,31 +6,23 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
+use Contentful\Tests\Delivery\End2EndTestCase;
 
-class EntryLocaleTest extends \PHPUnit_Framework_TestCase
+class EntryLocaleTest extends End2EndTestCase
 {
-    /**
-     * @var Client
-     */
-    private $client;
-
-    public function setUp()
-    {
-        $this->client = new Client('b4c0n73n7fu1', 'cfexampleapi');
-    }
-
     /**
      * @vcr e2e_entry_locale_get_all.json
      */
     public function testGetAll()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query)
             ->setContentType('cat')
             ->setLocale('*');
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertEquals('Nyan Cat', $entries[0]->getName());
@@ -41,10 +33,12 @@ class EntryLocaleTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetEnUs()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query)
             ->setContentType('cat')
             ->setLocale('en-US');
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertEquals('Nyan Cat', $entries[0]->getName());
@@ -55,10 +49,12 @@ class EntryLocaleTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetTlh()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query)
             ->setContentType('cat')
             ->setLocale('tlh');
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertEquals('Nyan vIghro\'', $entries[0]->getName());
@@ -69,7 +65,7 @@ class EntryLocaleTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLocaleFromClient()
     {
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', false, 'tlh');
+        $client = $this->getClient('cfexampleapi_tlh');
 
         $query = (new Query)
             ->setContentType('cat');
@@ -85,7 +81,7 @@ class EntryLocaleTest extends \PHPUnit_Framework_TestCase
      */
     public function testLocaleUsedWithLazyLoading()
     {
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi');
+        $client = $this->getClient('cfexampleapi');
 
         $happycat = $client->getEntry('happycat', 'tlh');
         $nyancat = $happycat->getBestFriend();

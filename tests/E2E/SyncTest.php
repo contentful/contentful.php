@@ -6,19 +6,20 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Client;
 use Contentful\Delivery\DynamicEntry;
 use Contentful\Delivery\Synchronization\Result;
+use Contentful\Tests\Delivery\End2EndTestCase;
 
-class SyncTest extends \PHPUnit_Framework_TestCase
+class SyncTest extends End2EndTestCase
 {
     /**
      * @vcr e2e_sync_basic.json
      */
     public function testBasicSync()
     {
-        $manager = (new Client('b4c0n73n7fu1', 'cfexampleapi'))
-            ->getSynchronizationManager();
+        $client = $this->getClient('cfexampleapi');
+
+        $manager = $client->getSynchronizationManager();
 
         $result = $manager->startSync();
 
@@ -36,11 +37,12 @@ class SyncTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @requires API no-coverage-proxy
      * @vcr e2e_sync_preview.json
      */
     public function testPreviewSync()
     {
-        $manager = (new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', true))
+        $manager = $this->getClient('cfexampleapi_preview')
             ->getSynchronizationManager();
 
         $result = $manager->startSync();
@@ -50,12 +52,13 @@ class SyncTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @requires API no-coverage-proxy
      * @vcr e2e_sync_preview_continue.json
      * @expectedException \RuntimeException
      */
     public function testPreviewSyncContinue()
     {
-        $manager = (new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', true))
+        $manager = $this->getClient('cfexampleapi_preview')
             ->getSynchronizationManager();
 
         $result = $manager->startSync();

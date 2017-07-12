@@ -7,28 +7,21 @@
 namespace Contentful\Tests\E2E;
 
 use Contentful\Link;
-use Contentful\Delivery\Client;
 use Contentful\File\UploadFile;
 use Contentful\File\LocalUploadFile;
+use Contentful\Tests\Delivery\End2EndTestCase;
 
-class UnprocessedFileInPreviewTest extends \PHPUnit_Framework_TestCase
+class UnprocessedFileInPreviewTest extends End2EndTestCase
 {
     /**
-     * @var Client
-     */
-    private $client;
-
-    public function setUp()
-    {
-        $this->client = new Client('81c469d7241ca02349388602dfc14107157063a6901c378a56e1835d688970bf', '88dyiqcr7go8', true);
-    }
-
-    /**
+     * @requires API no-coverage-proxy
      * @vcr e2e_file_get_unprocessed_file.json
      */
     public function testGetUnprocessedFile()
     {
-        $asset = $this->client->getAsset('147y8r7Fx4YSEWYAQyggui');
+        $client = $this->getClient('88dyiqcr7go8_preview');
+
+        $asset = $client->getAsset('147y8r7Fx4YSEWYAQyggui');
 
         $file = $asset->getFile();
 
@@ -47,11 +40,14 @@ class UnprocessedFileInPreviewTest extends \PHPUnit_Framework_TestCase
      * using the Management API. This is irrelevant for the Delivery API, but it's good to rememember
      * when dealing with the CMA.
      *
+     * @requires API no-coverage-proxy
      * @vcr e2e_file_uploaded_from_unprocessed_file.json
      */
     public function testUploadedFromFileUnprocessed()
     {
-        $asset = $this->client->getAsset('lp8z7n381EmisqwMgmqW2');
+        $client = $this->getClient('88dyiqcr7go8_preview');
+
+        $asset = $client->getAsset('lp8z7n381EmisqwMgmqW2');
 
         $file = $asset->getFile();
 

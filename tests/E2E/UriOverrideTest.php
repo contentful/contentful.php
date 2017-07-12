@@ -8,26 +8,20 @@ namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Client;
 
-class UriOverrideTest extends \PHPUnit_Framework_TestCase
+use Contentful\Tests\Delivery\End2EndTestCase;
+
+class UriOverrideTest extends End2EndTestCase
 {
     /**
-     * @var Client
-     */
-    private $client;
-
-    public function setUp()
-    {
-        $this->client = new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', false, null, [
-            'uriOverride' => 'https://preview.contentful.com/'
-        ]);
-    }
-
-    /**
+     * @requires API no-coverage-proxy
      * @vcr e2e_uri_override.json
      */
     public function testBasicSync()
     {
-        $space = $this->client->getSpace();
+        $client = new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', false, null, [
+            'uriOverride' => 'https://preview.contentful.com/'
+        ]);
+        $space = $client->getSpace();
 
         $this->assertEquals('Contentful Example API', $space->getName());
     }

@@ -7,31 +7,23 @@
 namespace Contentful\Tests\E2E;
 
 use Contentful\File\ImageFile;
-use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
 use Contentful\Delivery\Asset;
+use Contentful\Tests\Delivery\End2EndTestCase;
 
-class AssetBasicTest extends \PHPUnit_Framework_TestCase
+class AssetBasicTest extends End2EndTestCase
 {
-    /**
-     * @var Client
-     */
-    private $client;
-
-    public function setUp()
-    {
-        $this->client = new Client('b4c0n73n7fu1', 'cfexampleapi');
-    }
-
     /**
      * @vcr e2e_asset_get_all_locale_all.json
      */
     public function testGetAll()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query())
             ->setLocale('*');
-        $assets = $this->client->getAssets($query);
+        $assets = $client->getAssets($query);
 
         $this->assertInstanceOf(ResourceArray::class, $assets);
     }
@@ -41,7 +33,9 @@ class AssetBasicTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAllSingleLocale()
     {
-        $assets = $this->client->getAssets();
+        $client = $this->getClient('cfexampleapi');
+
+        $assets = $client->getAssets();
 
         $this->assertInstanceOf(ResourceArray::class, $assets);
     }
@@ -51,7 +45,9 @@ class AssetBasicTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetOne()
     {
-        $asset = $this->client->getAsset('nyancat', '*');
+        $client = $this->getClient('cfexampleapi');
+
+        $asset = $client->getAsset('nyancat', '*');
 
         $this->assertInstanceOf(Asset::class, $asset);
         $this->assertEquals('nyancat', $asset->getId());
@@ -63,7 +59,9 @@ class AssetBasicTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetOneSingleLocale()
     {
-        $asset = $this->client->getAsset('nyancat');
+        $client = $this->getClient('cfexampleapi');
+
+        $asset = $client->getAsset('nyancat');
 
         $this->assertInstanceOf(Asset::class, $asset);
         $this->assertEquals('nyancat', $asset->getId());
