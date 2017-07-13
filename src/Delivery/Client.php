@@ -121,6 +121,16 @@ class Client extends BaseClient
     }
 
     /**
+     * Returns the Content-Type (MIME-Type) to be used when communication with the API.
+     *
+     * @return string
+     */
+    protected function getApiContentType()
+    {
+        return 'application/vnd.contentful.delivery.v1+json';
+    }
+
+    /**
      * @param  string      $id
      * @param  string|null $locale
      *

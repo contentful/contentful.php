@@ -200,12 +200,6 @@ abstract class Client
      */
     private function buildRequest($method, $path, array $query = null, array $additionalHeaders = [], $body = null, $baseUri = null)
     {
-        $contentTypes = [
-            'DELIVERY' => 'application/vnd.contentful.delivery.v1+json',
-            'PREVIEW' => 'application/vnd.contentful.delivery.v1+json',
-            'MANAGEMENT' => 'application/vnd.contentful.management.v1+json'
-        ];
-
         $baseUri = $baseUri ? new Psr7\Uri($baseUri) : $this->baseUri;
 
         $uri = Psr7\UriResolver::resolve($baseUri, new Psr7\Uri($path));
@@ -216,12 +210,12 @@ abstract class Client
         }
         $headers = [
             'X-Contentful-User-Agent' => $this->userAgentGenerator->getUserAgent(),
-            'Accept' => $contentTypes[$this->api],
+            'Accept' => $this->getApiContentType(),
             'Accept-Encoding' => 'gzip',
             'Authorization' => 'Bearer ' . $this->token,
         ];
         if ($body) {
-            $headers['Content-Type'] = $contentTypes[$this->api];
+            $headers['Content-Type'] = $this->getApiContentType();
         }
 
         $headers = array_merge($headers, $additionalHeaders);
@@ -255,4 +249,11 @@ abstract class Client
      * @return string
      */
     abstract protected function getSdkVersion();
+
+    /**
+     * Returns the Content-Type (MIME-Type) to be used when communication with the API.
+     *
+     * @return string
+     */
+    abstract protected function getApiContentType();
 }
