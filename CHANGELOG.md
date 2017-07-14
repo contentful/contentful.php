@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/2.0.1...HEAD)
+## [2.1.0](https://github.com/contentful/contentful.php/tree/2.1.0) (2017-07-14)
 
 ### Added
 * Allow the exception map in `Client` to be overridden. This is done in preparation of the upcoming CMA SDK.
