@@ -7,30 +7,22 @@
 namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Query;
-use Contentful\Delivery\Client;
 use Contentful\ResourceArray;
+use Contentful\Tests\Delivery\End2EndTestCase;
 
-class EntrySearchTest extends \PHPUnit_Framework_TestCase
+class EntrySearchTest extends End2EndTestCase
 {
-    /**
-     * @var Client
-     */
-    private $client;
-
-    public function setUp()
-    {
-        $this->client = new Client('b4c0n73n7fu1', 'cfexampleapi');
-    }
-
     /**
      * @vcr e2e_entry_search_by_content_type.json
      */
     public function testSearchByContentType()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query())
             ->setContentType('cat');
 
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
     }
@@ -40,10 +32,12 @@ class EntrySearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchEquality()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query())
             ->where('sys.id', 'nyancat');
 
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertCount(1, $entries);
@@ -54,10 +48,12 @@ class EntrySearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchInequality()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query())
             ->where('sys.id', 'nyancat', 'ne');
 
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertCount(9, $entries);
@@ -68,11 +64,13 @@ class EntrySearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchArrayEquality()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query())
             ->setContentType('cat')
             ->where('fields.likes', 'lasagna');
 
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
     }
@@ -82,10 +80,12 @@ class EntrySearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchInclusion()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query())
             ->where('sys.id', 'finn,jake', 'in');
 
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertCount(2, $entries);
@@ -98,10 +98,12 @@ class EntrySearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchRange()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query())
             ->where('sys.updatedAt', new \DateTimeImmutable('2013-01-01T00:00:00Z'), 'lte');
 
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
     }
@@ -111,10 +113,12 @@ class EntrySearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchFullText()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query())
             ->where('query', 'bacon');
 
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
     }
@@ -124,11 +128,13 @@ class EntrySearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchFullTextOnField()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query())
             ->setContentType('dog')
             ->where('fields.description', 'bacon pancakes', 'match');
 
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
     }

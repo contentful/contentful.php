@@ -6,12 +6,11 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
-
 use Contentful\Exception\RateLimitExceededException;
+use Contentful\Tests\Delivery\End2EndTestCase;
 
-class ErrorTest extends \PHPUnit_Framework_TestCase
+class ErrorTest extends End2EndTestCase
 {
     /**
      * @expectedException \Contentful\Exception\NotFoundException
@@ -19,7 +18,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
      */
     public function testResourceNotFound()
     {
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi');
+        $client = $this->getClient('cfexampleapi');
 
         $client->getEntry('not-existing');
     }
@@ -30,7 +29,8 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
      */
     public function testAccessTokenInvalid()
     {
-        $client = new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi');
+        $client = $this->getClient('cfexampleapi_invalid');
+
         $client->getEntries();
     }
 
@@ -40,7 +40,8 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidQuery()
     {
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi');
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query())
             ->where('name', 0);
 
@@ -48,12 +49,14 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @requires API no-coverage-proxy
      * @expectedException \Contentful\Exception\RateLimitExceededException
      * @vcr e2e_error_rate_limit.json
      */
     public function testRateLimitExceeded()
     {
-        $client = new Client('8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963', 'bc32cj3kyfet', true);
+        $client = $this->getClient('bc32cj3kyfet_preview');
+
         $query = new Query();
 
         try {

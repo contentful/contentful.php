@@ -6,21 +6,19 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Client;
-use Contentful\Log\ArrayLogger;
 use Contentful\Delivery\Query;
+use Contentful\Tests\Delivery\End2EndTestCase;
 
-class GzipEncodingTest extends \PHPUnit_Framework_TestCase
+class GzipEncodingTest extends End2EndTestCase
 {
     /**
+     * @requires API no-coverage-proxy
      * @vcr e2e_gzip_encoding.json
      */
     public function testContentEncodingHeader()
     {
-        $logger = new ArrayLogger;
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, [
-            'logger' => $logger
-        ]);
+        $client = $this->getClient('cfexampleapi_logger');
+        $logger = $client->getLogger();
 
         $query = (new Query())
             ->setLocale('*');
@@ -30,7 +28,7 @@ class GzipEncodingTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('gzip', $logEntry->getRequest()->getHeaderLine('Accept-Encoding'));
 
-        // Need to check 'x-encoded-content-encoding' as curl is automatically decompressing the response
-        $this->assertEquals('gzip', $logEntry->getResponse()->getHeaderLine('x-encoded-content-encoding'));
+        // Need to check 'X-Encoded-Content-Encoding' as curl is automatically decompressing the response
+        $this->assertEquals('gzip', $logEntry->getResponse()->getHeaderLine('X-Encoded-Content-Encoding'));
     }
 }

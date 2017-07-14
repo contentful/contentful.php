@@ -6,27 +6,19 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Client;
 use Contentful\Delivery\Space;
+use Contentful\Tests\Delivery\End2EndTestCase;
 
-class SpaceBasicTest extends \PHPUnit_Framework_TestCase
+class SpaceBasicTest extends End2EndTestCase
 {
-    /**
-     * @var Client
-     */
-    private $client;
-
-    public function setUp()
-    {
-        $this->client = new Client('b4c0n73n7fu1', 'cfexampleapi');
-    }
-
     /**
      * @vcr e2e_space_get.json
      */
     public function testGetSpace()
     {
-        $space = $this->client->getSpace();
+        $client = $this->getClient('cfexampleapi');
+
+        $space = $client->getSpace();
 
         $this->assertInstanceOf(Space::class, $space);
         $this->assertEquals('Contentful Example API', $space->getName());

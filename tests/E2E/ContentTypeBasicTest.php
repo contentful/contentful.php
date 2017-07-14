@@ -6,28 +6,20 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Client;
 use Contentful\ResourceArray;
 use Contentful\Delivery\ContentType;
+use Contentful\Tests\Delivery\End2EndTestCase;
 
-class ContentTypeBasicTest extends \PHPUnit_Framework_TestCase
+class ContentTypeBasicTest extends End2EndTestCase
 {
-    /**
-     * @var Client
-     */
-    private $client;
-
-    public function setUp()
-    {
-        $this->client = new Client('b4c0n73n7fu1', 'cfexampleapi');
-    }
-
     /**
      * @vcr e2e_content_type_get_all.json
      */
     public function testGetAll()
     {
-        $contentTypes = $this->client->getContentTypes();
+        $client = $this->getClient('cfexampleapi');
+
+        $contentTypes = $client->getContentTypes();
 
         $this->assertInstanceOf(ResourceArray::class, $contentTypes);
     }
@@ -37,7 +29,9 @@ class ContentTypeBasicTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetOne()
     {
-        $contentType = $this->client->getContentType('cat');
+        $client = $this->getClient('cfexampleapi');
+
+        $contentType = $client->getContentType('cat');
 
         $this->assertInstanceOf(ContentType::class, $contentType);
         $this->assertEquals('cat', $contentType->getId());

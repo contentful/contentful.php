@@ -6,33 +6,25 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
+use Contentful\Tests\Delivery\End2EndTestCase;
 
-class EntrySelectTest extends \PHPUnit_Framework_TestCase
+class EntrySelectTest extends End2EndTestCase
 {
-    /**
-     * @var Client
-     */
-    private $client;
-
-    public function setUp()
-    {
-        $this->client = new Client('b4c0n73n7fu1', 'cfexampleapi');
-    }
-
     /**
      * @vcr e2e_entry_select_metadata.json
      */
     public function testSelectOnlyMetadata()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query)
             ->setContentType('cat')
             ->select(['sys'])
             ->where('sys.id', 'nyancat')
             ->setLimit(1);
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertNull($entries[0]->getName());
@@ -44,12 +36,14 @@ class EntrySelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testSelectOnlyOneField()
     {
+        $client = $this->getClient('cfexampleapi');
+
         $query = (new Query)
             ->setContentType('cat')
             ->select(['fields.name'])
             ->where('sys.id', 'nyancat')
             ->setLimit(1);
-        $entries = $this->client->getEntries($query);
+        $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertEquals('Nyan Cat', $entries[0]->getName());

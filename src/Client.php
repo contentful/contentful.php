@@ -237,6 +237,14 @@ abstract class Client
     }
 
     /**
+     * @return LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    /**
      * The name of the library to be used in the User-Agent header.
      *
      * @return string
