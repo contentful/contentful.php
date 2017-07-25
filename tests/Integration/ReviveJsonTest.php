@@ -23,7 +23,7 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \InvalidArgumentException
      */
     public function testReviveJsonInvalid()
     {

@@ -12,19 +12,16 @@ class DateHelper
      * Unfortunately PHP has no easy way to create a nice, ISO 8601 formatted date string with milliseconds and Z
      * as the time zone specifier. Thus this hack.
      *
-     * @param  \DateTimeImmutable $dt
+     * @param  \DateTimeImmutable $date
      *
      * @return string ISO 8601 formatted date
+     *
+     * @deprecated 2.2 Use Contentful\format_date_for_json($date) instead
+     *
+     * @see Contentful\format_date_for_json()
      */
-    public static function formatForJson(\DateTimeImmutable $dt)
+    public static function formatForJson(\DateTimeImmutable $date)
     {
-        $dt = $dt->setTimezone(new \DateTimeZone('Etc/UTC'));
-        $result = $dt->format('Y-m-d\TH:i:s') ;
-        $milliseconds =floor($dt->format('u')/1000);
-        if ($milliseconds > 0) {
-            $result .= '.' . str_pad($milliseconds, 3, '0', STR_PAD_LEFT);
-        }
-
-        return $result . 'Z';
+        return format_date_for_json($date);
     }
 }

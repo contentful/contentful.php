@@ -17,6 +17,7 @@
         "jakub-onderka/php-console-highlighter": "^0.3.2"
     },
     "autoload": {
+        "files": ["src/functions.php"],
         "psr-4": {
             "Contentful\\": "src/"
         }

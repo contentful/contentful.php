@@ -12,7 +12,6 @@ use Contentful\Delivery\Cache\NullCache;
 use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Link;
-use Contentful\JsonHelper;
 
 /**
  * A Client is used to communicate the Contentful Delivery API.
@@ -300,7 +299,7 @@ class Client extends BaseClient
      */
     public function reviveJson($json)
     {
-        $data = JsonHelper::decode($json);
+        $data = \GuzzleHttp\json_decode($json, true);
 
         return $this->builder->buildObjectsFromRawData($data);
     }

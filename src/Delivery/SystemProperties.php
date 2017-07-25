@@ -6,8 +6,6 @@
 
 namespace Contentful\Delivery;
 
-use Contentful\DateHelper;
-
 /**
  * A SystemProperties instance contains the metadata of a resource.
  *
@@ -202,13 +200,13 @@ class SystemProperties implements \JsonSerializable
             $obj->locale = $this->locale;
         }
         if ($this->createdAt !== null) {
-            $obj->createdAt = DateHelper::formatForJson($this->createdAt);
+            $obj->createdAt = \Contentful\format_date_for_json($this->createdAt);
         }
         if ($this->updatedAt !== null) {
-            $obj->updatedAt = DateHelper::formatForJson($this->updatedAt);
+            $obj->updatedAt = \Contentful\format_date_for_json($this->updatedAt);
         }
         if ($this->deletedAt !== null) {
-            $obj->deletedAt = DateHelper::formatForJson($this->deletedAt);
+            $obj->deletedAt = \Contentful\format_date_for_json($this->deletedAt);
         }
 
         return $obj;

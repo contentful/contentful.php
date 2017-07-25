@@ -144,7 +144,7 @@ abstract class Client
             if ($response->getStatusCode() === 204) {
                 $result = null;
             } else {
-                $result = JsonHelper::decode($response->getBody());
+                $result = \GuzzleHttp\json_decode($response->getBody(), true);
             }
         } catch (\Exception $e) {
             $timer->stop();
@@ -174,7 +174,7 @@ abstract class Client
                 throw $e;
             }
 
-            $data = JsonHelper::decode($e->getResponse()->getBody());
+            $data = \GuzzleHttp\json_decode($e->getResponse()->getBody(), true);
             $errorId = $data['sys']['id'];
             $exceptionMap = $this->getExceptionMap();
 

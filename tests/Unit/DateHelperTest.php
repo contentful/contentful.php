@@ -17,6 +17,7 @@ class DateHelperTest extends \PHPUnit_Framework_TestCase
     {
         $dt = new \DateTimeImmutable($dateString);
 
+        $this->assertEquals($expectedOutput, \Contentful\format_date_for_json($dt));
         $this->assertEquals($expectedOutput, DateHelper::formatForJson($dt));
     }
 
