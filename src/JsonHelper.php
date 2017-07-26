@@ -17,15 +17,18 @@ class JsonHelper
      * @return array
      *
      * @throws \RuntimeException On invalid JSON
+     *
+     * @deprecated 2.2 Use \GuzzleHttp\json_decode() instead
+     *
+     * @see \GuzzleHttp\json_decode()
      */
     public static function decode($json)
     {
-        $result = json_decode($json, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        try {
+            return \GuzzleHttp\json_decode($json, true);
+        } catch (\InvalidArgumentException $e) {
             throw new \RuntimeException(json_last_error_msg(), json_last_error());
         }
-
-        return $result;
     }
 
     /**
@@ -34,14 +37,17 @@ class JsonHelper
      * @return string
      *
      * @throws \RuntimeException When the encoding failed
+     *
+     * @deprecated 2.2 Use \GuzzleHttp\json_encode() instead
+     *
+     * @see \GuzzleHttp\json_encode()
      */
     public static function encode($value)
     {
-        $result = json_encode($value, JSON_UNESCAPED_UNICODE);
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        try {
+            return \GuzzleHttp\json_encode($value, JSON_UNESCAPED_UNICODE);
+        } catch (\InvalidArgumentException $e) {
             throw new \RuntimeException(json_last_error_msg(), json_last_error());
         }
-
-        return $result;
     }
 }

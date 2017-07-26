@@ -7,7 +7,6 @@
 namespace Contentful\Delivery;
 
 use Contentful\Exception\NotFoundException;
-use Contentful\DateHelper;
 use Contentful\Link;
 
 class DynamicEntry extends LocalizedResource implements EntryInterface
@@ -244,7 +243,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             case 'Object':
                 return $value;
             case 'Date':
-                return DateHelper::formatForJson($value);
+                return \Contentful\format_date_for_json($value);
             case 'Link':
                 return $value ? (object) [
                     'sys' => (object) [
