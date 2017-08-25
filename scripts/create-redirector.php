@@ -18,12 +18,14 @@ usort($tags, function ($a, $b) {
     return version_compare($b, $a);
 });
 
+array_push($tags, 'master');
+
 $newestTag = $tags[0];
 $repoParts = explode('/', $travisRepoSlug);
 $repoOwner = $repoParts[0];
 $repoName = $repoParts[1];
 
-$html = '<meta http-equiv="refresh" content="0; url=https://' . $repoOwner . '.github.io/' . $repoName . '/api/' . $newestTag . '/">';
+$html = '<meta http-equiv="refresh" content="0; url=https://' . $repoOwner . '.github.io/' . $repoName . '/api/' . $newestTag . ' /">';
 
 file_put_contents($indexFile, $html);
 
