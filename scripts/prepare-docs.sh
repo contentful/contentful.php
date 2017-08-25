@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
-git clone https://${GH_REPO} full
-cd full
-git checkout ${TRAVIS_TAG}
-php ../sami.phar update sami.php
-git checkout ${TRAVIS_TAG}
-mkdir build/gh-pages
-mv build/docs build/gh-pages/api
-php scripts/create-redirector.php build/gh-pages/api/index.html
-php scripts/create-redirector.php build/gh-pages/index.html
+wget -O sami.phar http://get.sensiolabs.org/sami.phar
+php sami.phar update sami.php
+git checkout -qf FETCH_HEAD
+php scripts/create-redirector.php build/docs/api/index.html
+php scripts/create-redirector.php build/docs/index.html

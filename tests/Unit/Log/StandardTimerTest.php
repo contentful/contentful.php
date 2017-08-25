@@ -48,6 +48,7 @@ class StandardTimerTest extends \PHPUnit_Framework_TestCase
 
         $timer->stop();
         $timer->start();
+        sleep(0.1);
         $timer->stop();
         $this->assertFalse($timer->isRunning());
         $this->assertInternalType('float', $timer->getDuration());

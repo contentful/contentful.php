@@ -104,7 +104,7 @@ class UserAgentGenerator
             'app' => '',
             'integration' => '',
             'sdk' => $this->sdkName . '/' . $this->sdkVersion,
-            'platform' => 'PHP/' . \PHP_VERSION,
+            'platform' => 'PHP/' . \PHP_MAJOR_VERSION . '.' . \PHP_MINOR_VERSION . '.' . \PHP_RELEASE_VERSION,
             'os' => isset($possibleOperatingSystems[PHP_OS]) ? $possibleOperatingSystems[PHP_OS] : 'Linux'
         ];
 

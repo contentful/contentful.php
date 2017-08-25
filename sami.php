@@ -19,14 +19,14 @@ $iterator = Finder::create()
     ->in($dir)
 ;
 
-// generate documentation for all v2.0.* tags, the 2.0 branch, and the master one
 $versions = GitVersionCollection::create($dir)
     ->addFromTags('*')
+    ->add('master', 'master branch')
 ;
 
 return new Sami($iterator, [
     'title'     => 'Contentful CDA SDK for PHP',
     'versions'  => $versions,
-    'build_dir' => __DIR__ . '/build/docs/%version%',
+    'build_dir' => __DIR__ . '/build/docs/api/%version%',
     'cache_dir' => __DIR__ . '/build/doc_cache/%version%',
 ]);

@@ -6,6 +6,7 @@ php:
   - 5.6
   - 7.0
   - 7.1
+  - 7.2
 
 env:
   global:
@@ -15,13 +16,12 @@ matrix:
   fast_finish: true
 
 branches:
-  except:
-    - gh-pages
+  only:
+    - master
 
 before_install:
  - if [ "${TRAVIS_PHP_VERSION:0:3}" == "5.5" ]; then PHPUNIT_VERSION=4.8; else PHPUNIT_VERSION=5.7; fi
  - wget -O phpunit.phar https://phar.phpunit.de/phpunit-${PHPUNIT_VERSION}.phar
- - if [[ $TRAVIS_TAG && "${TRAVIS_PHP_VERSION:0:3}" == "7.1" ]]; then wget -O sami.phar http://get.sensiolabs.org/sami.phar; fi
 
 install:
   - composer self-update
@@ -31,16 +31,15 @@ script:
  - vendor/bin/parallel-lint src/
  - vendor/bin/parallel-lint tests/
  - php phpunit.phar -v
- - if [[ $TRAVIS_TAG && "${TRAVIS_PHP_VERSION:0:3}" == "7.1" ]]; then ./scripts/prepare-docs.sh; fi
 
 after_success:
- - travis_retry bash <(curl -s https://codecov.io/bash) -f build/clover/tests.xml
+ - travis_retry bash <(curl -s https://codecov.io/bash) -f build/logs/clover.xml
+ - if [[ ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != false) && "${TRAVIS_PHP_VERSION:0:3}" == "7.1" ]]; then ./scripts/prepare-docs.sh; fi
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  local_dir: full/build/gh-pages
+  local_dir: build/docs
   on:
-    php: 7.1
-    tags: true
+    condition: ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != false) && "${TRAVIS_PHP_VERSION:0:3}" == "7.1"
