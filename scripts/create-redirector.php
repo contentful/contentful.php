@@ -25,7 +25,7 @@ $repoParts = explode('/', $travisRepoSlug);
 $repoOwner = $repoParts[0];
 $repoName = $repoParts[1];
 
-$html = '<meta http-equiv="refresh" content="0; url=https://' . $repoOwner . '.github.io/' . $repoName . '/api/' . $newestTag . ' /">';
+$html = '<meta http-equiv="refresh" content="0; url=https://' . $repoOwner . '.github.io/' . $repoName . '/api/' . $newestTag . '" />';
 
 file_put_contents($indexFile, $html);
 
