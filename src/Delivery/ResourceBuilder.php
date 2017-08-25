@@ -8,6 +8,7 @@ namespace Contentful\Delivery;
 
 use Contentful\Delivery\Client as DeliveryClient;
 use Contentful\Delivery\Synchronization\DeletedAsset;
+use Contentful\Delivery\Synchronization\DeletedContentType;
 use Contentful\Delivery\Synchronization\DeletedEntry;
 use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Cache\CacheInterface;
@@ -71,7 +72,7 @@ class ResourceBuilder
      *
      * @param  array $data
      *
-     * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedEntry|ResourceArray
+     * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedContentType|DeletedEntry|ResourceArray
      */
     public function buildObjectsFromRawData(array $data)
     {
@@ -84,7 +85,7 @@ class ResourceBuilder
      * @param  array       $data
      * @param  array|null  $rawDataList
      *
-     * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedEntry|ResourceArray
+     * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedContentType|DeletedEntry|ResourceArray
      */
     private function doBuildObjectsFromRawData(array $data, array $rawDataList = null)
     {
@@ -115,6 +116,8 @@ class ResourceBuilder
                 return $this->buildSpace($data);
             case 'DeletedAsset':
                 return $this->buildDeletedAsset($data);
+            case 'DeletedContentType':
+                return $this->buildDeletedContentType($data);
             case 'DeletedEntry':
                 return $this->buildDeletedEntry($data);
             default:
@@ -543,6 +546,18 @@ class ResourceBuilder
         $sys = $this->buildSystemProperties($data['sys']);
 
         return new DeletedAsset($sys);
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return DeletedContentType
+     */
+    private function buildDeletedContentType(array $data)
+    {
+        $sys = $this->buildSystemProperties($data['sys']);
+
+        return new DeletedContentType($sys);
     }
 
     /**

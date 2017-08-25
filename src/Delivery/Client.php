@@ -291,7 +291,7 @@ class Client extends BaseClient
      *
      * @param  string $json
      *
-     * @return Asset|ContentType|DynamicEntry|Space|Synchronization\DeletedAsset|Synchronization\DeletedEntry|\Contentful\ResourceArray
+     * @return Asset|ContentType|DynamicEntry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\ResourceArray
      *
      * @throws \Contentful\Exception\SpaceMismatchException When attempting to revive JSON belonging to a different space
      *
@@ -353,7 +353,7 @@ class Client extends BaseClient
      * @param  string $path
      * @param  array $options
      *
-     * @return Asset|ContentType|DynamicEntry|Space|Synchronization\DeletedAsset|Synchronization\DeletedEntry|\Contentful\ResourceArray
+     * @return Asset|ContentType|DynamicEntry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\ResourceArray
      */
     private function requestAndBuild($method, $path, array $options = [])
     {
