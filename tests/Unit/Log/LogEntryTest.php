@@ -35,6 +35,44 @@ class LogEntryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($entry->getRequest()->getUri(), $serialized->getRequest()->getUri());
     }
 
+    public function testSerializeWithException()
+    {
+        $errorMessage = 'error messages';
+        $errorCode = 999;
+        $exception = null;
+
+        $closure1 = function ($closure) {
+            $closure();
+        };
+
+        $closure2 = function () use (&$exception, $errorMessage, $errorCode) {
+            $exception = new \Exception($errorMessage, $errorCode);
+        };
+
+        $closure1($closure2);
+
+        /** @var \Exception $exception $traceBeforeFix */
+        $traceBeforeFix = $exception->getTrace();
+
+        $entry = new LogEntry(
+            'DELIVERY',
+            new Request('GET', 'http://cdn.contentful.com/spaces/'),
+            0,
+            null,
+            $exception
+        );
+
+        $serialized = unserialize(serialize($entry));
+
+        $this->assertEquals($entry->getApi(), $serialized->getApi());
+        $this->assertEquals($entry->getRequest()->getMethod(), $serialized->getRequest()->getMethod());
+        $this->assertEquals($entry->getRequest()->getUri(), $serialized->getRequest()->getUri());
+        // Makes sure that in this case, the trace was modified
+        $this->assertNotEquals($traceBeforeFix, $serialized->getException()->getTrace());
+        // A raw check for the presence of the normalized closure string
+        $this->assertContains('(Closure in file', $serialized->getException()->getTrace()[1]['args'][0]);
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      */

@@ -58,6 +58,43 @@ class LogEntry implements \Serializable
         $this->exception = $exception;
         $this->duration = $duration;
         $this->response = $response;
+
+        if ($exception instanceof \Exception) {
+            $this->modifyTrace();
+        }
+    }
+
+    /**
+     * Modify closures in exception stack trace, because they aren't serializable.
+     */
+    private function modifyTrace()
+    {
+        $exception = $this->getException();
+
+        $traceProperty = (new \ReflectionClass('Exception'))->getProperty('trace');
+        $traceProperty->setAccessible(true);
+
+        do {
+            $trace = $traceProperty->getValue($exception);
+
+            array_walk_recursive($trace, function (&$value) {
+                if ($value instanceof \Closure) {
+                    $closureReflection = new \ReflectionFunction($value);
+
+                    $value = sprintf(
+                        '(Closure in file %s at line %s)',
+                        $closureReflection->getFileName(),
+                        $closureReflection->getStartLine()
+                    );
+                } elseif (is_object($value)) {
+                    $value = sprintf('object(%s)', get_class($value));
+                } elseif (is_resource($value)) {
+                    $value = sprintf('resource(%s)', get_resource_type($value));
+                }
+            });
+
+            $traceProperty->setValue($exception, $trace);
+        } while (($exception = $exception->getPrevious()) instanceof \Exception);
     }
 
     /**
