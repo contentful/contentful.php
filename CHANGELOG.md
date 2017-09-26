@@ -9,6 +9,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * `DateHelper::formatForJson()` is now deprecated and will be removed in version 3. Use `Contentful\format_date_for_json()` instead.
 * `JsonHelper::encode()` and `JsonHelper::decode()` are now deprecated and will be removed in version 3. Use `GuzzleHttp\json_encode()` and `GuzzleHttp\json_decode()` instead.
 
+### Fixed
+* `LogEntry` now modifies the exception stack trace (if present) to prevent problems during serialization.
+
 ## [2.1.0](https://github.com/contentful/contentful.php/tree/2.1.0) (2017-07-14)
 
 ### Added
