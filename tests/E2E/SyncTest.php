@@ -64,4 +64,23 @@ class SyncTest extends End2EndTestCase
         $result = $manager->startSync();
         $manager->continueSync($result);
     }
+
+    /**
+     * @requires API no-coverage-proxy
+     * @vcr e2e_sync.json
+     */
+    public function testSync()
+    {
+        $manager = $this->getClient('cfexampleapi')
+            ->getSynchronizationManager();
+
+        $results = [];
+        foreach ($manager->sync() as $result) {
+            $results[] = $result;
+        }
+
+        $this->assertEquals(2, count($results));
+        $this->assertTrue($result->isDone());
+        $this->assertEquals('w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE', $result->getToken());
+    }
 }

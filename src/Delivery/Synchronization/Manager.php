@@ -54,6 +54,31 @@ class Manager
     }
 
     /**
+     * @param null $token
+     * @param Query|null $query
+     *
+     * @return \Generator|void
+     */
+    public function sync($token = null, Query $query = null)
+    {
+        while (true) {
+            if ($token) {
+                $result = $this->continueSync($token);
+            } else {
+                $result = $this->startSync($query);
+            }
+
+            yield $result;
+
+            if ($result->isDone()) {
+                return;
+            }
+
+            $token = $result->getToken();
+        }
+    }
+
+    /**
      * Starts a new Synchronization. Will contain all the Resources currently present in the space.
      *
      * By calling Result::isDone it can be checked if there's another page of results, if so call `continueSync` to get the next page.
