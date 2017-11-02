@@ -54,10 +54,10 @@ class Manager
     }
 
     /**
-     * @param null $token
+     * @param string|null $token
      * @param Query|null $query
      *
-     * @return \Generator|void
+     * @return \Generator|Result[]
      */
     public function sync($token = null, Query $query = null)
     {
