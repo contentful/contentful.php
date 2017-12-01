@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/2.2.0...HEAD)
 
+### Changed
+* Dependencies to `symfony/console` and `symfony/filesystem` now also allow version `~4.0`.
+
 ## [2.2.0](https://github.com/contentful/contentful.php/tree/2.2.0) (2017-09-26)
 
 ### Changed
