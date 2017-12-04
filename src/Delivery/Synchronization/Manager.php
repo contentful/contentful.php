@@ -62,11 +62,7 @@ class Manager
     public function sync($token = null, Query $query = null)
     {
         while (true) {
-            if ($token) {
-                $result = $this->continueSync($token);
-            } else {
-                $result = $this->startSync($query);
-            }
+            $result = ($token) ? $this->continueSync($token) : $this->startSync($query);
 
             yield $result;
 
