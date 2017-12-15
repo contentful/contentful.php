@@ -24,7 +24,7 @@ class SyncTest extends End2EndTestCase
         $result = $manager->startSync();
 
         $this->assertInstanceOf(Result::class, $result);
-        $this->assertEquals('w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE', $result->getToken());
+        $this->assertSame('w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE', $result->getToken());
         $this->assertTrue($result->isDone());
 
         $items = $result->getItems();

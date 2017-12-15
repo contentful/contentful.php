@@ -19,7 +19,7 @@ class EntrySelectTest extends End2EndTestCase
     {
         $client = $this->getClient('cfexampleapi');
 
-        $query = (new Query)
+        $query = (new Query())
             ->setContentType('cat')
             ->select(['sys'])
             ->where('sys.id', 'nyancat')
@@ -38,7 +38,7 @@ class EntrySelectTest extends End2EndTestCase
     {
         $client = $this->getClient('cfexampleapi');
 
-        $query = (new Query)
+        $query = (new Query())
             ->setContentType('cat')
             ->select(['fields.name'])
             ->where('sys.id', 'nyancat')
@@ -46,7 +46,7 @@ class EntrySelectTest extends End2EndTestCase
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
-        $this->assertEquals('Nyan Cat', $entries[0]->getName());
+        $this->assertSame('Nyan Cat', $entries[0]->getName());
         $this->assertNull($entries[0]->getBestFriend());
     }
 }

@@ -14,6 +14,7 @@ namespace Contentful\File;
  *
  * @see https://www.contentful.com/developers/docs/references/images-api/#/reference Image API Reference
  * @see \Contentful\Delivery\ImageFile ImageFile class
+ *
  * @api
  */
 class ImageOptions
@@ -86,27 +87,27 @@ class ImageOptions
             'h' => $this->height,
             'fm' => $this->format,
             'q' => $this->quality,
-            'r' => $this->radius
+            'r' => $this->radius,
         ];
 
-        if ($this->quality !== null || $this->progressive) {
+        if (null !== $this->quality || $this->progressive) {
             $options['fm'] = 'jpg';
         }
         if ($this->progressive) {
             $options['fl'] = 'progressive';
         }
-        if ($this->resizeFit !== null) {
+        if (null !== $this->resizeFit) {
             $options['fit'] = $this->resizeFit;
 
-            if ($this->resizeFit === 'thumb' && $this->resizeFocus !== null) {
+            if ('thumb' === $this->resizeFit && null !== $this->resizeFocus) {
                 $options['f'] = $this->resizeFocus;
             }
-            if ($this->resizeFit === 'pad' && $this->backgroundColor !== null) {
-                $options['bg'] = 'rgb:' . substr($this->backgroundColor, 1);
+            if ('pad' === $this->resizeFit && null !== $this->backgroundColor) {
+                $options['bg'] = 'rgb:'.\mb_substr($this->backgroundColor, 1);
             }
         }
 
-        return http_build_query($options, '', '&', PHP_QUERY_RFC3986);
+        return \http_build_query($options, '', '&', PHP_QUERY_RFC3986);
     }
 
     /**
@@ -129,17 +130,17 @@ class ImageOptions
      *
      * Can be set to null to not set a width.
      *
-     * @param  int|null $width The width in pixel.
-     *
-     * @return $this
+     * @param int|null $width the width in pixel
      *
      * @throws \InvalidArgumentException If $width is negative
+     *
+     * @return $this
      *
      * @api
      */
     public function setWidth($width = null)
     {
-        if ($width !== null && $width < 0) {
+        if (null !== $width && $width < 0) {
             throw new \InvalidArgumentException('Width must not be negative');
         }
 
@@ -168,17 +169,17 @@ class ImageOptions
      *
      * Can be set to null to not set a height.
      *
-     * @param  int|null $height The height in pixel.
-     *
-     * @return $this
+     * @param int|null $height the height in pixel
      *
      * @throws \InvalidArgumentException If $height is negative
+     *
+     * @return $this
      *
      * @api
      */
     public function setHeight($height = null)
     {
-        if ($height !== null && $height < 0) {
+        if (null !== $height && $height < 0) {
             throw new \InvalidArgumentException('Height must not be negative');
         }
 
@@ -196,7 +197,7 @@ class ImageOptions
      */
     public function getFormat()
     {
-        if ($this->quality !== null || $this->progressive) {
+        if (null !== $this->quality || $this->progressive) {
             return 'jpg';
         }
 
@@ -206,11 +207,11 @@ class ImageOptions
     /**
      * Set the format of the image. Valid values are "png" and "jpg". Can be set to null to not enforce a format.
      *
-     * @param  string|null $format
-     *
-     * @return $this
+     * @param string|null $format
      *
      * @throws \InvalidArgumentException If $format is not a valid value
+     *
+     * @return $this
      *
      * @api
      */
@@ -218,8 +219,8 @@ class ImageOptions
     {
         $validValues = ['png', 'jpg', 'webp'];
 
-        if ($format !== null && !in_array($format, $validValues, true)) {
-            throw new \InvalidArgumentException('Unknown format "' . $format . '" given. Expected "png", "jpg" or null');
+        if (null !== $format && !\in_array($format, $validValues, true)) {
+            throw new \InvalidArgumentException('Unknown format "'.$format.'" given. Expected "png", "jpg" or null');
         }
 
         $this->format = $format;
@@ -230,7 +231,7 @@ class ImageOptions
     /**
      * Quality of the JPEG encoded image. Will be null if no quality is set.
      *
-     * @return int|null If an int, must be between 1 and 100.
+     * @return int|null if an int, must be between 1 and 100
      *
      * @api
      */
@@ -244,18 +245,18 @@ class ImageOptions
      *
      * The image format will be forced to JPEG.
      *
-     * @param  int|null $quality If an int, between 1 and 100.
-     *
-     * @return $this
+     * @param int|null $quality if an int, between 1 and 100
      *
      * @throws \InvalidArgumentException If $quality is out of range
+     *
+     * @return $this
      *
      * @api
      */
     public function setQuality($quality = null)
     {
-        if ($quality !== null && ($quality < 1 || $quality > 100)) {
-            throw new \InvalidArgumentException('$quality has to be between 1 and 100, ' . $quality . ' given.');
+        if (null !== $quality && ($quality < 1 || $quality > 100)) {
+            throw new \InvalidArgumentException('$quality has to be between 1 and 100, '.$quality.' given.');
         }
 
         $this->quality = $quality;
@@ -280,7 +281,7 @@ class ImageOptions
      *
      * The image format will be forced to JPEG.
      *
-     * @param  bool|null $progressive
+     * @param bool|null $progressive
      *
      * @return $this
      *
@@ -319,11 +320,11 @@ class ImageOptions
      * - 'thumb' Create a thumbnail of detected faces from image, used with 'setFocus'.
      * - 'scale' Scale the image regardless of the original aspect ratio.
      *
-     * @param  string|null $resizeFit
-     *
-     * @return $this
+     * @param string|null $resizeFit
      *
      * @throws \InvalidArgumentException For unknown values of $resizeBehavior
+     *
+     * @return $this
      *
      * @api
      */
@@ -331,8 +332,8 @@ class ImageOptions
     {
         $validValues = ['pad', 'crop', 'fill', 'thumb', 'scale'];
 
-        if ($resizeFit !== null && !in_array($resizeFit, $validValues, true)) {
-            throw new \InvalidArgumentException('Unknown resize behavior "' . $resizeFit . '" given. Expected "pad", "crop", "fill", "thumb", "scale" or null');
+        if (null !== $resizeFit && !\in_array($resizeFit, $validValues, true)) {
+            throw new \InvalidArgumentException('Unknown resize behavior "'.$resizeFit.'" given. Expected "pad", "crop", "fill", "thumb", "scale" or null');
         }
 
         $this->resizeFit = $resizeFit;
@@ -360,11 +361,11 @@ class ImageOptions
      * - A combination like 'bottom_right'
      * - 'face' or 'faces' to focus the resizing via face detection
      *
-     * @param  string|null $resizeFocus
-     *
-     * @return $this
+     * @param string|null $resizeFocus
      *
      * @throws \InvalidArgumentException For unknown values of $resizeFocus
+     *
+     * @return $this
      *
      * @api
      */
@@ -372,8 +373,8 @@ class ImageOptions
     {
         $validValues = ['face', 'faces', 'top', 'bottom', 'right', 'left', 'top_right', 'top_left', 'bottom_right', 'bottom_left'];
 
-        if ($resizeFocus !== null && !in_array($resizeFocus, $validValues, true)) {
-            throw new \InvalidArgumentException('Unknown resize focus "' . $resizeFocus . '" given."');
+        if (null !== $resizeFocus && !\in_array($resizeFocus, $validValues, true)) {
+            throw new \InvalidArgumentException('Unknown resize focus "'.$resizeFocus.'" given."');
         }
 
         $this->resizeFocus = $resizeFocus;
@@ -394,19 +395,19 @@ class ImageOptions
     }
 
     /**
-     * Add rounded corners to your image or crop to a circle/ellipsis
+     * Add rounded corners to your image or crop to a circle/ellipsis.
      *
-     * @param  float|null $radius A float value defining the corner radius.
-     *
-     * @return $this
+     * @param float|null $radius a float value defining the corner radius
      *
      * @throws \InvalidArgumentException If $radius is negative
+     *
+     * @return $this
      *
      * @api
      */
     public function setRadius($radius = null)
     {
-        if ($radius !== null && $radius < 0) {
+        if (null !== $radius && $radius < 0) {
             throw new \InvalidArgumentException('Radius must not be negative');
         }
 
@@ -432,17 +433,17 @@ class ImageOptions
      *
      * Expects a valid hexadecimal HTML color like '#9090ff'. Default is transparency.
      *
-     * @param  string|null $backgroundColor
+     * @param string|null $backgroundColor
+     *
+     * @throws \InvalidArgumentException if the $backgroundColor is not in hexadecimal format
      *
      * @return $this
-     *
-     * @throws \InvalidArgumentException If the $backgroundColor is not in hexadecimal format.
      *
      * @api
      */
     public function setBackgroundColor($backgroundColor = null)
     {
-        if (!preg_match('/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/', $backgroundColor)) {
+        if (!\preg_match('/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/', $backgroundColor)) {
             throw new \InvalidArgumentException('Background color must be in hexadecimal format.');
         }
 

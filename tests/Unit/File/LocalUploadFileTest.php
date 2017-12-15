@@ -6,8 +6,8 @@
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\Link;
 use Contentful\File\LocalUploadFile;
+use Contentful\Link;
 
 class LocalUploadFileTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,16 +27,17 @@ class LocalUploadFileTest extends \PHPUnit_Framework_TestCase
 
     public function testGetter()
     {
-        $this->assertEquals('the_great_gatsby.txt', $this->file->getFileName());
-        $this->assertEquals('image/png', $this->file->getContentType());
-        $this->assertEquals(new Link('1reper3p12RdEVfC13QsUR', 'Upload'), $this->file->getUploadFrom());
+        $this->assertSame('the_great_gatsby.txt', $this->file->getFileName());
+        $this->assertSame('image/png', $this->file->getContentType());
+        $this->assertSame('1reper3p12RdEVfC13QsUR', $this->file->getUploadFrom()->getId());
+        $this->assertSame('Upload', $this->file->getUploadFrom()->getLinkType());
     }
 
     public function testJsonSerialize()
     {
         $this->assertJsonStringEqualsJsonString(
             '{"fileName":"the_great_gatsby.txt","contentType":"image\/png","uploadFrom":{"sys":{"type":"Link","id":"1reper3p12RdEVfC13QsUR","linkType":"Upload"}}}',
-            json_encode($this->file)
+            \json_encode($this->file)
         );
     }
 }

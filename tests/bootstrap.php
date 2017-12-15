@@ -3,11 +3,10 @@
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
+\date_default_timezone_set('UTC');
 
-date_default_timezone_set('UTC');
-
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/End2EndTestCase.php';
+require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/End2EndTestCase.php';
 
 /**
  * @param \VCR\Request $request
@@ -17,11 +16,11 @@ require_once __DIR__ . '/End2EndTestCase.php';
 function clean_headers_array(\VCR\Request $request)
 {
     // @todo This can be done much more nicely with PHP 5.6 and ARRAY_FILTER_USE_BOTH
-    $headers = array_filter($request->getHeaders());
+    $headers = \array_filter($request->getHeaders());
 
     foreach ($headers as $name => $value) {
-        $lcName = strtolower($name);
-        if ($lcName === 'user-agent' || $lcName === 'x-contentful-user-agent') {
+        $lcName = \mb_strtolower($name);
+        if ('user-agent' === $lcName || 'x-contentful-user-agent' === $lcName) {
             unset($headers[$name]);
         }
     }
@@ -39,7 +38,7 @@ function clean_headers_array(\VCR\Request $request)
         $first = clean_headers_array($first);
         $second = clean_headers_array($second);
 
-        return $first == $second;
+        return $first === $second;
     })
     ->enableRequestMatchers(['method', 'url', 'query_string', 'host', 'body', 'post_fields', 'custom_headers']);
 

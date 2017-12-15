@@ -13,15 +13,11 @@ interface TimerInterface
 {
     /**
      * Starts the timer.
-     *
-     * @return void
      */
     public function start();
 
     /**
      * Stops the timer.
-     *
-     * @return void
      */
     public function stop();
 

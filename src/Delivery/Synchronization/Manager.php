@@ -15,6 +15,7 @@ use Contentful\Delivery\ResourceBuilder;
  * It provides notifications about added, updated and deleted assets and entries.
  *
  * @see https://www.contentful.com/developers/docs/concepts/sync/ Sync API
+ *
  * @api
  */
 class Manager
@@ -44,6 +45,7 @@ class Manager
      * @param bool            $preview
      *
      * @see \Contentful\Delivery\Client::getSynchronizationManager()
+     *
      * @internal
      */
     public function __construct(Client $client, ResourceBuilder $builder, $preview)
@@ -60,7 +62,7 @@ class Manager
      *
      * A Query can be used to return only a subset of the space.
      *
-     * @param  Query|null $query
+     * @param Query|null $query
      *
      * @return Result
      *
@@ -68,7 +70,7 @@ class Manager
      */
     public function startSync(Query $query = null)
     {
-        $query = $query !== null ? $query : new Query;
+        $query = null !== $query ? $query : new Query();
         $response = $this->client->syncRequest($query->getQueryData());
 
         return $this->buildResult($response);
@@ -77,11 +79,11 @@ class Manager
     /**
      * Continues the synchronization either at the next page or with the results since the initial synchronization.
      *
-     * @param  string $token
+     * @param string $token
+     *
+     * @throws \RuntimeException if this method is used for a subsequent sync when used with the Preview API
      *
      * @return Result
-     *
-     * @throws \RuntimeException If this method is used for a subsequent sync when used with the Preview API.
      *
      * @api
      */
@@ -102,7 +104,7 @@ class Manager
     /**
      * Build a Result from the API response.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return Result
      */
@@ -115,7 +117,7 @@ class Manager
             $done = false;
             $token = $this->getTokenFromUrl($data['nextPageUrl']);
         }
-        $items = array_map(function ($item) {
+        $items = \array_map(function ($item) {
             if (isset($item['sys']['locale'])) {
                 unset($item['sys']['locale']);
             }
@@ -129,14 +131,14 @@ class Manager
     /**
      * Parses the sync_token out of an URL supplied by the API.
      *
-     * @param  string $url The nextSyncUrl or nextPageUrl from an API response.
+     * @param string $url the nextSyncUrl or nextPageUrl from an API response
      *
      * @return string
      */
     private function getTokenFromUrl($url)
     {
         $queryValues = [];
-        parse_str(parse_url($url, PHP_URL_QUERY), $queryValues);
+        \parse_str(\parse_url($url, PHP_URL_QUERY), $queryValues);
 
         return $queryValues['sync_token'];
     }

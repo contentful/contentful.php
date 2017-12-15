@@ -106,12 +106,13 @@ abstract class DeletedResource implements \JsonSerializable
      * @return object
      *
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
+     *
      * @api
      */
     public function jsonSerialize()
     {
         return (object) [
-            'sys' => $this->sys
+            'sys' => $this->sys,
         ];
     }
 }

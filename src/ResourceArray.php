@@ -112,12 +112,12 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
     {
         return (object) [
             'sys' => (object) [
-                'type' => 'Array'
+                'type' => 'Array',
             ],
             'total' => $this->total,
             'limit' => $this->limit,
             'skip' => $this->skip,
-            'items' => $this->items
+            'items' => $this->items,
         ];
     }
 
@@ -127,11 +127,12 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return int
      *
      * @see http://php.net/manual/en/countable.count.php Countable::count
+     *
      * @api
      */
     public function count()
     {
-        return count($this->items);
+        return \count($this->items);
     }
 
     /**
@@ -140,6 +141,7 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return \Traversable
      *
      * @see http://php.net/manual/en/iteratoraggregate.getiterator.php IteratorAggregate::getIterator
+     *
      * @api
      */
     public function getIterator()
@@ -153,6 +155,7 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return bool
      *
      * @see http://php.net/manual/en/arrayaccess.offsetexists.php ArrayAccess::offsetExists
+     *
      * @api
      */
     public function offsetExists($offset)
@@ -166,6 +169,7 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return mixed
      *
      * @see http://php.net/manual/en/arrayaccess.offsetget.php ArrayAccess::offsetGet
+     *
      * @api
      */
     public function offsetGet($offset)
@@ -179,13 +183,13 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @param mixed $offset
      * @param mixed $value
      *
-     * @throws \BadMethodCallException Always thrown since ResourceArray is read-only.
+     * @throws \BadMethodCallException always thrown since ResourceArray is read-only
      *
      * @see http://php.net/manual/en/arrayaccess.offsetset.php ArrayAccess::offsetSet
      */
     public function offsetSet($offset, $value)
     {
-        throw new \BadMethodCallException(__CLASS__ . ' is a readonly array.');
+        throw new \BadMethodCallException(__CLASS__.' is a readonly array.');
     }
 
     /**
@@ -193,12 +197,12 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      *
      * @param mixed $offset
      *
-     * @throws \BadMethodCallException Always thrown since ResourceArray is read-only.
+     * @throws \BadMethodCallException always thrown since ResourceArray is read-only
      *
      * @see http://php.net/manual/en/arrayaccess.offsetunset.php ArrayAccess::offsetUnset
      */
     public function offsetUnset($offset)
     {
-        throw new \BadMethodCallException(__CLASS__ . ' is a readonly array.');
+        throw new \BadMethodCallException(__CLASS__.' is a readonly array.');
     }
 }

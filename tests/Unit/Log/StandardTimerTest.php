@@ -12,7 +12,7 @@ class StandardTimerTest extends \PHPUnit_Framework_TestCase
 {
     public function testInitialState()
     {
-        $timer = new StandardTimer;
+        $timer = new StandardTimer();
 
         $this->assertFalse($timer->isRunning());
         $this->assertNull($timer->getDuration());
@@ -20,7 +20,7 @@ class StandardTimerTest extends \PHPUnit_Framework_TestCase
 
     public function testTimerOperation()
     {
-        $timer = new StandardTimer;
+        $timer = new StandardTimer();
 
         $timer->start();
         $this->assertTrue($timer->isRunning());
@@ -34,7 +34,7 @@ class StandardTimerTest extends \PHPUnit_Framework_TestCase
 
     public function testTimerCanNotBeRestarted()
     {
-        $timer = new StandardTimer;
+        $timer = new StandardTimer();
 
         $timer->start();
         $timer->stop();
@@ -44,11 +44,11 @@ class StandardTimerTest extends \PHPUnit_Framework_TestCase
 
     public function testStoppingBeforeStartingDoesNothing()
     {
-        $timer = new StandardTimer;
+        $timer = new StandardTimer();
 
         $timer->stop();
         $timer->start();
-        sleep(0.1);
+        \sleep(0.1);
         $timer->stop();
         $this->assertFalse($timer->isRunning());
         $this->assertInternalType('float', $timer->getDuration());

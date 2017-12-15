@@ -18,9 +18,9 @@ class LocaleTest extends \PHPUnit_Framework_TestCase
         $fallbackCode = null;
 
         $locale = new Locale($code, $name, $fallbackCode, $default);
-        $this->assertEquals($code, $locale->getCode());
-        $this->assertEquals($name, $locale->getName());
-        $this->assertEquals($fallbackCode, $locale->getFallbackCode());
+        $this->assertSame($code, $locale->getCode());
+        $this->assertSame($name, $locale->getName());
+        $this->assertSame($fallbackCode, $locale->getFallbackCode());
         $this->assertSame($default, $locale->isDefault());
     }
 
@@ -34,6 +34,6 @@ class LocaleTest extends \PHPUnit_Framework_TestCase
     {
         $locale = new Locale('en-US', 'English (United States)', null);
 
-        $this->assertJsonStringEqualsJsonString('{"code":"en-US","name":"English (United States)","default":false,"fallbackCode":null}', json_encode($locale));
+        $this->assertJsonStringEqualsJsonString('{"code":"en-US","name":"English (United States)","default":false,"fallbackCode":null}', \json_encode($locale));
     }
 }

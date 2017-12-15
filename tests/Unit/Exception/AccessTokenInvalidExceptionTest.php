@@ -31,7 +31,7 @@ class AccessTokenInvalidExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($exception->hasResponse());
         $this->assertSame($request, $exception->getRequest());
         $this->assertSame($response, $exception->getResponse());
-        $this->assertEquals('426753a1639d40c23ad4cbf085a072c7', $exception->getRequestId());
-        $this->assertEquals('The access token you sent could not be found or is invalid.', $exception->getMessage());
+        $this->assertSame('426753a1639d40c23ad4cbf085a072c7', $exception->getRequestId());
+        $this->assertSame('The access token you sent could not be found or is invalid.', $exception->getMessage());
     }
 }

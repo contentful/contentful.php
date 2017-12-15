@@ -8,8 +8,6 @@ namespace Contentful\Delivery;
 
 /**
  * A SystemProperties instance contains the metadata of a resource.
- *
- * @package Contentful\Delivery
  */
 class SystemProperties implements \JsonSerializable
 {
@@ -167,45 +165,45 @@ class SystemProperties implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $obj = new \stdClass;
+        $obj = new \stdClass();
 
-        if ($this->id !== null) {
+        if (null !== $this->id) {
             $obj->id = $this->id;
         }
-        if ($this->type !== null) {
+        if (null !== $this->type) {
             $obj->type = $this->type;
         }
-        if ($this->space !== null) {
+        if (null !== $this->space) {
             $obj->space = (object) [
                 'sys' => (object) [
                     'type' => 'Link',
                     'linkType' => 'Space',
-                    'id' => $this->space->getId()
-                ]
+                    'id' => $this->space->getId(),
+                ],
             ];
         }
-        if ($this->contentType !== null) {
+        if (null !== $this->contentType) {
             $obj->contentType = (object) [
                 'sys' => (object) [
                     'type' => 'Link',
                     'linkType' => 'ContentType',
-                    'id' => $this->contentType->getId()
-                ]
+                    'id' => $this->contentType->getId(),
+                ],
             ];
         }
-        if ($this->revision !== null) {
+        if (null !== $this->revision) {
             $obj->revision = $this->revision;
         }
-        if ($this->locale !== null) {
+        if (null !== $this->locale) {
             $obj->locale = $this->locale;
         }
-        if ($this->createdAt !== null) {
+        if (null !== $this->createdAt) {
             $obj->createdAt = \Contentful\format_date_for_json($this->createdAt);
         }
-        if ($this->updatedAt !== null) {
+        if (null !== $this->updatedAt) {
             $obj->updatedAt = \Contentful\format_date_for_json($this->updatedAt);
         }
-        if ($this->deletedAt !== null) {
+        if (null !== $this->deletedAt) {
             $obj->deletedAt = \Contentful\format_date_for_json($this->deletedAt);
         }
 

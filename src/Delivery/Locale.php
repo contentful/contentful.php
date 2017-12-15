@@ -36,10 +36,10 @@ class Locale implements \JsonSerializable
     /**
      * Locale constructor.
      *
-     * @param string $code          Locale code
-     * @param string $name          Human readable name
-     * @param string $fallbackCode  The code of the locale used for for the fallback
-     * @param bool   $default       Whether this is the default locale
+     * @param string $code         Locale code
+     * @param string $name         Human readable name
+     * @param string $fallbackCode The code of the locale used for for the fallback
+     * @param bool   $default      Whether this is the default locale
      *
      * @api
      */
@@ -52,7 +52,7 @@ class Locale implements \JsonSerializable
     }
 
     /**
-     * Returns the locale code
+     * Returns the locale code.
      *
      * @return string
      *
@@ -64,7 +64,7 @@ class Locale implements \JsonSerializable
     }
 
     /**
-     * Returns the human readable name
+     * Returns the human readable name.
      *
      * @return string
      *
@@ -88,7 +88,7 @@ class Locale implements \JsonSerializable
     }
 
     /**
-     * Returns the code of the locale used for for the fallback
+     * Returns the code of the locale used for for the fallback.
      *
      * @return string
      *
@@ -114,7 +114,7 @@ class Locale implements \JsonSerializable
             'code' => $this->code,
             'default' => $this->default,
             'name' => $this->name,
-            'fallbackCode' => $this->fallbackCode
+            'fallbackCode' => $this->fallbackCode,
         ];
     }
 }

@@ -6,13 +6,14 @@
 
 namespace Contentful;
 
-use Contentful\Log\NullLogger;
-use GuzzleHttp\ClientInterface as GuzzleClientInterface;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Exception\ClientException;
 use Contentful\Log\LoggerInterface;
+use Contentful\Log\NullLogger;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\ClientInterface as GuzzleClientInterface;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Abstract client for common code for the different clients.
@@ -103,10 +104,10 @@ abstract class Client
      * @param string $method  The HTTP method
      * @param string $path    The URI path
      * @param array  $options An array of optional parameters. The following keys are accepted:
-     *                         * query             An array of query parameters that will be appended to the URI
-     *                         * additionalHeaders An array of headers that will be added to the request
-     *                         * body              The request body
-     *                         * baseUri           A string that can be used to override the default client base URI
+     *                        * query             An array of query parameters that will be appended to the URI
+     *                        * additionalHeaders An array of headers that will be added to the request
+     *                        * body              The request body
+     *                        * baseUri           A string that can be used to override the default client base URI
      *
      * @return array|null
      */
@@ -141,7 +142,7 @@ abstract class Client
         $response = null;
         try {
             $response = $this->doRequest($request, $options);
-            if ($response->getStatusCode() === 204) {
+            if (204 === $response->getStatusCode()) {
                 $result = null;
             } else {
                 $result = \GuzzleHttp\json_decode($response->getBody(), true);
@@ -160,10 +161,10 @@ abstract class Client
     }
 
     /**
-     * @param  RequestInterface $request
-     * @param  array            $options
+     * @param RequestInterface $request
+     * @param array            $options
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ResponseInterface|null
      */
     private function doRequest(RequestInterface $request, array $options)
     {
@@ -194,9 +195,9 @@ abstract class Client
      * @param string     $body
      * @param string     $baseUri
      *
-     * @return Psr7\Request
-     *
      * @throws \InvalidArgumentException If $query is not a valid type
+     *
+     * @return Psr7\Request
      */
     private function buildRequest($method, $path, array $query = null, array $additionalHeaders = [], $body = null, $baseUri = null)
     {
@@ -205,20 +206,20 @@ abstract class Client
         $uri = Psr7\UriResolver::resolve($baseUri, new Psr7\Uri($path));
 
         if ($query) {
-            $serializedQuery = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
+            $serializedQuery = \http_build_query($query, null, '&', PHP_QUERY_RFC3986);
             $uri = $uri->withQuery($serializedQuery);
         }
         $headers = [
             'X-Contentful-User-Agent' => $this->userAgentGenerator->getUserAgent(),
             'Accept' => $this->getApiContentType(),
             'Accept-Encoding' => 'gzip',
-            'Authorization' => 'Bearer ' . $this->token,
+            'Authorization' => 'Bearer '.$this->token,
         ];
         if ($body) {
             $headers['Content-Type'] = $this->getApiContentType();
         }
 
-        $headers = array_merge($headers, $additionalHeaders);
+        $headers = \array_merge($headers, $additionalHeaders);
 
         return new Psr7\Request($method, $uri, $headers, $body);
     }
@@ -232,7 +233,7 @@ abstract class Client
             'InvalidQuery' => Exception\InvalidQueryException::class,
             'AccessTokenInvalid' => Exception\AccessTokenInvalidException::class,
             'NotFound' => Exception\NotFoundException::class,
-            'RateLimitExceeded' => Exception\RateLimitExceededException::class
+            'RateLimitExceeded' => Exception\RateLimitExceededException::class,
         ];
     }
 

@@ -18,7 +18,7 @@ class End2EndTestCase extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        self::$cacheDir = __DIR__ . '/../build/cache';
+        self::$cacheDir = __DIR__.'/../build/cache';
     }
 
     /**
@@ -28,7 +28,7 @@ class End2EndTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function getClient($key)
     {
-        $testingUrl = getenv('CONTENTFUL_CDA_SDK_TESTING_URL');
+        $testingUrl = \getenv('CONTENTFUL_CDA_SDK_TESTING_URL');
         $options = $testingUrl
             ? ['uriOverride' => $testingUrl]
             : [];
@@ -39,9 +39,9 @@ class End2EndTestCase extends \PHPUnit_Framework_TestCase
             case 'cfexampleapi_preview':
                 return new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', true, null, $options);
             case 'cfexampleapi_cache':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, array_merge($options, ['cacheDir' => self::$cacheDir]));
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, \array_merge($options, ['cacheDir' => self::$cacheDir]));
             case 'cfexampleapi_logger':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, array_merge($options, ['logger' => new ArrayLogger()]));
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, \array_merge($options, ['logger' => new ArrayLogger()]));
             case 'cfexampleapi_tlh':
                 return new Client('b4c0n73n7fu1', 'cfexampleapi', false, 'tlh', $options);
             case 'cfexampleapi_invalid':
@@ -59,7 +59,7 @@ class End2EndTestCase extends \PHPUnit_Framework_TestCase
 
     protected function checkRequirements()
     {
-        if (!getenv('CONTENTFUL_CDA_SDK_TESTING_URL')) {
+        if (!\getenv('CONTENTFUL_CDA_SDK_TESTING_URL')) {
             return parent::checkRequirements();
         }
 
@@ -70,7 +70,7 @@ class End2EndTestCase extends \PHPUnit_Framework_TestCase
                 continue;
             }
 
-            $requires = array_flip($annotations[$depth]['requires']);
+            $requires = \array_flip($annotations[$depth]['requires']);
 
             if (isset($requires['API no-coverage-proxy'])) {
                 return $this->markTestSkipped('This configuration blocks tests that should not be run when in the coverage proxy environment.');

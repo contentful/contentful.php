@@ -7,11 +7,11 @@
 namespace Contentful\Tests\Unit\Delivery;
 
 use Contentful\Delivery\Asset;
-use Contentful\File\ImageFile;
 use Contentful\Delivery\Locale;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
 use Contentful\File\FileInterface;
+use Contentful\File\ImageFile;
 
 class AssetTest extends \PHPUnit_Framework_TestCase
 {
@@ -46,13 +46,13 @@ class AssetTest extends \PHPUnit_Framework_TestCase
             ->willReturn([
                 $defaultLocale,
                 $klingonLocale,
-                $germanLocale
+                $germanLocale,
             ]);
         $space->method('getLocale')
             ->will(self::returnValueMap([
                 ['en-US', $defaultLocale],
                 ['tlh', $klingonLocale],
-                ['de-DE', $germanLocale]
+                ['de-DE', $germanLocale],
             ]));
         $space->method('getDefaultLocale')
             ->willReturn($defaultLocale);
@@ -75,11 +75,11 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         $this->asset = new Asset(
             [
                 'en-US' => 'Nyan Cat',
-                'de-DE' => 'Kater Karlo'
+                'de-DE' => 'Kater Karlo',
             ],
             [
                 'en-US' => 'A picture of Nyan Cat',
-                'de-DE' => 'Ein Bild von Nyan Cat'
+                'de-DE' => 'Ein Bild von Nyan Cat',
             ],
             ['en-US' => $this->file],
             new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))
@@ -90,36 +90,36 @@ class AssetTest extends \PHPUnit_Framework_TestCase
     {
         $asset = $this->asset;
 
-        $this->assertEquals('Nyan Cat', $asset->getTitle());
-        $this->assertEquals('A picture of Nyan Cat', $asset->getDescription());
+        $this->assertSame('Nyan Cat', $asset->getTitle());
+        $this->assertSame('A picture of Nyan Cat', $asset->getDescription());
         $this->assertInstanceOf(FileInterface::class, $asset->getFile());
         $this->assertSame($this->file, $asset->getFile());
 
-        $this->assertEquals('nyancat', $asset->getId());
-        $this->assertEquals(1, $asset->getRevision());
+        $this->assertSame('nyancat', $asset->getId());
+        $this->assertSame(1, $asset->getRevision());
         $this->assertSame($this->space, $asset->getSpace());
-        $this->assertEquals(new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), $asset->getCreatedAt());
-        $this->assertEquals(new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), $asset->getUpdatedAt());
+        $this->assertSame('2013-09-02T14:56:34.240Z', \Contentful\format_date_for_json($asset->getCreatedAt()));
+        $this->assertSame('2013-09-02T14:56:34.240Z', \Contentful\format_date_for_json($asset->getUpdatedAt()));
     }
 
     public function testGetTitleWithLocale()
     {
         $asset = $this->asset;
 
-        $this->assertEquals('Nyan Cat', $asset->getTitle());
-        $this->assertEquals('Kater Karlo', $asset->getTitle('de-DE'));
-        $this->assertEquals('Nyan Cat', $asset->getTitle('en-US'));
-        $this->assertEquals('Nyan Cat', $asset->getTitle('tlh'));
+        $this->assertSame('Nyan Cat', $asset->getTitle());
+        $this->assertSame('Kater Karlo', $asset->getTitle('de-DE'));
+        $this->assertSame('Nyan Cat', $asset->getTitle('en-US'));
+        $this->assertSame('Nyan Cat', $asset->getTitle('tlh'));
     }
 
     public function testGetDescriptionWithLocale()
     {
         $asset = $this->asset;
 
-        $this->assertEquals('A picture of Nyan Cat', $asset->getDescription());
-        $this->assertEquals('Ein Bild von Nyan Cat', $asset->getDescription('de-DE'));
-        $this->assertEquals('A picture of Nyan Cat', $asset->getDescription('en-US'));
-        $this->assertEquals('A picture of Nyan Cat', $asset->getDescription('tlh'));
+        $this->assertSame('A picture of Nyan Cat', $asset->getDescription());
+        $this->assertSame('Ein Bild von Nyan Cat', $asset->getDescription('de-DE'));
+        $this->assertSame('A picture of Nyan Cat', $asset->getDescription('en-US'));
+        $this->assertSame('A picture of Nyan Cat', $asset->getDescription('tlh'));
     }
 
     /**
@@ -149,7 +149,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
             new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))
         );
 
-        $this->assertEquals(null, $asset->getDescription());
+        $this->assertNull($asset->getDescription());
     }
 
     public function testGetTitleWhenNoTitle()
@@ -161,12 +161,12 @@ class AssetTest extends \PHPUnit_Framework_TestCase
             new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))
         );
 
-        $this->assertEquals(null, $asset->getTitle());
+        $this->assertNull($asset->getTitle());
     }
 
     public function testJsonSerialize()
     {
-        $this->assertJsonStringEqualsJsonString('{"fields":{"title":{"en-US":"Nyan Cat","de-DE":"Kater Karlo"},"description":{"en-US":"A picture of Nyan Cat","de-DE":"Ein Bild von Nyan Cat"},"file":{"en-US":{"fileName":"Nyan_cat_250px_frame.png","contentType":"image/png","details":{"image":{"width":250,"height":250},"size":12273},"url":"//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"}}},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"type":"Asset","id":"nyancat","revision":1,"createdAt":"2013-09-02T14:56:34.240Z","updatedAt":"2013-09-02T14:56:34.240Z"}}', json_encode($this->asset));
+        $this->assertJsonStringEqualsJsonString('{"fields":{"title":{"en-US":"Nyan Cat","de-DE":"Kater Karlo"},"description":{"en-US":"A picture of Nyan Cat","de-DE":"Ein Bild von Nyan Cat"},"file":{"en-US":{"fileName":"Nyan_cat_250px_frame.png","contentType":"image/png","details":{"image":{"width":250,"height":250},"size":12273},"url":"//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"}}},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"type":"Asset","id":"nyancat","revision":1,"createdAt":"2013-09-02T14:56:34.240Z","updatedAt":"2013-09-02T14:56:34.240Z"}}', \json_encode($this->asset));
     }
 
     public function testJsonSerializeWithoutDescription()
@@ -178,6 +178,6 @@ class AssetTest extends \PHPUnit_Framework_TestCase
             new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))
         );
 
-        $this->assertJsonStringEqualsJsonString('{"fields":{"title":{"en-US":"Nyan Cat"},"file":{"en-US":{"fileName":"Nyan_cat_250px_frame.png","contentType":"image/png","details":{"image":{"width":250,"height":250},"size":12273},"url":"//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"}}},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"type":"Asset","id":"nyancat","revision":1,"createdAt":"2013-09-02T14:56:34.240Z","updatedAt":"2013-09-02T14:56:34.240Z"}}', json_encode($asset));
+        $this->assertJsonStringEqualsJsonString('{"fields":{"title":{"en-US":"Nyan Cat"},"file":{"en-US":{"fileName":"Nyan_cat_250px_frame.png","contentType":"image/png","details":{"image":{"width":250,"height":250},"size":12273},"url":"//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"}}},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"type":"Asset","id":"nyancat","revision":1,"createdAt":"2013-09-02T14:56:34.240Z","updatedAt":"2013-09-02T14:56:34.240Z"}}', \json_encode($asset));
     }
 }

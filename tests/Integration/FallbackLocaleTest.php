@@ -12,7 +12,7 @@ use Contentful\Delivery\Client;
  * The fallback chain set up is the following
  * af -> zu-ZA -> en-US -> NULL
  * ne-NP -> NULL
- * bs_BA -> en-US -> NULL
+ * bs_BA -> en-US -> NULL.
  */
 class FallbackLocaleTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,7 +30,7 @@ class FallbackLocaleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * No ne-NP
+     * No ne-NP.
      */
     public function testNoNeNP()
     {
@@ -41,18 +41,18 @@ class FallbackLocaleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * No zu-ZA
+     * No zu-ZA.
      */
     public function testNoZuZA()
     {
         $client = $this->createClient();
 
         $entry = $client->reviveJson('{"sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "7dh3w86is8ls"}},"id": "no-zu-ZA","type": "Entry","createdAt": "2016-07-04T15:58:22.577Z","updatedAt": "2016-07-04T15:58:22.577Z","revision": 1,"contentType": {"sys": {"type": "Link","linkType": "ContentType","id": "sampleType"}}},"fields": {"title": {"af": "af","bs-BA": "bs-BA","en-US": "no-zu-ZA","ne-NP": "ne-NP"}}}');
-        $this->assertEquals('no-zu-ZA', $entry->getTitle('zu-ZA'));
+        $this->assertSame('no-zu-ZA', $entry->getTitle('zu-ZA'));
     }
 
     /**
-     * No af and zu-ZA
+     * No af and zu-ZA.
      */
     public function testNoAfNoZuZa()
     {
@@ -60,12 +60,12 @@ class FallbackLocaleTest extends \PHPUnit_Framework_TestCase
 
         $entry = $client->reviveJson('{"sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "7dh3w86is8ls"}},"id": "no-af-and-no-zu-za","type": "Entry","createdAt": "2016-07-04T16:10:28.180Z","updatedAt": "2016-07-05T13:22:00.251Z","revision": 2,"contentType": {"sys": {"type": "Link","linkType": "ContentType","id": "sampleType"}}},"fields": {"title": {"bs-BA": "bs-BA","en-US": "no-af-and-no-zu-ZA","ne-NP": "ne-NP"}}}');
 
-        $this->assertEquals('no-af-and-no-zu-ZA', $entry->getTitle('af'));
-        $this->assertEquals('no-af-and-no-zu-ZA', $entry->getTitle('zu-ZA'));
+        $this->assertSame('no-af-and-no-zu-ZA', $entry->getTitle('af'));
+        $this->assertSame('no-af-and-no-zu-ZA', $entry->getTitle('zu-ZA'));
     }
 
     /**
-     * No bs-BA
+     * No bs-BA.
      */
     public function testNoBsBa()
     {
@@ -73,11 +73,11 @@ class FallbackLocaleTest extends \PHPUnit_Framework_TestCase
 
         $entry = $client->reviveJson('{"sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "7dh3w86is8ls"}},"id": "no-bs-BA","type": "Entry","createdAt": "2016-07-04T15:58:20.529Z","updatedAt": "2016-07-04T15:58:20.529Z","revision": 1,"contentType": {"sys": {"type": "Link","linkType": "ContentType","id": "sampleType"}}},"fields": {"title": {"af": "af","en-US": "no-bs-BA","ne-NP": "ne-NP","zu-ZA": "zu-ZA"}}}');
 
-        $this->assertEquals('no-bs-BA', $entry->getTitle('bs-BA'));
+        $this->assertSame('no-bs-BA', $entry->getTitle('bs-BA'));
     }
 
     /**
-     * No af
+     * No af.
      */
     public function testNoAf()
     {
@@ -85,6 +85,6 @@ class FallbackLocaleTest extends \PHPUnit_Framework_TestCase
 
         $entry = $client->reviveJson('{"sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "7dh3w86is8ls"}},"id": "no-af","type": "Entry","createdAt": "2016-07-04T15:58:19.645Z","updatedAt": "2016-07-04T15:58:19.645Z","revision": 1,"contentType": {"sys": {"type": "Link","linkType": "ContentType","id": "sampleType"}}},"fields": {"title": {"bs-BA": "bs-BA","en-US": "no-af","ne-NP": "ne-NP","zu-ZA": "zu-ZA"}}}');
 
-        $this->assertEquals('zu-ZA', $entry->getTitle('af'));
+        $this->assertSame('zu-ZA', $entry->getTitle('af'));
     }
 }

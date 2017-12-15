@@ -33,7 +33,7 @@ class LocalUploadFile implements UnprocessedFileInterface
     }
 
     /**
-     * The name of this file
+     * The name of this file.
      *
      * @return string
      */
@@ -72,7 +72,7 @@ class LocalUploadFile implements UnprocessedFileInterface
         return (object) [
             'fileName' => $this->fileName,
             'contentType' => $this->contentType,
-            'uploadFrom' => $this->uploadFrom
+            'uploadFrom' => $this->uploadFrom,
         ];
     }
 }

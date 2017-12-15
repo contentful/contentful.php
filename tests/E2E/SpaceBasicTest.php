@@ -21,8 +21,8 @@ class SpaceBasicTest extends End2EndTestCase
         $space = $client->getSpace();
 
         $this->assertInstanceOf(Space::class, $space);
-        $this->assertEquals('Contentful Example API', $space->getName());
-        $this->assertEquals('cfexampleapi', $space->getId());
+        $this->assertSame('Contentful Example API', $space->getName());
+        $this->assertSame('cfexampleapi', $space->getId());
         $this->assertCount(2, $space->getLocales());
     }
 }

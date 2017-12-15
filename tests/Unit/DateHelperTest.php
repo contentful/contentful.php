@@ -17,8 +17,8 @@ class DateHelperTest extends \PHPUnit_Framework_TestCase
     {
         $dt = new \DateTimeImmutable($dateString);
 
-        $this->assertEquals($expectedOutput, \Contentful\format_date_for_json($dt));
-        $this->assertEquals($expectedOutput, DateHelper::formatForJson($dt));
+        $this->assertSame($expectedOutput, \Contentful\format_date_for_json($dt));
+        $this->assertSame($expectedOutput, DateHelper::formatForJson($dt));
     }
 
     public function formatForJsonDataProvider()
@@ -26,7 +26,7 @@ class DateHelperTest extends \PHPUnit_Framework_TestCase
         return [
             'with milliseconds' => ['2014-08-11T08:30:42.559Z', '2014-08-11T08:30:42.559Z'],
             'without milliseconds' => ['2014-08-11T08:30:42Z', '2014-08-11T08:30:42Z'],
-            'with milliseconds set to 0' => ['2014-08-11T08:30:42Z', '2014-08-11T08:30:42.000Z']
+            'with milliseconds set to 0' => ['2014-08-11T08:30:42Z', '2014-08-11T08:30:42.000Z'],
         ];
     }
 }

@@ -15,7 +15,7 @@ class JsonHelperTest extends \PHPUnit_Framework_TestCase
         $data = JsonHelper::decode('{"foo": "bar"}');
 
         $this->assertInternalType('array', $data);
-        $this->assertEquals('bar', $data['foo']);
+        $this->assertSame('bar', $data['foo']);
     }
 
     /**

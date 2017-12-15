@@ -8,18 +8,13 @@ namespace Contentful\Delivery\Cache;
 
 class NullCache implements CacheInterface
 {
-    /**
-     * @return null
-     */
     public function readSpace()
     {
         return null;
     }
 
     /**
-     * @param  string $id
-     *
-     * @return null
+     * @param string $id
      */
     public function readContentType($id)
     {

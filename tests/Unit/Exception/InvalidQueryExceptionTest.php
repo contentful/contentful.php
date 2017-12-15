@@ -31,7 +31,7 @@ class InvalidQueryExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($exception->hasResponse());
         $this->assertSame($request, $exception->getRequest());
         $this->assertSame($response, $exception->getResponse());
-        $this->assertEquals('18e21420a62b690effa8f80c8b8766b0', $exception->getRequestId());
-        $this->assertEquals('The query you sent was invalid. Probably a filter or ordering specification is not applicable to the type of a field.', $exception->getMessage());
+        $this->assertSame('18e21420a62b690effa8f80c8b8766b0', $exception->getRequestId());
+        $this->assertSame('The query you sent was invalid. Probably a filter or ordering specification is not applicable to the type of a field.', $exception->getMessage());
     }
 }

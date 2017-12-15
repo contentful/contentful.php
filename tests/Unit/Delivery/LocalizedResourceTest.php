@@ -6,8 +6,8 @@
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\Delivery\LocalizedResource;
 use Contentful\Delivery\Locale;
+use Contentful\Delivery\LocalizedResource;
 
 class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,21 +15,21 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     {
         $resource = new ConcreteLocalizedResource([
             new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
-        $this->assertEquals('en-US', $resource->getLocale());
+        $this->assertSame('en-US', $resource->getLocale());
     }
 
     public function testSetGetLocaleString()
     {
         $resource = new ConcreteLocalizedResource([
             new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
         $resource->setLocale('de-DE');
-        $this->assertEquals('de-DE', $resource->getLocale());
+        $this->assertSame('de-DE', $resource->getLocale());
     }
 
     public function testSetGetLocaleObject()
@@ -38,11 +38,11 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
 
         $resource = new ConcreteLocalizedResource([
             $deLocale,
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
         $resource->setLocale($deLocale);
-        $this->assertEquals('de-DE', $resource->getLocale());
+        $this->assertSame('de-DE', $resource->getLocale());
     }
 
     /**
@@ -53,7 +53,7 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     {
         $resource = new ConcreteLocalizedResource([
             new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
         $resource->setLocale('fr-FR');
@@ -63,20 +63,20 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     {
         $resource = new ConcreteLocalizedResource([
             new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
-        $this->assertEquals('en-US', $resource->getLocaleFromInput());
+        $this->assertSame('en-US', $resource->getLocaleFromInput());
     }
 
     public function testGetLocaleFromInputString()
     {
         $resource = new ConcreteLocalizedResource([
             new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
-        $this->assertEquals('de-DE', $resource->getLocaleFromInput('de-DE'));
+        $this->assertSame('de-DE', $resource->getLocaleFromInput('de-DE'));
     }
 
     public function testGetLocaleFromInputObject()
@@ -85,10 +85,10 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
 
         $resource = new ConcreteLocalizedResource([
             $deLocale,
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
-        $this->assertEquals('de-DE', $resource->getLocaleFromInput($deLocale));
+        $this->assertSame('de-DE', $resource->getLocaleFromInput($deLocale));
     }
 
     /**
@@ -99,7 +99,7 @@ class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
     {
         $resource = new ConcreteLocalizedResource([
             new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true)
+            new Locale('en-US', 'English (United States)', null, true),
         ]);
 
         $resource->getLocaleFromInput('en-GB');
