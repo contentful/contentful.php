@@ -1,5 +1,8 @@
 <?php
+
 /**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -21,8 +24,6 @@ use Contentful\ResourceArray;
  * A Client is only responsible for one Space. When access to multiple spaces is required, create multiple Clients.
  *
  * This class can be configured to use the Preview API instead of the Delivery API. This grants access to not yet published content.
- *
- * @api
  */
 class Client extends BaseClient
 {
@@ -246,9 +247,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return \Contentful\Delivery\Space
-     *
-     * @api
+     * @return Space
      */
     public function getSpace()
     {
@@ -273,8 +272,6 @@ class Client extends BaseClient
      * @throws \InvalidArgumentException when encountering an unexpected link type
      *
      * @return Asset|EntryInterface
-     *
-     * @internal
      */
     public function resolveLink(Link $link, $locale = null)
     {
@@ -299,8 +296,6 @@ class Client extends BaseClient
      * @throws \Contentful\Exception\SpaceMismatchException When attempting to revive JSON belonging to a different space
      *
      * @return Asset|ContentType|DynamicEntry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\ResourceArray
-     *
-     * @api
      */
     public function reviveJson($json)
     {
@@ -317,8 +312,6 @@ class Client extends BaseClient
      * @return mixed
      *
      * @see \Contentful\Delivery\Synchronization\Manager
-     *
-     * @internal
      */
     public function syncRequest(array $queryData)
     {
@@ -333,8 +326,6 @@ class Client extends BaseClient
      * @return bool
      *
      * @see https://www.contentful.com/developers/docs/references/content-preview-api/#/reference Preview API Reference
-     *
-     * @api
      */
     public function isPreview()
     {
@@ -348,8 +339,6 @@ class Client extends BaseClient
      * @return Manager
      *
      * @see https://www.contentful.com/developers/docs/concepts/sync/ Sync API
-     *
-     * @api
      */
     public function getSynchronizationManager()
     {

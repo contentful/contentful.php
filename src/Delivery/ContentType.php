@@ -1,5 +1,8 @@
 <?php
+
 /**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -69,8 +72,6 @@ class ContentType implements \JsonSerializable
      * Returns the name of this content type.
      *
      * @return string
-     *
-     * @api
      */
     public function getName()
     {
@@ -81,8 +82,6 @@ class ContentType implements \JsonSerializable
      * Returns all the fields of this content type as an associative array. The key is the ID of the field.
      *
      * @return ContentTypeField[]
-     *
-     * @api
      */
     public function getFields()
     {
@@ -93,8 +92,6 @@ class ContentType implements \JsonSerializable
      * Returns the content type's description.
      *
      * @return string|null
-     *
-     * @api
      */
     public function getDescription()
     {
@@ -109,8 +106,6 @@ class ContentType implements \JsonSerializable
      * @param string $fieldId
      *
      * @return ContentTypeField|null
-     *
-     * @api
      */
     public function getField($fieldId)
     {
@@ -127,8 +122,6 @@ class ContentType implements \JsonSerializable
      * Returns null if not display field is set.
      *
      * @return ContentTypeField|null
-     *
-     * @api
      */
     public function getDisplayField()
     {
@@ -143,8 +136,6 @@ class ContentType implements \JsonSerializable
      * Returns the ID of this content type.
      *
      * @return string
-     *
-     * @api
      */
     public function getId()
     {
@@ -155,8 +146,6 @@ class ContentType implements \JsonSerializable
      * Returns the revision of this content type.
      *
      * @return int
-     *
-     * @api
      */
     public function getRevision()
     {
@@ -167,8 +156,6 @@ class ContentType implements \JsonSerializable
      * Returns the time when this content type was last updated.
      *
      * @return \DateTimeImmutable
-     *
-     * @api
      */
     public function getUpdatedAt()
     {
@@ -179,8 +166,6 @@ class ContentType implements \JsonSerializable
      * Returns the time when this content type was created.
      *
      * @return \DateTimeImmutable
-     *
-     * @api
      */
     public function getCreatedAt()
     {
@@ -191,8 +176,6 @@ class ContentType implements \JsonSerializable
      * Returns the space this content type belongs to.
      *
      * @return Space
-     *
-     * @api
      */
     public function getSpace()
     {
@@ -205,8 +188,6 @@ class ContentType implements \JsonSerializable
      * @return object
      *
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
-     *
-     * @api
      */
     public function jsonSerialize()
     {

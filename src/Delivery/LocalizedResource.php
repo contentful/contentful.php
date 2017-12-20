@@ -1,5 +1,8 @@
 <?php
-/*
+
+/**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -48,8 +51,6 @@ abstract class LocalizedResource
      * @throws \InvalidArgumentException when $locale is not one of the locales supported by the space
      *
      * @return $this
-     *
-     * @api
      */
     public function setLocale($locale)
     {
@@ -70,8 +71,6 @@ abstract class LocalizedResource
      * The locale code for the currently set locale.
      *
      * @return string
-     *
-     * @api
      */
     public function getLocale()
     {
@@ -84,8 +83,6 @@ abstract class LocalizedResource
      * @throws \InvalidArgumentException when $locale is not one of the locales supported by the space
      *
      * @return string
-     *
-     * @api
      */
     protected function getLocaleFromInput($input = null)
     {

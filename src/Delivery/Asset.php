@@ -1,5 +1,8 @@
 <?php
+
 /**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -117,8 +120,6 @@ class Asset extends LocalizedResource implements \JsonSerializable
      * Returns the ID of this Asset.
      *
      * @return string
-     *
-     * @api
      */
     public function getId()
     {
@@ -129,8 +130,6 @@ class Asset extends LocalizedResource implements \JsonSerializable
      * Returns the Revision of this Asset.
      *
      * @return int
-     *
-     * @api
      */
     public function getRevision()
     {
@@ -141,8 +140,6 @@ class Asset extends LocalizedResource implements \JsonSerializable
      * Returns the time when this Asset was last changed.
      *
      * @return \DateTimeImmutable
-     *
-     * @api
      */
     public function getUpdatedAt()
     {
@@ -153,8 +150,6 @@ class Asset extends LocalizedResource implements \JsonSerializable
      * Returns the time when this Asset was created.
      *
      * @return \DateTimeImmutable
-     *
-     * @api
      */
     public function getCreatedAt()
     {
@@ -165,8 +160,6 @@ class Asset extends LocalizedResource implements \JsonSerializable
      * Returns the Space this Asset belongs to.
      *
      * @return Space
-     *
-     * @api
      */
     public function getSpace()
     {
@@ -179,8 +172,6 @@ class Asset extends LocalizedResource implements \JsonSerializable
      * @return object
      *
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
-     *
-     * @api
      */
     public function jsonSerialize()
     {

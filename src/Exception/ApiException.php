@@ -1,5 +1,8 @@
 <?php
+
 /**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -11,8 +14,6 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * A RequestException is thrown when an errors occurs while communicating with the API.
- *
- * @api
  */
 abstract class ApiException extends \RuntimeException
 {
@@ -80,8 +81,6 @@ abstract class ApiException extends \RuntimeException
      * Get the request that caused the exception.
      *
      * @return \Psr\Http\Message\RequestInterface
-     *
-     * @api
      */
     public function getRequest()
     {
@@ -92,8 +91,6 @@ abstract class ApiException extends \RuntimeException
      * Get the associated response.
      *
      * @return ResponseInterface|null
-     *
-     * @api
      */
     public function getResponse()
     {
@@ -104,8 +101,6 @@ abstract class ApiException extends \RuntimeException
      * Check if a response was received.
      *
      * @return bool
-     *
-     * @api
      */
     public function hasResponse()
     {
@@ -114,8 +109,6 @@ abstract class ApiException extends \RuntimeException
 
     /**
      * @return string|null
-     *
-     * @api
      */
     public function getRequestId()
     {

@@ -1,5 +1,8 @@
 <?php
+
 /**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -13,8 +16,6 @@ use Symfony\Component\Console\Application as AbstractApplication;
 
 /**
  * CLI Application with Helpers for the Contentful SDK.
- *
- * @internal
  */
 class Application extends AbstractApplication
 {

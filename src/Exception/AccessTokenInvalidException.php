@@ -1,6 +1,9 @@
 <?php
+
 /**
- * @copyright 2017 Contentful GmbH
+ * This file is part of the contentful.php package.
+ *
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -8,8 +11,6 @@ namespace Contentful\Exception;
 
 /**
  * An AccessTokenInvalidException gets thrown when the access token was not accepted by the API.
- *
- * @api
  */
 class AccessTokenInvalidException extends ApiException
 {

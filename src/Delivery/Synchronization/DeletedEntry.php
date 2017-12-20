@@ -1,5 +1,8 @@
 <?php
+
 /**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -8,8 +11,6 @@ namespace Contentful\Delivery\Synchronization;
 
 /**
  * A DeletedEntry describes an entry that has been deleted.
- *
- * @api
  */
 class DeletedEntry extends DeletedResource
 {

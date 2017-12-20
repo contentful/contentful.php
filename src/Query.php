@@ -1,5 +1,8 @@
 <?php
+
 /**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -10,8 +13,6 @@ use Contentful\Delivery\ContentType;
 
 /**
  * A Query is used to filter and order collections when making API requests.
- *
- * @api
  */
 abstract class Query
 {
@@ -71,10 +72,6 @@ abstract class Query
 
     /**
      * Query constructor.
-     *
-     * Empty for now, included for forward compatibility.
-     *
-     * @api
      */
     public function __construct()
     {
@@ -84,8 +81,6 @@ abstract class Query
      * Returns the parameters to execute this query.
      *
      * @return array
-     *
-     * @api
      */
     public function getQueryData()
     {
@@ -132,8 +127,6 @@ abstract class Query
      * The urlencoded query string for this query.
      *
      * @return string
-     *
-     * @internal
      */
     public function getQueryString()
     {
@@ -148,8 +141,6 @@ abstract class Query
      * @throws \RangeException If $skip is not within the specified range
      *
      * @return $this
-     *
-     * @api
      */
     public function setSkip($skip)
     {
@@ -170,8 +161,6 @@ abstract class Query
      * @throws \RangeException If $maxArguments is not withing the specified range
      *
      * @return $this
-     *
-     * @api
      */
     public function setLimit($limit)
     {
@@ -194,8 +183,6 @@ abstract class Query
      * @param bool        $reverse
      *
      * @return $this
-     *
-     * @api
      */
     public function orderBy($field, $reverse = false)
     {
@@ -215,8 +202,6 @@ abstract class Query
      * @param ContentType|string|null $contentType
      *
      * @return $this
-     *
-     * @api
      */
     public function setContentType($contentType)
     {
@@ -235,8 +220,6 @@ abstract class Query
      * @throws \InvalidArgumentException if $group is not a valid value
      *
      * @return $this
-     *
-     * @api
      */
     public function setMimeTypeGroup($group)
     {
@@ -288,8 +271,6 @@ abstract class Query
      * @throws \InvalidArgumentException If $operator is not one of the valid values
      *
      * @return $this
-     *
-     * @api
      */
     public function where($field, $value, $operator = null)
     {
@@ -339,8 +320,6 @@ abstract class Query
      * @param array $select
      *
      * @return $this
-     *
-     * @api
      */
     public function select(array $select)
     {

@@ -1,6 +1,9 @@
 <?php
+
 /**
- * @copyright 2015-2016 Contentful GmbH
+ * This file is part of the contentful.php package.
+ *
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -8,8 +11,6 @@ namespace Contentful\Delivery;
 
 /**
  * Value object encoding a locale.
- *
- * @api
  */
 class Locale implements \JsonSerializable
 {
@@ -40,8 +41,6 @@ class Locale implements \JsonSerializable
      * @param string $name         Human readable name
      * @param string $fallbackCode The code of the locale used for for the fallback
      * @param bool   $default      Whether this is the default locale
-     *
-     * @api
      */
     public function __construct($code, $name, $fallbackCode, $default = false)
     {
@@ -55,8 +54,6 @@ class Locale implements \JsonSerializable
      * Returns the locale code.
      *
      * @return string
-     *
-     * @api
      */
     public function getCode()
     {
@@ -67,8 +64,6 @@ class Locale implements \JsonSerializable
      * Returns the human readable name.
      *
      * @return string
-     *
-     * @api
      */
     public function getName()
     {
@@ -79,8 +74,6 @@ class Locale implements \JsonSerializable
      * Returns true if this is the default locale for the space.
      *
      * @return bool
-     *
-     * @api
      */
     public function isDefault()
     {
@@ -91,8 +84,6 @@ class Locale implements \JsonSerializable
      * Returns the code of the locale used for for the fallback.
      *
      * @return string
-     *
-     * @api
      */
     public function getFallbackCode()
     {
@@ -105,8 +96,6 @@ class Locale implements \JsonSerializable
      * @return object
      *
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
-     *
-     * @api
      */
     public function jsonSerialize()
     {

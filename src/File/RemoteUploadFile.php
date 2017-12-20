@@ -1,5 +1,8 @@
 <?php
+
 /**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -34,8 +37,6 @@ class RemoteUploadFile implements UnprocessedFileInterface
      * The name of this file.
      *
      * @return string
-     *
-     * @api
      */
     public function getFileName()
     {
@@ -46,8 +47,6 @@ class RemoteUploadFile implements UnprocessedFileInterface
      * The Content- (or MIME-)Type of this file.
      *
      * @return string
-     *
-     * @api
      */
     public function getContentType()
     {
@@ -56,8 +55,6 @@ class RemoteUploadFile implements UnprocessedFileInterface
 
     /**
      * @return string
-     *
-     * @api
      */
     public function getUpload()
     {

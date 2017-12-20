@@ -1,5 +1,8 @@
 <?php
+
 /**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -48,8 +51,6 @@ class File implements FileInterface
      * The name of this file.
      *
      * @return string
-     *
-     * @api
      */
     public function getFileName()
     {
@@ -60,8 +61,6 @@ class File implements FileInterface
      * The Content- (or MIME-)Type of this file.
      *
      * @return string
-     *
-     * @api
      */
     public function getContentType()
     {
@@ -72,8 +71,6 @@ class File implements FileInterface
      * The Url where this file can be retrieved.
      *
      * @return string
-     *
-     * @api
      */
     public function getUrl()
     {
@@ -84,8 +81,6 @@ class File implements FileInterface
      * The size in bytes of this file.
      *
      * @return int
-     *
-     * @api
      */
     public function getSize()
     {
@@ -98,8 +93,6 @@ class File implements FileInterface
      * @return object
      *
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
-     *
-     * @api
      */
     public function jsonSerialize()
     {

@@ -1,6 +1,9 @@
 <?php
+
 /**
- * @copyright 2015 Contentful GmbH
+ * This file is part of the contentful.php package.
+ *
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -12,8 +15,6 @@ use Contentful\Delivery\ContentType;
  * A sync Query can be used to limit what type of resources and events should be synced.
  *
  * @see \Contentful\Delivery\Synchronization\Mananager Synchronization\Mananager
- *
- * @api
  */
 class Query
 {
@@ -44,8 +45,6 @@ class Query
      * Returns the parameters to execute this query.
      *
      * @return array
-     *
-     * @api
      */
     public function getQueryData()
     {
@@ -62,8 +61,6 @@ class Query
      * The urlencoded query string for this query.
      *
      * @return string
-     *
-     * @internal
      */
     public function getQueryString()
     {
@@ -88,8 +85,6 @@ class Query
      * @throws \InvalidArgumentException when an invalid $type is set
      *
      * @return $this
-     *
-     * @api
      */
     public function setType($type)
     {
@@ -109,8 +104,6 @@ class Query
      * @param ContentType|string|null $contentType
      *
      * @return $this
-     *
-     * @api
      */
     public function setContentType($contentType)
     {

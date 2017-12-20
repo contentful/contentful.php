@@ -1,5 +1,8 @@
 <?php
+
 /**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -40,8 +43,6 @@ class ImageFile extends File
      * Returns the width of the image.
      *
      * @return int
-     *
-     * @api
      */
     public function getWidth()
     {
@@ -52,8 +53,6 @@ class ImageFile extends File
      * Returns the height of the image.
      *
      * @return int
-     *
-     * @api
      */
     public function getHeight()
     {
@@ -64,8 +63,6 @@ class ImageFile extends File
      * @param ImageOptions|null $options
      *
      * @return string
-     *
-     * @api
      */
     public function getUrl(ImageOptions $options = null)
     {
@@ -80,8 +77,6 @@ class ImageFile extends File
      * @return object
      *
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
-     *
-     * @api
      */
     public function jsonSerialize()
     {

@@ -1,6 +1,9 @@
 <?php
+
 /**
- * @copyright 2015 Contentful GmbH
+ * This file is part of the contentful.php package.
+ *
+ * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
 
@@ -8,8 +11,6 @@ namespace Contentful\Delivery\Synchronization;
 
 /**
  * The Result of synchronization.
- *
- * @api
  */
 class Result
 {
@@ -46,8 +47,6 @@ class Result
      * Returns the items retrieved by this synchronization operation.
      *
      * @return array
-     *
-     * @api
      */
     public function getItems()
     {
@@ -58,8 +57,6 @@ class Result
      * Returns the token needed to continue the synchronization.
      *
      * @return string
-     *
-     * @api
      */
     public function getToken()
     {
@@ -70,8 +67,6 @@ class Result
      * Returns true if there are currently no more results in the synchronization.
      *
      * @return bool
-     *
-     * @api
      */
     public function isDone()
     {

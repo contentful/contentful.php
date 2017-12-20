@@ -1,5 +1,8 @@
 <?php
+
 /**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -10,8 +13,6 @@ use Contentful\Query as BaseQuery;
 
 /**
  * A Query is used to filter and order collections when making API requests.
- *
- * @api
  */
 class Query extends BaseQuery
 {
@@ -33,8 +34,6 @@ class Query extends BaseQuery
      * Returns the parameters to execute this query.
      *
      * @return array
-     *
-     * @api
      */
     public function getQueryData()
     {
@@ -55,8 +54,6 @@ class Query extends BaseQuery
      * @param int|null $include
      *
      * @return $this
-     *
-     * @api
      */
     public function setInclude($include)
     {
@@ -71,8 +68,6 @@ class Query extends BaseQuery
      * @param string|null $locale
      *
      * @return $this
-     *
-     * @api
      */
     public function setLocale($locale)
     {

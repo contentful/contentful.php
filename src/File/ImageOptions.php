@@ -1,5 +1,8 @@
 <?php
+
 /**
+ * This file is part of the contentful.php package.
+ *
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
@@ -14,8 +17,6 @@ namespace Contentful\File;
  *
  * @see https://www.contentful.com/developers/docs/references/images-api/#/reference Image API Reference
  * @see \Contentful\Delivery\ImageFile ImageFile class
- *
- * @api
  */
 class ImageOptions
 {
@@ -77,8 +78,6 @@ class ImageOptions
      * The urlencoded query string for these options.
      *
      * @return string
-     *
-     * @api
      */
     public function getQueryString()
     {
@@ -114,8 +113,6 @@ class ImageOptions
      * Get the width of the image. Will be null if no width is set.
      *
      * @return int|null
-     *
-     * @api
      */
     public function getWidth()
     {
@@ -135,8 +132,6 @@ class ImageOptions
      * @throws \InvalidArgumentException If $width is negative
      *
      * @return $this
-     *
-     * @api
      */
     public function setWidth($width = null)
     {
@@ -153,8 +148,6 @@ class ImageOptions
      * Get the height of the image. Will be null if no height is set.
      *
      * @return int|null
-     *
-     * @api
      */
     public function getHeight()
     {
@@ -174,8 +167,6 @@ class ImageOptions
      * @throws \InvalidArgumentException If $height is negative
      *
      * @return $this
-     *
-     * @api
      */
     public function setHeight($height = null)
     {
@@ -192,8 +183,6 @@ class ImageOptions
      * Format of the image. Possible values are "png" and "jpg". Will be null if no format is set.
      *
      * @return string|null
-     *
-     * @api
      */
     public function getFormat()
     {
@@ -212,8 +201,6 @@ class ImageOptions
      * @throws \InvalidArgumentException If $format is not a valid value
      *
      * @return $this
-     *
-     * @api
      */
     public function setFormat($format = null)
     {
@@ -232,8 +219,6 @@ class ImageOptions
      * Quality of the JPEG encoded image. Will be null if no quality is set.
      *
      * @return int|null if an int, must be between 1 and 100
-     *
-     * @api
      */
     public function getQuality()
     {
@@ -250,8 +235,6 @@ class ImageOptions
      * @throws \InvalidArgumentException If $quality is out of range
      *
      * @return $this
-     *
-     * @api
      */
     public function setQuality($quality = null)
     {
@@ -268,8 +251,6 @@ class ImageOptions
      * Returns true if the image will be loaded as progressive JPEG.
      *
      * @return bool
-     *
-     * @api
      */
     public function isProgressive()
     {
@@ -284,8 +265,6 @@ class ImageOptions
      * @param bool|null $progressive
      *
      * @return $this
-     *
-     * @api
      */
     public function setProgressive($progressive = null)
     {
@@ -298,8 +277,6 @@ class ImageOptions
      * Returns the behavior used for resizing images.
      *
      * @return null|string
-     *
-     * @api
      */
     public function getResizeFit()
     {
@@ -325,8 +302,6 @@ class ImageOptions
      * @throws \InvalidArgumentException For unknown values of $resizeBehavior
      *
      * @return $this
-     *
-     * @api
      */
     public function setResizeFit($resizeFit = null)
     {
@@ -345,8 +320,6 @@ class ImageOptions
      * Get the focus area for resizing.
      *
      * @return string|null
-     *
-     * @api
      */
     public function getResizeFocus()
     {
@@ -366,8 +339,6 @@ class ImageOptions
      * @throws \InvalidArgumentException For unknown values of $resizeFocus
      *
      * @return $this
-     *
-     * @api
      */
     public function setResizeFocus($resizeFocus = null)
     {
@@ -386,8 +357,6 @@ class ImageOptions
      * Radius used to crop the image.
      *
      * @return float|null
-     *
-     * @api
      */
     public function getRadius()
     {
@@ -402,8 +371,6 @@ class ImageOptions
      * @throws \InvalidArgumentException If $radius is negative
      *
      * @return $this
-     *
-     * @api
      */
     public function setRadius($radius = null)
     {
@@ -420,8 +387,6 @@ class ImageOptions
      * Returns the background color used when padding an image.
      *
      * @return string|null
-     *
-     * @api
      */
     public function getBackgroundColor()
     {
@@ -438,8 +403,6 @@ class ImageOptions
      * @throws \InvalidArgumentException if the $backgroundColor is not in hexadecimal format
      *
      * @return $this
-     *
-     * @api
      */
     public function setBackgroundColor($backgroundColor = null)
     {
