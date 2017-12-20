@@ -1,6 +1,13 @@
 #!/usr/bin/env php
 <?php
 
+/**
+ * This file is part of the contentful.php package.
+ *
+ * @copyright 2015-2017 Contentful GmbH
+ * @license   MIT
+ */
+
 $paths = [
     __DIR__.'/../vendor/autoload.php', // locally
     __DIR__.'/../../../autoload.php' // dependency
@@ -12,5 +19,5 @@ foreach ($paths as $path) {
     }
 }
 
-$application = new Contentful\Console\Application;
+$application = new Contentful\Console\Application();
 $application->run();
