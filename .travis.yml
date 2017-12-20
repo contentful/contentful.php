@@ -22,6 +22,7 @@ branches:
 before_install:
  - if [ "${TRAVIS_PHP_VERSION:0:3}" == "5.5" ]; then PHPUNIT_VERSION=4.8; else PHPUNIT_VERSION=5.7; fi
  - wget -O phpunit.phar https://phar.phpunit.de/phpunit-${PHPUNIT_VERSION}.phar
+ - wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -O php-cs-fixer.phar
 
 install:
   - composer self-update
@@ -30,6 +31,7 @@ install:
 script:
  - vendor/bin/parallel-lint src/
  - vendor/bin/parallel-lint tests/
+ - if [ "${TRAVIS_PHP_VERSION:0:3}" != "5.5" ]; then php php-cs-fixer.phar fix --dry-run -v; fi
  - php phpunit.phar -v
 
 after_success:
