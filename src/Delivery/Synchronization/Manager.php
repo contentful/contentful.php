@@ -18,8 +18,6 @@ use Contentful\Delivery\ResourceBuilder;
  * It provides notifications about added, updated and deleted assets and entries.
  *
  * @see https://www.contentful.com/developers/docs/concepts/sync/ Sync API
- *
- * @api
  */
 class Manager
 {
@@ -48,8 +46,6 @@ class Manager
      * @param bool            $preview
      *
      * @see \Contentful\Delivery\Client::getSynchronizationManager()
-     *
-     * @internal
      */
     public function __construct(Client $client, ResourceBuilder $builder, $preview)
     {
@@ -68,8 +64,6 @@ class Manager
      * @param Query|null $query
      *
      * @return Result
-     *
-     * @api
      */
     public function startSync(Query $query = null)
     {
@@ -87,8 +81,6 @@ class Manager
      * @throws \RuntimeException if this method is used for a subsequent sync when used with the Preview API
      *
      * @return Result
-     *
-     * @api
      */
     public function continueSync($token)
     {

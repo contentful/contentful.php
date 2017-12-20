@@ -11,8 +11,6 @@ namespace Contentful;
 
 /**
  * The Location class encodes a geographic Location based on latitude and longitude.
- *
- * @api
  */
 class Location implements \JsonSerializable
 {
@@ -29,8 +27,6 @@ class Location implements \JsonSerializable
     /**
      * @param float $latitude
      * @param float $longitude
-     *
-     * @api
      */
     public function __construct($latitude, $longitude)
     {
@@ -42,8 +38,6 @@ class Location implements \JsonSerializable
      * Returns the latitude.
      *
      * @return float
-     *
-     * @api
      */
     public function getLatitude()
     {
@@ -54,8 +48,6 @@ class Location implements \JsonSerializable
      * Returns the longitude.
      *
      * @return float
-     *
-     * @api
      */
     public function getLongitude()
     {
@@ -68,8 +60,6 @@ class Location implements \JsonSerializable
      * @return object
      *
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
-     *
-     * @api
      */
     public function jsonSerialize()
     {
@@ -80,8 +70,6 @@ class Location implements \JsonSerializable
      * Format the encoded value as required by the Contentful API.
      *
      * @return string
-     *
-     * @api
      */
     public function queryStringFormatted()
     {

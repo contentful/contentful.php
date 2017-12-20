@@ -13,8 +13,6 @@ namespace Contentful;
  * A ResourceArray holds the response of an API request if more than one resource has been requested.
  *
  * In addition to the retrieved items themselves it also provides some access to metadata.
- *
- * @api
  */
 class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \JsonSerializable
 {
@@ -58,8 +56,6 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * Returns the total amount of resources matching the filter.
      *
      * @return int
-     *
-     * @api
      */
     public function getTotal()
     {
@@ -70,8 +66,6 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * The limit used when retrieving this ResourceArray.
      *
      * @return int
-     *
-     * @api
      */
     public function getLimit()
     {
@@ -82,8 +76,6 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * The number of skipped resources when retrieving this  ResourceArray.
      *
      * @return int
-     *
-     * @api
      */
     public function getSkip()
     {
@@ -94,8 +86,6 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * Get the returned values as a PHP array.
      *
      * @return array
-     *
-     * @api
      */
     public function getItems()
     {
@@ -108,8 +98,6 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return object
      *
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
-     *
-     * @api
      */
     public function jsonSerialize()
     {
@@ -130,8 +118,6 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return int
      *
      * @see http://php.net/manual/en/countable.count.php Countable::count
-     *
-     * @api
      */
     public function count()
     {
@@ -144,8 +130,6 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return \Traversable
      *
      * @see http://php.net/manual/en/iteratoraggregate.getiterator.php IteratorAggregate::getIterator
-     *
-     * @api
      */
     public function getIterator()
     {
@@ -158,8 +142,6 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return bool
      *
      * @see http://php.net/manual/en/arrayaccess.offsetexists.php ArrayAccess::offsetExists
-     *
-     * @api
      */
     public function offsetExists($offset)
     {
@@ -172,8 +154,6 @@ class ResourceArray implements \Countable, \ArrayAccess, \IteratorAggregate, \Js
      * @return mixed
      *
      * @see http://php.net/manual/en/arrayaccess.offsetget.php ArrayAccess::offsetGet
-     *
-     * @api
      */
     public function offsetGet($offset)
     {

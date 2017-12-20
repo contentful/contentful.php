@@ -16,8 +16,6 @@ use Symfony\Component\Console\Application as AbstractApplication;
 
 /**
  * CLI Application with Helpers for the Contentful SDK.
- *
- * @internal
  */
 class Application extends AbstractApplication
 {

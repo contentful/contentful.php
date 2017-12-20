@@ -6,7 +6,6 @@
  * @copyright 2015-2017 Contentful GmbH
  * @license   MIT
  */
-
 $travisRepoSlug = \getenv('TRAVIS_REPO_SLUG');
 $indexFile = $argv[1];
 

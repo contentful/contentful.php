@@ -11,8 +11,6 @@ namespace Contentful\Exception;
 
 /**
  * A SpaceMismatchException is thrown when attempting to create a Resource for a different Space than the one configured for the client.
- *
- * @api
  */
 class SpaceMismatchException extends \RuntimeException
 {

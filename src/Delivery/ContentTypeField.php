@@ -11,8 +11,6 @@ namespace Contentful\Delivery;
 
 /**
  * A ContentTypeField describes one field of a ContentType. This includes essential information for the display of the field's value.
- *
- * @api
  */
 class ContentTypeField implements \JsonSerializable
 {
@@ -130,8 +128,6 @@ class ContentTypeField implements \JsonSerializable
      * This is the internal identifier of the content type and is unique in the space.
      *
      * @return string
-     *
-     * @api
      */
     public function getId()
     {
@@ -144,8 +140,6 @@ class ContentTypeField implements \JsonSerializable
      * This is a human friendly name shown to the user.
      *
      * @return string
-     *
-     * @api
      */
     public function getName()
     {
@@ -167,8 +161,6 @@ class ContentTypeField implements \JsonSerializable
      * - Object
      *
      * @return string
-     *
-     * @api
      */
     public function getType()
     {
@@ -183,8 +175,6 @@ class ContentTypeField implements \JsonSerializable
      * - Entry
      *
      * @return string|null
-     *
-     * @api
      */
     public function getLinkType()
     {
@@ -195,8 +185,6 @@ class ContentTypeField implements \JsonSerializable
      * Returns true if this field is required.
      *
      * @return bool
-     *
-     * @api
      */
     public function isRequired()
     {
@@ -207,8 +195,6 @@ class ContentTypeField implements \JsonSerializable
      * Returns true if the field contains locale dependent content.
      *
      * @return bool
-     *
-     * @api
      */
     public function isLocalized()
     {
@@ -221,8 +207,6 @@ class ContentTypeField implements \JsonSerializable
      * Disabled fields are part of the API responses but not accessible trough the PHP SDK.
      *
      * @return bool
-     *
-     * @api
      */
     public function isDisabled()
     {
@@ -243,8 +227,6 @@ class ContentTypeField implements \JsonSerializable
      * - Object
      *
      * @return string|null
-     *
-     * @api
      */
     public function getItemsType()
     {
@@ -259,8 +241,6 @@ class ContentTypeField implements \JsonSerializable
      * - Entry
      *
      * @return string|null
-     *
-     * @api
      */
     public function getItemsLinkType()
     {
@@ -273,8 +253,6 @@ class ContentTypeField implements \JsonSerializable
      * @return object
      *
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
-     *
-     * @api
      */
     public function jsonSerialize()
     {

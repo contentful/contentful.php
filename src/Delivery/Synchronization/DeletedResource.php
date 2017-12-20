@@ -35,8 +35,6 @@ abstract class DeletedResource implements \JsonSerializable
      * Returns the ID of the resource.
      *
      * @return string
-     *
-     * @api
      */
     public function getId()
     {
@@ -47,8 +45,6 @@ abstract class DeletedResource implements \JsonSerializable
      * Returns the space the resource used to belong to.
      *
      * @return \Contentful\Delivery\Space
-     *
-     * @api
      */
     public function getSpace()
     {
@@ -59,8 +55,6 @@ abstract class DeletedResource implements \JsonSerializable
      * Returns the last revision of the resource before it was deleted.
      *
      * @return int
-     *
-     * @api
      */
     public function getRevision()
     {
@@ -71,8 +65,6 @@ abstract class DeletedResource implements \JsonSerializable
      * Returns the time when the resource was updated.
      *
      * @return \DateTimeImmutable
-     *
-     * @api
      */
     public function getUpdatedAt()
     {
@@ -83,8 +75,6 @@ abstract class DeletedResource implements \JsonSerializable
      * Returns the time when the resource was created.
      *
      * @return \DateTimeImmutable
-     *
-     * @api
      */
     public function getCreatedAt()
     {
@@ -95,8 +85,6 @@ abstract class DeletedResource implements \JsonSerializable
      * Returns the time when the resource was deleted.
      *
      * @return \DateTimeImmutable
-     *
-     * @api
      */
     public function getDeletedAt()
     {
@@ -109,8 +97,6 @@ abstract class DeletedResource implements \JsonSerializable
      * @return object
      *
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
-     *
-     * @api
      */
     public function jsonSerialize()
     {

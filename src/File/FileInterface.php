@@ -15,8 +15,6 @@ interface FileInterface extends \JsonSerializable
      * The name of this file.
      *
      * @return string
-     *
-     * @api
      */
     public function getFileName();
 
@@ -24,8 +22,6 @@ interface FileInterface extends \JsonSerializable
      * The Content- (or MIME-)Type of this file.
      *
      * @return string
-     *
-     * @api
      */
     public function getContentType();
 }

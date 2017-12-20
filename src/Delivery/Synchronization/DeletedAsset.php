@@ -11,8 +11,6 @@ namespace Contentful\Delivery\Synchronization;
 
 /**
  * A DeletedAsset describes an asset that has been deleted.
- *
- * @api
  */
 class DeletedAsset extends DeletedResource
 {
