@@ -51,66 +51,66 @@ class Asset extends LocalizedResource implements \JsonSerializable
     /**
      * The title of the asset.
      *
-     * @param  Locale|string|null $locale
+     * @param Locale|string|null $locale
+     *
+     * @throws \InvalidArgumentException when $locale is not one of the locales supported by the space
      *
      * @return string|null
-     *
-     * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
      */
     public function getTitle($locale = null)
     {
         $localeCode = $this->getLocaleFromInput($locale);
 
         // This checks happens after the call to getLocaleFromInput to make sure the Exception for invalid locales is still thrown.
-        if ($this->title === null) {
+        if (null === $this->title) {
             return null;
         }
 
         $localeCode = $this->loopThroughFallbackChain($this->title, $localeCode, $this->getSpace());
 
-        return $localeCode === null ? null : $this->title[$localeCode];
+        return null === $localeCode ? null : $this->title[$localeCode];
     }
 
     /**
-     * @param  Locale|string|null $locale
+     * @param Locale|string|null $locale
+     *
+     * @throws \InvalidArgumentException when $locale is not one of the locales supported by the space
      *
      * @return string|null
-     *
-     * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
      */
     public function getDescription($locale = null)
     {
         $localeCode = $this->getLocaleFromInput($locale);
 
         // This checks happens after the call to getLocaleFromInput to make sure the Exception for invalid locales is still thrown.
-        if ($this->description === null) {
+        if (null === $this->description) {
             return null;
         }
 
         $localeCode = $this->loopThroughFallbackChain($this->description, $localeCode, $this->getSpace());
 
-        return $localeCode === null ? null : $this->description[$localeCode];
+        return null === $localeCode ? null : $this->description[$localeCode];
     }
 
     /**
-     * @param  Locale|string|null $locale
+     * @param Locale|string|null $locale
+     *
+     * @throws \InvalidArgumentException when $locale is not one of the locales supported by the space
      *
      * @return FileInterface
-     *
-     * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space.
      */
     public function getFile($locale = null)
     {
         $localeCode = $this->getLocaleFromInput($locale);
 
         // This checks happens after the call to getLocaleFromInput to make sure the Exception for invalid locales is still thrown.
-        if ($this->file === null) {
+        if (null === $this->file) {
             return null;
         }
 
         $localeCode = $this->loopThroughFallbackChain($this->file, $localeCode, $this->getSpace());
 
-        return $localeCode === null ? null : $this->file[$localeCode];
+        return null === $localeCode ? null : $this->file[$localeCode];
     }
 
     /**
@@ -188,9 +188,9 @@ class Asset extends LocalizedResource implements \JsonSerializable
 
         $obj = (object) [
             'fields' => (object) [],
-            'sys' => $this->sys
+            'sys' => $this->sys,
         ];
-        if ($this->file !== null) {
+        if (null !== $this->file) {
             if ($entryLocale) {
                 $obj->fields->file = $this->file[$entryLocale];
             } else {
@@ -198,7 +198,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
             }
         }
 
-        if ($this->title !== null) {
+        if (null !== $this->title) {
             if ($entryLocale) {
                 $obj->fields->title = $this->title[$entryLocale];
             } else {
@@ -206,7 +206,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
             }
         }
 
-        if ($this->description !== null) {
+        if (null !== $this->description) {
             if ($entryLocale) {
                 $obj->fields->description = $this->description[$entryLocale];
             } else {

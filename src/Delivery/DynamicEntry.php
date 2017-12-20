@@ -34,7 +34,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     /**
      * Entry constructor.
      *
-     * @param array           $fields
+     * @param array            $fields
      * @param SystemProperties $sys
      * @param Client|null      $client
      */
@@ -79,46 +79,46 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * @param  string $name
-     * @param  array  $arguments
+     * @param string $name
+     * @param array  $arguments
      *
      * @return mixed
      */
     public function __call($name, $arguments)
     {
-        if (0 !== strpos($name, 'get')) {
-            trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+        if (0 !== \mb_strpos($name, 'get')) {
+            \trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', E_USER_ERROR);
         }
         $locale = $this->getLocaleFromInput(isset($arguments[0]) ? $arguments[0] : null);
 
-        $fieldName = substr($name, 3);
+        $fieldName = \mb_substr($name, 3);
         $getId = false;
 
         $fieldConfig = $this->getFieldConfigForName($fieldName);
         // If the field name doesn't exist, that might be because we're looking for the ID of reference, try that next.
-        if ($fieldConfig === null && substr($fieldName, -2) === 'Id') {
-            $fieldName = substr($fieldName, 0, -2);
+        if (null === $fieldConfig && 'Id' === \mb_substr($fieldName, -2)) {
+            $fieldName = \mb_substr($fieldName, 0, -2);
             $fieldConfig = $this->getFieldConfigForName($fieldName);
             $getId = true;
         }
 
-        if ($fieldConfig === null) {
-            trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+        if (null === $fieldConfig) {
+            \trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', E_USER_ERROR);
         }
 
         // Since DynamicEntry::getFieldForName manipulates the field name let's make sure we got the correct one
         $fieldName = $fieldConfig->getId();
 
         if (!isset($this->fields[$fieldName])) {
-            if ($fieldConfig->getType() === 'Array') {
+            if ('Array' === $fieldConfig->getType()) {
                 return [];
             }
 
             return null;
         }
 
-        if ($getId && !($fieldConfig->getType() === 'Link' || ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link'))) {
-            trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+        if ($getId && !('Link' === $fieldConfig->getType() || ('Array' === $fieldConfig->getType() && 'Link' === $fieldConfig->getItemsType()))) {
+            \trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', E_USER_ERROR);
         }
 
         $value = $this->fields[$fieldName];
@@ -130,13 +130,13 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             $locale = $this->loopThroughFallbackChain($value, $locale, $this->getSpace());
 
             // We've reach the end of the fallback chain and there's no value
-            if ($locale === null) {
+            if (null === $locale) {
                 return null;
             }
         }
 
         $result = $value[$locale];
-        if ($getId && $fieldConfig->getType() === 'Link') {
+        if ($getId && 'Link' === $fieldConfig->getType()) {
             return $result->getId();
         }
 
@@ -144,12 +144,12 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             return $this->resolveLinkWithCache($result);
         }
 
-        if ($fieldConfig->getType() === 'Array' && $fieldConfig->getItemsType() === 'Link') {
+        if ('Array' === $fieldConfig->getType() && 'Link' === $fieldConfig->getItemsType()) {
             if ($getId) {
-                return array_map([$this, 'mapIdValues'], $result);
+                return \array_map([$this, 'mapIdValues'], $result);
             }
 
-            return array_filter(array_map([$this, 'mapValues'], $result), function ($value) {
+            return \array_filter(\array_map([$this, 'mapValues'], $result), function ($value) {
                 return !$value instanceof \Exception;
             });
         }
@@ -160,13 +160,13 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     /**
      * Resolves a Link into an Entry or Asset. Resolved links are cached local to the object.
      *
-     * @param  Link $link
+     * @param Link $link
      *
      * @return Asset|EntryInterface|null
      */
     private function resolveLinkWithCache(Link $link)
     {
-        $cacheId = $link->getLinkType() . '-' . $link->getId();
+        $cacheId = $link->getLinkType().'-'.$link->getId();
         if (isset($this->resolvedLinks[$cacheId])) {
             return $this->resolvedLinks[$cacheId];
         }
@@ -180,16 +180,16 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * @param  string $fieldName
+     * @param string $fieldName
      *
      * @return ContentTypeField|null
      */
     private function getFieldConfigForName($fieldName)
     {
         // Let's try the lower case version first, it's the more common one
-        $field = $this->getContentType()->getField(lcfirst($fieldName));
+        $field = $this->getContentType()->getField(\lcfirst($fieldName));
 
-        if ($field !== null) {
+        if (null !== $field) {
             return $field;
         }
 
@@ -197,7 +197,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * @param  mixed $value
+     * @param mixed $value
      *
      * @return mixed
      */
@@ -215,7 +215,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * @param  Link|DynamicEntry|Asset $value
+     * @param Link|DynamicEntry|Asset $value
      *
      * @return string
      */
@@ -225,9 +225,9 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * @param  mixed $value
-     * @param  string $type
-     * @param  string $linkType
+     * @param mixed  $value
+     * @param string $type
+     * @param string $linkType
      *
      * @return mixed
      */
@@ -249,17 +249,17 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
                     'sys' => (object) [
                         'type' => 'Link',
                         'linkType' => $linkType,
-                        'id' => $value->getId()
-                    ]
+                        'id' => $value->getId(),
+                    ],
                 ] : null;
             default:
-                throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encountered while trying to serialize to JSON.');
+                throw new \InvalidArgumentException('Unexpected field type "'.$type.'" encountered while trying to serialize to JSON.');
         }
     }
 
     /**
-     * @param  mixed $value
-     * @param  ContentTypeField $fieldConfig
+     * @param mixed            $value
+     * @param ContentTypeField $fieldConfig
      *
      * @return mixed
      */
@@ -267,8 +267,8 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     {
         $type = $fieldConfig->getType();
 
-        if ($type === 'Array') {
-            return array_map(function ($value) use ($fieldConfig) {
+        if ('Array' === $type) {
+            return \array_map(function ($value) use ($fieldConfig) {
                 return $this->formatSimpleValueForJson($value, $fieldConfig->getItemsType(), $fieldConfig->getItemsLinkType());
             }, $value);
         }
@@ -280,10 +280,10 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     {
         $entryLocale = $this->sys->getLocale();
 
-        $fields = new \stdClass;
+        $fields = new \stdClass();
         $contentType = $this->getContentType();
         foreach ($this->fields as $fieldName => $fieldData) {
-            $fields->$fieldName = new \stdClass;
+            $fields->$fieldName = new \stdClass();
             $fieldConfig = $contentType->getField($fieldName);
             if ($entryLocale) {
                 $fields->$fieldName = $this->formatValueForJson($fieldData[$entryLocale], $fieldConfig);
@@ -296,7 +296,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
 
         return (object) [
             'sys' => $this->sys,
-            'fields' => $fields
+            'fields' => $fields,
         ];
     }
 }

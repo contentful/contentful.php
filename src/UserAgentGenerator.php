@@ -97,50 +97,50 @@ class UserAgentGenerator
     {
         $possibleOperatingSystems = [
             'WINNT' => 'Windows',
-            'Darwin' => 'macOS'
+            'Darwin' => 'macOS',
         ];
 
         $parts = [
             'app' => '',
             'integration' => '',
-            'sdk' => $this->sdkName . '/' . $this->sdkVersion,
-            'platform' => 'PHP/' . \PHP_MAJOR_VERSION . '.' . \PHP_MINOR_VERSION . '.' . \PHP_RELEASE_VERSION,
-            'os' => isset($possibleOperatingSystems[PHP_OS]) ? $possibleOperatingSystems[PHP_OS] : 'Linux'
+            'sdk' => $this->sdkName.'/'.$this->sdkVersion,
+            'platform' => 'PHP/'.\PHP_MAJOR_VERSION.'.'.\PHP_MINOR_VERSION.'.'.\PHP_RELEASE_VERSION,
+            'os' => isset($possibleOperatingSystems[PHP_OS]) ? $possibleOperatingSystems[PHP_OS] : 'Linux',
         ];
 
-        if ($this->applicationName !== null) {
+        if (null !== $this->applicationName) {
             $parts['app'] = $this->applicationName;
-            if ($this->applicationVersion !== null) {
-                $parts['app'] .= '/' . $this->applicationVersion;
+            if (null !== $this->applicationVersion) {
+                $parts['app'] .= '/'.$this->applicationVersion;
             }
         }
 
-        if ($this->integrationName !== null) {
+        if (null !== $this->integrationName) {
             $parts['integration'] = $this->integrationName;
-            if ($this->integrationVersion !== null) {
-                $parts['integration'] .= '/' . $this->integrationVersion;
+            if (null !== $this->integrationVersion) {
+                $parts['integration'] .= '/'.$this->integrationVersion;
             }
         }
 
         $agent = '';
         foreach ($parts as $key => $value) {
-            if ($value === '') {
+            if ('' === $value) {
                 continue;
             }
-            $agent .= $key . ' ' . $value . '; ';
+            $agent .= $key.' '.$value.'; ';
         }
 
-        $this->cachedUserAgent = trim($agent);
+        $this->cachedUserAgent = \trim($agent);
     }
 
     /**
-     * Returns the value of the User-Agent header for any requests made to Contentful
+     * Returns the value of the User-Agent header for any requests made to Contentful.
      *
      * @return string
      */
     public function getUserAgent()
     {
-        if ($this->cachedUserAgent === null) {
+        if (null === $this->cachedUserAgent) {
             $this->generate();
         }
 

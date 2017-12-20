@@ -6,8 +6,8 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\ResourceArray;
 use Contentful\Delivery\ContentType;
+use Contentful\ResourceArray;
 use Contentful\Tests\Delivery\End2EndTestCase;
 
 class ContentTypeBasicTest extends End2EndTestCase
@@ -34,6 +34,6 @@ class ContentTypeBasicTest extends End2EndTestCase
         $contentType = $client->getContentType('cat');
 
         $this->assertInstanceOf(ContentType::class, $contentType);
-        $this->assertEquals('cat', $contentType->getId());
+        $this->assertSame('cat', $contentType->getId());
     }
 }

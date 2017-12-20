@@ -7,9 +7,9 @@
 namespace Contentful\Tests\Unit\Delivery\Synchronization;
 
 use Contentful\Delivery\ContentType;
+use Contentful\Delivery\Space;
 use Contentful\Delivery\Synchronization\DeletedEntry;
 use Contentful\Delivery\Synchronization\DeletedResource;
-use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
 
 class DeletedResourceTest extends \PHPUnit_Framework_TestCase
@@ -26,17 +26,17 @@ class DeletedResourceTest extends \PHPUnit_Framework_TestCase
             $space,
             null,
             1,
-            new \DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            new \DateTimeImmutable('2014-08-12T08:30:42.559Z'),
-            new \DateTimeImmutable('2014-08-13T08:30:42.559Z')
+            $createdAt = new \DateTimeImmutable('2014-08-11T08:30:42.559Z'),
+            $updatedAt = new \DateTimeImmutable('2014-08-12T08:30:42.559Z'),
+            $deletedAt = new \DateTimeImmutable('2014-08-13T08:30:42.559Z')
         ));
 
-        $this->assertEquals('4rPdazIwWkuuKEAQgemSmO', $resource->getId());
-        $this->assertEquals($space, $resource->getSpace());
-        $this->assertEquals(1, $resource->getRevision());
-        $this->assertEquals(new \DateTimeImmutable('2014-08-11T08:30:42.559Z'), $resource->getCreatedAt());
-        $this->assertEquals(new \DateTimeImmutable('2014-08-12T08:30:42.559Z'), $resource->getUpdatedAt());
-        $this->assertEquals(new \DateTimeImmutable('2014-08-13T08:30:42.559Z'), $resource->getDeletedAt());
+        $this->assertSame('4rPdazIwWkuuKEAQgemSmO', $resource->getId());
+        $this->assertSame($space, $resource->getSpace());
+        $this->assertSame(1, $resource->getRevision());
+        $this->assertSame($createdAt, $resource->getCreatedAt());
+        $this->assertSame($updatedAt, $resource->getUpdatedAt());
+        $this->assertSame($deletedAt, $resource->getDeletedAt());
     }
 
     public function testContentTypeDeletedEntry()
@@ -73,7 +73,7 @@ class DeletedResourceTest extends \PHPUnit_Framework_TestCase
             new \DateTimeImmutable('2014-08-13T08:30:42.559Z')
         ));
 
-        $this->assertEquals($ct, $deletedEntry->getContentType());
+        $this->assertSame($ct, $deletedEntry->getContentType());
     }
 
     public function testJsonSerialize()
@@ -98,7 +98,7 @@ class DeletedResourceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertJsonStringEqualsJsonString(
             '{"sys": {"type": "DeletedEntry","id": "4rPdazIwWkuuKEAQgemSmO","space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"revision": 1,"createdAt": "2014-08-11T08:30:42.559Z","updatedAt": "2014-08-12T08:30:42.559Z","deletedAt": "2014-08-13T08:30:42.559Z"}}',
-            json_encode($resource));
+            \json_encode($resource));
     }
 }
 

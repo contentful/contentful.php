@@ -49,8 +49,8 @@ class LogEntry implements \Serializable
      */
     public function __construct($api, RequestInterface $request, $duration, ResponseInterface $response = null, \Exception $exception = null)
     {
-        if (!in_array($api, ['DELIVERY', 'PREVIEW', 'MANAGEMENT'], true)) {
-            throw new \InvalidArgumentException('Unknown API type "' . $api . '"');
+        if (!\in_array($api, ['DELIVERY', 'PREVIEW', 'MANAGEMENT'], true)) {
+            throw new \InvalidArgumentException('Unknown API type "'.$api.'"');
         }
 
         $this->api = $api;
@@ -77,19 +77,19 @@ class LogEntry implements \Serializable
         do {
             $trace = $traceProperty->getValue($exception);
 
-            array_walk_recursive($trace, function (&$value) {
+            \array_walk_recursive($trace, function (&$value) {
                 if ($value instanceof \Closure) {
                     $closureReflection = new \ReflectionFunction($value);
 
-                    $value = sprintf(
+                    $value = \sprintf(
                         '(Closure in file %s at line %s)',
                         $closureReflection->getFileName(),
                         $closureReflection->getStartLine()
                     );
-                } elseif (is_object($value)) {
-                    $value = sprintf('object(%s)', get_class($value));
-                } elseif (is_resource($value)) {
-                    $value = sprintf('resource(%s)', get_resource_type($value));
+                } elseif (\is_object($value)) {
+                    $value = \sprintf('object(%s)', \get_class($value));
+                } elseif (\is_resource($value)) {
+                    $value = \sprintf('resource(%s)', \get_resource_type($value));
                 }
             });
 
@@ -144,7 +144,7 @@ class LogEntry implements \Serializable
      */
     public function isError()
     {
-        return $this->exception !== null;
+        return null !== $this->exception;
     }
 
     public function serialize()
@@ -154,19 +154,19 @@ class LogEntry implements \Serializable
             'duration' => $this->duration,
             'exception' => $this->exception,
             'request' => \GuzzleHttp\Psr7\str($this->request),
-            'response' => null
+            'response' => null,
         ];
 
-        if ($this->response !== null) {
+        if (null !== $this->response) {
             $data['response'] = \GuzzleHttp\Psr7\str($this->response);
         }
 
-        return serialize((object) $data);
+        return \serialize((object) $data);
     }
 
     public function unserialize($serialized)
     {
-        $data = unserialize($serialized);
+        $data = \unserialize($serialized);
 
         $this->api = $data->api;
         $this->duration = $data->duration;
@@ -174,7 +174,7 @@ class LogEntry implements \Serializable
         $this->request = \GuzzleHttp\Psr7\parse_request($data->request);
         $this->response = null;
 
-        if ($data->response !== null) {
+        if (null !== $data->response) {
             $this->response = \GuzzleHttp\Psr7\parse_response($data->response);
         }
     }

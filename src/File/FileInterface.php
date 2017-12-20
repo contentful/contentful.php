@@ -9,7 +9,7 @@ namespace Contentful\File;
 interface FileInterface extends \JsonSerializable
 {
     /**
-     * The name of this file
+     * The name of this file.
      *
      * @return string
      *

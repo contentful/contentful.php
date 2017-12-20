@@ -33,7 +33,7 @@ class ArrayLogger implements LoggerInterface
      */
     public function getTimer()
     {
-        return new StandardTimer;
+        return new StandardTimer();
     }
 
     /**
@@ -54,8 +54,6 @@ class ArrayLogger implements LoggerInterface
      * @param TimerInterface         $timer
      * @param ResponseInterface|null $response
      * @param \Exception|null        $exception
-     *
-     * @return void
      *
      * @throws \InvalidArgumentException When $api is an unrecognized value
      */

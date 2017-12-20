@@ -31,7 +31,7 @@ class NotFoundExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($exception->hasResponse());
         $this->assertSame($request, $exception->getRequest());
         $this->assertSame($response, $exception->getResponse());
-        $this->assertEquals('db2d795acb78e0592af00759986c744b', $exception->getRequestId());
-        $this->assertEquals('The resource could not be found.', $exception->getMessage());
+        $this->assertSame('db2d795acb78e0592af00759986c744b', $exception->getRequestId());
+        $this->assertSame('The resource could not be found.', $exception->getMessage());
     }
 }

@@ -36,9 +36,6 @@ class NullTimer implements TimerInterface
         return false;
     }
 
-    /**
-     * @return null
-     */
     public function getDuration()
     {
         return null;

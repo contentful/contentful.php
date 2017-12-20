@@ -6,10 +6,10 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\File\ImageFile;
-use Contentful\Delivery\Query;
-use Contentful\ResourceArray;
 use Contentful\Delivery\Asset;
+use Contentful\Delivery\Query;
+use Contentful\File\ImageFile;
+use Contentful\ResourceArray;
 use Contentful\Tests\Delivery\End2EndTestCase;
 
 class AssetBasicTest extends End2EndTestCase
@@ -50,7 +50,7 @@ class AssetBasicTest extends End2EndTestCase
         $asset = $client->getAsset('nyancat', '*');
 
         $this->assertInstanceOf(Asset::class, $asset);
-        $this->assertEquals('nyancat', $asset->getId());
+        $this->assertSame('nyancat', $asset->getId());
         $this->assertInstanceOf(ImageFile::class, $asset->getFile());
     }
 
@@ -64,6 +64,6 @@ class AssetBasicTest extends End2EndTestCase
         $asset = $client->getAsset('nyancat');
 
         $this->assertInstanceOf(Asset::class, $asset);
-        $this->assertEquals('nyancat', $asset->getId());
+        $this->assertSame('nyancat', $asset->getId());
     }
 }

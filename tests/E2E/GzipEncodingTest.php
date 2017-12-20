@@ -26,9 +26,9 @@ class GzipEncodingTest extends End2EndTestCase
 
         $logEntry = $logger->getLogs()[0];
 
-        $this->assertEquals('gzip', $logEntry->getRequest()->getHeaderLine('Accept-Encoding'));
+        $this->assertSame('gzip', $logEntry->getRequest()->getHeaderLine('Accept-Encoding'));
 
         // Need to check 'X-Encoded-Content-Encoding' as curl is automatically decompressing the response
-        $this->assertEquals('gzip', $logEntry->getResponse()->getHeaderLine('X-Encoded-Content-Encoding'));
+        $this->assertSame('gzip', $logEntry->getResponse()->getHeaderLine('X-Encoded-Content-Encoding'));
     }
 }

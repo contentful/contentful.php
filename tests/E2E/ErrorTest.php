@@ -60,7 +60,7 @@ class ErrorTest extends End2EndTestCase
         $query = new Query();
 
         try {
-            for ($i = 1; $i < 25; $i++) {
+            for ($i = 1; $i < 25; ++$i) {
                 $query->setLimit($i);
                 $client->getEntries($query);
             }

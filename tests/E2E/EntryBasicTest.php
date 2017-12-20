@@ -6,10 +6,10 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\ResourceArray;
-use Contentful\Delivery\DynamicEntry;
 use Contentful\Delivery\Asset;
+use Contentful\Delivery\DynamicEntry;
 use Contentful\Delivery\Query;
+use Contentful\ResourceArray;
 use Contentful\Tests\Delivery\End2EndTestCase;
 
 /**
@@ -53,7 +53,7 @@ class EntryBasicTest extends End2EndTestCase
         $entry = $client->getEntry('nyancat', '*');
 
         $this->assertInstanceOf(DynamicEntry::class, $entry);
-        $this->assertEquals('nyancat', $entry->getId());
+        $this->assertSame('nyancat', $entry->getId());
     }
 
     /**
@@ -66,7 +66,7 @@ class EntryBasicTest extends End2EndTestCase
         $entry = $client->getEntry('nyancat');
 
         $this->assertInstanceOf(DynamicEntry::class, $entry);
-        $this->assertEquals('nyancat', $entry->getId());
+        $this->assertSame('nyancat', $entry->getId());
     }
 
     /**
@@ -80,12 +80,12 @@ class EntryBasicTest extends End2EndTestCase
         $bestFriend = $entry->getBestFriend();
 
         $this->assertInstanceOf(DynamicEntry::class, $entry);
-        $this->assertEquals('happycat', $bestFriend->getId());
+        $this->assertSame('happycat', $bestFriend->getId());
 
         $image = $entry->getImage();
 
         $this->assertInstanceOf(Asset::class, $image);
-        $this->assertEquals('nyancat', $image->getId());
+        $this->assertSame('nyancat', $image->getId());
     }
 
     /**
@@ -99,12 +99,12 @@ class EntryBasicTest extends End2EndTestCase
         $bestFriend = $nyancat->getBestFriend();
 
         // Locally it's cached
-        $this->assertEquals('happycat', $bestFriend->getId());
+        $this->assertSame('happycat', $bestFriend->getId());
         $this->assertSame($bestFriend, $nyancat->getBestFriend());
 
         // but not globally
         $happycat = $client->getEntry('happycat');
-        $this->assertEquals($bestFriend->getId(), $happycat->getId());
+        $this->assertSame($bestFriend->getId(), $happycat->getId());
         $this->assertNotSame($bestFriend, $happycat);
     }
 
@@ -115,13 +115,13 @@ class EntryBasicTest extends End2EndTestCase
     {
         $client = $this->getClient('cfexampleapi');
 
-        $query = (new Query)
+        $query = (new Query())
             ->where('sys.id', 'nyancat');
         $nyancat = $client->getEntries($query)[0];
         $bestFriend = $nyancat->getBestFriend();
         $bestFriendsBestFriend = $bestFriend->getBestFriend();
 
-        $this->assertEquals('nyancat', $bestFriendsBestFriend->getId());
+        $this->assertSame('nyancat', $bestFriendsBestFriend->getId());
         $this->assertSame($nyancat, $bestFriendsBestFriend);
     }
 
@@ -133,12 +133,12 @@ class EntryBasicTest extends End2EndTestCase
         $client = $this->getClient('cfexampleapi_logger');
         $logger = $client->getLogger();
 
-        $query = (new Query)
+        $query = (new Query())
             ->where('sys.id', 'nyancat');
         $nyancat = $client->getEntries($query)[0];
         $image = $nyancat->getImage();
 
-        $this->assertEquals('nyancat', $image->getId());
+        $this->assertSame('nyancat', $image->getId());
 
         // There should be 3 and only 3 requests: the entries with the query, the space and the cat content type
         $this->assertCount(3, $logger->getLogs());

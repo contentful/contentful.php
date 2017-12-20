@@ -56,7 +56,7 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
 
         $obj = $this->client->reviveJson($json);
 
-        $this->assertJsonStringEqualsJsonString($json, json_encode($obj));
+        $this->assertJsonStringEqualsJsonString($json, \json_encode($obj));
     }
 
     public function reviveJsonDataProvider()
@@ -80,7 +80,7 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
 
         $obj = $this->client->reviveJson($json);
 
-        $this->assertJsonStringEqualsJsonString($json, json_encode($obj));
+        $this->assertJsonStringEqualsJsonString($json, \json_encode($obj));
     }
 
     public function testReviveJsonEntry()
@@ -93,7 +93,7 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
         $this->client->reviveJson($ct);
         $obj = $this->client->reviveJson($json);
 
-        $this->assertJsonStringEqualsJsonString($json, json_encode($obj));
+        $this->assertJsonStringEqualsJsonString($json, \json_encode($obj));
     }
 
     public function testReviveJsonSingleLocaleEntry()
@@ -107,10 +107,10 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
         $this->client->reviveJson($ct);
 
         $enUsObj = $this->client->reviveJson($enUsJson);
-        $this->assertJsonStringEqualsJsonString($enUsJson, json_encode($enUsObj));
+        $this->assertJsonStringEqualsJsonString($enUsJson, \json_encode($enUsObj));
 
         $tlhObj = $this->client->reviveJson($tlhJson);
-        $this->assertJsonStringEqualsJsonString($tlhJson, json_encode($tlhObj));
+        $this->assertJsonStringEqualsJsonString($tlhJson, \json_encode($tlhObj));
     }
 
     public function testReviveJsonSingleLocaleAsset()
@@ -121,6 +121,6 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
         $enUsJson = '{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"id":"nyancat","type":"Asset","createdAt":"2013-09-02T14:56:34.240Z","updatedAt":"2013-09-02T14:56:34.240Z","revision":1,"locale":"en-US"},"fields":{"title":"Nyan Cat","file":{"url":"//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png","details":{"size":12273,"image":{"width":250,"height":250}},"fileName":"Nyan_cat_250px_frame.png","contentType":"image/png"}}}';
 
         $enUsObj = $this->client->reviveJson($enUsJson);
-        $this->assertJsonStringEqualsJsonString($enUsJson, json_encode($enUsObj));
+        $this->assertJsonStringEqualsJsonString($enUsJson, \json_encode($enUsObj));
     }
 }

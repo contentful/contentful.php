@@ -34,14 +34,14 @@ class CacheTest extends End2EndTestCase
         $clearer = new CacheClearer('cfexampleapi');
 
         $warmer->warmUp(self::$cacheDir);
-        $this->assertTrue($fs->exists(self::$cacheDir . '/cfexampleapi'));
-        $this->assertTrue($fs->exists(self::$cacheDir . '/cfexampleapi/space.json'));
+        $this->assertTrue($fs->exists(self::$cacheDir.'/cfexampleapi'));
+        $this->assertTrue($fs->exists(self::$cacheDir.'/cfexampleapi/space.json'));
 
-        $rawSpace = json_decode(file_get_contents(self::$cacheDir . '/cfexampleapi/space.json'), true);
-        $this->assertEquals('cfexampleapi', $rawSpace['sys']['id']);
+        $rawSpace = \json_decode(\file_get_contents(self::$cacheDir.'/cfexampleapi/space.json'), true);
+        $this->assertSame('cfexampleapi', $rawSpace['sys']['id']);
 
         $clearer->clear(self::$cacheDir);
-        $this->assertFalse($fs->exists(self::$cacheDir . '/cfexampleapi'));
+        $this->assertFalse($fs->exists(self::$cacheDir.'/cfexampleapi'));
 
         $this->clearCacheDir();
     }
@@ -55,8 +55,8 @@ class CacheTest extends End2EndTestCase
 
         $client = $this->getClient('cfexampleapi_cache', true);
 
-        $this->assertEquals('cfexampleapi', $client->getSpace()->getId());
-        $this->assertEquals('cat', $client->getContentType('cat')->getId());
+        $this->assertSame('cfexampleapi', $client->getSpace()->getId());
+        $this->assertSame('cat', $client->getContentType('cat')->getId());
 
         $this->clearCacheDir();
     }
@@ -75,8 +75,8 @@ class CacheTest extends End2EndTestCase
 
         $client = $this->getClient('cfexampleapi_cache', true);
 
-        $this->assertEquals('cfexampleapi', $client->getSpace()->getId());
-        $this->assertEquals('cat', $client->getContentType('cat')->getId());
+        $this->assertSame('cfexampleapi', $client->getSpace()->getId());
+        $this->assertSame('cat', $client->getContentType('cat')->getId());
 
         $this->clearCacheDir();
     }

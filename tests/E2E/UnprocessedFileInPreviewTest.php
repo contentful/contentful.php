@@ -6,9 +6,9 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Link;
-use Contentful\File\UploadFile;
 use Contentful\File\LocalUploadFile;
+use Contentful\File\UploadFile;
+use Contentful\Link;
 use Contentful\Tests\Delivery\End2EndTestCase;
 
 class UnprocessedFileInPreviewTest extends End2EndTestCase
@@ -26,8 +26,8 @@ class UnprocessedFileInPreviewTest extends End2EndTestCase
         $file = $asset->getFile();
 
         $this->assertInstanceOf(UploadFile::class, $file);
-        $this->assertEquals('fitzgerald', $file->getFileName());
-        $this->assertEquals(
+        $this->assertSame('fitzgerald', $file->getFileName());
+        $this->assertSame(
             'https://upload.wikimedia.org/wikipedia/commons/5/5c/F_Scott_Fitzgerald_1921.jpg',
             $file->getUpload()
         );
@@ -52,9 +52,9 @@ class UnprocessedFileInPreviewTest extends End2EndTestCase
         $file = $asset->getFile();
 
         $this->assertInstanceOf(LocalUploadFile::class, $file);
-        $this->assertEquals('Contentful', $file->getFileName());
-        $this->assertEquals('image/svg+xml', $file->getContentType());
+        $this->assertSame('Contentful', $file->getFileName());
+        $this->assertSame('image/svg+xml', $file->getContentType());
         $this->assertInstanceOf(Link::class, $file->getUploadFrom());
-        $this->assertEquals('Upload', $file->getUploadFrom()->getLinkType());
+        $this->assertSame('Upload', $file->getUploadFrom()->getLinkType());
     }
 }

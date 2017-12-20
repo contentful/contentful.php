@@ -16,7 +16,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
         $result = new Result($arr, 'token', false);
 
         $this->assertSame($arr, $result->getItems());
-        $this->assertEquals('token', $result->getToken());
+        $this->assertSame('token', $result->getToken());
         $this->assertFalse($result->isDone());
     }
 }

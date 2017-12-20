@@ -26,16 +26,16 @@ class RemoteUploadFileTest extends \PHPUnit_Framework_TestCase
 
     public function testGetter()
     {
-        $this->assertEquals('the_great_gatsby.txt', $this->file->getFileName());
-        $this->assertEquals('image/png', $this->file->getContentType());
-        $this->assertEquals('https://www.example.com/the_great_gatsby.txt', $this->file->getUpload());
+        $this->assertSame('the_great_gatsby.txt', $this->file->getFileName());
+        $this->assertSame('image/png', $this->file->getContentType());
+        $this->assertSame('https://www.example.com/the_great_gatsby.txt', $this->file->getUpload());
     }
 
     public function testJsonSerialize()
     {
         $this->assertJsonStringEqualsJsonString(
             '{"fileName":"the_great_gatsby.txt","contentType":"image/png","upload": "https://www.example.com/the_great_gatsby.txt"}',
-            json_encode($this->file)
+            \json_encode($this->file)
         );
     }
 }

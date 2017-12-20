@@ -48,7 +48,7 @@ class Location implements \JsonSerializable
     }
 
     /**
-     * Returns the longitude
+     * Returns the longitude.
      *
      * @return float
      *
@@ -82,6 +82,6 @@ class Location implements \JsonSerializable
      */
     public function queryStringFormatted()
     {
-        return $this->latitude . ',' . $this->longitude;
+        return $this->latitude.','.$this->longitude;
     }
 }

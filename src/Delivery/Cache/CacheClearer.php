@@ -18,7 +18,7 @@ class CacheClearer
     /**
      * CacheClearer constructor.
      *
-     * @param  string $spaceId ID of the space for which the cache should be cleared
+     * @param string $spaceId ID of the space for which the cache should be cleared
      */
     public function __construct($spaceId)
     {
@@ -26,11 +26,11 @@ class CacheClearer
     }
 
     /**
-     * @param  string $cacheDir
+     * @param string $cacheDir
      */
     public function clear($cacheDir)
     {
-        $spacePath = $cacheDir . '/' . $this->spaceId;
+        $spacePath = $cacheDir.'/'.$this->spaceId;
         $fs = new Filesystem();
 
         $fs->remove($spacePath);

@@ -9,22 +9,23 @@ namespace Contentful\Delivery\Synchronization;
 use Contentful\Delivery\ContentType;
 
 /**
- * A sync Query can be used to limit what type of resources and events should be synced
+ * A sync Query can be used to limit what type of resources and events should be synced.
  *
  * @see \Contentful\Delivery\Synchronization\Mananager Synchronization\Mananager
+ *
  * @api
  */
 class Query
 {
     /**
-     * Limit the sync to event to a specific type
+     * Limit the sync to event to a specific type.
      *
      * @var string
      */
     private $type = 'all';
 
     /**
-     * For entries, limit results to this content type
+     * For entries, limit results to this content type.
      *
      * @var string|null
      */
@@ -50,8 +51,8 @@ class Query
     {
         $data = [
             'initial' => true,
-            'type' => $this->type !== 'all' ? $this->type : null,
-            'content_type' => $this->contentType
+            'type' => 'all' !== $this->type ? $this->type : null,
+            'content_type' => $this->contentType,
         ];
 
         return $data;
@@ -66,7 +67,7 @@ class Query
      */
     public function getQueryString()
     {
-        return http_build_query($this->getQueryData(), '', '&', PHP_QUERY_RFC3986);
+        return \http_build_query($this->getQueryData(), '', '&', PHP_QUERY_RFC3986);
     }
 
     /**
@@ -82,19 +83,19 @@ class Query
      *  - DeletedAsset
      *  - DeletedEntry
      *
-     * @param  string|null $type
+     * @param string|null $type
+     *
+     * @throws \InvalidArgumentException when an invalid $type is set
      *
      * @return $this
-     *
-     * @throws \InvalidArgumentException When an invalid $type is set.
      *
      * @api
      */
     public function setType($type)
     {
         $validTypes = ['all', 'Asset', 'Entry', 'Deletion', 'DeletedAsset', 'DeletedEntry'];
-        if (!in_array($type, $validTypes)) {
-            throw new \InvalidArgumentException('Unexpected type ' . $type);
+        if (!\in_array($type, $validTypes, true)) {
+            throw new \InvalidArgumentException('Unexpected type '.$type);
         }
 
         $this->type = $type;
@@ -105,7 +106,7 @@ class Query
     /**
      * Set the content type to which results should be limited. Set to NULL to not filter for a content type.
      *
-     * @param  ContentType|string|null $contentType
+     * @param ContentType|string|null $contentType
      *
      * @return $this
      *

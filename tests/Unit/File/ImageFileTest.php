@@ -30,9 +30,9 @@ class ImageFileTest extends \PHPUnit_Framework_TestCase
 
     public function testGetter()
     {
-        $this->assertEquals('//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png', $this->file->getUrl());
-        $this->assertEquals(250, $this->file->getWidth());
-        $this->assertEquals(250, $this->file->getHeight());
+        $this->assertSame('//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png', $this->file->getUrl());
+        $this->assertSame(250, $this->file->getWidth());
+        $this->assertSame(250, $this->file->getHeight());
     }
 
     public function testWithImageOptions()
@@ -44,7 +44,7 @@ class ImageFileTest extends \PHPUnit_Framework_TestCase
         $stub->method('getQueryString')
             ->willReturn('fm=jpg&q=50');
 
-        $this->assertEquals(
+        $this->assertSame(
             '//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png?fm=jpg&q=50',
             $this->file->getUrl($stub)
         );
@@ -54,7 +54,7 @@ class ImageFileTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertJsonStringEqualsJsonString(
             '{"fileName":"Nyan_cat_250px_frame.png","contentType":"image/png","details":{"image":{"width":250,"height":250},"size": 12273},"url": "//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"}',
-            json_encode($this->file)
+            \json_encode($this->file)
         );
     }
 }

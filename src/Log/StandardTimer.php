@@ -37,29 +37,25 @@ class StandardTimer implements TimerInterface
 
     /**
      * Starts the timer.
-     *
-     * @return void
      */
     public function start()
     {
         if ($this->isStarted) {
             return;
         }
-        $this->startTime = microtime(true);
+        $this->startTime = \microtime(true);
         $this->isStarted = true;
     }
 
     /**
      * Stops the timer.
-     *
-     * @return void
      */
     public function stop()
     {
         if ($this->isStopped || !$this->isStarted) {
             return;
         }
-        $this->endTime = microtime(true);
+        $this->endTime = \microtime(true);
         $this->isStopped = true;
     }
 

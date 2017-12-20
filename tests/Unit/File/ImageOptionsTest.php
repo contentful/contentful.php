@@ -12,16 +12,16 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 {
     public function testNoOptions()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
 
-        $this->assertEquals('', $options->getQueryString());
+        $this->assertSame('', $options->getQueryString());
     }
 
     public function testGetSetWidth()
     {
         $width = 50;
 
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setWidth($width);
 
         $this->assertSame($width, $options->getWidth());
@@ -31,7 +31,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $width = null;
 
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setWidth($width);
 
         $this->assertSame($width, $options->getWidth());
@@ -42,13 +42,13 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetWidthNegative()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setWidth(-50);
     }
 
     public function testQueryWidth()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setWidth(50);
 
         $this->assertSame('w=50', $options->getQueryString());
@@ -58,7 +58,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $height = 50;
 
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setHeight($height);
 
         $this->assertSame($height, $options->getHeight());
@@ -68,7 +68,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $height = null;
 
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setHeight($height);
 
         $this->assertSame($height, $options->getHeight());
@@ -79,13 +79,13 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetHeightNegative()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setHeight(-50);
     }
 
     public function testQueryHeight()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setHeight(50);
 
         $this->assertSame('h=50', $options->getQueryString());
@@ -95,7 +95,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $format = 'png';
 
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setFormat($format);
 
         $this->assertSame($format, $options->getFormat());
@@ -105,7 +105,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $format = null;
 
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setFormat($format);
 
         $this->assertSame($format, $options->getFormat());
@@ -116,13 +116,13 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetFormatInvalid()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setFormat('invalid');
     }
 
     public function testQueryFormat()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setFormat('png');
 
         $this->assertSame('fm=png', $options->getQueryString());
@@ -132,7 +132,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $quality = 50;
 
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setQuality($quality);
 
         $this->assertSame($quality, $options->getQuality());
@@ -142,7 +142,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $quality = null;
 
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setQuality($quality);
 
         $this->assertSame($quality, $options->getQuality());
@@ -153,13 +153,13 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetQualityNegative()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setQuality(-50);
     }
 
     public function testQueryQuality()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setQuality(50);
 
         $this->assertSame('fm=jpg&q=50', $options->getQueryString());
@@ -167,7 +167,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testQueryQualityOverridesFormat()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options
             ->setFormat('png')
             ->setQuality(50);
@@ -178,13 +178,13 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testGetProgressiveDefault()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $this->assertFalse($options->isProgressive());
     }
 
     public function testGetSetProgressive()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setProgressive(true);
 
         $this->assertTrue($options->isProgressive());
@@ -192,7 +192,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testQueryProgressive()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setProgressive(true);
 
         $this->assertSame('fm=jpg&fl=progressive', $options->getQueryString());
@@ -200,7 +200,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testQueryProgressiveOverridesFormat()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options
             ->setFormat('png')
             ->setProgressive(true);
@@ -211,10 +211,10 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSetResizeFit()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setResizeFit('pad');
 
-        $this->assertEquals('pad', $options->getResizeFit());
+        $this->assertSame('pad', $options->getResizeFit());
     }
 
     /**
@@ -222,13 +222,13 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetResizeFitInvalid()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setResizeFit('invalid');
     }
 
     public function testQueryResizeFit()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setResizeFit('pad');
 
         $this->assertSame('fit=pad', $options->getQueryString());
@@ -236,10 +236,10 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSetResizeFocus()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setResizeFocus('top');
 
-        $this->assertEquals('top', $options->getResizeFocus());
+        $this->assertSame('top', $options->getResizeFocus());
     }
 
     /**
@@ -247,13 +247,13 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetResizeFocusInvalid()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setResizeFocus('invalid');
     }
 
     public function testQueryResizeFocus()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setResizeFit('thumb');
         $options->setResizeFocus('top');
 
@@ -262,7 +262,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testQueryResizeFocusIgnoredWithoutFit()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setResizeFocus('top');
 
         $this->assertSame('', $options->getQueryString());
@@ -270,10 +270,10 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSetRadius()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setRadius(50.3);
 
-        $this->assertEquals(50.3, $options->getRadius());
+        $this->assertSame(50.3, $options->getRadius());
     }
 
     /**
@@ -281,13 +281,13 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetRadiusNegative()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setRadius(-13.2);
     }
 
     public function testQueryRadius()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setRadius(50.3);
 
         $this->assertSame('r=50.3', $options->getQueryString());
@@ -295,26 +295,26 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSetBackgroundColorSixDigits()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setBackgroundColor('#a0f326');
 
-        $this->assertEquals('#a0f326', $options->getBackgroundColor());
+        $this->assertSame('#a0f326', $options->getBackgroundColor());
     }
 
     public function testGetSetBackgroundColorThreeDigits()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setBackgroundColor('#0AF');
 
-        $this->assertEquals('#0AF', $options->getBackgroundColor());
+        $this->assertSame('#0AF', $options->getBackgroundColor());
     }
 
     public function testGetSetBackgroundColorUpperCase()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setBackgroundColor('#A0F326');
 
-        $this->assertEquals('#A0F326', $options->getBackgroundColor());
+        $this->assertSame('#A0F326', $options->getBackgroundColor());
     }
 
     /**
@@ -322,7 +322,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetBackgroundColorTooShort()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setBackgroundColor('#A0F36');
     }
 
@@ -331,7 +331,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetBackgroundInvalidCharacter()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setBackgroundColor('#A0H326');
     }
 
@@ -340,13 +340,13 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetBackgroundNoHash()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setBackgroundColor('A0F326');
     }
 
     public function testQueryBackgroundColor()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options->setResizeFit('pad');
         $options->setBackgroundColor('#a0f326');
 
@@ -355,7 +355,7 @@ class ImageOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testQueryCombined()
     {
-        $options = new ImageOptions;
+        $options = new ImageOptions();
         $options
             ->setWidth(30)
             ->setHeight(40)

@@ -29,12 +29,12 @@ class ContentType implements \JsonSerializable
     /**
      * The fields, keyed by ID.
      *
-     * @var \Contentful\Delivery\ContentTypeField[]
+     * @var ContentTypeField[]
      */
     private $fields = [];
 
     /**
-     * ID of main Field used for display.
+     * ID of main field used for display.
      *
      * @var string|null
      */
@@ -48,13 +48,13 @@ class ContentType implements \JsonSerializable
     /**
      * ContentType constructor.
      *
-     * @param  string                                  $name
-     * @param  string|null                             $description
-     * @param  \Contentful\Delivery\ContentTypeField[] $fields
-     * @param  string|null                             $displayField
-     * @param  SystemProperties                        $sys
+     * @param string             $name
+     * @param string|null        $description
+     * @param ContentTypeField[] $fields
+     * @param string|null        $displayField
+     * @param SystemProperties   $sys
      */
-    public function __construct($name, $description, array $fields, $displayField = null, SystemProperties $sys)
+    public function __construct($name, $description, array $fields, $displayField, SystemProperties $sys)
     {
         $this->name = $name;
         $this->description = $description;
@@ -80,7 +80,7 @@ class ContentType implements \JsonSerializable
     /**
      * Returns all the fields of this content type as an associative array. The key is the ID of the field.
      *
-     * @return \Contentful\Delivery\ContentTypeField[]
+     * @return ContentTypeField[]
      *
      * @api
      */
@@ -106,9 +106,9 @@ class ContentType implements \JsonSerializable
      *
      * If the field does not exist, null is returned.
      *
-     * @param  string  $fieldId
+     * @param string $fieldId
      *
-     * @return \Contentful\Delivery\ContentTypeField|null
+     * @return ContentTypeField|null
      *
      * @api
      */
@@ -126,7 +126,7 @@ class ContentType implements \JsonSerializable
      *
      * Returns null if not display field is set.
      *
-     * @return \Contentful\Delivery\ContentTypeField|null
+     * @return ContentTypeField|null
      *
      * @api
      */
@@ -215,7 +215,7 @@ class ContentType implements \JsonSerializable
             'description' => $this->description,
             'displayField' => $this->displayField,
             'sys' => $this->sys,
-            'fields' => array_values($this->fields)
+            'fields' => \array_values($this->fields),
         ];
     }
 }

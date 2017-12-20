@@ -51,7 +51,7 @@ abstract class ApiException extends \RuntimeException
             $this->response = $this->previous->getResponse();
             $this->requestId = $this->response->getHeader('X-Contentful-Request-Id')[0];
         }
-        if ($message === '') {
+        if ('' === $message) {
             $message = self::createExceptionMessage($previous, $this->response);
         }
 
@@ -77,7 +77,7 @@ abstract class ApiException extends \RuntimeException
     }
 
     /**
-     * Get the request that caused the exception
+     * Get the request that caused the exception.
      *
      * @return \Psr\Http\Message\RequestInterface
      *
@@ -89,7 +89,7 @@ abstract class ApiException extends \RuntimeException
     }
 
     /**
-     * Get the associated response
+     * Get the associated response.
      *
      * @return ResponseInterface|null
      *
@@ -101,7 +101,7 @@ abstract class ApiException extends \RuntimeException
     }
 
     /**
-     * Check if a response was received
+     * Check if a response was received.
      *
      * @return bool
      *
@@ -109,7 +109,7 @@ abstract class ApiException extends \RuntimeException
      */
     public function hasResponse()
     {
-        return $this->response !== null;
+        return null !== $this->response;
     }
 
     /**

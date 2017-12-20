@@ -31,7 +31,7 @@ class RemoteUploadFile implements UnprocessedFileInterface
     }
 
     /**
-     * The name of this file
+     * The name of this file.
      *
      * @return string
      *
@@ -76,7 +76,7 @@ class RemoteUploadFile implements UnprocessedFileInterface
         return (object) [
             'fileName' => $this->fileName,
             'contentType' => $this->contentType,
-            'upload' => $this->upload
+            'upload' => $this->upload,
         ];
     }
 }

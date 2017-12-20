@@ -34,7 +34,7 @@ class File implements FileInterface
      * @param string $fileName
      * @param string $contentType
      * @param string $url
-     * @param int    $size         Size in bytes
+     * @param int    $size        Size in bytes
      */
     public function __construct($fileName, $contentType, $url, $size)
     {
@@ -45,7 +45,7 @@ class File implements FileInterface
     }
 
     /**
-     * The name of this file
+     * The name of this file.
      *
      * @return string
      *
@@ -107,9 +107,9 @@ class File implements FileInterface
             'fileName' => $this->fileName,
             'contentType' => $this->contentType,
             'details' => (object) [
-                'size' => $this->size
+                'size' => $this->size,
             ],
-            'url' => $this->url
+            'url' => $this->url,
         ];
     }
 }

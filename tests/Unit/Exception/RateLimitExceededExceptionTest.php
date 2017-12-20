@@ -20,7 +20,7 @@ class RateLimitExceededExceptionTest extends \PHPUnit_Framework_TestCase
             429,
             [
                 'X-Contentful-Request-Id' => 'db2d795acb78e0592af00759986c744b',
-                'X-Contentful-RateLimit-Reset' => '2727'
+                'X-Contentful-RateLimit-Reset' => '2727',
             ],
             '{"sys": {"type": "Error","id": "RateLimitExceeded"},"message": "You have exceeded the rate limit of the Organization this Space belongs to by making too many API requests within a short timespan. Please wait a moment before trying the request again.","requestId": "4d0274fb176b51ae43a64b98639a3090"}',
             1.1,
@@ -34,8 +34,8 @@ class RateLimitExceededExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($exception->hasResponse());
         $this->assertSame($request, $exception->getRequest());
         $this->assertSame($response, $exception->getResponse());
-        $this->assertEquals('db2d795acb78e0592af00759986c744b', $exception->getRequestId());
-        $this->assertEquals('You have exceeded the rate limit of the Organization this Space belongs to by making too many API requests within a short timespan. Please wait a moment before trying the request again.', $exception->getMessage());
-        $this->assertEquals(2727, $exception->getRateLimitReset());
+        $this->assertSame('db2d795acb78e0592af00759986c744b', $exception->getRequestId());
+        $this->assertSame('You have exceeded the rate limit of the Organization this Space belongs to by making too many API requests within a short timespan. Please wait a moment before trying the request again.', $exception->getMessage());
+        $this->assertSame(2727, $exception->getRateLimitReset());
     }
 }

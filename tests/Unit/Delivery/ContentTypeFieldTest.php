@@ -24,15 +24,15 @@ class ContentTypeFieldTest extends \PHPUnit_Framework_TestCase
             false
         );
 
-        $this->assertEquals('id', $field->getId());
-        $this->assertEquals('name', $field->getName());
-        $this->assertEquals('type', $field->getType());
-        $this->assertEquals('linkType', $field->getLinkType());
-        $this->assertEquals('itemsLinkType', $field->getItemsLinkType());
-        $this->assertEquals('itemsType', $field->getItemsType());
-        $this->assertEquals(true, $field->isRequired());
-        $this->assertEquals(false, $field->isLocalized());
-        $this->assertEquals(false, $field->isDisabled());
+        $this->assertSame('id', $field->getId());
+        $this->assertSame('name', $field->getName());
+        $this->assertSame('type', $field->getType());
+        $this->assertSame('linkType', $field->getLinkType());
+        $this->assertSame('itemsLinkType', $field->getItemsLinkType());
+        $this->assertSame('itemsType', $field->getItemsType());
+        $this->assertTrue($field->isRequired());
+        $this->assertFalse($field->isLocalized());
+        $this->assertFalse($field->isDisabled());
     }
 
     public function testJsonSerialize()
@@ -49,7 +49,7 @@ class ContentTypeFieldTest extends \PHPUnit_Framework_TestCase
             true
         );
 
-        $this->assertJsonStringEqualsJsonString('{"name":"oneField","id":"one","type":"Link","required":true,"localized":true,"disabled":true,"linkType":"Asset"}', json_encode($field1));
+        $this->assertJsonStringEqualsJsonString('{"name":"oneField","id":"one","type":"Link","required":true,"localized":true,"disabled":true,"linkType":"Asset"}', \json_encode($field1));
 
         $field2 = new ContentTypeField(
             'many',
@@ -63,6 +63,6 @@ class ContentTypeFieldTest extends \PHPUnit_Framework_TestCase
             false
         );
 
-        $this->assertJsonStringEqualsJsonString('{"name":"manyField","id":"many","type":"Array","required":false,"localized":true,"items":{"type":"Link","linkType":"Asset"}}', json_encode($field2));
+        $this->assertJsonStringEqualsJsonString('{"name":"manyField","id":"many","type":"Array","required":false,"localized":true,"items":{"type":"Link","linkType":"Asset"}}', \json_encode($field2));
     }
 }

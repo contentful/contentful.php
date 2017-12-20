@@ -21,21 +21,21 @@ abstract class Query
     const DATE_FORMAT = 'Y-m-d\TH:i:00P';
 
     /**
-     * Maximum number of results to retrieve
+     * Maximum number of results to retrieve.
      *
      * @var int|null
      */
     private $limit;
 
     /**
-     * The first result to retrieve
+     * The first result to retrieve.
      *
      * @var int|null
      */
     private $skip;
 
     /**
-     * For entries, limit results to this content type
+     * For entries, limit results to this content type.
      *
      * @var string|null
      */
@@ -49,21 +49,21 @@ abstract class Query
     private $mimeTypeGroup;
 
     /**
-     * List of fields to order by
+     * List of fields to order by.
      *
      * @var array
      */
     private $orderConditions = [];
 
     /**
-     * List of fields for filters
+     * List of fields for filters.
      *
-     * @var  array
+     * @var array
      */
     private $whereConditions = [];
 
     /**
-     * Filter entity result
+     * Filter entity result.
      *
      * @var array
      */
@@ -93,36 +93,36 @@ abstract class Query
             'limit' => $this->limit,
             'skip' => $this->skip,
             'content_type' => $this->contentType,
-            'mimetype_group' => $this->mimeTypeGroup
+            'mimetype_group' => $this->mimeTypeGroup,
         ];
 
-        if (count($this->orderConditions) > 0) {
+        if (\count($this->orderConditions) > 0) {
             $parts = [];
             foreach ($this->orderConditions as $condition) {
-                $parts[] = ($condition['reverse'] ? '-' : '') . $condition['field'];
+                $parts[] = ($condition['reverse'] ? '-' : '').$condition['field'];
             }
 
-            $data['order'] = implode(',', $parts);
+            $data['order'] = \implode(',', $parts);
         }
         foreach ($this->whereConditions as $whereCondition) {
             $key = $whereCondition['field'];
-            if ($whereCondition['operator'] !== null) {
-                $key .= '[' . $whereCondition['operator'] . ']';
+            if (null !== $whereCondition['operator']) {
+                $key .= '['.$whereCondition['operator'].']';
             }
             $data[$key] = $whereCondition['value'];
         }
 
-        if (count($this->select) > 0) {
+        if (\count($this->select) > 0) {
             // We always request all metadata to ensure the ResourceBuilder has everything it needs.
             $select = ['sys'];
             foreach ($this->select as $part) {
-                if ($part === 'sys' || strpos($part, 'sys.') === 0) {
+                if ('sys' === $part || 0 === \mb_strpos($part, 'sys.')) {
                     continue;
                 }
                 $select[] = $part;
             }
 
-            $data['select'] = implode(',', $select);
+            $data['select'] = \implode(',', $select);
         }
 
         return $data;
@@ -137,24 +137,24 @@ abstract class Query
      */
     public function getQueryString()
     {
-        return http_build_query($this->getQueryData(), '', '&', PHP_QUERY_RFC3986);
+        return \http_build_query($this->getQueryData(), '', '&', PHP_QUERY_RFC3986);
     }
 
     /**
      * Sets the index of the first result to retrieve. To reset set to NULL.
      *
-     * @param  int|null $skip The index of the first result that will be retrieved. Must be >= 0.
-     *
-     * @return $this
+     * @param int|null $skip The index of the first result that will be retrieved. Must be >= 0.
      *
      * @throws \RangeException If $skip is not within the specified range
+     *
+     * @return $this
      *
      * @api
      */
     public function setSkip($skip)
     {
-        if ($skip !== null && $skip < 0) {
-            throw new \RangeException('$skip must be 0 or larger, ' . $skip . ' given.');
+        if (null !== $skip && $skip < 0) {
+            throw new \RangeException('$skip must be 0 or larger, '.$skip.' given.');
         }
 
         $this->skip = $skip;
@@ -163,20 +163,20 @@ abstract class Query
     }
 
     /**
-     * Set the maximum number of results to retrieve. To reset set to NULL;
+     * Set the maximum number of results to retrieve. To reset set to NULL;.
      *
-     * @param  int|null $limit The maximum number of results to retrieve, must be between 1 and 1000 or null
-     *
-     * @return $this
+     * @param int|null $limit The maximum number of results to retrieve, must be between 1 and 1000 or null
      *
      * @throws \RangeException If $maxArguments is not withing the specified range
+     *
+     * @return $this
      *
      * @api
      */
     public function setLimit($limit)
     {
-        if ($limit !== null && ($limit < 1 || $limit > 1000)) {
-            throw new \RangeException('$maxResults must be between 1 and 1000, ' . $limit . ' given.');
+        if (null !== $limit && ($limit < 1 || $limit > 1000)) {
+            throw new \RangeException('$maxResults must be between 1 and 1000, '.$limit.' given.');
         }
 
         $this->limit = $limit;
@@ -190,8 +190,8 @@ abstract class Query
      * Note that when ordering Entries by fields you must set the content_type URI query parameter to the ID of
      * the Content Type you want to filter by. Can be called multiple times to order by multiple values.
      *
-     * @param  string|null $field
-     * @param  bool        $reverse
+     * @param string|null $field
+     * @param bool        $reverse
      *
      * @return $this
      *
@@ -201,7 +201,7 @@ abstract class Query
     {
         $this->orderConditions[] = [
             'field' => $field,
-            'reverse' => $reverse
+            'reverse' => $reverse,
         ];
 
         return $this;
@@ -212,7 +212,7 @@ abstract class Query
      *
      * Only works when querying entries.
      *
-     * @param  ContentType|string|null $contentType
+     * @param ContentType|string|null $contentType
      *
      * @return $this
      *
@@ -230,11 +230,11 @@ abstract class Query
     }
 
     /**
-     * @param  string|null $group
-     *
-     * @return $this
+     * @param string|null $group
      *
      * @throws \InvalidArgumentException if $group is not a valid value
+     *
+     * @return $this
      *
      * @api
      */
@@ -252,10 +252,10 @@ abstract class Query
             'pdfdocument',
             'archive',
             'code',
-            'markup'
+            'markup',
         ];
-        if ($group !== null && !in_array($group, $validGroups, true)) {
-            throw new \InvalidArgumentException('Unknown MIMI-type group \'' . $group . '\'');
+        if (null !== $group && !\in_array($group, $validGroups, true)) {
+            throw new \InvalidArgumentException('Unknown MIMI-type group \''.$group.'\'');
         }
 
         $this->mimeTypeGroup = $group;
@@ -280,13 +280,14 @@ abstract class Query
      * - near
      * - within
      *
-     * @param  string                                               $field
-     * @param  string|array|\DateTimeInterface|\Contentful\Location $value
-     * @param  string|null                                          $operator The operator to use for this condition.
-     *                                                                        Default is strict equality.
-     * @return $this
+     * @param string                                               $field
+     * @param string|array|\DateTimeInterface|\Contentful\Location $value
+     * @param string|null                                          $operator The operator to use for this condition.
+     *                                                                       Default is strict equality.
      *
      * @throws \InvalidArgumentException If $operator is not one of the valid values
+     *
+     * @return $this
      *
      * @api
      */
@@ -306,8 +307,8 @@ abstract class Query
             'near', // Nearby (for locations)
             'within', // Within an rectangle (for locations)
         ];
-        if ($operator !== null && !in_array($operator, $validOperators, true)) {
-            throw new \InvalidArgumentException('Unknown operator \'' . $operator . '\'');
+        if (null !== $operator && !\in_array($operator, $validOperators, true)) {
+            throw new \InvalidArgumentException('Unknown operator \''.$operator.'\'');
         }
 
         if ($value instanceof \DateTimeInterface) {
@@ -316,14 +317,14 @@ abstract class Query
         if ($value instanceof Location) {
             $value = $value->queryStringFormatted();
         }
-        if (is_array($value)) {
-            $value = implode(',', $value);
+        if (\is_array($value)) {
+            $value = \implode(',', $value);
         }
 
         $this->whereConditions[] = [
             'field' => $field,
             'value' => $value,
-            'operator' => $operator
+            'operator' => $operator,
         ];
 
         return $this;
@@ -335,7 +336,7 @@ abstract class Query
      *
      * To only request the metadata simply query for 'sys'.
      *
-     * @param  array $select
+     * @param array $select
      *
      * @return $this
      *

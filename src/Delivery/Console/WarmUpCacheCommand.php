@@ -9,9 +9,9 @@ namespace Contentful\Delivery\Console;
 use Contentful\Delivery\Cache\CacheWarmer;
 use Contentful\Delivery\Client;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 class WarmUpCacheCommand extends Command
@@ -46,12 +46,12 @@ class WarmUpCacheCommand extends Command
 
         if (!$fs->exists($cacheDir)) {
             throw new \InvalidArgumentException(
-                sprintf("Cache directory '%s' does not exist.", $cacheDir)
+                \sprintf("Cache directory '%s' does not exist.", $cacheDir)
             );
         }
-        if (!is_writable($cacheDir)) {
+        if (!\is_writable($cacheDir)) {
             throw new \InvalidArgumentException(
-                sprintf("Cache directory '%s' can not be written to.", $cacheDir)
+                \sprintf("Cache directory '%s' can not be written to.", $cacheDir)
             );
         }
 
@@ -60,6 +60,6 @@ class WarmUpCacheCommand extends Command
 
         $warmer->warmUp($cacheDir);
 
-        $output->writeln(sprintf('<info>Cache warmed for the space %s.</info>', $spaceId));
+        $output->writeln(\sprintf('<info>Cache warmed for the space %s.</info>', $spaceId));
     }
 }

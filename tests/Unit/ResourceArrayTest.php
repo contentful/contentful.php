@@ -14,9 +14,9 @@ class ResourceArrayTest extends \PHPUnit_Framework_TestCase
     {
         $arr = new ResourceArray(['abc'], 10, 2, 0);
 
-        $this->assertEquals(10, $arr->getTotal());
-        $this->assertEquals(2, $arr->getLimit());
-        $this->assertEquals(0, $arr->getSkip());
+        $this->assertSame(10, $arr->getTotal());
+        $this->assertSame(2, $arr->getLimit());
+        $this->assertSame(0, $arr->getSkip());
     }
 
     public function testCountable()
@@ -33,14 +33,14 @@ class ResourceArrayTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Countable', $arr);
         $this->assertTrue(isset($arr[0]));
-        $this->assertEquals('abc', $arr[0]);
+        $this->assertSame('abc', $arr[0]);
     }
 
     public function testJsonSerializeEmpty()
     {
         $arr = new ResourceArray([], 0, 10, 0);
 
-        $this->assertJsonStringEqualsJsonString('{"sys":{"type":"Array"},"total":0,"limit":10,"skip":0,"items":[]}', json_encode($arr));
+        $this->assertJsonStringEqualsJsonString('{"sys":{"type":"Array"},"total":0,"limit":10,"skip":0,"items":[]}', \json_encode($arr));
     }
 
     public function testIsIterable()
@@ -56,18 +56,18 @@ class ResourceArrayTest extends \PHPUnit_Framework_TestCase
         $count = 0;
 
         foreach ($arr as $key => $elem) {
-            $count++;
-            $this->assertEquals($arr[$key], $elem);
+            ++$count;
+            $this->assertSame($arr[$key], $elem);
         }
 
-        $this->assertEquals(2, $count);
+        $this->assertSame(2, $count);
     }
 
     public function testGetItems()
     {
         $arr = new ResourceArray(['abc', 'def'], 10, 2, 0);
 
-        $this->assertEquals(['abc', 'def'], $arr->getItems());
+        $this->assertSame(['abc', 'def'], $arr->getItems());
     }
 
     /**

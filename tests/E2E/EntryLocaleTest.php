@@ -19,13 +19,13 @@ class EntryLocaleTest extends End2EndTestCase
     {
         $client = $this->getClient('cfexampleapi');
 
-        $query = (new Query)
+        $query = (new Query())
             ->setContentType('cat')
             ->setLocale('*');
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
-        $this->assertEquals('Nyan Cat', $entries[0]->getName());
+        $this->assertSame('Nyan Cat', $entries[0]->getName());
     }
 
     /**
@@ -35,13 +35,13 @@ class EntryLocaleTest extends End2EndTestCase
     {
         $client = $this->getClient('cfexampleapi');
 
-        $query = (new Query)
+        $query = (new Query())
             ->setContentType('cat')
             ->setLocale('en-US');
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
-        $this->assertEquals('Nyan Cat', $entries[0]->getName());
+        $this->assertSame('Nyan Cat', $entries[0]->getName());
     }
 
     /**
@@ -51,13 +51,13 @@ class EntryLocaleTest extends End2EndTestCase
     {
         $client = $this->getClient('cfexampleapi');
 
-        $query = (new Query)
+        $query = (new Query())
             ->setContentType('cat')
             ->setLocale('tlh');
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
-        $this->assertEquals('Nyan vIghro\'', $entries[0]->getName());
+        $this->assertSame('Nyan vIghro\'', $entries[0]->getName());
     }
 
     /**
@@ -67,12 +67,12 @@ class EntryLocaleTest extends End2EndTestCase
     {
         $client = $this->getClient('cfexampleapi_tlh');
 
-        $query = (new Query)
+        $query = (new Query())
             ->setContentType('cat');
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
-        $this->assertEquals('Nyan vIghro\'', $entries[0]->getName());
+        $this->assertSame('Nyan vIghro\'', $entries[0]->getName());
         $this->assertNull($entries[0]->getName('en-US'));
     }
 
@@ -85,6 +85,6 @@ class EntryLocaleTest extends End2EndTestCase
 
         $happycat = $client->getEntry('happycat', 'tlh');
         $nyancat = $happycat->getBestFriend();
-        $this->assertEquals('Nyan vIghro\'', $nyancat->getName());
+        $this->assertSame('Nyan vIghro\'', $nyancat->getName());
     }
 }

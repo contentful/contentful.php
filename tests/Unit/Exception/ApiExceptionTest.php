@@ -20,7 +20,7 @@ class ApiExceptionTest extends \PHPUnit_Framework_TestCase
         $guzzleException = new ClientException('This is an error', $request);
         $exception = new AccessTokenInvalidException($guzzleException);
 
-        $this->assertEquals('This is an error', $exception->getMessage());
+        $this->assertSame('This is an error', $exception->getMessage());
     }
 
     public function testExceptionNoMessage()
@@ -37,7 +37,7 @@ class ApiExceptionTest extends \PHPUnit_Framework_TestCase
         $guzzleException = new ClientException('This is an error', $request, $response);
         $exception = new AccessTokenInvalidException($guzzleException);
 
-        $this->assertEquals('This is an error', $exception->getMessage());
+        $this->assertSame('This is an error', $exception->getMessage());
     }
 
     public function testExceptionMalformedJsonResponse()
@@ -54,6 +54,6 @@ class ApiExceptionTest extends \PHPUnit_Framework_TestCase
         $guzzleException = new ClientException('This is an error', $request, $response);
         $exception = new AccessTokenInvalidException($guzzleException);
 
-        $this->assertEquals('This is an error', $exception->getMessage());
+        $this->assertSame('This is an error', $exception->getMessage());
     }
 }

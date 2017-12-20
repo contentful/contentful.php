@@ -6,21 +6,21 @@
 
 namespace Contentful\Delivery;
 
+use Contentful\Delivery\Cache\CacheInterface;
+use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Client as DeliveryClient;
 use Contentful\Delivery\Synchronization\DeletedAsset;
 use Contentful\Delivery\Synchronization\DeletedContentType;
 use Contentful\Delivery\Synchronization\DeletedEntry;
-use Contentful\Delivery\Cache\InstanceCache;
-use Contentful\Delivery\Cache\CacheInterface;
-use Contentful\Location;
-use Contentful\ResourceArray;
-use Contentful\Link;
+use Contentful\Exception\SpaceMismatchException;
 use Contentful\File\File;
 use Contentful\File\FileInterface;
 use Contentful\File\ImageFile;
-use Contentful\File\UploadFile;
-use Contentful\Exception\SpaceMismatchException;
 use Contentful\File\LocalUploadFile;
+use Contentful\File\UploadFile;
+use Contentful\Link;
+use Contentful\Location;
+use Contentful\ResourceArray;
 
 /**
  * The ResourceBuilder is responsible for turning the responses from the API into instances of PHP classes.
@@ -70,7 +70,7 @@ class ResourceBuilder
     /**
      * Build objects based on PHP classes from the raw JSON based objects.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedContentType|DeletedEntry|ResourceArray
      */
@@ -82,8 +82,8 @@ class ResourceBuilder
     /**
      * Build objects based on PHP classes from the raw JSON based objects.
      *
-     * @param  array       $data
-     * @param  array|null  $rawDataList
+     * @param array      $data
+     * @param array|null $rawDataList
      *
      * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedContentType|DeletedEntry|ResourceArray
      */
@@ -121,7 +121,7 @@ class ResourceBuilder
             case 'DeletedEntry':
                 return $this->buildDeletedEntry($data);
             default:
-                throw new \InvalidArgumentException('Unexpected type "' . $type . '" while trying to build object.');
+                throw new \InvalidArgumentException('Unexpected type "'.$type.'" while trying to build object.');
         }
     }
 
@@ -129,7 +129,7 @@ class ResourceBuilder
      * Builds two hash maps of all the entries and assets that are in a response. These are later used to create
      * the correct object graph.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return array
      */
@@ -178,8 +178,8 @@ class ResourceBuilder
     /**
      * Build a ResourceArray.
      *
-     * @param  array      $data
-     * @param  array|null $rawDataList
+     * @param array      $data
+     * @param array|null $rawDataList
      *
      * @return ResourceArray
      */
@@ -196,7 +196,7 @@ class ResourceBuilder
     /**
      * Build an Asset.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return Asset
      */
@@ -206,7 +206,7 @@ class ResourceBuilder
         $locale = $sys->getLocale();
 
         $fields = $data['fields'];
-        $files = isset($fields['file']) ? array_map([$this, 'buildFile'], $this->normalizeFieldData($fields['file'], $locale)) : null;
+        $files = isset($fields['file']) ? \array_map([$this, 'buildFile'], $this->normalizeFieldData($fields['file'], $locale)) : null;
 
         $asset = new Asset(
             isset($fields['title']) ? $this->normalizeFieldData($fields['title'], $locale) : null,
@@ -224,7 +224,7 @@ class ResourceBuilder
     /**
      * Creates a File or a subclass thereof.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return FileInterface
      */
@@ -262,7 +262,7 @@ class ResourceBuilder
     /**
      * Creates a ContentType.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return ContentType|null
      */
@@ -273,12 +273,12 @@ class ResourceBuilder
         }
 
         $cache = $this->filesystemCache->readContentType($data['sys']['id']);
-        if ($cache !== null) {
+        if (null !== $cache) {
             $data = \GuzzleHttp\json_decode($cache, true);
         }
 
         $sys = $this->buildSystemProperties($data['sys']);
-        $fields = array_map([$this, 'buildContentTypeField'], $data['fields']);
+        $fields = \array_map([$this, 'buildContentTypeField'], $data['fields']);
         $displayField = isset($data['displayField']) ? $data['displayField'] : null;
         $contentType = new ContentType(
             $data['name'],
@@ -295,8 +295,8 @@ class ResourceBuilder
     /**
      * Creates a DynamicEntry or a subclass thereof.
      *
-     * @param  array      $data
-     * @param  array|null $rawDataList
+     * @param array      $data
+     * @param array|null $rawDataList
      *
      * @return DynamicEntry
      */
@@ -340,7 +340,7 @@ class ResourceBuilder
     }
 
     /**
-     * @param mixed $fieldData
+     * @param mixed       $fieldData
      * @param string|null $locale
      *
      * @return array
@@ -392,9 +392,9 @@ class ResourceBuilder
     /**
      * Transforms values from the original JSON representation to an appropriate PHP representation.
      *
-     * @param  ContentTypeField|string $fieldConfig Must be a ContentTypeField if the type is Array
-     * @param  mixed                   $value
-     * @param  array|null              $rawDataList
+     * @param ContentTypeField|string $fieldConfig Must be a ContentTypeField if the type is Array
+     * @param mixed                   $value
+     * @param array|null              $rawDataList
      *
      * @return array|Asset|DynamicEntry|Link|Location|\DateTimeImmutable
      */
@@ -406,7 +406,7 @@ class ResourceBuilder
             $type = $fieldConfig;
         }
 
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 
@@ -425,37 +425,37 @@ class ResourceBuilder
             case 'Link':
                 return $this->buildLink($value, $rawDataList);
             case 'Array':
-                return array_map(function ($value) use ($fieldConfig, $rawDataList) {
+                return \array_map(function ($value) use ($fieldConfig, $rawDataList) {
                     return $this->formatValue($fieldConfig->getItemsType(), $value, $rawDataList);
                 }, $value);
             default:
-                throw new \InvalidArgumentException('Unexpected field type "' . $type . '" encountered while trying to format value.');
+                throw new \InvalidArgumentException('Unexpected field type "'.$type.'" encountered while trying to format value.');
         }
     }
 
     /**
      * When an instance of the target already exists, it is returned. If not, a Link is created as placeholder.
      *
-     * @param  array      $data
-     * @param  array|null $rawDataList
-     *
-     * @return Asset|DynamicEntry|Link
+     * @param array      $data
+     * @param array|null $rawDataList
      *
      * @throws \InvalidArgumentException When encountering an unexpected link type. Only links to assets and entries are currently handled.
+     *
+     * @return Asset|DynamicEntry|Link
      */
     private function buildLink(array $data, array $rawDataList = null)
     {
         $id = $data['sys']['id'];
         $type = $data['sys']['linkType'];
 
-        if ($type === 'Asset') {
+        if ('Asset' === $type) {
             if (isset($rawDataList['asset'][$id])) {
                 return $rawDataList['asset'][$id];
             }
 
             return new Link($id, $type);
         }
-        if ($type === 'Entry') {
+        if ('Entry' === $type) {
             if (isset($rawDataList['entry'][$id])) {
                 if ($rawDataList['entry'][$id] instanceof DynamicEntry) {
                     return $rawDataList['entry'][$id];
@@ -466,39 +466,39 @@ class ResourceBuilder
         }
 
         throw new \InvalidArgumentException(
-            'Encountered unexpected resource type "' . $type . '"" while constructing link.'
+            'Encountered unexpected resource type "'.$type.'"" while constructing link.'
         );
     }
 
     /**
      * Retrieves the Space from the API.
      *
-     * @param  string $spaceId
+     * @param string $spaceId
+     *
+     * @throws SpaceMismatchException when attempting to get a different Space than the one this ResourceBuilder is configured to handle
      *
      * @return Space
-     *
-     * @throws SpaceMismatchException When attempting to get a different Space than the one this ResourceBuilder is configured to handle.
      */
     private function getSpace($spaceId)
     {
         if ($spaceId !== $this->spaceId) {
-            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "' . $this->spaceId . '" but was asked to build a resource for the space "' . $spaceId . '".');
+            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "'.$this->spaceId.'" but was asked to build a resource for the space "'.$spaceId.'".');
         }
 
         return $this->client->getSpace();
     }
 
     /**
-     * @param  array $data
+     * @param array $data
+     *
+     * @throws SpaceMismatchException when attempting to build a different Space than the one this ResourceBuilder is configured to handle
      *
      * @return Space
-     *
-     * @throws SpaceMismatchException When attempting to build a different Space than the one this ResourceBuilder is configured to handle.
      */
     private function buildSpace(array $data)
     {
         if ($data['sys']['id'] !== $this->spaceId) {
-            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "' . $this->spaceId . '" but was asked to build a resource for the space "' . $data['sys']['id'] . '".');
+            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "'.$this->spaceId.'" but was asked to build a resource for the space "'.$data['sys']['id'].'".');
         }
 
         if ($this->instanceCache->hasSpace()) {
@@ -517,7 +517,7 @@ class ResourceBuilder
     }
 
     /**
-     * @param  array $sys
+     * @param array $sys
      *
      * @return SystemProperties
      */
@@ -537,7 +537,7 @@ class ResourceBuilder
     }
 
     /**
-     * @param  array $data
+     * @param array $data
      *
      * @return DeletedAsset
      */
@@ -561,7 +561,7 @@ class ResourceBuilder
     }
 
     /**
-     * @param  array $data
+     * @param array $data
      *
      * @return DeletedEntry
      */
@@ -573,7 +573,7 @@ class ResourceBuilder
     }
 
     /**
-     * @param  array $data
+     * @param array $data
      *
      * @return ContentTypeField
      */

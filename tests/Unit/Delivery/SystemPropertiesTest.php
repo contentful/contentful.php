@@ -6,9 +6,9 @@
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\Delivery\SystemProperties;
-use Contentful\Delivery\Space;
 use Contentful\Delivery\ContentType;
+use Contentful\Delivery\Space;
+use Contentful\Delivery\SystemProperties;
 
 class SystemPropertiesTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,28 +28,28 @@ class SystemPropertiesTest extends \PHPUnit_Framework_TestCase
             $space,
             $contentType,
             1,
-            new \DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            new \DateTimeImmutable('2014-08-12T08:30:42.559Z'),
-            new \DateTimeImmutable('2014-08-13T08:30:42.559Z')
+            $createdAt = new \DateTimeImmutable('2014-08-11T08:30:42.559Z'),
+            $updatedAt = new \DateTimeImmutable('2014-08-12T08:30:42.559Z'),
+            $deletedAt = new \DateTimeImmutable('2014-08-13T08:30:42.559Z')
         );
 
-        $this->assertEquals('123', $sys->getId());
-        $this->assertEquals('Type', $sys->getType());
+        $this->assertSame('123', $sys->getId());
+        $this->assertSame('Type', $sys->getType());
         $this->assertSame($space, $sys->getSpace());
         $this->assertSame($contentType, $sys->getContentType());
-        $this->assertEquals(1, $sys->getRevision());
-        $this->assertEquals(new \DateTimeImmutable('2014-08-11T08:30:42.559Z'), $sys->getCreatedAt());
-        $this->assertEquals(new \DateTimeImmutable('2014-08-12T08:30:42.559Z'), $sys->getUpdatedAt());
-        $this->assertEquals(new \DateTimeImmutable('2014-08-13T08:30:42.559Z'), $sys->getDeletedAt());
+        $this->assertSame(1, $sys->getRevision());
+        $this->assertSame($createdAt, $sys->getCreatedAt());
+        $this->assertSame($updatedAt, $sys->getUpdatedAt());
+        $this->assertSame($deletedAt, $sys->getDeletedAt());
     }
 
     public function testJsonSerializeSpace()
     {
         $sys = new SystemProperties('123', 'Space');
 
-        $this->assertEquals(
+        $this->assertSame(
             '{"id":"123","type":"Space"}',
-            json_encode($sys)
+            \json_encode($sys)
         );
     }
 
@@ -75,7 +75,7 @@ class SystemPropertiesTest extends \PHPUnit_Framework_TestCase
 
         $this->assertJsonStringEqualsJsonString(
             '{"type": "DeletedEntry","id": "4rPdazIwWkuuKEAQgemSmO","space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"revision": 1,"createdAt": "2014-08-11T08:30:42.559Z","updatedAt": "2014-08-12T08:30:42.559Z","deletedAt": "2014-08-13T08:30:42.559Z"}',
-            json_encode($resource)
+            \json_encode($resource)
         );
     }
 
@@ -107,7 +107,7 @@ class SystemPropertiesTest extends \PHPUnit_Framework_TestCase
 
         $this->assertJsonStringEqualsJsonString(
             '{"id":"123","type":"Type","space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"human"}},"revision":1,"createdAt":"2014-08-11T08:30:42.559Z","updatedAt":"2014-08-12T08:30:42.559Z"}',
-            json_encode($sys)
+            \json_encode($sys)
         );
     }
 }
