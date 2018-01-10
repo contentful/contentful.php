@@ -146,4 +146,19 @@ class EntryBasicTest extends End2EndTestCase
         // There should be 3 and only 3 requests: the entries with the query, the space and the cat content type
         $this->assertCount(3, $logger->getLogs());
     }
+
+    /**
+     * @vcr e2e_entry_resolved_links_to_itself.json
+     */
+    public function testEntryResolvedLinksToItself()
+    {
+        $client = $this->getClient('cfexampleapi');
+        $entry = $client->getEntry('nyancat');
+
+        $references = $entry->getReferences();
+        $this->assertInstanceOf(ResourceArray::class, $references);
+        $this->assertCount(1, $references);
+        $this->assertInstanceOf(DynamicEntry::class, $references[0]);
+        $this->assertSame('happycat', $references[0]->getId());
+    }
 }
