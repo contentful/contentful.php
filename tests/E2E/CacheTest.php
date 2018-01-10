@@ -75,4 +75,25 @@ class CacheTest extends End2EndTestCase
 
         self::$cache->clear();
     }
+
+    /**
+     * @vcr e2e_cache_access_cached_autowarmup.json
+     */
+    public function testCachedContentAutoWarmup()
+    {
+        self::$cache->clear();
+
+        $client = $this->getClient('cfexampleapi_cache_autowarmup');
+
+        $this->assertSame('cfexampleapi', $client->getSpace()->getId());
+        $this->assertSame('cat', $client->getContentType('cat')->getId());
+
+        $cacheItem = self::$cache->getItem('space');
+        $this->assertTrue($cacheItem->isHit());
+
+        $rawSpace = \json_decode($cacheItem->get(), true);
+        $this->assertSame('cfexampleapi', $rawSpace['sys']['id']);
+
+        self::$cache->clear();
+    }
 }

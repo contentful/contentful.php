@@ -45,6 +45,8 @@ class End2EndTestCase extends \PHPUnit_Framework_TestCase
                 return new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', true, null, $options);
             case 'cfexampleapi_cache':
                 return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, \array_merge($options, ['cache' => self::$cache]));
+            case 'cfexampleapi_cache_autowarmup':
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, \array_merge($options, ['cache' => self::$cache, 'autoWarmup' => true]));
             case 'cfexampleapi_logger':
                 return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, \array_merge($options, ['logger' => new ArrayLogger()]));
             case 'cfexampleapi_tlh':

@@ -15,6 +15,7 @@ use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Link;
 use Contentful\ResourceArray;
+use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\NullAdapter;
@@ -59,6 +60,11 @@ class Client extends BaseClient
     private $cacheManager;
 
     /**
+     * @var bool
+     */
+    private $autoWarmup;
+
+    /**
      * Client constructor.
      *
      * @param string      $token         Delivery API Access Token for the space used with this Client
@@ -73,6 +79,7 @@ class Client extends BaseClient
      *                                   * uriOverride Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/'). The trailing slash is required.
      *                                   * cacheDir    Path to the cache directory to be used to read metadata. The client never writes to the cache, use the CLI to warm up the cache.
      *                                   * cache       Alternatively, you can pass a PSR-6 compatible cache item pool. This option means that the cacheDir option is ignored. The client never writes to the cache, you are responsible for warming it up using \Contentful\Delivery\Cache\CacheWarmer.
+     *                                   * autoWarmup  Warm up the cache automatically
      *
      * @api
      */
@@ -87,6 +94,7 @@ class Client extends BaseClient
             'uriOverride' => null,
             'cacheDir' => null,
             'cache' => null,
+            'autoWarmup' => false,
         ], $options);
 
         $guzzle = $options['guzzle'];
@@ -94,6 +102,7 @@ class Client extends BaseClient
         $uriOverride = $options['uriOverride'];
         $cacheDir = $options['cacheDir'];
         $cache = $options['cache'];
+        $this->autoWarmup = $options['autoWarmup'];
 
         if (null !== $uriOverride) {
             $baseUri = $uriOverride;
@@ -199,7 +208,7 @@ class Client extends BaseClient
             return $this->reviveJson($cacheItem->get());
         }
 
-        return $this->requestAndBuild('GET', 'content_types/'.$id);
+        return $this->requestAndBuild('GET', 'content_types/'.$id, [], $cacheItem);
     }
 
     /**
@@ -269,7 +278,7 @@ class Client extends BaseClient
             return $this->reviveJson($cacheItem->get());
         }
 
-        return $this->requestAndBuild('GET', '');
+        return $this->requestAndBuild('GET', '', [], $cacheItem);
     }
 
     /**
@@ -361,8 +370,15 @@ class Client extends BaseClient
      *
      * @return Asset|ContentType|DynamicEntry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\ResourceArray
      */
-    private function requestAndBuild($method, $path, array $options = [])
+    private function requestAndBuild($method, $path, array $options = [], CacheItemInterface $cacheItem = null)
     {
-        return $this->builder->buildObjectsFromRawData($this->request($method, $path, $options));
+        $rawData = $this->request($method, $path, $options);
+
+        if ($cacheItem && $this->autoWarmup) {
+            $cacheItem->set(\json_encode($rawData));
+            $this->cacheManager->save($cacheItem);
+        }
+
+        return $this->builder->buildObjectsFromRawData($rawData);
     }
 }
