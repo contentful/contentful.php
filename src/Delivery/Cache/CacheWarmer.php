@@ -12,7 +12,6 @@ namespace Contentful\Delivery\Cache;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
 use Psr\Cache\CacheItemPoolInterface;
-use Symfony\Component\Filesystem\Filesystem;
 
 class CacheWarmer
 {
@@ -29,7 +28,7 @@ class CacheWarmer
     /**
      * CacheWarmer constructor.
      *
-     * @param Client $client
+     * @param Client                 $client
      * @param CacheItemPoolInterface $cacheItemPool
      */
     public function __construct(Client $client, CacheItemPoolInterface $cacheItemPool)
@@ -38,9 +37,6 @@ class CacheWarmer
         $this->cacheItemPool = $cacheItemPool;
     }
 
-    /**
-     * @param string $cacheDir
-     */
     public function warmUp()
     {
         $space = $this->client->getSpace();

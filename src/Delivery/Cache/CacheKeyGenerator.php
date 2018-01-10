@@ -4,9 +4,6 @@ namespace Contentful\Delivery\Cache;
 
 final class CacheKeyGenerator
 {
-    /**
-     *
-     */
     public static function getSpaceKey()
     {
         return 'space';

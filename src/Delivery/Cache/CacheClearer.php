@@ -28,9 +28,6 @@ class CacheClearer
         $this->cache = $cache;
     }
 
-    /**
-     * @param string $cacheDir
-     */
     public function clear()
     {
         $this->cache->clear();

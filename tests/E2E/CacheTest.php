@@ -12,8 +12,6 @@ namespace Contentful\Tests\E2E;
 use Contentful\Delivery\Cache\CacheClearer;
 use Contentful\Delivery\Cache\CacheWarmer;
 use Contentful\Tests\Delivery\End2EndTestCase;
-use Symfony\Component\Cache\Simple\ArrayCache;
-use Symfony\Component\Filesystem\Filesystem;
 
 class CacheTest extends End2EndTestCase
 {

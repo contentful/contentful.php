@@ -9,7 +9,6 @@
 
 namespace Contentful\Delivery;
 
-use Cache\Adapter\PHPArray\ArrayCachePool;
 use Contentful\Client as BaseClient;
 use Contentful\Delivery\Cache\CacheKeyGenerator;
 use Contentful\Delivery\Cache\InstanceCache;
