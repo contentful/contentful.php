@@ -9,7 +9,7 @@
 
 namespace Contentful\Delivery;
 
-use Contentful\Delivery\Cache\CacheInterface;
+use Contentful\Delivery\Cache\CacheKeyGenerator;
 use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Client as DeliveryClient;
 use Contentful\Delivery\Synchronization\DeletedAsset;
@@ -24,6 +24,7 @@ use Contentful\File\UploadFile;
 use Contentful\Link;
 use Contentful\Location;
 use Contentful\ResourceArray;
+use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * The ResourceBuilder is responsible for turning the responses from the API into instances of PHP classes.
@@ -43,7 +44,7 @@ class ResourceBuilder
     private $instanceCache;
 
     /**
-     * @var CacheInterface
+     * @var CacheItemPoolInterface
      */
     private $filesystemCache;
 
@@ -57,12 +58,12 @@ class ResourceBuilder
     /**
      * ResourceBuilder constructor.
      *
-     * @param Client         $client
-     * @param InstanceCache  $instanceCache
-     * @param CacheInterface $filesystemCache
-     * @param string         $spaceId
+     * @param Client                 $client
+     * @param InstanceCache          $instanceCache
+     * @param CacheItemPoolInterface $filesystemCache
+     * @param string                 $spaceId
      */
-    public function __construct(DeliveryClient $client, InstanceCache $instanceCache, CacheInterface $filesystemCache, $spaceId)
+    public function __construct(DeliveryClient $client, InstanceCache $instanceCache, CacheItemPoolInterface $filesystemCache, $spaceId)
     {
         $this->client = $client;
         $this->instanceCache = $instanceCache;
@@ -275,9 +276,9 @@ class ResourceBuilder
             return $this->instanceCache->getContentType($data['sys']['id']);
         }
 
-        $cache = $this->filesystemCache->readContentType($data['sys']['id']);
-        if (null !== $cache) {
-            $data = \GuzzleHttp\json_decode($cache, true);
+        $cacheItem = $this->filesystemCache->getItem(CacheKeyGenerator::getContentTypeKey($data['sys']['id']));
+        if ($cacheItem->isHit()) {
+            $data = \GuzzleHttp\json_decode($cacheItem->get(), true);
         }
 
         $sys = $this->buildSystemProperties($data['sys']);

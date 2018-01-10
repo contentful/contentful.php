@@ -9,33 +9,30 @@
 
 namespace Contentful\Delivery\Cache;
 
-use Symfony\Component\Filesystem\Filesystem;
+use Psr\Cache\CacheItemPoolInterface;
 
 class CacheClearer
 {
     /**
-     * @var string
+     * @var CacheItemPoolInterface
      */
-    private $spaceId;
+    private $cache;
 
     /**
      * CacheClearer constructor.
      *
-     * @param string $spaceId ID of the space for which the cache should be cleared
+     * @param CacheItemPoolInterface $cache
      */
-    public function __construct($spaceId)
+    public function __construct(CacheItemPoolInterface $cache)
     {
-        $this->spaceId = $spaceId;
+        $this->cache = $cache;
     }
 
     /**
      * @param string $cacheDir
      */
-    public function clear($cacheDir)
+    public function clear()
     {
-        $spacePath = $cacheDir.'/'.$this->spaceId;
-        $fs = new Filesystem();
-
-        $fs->remove($spacePath);
+        $this->cache->clear();
     }
 }

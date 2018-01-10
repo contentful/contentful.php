@@ -10,6 +10,7 @@
 namespace Contentful\Delivery\Console;
 
 use Contentful\Delivery\Cache\CacheClearer;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,21 +40,9 @@ class ClearCacheCommand extends Command
         $spaceId = $input->getArgument('space-id');
         $cacheDir = $input->getArgument('cache-dir');
 
-        $fs = new Filesystem();
-
-        if (!$fs->exists($cacheDir)) {
-            throw new \InvalidArgumentException(
-                \sprintf("Cache directory '%s' does not exist.", $cacheDir)
-            );
-        }
-        if (!\is_writable($cacheDir)) {
-            throw new \InvalidArgumentException(
-                \sprintf("Cache directory '%s' can not be written to.", $cacheDir)
-            );
-        }
-
-        $clearer = new CacheClearer($spaceId);
-        $clearer->clear($cacheDir);
+        $cache = new FilesystemAdapter($spaceId, 0, $cacheDir);
+        $clearer = new CacheClearer($cache);
+        $clearer->clear();
 
         $output->writeln(\sprintf('<info>Cache cleared for the space %s.</info>', $spaceId));
     }

@@ -12,41 +12,35 @@ namespace Contentful\Tests\E2E;
 use Contentful\Delivery\Cache\CacheClearer;
 use Contentful\Delivery\Cache\CacheWarmer;
 use Contentful\Tests\Delivery\End2EndTestCase;
+use Symfony\Component\Cache\Simple\ArrayCache;
 use Symfony\Component\Filesystem\Filesystem;
 
 class CacheTest extends End2EndTestCase
 {
-    private function clearCacheDir()
-    {
-        (new Filesystem())
-            ->remove(self::$cacheDir);
-    }
-
     /**
      * @vcr e2e_cache_warmup_clear.json
      */
     public function testCacheWarmupClear()
     {
-        $this->clearCacheDir();
-
-        $fs = new Filesystem();
+        self::$cache->clear();
 
         $client = $this->getClient('cfexampleapi');
 
-        $warmer = new CacheWarmer($client);
-        $clearer = new CacheClearer('cfexampleapi');
+        $warmer = new CacheWarmer($client, self::$cache);
+        $clearer = new CacheClearer(self::$cache);
 
-        $warmer->warmUp(self::$cacheDir);
-        $this->assertTrue($fs->exists(self::$cacheDir.'/cfexampleapi'));
-        $this->assertTrue($fs->exists(self::$cacheDir.'/cfexampleapi/space.json'));
+        $warmer->warmUp();
 
-        $rawSpace = \json_decode(\file_get_contents(self::$cacheDir.'/cfexampleapi/space.json'), true);
+        $cacheItem = self::$cache->getItem('space');
+        $this->assertTrue($cacheItem->isHit());
+
+        $rawSpace = \json_decode($cacheItem->get(), true);
         $this->assertSame('cfexampleapi', $rawSpace['sys']['id']);
 
-        $clearer->clear(self::$cacheDir);
-        $this->assertFalse($fs->exists(self::$cacheDir.'/cfexampleapi'));
+        $clearer->clear();
+        $this->assertFalse(self::$cache->hasItem('space'));
 
-        $this->clearCacheDir();
+        self::$cache->clear();
     }
 
     /**
@@ -54,14 +48,14 @@ class CacheTest extends End2EndTestCase
      */
     public function testApiWorksWithEmptyCache()
     {
-        $this->clearCacheDir();
+        self::$cache->clear();
 
-        $client = $this->getClient('cfexampleapi_cache', true);
+        $client = $this->getClient('cfexampleapi_cache');
 
         $this->assertSame('cfexampleapi', $client->getSpace()->getId());
         $this->assertSame('cat', $client->getContentType('cat')->getId());
 
-        $this->clearCacheDir();
+        self::$cache->clear();
     }
 
     /**
@@ -69,18 +63,18 @@ class CacheTest extends End2EndTestCase
      */
     public function testAccessCachedContent()
     {
-        $this->clearCacheDir();
+        self::$cache->clear();
 
         $client = $this->getClient('cfexampleapi');
 
-        $warmer = new CacheWarmer($client);
-        $warmer->warmUp(self::$cacheDir);
+        $warmer = new CacheWarmer($client, self::$cache);
+        $warmer->warmUp();
 
-        $client = $this->getClient('cfexampleapi_cache', true);
+        $client = $this->getClient('cfexampleapi_cache');
 
         $this->assertSame('cfexampleapi', $client->getSpace()->getId());
         $this->assertSame('cat', $client->getContentType('cat')->getId());
 
-        $this->clearCacheDir();
+        self::$cache->clear();
     }
 }

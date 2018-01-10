@@ -9,14 +9,16 @@
 
 namespace Contentful\Delivery;
 
+use Cache\Adapter\PHPArray\ArrayCachePool;
 use Contentful\Client as BaseClient;
-use Contentful\Delivery\Cache\CacheInterface;
-use Contentful\Delivery\Cache\FilesystemCache;
+use Contentful\Delivery\Cache\CacheKeyGenerator;
 use Contentful\Delivery\Cache\InstanceCache;
-use Contentful\Delivery\Cache\NullCache;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Link;
 use Contentful\ResourceArray;
+use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Adapter\NullAdapter;
 
 /**
  * A Client is used to communicate the Contentful Delivery API.
@@ -53,7 +55,7 @@ class Client extends BaseClient
     private $defaultLocale;
 
     /**
-     * @var CacheInterface
+     * @var CacheItemPoolInterface
      */
     private $cacheManager;
 
@@ -71,6 +73,7 @@ class Client extends BaseClient
      *                                   * logger      Inject a Contentful logger
      *                                   * uriOverride Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/'). The trailing slash is required.
      *                                   * cacheDir    Path to the cache directory to be used to read metadata. The client never writes to the cache, use the CLI to warm up the cache.
+     *                                   * cache       Alternatively, you can pass a PSR-6 compatible cache item pool. This option means that the cacheDir option is ignored. The client never writes to the cache, you are responsible for warming it up using \Contentful\Delivery\Cache\CacheWarmer.
      *
      * @api
      */
@@ -84,12 +87,14 @@ class Client extends BaseClient
             'logger' => null,
             'uriOverride' => null,
             'cacheDir' => null,
+            'cache' => null,
         ], $options);
 
         $guzzle = $options['guzzle'];
         $logger = $options['logger'];
         $uriOverride = $options['uriOverride'];
         $cacheDir = $options['cacheDir'];
+        $cache = $options['cache'];
 
         if (null !== $uriOverride) {
             $baseUri = $uriOverride;
@@ -100,9 +105,14 @@ class Client extends BaseClient
 
         $this->preview = $preview;
         $this->instanceCache = new InstanceCache();
-        $this->cacheManager = null === $cacheDir ? new NullCache() : new FilesystemCache($cacheDir, $spaceId);
-        $this->builder = new ResourceBuilder($this, $this->instanceCache, $this->cacheManager, $spaceId);
         $this->defaultLocale = $defaultLocale;
+
+        if ($cache) {
+            $this->cacheManager = $cache;
+        } else {
+            $this->cacheManager = null === $cacheDir ? new NullAdapter() : new FilesystemAdapter($spaceId, 0, $cacheDir);
+        }
+        $this->builder = new ResourceBuilder($this, $this->instanceCache, $this->cacheManager, $spaceId);
     }
 
     /**
@@ -185,9 +195,9 @@ class Client extends BaseClient
             return $this->instanceCache->getContentType($id);
         }
 
-        $cache = $this->cacheManager->readContentType($id);
-        if (null !== $cache) {
-            return $this->reviveJson($cache);
+        $cacheItem = $this->cacheManager->getItem(CacheKeyGenerator::getContentTypeKey($id));
+        if ($cacheItem->isHit()) {
+            return $this->reviveJson($cacheItem->get());
         }
 
         return $this->requestAndBuild('GET', 'content_types/'.$id);
@@ -255,9 +265,9 @@ class Client extends BaseClient
             return $this->instanceCache->getSpace();
         }
 
-        $cache = $this->cacheManager->readSpace();
-        if (null !== $cache) {
-            return $this->reviveJson($cache);
+        $cacheItem = $this->cacheManager->getItem(CacheKeyGenerator::getSpaceKey());
+        if ($cacheItem->isHit()) {
+            return $this->reviveJson($cacheItem->get());
         }
 
         return $this->requestAndBuild('GET', '');

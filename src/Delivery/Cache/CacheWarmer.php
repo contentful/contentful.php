@@ -11,6 +11,7 @@ namespace Contentful\Delivery\Cache;
 
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 class CacheWarmer
@@ -21,38 +22,44 @@ class CacheWarmer
     private $client;
 
     /**
+     * @var CacheItemPoolInterface
+     */
+    private $cacheItemPool;
+
+    /**
      * CacheWarmer constructor.
      *
      * @param Client $client
+     * @param CacheItemPoolInterface $cacheItemPool
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, CacheItemPoolInterface $cacheItemPool)
     {
         $this->client = $client;
+        $this->cacheItemPool = $cacheItemPool;
     }
 
     /**
      * @param string $cacheDir
      */
-    public function warmUp($cacheDir)
+    public function warmUp()
     {
-        $fs = new Filesystem();
-
         $space = $this->client->getSpace();
 
         $query = (new Query())
             ->setLimit(100);
 
         $contentTypes = $this->client->getContentTypes($query);
-        $spacePath = $cacheDir.'/'.$space->getId();
 
-        if (!$fs->exists($spacePath)) {
-            $fs->mkdir($spacePath);
-        }
-
-        $fs->dumpFile($spacePath.'/space.json', \json_encode($space));
+        $spaceItem = $this->cacheItemPool->getItem(CacheKeyGenerator::getSpaceKey());
+        $spaceItem->set(\json_encode($space));
+        $this->cacheItemPool->saveDeferred($spaceItem);
 
         foreach ($contentTypes as $contentType) {
-            $fs->dumpFile($spacePath.'/ct-'.$contentType->getId().'.json', \json_encode($contentType));
+            $spaceItem = $this->cacheItemPool->getItem(CacheKeyGenerator::getContentTypeKey($contentType->getId()));
+            $spaceItem->set(\json_encode($contentType));
+            $this->cacheItemPool->saveDeferred($spaceItem);
         }
+
+        $this->cacheItemPool->commit();
     }
 }
