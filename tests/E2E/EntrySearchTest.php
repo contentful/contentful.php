@@ -9,6 +9,7 @@
 
 namespace Contentful\Tests\E2E;
 
+use Contentful\Delivery\DynamicEntry;
 use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
 use Contentful\Tests\Delivery\End2EndTestCase;
@@ -140,5 +141,41 @@ class EntrySearchTest extends End2EndTestCase
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
+    }
+
+    /**
+     * @vcr e2e_entry_search_links_to_entries.json
+     */
+    public function testSearchLinksToEntries()
+    {
+        $client = $this->getClient('cfexampleapi');
+
+        $query = (new Query())
+            ->linksToEntry('nyancat');
+
+        $entries = $client->getEntries($query);
+
+        $this->assertInstanceOf(ResourceArray::class, $entries);
+        $this->assertCount(1, $entries);
+        $this->assertInstanceOf(DynamicEntry::class, $entries[0]);
+        $this->assertSame('happycat', $entries[0]->getId());
+    }
+
+    /**
+     * @vcr e2e_entry_search_links_to_assets.json
+     */
+    public function testSearchLinksToAssets()
+    {
+        $client = $this->getClient('cfexampleapi');
+
+        $query = (new Query())
+            ->linksToAsset('nyancat');
+
+        $entries = $client->getEntries($query);
+
+        $this->assertInstanceOf(ResourceArray::class, $entries);
+        $this->assertCount(1, $entries);
+        $this->assertInstanceOf(DynamicEntry::class, $entries[0]);
+        $this->assertSame('nyancat', $entries[0]->getId());
     }
 }

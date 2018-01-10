@@ -11,6 +11,7 @@ namespace Contentful\Delivery;
 
 use Contentful\Exception\NotFoundException;
 use Contentful\Link;
+use Contentful\ResourceArray;
 
 class DynamicEntry extends LocalizedResource implements EntryInterface
 {
@@ -79,6 +80,23 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     public function getContentType()
     {
         return $this->sys->getContentType();
+    }
+
+    /**
+     * Gets all entries that contain links to the current one.
+     * You can provide a Query object in order to set parameters
+     * such as locale, include, and sorting.
+     *
+     * @param Query|null $query
+     *
+     * @return ResourceArray
+     */
+    public function getReferences(Query $query = null)
+    {
+        $query = $query ?: new Query();
+        $query->linksToEntry($this->getId());
+
+        return $this->client->getEntries($query);
     }
 
     /**
