@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 5.5.9
   - 5.5
   - 5.6
   - 7.0
@@ -11,6 +10,7 @@ php:
 env:
   global:
     - GH_REPO="github.com/${TRAVIS_REPO_SLUG}.git"
+    - BUILD_LEAD_VERSION="7.2"
 
 matrix:
   fast_finish: true
@@ -21,8 +21,8 @@ branches:
 
 before_install:
  - if [ "${TRAVIS_PHP_VERSION:0:3}" == "5.5" ]; then PHPUNIT_VERSION=4.8; else PHPUNIT_VERSION=5.7; fi
- - wget -O phpunit.phar https://phar.phpunit.de/phpunit-${PHPUNIT_VERSION}.phar
- - wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -O php-cs-fixer.phar
+ - wget https://phar.phpunit.de/phpunit-${PHPUNIT_VERSION}.phar -O phpunit.phar
+ - if [ "${TRAVIS_PHP_VERSION:0:3}" == "${BUILD_LEAD_VERSION}" ]; then wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -O php-cs-fixer.phar; fi
 
 install:
   - composer self-update
@@ -31,12 +31,12 @@ install:
 script:
  - vendor/bin/parallel-lint src/
  - vendor/bin/parallel-lint tests/
- - if [ "${TRAVIS_PHP_VERSION:0:3}" != "5.5" ]; then php php-cs-fixer.phar fix --dry-run -v; fi
+ - if [ "${TRAVIS_PHP_VERSION:0:3}" == "${BUILD_LEAD_VERSION}" ]; then php php-cs-fixer.phar fix --dry-run -v; fi
  - php phpunit.phar -v
 
 after_success:
  - travis_retry bash <(curl -s https://codecov.io/bash) -f build/logs/clover.xml
- - if [[ ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != false) && "${TRAVIS_PHP_VERSION:0:3}" == "7.1" ]]; then ./scripts/prepare-docs.sh; fi
+ - if [[ ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != false) && "${TRAVIS_PHP_VERSION:0:3}" == "${BUILD_LEAD_VERSION}" ]]; then ./scripts/prepare-docs.sh; fi
 
 deploy:
   provider: pages
@@ -44,4 +44,4 @@ deploy:
   github_token: $GITHUB_TOKEN
   local_dir: build/docs
   on:
-    condition: ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != false) && "${TRAVIS_PHP_VERSION:0:3}" == "7.1"
+    condition: ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != false) && "${TRAVIS_PHP_VERSION:0:3}" == "${BUILD_LEAD_VERSION}"
