@@ -70,9 +70,9 @@ class SyncTest extends End2EndTestCase
 
     /**
      * @requires API no-coverage-proxy
-     * @vcr e2e_sync.json
+     * @vcr e2e_sync_full.json
      */
-    public function testSync()
+    public function testSyncFull()
     {
         $manager = $this->getClient('cfexampleapi')
             ->getSynchronizationManager();
@@ -82,8 +82,8 @@ class SyncTest extends End2EndTestCase
             $results[] = $result;
         }
 
-        $this->assertEquals(2, count($results));
+        $this->assertSame(2, \count($results));
         $this->assertTrue($result->isDone());
-        $this->assertEquals('w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE', $result->getToken());
+        $this->assertSame('w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE', $result->getToken());
     }
 }
