@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/2.3.0...HEAD)
 
+### Added
+* The `Contentful\Delivery\Query` class now has `linksToEntry('<entry_id>')` and `linksToAsset('<entry_id>')` methods. For users on older versions of the SDK, the same operators can be emulated by using `$query->where('links_to_entry', '<entry_id>')` and `$query->where('links_to_asset', '<asset_id>')`. `DynamicEntry` also provides a shortcut in the form `$entry->getReferences()`.
+
+### Changed
+* The SDK now implements a strict coding standard based on the one found on the [Symfony Demo](https://github.com/symfony/demo/blob/master/.php_cs.dist). The `@Symfony:risky` ruleset is currently implemented, but this could be subject to change in the event of possible incompatibilities. The style check is a mandatory part of CI.
+* Methods are no longer marked as `@api` or `@internal`. If a method is public, it's assumed to be part of the API surface of the SDK, and thus any breaking change to that would require a new major version.
+
 ## [2.3.0](https://github.com/contentful/contentful.php/tree/2.3.0) (2017-12-01)
 
 ### Changed
