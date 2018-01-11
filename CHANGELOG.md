@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/2.3.0...HEAD)
+## [2.4.0](https://github.com/contentful/contentful.php/tree/2.4.0) (2018-01-11)
 
 ### Added
 * The `Contentful\Delivery\Query` class now has `linksToEntry('<entry_id>')` and `linksToAsset('<entry_id>')` methods. For users on older versions of the SDK, the same operators can be emulated by using `$query->where('links_to_entry', '<entry_id>')` and `$query->where('links_to_asset', '<asset_id>')`. `DynamicEntry` also provides a shortcut in the form `$entry->getReferences()`.

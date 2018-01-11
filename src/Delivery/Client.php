@@ -30,7 +30,7 @@ class Client extends BaseClient
     /**
      * @var string
      */
-    const VERSION = '2.4.0-dev';
+    const VERSION = '2.4.0';
 
     /**
      * @var ResourceBuilder
