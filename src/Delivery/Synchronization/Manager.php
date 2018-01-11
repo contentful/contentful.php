@@ -39,7 +39,7 @@ class Manager
     /**
      * Manager constructor.
      *
-     * Do not instantiate this class yourself, use Contentful\Delivery\Client::getSynchronizationManager instead.
+     * Do not instantiate this class yourself, use Contentful\Delivery\Client::getSynchronizationManager() instead.
      *
      * @param Client          $client
      * @param ResourceBuilder $builder
@@ -56,31 +56,28 @@ class Manager
 
     /**
      * @param string|null $token
-     * @param Query|null $query
+     * @param Query|null  $query
      *
-     * @return \Generator|Result[]
+     * @return \Generator An instance of Result wrapped in a Generator object
      */
     public function sync($token = null, Query $query = null)
     {
-        while (true) {
-            $result = ($token) ? $this->continueSync($token) : $this->startSync($query);
+        do {
+            $result = $token ? $this->continueSync($token) : $this->startSync($query);
 
             yield $result;
 
-            if ($result->isDone()) {
-                return;
-            }
-
             $token = $result->getToken();
-        }
+        } while (!$result->isDone());
     }
 
     /**
-     * Starts a new Synchronization. Will contain all the Resources currently present in the space.
+     * Starts a new Synchronization.
+     * The result will contain all the resources currently present in the space.
+     * By calling Result::isDone(), it can be checked if there's another page of results,
+     * if so call `continueSync` to get the next page.
      *
-     * By calling Result::isDone it can be checked if there's another page of results, if so call `continueSync` to get the next page.
-     *
-     * A Query can be used to return only a subset of the space.
+     * A Query object can be used to return only a subset of the space.
      *
      * @param Query|null $query
      *
@@ -95,7 +92,8 @@ class Manager
     }
 
     /**
-     * Continues the synchronization either at the next page or with the results since the initial synchronization.
+     * Continues the synchronization either at the next page,
+     * or with the results since the initial synchronization.
      *
      * @param string $token
      *
@@ -109,6 +107,7 @@ class Manager
             if ($this->preview && $token->isDone()) {
                 throw new \RuntimeException('Can not continue syncing when using the Content Preview API.');
             }
+
             $token = $token->getToken();
         }
 
@@ -126,18 +125,9 @@ class Manager
      */
     private function buildResult(array $data)
     {
-        if (isset($data['nextSyncUrl'])) {
-            $done = true;
-            $token = $this->getTokenFromUrl($data['nextSyncUrl']);
-        } else {
-            $done = false;
-            $token = $this->getTokenFromUrl($data['nextPageUrl']);
-        }
+        $token = $this->getTokenFromResponse($data);
+        $done = isset($data['nextSyncUrl']);
         $items = \array_map(function ($item) {
-            if (isset($item['sys']['locale'])) {
-                unset($item['sys']['locale']);
-            }
-
             return $this->builder->buildObjectsFromRawData($item);
         }, $data['items']);
 
@@ -147,12 +137,14 @@ class Manager
     /**
      * Parses the sync_token out of an URL supplied by the API.
      *
-     * @param string $url the nextSyncUrl or nextPageUrl from an API response
+     * @param array $data The API response
      *
      * @return string
      */
-    private function getTokenFromUrl($url)
+    private function getTokenFromResponse(array $data)
     {
+        $url = isset($data['nextSyncUrl']) ? $data['nextSyncUrl'] : $data['nextPageUrl'];
+
         $queryValues = [];
         \parse_str(\parse_url($url, PHP_URL_QUERY), $queryValues);
 
