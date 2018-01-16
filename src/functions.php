@@ -31,7 +31,7 @@ namespace Contentful;
 
  function space_cache_key($id)
  {
-     return \sprintf('space-%s.json', $id);
+     return \sprintf('space-%s', $id);
  }
 
  /**
@@ -39,5 +39,5 @@ namespace Contentful;
   */
  function content_type_cache_key($id)
  {
-     return \sprintf('contentType-%s.json', $id);
+     return \sprintf('contentType-%s', $id);
  }

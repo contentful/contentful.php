@@ -28,5 +28,8 @@
         "branch-alias": {
             "dev-master": "2.5.0-dev"
         }
+    },
+    "suggest": {
+        "symfony/cache": "A PSR-6 compatible cache component"
     }
 }

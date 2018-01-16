@@ -9,9 +9,10 @@
 
 namespace Contentful\Delivery\Console;
 
-use Contentful\Console\CacheItemPoolFactoryInterface;
+use Contentful\Delivery\Cache\CacheItemPoolFactoryInterface;
 use Contentful\Delivery\Cache\CacheWarmer;
 use Contentful\Delivery\Client;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,7 +35,7 @@ class WarmUpCacheCommand extends Command
                 ),
                 new InputArgument(
                     'cache-item-pool-factory-class', InputArgument::REQUIRED,
-                    'The FQCN of a class to be used as a cache item pool factory. Must implement \Contentful\Console\CacheItemPoolFactoryInterface.'
+                    'The FQCN of a class to be used as a cache item pool factory. Must implement \Contentful\Delivery\Cache\CacheItemPoolFactoryInterface.'
                 ),
             ]);
     }
@@ -47,11 +48,16 @@ class WarmUpCacheCommand extends Command
         $cachePoolFactoryClass = $input->getArgument('cache-item-pool-factory-class');
         $cacheItemPoolFactory = new $cachePoolFactoryClass();
         if (!$cacheItemPoolFactory instanceof CacheItemPoolFactoryInterface) {
-            throw new \InvalidArgumentException("Cache item pool factory class must implement \Contentful\Console\CacheItemPoolFactoryInterface");
+            throw new \InvalidArgumentException("Cache item pool factory class must implement \Contentful\Delivery\Cache\CacheItemPoolFactoryInterface");
+        }
+
+        $cacheItemPool = $cacheItemPoolFactory->getCacheItemPool($spaceId);
+        if (!$cacheItemPool instanceof CacheItemPoolInterface) {
+            throw new \InvalidArgumentException('Cache item pool must be a PSR-6 compatible.');
         }
 
         $client = new Client($token, $spaceId);
-        $warmer = new CacheWarmer($client, $cacheItemPoolFactory->getCacheItemPool());
+        $warmer = new CacheWarmer($client, $cacheItemPool);
 
         $warmer->warmUp();
 

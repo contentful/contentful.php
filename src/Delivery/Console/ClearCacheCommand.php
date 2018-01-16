@@ -9,8 +9,9 @@
 
 namespace Contentful\Delivery\Console;
 
-use Contentful\Console\CacheItemPoolFactoryInterface;
 use Contentful\Delivery\Cache\CacheClearer;
+use Contentful\Delivery\Cache\CacheItemPoolFactoryInterface;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,21 +25,32 @@ class ClearCacheCommand extends Command
             ->setName('delivery:cache:clear')
             ->setDefinition([
                 new InputArgument(
+                    'space-id', InputArgument::REQUIRED,
+                    'ID of the space to use.'
+                ),
+                new InputArgument(
                     'cache-item-pool-factory-class', InputArgument::REQUIRED,
-                    'The FQCN of a class to be used as a cache item pool factory. Must implement \Contentful\Console\CacheItemPoolFactoryInterface.'
+                    'The FQCN of a class to be used as a cache item pool factory. Must implement \Contentful\Delivery\Cache\CacheItemPoolFactoryInterface.'
                 ),
             ]);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $spaceId = $input->getArgument('space-id');
+
         $cachePoolFactoryClass = $input->getArgument('cache-item-pool-factory-class');
         $cacheItemPoolFactory = new $cachePoolFactoryClass();
         if (!$cacheItemPoolFactory instanceof CacheItemPoolFactoryInterface) {
-            throw new \InvalidArgumentException("Cache item pool factory class must implement \Contentful\Console\CacheItemPoolFactoryInterface");
+            throw new \InvalidArgumentException("Cache item pool factory class must implement \Contentful\Delivery\Cache\CacheItemPoolFactoryInterface");
         }
 
-        $clearer = new CacheClearer($cacheItemPoolFactory->getCacheItemPool());
+        $cacheItemPool = $cacheItemPoolFactory->getCacheItemPool($spaceId);
+        if (!$cacheItemPool instanceof CacheItemPoolInterface) {
+            throw new \InvalidArgumentException('Cache item pool must be a PSR-6 compatible.');
+        }
+
+        $clearer = new CacheClearer($cacheItemPool);
         $clearer->clear();
 
         $output->writeln('<info>Cache cleared.</info>');

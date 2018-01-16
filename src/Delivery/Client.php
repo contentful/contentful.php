@@ -117,7 +117,7 @@ class Client extends BaseClient
         $this->defaultLocale = $defaultLocale;
         $this->spaceId = $spaceId;
 
-        $this->cacheItemPool = null === $cache ? new VoidCachePool() : $cache;
+        $this->cacheItemPool = $options['cache'] ?: new VoidCachePool();
 
         if (!$this->cacheItemPool instanceof CacheItemPoolInterface) {
             throw new \InvalidArgumentException('The cache parameter must be a PSR-6 cache item pool or null.');

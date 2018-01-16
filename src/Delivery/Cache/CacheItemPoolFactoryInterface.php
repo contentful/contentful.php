@@ -1,6 +1,6 @@
 <?php
 
-namespace Contentful\Console;
+namespace Contentful\Delivery\Cache;
 
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -11,5 +11,5 @@ interface CacheItemPoolFactoryInterface
     /**
      * @return CacheItemPoolInterface
      */
-    public function getCacheItemPool();
+    public function getCacheItemPool($spaceId);
 }
