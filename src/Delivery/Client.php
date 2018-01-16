@@ -102,7 +102,6 @@ class Client extends BaseClient
         $guzzle = $options['guzzle'];
         $logger = $options['logger'];
         $uriOverride = $options['uriOverride'];
-        $cache = $options['cache'];
         $this->autoWarmup = $options['autoWarmup'];
 
         if (null !== $uriOverride) {
