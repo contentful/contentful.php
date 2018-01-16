@@ -9,8 +9,8 @@
 
 namespace Contentful\Delivery\Console;
 
+use Contentful\Console\CacheItemPoolFactoryInterface;
 use Contentful\Delivery\Cache\CacheClearer;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,25 +24,23 @@ class ClearCacheCommand extends Command
             ->setName('delivery:cache:clear')
             ->setDefinition([
                 new InputArgument(
-                    'space-id', InputArgument::REQUIRED,
-                    'ID of the space to use.'
-                ),
-                new InputArgument(
-                    'cache-dir', InputArgument::REQUIRED,
-                    'The directory to write the cache to.'
+                    'cache-item-pool-factory-class', InputArgument::REQUIRED,
+                    'The FQCN of a class to be used as a cache item pool factory. Must implement \Contentful\Console\CacheItemPoolFactoryInterface.'
                 ),
             ]);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $spaceId = $input->getArgument('space-id');
-        $cacheDir = $input->getArgument('cache-dir');
+        $cachePoolFactoryClass = $input->getArgument('cache-item-pool-factory-class');
+        $cacheItemPoolFactory = new $cachePoolFactoryClass();
+        if (!$cacheItemPoolFactory instanceof CacheItemPoolFactoryInterface) {
+            throw new \InvalidArgumentException("Cache item pool factory class must implement \Contentful\Console\CacheItemPoolFactoryInterface");
+        }
 
-        $cache = new FilesystemAdapter($spaceId, 0, $cacheDir);
-        $clearer = new CacheClearer($cache);
+        $clearer = new CacheClearer($cacheItemPoolFactory->getCacheItemPool());
         $clearer->clear();
 
-        $output->writeln(\sprintf('<info>Cache cleared for the space %s.</info>', $spaceId));
+        $output->writeln('<info>Cache cleared.</info>');
     }
 }

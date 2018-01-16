@@ -10,10 +10,12 @@
         "guzzlehttp/psr7": "~1.4",
         "psr/http-message": "~1.0",
         "psr/cache": "^1.0",
-        "symfony/cache": "*"
+        "symfony/filesystem": "~2.7|~3.0|~4.0",
+        "cache/void-adapter": "^1.0"
     },
     "require-dev": {
-        "php-vcr/phpunit-testlistener-vcr": "^2.0"
+        "php-vcr/phpunit-testlistener-vcr": "^2.0",
+        "cache/array-adapter": "^1.0"
     },
     "autoload": {
         "files": ["src/functions.php"],

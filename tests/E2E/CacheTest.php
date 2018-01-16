@@ -29,14 +29,14 @@ class CacheTest extends End2EndTestCase
 
         $warmer->warmUp();
 
-        $cacheItem = self::$cache->getItem('space');
+        $cacheItem = self::$cache->getItem(\Contentful\space_cache_key('cfexampleapi'));
         $this->assertTrue($cacheItem->isHit());
 
         $rawSpace = \json_decode($cacheItem->get(), true);
         $this->assertSame('cfexampleapi', $rawSpace['sys']['id']);
 
         $clearer->clear();
-        $this->assertFalse(self::$cache->hasItem('space'));
+        $this->assertFalse(self::$cache->hasItem(\Contentful\space_cache_key('cfexampleapi')));
 
         self::$cache->clear();
     }
@@ -88,7 +88,7 @@ class CacheTest extends End2EndTestCase
         $this->assertSame('cfexampleapi', $client->getSpace()->getId());
         $this->assertSame('cat', $client->getContentType('cat')->getId());
 
-        $cacheItem = self::$cache->getItem('space');
+        $cacheItem = self::$cache->getItem(\Contentful\space_cache_key('cfexampleapi'));
         $this->assertTrue($cacheItem->isHit());
 
         $rawSpace = \json_decode($cacheItem->get(), true);

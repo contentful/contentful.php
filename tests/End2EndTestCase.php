@@ -9,10 +9,10 @@
 
 namespace Contentful\Tests\Delivery;
 
+use Cache\Adapter\PHPArray\ArrayCachePool;
 use Contentful\Delivery\Client;
 use Contentful\Log\ArrayLogger;
 use Psr\Cache\CacheItemPoolInterface;
-use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 class End2EndTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +23,7 @@ class End2EndTestCase extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        self::$cache = new ArrayAdapter();
+        self::$cache = new ArrayCachePool();
     }
 
     /**

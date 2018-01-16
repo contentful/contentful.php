@@ -9,9 +9,9 @@
 
 namespace Contentful\Delivery\Console;
 
+use Contentful\Console\CacheItemPoolFactoryInterface;
 use Contentful\Delivery\Cache\CacheWarmer;
 use Contentful\Delivery\Client;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,8 +33,8 @@ class WarmUpCacheCommand extends Command
                     'Token to access the space.'
                 ),
                 new InputArgument(
-                    'cache-dir', InputArgument::REQUIRED,
-                    'The directory to write the cache to.'
+                    'cache-item-pool-factory-class', InputArgument::REQUIRED,
+                    'The FQCN of a class to be used as a cache item pool factory. Must implement \Contentful\Console\CacheItemPoolFactoryInterface.'
                 ),
             ]);
     }
@@ -43,11 +43,15 @@ class WarmUpCacheCommand extends Command
     {
         $spaceId = $input->getArgument('space-id');
         $token = $input->getArgument('token');
-        $cacheDir = $input->getArgument('cache-dir');
+
+        $cachePoolFactoryClass = $input->getArgument('cache-item-pool-factory-class');
+        $cacheItemPoolFactory = new $cachePoolFactoryClass();
+        if (!$cacheItemPoolFactory instanceof CacheItemPoolFactoryInterface) {
+            throw new \InvalidArgumentException("Cache item pool factory class must implement \Contentful\Console\CacheItemPoolFactoryInterface");
+        }
 
         $client = new Client($token, $spaceId);
-        $cache = new FilesystemAdapter($spaceId, 0, $cacheDir);
-        $warmer = new CacheWarmer($client, $cache);
+        $warmer = new CacheWarmer($client, $cacheItemPoolFactory->getCacheItemPool());
 
         $warmer->warmUp();
 

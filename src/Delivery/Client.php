@@ -9,16 +9,14 @@
 
 namespace Contentful\Delivery;
 
+use Cache\Adapter\Void\VoidCachePool;
 use Contentful\Client as BaseClient;
-use Contentful\Delivery\Cache\CacheKeyGenerator;
 use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Link;
 use Contentful\ResourceArray;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Component\Cache\Adapter\NullAdapter;
 
 /**
  * A Client is used to communicate the Contentful Delivery API.
@@ -32,7 +30,7 @@ class Client extends BaseClient
     /**
      * @var string
      */
-    const VERSION = '2.5.0-dev';
+    const VERSION = '3.0.0-dev';
 
     /**
      * @var ResourceBuilder
@@ -57,12 +55,17 @@ class Client extends BaseClient
     /**
      * @var CacheItemPoolInterface
      */
-    private $cacheManager;
+    private $cacheItemPool;
 
     /**
      * @var bool
      */
     private $autoWarmup;
+
+    /**
+     * @var string
+     */
+    private $spaceId;
 
     /**
      * Client constructor.
@@ -77,8 +80,7 @@ class Client extends BaseClient
      *                                   * guzzle      Override the guzzle instance used by the Contentful client
      *                                   * logger      Inject a Contentful logger
      *                                   * uriOverride Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/'). The trailing slash is required.
-     *                                   * cacheDir    Path to the cache directory to be used to read metadata. The client never writes to the cache, use the CLI to warm up the cache.
-     *                                   * cache       Alternatively, you can pass a PSR-6 compatible cache item pool. This option means that the cacheDir option is ignored. The client never writes to the cache, you are responsible for warming it up using \Contentful\Delivery\Cache\CacheWarmer.
+     *                                   * cache       Null or a PSR-6 cache item pool. The client only writes to the cache if autoWarmup is true, otherwise, you are responsible for warming it up using \Contentful\Delivery\Cache\CacheWarmer.
      *                                   * autoWarmup  Warm up the cache automatically
      *
      * @api
@@ -100,7 +102,6 @@ class Client extends BaseClient
         $guzzle = $options['guzzle'];
         $logger = $options['logger'];
         $uriOverride = $options['uriOverride'];
-        $cacheDir = $options['cacheDir'];
         $cache = $options['cache'];
         $this->autoWarmup = $options['autoWarmup'];
 
@@ -114,13 +115,15 @@ class Client extends BaseClient
         $this->preview = $preview;
         $this->instanceCache = new InstanceCache();
         $this->defaultLocale = $defaultLocale;
+        $this->spaceId = $spaceId;
 
-        if ($cache) {
-            $this->cacheManager = $cache;
-        } else {
-            $this->cacheManager = null === $cacheDir ? new NullAdapter() : new FilesystemAdapter($spaceId, 0, $cacheDir);
+        $this->cacheItemPool = null === $cache ? new VoidCachePool() : $cache;
+
+        if (!$this->cacheItemPool instanceof CacheItemPoolInterface) {
+            throw new \InvalidArgumentException('The cache parameter must be a PSR-6 cache item pool or null.');
         }
-        $this->builder = new ResourceBuilder($this, $this->instanceCache, $this->cacheManager, $spaceId);
+
+        $this->builder = new ResourceBuilder($this, $this->instanceCache, $this->cacheItemPool, $spaceId);
     }
 
     /**
@@ -203,7 +206,7 @@ class Client extends BaseClient
             return $this->instanceCache->getContentType($id);
         }
 
-        $cacheItem = $this->cacheManager->getItem(CacheKeyGenerator::getContentTypeKey($id));
+        $cacheItem = $this->cacheItemPool->getItem(\Contentful\content_type_cache_key($id));
         if ($cacheItem->isHit()) {
             return $this->reviveJson($cacheItem->get());
         }
@@ -273,7 +276,7 @@ class Client extends BaseClient
             return $this->instanceCache->getSpace();
         }
 
-        $cacheItem = $this->cacheManager->getItem(CacheKeyGenerator::getSpaceKey());
+        $cacheItem = $this->cacheItemPool->getItem(\Contentful\space_cache_key($this->spaceId));
         if ($cacheItem->isHit()) {
             return $this->reviveJson($cacheItem->get());
         }
@@ -376,7 +379,7 @@ class Client extends BaseClient
 
         if ($cacheItem && $this->autoWarmup) {
             $cacheItem->set(\json_encode($rawData));
-            $this->cacheManager->save($cacheItem);
+            $this->cacheItemPool->save($cacheItem);
         }
 
         return $this->builder->buildObjectsFromRawData($rawData);

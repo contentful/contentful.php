@@ -46,12 +46,12 @@ class CacheWarmer
 
         $contentTypes = $this->client->getContentTypes($query);
 
-        $spaceItem = $this->cacheItemPool->getItem(CacheKeyGenerator::getSpaceKey());
+        $spaceItem = $this->cacheItemPool->getItem(\Contentful\space_cache_key($space->getId()));
         $spaceItem->set(\json_encode($space));
         $this->cacheItemPool->saveDeferred($spaceItem);
 
         foreach ($contentTypes as $contentType) {
-            $spaceItem = $this->cacheItemPool->getItem(CacheKeyGenerator::getContentTypeKey($contentType->getId()));
+            $spaceItem = $this->cacheItemPool->getItem(\Contentful\content_type_cache_key($contentType->getId()));
             $spaceItem->set(\json_encode($contentType));
             $this->cacheItemPool->saveDeferred($spaceItem);
         }

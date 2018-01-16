@@ -9,7 +9,6 @@
 
 namespace Contentful\Delivery;
 
-use Contentful\Delivery\Cache\CacheKeyGenerator;
 use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Client as DeliveryClient;
 use Contentful\Delivery\Synchronization\DeletedAsset;
@@ -276,7 +275,7 @@ class ResourceBuilder
             return $this->instanceCache->getContentType($data['sys']['id']);
         }
 
-        $cacheItem = $this->filesystemCache->getItem(CacheKeyGenerator::getContentTypeKey($data['sys']['id']));
+        $cacheItem = $this->filesystemCache->getItem(\Contentful\content_type_cache_key($data['sys']['id']));
         if ($cacheItem->isHit()) {
             $data = \GuzzleHttp\json_decode($cacheItem->get(), true);
         }
