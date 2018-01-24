@@ -233,8 +233,9 @@ abstract class Client
     protected function getExceptionMap()
     {
         return [
-            'InvalidQuery' => Exception\InvalidQueryException::class,
             'AccessTokenInvalid' => Exception\AccessTokenInvalidException::class,
+            'BadRequest' => Exception\BadRequestException::class,
+            'InvalidQuery' => Exception\InvalidQueryException::class,
             'NotFound' => Exception\NotFoundException::class,
             'RateLimitExceeded' => Exception\RateLimitExceededException::class,
         ];
