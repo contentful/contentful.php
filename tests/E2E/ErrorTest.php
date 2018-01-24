@@ -73,4 +73,15 @@ class ErrorTest extends End2EndTestCase
             throw $e;
         }
     }
+
+    /**
+     * @expectedException \Contentful\Exception\BadRequestException
+     * @vcr e2e_error_bad_request.json
+     */
+    public function testBadRequest()
+    {
+        $client = $this->getClient('cfexampleapi');
+
+        $client->getEntry('nyancat', 'invalidLocale');
+    }
 }
