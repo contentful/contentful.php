@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 * The `Contentful\Synchronization\Manager` class now provides a convenience method called `sync($token = null, Query $query = null)` which transparently handles a full sync, instead of having to manually call `startSync` and `continueSync`. The method returns instances of `Contentful\Synchronization\Result` wrapped in a `\Generator` object.
+* Added missing exception class `Contentful\Exception\BadRequestException`.
 
 ## [2.4.0](https://github.com/contentful/contentful.php/tree/2.4.0) (2018-01-11)
 
