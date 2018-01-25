@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful.php package.
  *
- * @copyright 2015-2017 Contentful GmbH
+ * @copyright 2015-2018 Contentful GmbH
  * @license   MIT
  */
 \date_default_timezone_set('UTC');
