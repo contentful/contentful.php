@@ -9,14 +9,14 @@
 
 namespace Contentful\Delivery;
 
+use Cache\Adapter\Void\VoidCachePool;
 use Contentful\Client as BaseClient;
-use Contentful\Delivery\Cache\CacheInterface;
-use Contentful\Delivery\Cache\FilesystemCache;
 use Contentful\Delivery\Cache\InstanceCache;
-use Contentful\Delivery\Cache\NullCache;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Link;
 use Contentful\ResourceArray;
+use Psr\Cache\CacheItemInterface;
+use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * A Client is used to communicate the Contentful Delivery API.
@@ -30,7 +30,7 @@ class Client extends BaseClient
     /**
      * @var string
      */
-    const VERSION = '2.5.0-dev';
+    const VERSION = '3.0.0-dev';
 
     /**
      * @var ResourceBuilder
@@ -53,9 +53,19 @@ class Client extends BaseClient
     private $defaultLocale;
 
     /**
-     * @var CacheInterface
+     * @var CacheItemPoolInterface
      */
-    private $cacheManager;
+    private $cacheItemPool;
+
+    /**
+     * @var bool
+     */
+    private $autoWarmup;
+
+    /**
+     * @var string
+     */
+    private $spaceId;
 
     /**
      * Client constructor.
@@ -70,7 +80,8 @@ class Client extends BaseClient
      *                                   * guzzle      Override the guzzle instance used by the Contentful client
      *                                   * logger      Inject a Contentful logger
      *                                   * uriOverride Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/'). The trailing slash is required.
-     *                                   * cacheDir    Path to the cache directory to be used to read metadata. The client never writes to the cache, use the CLI to warm up the cache.
+     *                                   * cache       Null or a PSR-6 cache item pool. The client only writes to the cache if autoWarmup is true, otherwise, you are responsible for warming it up using \Contentful\Delivery\Cache\CacheWarmer.
+     *                                   * autoWarmup  Warm up the cache automatically
      *
      * @api
      */
@@ -84,12 +95,14 @@ class Client extends BaseClient
             'logger' => null,
             'uriOverride' => null,
             'cacheDir' => null,
+            'cache' => null,
+            'autoWarmup' => false,
         ], $options);
 
         $guzzle = $options['guzzle'];
         $logger = $options['logger'];
         $uriOverride = $options['uriOverride'];
-        $cacheDir = $options['cacheDir'];
+        $this->autoWarmup = $options['autoWarmup'];
 
         if (null !== $uriOverride) {
             $baseUri = $uriOverride;
@@ -100,9 +113,16 @@ class Client extends BaseClient
 
         $this->preview = $preview;
         $this->instanceCache = new InstanceCache();
-        $this->cacheManager = null === $cacheDir ? new NullCache() : new FilesystemCache($cacheDir, $spaceId);
-        $this->builder = new ResourceBuilder($this, $this->instanceCache, $this->cacheManager, $spaceId);
         $this->defaultLocale = $defaultLocale;
+        $this->spaceId = $spaceId;
+
+        $this->cacheItemPool = $options['cache'] ?: new VoidCachePool();
+
+        if (!$this->cacheItemPool instanceof CacheItemPoolInterface) {
+            throw new \InvalidArgumentException('The cache parameter must be a PSR-6 cache item pool or null.');
+        }
+
+        $this->builder = new ResourceBuilder($this, $this->instanceCache, $this->cacheItemPool, $spaceId);
     }
 
     /**
@@ -185,12 +205,12 @@ class Client extends BaseClient
             return $this->instanceCache->getContentType($id);
         }
 
-        $cache = $this->cacheManager->readContentType($id);
-        if (null !== $cache) {
-            return $this->reviveJson($cache);
+        $cacheItem = $this->cacheItemPool->getItem(\Contentful\content_type_cache_key($id));
+        if ($cacheItem->isHit()) {
+            return $this->reviveJson($cacheItem->get());
         }
 
-        return $this->requestAndBuild('GET', 'content_types/'.$id);
+        return $this->requestAndBuild('GET', 'content_types/'.$id, [], $cacheItem);
     }
 
     /**
@@ -255,12 +275,12 @@ class Client extends BaseClient
             return $this->instanceCache->getSpace();
         }
 
-        $cache = $this->cacheManager->readSpace();
-        if (null !== $cache) {
-            return $this->reviveJson($cache);
+        $cacheItem = $this->cacheItemPool->getItem(\Contentful\space_cache_key($this->spaceId));
+        if ($cacheItem->isHit()) {
+            return $this->reviveJson($cacheItem->get());
         }
 
-        return $this->requestAndBuild('GET', '');
+        return $this->requestAndBuild('GET', '', [], $cacheItem);
     }
 
     /**
@@ -352,8 +372,15 @@ class Client extends BaseClient
      *
      * @return Asset|ContentType|DynamicEntry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\ResourceArray
      */
-    private function requestAndBuild($method, $path, array $options = [])
+    private function requestAndBuild($method, $path, array $options = [], CacheItemInterface $cacheItem = null)
     {
-        return $this->builder->buildObjectsFromRawData($this->request($method, $path, $options));
+        $rawData = $this->request($method, $path, $options);
+
+        if ($cacheItem && $this->autoWarmup) {
+            $cacheItem->set(\json_encode($rawData));
+            $this->cacheItemPool->save($cacheItem);
+        }
+
+        return $this->builder->buildObjectsFromRawData($rawData);
     }
 }

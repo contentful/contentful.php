@@ -10,11 +10,12 @@
 namespace Contentful\Delivery\Console;
 
 use Contentful\Delivery\Cache\CacheClearer;
+use Contentful\Delivery\Cache\CacheItemPoolFactoryInterface;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\Filesystem;
 
 class ClearCacheCommand extends Command
 {
@@ -28,8 +29,8 @@ class ClearCacheCommand extends Command
                     'ID of the space to use.'
                 ),
                 new InputArgument(
-                    'cache-dir', InputArgument::REQUIRED,
-                    'The directory to write the cache to.'
+                    'cache-item-pool-factory-class', InputArgument::REQUIRED,
+                    'The FQCN of a class to be used as a cache item pool factory. Must implement \Contentful\Delivery\Cache\CacheItemPoolFactoryInterface.'
                 ),
             ]);
     }
@@ -37,24 +38,21 @@ class ClearCacheCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $spaceId = $input->getArgument('space-id');
-        $cacheDir = $input->getArgument('cache-dir');
 
-        $fs = new Filesystem();
-
-        if (!$fs->exists($cacheDir)) {
-            throw new \InvalidArgumentException(
-                \sprintf("Cache directory '%s' does not exist.", $cacheDir)
-            );
-        }
-        if (!\is_writable($cacheDir)) {
-            throw new \InvalidArgumentException(
-                \sprintf("Cache directory '%s' can not be written to.", $cacheDir)
-            );
+        $cachePoolFactoryClass = $input->getArgument('cache-item-pool-factory-class');
+        $cacheItemPoolFactory = new $cachePoolFactoryClass();
+        if (!$cacheItemPoolFactory instanceof CacheItemPoolFactoryInterface) {
+            throw new \InvalidArgumentException("Cache item pool factory class must implement \Contentful\Delivery\Cache\CacheItemPoolFactoryInterface");
         }
 
-        $clearer = new CacheClearer($spaceId);
-        $clearer->clear($cacheDir);
+        $cacheItemPool = $cacheItemPoolFactory->getCacheItemPool($spaceId);
+        if (!$cacheItemPool instanceof CacheItemPoolInterface) {
+            throw new \InvalidArgumentException('Cache item pool must be a PSR-6 compatible.');
+        }
 
-        $output->writeln(\sprintf('<info>Cache cleared for the space %s.</info>', $spaceId));
+        $clearer = new CacheClearer($cacheItemPool);
+        $clearer->clear();
+
+        $output->writeln('<info>Cache cleared.</info>');
     }
 }

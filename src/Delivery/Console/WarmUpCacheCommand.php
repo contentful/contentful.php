@@ -9,13 +9,14 @@
 
 namespace Contentful\Delivery\Console;
 
+use Contentful\Delivery\Cache\CacheItemPoolFactoryInterface;
 use Contentful\Delivery\Cache\CacheWarmer;
 use Contentful\Delivery\Client;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\Filesystem;
 
 class WarmUpCacheCommand extends Command
 {
@@ -33,8 +34,8 @@ class WarmUpCacheCommand extends Command
                     'Token to access the space.'
                 ),
                 new InputArgument(
-                    'cache-dir', InputArgument::REQUIRED,
-                    'The directory to write the cache to.'
+                    'cache-item-pool-factory-class', InputArgument::REQUIRED,
+                    'The FQCN of a class to be used as a cache item pool factory. Must implement \Contentful\Delivery\Cache\CacheItemPoolFactoryInterface.'
                 ),
             ]);
     }
@@ -43,25 +44,22 @@ class WarmUpCacheCommand extends Command
     {
         $spaceId = $input->getArgument('space-id');
         $token = $input->getArgument('token');
-        $cacheDir = $input->getArgument('cache-dir');
 
-        $fs = new Filesystem();
-
-        if (!$fs->exists($cacheDir)) {
-            throw new \InvalidArgumentException(
-                \sprintf("Cache directory '%s' does not exist.", $cacheDir)
-            );
+        $cachePoolFactoryClass = $input->getArgument('cache-item-pool-factory-class');
+        $cacheItemPoolFactory = new $cachePoolFactoryClass();
+        if (!$cacheItemPoolFactory instanceof CacheItemPoolFactoryInterface) {
+            throw new \InvalidArgumentException("Cache item pool factory class must implement \Contentful\Delivery\Cache\CacheItemPoolFactoryInterface");
         }
-        if (!\is_writable($cacheDir)) {
-            throw new \InvalidArgumentException(
-                \sprintf("Cache directory '%s' can not be written to.", $cacheDir)
-            );
+
+        $cacheItemPool = $cacheItemPoolFactory->getCacheItemPool($spaceId);
+        if (!$cacheItemPool instanceof CacheItemPoolInterface) {
+            throw new \InvalidArgumentException('Cache item pool must be a PSR-6 compatible.');
         }
 
         $client = new Client($token, $spaceId);
-        $warmer = new CacheWarmer($client);
+        $warmer = new CacheWarmer($client, $cacheItemPool);
 
-        $warmer->warmUp($cacheDir);
+        $warmer->warmUp();
 
         $output->writeln(\sprintf('<info>Cache warmed for the space %s.</info>', $spaceId));
     }

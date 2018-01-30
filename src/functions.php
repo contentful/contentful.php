@@ -28,3 +28,16 @@ namespace Contentful;
 
      return $result.'Z';
  }
+
+ function space_cache_key($id)
+ {
+     return \sprintf('space-%s', $id);
+ }
+
+ /**
+  * @param $id
+  */
+ function content_type_cache_key($id)
+ {
+     return \sprintf('contentType-%s', $id);
+ }
