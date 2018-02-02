@@ -242,7 +242,7 @@ class Client extends BaseClient
      * @param string      $entryId
      * @param string|null $locale
      *
-     * @return EntryInterface
+     * @return DynamicEntry
      */
     public function getEntry($entryId, $locale = null)
     {
@@ -297,7 +297,7 @@ class Client extends BaseClient
      *
      * @throws \InvalidArgumentException when encountering an unexpected link type
      *
-     * @return Asset|EntryInterface
+     * @return Asset|DynamicEntry
      */
     public function resolveLink(Link $link, $locale = null)
     {

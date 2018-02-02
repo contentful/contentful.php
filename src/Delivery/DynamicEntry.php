@@ -13,7 +13,7 @@ use Contentful\Exception\NotFoundException;
 use Contentful\Link;
 use Contentful\ResourceArray;
 
-class DynamicEntry extends LocalizedResource implements EntryInterface
+class DynamicEntry extends LocalizedResource implements \JsonSerializable
 {
     /**
      * @var array
@@ -183,7 +183,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
      *
      * @param Link $link
      *
-     * @return Asset|EntryInterface|null
+     * @return Asset|self|null
      */
     private function resolveLinkWithCache(Link $link)
     {
