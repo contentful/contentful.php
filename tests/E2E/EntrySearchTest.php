@@ -9,7 +9,7 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\DynamicEntry;
+use Contentful\Delivery\Entry;
 use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
 use Contentful\Tests\Delivery\End2EndTestCase;
@@ -157,7 +157,7 @@ class EntrySearchTest extends End2EndTestCase
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertCount(1, $entries);
-        $this->assertInstanceOf(DynamicEntry::class, $entries[0]);
+        $this->assertInstanceOf(Entry::class, $entries[0]);
         $this->assertSame('happycat', $entries[0]->getId());
     }
 
@@ -175,7 +175,7 @@ class EntrySearchTest extends End2EndTestCase
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertCount(1, $entries);
-        $this->assertInstanceOf(DynamicEntry::class, $entries[0]);
+        $this->assertInstanceOf(Entry::class, $entries[0]);
         $this->assertSame('nyancat', $entries[0]->getId());
     }
 }

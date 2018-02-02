@@ -13,7 +13,7 @@ use Contentful\Delivery\Asset;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\ContentType;
 use Contentful\Delivery\ContentTypeField;
-use Contentful\Delivery\DynamicEntry;
+use Contentful\Delivery\Entry;
 use Contentful\Delivery\Locale;
 use Contentful\Delivery\Space;
 use Contentful\Delivery\SystemProperties;
@@ -22,10 +22,10 @@ use Contentful\Link;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 
-class DynamicEntryTest extends \PHPUnit_Framework_TestCase
+class EntryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var DynamicEntry
+     * @var Entry
      */
     private $entry;
 
@@ -86,13 +86,13 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $this->space = $this->createMockSpace();
         $this->ct = $this->createTestContentType($this->space);
 
-        $mockEntry = $this->getMockBuilder(DynamicEntry::class)
+        $mockEntry = $this->getMockBuilder(Entry::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockEntry->method('getId')
             ->willReturn('happycat');
 
-        $mockEntryEnemy = $this->getMockBuilder(DynamicEntry::class)
+        $mockEntryEnemy = $this->getMockBuilder(Entry::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockEntryEnemy->method('getId')
@@ -104,7 +104,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $mockAsset->method('getId')
             ->willReturn('nyancat');
 
-        $this->entry = new DynamicEntry(
+        $this->entry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Nyan Cat',
@@ -184,7 +184,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $crookshanksEntry = new DynamicEntry(
+        $crookshanksEntry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Crookshanks',
@@ -194,7 +194,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             $client
         );
 
-        $garfieldEntry = new DynamicEntry(
+        $garfieldEntry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Garfield',
@@ -241,7 +241,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             new SystemProperties('cat', 'ContentType', $this->space, null, 2, new \DateTimeImmutable('2013-06-27T22:46:12.852Z'), new \DateTimeImmutable('2013-09-02T13:14:47.863Z'))
         );
 
-        $entry = new DynamicEntry(
+        $entry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Test Entry',
@@ -274,7 +274,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $crookshanksEntry = new DynamicEntry(
+        $crookshanksEntry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Crookshanks',
@@ -287,7 +287,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             $client
         );
 
-        $garfieldEntry = new DynamicEntry(
+        $garfieldEntry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Garfield',
@@ -338,7 +338,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $garfieldEntry = new DynamicEntry(
+        $garfieldEntry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Garfield',
@@ -359,7 +359,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
      */
     public function testSingleLocale()
     {
-        $mockEntry = $this->getMockBuilder(DynamicEntry::class)
+        $mockEntry = $this->getMockBuilder(Entry::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockEntry->method('getId')
@@ -371,7 +371,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $mockAsset->method('getId')
             ->willReturn('nyancat');
 
-        $entry = new DynamicEntry(
+        $entry = new Entry(
             [
                 'name' => [
                     'tlh' => 'Nyan vIghro\'',

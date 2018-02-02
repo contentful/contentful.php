@@ -74,7 +74,7 @@ class ResourceBuilder
      *
      * @param array $data
      *
-     * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedContentType|DeletedEntry|ResourceArray
+     * @return Asset|ContentType|Entry|Space|DeletedAsset|DeletedContentType|DeletedEntry|ResourceArray
      */
     public function buildObjectsFromRawData(array $data)
     {
@@ -87,7 +87,7 @@ class ResourceBuilder
      * @param array      $data
      * @param array|null $rawDataList
      *
-     * @return Asset|ContentType|DynamicEntry|Space|DeletedAsset|DeletedContentType|DeletedEntry|ResourceArray
+     * @return Asset|ContentType|Entry|Space|DeletedAsset|DeletedContentType|DeletedEntry|ResourceArray
      */
     private function doBuildObjectsFromRawData(array $data, array $rawDataList = null)
     {
@@ -109,7 +109,7 @@ class ResourceBuilder
                 return $this->buildContentType($data);
             case 'Entry':
                 $id = $data['sys']['id'];
-                if (isset($rawDataList['entry'][$id]) && $rawDataList['entry'][$id] instanceof DynamicEntry) {
+                if (isset($rawDataList['entry'][$id]) && $rawDataList['entry'][$id] instanceof Entry) {
                     return $rawDataList['entry'][$id];
                 }
 
@@ -296,12 +296,12 @@ class ResourceBuilder
     }
 
     /**
-     * Creates a DynamicEntry or a subclass thereof.
+     * Creates a Entry or a subclass thereof.
      *
      * @param array      $data
      * @param array|null $rawDataList
      *
-     * @return DynamicEntry
+     * @return Entry
      */
     private function buildEntry(array $data, array $rawDataList = null)
     {
@@ -312,7 +312,7 @@ class ResourceBuilder
             $fields = $this->buildFields($sys->getContentType(), $data['fields'], $locale, $rawDataList);
         }
 
-        $entry = new DynamicEntry(
+        $entry = new Entry(
             $fields,
             $sys,
             $this->client
@@ -324,7 +324,7 @@ class ResourceBuilder
         return $entry;
     }
 
-    private function updateEntry(DynamicEntry $entry, array $data, array $dataList)
+    private function updateEntry(Entry $entry, array $data, array $dataList)
     {
         $sys = $this->buildSystemProperties($data['sys']);
         $locale = $sys->getLocale();
@@ -401,7 +401,7 @@ class ResourceBuilder
      * @param mixed                   $value
      * @param array|null              $rawDataList
      *
-     * @return array|Asset|DynamicEntry|Link|Location|\DateTimeImmutable
+     * @return array|Asset|Entry|Link|Location|\DateTimeImmutable
      */
     private function formatValue($fieldConfig, $value, array $rawDataList = null)
     {
@@ -446,7 +446,7 @@ class ResourceBuilder
      *
      * @throws \InvalidArgumentException When encountering an unexpected link type. Only links to assets and entries are currently handled.
      *
-     * @return Asset|DynamicEntry|Link
+     * @return Asset|Entry|Link
      */
     private function buildLink(array $data, array $rawDataList = null)
     {
@@ -462,7 +462,7 @@ class ResourceBuilder
         }
         if ('Entry' === $type) {
             if (isset($rawDataList['entry'][$id])) {
-                if ($rawDataList['entry'][$id] instanceof DynamicEntry) {
+                if ($rawDataList['entry'][$id] instanceof Entry) {
                     return $rawDataList['entry'][$id];
                 }
             }

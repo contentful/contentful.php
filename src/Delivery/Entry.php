@@ -13,7 +13,7 @@ use Contentful\Exception\NotFoundException;
 use Contentful\Link;
 use Contentful\ResourceArray;
 
-class DynamicEntry extends LocalizedResource implements \JsonSerializable
+class Entry extends LocalizedResource implements \JsonSerializable
 {
     /**
      * @var array
@@ -127,7 +127,7 @@ class DynamicEntry extends LocalizedResource implements \JsonSerializable
             \trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', E_USER_ERROR);
         }
 
-        // Since DynamicEntry::getFieldForName manipulates the field name let's make sure we got the correct one
+        // Since Entry::getFieldForName manipulates the field name let's make sure we got the correct one
         $fieldName = $fieldConfig->getId();
 
         if (!isset($this->fields[$fieldName])) {
@@ -236,7 +236,7 @@ class DynamicEntry extends LocalizedResource implements \JsonSerializable
     }
 
     /**
-     * @param Link|DynamicEntry|Asset $value
+     * @param Link|Entry|Asset $value
      *
      * @return string
      */

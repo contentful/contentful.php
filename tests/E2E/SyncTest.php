@@ -9,7 +9,7 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\DynamicEntry;
+use Contentful\Delivery\Entry;
 use Contentful\Delivery\Synchronization\Result;
 use Contentful\Tests\Delivery\End2EndTestCase;
 
@@ -31,7 +31,7 @@ class SyncTest extends End2EndTestCase
         $this->assertTrue($result->isDone());
 
         $items = $result->getItems();
-        $this->assertInstanceOf(DynamicEntry::class, $items[0]);
+        $this->assertInstanceOf(Entry::class, $items[0]);
 
         $result2 = $manager->continueSync($result);
 
