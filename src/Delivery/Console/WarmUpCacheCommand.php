@@ -16,6 +16,7 @@ use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class WarmUpCacheCommand extends Command
@@ -26,16 +27,25 @@ class WarmUpCacheCommand extends Command
             ->setName('delivery:cache:warmup')
             ->setDefinition([
                 new InputArgument(
-                    'space-id', InputArgument::REQUIRED,
+                    'space-id',
+                    InputArgument::REQUIRED,
                     'ID of the space to use.'
                 ),
                 new InputArgument(
-                    'token', InputArgument::REQUIRED,
+                    'access-token',
+                    InputArgument::REQUIRED,
                     'Token to access the space.'
                 ),
                 new InputArgument(
-                    'cache-item-pool-factory-class', InputArgument::REQUIRED,
+                    'cache-item-pool-factory-class',
+                    InputArgument::REQUIRED,
                     'The FQCN of a class to be used as a cache item pool factory. Must implement \Contentful\Delivery\Cache\CacheItemPoolFactoryInterface.'
+                ),
+                new InputOption(
+                    'use-preview',
+                    null,
+                    InputOption::VALUE_NONE,
+                    'Whether to use the Preview API instead of the default Delivery API'
                 ),
             ]);
     }
@@ -43,24 +53,39 @@ class WarmUpCacheCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $spaceId = $input->getArgument('space-id');
-        $token = $input->getArgument('token');
+        $accessToken = $input->getArgument('access-token');
+        $usePreview = $input->getOption('use-preview');
 
-        $cachePoolFactoryClass = $input->getArgument('cache-item-pool-factory-class');
-        $cacheItemPoolFactory = new $cachePoolFactoryClass();
+        $client = new Client($accessToken, $spaceId, $usePreview);
+        $api = $client->getApi();
+
+        $factoryClass = $input->getArgument('cache-item-pool-factory-class');
+        $cacheItemPoolFactory = new $factoryClass();
         if (!$cacheItemPoolFactory instanceof CacheItemPoolFactoryInterface) {
-            throw new \InvalidArgumentException("Cache item pool factory class must implement \Contentful\Delivery\Cache\CacheItemPoolFactoryInterface");
+            throw new \InvalidArgumentException(\sprintf(
+                'Cache item pool factory must implement "%s".',
+                CacheItemPoolFactoryInterface::class
+            ));
         }
 
-        $cacheItemPool = $cacheItemPoolFactory->getCacheItemPool($spaceId);
+        $cacheItemPool = $cacheItemPoolFactory->getCacheItemPool($api, $spaceId);
         if (!$cacheItemPool instanceof CacheItemPoolInterface) {
-            throw new \InvalidArgumentException('Cache item pool must be a PSR-6 compatible.');
+            throw new \InvalidArgumentException(\sprintf(
+                'Object returned by "%s::getCacheItemPool()" must be PSR-6 compatible and implement "%s".',
+                $factoryClass,
+                CacheItemPoolInterface::class
+            ));
         }
 
-        $client = new Client($token, $spaceId);
         $warmer = new CacheWarmer($client, $cacheItemPool);
 
-        $warmer->warmUp();
+        if (!$warmer->warmUp()) {
+            throw new \RuntimeException(\sprintf(
+                'The SDK could not warm up the cache. Try checking your PSR-6 implementation (class "%s").',
+                \get_class($cacheItemPool)
+            ));
+        }
 
-        $output->writeln(\sprintf('<info>Cache warmed for the space %s.</info>', $spaceId));
+        $output->writeln(\sprintf('<info>Cache warmed for the space "%s" using API "%s".</info>', $spaceId, $api));
     }
 }

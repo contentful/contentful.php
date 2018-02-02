@@ -37,7 +37,13 @@ before_install:
     fi
 
 install:
-  - composer install
+  - |
+    # Install dependencies
+    # We don't need to install dependencies when doing the syntax check.
+    if [ $SYNTAX_TEST == 0 ]
+    then
+      composer install
+    fi
 
 script:
   - |

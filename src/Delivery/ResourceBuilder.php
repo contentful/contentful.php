@@ -10,7 +10,6 @@
 namespace Contentful\Delivery;
 
 use Contentful\Delivery\Cache\InstanceCache;
-use Contentful\Delivery\Client as DeliveryClient;
 use Contentful\Delivery\Synchronization\DeletedAsset;
 use Contentful\Delivery\Synchronization\DeletedContentType;
 use Contentful\Delivery\Synchronization\DeletedEntry;
@@ -33,7 +32,7 @@ use Psr\Cache\CacheItemPoolInterface;
 class ResourceBuilder
 {
     /**
-     * @var DeliveryClient
+     * @var Client
      */
     private $client;
 
@@ -45,7 +44,7 @@ class ResourceBuilder
     /**
      * @var CacheItemPoolInterface
      */
-    private $filesystemCache;
+    private $cacheItemPool;
 
     /**
      * The ID of the space this ResourceBuilder is responsible for.
@@ -59,14 +58,14 @@ class ResourceBuilder
      *
      * @param Client                 $client
      * @param InstanceCache          $instanceCache
-     * @param CacheItemPoolInterface $filesystemCache
+     * @param CacheItemPoolInterface $cacheItemPool
      * @param string                 $spaceId
      */
-    public function __construct(DeliveryClient $client, InstanceCache $instanceCache, CacheItemPoolInterface $filesystemCache, $spaceId)
+    public function __construct(Client $client, InstanceCache $instanceCache, CacheItemPoolInterface $cacheItemPool, $spaceId)
     {
         $this->client = $client;
         $this->instanceCache = $instanceCache;
-        $this->filesystemCache = $filesystemCache;
+        $this->cacheItemPool = $cacheItemPool;
         $this->spaceId = $spaceId;
     }
 
@@ -275,7 +274,8 @@ class ResourceBuilder
             return $this->instanceCache->getContentType($data['sys']['id']);
         }
 
-        $cacheItem = $this->filesystemCache->getItem(\Contentful\content_type_cache_key($data['sys']['id']));
+        $key = \Contentful\cache_key_content_type($this->client->getApi(), $data['sys']['id']);
+        $cacheItem = $this->cacheItemPool->getItem($key);
         if ($cacheItem->isHit()) {
             $data = \GuzzleHttp\json_decode($cacheItem->get(), true);
         }
@@ -333,10 +333,12 @@ class ResourceBuilder
             $fields = $this->buildFields($sys->getContentType(), $data['fields'], $locale, $dataList);
         }
 
-        // bad rouven, don't use hacks like this
-        $entry->__construct($fields,
+        // @TODO: Please let's fix this
+        $entry->__construct(
+            $fields,
             $sys,
-            $this->client);
+            $this->client
+        );
         if ($locale) {
             $entry->setLocale($locale);
         }

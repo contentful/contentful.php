@@ -33,6 +33,16 @@ class Client extends BaseClient
     const VERSION = '3.0.0-dev';
 
     /**
+     * @var string
+     */
+    const API_DELIVERY = 'DELIVERY';
+
+    /**
+     * @var string
+     */
+    const API_PREVIEW = 'PREVIEW';
+
+    /**
      * @var ResourceBuilder
      */
     private $builder;
@@ -82,13 +92,11 @@ class Client extends BaseClient
      *                                   * uriOverride Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/'). The trailing slash is required.
      *                                   * cache       Null or a PSR-6 cache item pool. The client only writes to the cache if autoWarmup is true, otherwise, you are responsible for warming it up using \Contentful\Delivery\Cache\CacheWarmer.
      *                                   * autoWarmup  Warm up the cache automatically
-     *
-     * @api
      */
     public function __construct($token, $spaceId, $preview = false, $defaultLocale = null, array $options = [])
     {
         $baseUri = $preview ? 'https://preview.contentful.com/' : 'https://cdn.contentful.com/';
-        $api = $preview ? 'PREVIEW' : 'DELIVERY';
+        $api = $preview ? self::API_PREVIEW : self::API_DELIVERY;
 
         $options = \array_replace([
             'guzzle' => null,
@@ -126,6 +134,14 @@ class Client extends BaseClient
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getApi()
+    {
+        return $this->isPreview() ? self::API_PREVIEW : self::API_DELIVERY;
+    }
+
+    /**
      * The name of the library to be used in the User-Agent header.
      *
      * @return string
@@ -156,18 +172,16 @@ class Client extends BaseClient
     }
 
     /**
-     * @param string      $id
+     * @param string      $assetId
      * @param string|null $locale
      *
      * @return Asset
-     *
-     * @api
      */
-    public function getAsset($id, $locale = null)
+    public function getAsset($assetId, $locale = null)
     {
         $locale = null === $locale ? $this->defaultLocale : $locale;
 
-        return $this->requestAndBuild('GET', 'assets/'.$id, [
+        return $this->requestAndBuild('GET', 'assets/'.$assetId, [
             'query' => ['locale' => $locale],
         ]);
     }
@@ -176,8 +190,6 @@ class Client extends BaseClient
      * @param Query|null $query
      *
      * @return ResourceArray
-     *
-     * @api
      */
     public function getAssets(Query $query = null)
     {
@@ -193,32 +205,29 @@ class Client extends BaseClient
     }
 
     /**
-     * @param string $id
+     * @param string $contentTypeId
      *
      * @return ContentType
-     *
-     * @api
      */
-    public function getContentType($id)
+    public function getContentType($contentTypeId)
     {
-        if ($this->instanceCache->hasContentType($id)) {
-            return $this->instanceCache->getContentType($id);
+        if ($this->instanceCache->hasContentType($contentTypeId)) {
+            return $this->instanceCache->getContentType($contentTypeId);
         }
 
-        $cacheItem = $this->cacheItemPool->getItem(\Contentful\content_type_cache_key($id));
+        $key = \Contentful\cache_key_content_type($this->getApi(), $contentTypeId);
+        $cacheItem = $this->cacheItemPool->getItem($key);
         if ($cacheItem->isHit()) {
             return $this->reviveJson($cacheItem->get());
         }
 
-        return $this->requestAndBuild('GET', 'content_types/'.$id, [], $cacheItem);
+        return $this->requestAndBuild('GET', 'content_types/'.$contentTypeId, [], $cacheItem);
     }
 
     /**
      * @param Query|null $query
      *
      * @return ResourceArray
-     *
-     * @api
      */
     public function getContentTypes(Query $query = null)
     {
@@ -230,18 +239,16 @@ class Client extends BaseClient
     }
 
     /**
-     * @param string      $id
+     * @param string      $entryId
      * @param string|null $locale
      *
      * @return EntryInterface
-     *
-     * @api
      */
-    public function getEntry($id, $locale = null)
+    public function getEntry($entryId, $locale = null)
     {
         $locale = null === $locale ? $this->defaultLocale : $locale;
 
-        return $this->requestAndBuild('GET', 'entries/'.$id, [
+        return $this->requestAndBuild('GET', 'entries/'.$entryId, [
             'query' => ['locale' => $locale],
         ]);
     }
@@ -250,8 +257,6 @@ class Client extends BaseClient
      * @param Query|null $query
      *
      * @return ResourceArray
-     *
-     * @api
      */
     public function getEntries(Query $query = null)
     {
@@ -275,7 +280,8 @@ class Client extends BaseClient
             return $this->instanceCache->getSpace();
         }
 
-        $cacheItem = $this->cacheItemPool->getItem(\Contentful\space_cache_key($this->spaceId));
+        $key = \Contentful\cache_key_space($this->getApi(), $this->spaceId);
+        $cacheItem = $this->cacheItemPool->getItem($key);
         if ($cacheItem->isHit()) {
             return $this->reviveJson($cacheItem->get());
         }

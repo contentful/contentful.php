@@ -250,6 +250,13 @@ abstract class Client
     }
 
     /**
+     * Returns a string representation of the API currently in use.
+     *
+     * @return string
+     */
+    abstract public function getApi();
+
+    /**
      * The name of the library to be used in the User-Agent header.
      *
      * @return string

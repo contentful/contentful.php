@@ -11,10 +11,12 @@ namespace Contentful\Delivery\Console;
 
 use Contentful\Delivery\Cache\CacheClearer;
 use Contentful\Delivery\Cache\CacheItemPoolFactoryInterface;
+use Contentful\Delivery\Client;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ClearCacheCommand extends Command
@@ -25,12 +27,27 @@ class ClearCacheCommand extends Command
             ->setName('delivery:cache:clear')
             ->setDefinition([
                 new InputArgument(
-                    'space-id', InputArgument::REQUIRED,
+                    'space-id',
+                    InputArgument::REQUIRED,
                     'ID of the space to use.'
                 ),
                 new InputArgument(
-                    'cache-item-pool-factory-class', InputArgument::REQUIRED,
-                    'The FQCN of a class to be used as a cache item pool factory. Must implement \Contentful\Delivery\Cache\CacheItemPoolFactoryInterface.'
+                    'access-token',
+                    InputArgument::REQUIRED,
+                    'Token to access the space.'
+                ),
+                new InputArgument(
+                    'cache-item-pool-factory-class',
+                    InputArgument::REQUIRED,
+                    \sprintf(
+                        'The FQCN of a factory class which implements "%s".',
+                        CacheItemPoolFactoryInterface::class
+                    )
+                ),
+                new InputOption(
+                    'use-preview',
+                    null,
+                    InputOption::VALUE_NONE
                 ),
             ]);
     }
@@ -38,21 +55,39 @@ class ClearCacheCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $spaceId = $input->getArgument('space-id');
+        $accessToken = $input->getArgument('access-token');
+        $usePreview = $input->getOption('use-preview');
 
-        $cachePoolFactoryClass = $input->getArgument('cache-item-pool-factory-class');
-        $cacheItemPoolFactory = new $cachePoolFactoryClass();
+        $client = new Client($accessToken, $spaceId, $usePreview);
+        $api = $client->getApi();
+
+        $factoryClass = $input->getArgument('cache-item-pool-factory-class');
+        $cacheItemPoolFactory = new $factoryClass();
         if (!$cacheItemPoolFactory instanceof CacheItemPoolFactoryInterface) {
-            throw new \InvalidArgumentException("Cache item pool factory class must implement \Contentful\Delivery\Cache\CacheItemPoolFactoryInterface");
+            throw new \InvalidArgumentException(\sprintf(
+                'Cache item pool factory must implement "%s".',
+                CacheItemPoolFactoryInterface::class
+            ));
         }
 
-        $cacheItemPool = $cacheItemPoolFactory->getCacheItemPool($spaceId);
+        $cacheItemPool = $cacheItemPoolFactory->getCacheItemPool($api, $spaceId);
         if (!$cacheItemPool instanceof CacheItemPoolInterface) {
-            throw new \InvalidArgumentException('Cache item pool must be a PSR-6 compatible.');
+            throw new \InvalidArgumentException(\sprintf(
+                'Object returned by "%s::getCacheItemPool()" must be PSR-6 compatible and implement "%s".',
+                $factoryClass,
+                CacheItemPoolInterface::class
+            ));
         }
 
-        $clearer = new CacheClearer($cacheItemPool);
-        $clearer->clear();
+        $clearer = new CacheClearer($client, $cacheItemPool);
 
-        $output->writeln('<info>Cache cleared.</info>');
+        if (!$clearer->clear()) {
+            throw new \RuntimeException(\sprintf(
+                'The SDK could not clear the cache. Try checking your PSR-6 implementation (class "%s").',
+                \get_class($cacheItemPool)
+            ));
+        }
+
+        $output->writeln(\sprintf('Cache cleared for space "%s" using API "%s".', $spaceId, $api));
     }
 }
