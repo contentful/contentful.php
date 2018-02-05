@@ -15,7 +15,7 @@ use Contentful\File\ImageFile;
 use Contentful\ResourceArray;
 use Contentful\Tests\Delivery\End2EndTestCase;
 
-class AssetBasicTest extends End2EndTestCase
+class AssetTest extends End2EndTestCase
 {
     /**
      * @vcr e2e_asset_get_all_locale_all.json

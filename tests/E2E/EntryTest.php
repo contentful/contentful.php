@@ -18,7 +18,7 @@ use Contentful\Tests\Delivery\End2EndTestCase;
 /**
  * Test that objects can be constructed successfullly in various scenarios.
  */
-class EntryBasicTest extends End2EndTestCase
+class EntryTest extends End2EndTestCase
 {
     /**
      * @vcr e2e_entry_get_all_locale_all.json

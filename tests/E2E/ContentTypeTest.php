@@ -13,7 +13,7 @@ use Contentful\Delivery\Resource\ContentType;
 use Contentful\ResourceArray;
 use Contentful\Tests\Delivery\End2EndTestCase;
 
-class ContentTypeBasicTest extends End2EndTestCase
+class ContentTypeTest extends End2EndTestCase
 {
     /**
      * @vcr e2e_content_type_get_all.json
