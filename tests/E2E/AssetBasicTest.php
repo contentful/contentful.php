@@ -9,8 +9,8 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Asset;
 use Contentful\Delivery\Query;
+use Contentful\Delivery\Resource\Asset;
 use Contentful\File\ImageFile;
 use Contentful\ResourceArray;
 use Contentful\Tests\Delivery\End2EndTestCase;

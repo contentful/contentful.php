@@ -9,9 +9,9 @@
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\Delivery\Asset;
-use Contentful\Delivery\Locale;
-use Contentful\Delivery\Space;
+use Contentful\Delivery\Resource\Asset;
+use Contentful\Delivery\Resource\Locale;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
 use Contentful\File\FileInterface;
 use Contentful\File\ImageFile;

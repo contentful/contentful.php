@@ -9,9 +9,9 @@
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\Delivery\ContentType;
-use Contentful\Delivery\ContentTypeField;
-use Contentful\Delivery\Space;
+use Contentful\Delivery\Resource\ContentType;
+use Contentful\Delivery\Resource\ContentType\Field;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
 
 class ContentTypeTest extends \PHPUnit_Framework_TestCase
@@ -22,15 +22,15 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $displayField = new ContentTypeField('name', 'Name', 'Text', null, null, null, true);
+        $displayField = new Field('name', 'Name', 'Text', null, null, null, true);
 
         $contentType = new ContentType(
             'Human',
             'Also called homo sapien',
             [
                 $displayField,
-                new ContentTypeField('likes', 'Likes', 'Array', null, 'Symbol', null),
-                new ContentTypeField('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true),
+                new Field('likes', 'Likes', 'Array', null, 'Symbol', null),
+                new Field('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true),
             ],
             $displayField->getId(),
             new SystemProperties('human', 'ContentType', $space, null, 3, new \DateTimeImmutable('2013-06-27T22:46:14.133Z'), new \DateTimeImmutable('2013-09-02T15:10:26.818Z'))
@@ -63,8 +63,8 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
             'Human',
             null,
             [
-                new ContentTypeField('likes', 'Likes', 'Array', null, 'Symbol', null),
-                new ContentTypeField('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true),
+                new Field('likes', 'Likes', 'Array', null, 'Symbol', null),
+                new Field('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true),
             ],
             null,
             new SystemProperties('human', 'ContentType', $space, null, 3, new \DateTimeImmutable('2013-06-27T22:46:14.133Z'), new \DateTimeImmutable('2013-09-02T15:10:26.818Z'))
@@ -84,15 +84,15 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
         $space->method('getId')
             ->willReturn('cfexampleapi');
 
-        $displayField = new ContentTypeField('name', 'Name', 'Text', null, null, null, true);
+        $displayField = new Field('name', 'Name', 'Text', null, null, null, true);
 
         $contentType = new ContentType(
             'Human',
             'Also called homo sapien',
             [
                 $displayField,
-                new ContentTypeField('likes', 'Likes', 'Array', null, 'Symbol', null),
-                new ContentTypeField('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true),
+                new Field('likes', 'Likes', 'Array', null, 'Symbol', null),
+                new Field('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true),
             ],
             $displayField->getId(),
             new SystemProperties('human', 'ContentType', $space, null, 3, new \DateTimeImmutable('2013-06-27T22:46:14.133Z'), new \DateTimeImmutable('2013-09-02T15:10:26.818Z'))

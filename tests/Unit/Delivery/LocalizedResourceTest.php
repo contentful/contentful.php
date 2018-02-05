@@ -9,8 +9,8 @@
 
 namespace Contentful\Tests\Unit\Delivery;
 
-use Contentful\Delivery\Locale;
-use Contentful\Delivery\LocalizedResource;
+use Contentful\Delivery\Resource\Locale;
+use Contentful\Delivery\Resource\LocalizedResource;
 
 class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
 {

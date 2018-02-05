@@ -9,7 +9,7 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\ContentType;
+use Contentful\Delivery\Resource\ContentType;
 use Contentful\ResourceArray;
 use Contentful\Tests\Delivery\End2EndTestCase;
 

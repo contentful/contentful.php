@@ -9,7 +9,7 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Space;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Tests\Delivery\End2EndTestCase;
 
 class SpaceBasicTest extends End2EndTestCase

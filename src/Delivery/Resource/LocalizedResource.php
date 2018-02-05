@@ -7,10 +7,11 @@
  * @license   MIT
  */
 
-namespace Contentful\Delivery;
+namespace Contentful\Delivery\Resource;
 
 /**
- * A LocalizedResource can store information for multiple locales. The methods in this base class allow switching between the locales.
+ * A LocalizedResource can store information for multiple locales.
+ * The methods in this base class allow switching between the locales.
  */
 abstract class LocalizedResource
 {
@@ -102,9 +103,9 @@ abstract class LocalizedResource
     }
 
     /**
-     * @param array                      $valueMap
-     * @param string                     $localeCode
-     * @param \Contentful\Delivery\Space $space
+     * @param array  $valueMap
+     * @param string $localeCode
+     * @param Space  $space
      *
      * @throws \RuntimeException If we detect an endless loop
      *

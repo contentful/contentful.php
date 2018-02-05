@@ -9,7 +9,7 @@
 
 namespace Contentful\Tests\Unit\Delivery\Synchronization;
 
-use Contentful\Delivery\ContentType;
+use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Synchronization\Query;
 
 class QueryTest extends \PHPUnit_Framework_TestCase

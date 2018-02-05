@@ -10,6 +10,12 @@
 namespace Contentful\Delivery;
 
 use Contentful\Delivery\Cache\InstanceCache;
+use Contentful\Delivery\Resource\Asset;
+use Contentful\Delivery\Resource\ContentType;
+use Contentful\Delivery\Resource\ContentType\Field;
+use Contentful\Delivery\Resource\Entry;
+use Contentful\Delivery\Resource\Locale;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\Synchronization\DeletedAsset;
 use Contentful\Delivery\Synchronization\DeletedContentType;
 use Contentful\Delivery\Synchronization\DeletedEntry;
@@ -378,13 +384,13 @@ class ResourceBuilder
     }
 
     /**
-     * @param ContentTypeField $fieldConfig
-     * @param array            $fieldData
-     * @param array|null       $rawDataList
+     * @param Field      $fieldConfig
+     * @param array      $fieldData
+     * @param array|null $rawDataList
      *
      * @return array
      */
-    private function buildField(ContentTypeField $fieldConfig, array $fieldData, array $rawDataList = null)
+    private function buildField(Field $fieldConfig, array $fieldData, array $rawDataList = null)
     {
         $result = [];
         foreach ($fieldData as $locale => $value) {
@@ -397,15 +403,15 @@ class ResourceBuilder
     /**
      * Transforms values from the original JSON representation to an appropriate PHP representation.
      *
-     * @param ContentTypeField|string $fieldConfig Must be a ContentTypeField if the type is Array
-     * @param mixed                   $value
-     * @param array|null              $rawDataList
+     * @param Field|string $fieldConfig Must be a Field if the type is Array
+     * @param mixed        $value
+     * @param array|null   $rawDataList
      *
      * @return array|Asset|Entry|Link|Location|\DateTimeImmutable
      */
     private function formatValue($fieldConfig, $value, array $rawDataList = null)
     {
-        if ($fieldConfig instanceof ContentTypeField) {
+        if ($fieldConfig instanceof Field) {
             $type = $fieldConfig->getType();
         } else {
             $type = $fieldConfig;
@@ -580,11 +586,11 @@ class ResourceBuilder
     /**
      * @param array $data
      *
-     * @return ContentTypeField
+     * @return Field
      */
     private function buildContentTypeField(array $data)
     {
-        return new ContentTypeField(
+        return new Field(
             $data['id'],
             $data['name'],
             $data['type'],

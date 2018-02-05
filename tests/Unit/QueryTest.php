@@ -9,7 +9,7 @@
 
 namespace Contentful\Tests\Unit;
 
-use Contentful\Delivery\ContentType;
+use Contentful\Delivery\Resource\ContentType;
 use Contentful\Location;
 use Contentful\Query;
 

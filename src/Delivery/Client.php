@@ -12,6 +12,11 @@ namespace Contentful\Delivery;
 use Cache\Adapter\Void\VoidCachePool;
 use Contentful\Client as BaseClient;
 use Contentful\Delivery\Cache\InstanceCache;
+use Contentful\Delivery\Resource\Asset;
+use Contentful\Delivery\Resource\ContentType;
+use Contentful\Delivery\Resource\Entry;
+use Contentful\Delivery\Resource\Locale;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Link;
 use Contentful\ResourceArray;
@@ -260,8 +265,7 @@ class Client extends BaseClient
      */
     public function getEntries(Query $query = null)
     {
-        $query = null !== $query ? $query : new Query();
-        $queryData = $query->getQueryData();
+        $queryData = $query ? $query->getQueryData() : [];
         if (!isset($queryData['locale'])) {
             $queryData['locale'] = $this->defaultLocale;
         }
