@@ -11,9 +11,9 @@ namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Cache\CacheClearer;
 use Contentful\Delivery\Cache\CacheWarmer;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
-class CacheTest extends End2EndTestCase
+class CacheTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @vcr e2e_cache_warmup_clear.json

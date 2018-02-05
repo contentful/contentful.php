@@ -11,9 +11,9 @@ namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Query;
 use Contentful\File\File;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
-class AssetLocaleTest extends End2EndTestCase
+class AssetLocaleTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @vcr e2e_asset_included_locale.json

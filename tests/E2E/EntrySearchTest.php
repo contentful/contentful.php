@@ -12,9 +12,9 @@ namespace Contentful\Tests\E2E;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\ResourceArray;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
-class EntrySearchTest extends End2EndTestCase
+class EntrySearchTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @vcr e2e_entry_search_by_content_type.json

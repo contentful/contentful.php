@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Unit\Delivery;
+namespace Contentful\Tests\Unit\File;
 
 use Contentful\File\ImageOptions;
 

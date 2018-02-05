@@ -12,9 +12,9 @@ namespace Contentful\Tests\E2E;
 use Contentful\File\LocalUploadFile;
 use Contentful\File\UploadFile;
 use Contentful\Link;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
-class UnprocessedFileInPreviewTest extends End2EndTestCase
+class UnprocessedFileInPreviewTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @requires API no-coverage-proxy

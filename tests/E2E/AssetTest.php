@@ -13,9 +13,9 @@ use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\File\ImageFile;
 use Contentful\ResourceArray;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
-class AssetTest extends End2EndTestCase
+class AssetTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @vcr e2e_asset_get_all_locale_all.json

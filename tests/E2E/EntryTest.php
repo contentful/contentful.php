@@ -13,12 +13,12 @@ use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\ResourceArray;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
 /**
  * Test that objects can be constructed successfullly in various scenarios.
  */
-class EntryTest extends End2EndTestCase
+class EntryTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @vcr e2e_entry_get_all_locale_all.json

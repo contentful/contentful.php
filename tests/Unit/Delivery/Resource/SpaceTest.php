@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Unit\Delivery;
+namespace Contentful\Tests\Unit\Delivery\Resource;
 
 use Contentful\Delivery\Resource\Locale;
 use Contentful\Delivery\Resource\Space;

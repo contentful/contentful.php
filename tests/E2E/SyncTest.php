@@ -11,9 +11,9 @@ namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Synchronization\Result;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
-class SyncTest extends End2EndTestCase
+class SyncTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @vcr e2e_sync_basic.json
