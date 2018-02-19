@@ -10,6 +10,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 * The cache system has been rewritten to be made PSR-6 compatible (thanks @magnusnordlander). **[BREAKING]**
+* `DynamicEntry`, `Asset`, `ContentType`, `ContentTypeField`, `Space` and `Locale` classes have been moved to a different namespace. Please check the [the upgrade guide](UPGRADE-3.0.md) for more details. **[BREAKING]**
+
+### Removed
+
+* `Contentful\Delivery\EntryInterface` no longer exists. Use `Contentful\Delivery\Resource\Entry` for type hinting. **[BREAKING]**
 
 ## [2.4.1](https://github.com/contentful/contentful.php/tree/2.4.1) (2018-01-25)
 

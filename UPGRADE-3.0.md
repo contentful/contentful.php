@@ -1,5 +1,22 @@
 # UPGRADE FROM 2.x to 3.0
 
+## Change of namespace of resource classes
+
+These resource classes have been moved:
+
+| Before                                 | After                                            |
+| -------------------------------------- | ------------------------------------------------ |
+| `Contentful\Delivery\DynamicEntry`     | `Contentful\Delivery\Resource\Entry`             |
+| `Contentful\Delivery\Asset`            | `Contentful\Delivery\Resource\Asset`             |
+| `Contentful\Delivery\ContentType`      | `Contentful\Delivery\Resource\ContentType`       |
+| `Contentful\Delivery\ContentTypeField` | `Contentful\Delivery\Resource\ContentType\Field` |
+| `Contentful\Delivery\Space`            | `Contentful\Delivery\Resource\Space`             |
+| `Contentful\Delivery\Locale`           | `Contentful\Delivery\Resource\Locale`            |
+
+## Removal of EntryInterface
+
+`Contentful\Delivery\EntryInterface` has been removed. If you need, use `Contentful\Delivery\Resource\Entry` for type hinting.
+
 ## Update cache mechanism
 
 Up to `2.x`, the cache mechanism was simply storing the dumped JSON files in a local directory. In version 3.0, any [PSR-6 compatible cache pool](https://packagist.org/search/?tags=psr6) can be used. We suggest using `symfony/cache` for a comprehensive solution (which also supports namespacing of cache items, ideal for storing data of multiple Contentful spaces), or a specific [cache adapter](https://packagist.org/packages/cache/). Bear in mind that the Symfony package provides [adapters](https://symfony.com/doc/current/components/cache/psr6_psr16_adapters.html) for interoperability between PSR-6 and PSR-16 cache implementations, so it might be useful if in your projects you're already implementing PSR-16.
