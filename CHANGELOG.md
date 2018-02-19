@@ -15,6 +15,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 * `Contentful\Delivery\EntryInterface` no longer exists. Use `Contentful\Delivery\Resource\Entry` for type hinting. **[BREAKING]**
+* `Contentful\JsonHelper` was deprecated in 2.2, and has now been removed. **[BREAKING]**
+* `Contentful\DateHelper` was deprecated in 2.2, and has now been removed. **[BREAKING]**
+* `Contentful\File\UploadFile` was deprecated in 2.1, and has now been removed. Use `Contentful\File\RemoteUploadFile` instead. **[BREAKING]**
 
 ## [2.4.1](https://github.com/contentful/contentful.php/tree/2.4.1) (2018-01-25)
 

@@ -10,7 +10,7 @@
 namespace Contentful\Tests\E2E;
 
 use Contentful\File\LocalUploadFile;
-use Contentful\File\UploadFile;
+use Contentful\File\RemoteUploadFile;
 use Contentful\Link;
 use Contentful\Tests\DeliveryEnd2EndTestCase;
 
@@ -28,7 +28,7 @@ class UnprocessedFileInPreviewTest extends DeliveryEnd2EndTestCase
 
         $file = $asset->getFile();
 
-        $this->assertInstanceOf(UploadFile::class, $file);
+        $this->assertInstanceOf(RemoteUploadFile::class, $file);
         $this->assertSame('fitzgerald', $file->getFileName());
         $this->assertSame(
             'https://upload.wikimedia.org/wikipedia/commons/5/5c/F_Scott_Fitzgerald_1921.jpg',

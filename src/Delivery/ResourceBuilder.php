@@ -24,7 +24,7 @@ use Contentful\File\File;
 use Contentful\File\FileInterface;
 use Contentful\File\ImageFile;
 use Contentful\File\LocalUploadFile;
-use Contentful\File\UploadFile;
+use Contentful\File\RemoteUploadFile;
 use Contentful\Link;
 use Contentful\Location;
 use Contentful\ResourceArray;
@@ -249,7 +249,7 @@ class ResourceBuilder
         }
 
         if (isset($data['upload'])) {
-            return new UploadFile($data['fileName'], $data['contentType'], $data['upload']);
+            return new RemoteUploadFile($data['fileName'], $data['contentType'], $data['upload']);
         }
 
         $details = $data['details'];
