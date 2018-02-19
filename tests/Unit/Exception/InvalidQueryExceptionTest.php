@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Unit;
+namespace Contentful\Tests\Unit\Exception;
 
 use Contentful\Exception\InvalidQueryException;
 use GuzzleHttp\Exception\ClientException;

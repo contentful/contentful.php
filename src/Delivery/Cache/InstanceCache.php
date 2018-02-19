@@ -9,8 +9,8 @@
 
 namespace Contentful\Delivery\Cache;
 
-use Contentful\Delivery\ContentType;
-use Contentful\Delivery\Space;
+use Contentful\Delivery\Resource\ContentType;
+use Contentful\Delivery\Resource\Space;
 
 class InstanceCache
 {

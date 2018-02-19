@@ -7,25 +7,25 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Unit\Delivery;
+namespace Contentful\Tests\Unit\Delivery\Resource;
 
-use Contentful\Delivery\Asset;
 use Contentful\Delivery\Client;
-use Contentful\Delivery\ContentType;
-use Contentful\Delivery\ContentTypeField;
-use Contentful\Delivery\DynamicEntry;
-use Contentful\Delivery\Locale;
-use Contentful\Delivery\Space;
+use Contentful\Delivery\Resource\Asset;
+use Contentful\Delivery\Resource\ContentType;
+use Contentful\Delivery\Resource\ContentType\Field;
+use Contentful\Delivery\Resource\Entry;
+use Contentful\Delivery\Resource\Locale;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
 use Contentful\Exception\NotFoundException;
 use Contentful\Link;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 
-class DynamicEntryTest extends \PHPUnit_Framework_TestCase
+class EntryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var DynamicEntry
+     * @var Entry
      */
     private $entry;
 
@@ -66,15 +66,15 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             'Cat',
             'Meow.',
             [
-                new ContentTypeField('name', 'Name', 'Text', null, null, null, true, true),
-                new ContentTypeField('likes', 'Likes', 'Array', null, 'Symbol', false, false),
-                new ContentTypeField('color', 'Color', 'Symbol', null, null, false, false),
-                new ContentTypeField('bestFriend', 'Best Friend', 'Link', 'Entry', null, false, false),
-                new ContentTypeField('Enemy', 'Enemy', 'Link', 'Entry', null, false, false),
-                new ContentTypeField('birthday', 'Birthday', 'Date', null, null, false, false),
-                new ContentTypeField('lifes', 'Lifes left', 'Integer', null, null, false, false, false, true),
-                new ContentTypeField('lives', 'Lives left', 'Integer', null, null, false, false),
-                new ContentTypeField('image', 'Image', 'Link', 'Asset', null, false, false),
+                new Field('name', 'Name', 'Text', null, null, null, true, true),
+                new Field('likes', 'Likes', 'Array', null, 'Symbol', false, false),
+                new Field('color', 'Color', 'Symbol', null, null, false, false),
+                new Field('bestFriend', 'Best Friend', 'Link', 'Entry', null, false, false),
+                new Field('Enemy', 'Enemy', 'Link', 'Entry', null, false, false),
+                new Field('birthday', 'Birthday', 'Date', null, null, false, false),
+                new Field('lifes', 'Lifes left', 'Integer', null, null, false, false, false, true),
+                new Field('lives', 'Lives left', 'Integer', null, null, false, false),
+                new Field('image', 'Image', 'Link', 'Asset', null, false, false),
             ],
             'name',
             new SystemProperties('cat', 'ContentType', $space, null, 2, new \DateTimeImmutable('2013-06-27T22:46:12.852Z'), new \DateTimeImmutable('2013-09-02T13:14:47.863Z'))
@@ -86,13 +86,13 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $this->space = $this->createMockSpace();
         $this->ct = $this->createTestContentType($this->space);
 
-        $mockEntry = $this->getMockBuilder(DynamicEntry::class)
+        $mockEntry = $this->getMockBuilder(Entry::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockEntry->method('getId')
             ->willReturn('happycat');
 
-        $mockEntryEnemy = $this->getMockBuilder(DynamicEntry::class)
+        $mockEntryEnemy = $this->getMockBuilder(Entry::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockEntryEnemy->method('getId')
@@ -104,7 +104,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $mockAsset->method('getId')
             ->willReturn('nyancat');
 
-        $this->entry = new DynamicEntry(
+        $this->entry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Nyan Cat',
@@ -173,8 +173,8 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             'Cat',
             'Meow.',
             [
-                new ContentTypeField('name', 'Name', 'Text', null, null, null, true, true),
-                new ContentTypeField('friend', 'Friend', 'Link', null, null, false, false),
+                new Field('name', 'Name', 'Text', null, null, null, true, true),
+                new Field('friend', 'Friend', 'Link', null, null, false, false),
             ],
             'name',
             new SystemProperties('cat', 'ContentType', $this->space, null, 2, new \DateTimeImmutable('2013-06-27T22:46:12.852Z'), new \DateTimeImmutable('2013-09-02T13:14:47.863Z'))
@@ -184,7 +184,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $crookshanksEntry = new DynamicEntry(
+        $crookshanksEntry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Crookshanks',
@@ -194,7 +194,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             $client
         );
 
-        $garfieldEntry = new DynamicEntry(
+        $garfieldEntry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Garfield',
@@ -234,14 +234,14 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             'Cat',
             'Meow.',
             [
-                new ContentTypeField('name', 'Name', 'Text', null, null, null, true, true),
-                new ContentTypeField('youTubeId', 'YouTube', 'Symbol', null, null, false, false),
+                new Field('name', 'Name', 'Text', null, null, null, true, true),
+                new Field('youTubeId', 'YouTube', 'Symbol', null, null, false, false),
             ],
             'name',
             new SystemProperties('cat', 'ContentType', $this->space, null, 2, new \DateTimeImmutable('2013-06-27T22:46:12.852Z'), new \DateTimeImmutable('2013-09-02T13:14:47.863Z'))
         );
 
-        $entry = new DynamicEntry(
+        $entry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Test Entry',
@@ -263,8 +263,8 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             'Cat',
             'Meow.',
             [
-                new ContentTypeField('name', 'Name', 'Text', null, null, null, true, true),
-                new ContentTypeField('friends', 'Friends', 'Array', null, 'Link', false, false),
+                new Field('name', 'Name', 'Text', null, null, null, true, true),
+                new Field('friends', 'Friends', 'Array', null, 'Link', false, false),
             ],
             'name',
             new SystemProperties('cat', 'ContentType', $this->space, null, 2, new \DateTimeImmutable('2013-06-27T22:46:12.852Z'), new \DateTimeImmutable('2013-09-02T13:14:47.863Z'))
@@ -274,7 +274,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $crookshanksEntry = new DynamicEntry(
+        $crookshanksEntry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Crookshanks',
@@ -287,7 +287,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             $client
         );
 
-        $garfieldEntry = new DynamicEntry(
+        $garfieldEntry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Garfield',
@@ -327,8 +327,8 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             'Cat',
             'Meow.',
             [
-                new ContentTypeField('name', 'Name', 'Text', null, null, null, true, true),
-                new ContentTypeField('friends', 'Friends', 'Array', null, 'Link', false, false),
+                new Field('name', 'Name', 'Text', null, null, null, true, true),
+                new Field('friends', 'Friends', 'Array', null, 'Link', false, false),
             ],
             'name',
             new SystemProperties('cat', 'ContentType', $this->space, null, 2, new \DateTimeImmutable('2013-06-27T22:46:12.852Z'), new \DateTimeImmutable('2013-09-02T13:14:47.863Z'))
@@ -338,7 +338,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $garfieldEntry = new DynamicEntry(
+        $garfieldEntry = new Entry(
             [
                 'name' => [
                     'en-US' => 'Garfield',
@@ -359,7 +359,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
      */
     public function testSingleLocale()
     {
-        $mockEntry = $this->getMockBuilder(DynamicEntry::class)
+        $mockEntry = $this->getMockBuilder(Entry::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockEntry->method('getId')
@@ -371,7 +371,7 @@ class DynamicEntryTest extends \PHPUnit_Framework_TestCase
         $mockAsset->method('getId')
             ->willReturn('nyancat');
 
-        $entry = new DynamicEntry(
+        $entry = new Entry(
             [
                 'name' => [
                     'tlh' => 'Nyan vIghro\'',

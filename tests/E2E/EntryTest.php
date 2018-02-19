@@ -9,16 +9,16 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Asset;
-use Contentful\Delivery\DynamicEntry;
 use Contentful\Delivery\Query;
+use Contentful\Delivery\Resource\Asset;
+use Contentful\Delivery\Resource\Entry;
 use Contentful\ResourceArray;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
 /**
  * Test that objects can be constructed successfullly in various scenarios.
  */
-class EntryBasicTest extends End2EndTestCase
+class EntryTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @vcr e2e_entry_get_all_locale_all.json
@@ -55,7 +55,7 @@ class EntryBasicTest extends End2EndTestCase
 
         $entry = $client->getEntry('nyancat', '*');
 
-        $this->assertInstanceOf(DynamicEntry::class, $entry);
+        $this->assertInstanceOf(Entry::class, $entry);
         $this->assertSame('nyancat', $entry->getId());
     }
 
@@ -68,7 +68,7 @@ class EntryBasicTest extends End2EndTestCase
 
         $entry = $client->getEntry('nyancat');
 
-        $this->assertInstanceOf(DynamicEntry::class, $entry);
+        $this->assertInstanceOf(Entry::class, $entry);
         $this->assertSame('nyancat', $entry->getId());
     }
 
@@ -82,7 +82,7 @@ class EntryBasicTest extends End2EndTestCase
         $entry = $client->getEntry('nyancat');
         $bestFriend = $entry->getBestFriend();
 
-        $this->assertInstanceOf(DynamicEntry::class, $entry);
+        $this->assertInstanceOf(Entry::class, $entry);
         $this->assertSame('happycat', $bestFriend->getId());
 
         $image = $entry->getImage();
@@ -158,7 +158,7 @@ class EntryBasicTest extends End2EndTestCase
         $references = $entry->getReferences();
         $this->assertInstanceOf(ResourceArray::class, $references);
         $this->assertCount(1, $references);
-        $this->assertInstanceOf(DynamicEntry::class, $references[0]);
+        $this->assertInstanceOf(Entry::class, $references[0]);
         $this->assertSame('happycat', $references[0]->getId());
     }
 }

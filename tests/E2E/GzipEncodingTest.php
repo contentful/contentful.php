@@ -10,9 +10,9 @@
 namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Query;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
-class GzipEncodingTest extends End2EndTestCase
+class GzipEncodingTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @requires API no-coverage-proxy

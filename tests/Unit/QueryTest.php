@@ -9,13 +9,9 @@
 
 namespace Contentful\Tests\Unit;
 
-use Contentful\Delivery\ContentType;
+use Contentful\Delivery\Resource\ContentType;
 use Contentful\Location;
 use Contentful\Query;
-
-class FakeQuery extends Query
-{
-}
 
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
@@ -244,4 +240,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('content_type=cat&select=sys', $queryBuilder->getQueryString());
     }
+}
+
+class FakeQuery extends Query
+{
 }

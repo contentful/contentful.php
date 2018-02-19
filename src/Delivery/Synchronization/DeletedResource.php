@@ -44,7 +44,7 @@ abstract class DeletedResource implements \JsonSerializable
     /**
      * Returns the space the resource used to belong to.
      *
-     * @return \Contentful\Delivery\Space
+     * @return \Contentful\Delivery\Resource\Space
      */
     public function getSpace()
     {

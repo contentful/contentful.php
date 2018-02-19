@@ -7,10 +7,10 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Unit\Delivery;
+namespace Contentful\Tests\Unit\Delivery\Resource;
 
-use Contentful\Delivery\Locale;
-use Contentful\Delivery\Space;
+use Contentful\Delivery\Resource\Locale;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
 
 class SpaceTest extends \PHPUnit_Framework_TestCase

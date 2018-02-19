@@ -9,7 +9,7 @@
 
 namespace Contentful\Delivery\Synchronization;
 
-use Contentful\Delivery\ContentType;
+use Contentful\Delivery\Resource\ContentType;
 
 /**
  * A sync Query can be used to limit what type of resources and events should be synced.

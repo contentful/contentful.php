@@ -7,12 +7,13 @@
  * @license   MIT
  */
 
-namespace Contentful\Delivery;
+namespace Contentful\Delivery\Resource\ContentType;
 
 /**
- * A ContentTypeField describes one field of a ContentType. This includes essential information for the display of the field's value.
+ * A Field describes one field of a ContentType.
+ * This includes essential information for the display of the field's value.
  */
-class ContentTypeField implements \JsonSerializable
+class Field implements \JsonSerializable
 {
     /**
      * ID of the Field.
@@ -97,7 +98,7 @@ class ContentTypeField implements \JsonSerializable
     private $disabled;
 
     /**
-     * ContentTypeField constructor.
+     * Field constructor.
      *
      * @param string      $id
      * @param string      $name

@@ -7,13 +7,17 @@
  * @license   MIT
  */
 
-namespace Contentful\Delivery;
+namespace Contentful\Delivery\Resource;
 
+use Contentful\Delivery\Client;
+use Contentful\Delivery\Query;
+use Contentful\Delivery\Resource\ContentType\Field;
+use Contentful\Delivery\SystemProperties;
 use Contentful\Exception\NotFoundException;
 use Contentful\Link;
 use Contentful\ResourceArray;
 
-class DynamicEntry extends LocalizedResource implements EntryInterface
+class Entry extends LocalizedResource implements \JsonSerializable
 {
     /**
      * @var array
@@ -127,7 +131,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
             \trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', E_USER_ERROR);
         }
 
-        // Since DynamicEntry::getFieldForName manipulates the field name let's make sure we got the correct one
+        // Since Entry::getFieldForName manipulates the field name let's make sure we got the correct one
         $fieldName = $fieldConfig->getId();
 
         if (!isset($this->fields[$fieldName])) {
@@ -183,7 +187,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
      *
      * @param Link $link
      *
-     * @return Asset|EntryInterface|null
+     * @return Asset|self|null
      */
     private function resolveLinkWithCache(Link $link)
     {
@@ -203,7 +207,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     /**
      * @param string $fieldName
      *
-     * @return ContentTypeField|null
+     * @return Field|null
      */
     private function getFieldConfigForName($fieldName)
     {
@@ -236,7 +240,7 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * @param Link|DynamicEntry|Asset $value
+     * @param Link|Entry|Asset $value
      *
      * @return string
      */
@@ -279,12 +283,12 @@ class DynamicEntry extends LocalizedResource implements EntryInterface
     }
 
     /**
-     * @param mixed            $value
-     * @param ContentTypeField $fieldConfig
+     * @param mixed $value
+     * @param Field $fieldConfig
      *
      * @return mixed
      */
-    private function formatValueForJson($value, ContentTypeField $fieldConfig)
+    private function formatValueForJson($value, Field $fieldConfig)
     {
         $type = $fieldConfig->getType();
 

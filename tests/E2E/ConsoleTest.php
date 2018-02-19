@@ -12,12 +12,12 @@ namespace Contentful\Tests\E2E;
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Contentful\Console\Application;
 use Contentful\Delivery\Cache\CacheItemPoolFactoryInterface;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class ConsoleTest extends End2EndTestCase
+class ConsoleTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @param string $commandName

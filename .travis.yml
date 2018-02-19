@@ -48,12 +48,9 @@ install:
 script:
   - |
     # PHPUnit tests
-    #
-    # PHPUnit is installed as a .phar archive.
     if [ $SYNTAX_TEST == 0 ]
     then
-      wget https://phar.phpunit.de/phpunit-5.7.phar -q -O phpunit.phar
-      php phpunit.phar --stop-on-error --stop-on-failure -v
+      php vendor/bin/phpunit --stop-on-error --stop-on-failure -v
     fi
 
   - |

@@ -7,7 +7,10 @@
  * @license   MIT
  */
 
-namespace Contentful\Delivery;
+namespace Contentful\Delivery\Resource;
+
+use Contentful\Delivery\Resource\ContentType\Field;
+use Contentful\Delivery\SystemProperties;
 
 /**
  * Content Types are schemas that define the fields of Entries. Every Entry can only contain values in the fields
@@ -32,7 +35,7 @@ class ContentType implements \JsonSerializable
     /**
      * The fields, keyed by ID.
      *
-     * @var ContentTypeField[]
+     * @var Field[]
      */
     private $fields = [];
 
@@ -51,11 +54,11 @@ class ContentType implements \JsonSerializable
     /**
      * ContentType constructor.
      *
-     * @param string             $name
-     * @param string|null        $description
-     * @param ContentTypeField[] $fields
-     * @param string|null        $displayField
-     * @param SystemProperties   $sys
+     * @param string           $name
+     * @param string|null      $description
+     * @param Field[]          $fields
+     * @param string|null      $displayField
+     * @param SystemProperties $sys
      */
     public function __construct($name, $description, array $fields, $displayField, SystemProperties $sys)
     {
@@ -81,7 +84,7 @@ class ContentType implements \JsonSerializable
     /**
      * Returns all the fields of this content type as an associative array. The key is the ID of the field.
      *
-     * @return ContentTypeField[]
+     * @return Field[]
      */
     public function getFields()
     {
@@ -105,7 +108,7 @@ class ContentType implements \JsonSerializable
      *
      * @param string $fieldId
      *
-     * @return ContentTypeField|null
+     * @return Field|null
      */
     public function getField($fieldId)
     {
@@ -121,7 +124,7 @@ class ContentType implements \JsonSerializable
      *
      * Returns null if not display field is set.
      *
-     * @return ContentTypeField|null
+     * @return Field|null
      */
     public function getDisplayField()
     {

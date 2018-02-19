@@ -12,6 +12,11 @@ namespace Contentful\Delivery;
 use Cache\Adapter\Void\VoidCachePool;
 use Contentful\Client as BaseClient;
 use Contentful\Delivery\Cache\InstanceCache;
+use Contentful\Delivery\Resource\Asset;
+use Contentful\Delivery\Resource\ContentType;
+use Contentful\Delivery\Resource\Entry;
+use Contentful\Delivery\Resource\Locale;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Link;
 use Contentful\ResourceArray;
@@ -242,7 +247,7 @@ class Client extends BaseClient
      * @param string      $entryId
      * @param string|null $locale
      *
-     * @return EntryInterface
+     * @return Entry
      */
     public function getEntry($entryId, $locale = null)
     {
@@ -260,8 +265,7 @@ class Client extends BaseClient
      */
     public function getEntries(Query $query = null)
     {
-        $query = null !== $query ? $query : new Query();
-        $queryData = $query->getQueryData();
+        $queryData = $query ? $query->getQueryData() : [];
         if (!isset($queryData['locale'])) {
             $queryData['locale'] = $this->defaultLocale;
         }
@@ -297,7 +301,7 @@ class Client extends BaseClient
      *
      * @throws \InvalidArgumentException when encountering an unexpected link type
      *
-     * @return Asset|EntryInterface
+     * @return Asset|Entry
      */
     public function resolveLink(Link $link, $locale = null)
     {
@@ -321,7 +325,7 @@ class Client extends BaseClient
      *
      * @throws \Contentful\Exception\SpaceMismatchException When attempting to revive JSON belonging to a different space
      *
-     * @return Asset|ContentType|DynamicEntry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\ResourceArray
+     * @return Asset|ContentType|Entry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\ResourceArray
      */
     public function reviveJson($json)
     {
@@ -376,7 +380,7 @@ class Client extends BaseClient
      * @param string $path
      * @param array  $options
      *
-     * @return Asset|ContentType|DynamicEntry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\ResourceArray
+     * @return Asset|ContentType|Entry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\ResourceArray
      */
     private function requestAndBuild($method, $path, array $options = [], CacheItemInterface $cacheItem = null)
     {

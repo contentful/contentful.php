@@ -7,7 +7,9 @@
  * @license   MIT
  */
 
-namespace Contentful\Delivery;
+namespace Contentful\Delivery\Resource;
+
+use Contentful\Delivery\SystemProperties;
 
 /**
  * The Space class represents a single space identified by it's ID and holding some metadata.

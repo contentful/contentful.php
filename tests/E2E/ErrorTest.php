@@ -11,9 +11,9 @@ namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Query;
 use Contentful\Exception\RateLimitExceededException;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
-class ErrorTest extends End2EndTestCase
+class ErrorTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @expectedException \Contentful\Exception\NotFoundException

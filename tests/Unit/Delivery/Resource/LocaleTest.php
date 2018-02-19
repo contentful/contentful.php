@@ -7,9 +7,9 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Unit\Delivery;
+namespace Contentful\Tests\Unit\Delivery\Resource;
 
-use Contentful\Delivery\Locale;
+use Contentful\Delivery\Resource\Locale;
 
 class LocaleTest extends \PHPUnit_Framework_TestCase
 {

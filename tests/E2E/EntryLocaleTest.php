@@ -11,9 +11,9 @@ namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
-class EntryLocaleTest extends End2EndTestCase
+class EntryLocaleTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @vcr e2e_entry_locale_get_all.json

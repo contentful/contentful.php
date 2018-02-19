@@ -9,7 +9,7 @@
 
 namespace Contentful;
 
-use Contentful\Delivery\ContentType;
+use Contentful\Delivery\Resource\ContentType;
 
 /**
  * A Query is used to filter and order collections when making API requests.

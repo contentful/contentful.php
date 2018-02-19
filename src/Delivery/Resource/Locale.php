@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Delivery;
+namespace Contentful\Delivery\Resource;
 
 /**
  * Value object encoding a locale.

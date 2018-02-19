@@ -11,9 +11,9 @@ namespace Contentful\Tests\E2E;
 
 use Contentful\Delivery\Query;
 use Contentful\ResourceArray;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
-class EntrySelectTest extends End2EndTestCase
+class EntrySelectTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @vcr e2e_entry_select_metadata.json

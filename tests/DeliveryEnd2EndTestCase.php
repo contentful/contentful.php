@@ -7,14 +7,15 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Delivery;
+namespace Contentful\Tests;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Contentful\Delivery\Client;
 use Contentful\Log\ArrayLogger;
+use PHPUnit_Framework_TestCase as TestCase;
 use Psr\Cache\CacheItemPoolInterface;
 
-class End2EndTestCase extends \PHPUnit_Framework_TestCase
+class DeliveryEnd2EndTestCase extends TestCase
 {
     /**
      * @var CacheItemPoolInterface

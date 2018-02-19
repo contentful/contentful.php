@@ -9,6 +9,9 @@
 
 namespace Contentful\Delivery;
 
+use Contentful\Delivery\Resource\ContentType;
+use Contentful\Delivery\Resource\Space;
+
 /**
  * A SystemProperties instance contains the metadata of a resource.
  */

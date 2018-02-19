@@ -7,15 +7,15 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Unit\Delivery;
+namespace Contentful\Tests\Unit\Delivery\Resource\ContentType;
 
-use Contentful\Delivery\ContentTypeField;
+use Contentful\Delivery\Resource\ContentType\Field;
 
-class ContentTypeFieldTest extends \PHPUnit_Framework_TestCase
+class FieldTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetter()
     {
-        $field = new ContentTypeField(
+        $field = new Field(
             'id',
             'name',
             'type',
@@ -40,7 +40,7 @@ class ContentTypeFieldTest extends \PHPUnit_Framework_TestCase
 
     public function testJsonSerialize()
     {
-        $field1 = new ContentTypeField(
+        $field1 = new Field(
             'one',
             'oneField',
             'Link',
@@ -54,7 +54,7 @@ class ContentTypeFieldTest extends \PHPUnit_Framework_TestCase
 
         $this->assertJsonStringEqualsJsonString('{"name":"oneField","id":"one","type":"Link","required":true,"localized":true,"disabled":true,"linkType":"Asset"}', \json_encode($field1));
 
-        $field2 = new ContentTypeField(
+        $field2 = new Field(
             'many',
             'manyField',
             'Array',

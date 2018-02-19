@@ -7,8 +7,9 @@
  * @license   MIT
  */
 
-namespace Contentful\Delivery;
+namespace Contentful\Delivery\Resource;
 
+use Contentful\Delivery\SystemProperties;
 use Contentful\File\FileInterface;
 
 class Asset extends LocalizedResource implements \JsonSerializable

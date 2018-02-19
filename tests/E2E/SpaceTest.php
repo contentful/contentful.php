@@ -9,10 +9,10 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\Delivery\Space;
-use Contentful\Tests\Delivery\End2EndTestCase;
+use Contentful\Delivery\Resource\Space;
+use Contentful\Tests\DeliveryEnd2EndTestCase;
 
-class SpaceBasicTest extends End2EndTestCase
+class SpaceTest extends DeliveryEnd2EndTestCase
 {
     /**
      * @vcr e2e_space_get.json
