@@ -56,31 +56,49 @@ class Entry extends LocalizedResource implements \JsonSerializable
         $this->resolvedLinks = [];
     }
 
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->sys->getId();
     }
 
+    /**
+     * @return int
+     */
     public function getRevision()
     {
         return $this->sys->getRevision();
     }
 
+    /**
+     * @return \DateTimeImmutable|null
+     */
     public function getUpdatedAt()
     {
         return $this->sys->getUpdatedAt();
     }
 
+    /**
+     * @return \DateTimeImmutable|null
+     */
     public function getCreatedAt()
     {
         return $this->sys->getCreatedAt();
     }
 
+    /**
+     * @return Space|null
+     */
     public function getSpace()
     {
         return $this->sys->getSpace();
     }
 
+    /**
+     * @return ContentType|null
+     */
     public function getContentType()
     {
         return $this->sys->getContentType();

@@ -92,3 +92,7 @@ deploy:
   local_dir: build/docs
   on:
     condition: ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != false) && $BUILD_LEAD == 1
+
+notifications:
+  slack:
+    secure: CMTkQ1GJQ+DVMoiRSPOO0h+eu3f2qmoMCSF2xQ5gqA0TXN6YTWR0CgfMucGFiynnUwswtEO7ZX/ubfMtL9drwD1+L0AZcMZf9T9v/MPHhkoIeJKhnrkl0oO8BcINUNk696172LhY8wVuiXYtztoPJgI8Jlhb1E1ZOaw9Qa3NbobVTKEaDfPjqua4h9/xgUW7r3vQT/0TowtmXypUZ+bGDnEXPIlcQZ8MLZYSlyIFpQSEXb5BRC09PHCmohPsHjsKmx/UcYXxNkodxNk+2cHPd+RpTBvC+yetRXN38UYbKz0JP7rBFC+74W7k2hA3hREBdqhmqUaXX6iqLvzWuCdYKP6X5VCOVxNGPom5xLW9wSsugFusy9VxDw+yMiYDpsD5M4gPNac8erBC1Y/c9jhPmBA47dbIxS6uF0q7jfC/h2iUvK0ZGintvGcQ2H6nMcczyDJ4TI/bhX3tw8dcR2xEmt2rb/rgr450noYB6a4LNNVYvyxB/ttb82PYuRZBcKI4Gjk1GTpHg1flYHrahJfqXxgTnzuXoMqPQ0KUAD4T2dbfbaal+WX6VIZBtwKRq857iUNbaXOrCDBr7CzU9ms91x2IYvXNr+7jBrC0TGa4ImK/iohLrEG9w7x7hzGPoupFsTqaxN33mL0ktu/z0/ESUkuoQ0y7FkWXRZ6JEaPO0j0=

@@ -96,4 +96,44 @@ class CacheTest extends DeliveryEnd2EndTestCase
 
         self::$cache->clear();
     }
+
+    /**
+     * @vcr e2e_cache_invalid_cached_content_type.json
+     */
+    public function testInvalidCachedContentType()
+    {
+        self::$cache->clear();
+
+        $client = $this->getClient('88dyiqcr7go8');
+
+        // This fake content type does not contain fields
+        // which will actually be in the real API request.
+        $client->reviveJson('{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"88dyiqcr7go8"}},"id":"person","type":"ContentType","createdAt":"2018-02-19T16:11:55.140Z","updatedAt":"2018-02-19T16:11:55.140Z","revision":1 },"displayField":"name","name":"Person","description":"","fields":[]}');
+
+        $errorFields = ['name', 'jobTitle', 'picture'];
+        // When building entries, missing fields are supposed to trigger
+        // a silenced error message for every missing field.
+        \set_error_handler(function ($errorCode, $errorMessage) use (&$errorFields) {
+            $field = \array_shift($errorFields);
+
+            $this->assertSame(
+                'Entry of content type "Person" ("person") being built contains field "'.$field.'" which is not present in the content type definition. Please check your cache for stale content type definitions.',
+                $errorMessage
+            );
+            $this->assertSame(512, $errorCode);
+        }, E_USER_WARNING);
+
+        $entry = $client->getEntry('Kpwt1njxgAm04oQYyUScm');
+        \restore_error_handler();
+
+        $this->assertSame('Ben Chang', $entry->getName());
+        $this->assertSame('Señor', $entry->getJobTitle());
+        $this->assertSame([
+            'sys' => [
+                'type' => 'Link',
+                'linkType' => 'Asset',
+                'id' => 'SQOIQ1rZMQQUeyoyGiEUq',
+            ],
+        ], $entry->getPicture());
+    }
 }
