@@ -377,7 +377,28 @@ class ResourceBuilder
     {
         $result = [];
         foreach ($fields as $name => $fieldData) {
-            $result[$name] = $this->buildField($contentType->getField($name), $this->normalizeFieldData($fieldData, $locale), $rawDataList);
+            $field = $contentType->getField($name);
+
+            // If field is empty, it means that the data currently available
+            // for the content type is not correct.
+            // Instead of failing and causing a type error, we fallback on a simple
+            // field, and leave the handling of those edge cases to the user.
+            if (!$field) {
+                @\trigger_error(\sprintf(
+                    'Entry of content type "%s" ("%s") being built contains field "%s" which is not present in the content type definition.'
+                    .' Please check your cache for stale content type definitions.',
+                    $contentType->getName(),
+                    $contentType->getId(),
+                    $name
+                ), E_USER_WARNING);
+                $field = $contentType->addUnknownField($name);
+            }
+
+            $result[$name] = $this->buildField(
+                $field,
+                $this->normalizeFieldData($fieldData, $locale),
+                $rawDataList
+            );
         }
 
         return $result;
@@ -411,11 +432,9 @@ class ResourceBuilder
      */
     private function formatValue($fieldConfig, $value, array $rawDataList = null)
     {
-        if ($fieldConfig instanceof Field) {
-            $type = $fieldConfig->getType();
-        } else {
-            $type = $fieldConfig;
-        }
+        $type = $fieldConfig instanceof Field
+            ? $fieldConfig->getType()
+            : $fieldConfig;
 
         if (null === $value) {
             return null;
@@ -428,6 +447,7 @@ class ResourceBuilder
             case 'Number':
             case 'Boolean':
             case 'Object':
+            case 'Unknown':
                 return $value;
             case 'Date':
                 return new \DateTimeImmutable($value, new \DateTimeZone('UTC'));

@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 **ATTENTION**: This release contains breaking changes. Please take extra care when updating to this version. See [the upgrade guide](UPGRADE-3.0.md) for more.
 
+### Fixed
+
+* There was an issue when adding a new field to a Contentful content type without purging the SDK cache, with the SDK not knowing how to build the field. Now it will create a temporary fake field of type `Unknown`, and it will also trigger a silenced error of level `E_USER_WARNING` (so users can implement some custom logic for handling the issue, without causing any problems to the actual execution). When retrieving the unknown field, it will be returned *as it was fetched from the API*, so no conversion will be made. This means that dates will be returned as strings, links will be returned as simple arrays, etc. This solution was implemented to prevent the SDK from crashing during those (hopefully) brief moments where the cache is out of sync with Contentful, and it *should not* be relied upon for actually handling the fields in a proper way.
+
 ### Changed
 
 * The cache system has been rewritten to be made PSR-6 compatible (thanks @magnusnordlander). **[BREAKING]**

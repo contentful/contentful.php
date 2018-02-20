@@ -136,6 +136,20 @@ class ContentType implements \JsonSerializable
     }
 
     /**
+     * Adds a runtime field, of type unknown.
+     *
+     * @param string $name
+     *
+     * @return Field
+     */
+    public function addUnknownField($name)
+    {
+        $this->fields[$name] = new Field($name, $name, 'Unknown');
+
+        return $this->fields[$name];
+    }
+
+    /**
      * Returns the ID of this content type.
      *
      * @return string
