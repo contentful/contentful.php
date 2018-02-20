@@ -450,6 +450,10 @@ class ResourceBuilder
             case 'Unknown':
                 return $value;
             case 'Date':
+                if (is_numeric($value)) {
+                    return (new \DateTimeImmutable())->setTimestamp(((int) $value) / 1000);
+                }
+
                 return new \DateTimeImmutable($value, new \DateTimeZone('UTC'));
             case 'Location':
                 return new Location($value['lat'], $value['lon']);
