@@ -9,10 +9,10 @@
 
 namespace Contentful\Tests\E2E;
 
+use Contentful\Core\File\ImageFile;
+use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Asset;
-use Contentful\File\ImageFile;
-use Contentful\ResourceArray;
 use Contentful\Tests\DeliveryEnd2EndTestCase;
 
 class AssetTest extends DeliveryEnd2EndTestCase

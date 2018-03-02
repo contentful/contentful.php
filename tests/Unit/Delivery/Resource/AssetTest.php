@@ -9,12 +9,13 @@
 
 namespace Contentful\Tests\Unit\Delivery\Resource;
 
+use Contentful\Core\Api\DateTimeImmutable;
+use Contentful\Core\File\FileInterface;
+use Contentful\Core\File\ImageFile;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\Locale;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
-use Contentful\File\FileInterface;
-use Contentful\File\ImageFile;
 
 class AssetTest extends \PHPUnit_Framework_TestCase
 {
@@ -85,7 +86,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
                 'de-DE' => 'Ein Bild von Nyan Cat',
             ],
             ['en-US' => $this->file],
-            new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))
+            new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new DateTimeImmutable('2013-09-02T14:56:34.240Z'), new DateTimeImmutable('2013-09-02T14:56:34.240Z'))
         );
     }
 
@@ -101,8 +102,8 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('nyancat', $asset->getId());
         $this->assertSame(1, $asset->getRevision());
         $this->assertSame($this->space, $asset->getSpace());
-        $this->assertSame('2013-09-02T14:56:34.240Z', \Contentful\format_date_for_json($asset->getCreatedAt()));
-        $this->assertSame('2013-09-02T14:56:34.240Z', \Contentful\format_date_for_json($asset->getUpdatedAt()));
+        $this->assertSame('2013-09-02T14:56:34.240Z', (string) $asset->getCreatedAt());
+        $this->assertSame('2013-09-02T14:56:34.240Z', (string) $asset->getUpdatedAt());
     }
 
     public function testGetTitleWithLocale()
@@ -149,7 +150,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
             ['en-US' => 'Nyan Cat'],
             null,
             ['en-US' => $this->file],
-            new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))
+            new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new DateTimeImmutable('2013-09-02T14:56:34.240Z'), new DateTimeImmutable('2013-09-02T14:56:34.240Z'))
         );
 
         $this->assertNull($asset->getDescription());
@@ -161,7 +162,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
             null,
             ['en-US' => 'A picture of Nyan Cat'],
             ['en-US' => $this->file],
-            new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))
+            new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new DateTimeImmutable('2013-09-02T14:56:34.240Z'), new DateTimeImmutable('2013-09-02T14:56:34.240Z'))
         );
 
         $this->assertNull($asset->getTitle());
@@ -178,7 +179,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
             ['en-US' => 'Nyan Cat'],
             null,
             ['en-US' => $this->file],
-            new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new \DateTimeImmutable('2013-09-02T14:56:34.240Z'), new \DateTimeImmutable('2013-09-02T14:56:34.240Z'))
+            new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new DateTimeImmutable('2013-09-02T14:56:34.240Z'), new DateTimeImmutable('2013-09-02T14:56:34.240Z'))
         );
 
         $this->assertJsonStringEqualsJsonString('{"fields":{"title":{"en-US":"Nyan Cat"},"file":{"en-US":{"fileName":"Nyan_cat_250px_frame.png","contentType":"image/png","details":{"image":{"width":250,"height":250},"size":12273},"url":"//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"}}},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"type":"Asset","id":"nyancat","revision":1,"createdAt":"2013-09-02T14:56:34.240Z","updatedAt":"2013-09-02T14:56:34.240Z"}}', \json_encode($asset));

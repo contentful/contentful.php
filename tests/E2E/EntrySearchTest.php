@@ -9,9 +9,10 @@
 
 namespace Contentful\Tests\E2E;
 
+use Contentful\Core\Api\DateTimeImmutable;
+use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Entry;
-use Contentful\ResourceArray;
 use Contentful\Tests\DeliveryEnd2EndTestCase;
 
 class EntrySearchTest extends DeliveryEnd2EndTestCase
@@ -105,7 +106,7 @@ class EntrySearchTest extends DeliveryEnd2EndTestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->where('sys.updatedAt', new \DateTimeImmutable('2013-01-01T00:00:00Z'), 'lte');
+            ->where('sys.updatedAt', new DateTimeImmutable('2013-01-01T00:00:00Z'), 'lte');
 
         $entries = $client->getEntries($query);
 

@@ -9,9 +9,9 @@
 
 namespace Contentful\Tests\E2E;
 
-use Contentful\File\LocalUploadFile;
-use Contentful\File\RemoteUploadFile;
-use Contentful\Link;
+use Contentful\Core\Api\Link;
+use Contentful\Core\File\LocalUploadFile;
+use Contentful\Core\File\RemoteUploadFile;
 use Contentful\Tests\DeliveryEnd2EndTestCase;
 
 class UnprocessedFileInPreviewTest extends DeliveryEnd2EndTestCase

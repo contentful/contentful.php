@@ -9,8 +9,9 @@
 
 namespace Contentful\Delivery\Resource;
 
+use Contentful\Core\Api\DateTimeImmutable;
+use Contentful\Core\File\FileInterface;
 use Contentful\Delivery\SystemProperties;
-use Contentful\File\FileInterface;
 
 class Asset extends LocalizedResource implements \JsonSerializable
 {
@@ -140,7 +141,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
     /**
      * Returns the time when this Asset was last changed.
      *
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
     public function getUpdatedAt()
     {
@@ -150,7 +151,7 @@ class Asset extends LocalizedResource implements \JsonSerializable
     /**
      * Returns the time when this Asset was created.
      *
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
     public function getCreatedAt()
     {

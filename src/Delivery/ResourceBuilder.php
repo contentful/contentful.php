@@ -9,6 +9,15 @@
 
 namespace Contentful\Delivery;
 
+use Contentful\Core\Api\DateTimeImmutable;
+use Contentful\Core\Api\Link;
+use Contentful\Core\Api\Location;
+use Contentful\Core\File\File;
+use Contentful\Core\File\FileInterface;
+use Contentful\Core\File\ImageFile;
+use Contentful\Core\File\LocalUploadFile;
+use Contentful\Core\File\RemoteUploadFile;
+use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
@@ -20,14 +29,6 @@ use Contentful\Delivery\Synchronization\DeletedAsset;
 use Contentful\Delivery\Synchronization\DeletedContentType;
 use Contentful\Delivery\Synchronization\DeletedEntry;
 use Contentful\Exception\SpaceMismatchException;
-use Contentful\File\File;
-use Contentful\File\FileInterface;
-use Contentful\File\ImageFile;
-use Contentful\File\LocalUploadFile;
-use Contentful\File\RemoteUploadFile;
-use Contentful\Link;
-use Contentful\Location;
-use Contentful\ResourceArray;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
@@ -428,7 +429,7 @@ class ResourceBuilder
      * @param mixed        $value
      * @param array|null   $rawDataList
      *
-     * @return array|Asset|Entry|Link|Location|\DateTimeImmutable
+     * @return array|Asset|Entry|Link|Location|DateTimeImmutable
      */
     private function formatValue($fieldConfig, $value, array $rawDataList = null)
     {
@@ -450,7 +451,7 @@ class ResourceBuilder
             case 'Unknown':
                 return $value;
             case 'Date':
-                return new \DateTimeImmutable($value, new \DateTimeZone('UTC'));
+                return new DateTimeImmutable($value, new \DateTimeZone('UTC'));
             case 'Location':
                 return new Location($value['lat'], $value['lon']);
             case 'Link':
@@ -560,9 +561,9 @@ class ResourceBuilder
             isset($sys['space']) ? $this->getSpace($sys['space']['sys']['id']) : null,
             isset($sys['contentType']) ? $this->client->getContentType($sys['contentType']['sys']['id']) : null,
             isset($sys['revision']) ? $sys['revision'] : null,
-            isset($sys['createdAt']) ? new \DateTimeImmutable($sys['createdAt']) : null,
-            isset($sys['updatedAt']) ? new \DateTimeImmutable($sys['updatedAt']) : null,
-            isset($sys['deletedAt']) ? new \DateTimeImmutable($sys['deletedAt']) : null,
+            isset($sys['createdAt']) ? new DateTimeImmutable($sys['createdAt']) : null,
+            isset($sys['updatedAt']) ? new DateTimeImmutable($sys['updatedAt']) : null,
+            isset($sys['deletedAt']) ? new DateTimeImmutable($sys['deletedAt']) : null,
             isset($sys['locale']) ? $sys['locale'] : null
         );
     }

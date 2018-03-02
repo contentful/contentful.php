@@ -9,8 +9,8 @@
 
 namespace Contentful\Tests\E2E;
 
+use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Resource\ContentType;
-use Contentful\ResourceArray;
 use Contentful\Tests\DeliveryEnd2EndTestCase;
 
 class ContentTypeTest extends DeliveryEnd2EndTestCase

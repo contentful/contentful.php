@@ -9,10 +9,10 @@
 
 namespace Contentful\Tests\E2E;
 
+use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\Entry;
-use Contentful\ResourceArray;
 use Contentful\Tests\DeliveryEnd2EndTestCase;
 
 /**
@@ -133,8 +133,7 @@ class EntryTest extends DeliveryEnd2EndTestCase
      */
     public function testAssetsResolvedFromIncludes()
     {
-        $client = $this->getClient('cfexampleapi_logger');
-        $logger = $client->getLogger();
+        $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
             ->where('sys.id', 'nyancat');
@@ -144,7 +143,7 @@ class EntryTest extends DeliveryEnd2EndTestCase
         $this->assertSame('nyancat', $image->getId());
 
         // There should be 3 and only 3 requests: the entries with the query, the space and the cat content type
-        $this->assertCount(3, $logger->getLogs());
+        $this->assertCount(3, $client->getMessages());
     }
 
     /**

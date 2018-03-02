@@ -9,14 +9,14 @@
 
 namespace Contentful\Tests\E2E;
 
+use Contentful\Core\Exception\RateLimitExceededException;
 use Contentful\Delivery\Query;
-use Contentful\Exception\RateLimitExceededException;
 use Contentful\Tests\DeliveryEnd2EndTestCase;
 
 class ErrorTest extends DeliveryEnd2EndTestCase
 {
     /**
-     * @expectedException \Contentful\Exception\NotFoundException
+     * @expectedException \Contentful\Core\Exception\NotFoundException
      * @vcr e2e_error_resource_not_found.json
      */
     public function testResourceNotFound()
@@ -27,7 +27,7 @@ class ErrorTest extends DeliveryEnd2EndTestCase
     }
 
     /**
-     * @expectedException \Contentful\Exception\AccessTokenInvalidException
+     * @expectedException \Contentful\Core\Exception\AccessTokenInvalidException
      * @vcr e2e_error_access_token_invalid.json
      */
     public function testAccessTokenInvalid()
@@ -38,7 +38,7 @@ class ErrorTest extends DeliveryEnd2EndTestCase
     }
 
     /**
-     * @expectedException \Contentful\Exception\InvalidQueryException
+     * @expectedException \Contentful\Core\Exception\InvalidQueryException
      * @vcr e2e_error_invalid_query.json
      */
     public function testInvalidQuery()
@@ -53,7 +53,7 @@ class ErrorTest extends DeliveryEnd2EndTestCase
 
     /**
      * @requires API no-coverage-proxy
-     * @expectedException \Contentful\Exception\RateLimitExceededException
+     * @expectedException \Contentful\Core\Exception\RateLimitExceededException
      * @vcr e2e_error_rate_limit.json
      */
     public function testRateLimitExceeded()
@@ -75,7 +75,7 @@ class ErrorTest extends DeliveryEnd2EndTestCase
     }
 
     /**
-     * @expectedException \Contentful\Exception\BadRequestException
+     * @expectedException \Contentful\Core\Exception\BadRequestException
      * @vcr e2e_error_bad_request.json
      */
     public function testBadRequest()

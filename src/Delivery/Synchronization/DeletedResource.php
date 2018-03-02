@@ -9,6 +9,7 @@
 
 namespace Contentful\Delivery\Synchronization;
 
+use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Delivery\SystemProperties;
 
 /**
@@ -64,7 +65,7 @@ abstract class DeletedResource implements \JsonSerializable
     /**
      * Returns the time when the resource was updated.
      *
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
     public function getUpdatedAt()
     {
@@ -74,7 +75,7 @@ abstract class DeletedResource implements \JsonSerializable
     /**
      * Returns the time when the resource was created.
      *
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
     public function getCreatedAt()
     {
@@ -84,7 +85,7 @@ abstract class DeletedResource implements \JsonSerializable
     /**
      * Returns the time when the resource was deleted.
      *
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
     public function getDeletedAt()
     {

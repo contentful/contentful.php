@@ -9,8 +9,8 @@
 
 namespace Contentful\Tests\E2E;
 
+use Contentful\Core\File\File;
 use Contentful\Delivery\Query;
-use Contentful\File\File;
 use Contentful\Tests\DeliveryEnd2EndTestCase;
 
 class AssetLocaleTest extends DeliveryEnd2EndTestCase

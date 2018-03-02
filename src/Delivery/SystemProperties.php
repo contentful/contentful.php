@@ -9,6 +9,7 @@
 
 namespace Contentful\Delivery;
 
+use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Space;
 
@@ -48,36 +49,36 @@ class SystemProperties implements \JsonSerializable
     private $locale;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var DateTimeImmutable|null
      */
     private $createdAt;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var DateTimeImmutable|null
      */
     private $updatedAt;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var DateTimeImmutable|null
      */
     private $deletedAt;
 
     /**
      * SystemProperties constructor.
      *
-     * @param string                  $id
-     * @param string                  $type
-     * @param Space|null              $space
-     * @param ContentType|null        $contentType
-     * @param int|null                $revision
-     * @param \DateTimeImmutable|null $createdAt
-     * @param \DateTimeImmutable|null $updatedAt
-     * @param \DateTimeImmutable|null $deletedAt
-     * @param string|null             $locale
+     * @param string                 $id
+     * @param string                 $type
+     * @param Space|null             $space
+     * @param ContentType|null       $contentType
+     * @param int|null               $revision
+     * @param DateTimeImmutable|null $createdAt
+     * @param DateTimeImmutable|null $updatedAt
+     * @param DateTimeImmutable|null $deletedAt
+     * @param string|null            $locale
      */
     public function __construct($id, $type, Space $space = null, ContentType $contentType = null, $revision = null,
-                                \DateTimeImmutable $createdAt = null, \DateTimeImmutable $updatedAt = null,
-                                \DateTimeImmutable $deletedAt = null, $locale = null)
+                                DateTimeImmutable $createdAt = null, DateTimeImmutable $updatedAt = null,
+                                DateTimeImmutable $deletedAt = null, $locale = null)
     {
         $this->id = $id;
         $this->type = $type;
@@ -139,7 +140,7 @@ class SystemProperties implements \JsonSerializable
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
     public function getCreatedAt()
     {
@@ -147,7 +148,7 @@ class SystemProperties implements \JsonSerializable
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
     public function getUpdatedAt()
     {
@@ -155,7 +156,7 @@ class SystemProperties implements \JsonSerializable
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
     public function getDeletedAt()
     {
@@ -204,13 +205,13 @@ class SystemProperties implements \JsonSerializable
             $obj->locale = $this->locale;
         }
         if (null !== $this->createdAt) {
-            $obj->createdAt = \Contentful\format_date_for_json($this->createdAt);
+            $obj->createdAt = (string) $this->createdAt;
         }
         if (null !== $this->updatedAt) {
-            $obj->updatedAt = \Contentful\format_date_for_json($this->updatedAt);
+            $obj->updatedAt = (string) $this->updatedAt;
         }
         if (null !== $this->deletedAt) {
-            $obj->deletedAt = \Contentful\format_date_for_json($this->deletedAt);
+            $obj->deletedAt = (string) $this->deletedAt;
         }
 
         return $obj;

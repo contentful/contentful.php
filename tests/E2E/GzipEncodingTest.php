@@ -20,18 +20,16 @@ class GzipEncodingTest extends DeliveryEnd2EndTestCase
      */
     public function testContentEncodingHeader()
     {
-        $client = $this->getClient('cfexampleapi_logger');
-        $logger = $client->getLogger();
+        $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
             ->setLocale('*');
         $client->getEntries($query);
 
-        $logEntry = $logger->getLogs()[0];
-
-        $this->assertSame('gzip', $logEntry->getRequest()->getHeaderLine('Accept-Encoding'));
+        $messages = $client->getMessages();
+        $this->assertSame('gzip', $messages[0]->getRequest()->getHeaderLine('Accept-Encoding'));
 
         // Need to check 'X-Encoded-Content-Encoding' as curl is automatically decompressing the response
-        $this->assertSame('gzip', $logEntry->getResponse()->getHeaderLine('X-Encoded-Content-Encoding'));
+        $this->assertSame('gzip', $messages[0]->getResponse()->getHeaderLine('X-Encoded-Content-Encoding'));
     }
 }
