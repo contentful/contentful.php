@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Delivery\Unit;
+namespace Contentful\Tests\Delivery\Unit\Resource;
 
 use Contentful\Delivery\Resource\Locale;
 use Contentful\Delivery\Resource\LocalizedResource;
@@ -114,5 +114,10 @@ class ConcreteLocalizedResource extends LocalizedResource
     public function getLocaleFromInput($locale = null)
     {
         return parent::getLocaleFromInput($locale);
+    }
+
+    public function jsonSerialize()
+    {
+        return [];
     }
 }

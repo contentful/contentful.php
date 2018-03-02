@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Delivery\Synchronization;
+namespace Contentful\Delivery\Resource;
 
 use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Delivery\SystemProperties;
@@ -15,13 +15,8 @@ use Contentful\Delivery\SystemProperties;
 /**
  * A DeletedResource encodes metadata about a deleted resource.
  */
-abstract class DeletedResource implements \JsonSerializable
+abstract class DeletedResource extends BaseResource
 {
-    /**
-     * @var SystemProperties
-     */
-    protected $sys;
-
     /**
      * DeletedResource constructor.
      *
@@ -30,16 +25,6 @@ abstract class DeletedResource implements \JsonSerializable
     public function __construct(SystemProperties $sys)
     {
         $this->sys = $sys;
-    }
-
-    /**
-     * Returns the ID of the resource.
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->sys->getId();
     }
 
     /**

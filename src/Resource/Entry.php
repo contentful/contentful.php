@@ -18,7 +18,7 @@ use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\ContentType\Field;
 use Contentful\Delivery\SystemProperties;
 
-class Entry extends LocalizedResource implements \JsonSerializable
+class Entry extends LocalizedResource
 {
     /**
      * @var array
@@ -29,11 +29,6 @@ class Entry extends LocalizedResource implements \JsonSerializable
      * @var array
      */
     private $resolvedLinks = [];
-
-    /**
-     * @var SystemProperties
-     */
-    protected $sys;
 
     /**
      * @var Client|null
@@ -55,14 +50,6 @@ class Entry extends LocalizedResource implements \JsonSerializable
         $this->sys = $sys;
         $this->client = $client;
         $this->resolvedLinks = [];
-    }
-
-    /**
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->sys->getId();
     }
 
     /**

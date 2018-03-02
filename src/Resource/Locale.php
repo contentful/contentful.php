@@ -12,7 +12,7 @@ namespace Contentful\Delivery\Resource;
 /**
  * Value object encoding a locale.
  */
-class Locale implements \JsonSerializable
+class Locale extends BaseResource
 {
     /**
      * @var string

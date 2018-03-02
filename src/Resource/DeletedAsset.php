@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Delivery\Synchronization;
+namespace Contentful\Delivery\Resource;
 
 /**
  * A DeletedAsset describes an asset that has been deleted.

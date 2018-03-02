@@ -7,9 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Delivery\Synchronization;
-
-use Contentful\Delivery\Resource\ContentType;
+namespace Contentful\Delivery\Resource;
 
 /**
  * A DeletedEntry describes an entry that has been deleted.

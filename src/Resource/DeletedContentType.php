@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Delivery\Synchronization;
+namespace Contentful\Delivery\Resource;
 
 /**
  * A DeletedContentType describes a content type that has been deleted.
