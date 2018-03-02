@@ -7,15 +7,15 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\E2E;
+namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Core\File\ImageFile;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Asset;
-use Contentful\Tests\DeliveryEnd2EndTestCase;
+use Contentful\Tests\Delivery\TestCase;
 
-class AssetTest extends DeliveryEnd2EndTestCase
+class AssetTest extends TestCase
 {
     /**
      * @vcr e2e_asset_get_all_locale_all.json

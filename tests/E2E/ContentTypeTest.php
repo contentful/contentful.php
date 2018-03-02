@@ -7,13 +7,13 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\E2E;
+namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Resource\ContentType;
-use Contentful\Tests\DeliveryEnd2EndTestCase;
+use Contentful\Tests\Delivery\TestCase;
 
-class ContentTypeTest extends DeliveryEnd2EndTestCase
+class ContentTypeTest extends TestCase
 {
     /**
      * @vcr e2e_content_type_get_all.json

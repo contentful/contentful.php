@@ -7,13 +7,13 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\E2E;
+namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Delivery\Cache\CacheClearer;
 use Contentful\Delivery\Cache\CacheWarmer;
-use Contentful\Tests\DeliveryEnd2EndTestCase;
+use Contentful\Tests\Delivery\TestCase;
 
-class CacheTest extends DeliveryEnd2EndTestCase
+class CacheTest extends TestCase
 {
     /**
      * @vcr e2e_cache_warmup_clear.json
@@ -29,14 +29,14 @@ class CacheTest extends DeliveryEnd2EndTestCase
 
         $warmer->warmUp();
 
-        $cacheItem = self::$cache->getItem(\Contentful\cache_key_space($client->getApi(), 'cfexampleapi'));
+        $cacheItem = self::$cache->getItem(\Contentful\Delivery\cache_key_space($client->getApi(), 'cfexampleapi'));
         $this->assertTrue($cacheItem->isHit());
 
         $rawSpace = \json_decode($cacheItem->get(), true);
         $this->assertSame('cfexampleapi', $rawSpace['sys']['id']);
 
         $clearer->clear();
-        $this->assertFalse(self::$cache->hasItem(\Contentful\cache_key_space($client->getApi(), 'cfexampleapi')));
+        $this->assertFalse(self::$cache->hasItem(\Contentful\Delivery\cache_key_space($client->getApi(), 'cfexampleapi')));
 
         self::$cache->clear();
     }
@@ -88,7 +88,7 @@ class CacheTest extends DeliveryEnd2EndTestCase
         $this->assertSame('cfexampleapi', $client->getSpace()->getId());
         $this->assertSame('cat', $client->getContentType('cat')->getId());
 
-        $cacheItem = self::$cache->getItem(\Contentful\cache_key_space($client->getApi(), 'cfexampleapi'));
+        $cacheItem = self::$cache->getItem(\Contentful\Delivery\cache_key_space($client->getApi(), 'cfexampleapi'));
         $this->assertTrue($cacheItem->isHit());
 
         $rawSpace = \json_decode($cacheItem->get(), true);

@@ -7,13 +7,13 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\E2E;
+namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Synchronization\Result;
-use Contentful\Tests\DeliveryEnd2EndTestCase;
+use Contentful\Tests\Delivery\TestCase;
 
-class SyncTest extends DeliveryEnd2EndTestCase
+class SyncTest extends TestCase
 {
     /**
      * @vcr e2e_sync_basic.json

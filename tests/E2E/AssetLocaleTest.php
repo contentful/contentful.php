@@ -7,13 +7,13 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\E2E;
+namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Core\File\File;
 use Contentful\Delivery\Query;
-use Contentful\Tests\DeliveryEnd2EndTestCase;
+use Contentful\Tests\Delivery\TestCase;
 
-class AssetLocaleTest extends DeliveryEnd2EndTestCase
+class AssetLocaleTest extends TestCase
 {
     /**
      * @vcr e2e_asset_included_locale.json

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful;
+namespace Contentful\Delivery;
 
 /**
  * @param string $api     A string representation of the API in use

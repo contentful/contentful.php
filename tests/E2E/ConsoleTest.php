@@ -7,17 +7,17 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\E2E;
+namespace Contentful\Tests\Delivery\E2E;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
-use Contentful\Console\Application;
 use Contentful\Delivery\Cache\CacheItemPoolFactoryInterface;
-use Contentful\Tests\DeliveryEnd2EndTestCase;
+use Contentful\Delivery\Console\Application;
+use Contentful\Tests\Delivery\TestCase;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class ConsoleTest extends DeliveryEnd2EndTestCase
+class ConsoleTest extends TestCase
 {
     /**
      * @param string $commandName
@@ -80,8 +80,8 @@ class ConsoleTest extends DeliveryEnd2EndTestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Object returned by "Contentful\Tests\E2E\InvalidFactory::getCacheItemPool()" must be PSR-6 compatible and implement "Psr\Cache\CacheItemPoolInterface".
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Object returned by "Contentful\Tests\Delivery\E2E\InvalidFactory::getCacheItemPool()" must be PSR-6 compatible and implement "Psr\Cache\CacheItemPoolInterface".
      */
     public function testCacheWarmupInvalidFactoryReturn()
     {
@@ -93,7 +93,7 @@ class ConsoleTest extends DeliveryEnd2EndTestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException        \InvalidArgumentException
      * @expectedExceptionMessage Cache item pool factory must implement "Contentful\Delivery\Cache\CacheItemPoolFactoryInterface".
      */
     public function testCacheWarmupInvalidFactory()
@@ -107,8 +107,8 @@ class ConsoleTest extends DeliveryEnd2EndTestCase
 
     /**
      * @vcr e2e_console_cache_warmup_not_working.json
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage The SDK could not warm up the cache. Try checking your PSR-6 implementation (class "Contentful\Tests\E2E\NotWorkingCachePool").
+     * @expectedException        \RuntimeException
+     * @expectedExceptionMessage The SDK could not warm up the cache. Try checking your PSR-6 implementation (class "Contentful\Tests\Delivery\E2E\NotWorkingCachePool").
      */
     public function testCacheWarmupNotWorking()
     {
@@ -155,8 +155,8 @@ class ConsoleTest extends DeliveryEnd2EndTestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Object returned by "Contentful\Tests\E2E\InvalidFactory::getCacheItemPool()" must be PSR-6 compatible and implement "Psr\Cache\CacheItemPoolInterface".
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Object returned by "Contentful\Tests\Delivery\E2E\InvalidFactory::getCacheItemPool()" must be PSR-6 compatible and implement "Psr\Cache\CacheItemPoolInterface".
      */
     public function testCacheClearInvalidFactoryReturn()
     {
@@ -168,7 +168,7 @@ class ConsoleTest extends DeliveryEnd2EndTestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException        \InvalidArgumentException
      * @expectedExceptionMessage Cache item pool factory must implement "Contentful\Delivery\Cache\CacheItemPoolFactoryInterface".
      */
     public function testCacheClearInvalidFactory()
@@ -182,8 +182,8 @@ class ConsoleTest extends DeliveryEnd2EndTestCase
 
     /**
      * @vcr e2e_console_cache_clear_not_working.json
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage The SDK could not clear the cache. Try checking your PSR-6 implementation (class "Contentful\Tests\E2E\NotWorkingCachePool").
+     * @expectedException        \RuntimeException
+     * @expectedExceptionMessage The SDK could not clear the cache. Try checking your PSR-6 implementation (class "Contentful\Tests\Delivery\E2E\NotWorkingCachePool").
      */
     public function testCacheClearNotWorking()
     {

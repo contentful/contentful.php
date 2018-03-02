@@ -7,12 +7,12 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\E2E;
+namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Delivery\Client;
-use Contentful\Tests\DeliveryEnd2EndTestCase;
+use Contentful\Tests\Delivery\TestCase;
 
-class UriOverrideTest extends DeliveryEnd2EndTestCase
+class UriOverrideTest extends TestCase
 {
     /**
      * @requires API no-coverage-proxy

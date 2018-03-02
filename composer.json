@@ -19,12 +19,12 @@
     "autoload": {
         "files": ["src/functions.php"],
         "psr-4": {
-            "Contentful\\": "src/"
+            "Contentful\\Delivery\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Contentful\\Tests\\": "tests"
+            "Contentful\\Tests\\Delivery\\": "tests"
         }
     },
     "bin": ["bin/contentful"],

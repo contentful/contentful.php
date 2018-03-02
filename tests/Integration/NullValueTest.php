@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Integration;
+namespace Contentful\Tests\Delivery\Integration;
 
 use Contentful\Delivery\Client;
 

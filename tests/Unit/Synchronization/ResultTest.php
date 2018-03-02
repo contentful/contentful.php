@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Unit\Delivery\Synchronization;
+namespace Contentful\Tests\Delivery\Unit\Synchronization;
 
 use Contentful\Delivery\Synchronization\Result;
 
