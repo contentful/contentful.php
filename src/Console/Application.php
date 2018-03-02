@@ -7,11 +7,9 @@
  * @license   MIT
  */
 
-namespace Contentful\Console;
+namespace Contentful\Delivery\Console;
 
 use Contentful\Delivery\Client;
-use Contentful\Delivery\Console\ClearCacheCommand;
-use Contentful\Delivery\Console\WarmUpCacheCommand;
 use Symfony\Component\Console\Application as AbstractApplication;
 
 /**

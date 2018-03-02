@@ -219,7 +219,7 @@ class Client extends BaseClient
             return $this->instanceCache->getContentType($contentTypeId);
         }
 
-        $key = \Contentful\cache_key_content_type($this->getApi(), $contentTypeId);
+        $key = \Contentful\Delivery\cache_key_content_type($this->getApi(), $contentTypeId);
         $cacheItem = $this->cacheItemPool->getItem($key);
         if ($cacheItem->isHit()) {
             return $this->reviveJson($cacheItem->get());
@@ -283,7 +283,7 @@ class Client extends BaseClient
             return $this->instanceCache->getSpace();
         }
 
-        $key = \Contentful\cache_key_space($this->getApi(), $this->spaceId);
+        $key = \Contentful\Delivery\cache_key_space($this->getApi(), $this->spaceId);
         $cacheItem = $this->cacheItemPool->getItem($key);
         if ($cacheItem->isHit()) {
             return $this->reviveJson($cacheItem->get());

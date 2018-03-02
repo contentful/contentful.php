@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Unit\Delivery\Resource\ContentType;
+namespace Contentful\Tests\Delivery\Unit\Resource\ContentType;
 
 use Contentful\Delivery\Resource\ContentType\Field;
 

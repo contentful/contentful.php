@@ -7,12 +7,12 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\E2E;
+namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Delivery\Resource\Space;
-use Contentful\Tests\DeliveryEnd2EndTestCase;
+use Contentful\Tests\Delivery\TestCase;
 
-class SpaceTest extends DeliveryEnd2EndTestCase
+class SpaceTest extends TestCase
 {
     /**
      * @vcr e2e_space_get.json

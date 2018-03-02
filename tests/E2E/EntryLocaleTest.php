@@ -7,13 +7,13 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\E2E;
+namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Query;
-use Contentful\Tests\DeliveryEnd2EndTestCase;
+use Contentful\Tests\Delivery\TestCase;
 
-class EntryLocaleTest extends DeliveryEnd2EndTestCase
+class EntryLocaleTest extends TestCase
 {
     /**
      * @vcr e2e_entry_locale_get_all.json

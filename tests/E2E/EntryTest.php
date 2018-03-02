@@ -7,18 +7,18 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\E2E;
+namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\Entry;
-use Contentful\Tests\DeliveryEnd2EndTestCase;
+use Contentful\Tests\Delivery\TestCase;
 
 /**
  * Test that objects can be constructed successfullly in various scenarios.
  */
-class EntryTest extends DeliveryEnd2EndTestCase
+class EntryTest extends TestCase
 {
     /**
      * @vcr e2e_entry_get_all_locale_all.json

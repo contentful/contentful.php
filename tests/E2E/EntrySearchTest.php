@@ -7,15 +7,15 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\E2E;
+namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Entry;
-use Contentful\Tests\DeliveryEnd2EndTestCase;
+use Contentful\Tests\Delivery\TestCase;
 
-class EntrySearchTest extends DeliveryEnd2EndTestCase
+class EntrySearchTest extends TestCase
 {
     /**
      * @vcr e2e_entry_search_by_content_type.json

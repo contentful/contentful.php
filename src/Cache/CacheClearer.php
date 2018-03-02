@@ -55,9 +55,9 @@ class CacheClearer
             ->setLimit(100);
         $contentTypes = $this->client->getContentTypes($query);
 
-        $keys = [\Contentful\cache_key_space($api, $space->getId())];
+        $keys = [\Contentful\Delivery\cache_key_space($api, $space->getId())];
         foreach ($contentTypes as $contentType) {
-            $keys[] = \Contentful\cache_key_content_type($api, $contentType->getId());
+            $keys[] = \Contentful\Delivery\cache_key_content_type($api, $contentType->getId());
         }
 
         return $this->cacheItemPool->deleteItems($keys);

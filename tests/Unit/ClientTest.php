@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Unit\Delivery;
+namespace Contentful\Tests\Delivery\Unit;
 
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Synchronization\Manager;

@@ -281,7 +281,7 @@ class ResourceBuilder
             return $this->instanceCache->getContentType($data['sys']['id']);
         }
 
-        $key = \Contentful\cache_key_content_type($this->client->getApi(), $data['sys']['id']);
+        $key = \Contentful\Delivery\cache_key_content_type($this->client->getApi(), $data['sys']['id']);
         $cacheItem = $this->cacheItemPool->getItem($key);
         if ($cacheItem->isHit()) {
             $data = \GuzzleHttp\json_decode($cacheItem->get(), true);

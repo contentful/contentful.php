@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Unit\Delivery\Resource;
+namespace Contentful\Tests\Delivery\Unit\Resource;
 
 use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\Api\Link;

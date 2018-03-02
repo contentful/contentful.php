@@ -55,12 +55,12 @@ class CacheWarmer
             ->setLimit(100);
         $contentTypes = $this->client->getContentTypes($query);
 
-        $spaceItem = $this->cacheItemPool->getItem(\Contentful\cache_key_space($api, $space->getId()));
+        $spaceItem = $this->cacheItemPool->getItem(\Contentful\Delivery\cache_key_space($api, $space->getId()));
         $spaceItem->set(\json_encode($space));
         $this->cacheItemPool->saveDeferred($spaceItem);
 
         foreach ($contentTypes as $contentType) {
-            $spaceItem = $this->cacheItemPool->getItem(\Contentful\cache_key_content_type($api, $contentType->getId()));
+            $spaceItem = $this->cacheItemPool->getItem(\Contentful\Delivery\cache_key_content_type($api, $contentType->getId()));
             $spaceItem->set(\json_encode($contentType));
             $this->cacheItemPool->saveDeferred($spaceItem);
         }
