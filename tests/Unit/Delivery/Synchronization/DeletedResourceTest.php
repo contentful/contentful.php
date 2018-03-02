@@ -9,6 +9,7 @@
 
 namespace Contentful\Tests\Unit\Delivery\Synchronization;
 
+use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\Synchronization\DeletedEntry;
@@ -29,9 +30,9 @@ class DeletedResourceTest extends \PHPUnit_Framework_TestCase
             $space,
             null,
             1,
-            $createdAt = new \DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            $updatedAt = new \DateTimeImmutable('2014-08-12T08:30:42.559Z'),
-            $deletedAt = new \DateTimeImmutable('2014-08-13T08:30:42.559Z')
+            $createdAt = new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
+            $updatedAt = new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
+            $deletedAt = new DateTimeImmutable('2014-08-13T08:30:42.559Z')
         ));
 
         $this->assertSame('4rPdazIwWkuuKEAQgemSmO', $resource->getId());
@@ -54,9 +55,9 @@ class DeletedResourceTest extends \PHPUnit_Framework_TestCase
             $space,
             null,
             1,
-            new \DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            new \DateTimeImmutable('2014-08-12T08:30:42.559Z'),
-            new \DateTimeImmutable('2014-08-13T08:30:42.559Z')
+            new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
+            new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
+            new DateTimeImmutable('2014-08-13T08:30:42.559Z')
         ));
 
         $this->assertNull($deletedEntry->getContentType());
@@ -71,9 +72,9 @@ class DeletedResourceTest extends \PHPUnit_Framework_TestCase
             $space,
             $ct,
             1,
-            new \DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            new \DateTimeImmutable('2014-08-12T08:30:42.559Z'),
-            new \DateTimeImmutable('2014-08-13T08:30:42.559Z')
+            new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
+            new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
+            new DateTimeImmutable('2014-08-13T08:30:42.559Z')
         ));
 
         $this->assertSame($ct, $deletedEntry->getContentType());
@@ -94,9 +95,9 @@ class DeletedResourceTest extends \PHPUnit_Framework_TestCase
             $space,
             null,
             1,
-            new \DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            new \DateTimeImmutable('2014-08-12T08:30:42.559Z'),
-            new \DateTimeImmutable('2014-08-13T08:30:42.559Z')
+            new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
+            new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
+            new DateTimeImmutable('2014-08-13T08:30:42.559Z')
         ));
 
         $this->assertJsonStringEqualsJsonString(

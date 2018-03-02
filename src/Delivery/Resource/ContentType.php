@@ -9,6 +9,7 @@
 
 namespace Contentful\Delivery\Resource;
 
+use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Delivery\Resource\ContentType\Field;
 use Contentful\Delivery\SystemProperties;
 
@@ -172,7 +173,7 @@ class ContentType implements \JsonSerializable
     /**
      * Returns the time when this content type was last updated.
      *
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
     public function getUpdatedAt()
     {
@@ -182,7 +183,7 @@ class ContentType implements \JsonSerializable
     /**
      * Returns the time when this content type was created.
      *
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
     public function getCreatedAt()
     {

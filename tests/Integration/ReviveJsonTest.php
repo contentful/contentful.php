@@ -34,7 +34,7 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Contentful\Exception\SpaceMismatchException
+     * @expectedException \InvalidArgumentException
      */
     public function testReviveJsonSpaceMismatch()
     {
@@ -44,7 +44,7 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Contentful\Exception\SpaceMismatchException
+     * @expectedException \InvalidArgumentException
      */
     public function testReviveJsonContentTypeSpaceMismatch()
     {

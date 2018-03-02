@@ -9,13 +9,14 @@
 
 namespace Contentful\Delivery\Resource;
 
+use Contentful\Core\Api\DateTimeImmutable;
+use Contentful\Core\Api\Link;
+use Contentful\Core\Exception\NotFoundException;
+use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\ContentType\Field;
 use Contentful\Delivery\SystemProperties;
-use Contentful\Exception\NotFoundException;
-use Contentful\Link;
-use Contentful\ResourceArray;
 
 class Entry extends LocalizedResource implements \JsonSerializable
 {
@@ -73,7 +74,7 @@ class Entry extends LocalizedResource implements \JsonSerializable
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
     public function getUpdatedAt()
     {
@@ -81,7 +82,7 @@ class Entry extends LocalizedResource implements \JsonSerializable
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
     public function getCreatedAt()
     {
@@ -286,7 +287,7 @@ class Entry extends LocalizedResource implements \JsonSerializable
             case 'Object':
                 return $value;
             case 'Date':
-                return \Contentful\format_date_for_json($value);
+                return (string) $value;
             case 'Link':
                 return $value ? (object) [
                     'sys' => (object) [

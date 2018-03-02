@@ -10,7 +10,9 @@
 namespace Contentful\Delivery;
 
 use Cache\Adapter\Void\VoidCachePool;
-use Contentful\Client as BaseClient;
+use Contentful\Core\Api\BaseClient;
+use Contentful\Core\Api\Link;
+use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
@@ -18,8 +20,6 @@ use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Locale;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\Synchronization\Manager;
-use Contentful\Link;
-use Contentful\ResourceArray;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -101,7 +101,6 @@ class Client extends BaseClient
     public function __construct($token, $spaceId, $preview = false, $defaultLocale = null, array $options = [])
     {
         $baseUri = $preview ? 'https://preview.contentful.com/' : 'https://cdn.contentful.com/';
-        $api = $preview ? self::API_PREVIEW : self::API_DELIVERY;
 
         $options = \array_replace([
             'guzzle' => null,
@@ -122,7 +121,7 @@ class Client extends BaseClient
         }
         $baseUri .= 'spaces/';
 
-        parent::__construct($token, $baseUri.$spaceId.'/', $api, $logger, $guzzle);
+        parent::__construct($token, $baseUri.$spaceId.'/', $logger, $guzzle);
 
         $this->preview = $preview;
         $this->instanceCache = new InstanceCache();
@@ -325,13 +324,54 @@ class Client extends BaseClient
      *
      * @throws \Contentful\Exception\SpaceMismatchException When attempting to revive JSON belonging to a different space
      *
-     * @return Asset|ContentType|Entry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\ResourceArray
+     * @return Asset|ContentType|Entry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\Core\Resource\ResourceArray
      */
     public function reviveJson($json)
     {
         $data = \GuzzleHttp\json_decode($json, true);
 
+        $spaceId = $this->extractSpaceId($data);
+        if ($spaceId !== $this->spaceId) {
+            throw new \InvalidArgumentException(\sprintf(
+                'Trying to parse and build a JSON structure with a client configured for handling space "%s", but space "%s" was detected.',
+                $this->spaceId,
+                $spaceId
+            ));
+        }
+
         return $this->builder->buildObjectsFromRawData($data);
+    }
+
+    /**
+     * Checks a data structure and extracts the space ID, if present.
+     *
+     * @param array $data
+     *
+     * @return string|null
+     */
+    private function extractSpaceId(array $data)
+    {
+        // Space resource
+        if (isset($data['sys']['type']) && $data['sys']['type'] === 'Space') {
+            return $data['sys']['id'];
+        }
+
+        // Resource linked to a space
+        if (isset($data['sys']['space'])) {
+            return $data['sys']['space']['sys']['id'];
+        }
+
+        // Array resource with at least an element
+        if (isset($data['items'][0]['sys']['space'])) {
+            return $data['items'][0]['sys']['space']['sys']['id'];
+        }
+
+        // Empty array resource
+        if (isset($data['items']) && !$data['items']) {
+            return $this->spaceId;
+        }
+
+        return '[blank]';
     }
 
     /**
@@ -380,7 +420,7 @@ class Client extends BaseClient
      * @param string $path
      * @param array  $options
      *
-     * @return Asset|ContentType|Entry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\ResourceArray
+     * @return Asset|ContentType|Entry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\Core\Resource\ResourceArray
      */
     private function requestAndBuild($method, $path, array $options = [], CacheItemInterface $cacheItem = null)
     {

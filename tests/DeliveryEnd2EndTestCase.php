@@ -11,7 +11,6 @@ namespace Contentful\Tests;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Contentful\Delivery\Client;
-use Contentful\Log\ArrayLogger;
 use PHPUnit_Framework_TestCase as TestCase;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -48,8 +47,6 @@ class DeliveryEnd2EndTestCase extends TestCase
                 return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, \array_merge($options, ['cache' => self::$cache]));
             case 'cfexampleapi_cache_autowarmup':
                 return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, \array_merge($options, ['cache' => self::$cache, 'autoWarmup' => true]));
-            case 'cfexampleapi_logger':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, \array_merge($options, ['logger' => new ArrayLogger()]));
             case 'cfexampleapi_tlh':
                 return new Client('b4c0n73n7fu1', 'cfexampleapi', false, 'tlh', $options);
             case 'cfexampleapi_invalid':

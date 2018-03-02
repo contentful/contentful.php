@@ -9,6 +9,7 @@
 
 namespace Contentful\Tests\Unit\Delivery\Resource;
 
+use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\ContentType\Field;
 use Contentful\Delivery\Resource\Space;
@@ -33,7 +34,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
                 new Field('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true),
             ],
             $displayField->getId(),
-            new SystemProperties('human', 'ContentType', $space, null, 3, new \DateTimeImmutable('2013-06-27T22:46:14.133Z'), new \DateTimeImmutable('2013-09-02T15:10:26.818Z'))
+            new SystemProperties('human', 'ContentType', $space, null, 3, new DateTimeImmutable('2013-06-27T22:46:14.133Z'), new DateTimeImmutable('2013-09-02T15:10:26.818Z'))
         );
 
         $this->assertSame('human', $contentType->getId());
@@ -41,8 +42,8 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Also called homo sapien', $contentType->getDescription());
         $this->assertSame($space, $contentType->getSpace());
         $this->assertSame($displayField, $contentType->getDisplayField());
-        $this->assertSame('2013-06-27T22:46:14.133Z', \Contentful\format_date_for_json($contentType->getCreatedAt()));
-        $this->assertSame('2013-09-02T15:10:26.818Z', \Contentful\format_date_for_json($contentType->getUpdatedAt()));
+        $this->assertSame('2013-06-27T22:46:14.133Z', (string) $contentType->getCreatedAt());
+        $this->assertSame('2013-09-02T15:10:26.818Z', (string) $contentType->getUpdatedAt());
         $this->assertSame(3, $contentType->getRevision());
         $this->assertSame('Likes', $contentType->getField('likes')->getName());
 
@@ -67,7 +68,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
                 new Field('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true),
             ],
             null,
-            new SystemProperties('human', 'ContentType', $space, null, 3, new \DateTimeImmutable('2013-06-27T22:46:14.133Z'), new \DateTimeImmutable('2013-09-02T15:10:26.818Z'))
+            new SystemProperties('human', 'ContentType', $space, null, 3, new DateTimeImmutable('2013-06-27T22:46:14.133Z'), new DateTimeImmutable('2013-09-02T15:10:26.818Z'))
         );
 
         $this->assertNull($contentType->getDescription());
@@ -95,7 +96,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
                 new Field('image', 'Image', 'Array', null, 'Link', 'Asset', false, false, true),
             ],
             $displayField->getId(),
-            new SystemProperties('human', 'ContentType', $space, null, 3, new \DateTimeImmutable('2013-06-27T22:46:14.133Z'), new \DateTimeImmutable('2013-09-02T15:10:26.818Z'))
+            new SystemProperties('human', 'ContentType', $space, null, 3, new DateTimeImmutable('2013-06-27T22:46:14.133Z'), new DateTimeImmutable('2013-09-02T15:10:26.818Z'))
         );
 
         $this->assertJsonStringEqualsJsonString(
