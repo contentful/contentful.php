@@ -15,9 +15,9 @@ use Contentful\Delivery\SystemProperties;
 
 /**
  * Content Types are schemas that define the fields of Entries. Every Entry can only contain values in the fields
- * defined by it's Content Type, and the values of those fields must match the data type defined in the Content Type.
+ * defined by its Content Type, and the values of those fields must match the data type defined in the Content Type.
  */
-class ContentType implements \JsonSerializable
+class ContentType extends BaseResource
 {
     /**
      * Name of the Content Type.
@@ -46,11 +46,6 @@ class ContentType implements \JsonSerializable
      * @var string|null
      */
     private $displayField;
-
-    /**
-     * @var SystemProperties
-     */
-    private $sys;
 
     /**
      * ContentType constructor.
@@ -148,16 +143,6 @@ class ContentType implements \JsonSerializable
         $this->fields[$name] = new Field($name, $name, 'Unknown');
 
         return $this->fields[$name];
-    }
-
-    /**
-     * Returns the ID of this content type.
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->sys->getId();
     }
 
     /**

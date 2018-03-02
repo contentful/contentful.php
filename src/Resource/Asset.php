@@ -13,7 +13,7 @@ use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\File\FileInterface;
 use Contentful\Delivery\SystemProperties;
 
-class Asset extends LocalizedResource implements \JsonSerializable
+class Asset extends LocalizedResource
 {
     /**
      * @var array
@@ -29,11 +29,6 @@ class Asset extends LocalizedResource implements \JsonSerializable
      * @var array
      */
     private $file;
-
-    /**
-     * @var SystemProperties
-     */
-    private $sys;
 
     /**
      * Asset constructor.
@@ -116,16 +111,6 @@ class Asset extends LocalizedResource implements \JsonSerializable
         $localeCode = $this->loopThroughFallbackChain($this->file, $localeCode, $this->getSpace());
 
         return null === $localeCode ? null : $this->file[$localeCode];
-    }
-
-    /**
-     * Returns the ID of this Asset.
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->sys->getId();
     }
 
     /**

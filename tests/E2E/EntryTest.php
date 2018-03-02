@@ -57,6 +57,11 @@ class EntryTest extends TestCase
 
         $this->assertInstanceOf(Entry::class, $entry);
         $this->assertSame('nyancat', $entry->getId());
+        $this->assertSame('nyancat', $entry->getSystemProperties()->getId());
+        $this->assertSame('Entry', $entry->getSystemProperties()->getType());
+        $link = $entry->asLink();
+        $this->assertSame('nyancat', $link->getId());
+        $this->assertSame('Entry', $link->getLinkType());
     }
 
     /**

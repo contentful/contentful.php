@@ -7,13 +7,13 @@
  * @license   MIT
  */
 
-namespace Contentful\Tests\Delivery\Unit\Synchronization;
+namespace Contentful\Tests\Delivery\Unit\Resource;
 
 use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Delivery\Resource\ContentType;
+use Contentful\Delivery\Resource\DeletedEntry;
+use Contentful\Delivery\Resource\DeletedResource;
 use Contentful\Delivery\Resource\Space;
-use Contentful\Delivery\Synchronization\DeletedEntry;
-use Contentful\Delivery\Synchronization\DeletedResource;
 use Contentful\Delivery\SystemProperties;
 
 class DeletedResourceTest extends \PHPUnit_Framework_TestCase

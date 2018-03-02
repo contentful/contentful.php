@@ -22,13 +22,12 @@ use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\ContentType\Field;
+use Contentful\Delivery\Resource\DeletedAsset;
+use Contentful\Delivery\Resource\DeletedContentType;
+use Contentful\Delivery\Resource\DeletedEntry;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Locale;
 use Contentful\Delivery\Resource\Space;
-use Contentful\Delivery\Synchronization\DeletedAsset;
-use Contentful\Delivery\Synchronization\DeletedContentType;
-use Contentful\Delivery\Synchronization\DeletedEntry;
-use Contentful\Exception\SpaceMismatchException;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
@@ -503,36 +502,12 @@ class ResourceBuilder
     }
 
     /**
-     * Retrieves the Space from the API.
-     *
-     * @param string $spaceId
-     *
-     * @throws SpaceMismatchException when attempting to get a different Space than the one this ResourceBuilder is configured to handle
-     *
-     * @return Space
-     */
-    private function getSpace($spaceId)
-    {
-        if ($spaceId !== $this->spaceId) {
-            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "'.$this->spaceId.'" but was asked to build a resource for the space "'.$spaceId.'".');
-        }
-
-        return $this->client->getSpace();
-    }
-
-    /**
      * @param array $data
-     *
-     * @throws SpaceMismatchException when attempting to build a different Space than the one this ResourceBuilder is configured to handle
      *
      * @return Space
      */
     private function buildSpace(array $data)
     {
-        if ($data['sys']['id'] !== $this->spaceId) {
-            throw new SpaceMismatchException('This ResourceBuilder is responsible for the space "'.$this->spaceId.'" but was asked to build a resource for the space "'.$data['sys']['id'].'".');
-        }
-
         if ($this->instanceCache->hasSpace()) {
             return $this->instanceCache->getSpace();
         }
@@ -558,7 +533,7 @@ class ResourceBuilder
         return new SystemProperties(
             isset($sys['id']) ? $sys['id'] : null,
             isset($sys['type']) ? $sys['type'] : null,
-            isset($sys['space']) ? $this->getSpace($sys['space']['sys']['id']) : null,
+            isset($sys['space']) ? $this->client->getSpace() : null,
             isset($sys['contentType']) ? $this->client->getContentType($sys['contentType']['sys']['id']) : null,
             isset($sys['revision']) ? $sys['revision'] : null,
             isset($sys['createdAt']) ? new DateTimeImmutable($sys['createdAt']) : null,

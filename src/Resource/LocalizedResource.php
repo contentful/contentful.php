@@ -13,7 +13,7 @@ namespace Contentful\Delivery\Resource;
  * A LocalizedResource can store information for multiple locales.
  * The methods in this base class allow switching between the locales.
  */
-abstract class LocalizedResource
+abstract class LocalizedResource extends BaseResource
 {
     /**
      * The code of the currently active locale.
