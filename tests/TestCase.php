@@ -10,6 +10,7 @@
 namespace Contentful\Tests\Delivery;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
+use Contentful\Core\Api\Link;
 use Contentful\Delivery\Client;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -94,6 +95,18 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $id
+     * @param string $linkType
+     * @param Link   $link
+     * @param string $message
+     */
+    protected function assertLink($id, $linkType, Link $link, $message = '')
+    {
+        $this->assertSame($id, $link->getId(), $message);
+        $this->assertSame($linkType, $link->getLinkType(), $message);
+    }
+
+    /**
      * @param string $file
      * @param object $object
      * @param string $message
@@ -144,5 +157,136 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $class = \mb_substr($class, 0, -4);
 
         return __DIR__.'/Fixtures/'.$class;
+    }
+}
+
+// Here we define a few convenice classes to avoid using mocks everywhere,
+// and use actual resource classes instead.
+
+namespace Contentful\Tests\Delivery\Unit\Resource;
+
+class ConcreteSpace extends \Contentful\Delivery\Resource\Space
+{
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
+
+    public static function withSys($id, $data = [])
+    {
+        return new static(\array_merge($data, [
+            'sys' => new \Contentful\Delivery\SystemProperties(['id' => $id, 'type' => 'Space']),
+        ]));
+    }
+}
+
+class ConcreteLocale extends \Contentful\Delivery\Resource\Locale
+{
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
+
+    public static function withSys($id, $data = [])
+    {
+        return new static(\array_merge($data, [
+            'sys' => new \Contentful\Delivery\SystemProperties(['id' => $id, 'type' => 'Locale']),
+        ]));
+    }
+}
+
+class ConcreteEntry extends \Contentful\Delivery\Resource\Entry
+{
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
+
+    public static function withSys($id, $data = [])
+    {
+        return new static(\array_merge($data, [
+            'sys' => new \Contentful\Delivery\SystemProperties(['id' => $id, 'type' => 'Entry']),
+        ]));
+    }
+}
+
+class ConcreteContentType extends \Contentful\Delivery\Resource\ContentType
+{
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
+
+    public static function withSys($id, $data = [])
+    {
+        return new static(\array_merge($data, [
+            'sys' => new \Contentful\Delivery\SystemProperties(['id' => $id, 'type' => 'ContentType']),
+        ]));
+    }
+}
+
+class ConcreteField extends \Contentful\Delivery\Resource\ContentType\Field
+{
+    public function __construct(array $data)
+    {
+        foreach ($data as $property => $value) {
+            if (\property_exists($this, $property)) {
+                $this->$property = $value;
+            }
+        }
+    }
+}
+
+class ConcreteAsset extends \Contentful\Delivery\Resource\Asset
+{
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
+
+    public static function withSys($id, $data = [])
+    {
+        return new static(\array_merge($data, [
+            'sys' => new \Contentful\Delivery\SystemProperties(['id' => $id, 'type' => 'Asset']),
+        ]));
+    }
+}
+
+class ConcreteDeletedResource extends \Contentful\Delivery\Resource\DeletedResource
+{
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
+}
+
+class ConcreteDeletedEntry extends \Contentful\Delivery\Resource\DeletedEntry
+{
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
+}
+
+class ConcreteLocalizedResource extends \Contentful\Delivery\Resource\LocalizedResource
+{
+    public function __construct(array $locales)
+    {
+        $this->setLocales($locales);
+    }
+
+    public function getLocaleFromInput($locale = null)
+    {
+        return parent::getLocaleFromInput($locale);
+    }
+
+    public function loopThroughFallbackChain(array $valueMap, $localeCode, \Contentful\Delivery\Resource\Space $space)
+    {
+        return parent::loopThroughFallbackChain($valueMap, $localeCode, $space);
+    }
+
+    public function jsonSerialize()
+    {
+        return [];
     }
 }

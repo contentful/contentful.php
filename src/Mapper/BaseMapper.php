@@ -9,7 +9,6 @@
 
 namespace Contentful\Delivery\Mapper;
 
-use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Core\ResourceBuilder\MapperInterface;
@@ -110,17 +109,15 @@ abstract class BaseMapper implements MapperInterface
      */
     protected function buildSystemProperties(array $sys)
     {
-        return new SystemProperties(
-            isset($sys['id']) ? $sys['id'] : null,
-            isset($sys['type']) ? $sys['type'] : null,
-            isset($sys['space']) ? $this->client->getSpace() : null,
-            isset($sys['contentType']) ? $this->client->getContentType($sys['contentType']['sys']['id']) : null,
-            isset($sys['revision']) ? $sys['revision'] : null,
-            isset($sys['createdAt']) ? new DateTimeImmutable($sys['createdAt']) : null,
-            isset($sys['updatedAt']) ? new DateTimeImmutable($sys['updatedAt']) : null,
-            isset($sys['deletedAt']) ? new DateTimeImmutable($sys['deletedAt']) : null,
-            isset($sys['locale']) ? $sys['locale'] : null
-        );
+        if (isset($sys['space'])) {
+            $sys['space'] = $this->client->getSpace();
+        }
+
+        if (isset($sys['contentType'])) {
+            $sys['contentType'] = $this->client->getContentType($sys['contentType']['sys']['id']);
+        }
+
+        return new SystemProperties($sys);
     }
 
     /**

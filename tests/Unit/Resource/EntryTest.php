@@ -13,11 +13,8 @@ use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Exception\NotFoundException;
 use Contentful\Delivery\Client;
-use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
-use Contentful\Delivery\Resource\ContentType\Field;
 use Contentful\Delivery\Resource\Entry;
-use Contentful\Delivery\Resource\Locale;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
 use Contentful\Tests\Delivery\TestCase;
@@ -39,107 +36,91 @@ class EntryTest extends TestCase
     /**
      * @var ContentType
      */
-    private $ct;
+    private $contentType;
 
     public function createMockSpace()
     {
-        $space = $this->getMockBuilder(Space::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $localeEn = new ConcreteLocale([
+            'code' => 'en-US',
+            'name' => 'English (United States)',
+            'fallbackCode' => null,
+            'default' => true,
+        ]);
+        $localeTlh = new ConcreteLocale([
+            'code' => 'tlh',
+            'name' => 'Klingon',
+            'fallbackCode' => 'en-US',
+            'default' => false,
+        ]);
 
-        $defaultLocale = new Locale('en-US', 'English (United States)', null, true);
-
-        $space->method('getId')
-            ->willReturn('cfexampleapi');
-        $space->method('getLocales')
-            ->willReturn([
-                $defaultLocale,
-                new Locale('tlh', 'Klingon', 'en-US'),
-            ]);
-        $space->method('getDefaultLocale')
-            ->willReturn($defaultLocale);
-
-        return $space;
+        return ConcreteSpace::withSys('cfexampleapi', [
+            'locales' => [$localeEn, $localeTlh],
+        ]);
     }
 
     public function createTestContentType(Space $space)
     {
-        return new ContentType(
-            'Cat',
-            'Meow.',
-            [
-                new Field('name', 'Name', 'Text', null, null, null, true, true),
-                new Field('likes', 'Likes', 'Array', null, 'Symbol', false, false),
-                new Field('color', 'Color', 'Symbol', null, null, false, false),
-                new Field('bestFriend', 'Best Friend', 'Link', 'Entry', null, false, false),
-                new Field('Enemy', 'Enemy', 'Link', 'Entry', null, false, false),
-                new Field('birthday', 'Birthday', 'Date', null, null, false, false),
-                new Field('lifes', 'Lifes left', 'Integer', null, null, false, false, false, true),
-                new Field('lives', 'Lives left', 'Integer', null, null, false, false),
-                new Field('image', 'Image', 'Link', 'Asset', null, false, false),
+        $sys = new SystemProperties([
+            'id' => 'cat',
+            'type' => 'ContentType',
+            'space' => $space,
+            'revision' => 2,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:12.852Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-02T13:14:47.863Z'),
+        ]);
+
+        return new ConcreteContentType([
+            'sys' => $sys,
+            'name' => 'Cat',
+            'description' => 'Meow.',
+            'displayField' => 'name',
+            'fields' => [
+                'name' => new ConcreteField(['id' => 'name', 'name' => 'Name', 'type' => 'Text', 'localized' => true, 'disabled' => true]),
+                'likes' => new ConcreteField(['id' => 'likes', 'name' => 'Like', 'type' => 'Array', 'itemsType' => 'Symbol']),
+                'color' => new ConcreteField(['id' => 'color', 'name' => 'Color', 'type' => 'Symbol']),
+                'bestFriend' => new ConcreteField(['id' => 'bestFriend', 'name' => 'Best Friend', 'type' => 'Link', 'linkType' => 'Entry']),
+                'Enemy' => new ConcreteField(['id' => 'Enemy', 'name' => 'Enemy', 'type' => 'Link', 'linkType' => 'Entry']),
+                'birthday' => new ConcreteField(['id' => 'name', 'name' => 'Birthday', 'type' => 'Date']),
+                'lifes' => new ConcreteField(['id' => 'lifes', 'name' => 'Lifes left', 'type' => 'Integer', 'disabled' => true]),
+                'lives' => new ConcreteField(['id' => 'lives', 'name' => 'Lives left', 'type' => 'Integer']),
+                'image' => new ConcreteField(['id' => 'image', 'name' => 'Image', 'type' => 'Link', 'linkType' => 'Asset']),
             ],
-            'name',
-            new SystemProperties('cat', 'ContentType', $space, null, 2, new DateTimeImmutable('2013-06-27T22:46:12.852Z'), new DateTimeImmutable('2013-09-02T13:14:47.863Z'))
-        );
+        ]);
+    }
+
+    public function createMockClient()
+    {
+        return $this->getMockBuilder(Client::class)
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
     public function setUp()
     {
         $this->space = $this->createMockSpace();
-        $this->ct = $this->createTestContentType($this->space);
+        $this->contentType = $this->createTestContentType($this->space);
 
-        $mockEntry = $this->getMockBuilder(Entry::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mockEntry->method('getId')
-            ->willReturn('happycat');
-
-        $mockEntryEnemy = $this->getMockBuilder(Entry::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mockEntryEnemy->method('getId')
-            ->willReturn('garfield');
-
-        $mockAsset = $this->getMockBuilder(Asset::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mockAsset->method('getId')
-            ->willReturn('nyancat');
-
-        $this->entry = new Entry(
-            [
-                'name' => [
-                    'en-US' => 'Nyan Cat',
-                    'tlh' => 'Nyan vIghro\'',
-                ],
-                'likes' => [
-                    'en-US' => ['rainbows', 'fish'],
-                ],
-                'color' => [
-                    'en-US' => 'rainbow',
-                ],
-                'bestFriend' => [
-                    'en-US' => $mockEntry,
-                ],
-                'Enemy' => [
-                    'en-US' => $mockEntryEnemy,
-                ],
-                'birthday' => [
-                    'en-US' => new DateTimeImmutable('2011-04-04T22:00:00+00:00'),
-                ],
-                'lives' => [
-                    'en-US' => 1337,
-                ],
-                'lifes' => [
-                    'en-US' => 42,
-                ],
-                'image' => [
-                    'en-US' => $mockAsset,
-                ],
-            ],
-            new SystemProperties('nyancat', 'Entry', $this->space, $this->ct, 5, new DateTimeImmutable('2013-06-27T22:46:19.513Z'), new DateTimeImmutable('2013-09-04T09:19:39.027Z')),
-            null
-        );
+        $sys = new SystemProperties([
+            'id' => 'nyancat',
+            'type' => 'Entry',
+            'space' => $this->space,
+            'contentType' => $this->contentType,
+            'revision' => 5,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:19.513Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-04T09:19:39.027Z'),
+        ]);
+        $this->entry = new ConcreteEntry(['sys' => $sys, 'fields' => [
+            'name' => ['en-US' => 'Nyan Cat', 'tlh' => 'Nyan vIghro\''],
+            'likes' => ['en-US' => ['rainbows', 'fish']],
+            'color' => ['en-US' => 'rainbow'],
+            'bestFriend' => ['en-US' => ConcreteEntry::withSys('happycat')],
+            'Enemy' => ['en-US' => ConcreteEntry::withSys('garfield')],
+            'birthday' => ['en-US' => new DateTimeImmutable('2011-04-04T22:00:00+00:00')],
+            'lives' => ['en-US' => 1337],
+            'lifes' => ['en-US' => 42],
+            'image' => ['en-US' => ConcreteAsset::withSys('nyancat')],
+        ]]);
+        $this->entry->setLocales($this->space->getLocales());
     }
 
     public function testGetter()
@@ -150,10 +131,14 @@ class EntryTest extends TestCase
         $this->assertSame(5, $entry->getRevision());
         $this->assertSame('2013-06-27T22:46:19.513Z', (string) $entry->getCreatedAt());
         $this->assertSame('2013-09-04T09:19:39.027Z', (string) $entry->getUpdatedAt());
-        $this->assertSame($this->space, $entry->getSpace());
-        $this->assertSame($this->ct, $entry->getContentType());
+        $this->assertSame($this->contentType, $entry->getContentType());
         $this->assertSame('happycat', $entry->getBestFriend()->getId());
         $this->assertSame('garfield', $entry->getEnemy()->getId());
+
+        $link = $entry->asLink();
+        $this->assertInstanceOf(Link::class, $link);
+        $this->assertSame('nyancat', $link->getId());
+        $this->assertSame('Entry', $link->getLinkType());
     }
 
     public function testIdGetter()
@@ -171,57 +156,67 @@ class EntryTest extends TestCase
 
     public function testLinkResolution()
     {
-        $ct = new ContentType(
-            'Cat',
-            'Meow.',
-            [
-                new Field('name', 'Name', 'Text', null, null, null, true, true),
-                new Field('friend', 'Friend', 'Link', null, null, false, false),
+        $sys = new SystemProperties([
+            'id' => 'cat',
+            'type' => 'ContentType',
+            'space' => $this->space,
+            'revision' => 2,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:12.852Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-02T13:14:47.863Z'),
+        ]);
+        $contentType = new ConcreteContentType([
+            'sys' => $sys,
+            'name' => 'Cat',
+            'description' => 'Meow.',
+            'displayField' => 'name',
+            'fields' => [
+                'name' => new ConcreteField(['id' => 'name', 'name' => 'Name', 'type' => 'Text', 'localized' => true, 'disabled' => true]),
+                'friend' => new ConcreteField(['id' => 'friend', 'name' => 'Friend', 'type' => 'Link']),
             ],
-            'name',
-            new SystemProperties('cat', 'ContentType', $this->space, null, 2, new DateTimeImmutable('2013-06-27T22:46:12.852Z'), new DateTimeImmutable('2013-09-02T13:14:47.863Z'))
-        );
+        ]);
 
-        $client = $this->getMockBuilder(Client::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $client = $this->createMockClient();
 
-        $crookshanksEntry = new Entry(
-            [
-                'name' => [
-                    'en-US' => 'Crookshanks',
-                ],
-            ],
-            new SystemProperties('crookshanks', 'Entry', $this->space, $ct, 5, new DateTimeImmutable('2013-06-27T22:46:19.513Z'), new DateTimeImmutable('2013-09-04T09:19:39.027Z')),
-            $client
-        );
+        $sys = new SystemProperties([
+            'id' => 'crookshanks',
+            'type' => 'Entry',
+            'space' => $this->space,
+            'contentType' => $contentType,
+            'revision' => 5,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:19.513Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-04T09:19:39.027Z'),
+        ]);
+        $crookshanksEntry = new ConcreteEntry(['client' => $client, 'sys' => $sys, 'fields' => [
+            'name' => ['en-US' => 'Crookshanks'],
+        ]]);
+        $crookshanksEntry->setLocales($this->space->getLocales());
 
-        $garfieldEntry = new Entry(
-            [
-                'name' => [
-                    'en-US' => 'Garfield',
-                ],
-                'friend' => [
-                    'en-US' => new Link('crookshanks', 'Entry'),
-                ],
-            ],
-            new SystemProperties('garfield', 'Entry', $this->space, $ct, 56, new DateTimeImmutable('2013-06-27T22:46:19.513Z'), new DateTimeImmutable('2013-09-04T09:19:39.027Z')),
-            $client
-        );
+        $sys = new SystemProperties([
+            'id' => 'garfield',
+            'type' => 'Entry',
+            'space' => $this->space,
+            'contentType' => $contentType,
+            'revision' => 56,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:19.513Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-04T09:19:39.027Z'),
+        ]);
+        $garfieldEntry = new ConcreteEntry(['client' => $client, 'sys' => $sys, 'fields' => [
+            'name' => ['en-US' => 'Garfield'],
+            'friend' => ['en-US' => new Link('crookshanks', 'Entry')],
+        ]]);
+        $garfieldEntry->setLocales($this->space->getLocales());
 
         $client->expects($this->any())
             ->method('resolveLink')
             ->willReturnCallback(function (Link $link) use ($garfieldEntry, $crookshanksEntry) {
-                $id = $link->getId();
-
-                if ('garfield' === $id) {
+                if ('garfield' === $link->getId()) {
                     return $garfieldEntry;
                 }
-                if ('crookshanks' === $id) {
+                if ('crookshanks' === $link->getId()) {
                     return $crookshanksEntry;
                 }
 
-                throw new NotFoundException(new ClientException('abc', new Request('GET', '')));
+                throw new NotFoundException(new ClientException('Exception message', new Request('GET', '')));
             });
 
         $this->assertSame($crookshanksEntry, $garfieldEntry->getFriend());
@@ -232,89 +227,107 @@ class EntryTest extends TestCase
      */
     public function testFieldNameIncludesId()
     {
-        $ct = new ContentType(
-            'Cat',
-            'Meow.',
-            [
-                new Field('name', 'Name', 'Text', null, null, null, true, true),
-                new Field('youTubeId', 'YouTube', 'Symbol', null, null, false, false),
+        $sys = new SystemProperties([
+            'id' => 'cat',
+            'type' => 'ContentType',
+            'space' => $this->space,
+            'revision' => 2,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:12.852Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-02T13:14:47.863Z'),
+        ]);
+        $contentType = new ConcreteContentType([
+            'sys' => $sys,
+            'name' => 'Cat',
+            'description' => 'Meow.',
+            'displayField' => 'name',
+            'fields' => [
+                'name' => new ConcreteField(['id' => 'name', 'name' => 'Name', 'type' => 'Text', 'localized' => true, 'disabled' => true]),
+                'youTubeId' => new ConcreteField(['id' => 'youTubeId', 'name' => 'YouTube', 'type' => 'Symbol']),
             ],
-            'name',
-            new SystemProperties('cat', 'ContentType', $this->space, null, 2, new DateTimeImmutable('2013-06-27T22:46:12.852Z'), new DateTimeImmutable('2013-09-02T13:14:47.863Z'))
-        );
+        ]);
 
-        $entry = new Entry(
-            [
-                'name' => [
-                    'en-US' => 'Test Entry',
-                ],
-                'youTubeId' => [
-                    'en-US' => 'l6xdPQ_O8e8',
-                ],
-            ],
-            new SystemProperties('nyancat', 'Entry', $this->space, $ct, 5, new DateTimeImmutable('2013-06-27T22:46:19.513Z'), new DateTimeImmutable('2013-09-04T09:19:39.027Z')),
-            null
-        );
+        $sys = new SystemProperties([
+            'id' => 'nyancat',
+            'type' => 'Entry',
+            'space' => $this->space,
+            'contentType' => $contentType,
+            'revision' => 5,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:19.513Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-04T09:19:39.027Z'),
+        ]);
+        $entry = new ConcreteEntry(['sys' => $sys, 'fields' => [
+            'name' => ['en-US' => 'Test Entry'],
+            'youTubeId' => ['en-US' => 'l6xdPQ_O8e8'],
+        ]]);
+        $entry->setLocales($this->space->getLocales());
 
         $this->assertSame('l6xdPQ_O8e8', $entry->getYouTubeId());
     }
 
     public function testOneToManyReferenceWithMissingEntry()
     {
-        $ct = new ContentType(
-            'Cat',
-            'Meow.',
-            [
-                new Field('name', 'Name', 'Text', null, null, null, true, true),
-                new Field('friends', 'Friends', 'Array', null, 'Link', false, false),
+        $sys = new SystemProperties([
+            'id' => 'cat',
+            'type' => 'ContentType',
+            'space' => $this->space,
+            'revision' => 2,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:12.852Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-02T13:14:47.863Z'),
+        ]);
+        $contentType = new ConcreteContentType([
+            'sys' => $sys,
+            'name' => 'Cat',
+            'description' => 'Meow.',
+            'displayField' => 'name',
+            'fields' => [
+                'name' => new ConcreteField(['id' => 'name', 'name' => 'Name', 'type' => 'Text', 'localized' => true, 'disabled' => true]),
+                'friends' => new ConcreteField(['id' => 'friends', 'name' => 'Friends', 'type' => 'Array', 'itemsType' => 'Link']),
             ],
-            'name',
-            new SystemProperties('cat', 'ContentType', $this->space, null, 2, new DateTimeImmutable('2013-06-27T22:46:12.852Z'), new DateTimeImmutable('2013-09-02T13:14:47.863Z'))
-        );
+        ]);
 
-        $client = $this->getMockBuilder(Client::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $client = $this->createMockClient();
 
-        $crookshanksEntry = new Entry(
-            [
-                'name' => [
-                    'en-US' => 'Crookshanks',
-                ],
-                'friends' => [
-                    'en-US' => [],
-                ],
-            ],
-            new SystemProperties('crookshanks', 'Entry', $this->space, $ct, 5, new DateTimeImmutable('2013-06-27T22:46:19.513Z'), new DateTimeImmutable('2013-09-04T09:19:39.027Z')),
-            $client
-        );
+        $sys = new SystemProperties([
+            'id' => 'crookshanks',
+            'type' => 'Entry',
+            'space' => $this->space,
+            'contentType' => $contentType,
+            'revision' => 5,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:19.513Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-04T09:19:39.027Z'),
+        ]);
+        $crookshanksEntry = new ConcreteEntry(['client' => $client, 'sys' => $sys, 'fields' => [
+            'name' => ['en-US' => 'Crookshanks'],
+            'friends' => ['en-US' => []],
+        ]]);
+        $crookshanksEntry->setLocales($this->space->getLocales());
 
-        $garfieldEntry = new Entry(
-            [
-                'name' => [
-                    'en-US' => 'Garfield',
-                ],
-                'friends' => [
-                    'en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')],
-                ],
-            ],
-            new SystemProperties('garfield', 'Entry', $this->space, $ct, 56, new DateTimeImmutable('2013-06-27T22:46:19.513Z'), new DateTimeImmutable('2013-09-04T09:19:39.027Z')),
-            $client
-        );
+        $sys = new SystemProperties([
+            'id' => 'garfield',
+            'type' => 'Entry',
+            'space' => $this->space,
+            'contentType' => $contentType,
+            'revision' => 56,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:19.513Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-04T09:19:39.027Z'),
+        ]);
+        $garfieldEntry = new ConcreteEntry(['client' => $client, 'sys' => $sys, 'fields' => [
+            'name' => ['en-US' => 'Garfield'],
+            'friends' => ['en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')]],
+        ]]);
+        $garfieldEntry->setLocales($this->space->getLocales());
 
         $client->expects($this->any())
             ->method('resolveLink')
             ->willReturnCallback(function (Link $link) use ($garfieldEntry, $crookshanksEntry) {
-                $id = $link->getId();
-
-                if ('garfield' === $id) {
+                if ('garfield' === $link->getId()) {
                     return $garfieldEntry;
                 }
-                if ('crookshanks' === $id) {
+                if ('crookshanks' === $link->getId()) {
                     return $crookshanksEntry;
                 }
 
-                throw new NotFoundException(new ClientException('abc', new Request('GET', '')));
+                throw new NotFoundException(new ClientException('Exception message', new Request('GET', '')));
             });
 
         $friends = $garfieldEntry->getFriends();
@@ -325,33 +338,41 @@ class EntryTest extends TestCase
 
     public function testGetIdsOfLinksArray()
     {
-        $ct = new ContentType(
-            'Cat',
-            'Meow.',
-            [
-                new Field('name', 'Name', 'Text', null, null, null, true, true),
-                new Field('friends', 'Friends', 'Array', null, 'Link', false, false),
+        $sys = new SystemProperties([
+            'id' => 'cat',
+            'type' => 'ContentType',
+            'space' => $this->space,
+            'revision' => 2,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:12.852Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-02T13:14:47.863Z'),
+        ]);
+        $contentType = new ConcreteContentType([
+            'sys' => $sys,
+            'name' => 'Cat',
+            'description' => 'Meow.',
+            'displayField' => 'name',
+            'fields' => [
+                'name' => new ConcreteField(['id' => 'name', 'name' => 'Name', 'type' => 'Text', 'localized' => true, 'disabled' => true]),
+                'friends' => new ConcreteField(['id' => 'friends', 'name' => 'Friends', 'type' => 'Array', 'itemsType' => 'Link']),
             ],
-            'name',
-            new SystemProperties('cat', 'ContentType', $this->space, null, 2, new DateTimeImmutable('2013-06-27T22:46:12.852Z'), new DateTimeImmutable('2013-09-02T13:14:47.863Z'))
-        );
+        ]);
 
-        $client = $this->getMockBuilder(Client::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $client = $this->createMockClient();
 
-        $garfieldEntry = new Entry(
-            [
-                'name' => [
-                    'en-US' => 'Garfield',
-                ],
-                'friends' => [
-                    'en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')],
-                ],
-            ],
-            new SystemProperties('garfield', 'Entry', $this->space, $ct, 56, new DateTimeImmutable('2013-06-27T22:46:19.513Z'), new DateTimeImmutable('2013-09-04T09:19:39.027Z')),
-            $client
-        );
+        $sys = new SystemProperties([
+            'id' => 'garfield',
+            'type' => 'Entry',
+            'space' => $this->space,
+            'contentType' => $contentType,
+            'revision' => 56,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:19.513Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-04T09:19:39.027Z'),
+        ]);
+        $garfieldEntry = new ConcreteEntry(['client' => $client, 'sys' => $sys, 'fields' => [
+            'name' => ['en-US' => 'Garfield'],
+            'friends' => ['en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')]],
+        ]]);
+        $garfieldEntry->setLocales($this->space->getLocales());
 
         $this->assertSame(['crookshanks', 'nyancat'], $garfieldEntry->getFriendsId());
     }
@@ -361,45 +382,25 @@ class EntryTest extends TestCase
      */
     public function testSingleLocale()
     {
-        $mockEntry = $this->getMockBuilder(Entry::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mockEntry->method('getId')
-            ->willReturn('happycat');
-
-        $mockAsset = $this->getMockBuilder(Asset::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mockAsset->method('getId')
-            ->willReturn('nyancat');
-
-        $entry = new Entry(
-            [
-                'name' => [
-                    'tlh' => 'Nyan vIghro\'',
-                ],
-                'likes' => [
-                    'tlh' => ['rainbows', 'fish'],
-                ],
-                'color' => [
-                    'tlh' => 'rainbow',
-                ],
-                'bestFriend' => [
-                    'tlh' => $mockEntry,
-                ],
-                'birthday' => [
-                    'tlh' => new DateTimeImmutable('2011-04-04T22:00:00+00:00'),
-                ],
-                'lives' => [
-                    'tlh' => 1337,
-                ],
-                'image' => [
-                    'tlh' => $mockAsset,
-                ],
-            ],
-            new SystemProperties('nyancat', 'Entry', $this->space, $this->ct, 5, new DateTimeImmutable('2013-06-27T22:46:19.513Z'), new DateTimeImmutable('2013-09-04T09:19:39.027Z')),
-            null
-        );
+        $sys = new SystemProperties([
+            'id' => 'nyancat',
+            'type' => 'Entry',
+            'space' => $this->space,
+            'contentType' => $this->contentType,
+            'revision' => 5,
+            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:19.513Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-04T09:19:39.027Z'),
+        ]);
+        $entry = new ConcreteEntry(['sys' => $sys, 'fields' => [
+            'name' => ['tlh' => 'Nyan vIghro\''],
+            'likes' => ['tlh' => ['rainbows', 'fish']],
+            'color' => ['tlh' => 'rainbow'],
+            'bestFriend' => ['tlh' => ConcreteEntry::withSys('happycat')],
+            'birthday' => ['tlh' => new DateTimeImmutable('2011-04-04T22:00:00+00:00')],
+            'lives' => ['tlh' => 1337],
+            'image' => ['tlh' => ConcreteAsset::withSys('nyancat')],
+        ]]);
+        $entry->setLocales($this->space->getLocales());
         $entry->setLocale('tlh');
 
         $this->assertSame(['rainbows', 'fish'], $entry->getLikes());
@@ -431,11 +432,9 @@ class EntryTest extends TestCase
 
     public function testBasicMagicCalls()
     {
-        $entry = $this->entry;
-
-        $this->assertSame('Nyan Cat', $entry->getName());
-        $this->assertSame(['rainbows', 'fish'], $entry->getLikes());
-        $this->assertSame('happycat', $entry->getBestFriendId());
+        $this->assertSame('Nyan Cat', $this->entry->getName());
+        $this->assertSame(['rainbows', 'fish'], $this->entry->getLikes());
+        $this->assertSame('happycat', $this->entry->getBestFriendId());
     }
 
     public function testMagicGetterWithLocale()

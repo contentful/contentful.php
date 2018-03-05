@@ -29,11 +29,6 @@ abstract class LocalizedResource extends BaseResource
      */
     protected $locales = [];
 
-    public function __construct(array $locales = [])
-    {
-        $this->setLocales($locales);
-    }
-
     /**
      * @param Locale[] $locales The locales available in the space this resource belongs to
      */

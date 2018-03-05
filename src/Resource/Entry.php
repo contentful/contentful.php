@@ -13,10 +13,8 @@ use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Exception\NotFoundException;
 use Contentful\Core\Resource\ResourceArray;
-use Contentful\Delivery\Client;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\ContentType\Field;
-use Contentful\Delivery\SystemProperties;
 
 class Entry extends LocalizedResource
 {
@@ -31,24 +29,7 @@ class Entry extends LocalizedResource
     protected $resolvedLinks = [];
 
     /**
-     * Entry constructor.
-     *
-     * @param array            $fields
-     * @param SystemProperties $sys
-     * @param Client|null      $client
-     */
-    public function __construct(array $fields, SystemProperties $sys, Client $client = null)
-    {
-        parent::__construct($sys->getSpace()->getLocales());
-
-        $this->fields = $fields;
-        $this->sys = $sys;
-        $this->client = $client;
-        $this->resolvedLinks = [];
-    }
-
-    /**
-     * @return int
+     * @return int|null
      */
     public function getRevision()
     {
@@ -132,7 +113,7 @@ class Entry extends LocalizedResource
             \trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', E_USER_ERROR);
         }
 
-        // Since Entry::getFieldForName manipulates the field name let's make sure we got the correct one
+        // Since Entry::getFieldForName() manipulates the field name let's make sure we got the correct one
         $fieldName = $fieldConfig->getId();
 
         if (!isset($this->fields[$fieldName])) {
@@ -269,19 +250,23 @@ class Entry extends LocalizedResource
             case 'Boolean':
             case 'Location':
             case 'Object':
+            case 'Unknown':
                 return $value;
             case 'Date':
                 return (string) $value;
             case 'Link':
-                return $value ? (object) [
-                    'sys' => (object) [
+                return $value ? [
+                    'sys' => [
                         'type' => 'Link',
                         'linkType' => $linkType,
                         'id' => $value->getId(),
                     ],
                 ] : null;
             default:
-                throw new \InvalidArgumentException('Unexpected field type "'.$type.'" encountered while trying to serialize to JSON.');
+                throw new \InvalidArgumentException(\sprintf(
+                    'Unexpected field type "%s" encountered while trying to serialize to JSON.',
+                    $type
+                ));
         }
     }
 
@@ -322,7 +307,7 @@ class Entry extends LocalizedResource
             }
         }
 
-        return (object) [
+        return [
             'sys' => $this->sys,
             'fields' => $fields,
         ];

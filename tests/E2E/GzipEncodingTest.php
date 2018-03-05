@@ -26,10 +26,11 @@ class GzipEncodingTest extends TestCase
             ->setLocale('*');
         $client->getEntries($query);
 
-        $messages = $client->getMessages();
-        $this->assertSame('gzip', $messages[0]->getRequest()->getHeaderLine('Accept-Encoding'));
+        $message = $client->getMessages()[0];
+
+        $this->assertSame('gzip', $message->getRequest()->getHeaderLine('Accept-Encoding'));
 
         // Need to check 'X-Encoded-Content-Encoding' as curl is automatically decompressing the response
-        $this->assertSame('gzip', $messages[0]->getResponse()->getHeaderLine('X-Encoded-Content-Encoding'));
+        $this->assertSame('gzip', $message->getResponse()->getHeaderLine('X-Encoded-Content-Encoding'));
     }
 }

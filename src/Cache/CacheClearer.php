@@ -52,11 +52,14 @@ class CacheClearer
         $api = $this->client->getApi();
         $space = $this->client->getSpace();
 
+        $keys = [
+            InstanceRepository::generateCacheKey($api, 'Space', $space->getId()),
+        ];
+
         $query = (new Query())
             ->setLimit(100);
         $contentTypes = $this->client->getContentTypes($query);
 
-        $keys = [InstanceRepository::generateCacheKey($api, 'Space', $space->getId())];
         foreach ($contentTypes as $contentType) {
             $keys[] = InstanceRepository::generateCacheKey($api, 'ContentType', $contentType->getId());
         }

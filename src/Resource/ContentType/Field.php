@@ -20,14 +20,14 @@ class Field implements \JsonSerializable
      *
      * @var string
      */
-    private $id;
+    protected $id;
 
     /**
      * Name of the Field.
      *
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * Type of the Field.
@@ -45,7 +45,7 @@ class Field implements \JsonSerializable
      *
      * @var string
      */
-    private $type;
+    protected $type;
 
     /**
      * Type of the linked resource.
@@ -56,14 +56,14 @@ class Field implements \JsonSerializable
      *
      * @var string|null
      */
-    private $linkType;
+    protected $linkType;
 
     /**
      * (Array type only) Type for items.
      *
      * @var string|null
      */
-    private $itemsType;
+    protected $itemsType;
 
     /**
      * (Array of links only) Type of links.
@@ -74,53 +74,43 @@ class Field implements \JsonSerializable
      *
      * @var string|null
      */
-    private $itemsLinkType;
+    protected $itemsLinkType;
 
     /**
      * Describes whether the Field is mandatory.
      *
      * @var bool
      */
-    private $required;
+    protected $required = false;
 
     /**
      * Describes whether the Field is localized.
      *
      * @var bool
      */
-    private $localized;
+    protected $localized = false;
 
     /**
      * Describes whether the Field is disabled.
      *
      * @var bool
      */
-    private $disabled;
+    protected $disabled = false;
 
     /**
-     * Field constructor.
+     * Regular field construction should happen through the field mapper.
+     * This here is a special exception needed for when building fields on type
+     * "Unknown", in the edge case of cache being out of sync with the API.
      *
-     * @param string      $id
-     * @param string      $name
-     * @param string      $type
-     * @param string|null $linkType
-     * @param string|null $itemsType
-     * @param string|null $itemsLinkType
-     * @param bool        $required
-     * @param bool        $localized
-     * @param bool        $disabled
+     * @param string $id
+     * @param string $name
+     * @param string $type
      */
-    public function __construct($id, $name, $type, $linkType = null, $itemsType = null, $itemsLinkType = null, $required = false, $localized = false, $disabled = false)
+    public function __construct($id, $name, $type)
     {
         $this->id = $id;
         $this->name = $name;
         $this->type = $type;
-        $this->linkType = $linkType;
-        $this->itemsLinkType = $itemsLinkType;
-        $this->itemsType = $itemsType;
-        $this->required = $required;
-        $this->localized = $localized;
-        $this->disabled = $disabled;
     }
 
     /**
@@ -249,37 +239,35 @@ class Field implements \JsonSerializable
     }
 
     /**
-     * Returns an object to be used by `json_encode` to serialize objects of this class.
-     *
-     * @return object
-     *
-     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
-        $obj = (object) [
-            'name' => $this->name,
+        $field = [
             'id' => $this->id,
+            'name' => $this->name,
             'type' => $this->type,
             'required' => $this->required,
             'localized' => $this->localized,
         ];
 
-        if (null !== $this->linkType) {
-            $obj->linkType = $this->linkType;
+        if ($this->disabled) {
+            $field['disabled'] = true;
         }
+
+        if (null !== $this->linkType) {
+            $field['linkType'] = $this->linkType;
+        }
+
         if ('Array' === $this->type) {
-            $obj->items = (object) [
+            $field['items'] = [
                 'type' => $this->itemsType,
             ];
             if ('Link' === $this->itemsType) {
-                $obj->items->linkType = $this->itemsLinkType;
+                $field['items']['linkType'] = $this->itemsLinkType;
             }
         }
-        if ($this->disabled) {
-            $obj->disabled = true;
-        }
 
-        return $obj;
+        return $field;
     }
 }

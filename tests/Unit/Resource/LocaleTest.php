@@ -9,34 +9,44 @@
 
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
-use Contentful\Delivery\Resource\Locale;
 use Contentful\Tests\Delivery\TestCase;
 
 class LocaleTest extends TestCase
 {
     public function testGetters()
     {
-        $code = 'en-US';
-        $name = 'English (United States)';
-        $default = true;
-        $fallbackCode = null;
+        $locale = new ConcreteLocale([
+            'code' => 'en-US',
+            'name' => 'English (United States)',
+            'fallbackCode' => null,
+            'default' => true,
+        ]);
 
-        $locale = new Locale($code, $name, $fallbackCode, $default);
-        $this->assertSame($code, $locale->getCode());
-        $this->assertSame($name, $locale->getName());
-        $this->assertSame($fallbackCode, $locale->getFallbackCode());
-        $this->assertSame($default, $locale->isDefault());
+        $this->assertSame('en-US', $locale->getCode());
+        $this->assertSame('English (United States)', $locale->getName());
+        $this->assertNull($locale->getFallbackCode());
+        $this->assertTrue($locale->isDefault());
     }
 
     public function testWithDefault()
     {
-        $locale = new Locale('en-US', 'English (United States)', null);
+        $locale = new ConcreteLocale([
+            'code' => 'en-US',
+            'name' => 'English (United States)',
+            'fallbackCode' => null,
+        ]);
+
         $this->assertFalse($locale->isDefault());
     }
 
-    public function testJsonSerialization()
+    public function testJsonSerialize()
     {
-        $locale = new Locale('en-US', 'English (United States)', null);
+        $locale = new ConcreteLocale([
+            'code' => 'en-US',
+            'name' => 'English (United States)',
+            'fallbackCode' => null,
+            'default' => false,
+        ]);
 
         $this->assertJsonFixtureEqualsJsonObject('serialize.json', $locale);
     }

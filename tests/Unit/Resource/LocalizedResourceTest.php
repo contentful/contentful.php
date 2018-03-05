@@ -9,8 +9,6 @@
 
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
-use Contentful\Delivery\Resource\Locale;
-use Contentful\Delivery\Resource\LocalizedResource;
 use Contentful\Tests\Delivery\TestCase;
 
 class LocalizedResourceTest extends TestCase
@@ -18,8 +16,8 @@ class LocalizedResourceTest extends TestCase
     public function testGetDefaultLocale()
     {
         $resource = new ConcreteLocalizedResource([
-            new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true),
+            new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $this->assertSame('en-US', $resource->getLocale());
@@ -28,36 +26,36 @@ class LocalizedResourceTest extends TestCase
     public function testSetGetLocaleString()
     {
         $resource = new ConcreteLocalizedResource([
-            new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true),
+            new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
-        $resource->setLocale('de-DE');
-        $this->assertSame('de-DE', $resource->getLocale());
+        $resource->setLocale('it-IT');
+        $this->assertSame('it-IT', $resource->getLocale());
     }
 
     public function testSetGetLocaleObject()
     {
-        $deLocale = new Locale('de-DE', 'German (Germany)', 'en-US');
+        $itLocale = new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
 
         $resource = new ConcreteLocalizedResource([
-            $deLocale,
-            new Locale('en-US', 'English (United States)', null, true),
+            $itLocale,
+            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
-        $resource->setLocale($deLocale);
-        $this->assertSame('de-DE', $resource->getLocale());
+        $resource->setLocale($itLocale);
+        $this->assertSame('it-IT', $resource->getLocale());
     }
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to switch to invalid locale "fr-FR", available locales are "de-DE, en-US".
+     * @expectedExceptionMessage Trying to switch to invalid locale "fr-FR", available locales are "it-IT, en-US".
      */
     public function testSetGetLocaleInvalid()
     {
         $resource = new ConcreteLocalizedResource([
-            new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true),
+            new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $resource->setLocale('fr-FR');
@@ -66,8 +64,8 @@ class LocalizedResourceTest extends TestCase
     public function testGetLocaleFromInputDefault()
     {
         $resource = new ConcreteLocalizedResource([
-            new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true),
+            new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $this->assertSame('en-US', $resource->getLocaleFromInput());
@@ -76,49 +74,53 @@ class LocalizedResourceTest extends TestCase
     public function testGetLocaleFromInputString()
     {
         $resource = new ConcreteLocalizedResource([
-            new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true),
+            new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
-        $this->assertSame('de-DE', $resource->getLocaleFromInput('de-DE'));
+        $this->assertSame('it-IT', $resource->getLocaleFromInput('it-IT'));
     }
 
     public function testGetLocaleFromInputObject()
     {
-        $deLocale = new Locale('de-DE', 'German (Germany)', 'en-US');
+        $itLocale = new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
 
         $resource = new ConcreteLocalizedResource([
-            $deLocale,
-            new Locale('en-US', 'English (United States)', null, true),
+            $itLocale,
+            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
-        $this->assertSame('de-DE', $resource->getLocaleFromInput($deLocale));
+        $this->assertSame('it-IT', $resource->getLocaleFromInput($itLocale));
     }
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to use invalid locale "en-GB", available locales are "de-DE, en-US".
+     * @expectedExceptionMessage Trying to use invalid locale "en-GB", available locales are "it-IT, en-US".
      */
     public function testGetLocaleFromInputInvalid()
     {
         $resource = new ConcreteLocalizedResource([
-            new Locale('de-DE', 'German (Germany)', 'en-US'),
-            new Locale('en-US', 'English (United States)', null, true),
+            new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $resource->getLocaleFromInput('en-GB');
     }
-}
 
-class ConcreteLocalizedResource extends LocalizedResource
-{
-    public function getLocaleFromInput($locale = null)
+    /**
+     * @expectedException        \RuntimeException
+     * @expectedExceptionMessage Possible endless loop when trying to walk the locale fallback chain.
+     */
+    public function testInfiniteLoopDetected()
     {
-        return parent::getLocaleFromInput($locale);
-    }
+        $space = new ConcreteSpace([
+            'locales' => [
+                new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+                new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'fallbackCode' => 'it-IT']),
+            ],
+        ]);
+        $resource = new ConcreteLocalizedResource($space->getLocales());
 
-    public function jsonSerialize()
-    {
-        return [];
+        $resource->loopThroughFallbackChain([], 'it-IT', $space);
     }
 }

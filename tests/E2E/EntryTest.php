@@ -59,9 +59,7 @@ class EntryTest extends TestCase
         $this->assertSame('nyancat', $entry->getId());
         $this->assertSame('nyancat', $entry->getSystemProperties()->getId());
         $this->assertSame('Entry', $entry->getSystemProperties()->getType());
-        $link = $entry->asLink();
-        $this->assertSame('nyancat', $link->getId());
-        $this->assertSame('Entry', $link->getLinkType());
+        $this->assertLink('nyancat', 'Entry', $entry->asLink());
     }
 
     /**
@@ -164,5 +162,43 @@ class EntryTest extends TestCase
         $this->assertCount(1, $references);
         $this->assertInstanceOf(Entry::class, $references[0]);
         $this->assertSame('happycat', $references[0]->getId());
+    }
+
+    /**
+     * @vcr e2e_entry_select_metadata.json
+     */
+    public function testSelectOnlyMetadata()
+    {
+        $client = $this->getClient('cfexampleapi');
+
+        $query = (new Query())
+            ->setContentType('cat')
+            ->select(['sys'])
+            ->where('sys.id', 'nyancat')
+            ->setLimit(1);
+        $entries = $client->getEntries($query);
+
+        $this->assertInstanceOf(ResourceArray::class, $entries);
+        $this->assertNull($entries[0]->getName());
+        $this->assertNull($entries[0]->getBestFriend());
+    }
+
+    /**
+     * @vcr e2e_entry_select_one_field.json
+     */
+    public function testSelectOnlyOneField()
+    {
+        $client = $this->getClient('cfexampleapi');
+
+        $query = (new Query())
+            ->setContentType('cat')
+            ->select(['fields.name'])
+            ->where('sys.id', 'nyancat')
+            ->setLimit(1);
+        $entries = $client->getEntries($query);
+
+        $this->assertInstanceOf(ResourceArray::class, $entries);
+        $this->assertSame('Nyan Cat', $entries[0]->getName());
+        $this->assertNull($entries[0]->getBestFriend());
     }
 }

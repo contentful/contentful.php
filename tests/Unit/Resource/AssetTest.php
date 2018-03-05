@@ -37,32 +37,13 @@ class AssetTest extends TestCase
 
     private function createMockSpace()
     {
-        $space = $this->getMockBuilder(Space::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $defaultLocale = new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]);
+        $klingonLocale = new ConcreteLocale(['code' => 'tlh', 'name' => 'Klingon', 'fallbackCode' => 'en-US']);
+        $italianLocale = new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
 
-        $defaultLocale = new Locale('en-US', 'English (United States)', null, true);
-        $klingonLocale = new Locale('tlh', 'Klingon', 'en-US');
-        $italianLocale = new Locale('it-IT', 'Italian', 'en-US');
-
-        $space->method('getId')
-            ->willReturn('cfexampleapi');
-        $space->method('getLocales')
-            ->willReturn([
-                $defaultLocale,
-                $klingonLocale,
-                $italianLocale,
-            ]);
-        $space->method('getLocale')
-            ->will(self::returnValueMap([
-                ['en-US', $defaultLocale],
-                ['tlh', $klingonLocale],
-                ['it-IT', $italianLocale],
-            ]));
-        $space->method('getDefaultLocale')
-            ->willReturn($defaultLocale);
-
-        return $space;
+        return ConcreteSpace::withSys('cfexampleapi', [
+            'locales' => [$defaultLocale, $klingonLocale, $italianLocale],
+        ]);
     }
 
     public function setUp()
@@ -77,18 +58,22 @@ class AssetTest extends TestCase
             250
         );
 
-        $this->asset = new Asset(
-            [
-                'en-US' => 'Nyan Cat',
-                'it-IT' => 'Gatto Nyan',
-            ],
-            [
-                'en-US' => 'A picture of Nyan Cat',
-                'it-IT' => 'Una foto del Gatto Nyan',
-            ],
-            ['en-US' => $this->file],
-            new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new DateTimeImmutable('2013-09-02T14:56:34.240Z'), new DateTimeImmutable('2013-09-02T14:56:34.240Z'))
-        );
+        $sys = new SystemProperties([
+            'id' => 'nyancat',
+            'type' => 'Asset',
+            'space' => $this->space,
+            'revision' => 1,
+            'createdAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
+        ]);
+
+        $this->asset = new ConcreteAsset([
+            'sys' => $sys,
+            'title' => ['en-US' => 'Nyan Cat', 'it-IT' => 'Gatto Nyan'],
+            'description' => ['en-US' => 'A picture of Nyan Cat', 'it-IT' => 'Una foto del Gatto Nyan'],
+            'file' => ['en-US' => $this->file],
+        ]);
+        $this->asset->setLocales($this->space->getLocales());
     }
 
     public function testGetter()
@@ -105,6 +90,8 @@ class AssetTest extends TestCase
         $this->assertSame($this->space, $asset->getSpace());
         $this->assertSame('2013-09-02T14:56:34.240Z', (string) $asset->getCreatedAt());
         $this->assertSame('2013-09-02T14:56:34.240Z', (string) $asset->getUpdatedAt());
+
+        $this->assertLink('nyancat', 'Asset', $asset->asLink());
     }
 
     public function testGetTitleWithLocale()
@@ -128,7 +115,7 @@ class AssetTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException        \InvalidArgumentException
      * @expectedExceptionMessage Trying to use invalid locale "xyz", available locales are "en-US, tlh, it-IT".
      */
     public function testGetTitleWithInvalidLocale()
@@ -137,7 +124,7 @@ class AssetTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException        \InvalidArgumentException
      * @expectedExceptionMessage Trying to use invalid locale "xyz", available locales are "en-US, tlh, it-IT".
      */
     public function testGetDescriptionWithInvalidLocale()
@@ -147,24 +134,40 @@ class AssetTest extends TestCase
 
     public function testGetDescriptionWhenNoDescription()
     {
-        $asset = new Asset(
-            ['en-US' => 'Nyan Cat'],
-            null,
-            ['en-US' => $this->file],
-            new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new DateTimeImmutable('2013-09-02T14:56:34.240Z'), new DateTimeImmutable('2013-09-02T14:56:34.240Z'))
-        );
+        $sys = new SystemProperties([
+            'id' => 'nyancat',
+            'type' => 'Asset',
+            'space' => $this->space,
+            'revision' => 1,
+            'createdAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
+        ]);
+        $asset = new ConcreteAsset([
+            'sys' => $sys,
+            'title' => ['en-US' => 'Nyan Cat'],
+            'file' => ['en-US' => $this->file],
+        ]);
+        $asset->setLocales($this->space->getLocales());
 
         $this->assertNull($asset->getDescription());
     }
 
     public function testGetTitleWhenNoTitle()
     {
-        $asset = new Asset(
-            null,
-            ['en-US' => 'A picture of Nyan Cat'],
-            ['en-US' => $this->file],
-            new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new DateTimeImmutable('2013-09-02T14:56:34.240Z'), new DateTimeImmutable('2013-09-02T14:56:34.240Z'))
-        );
+        $sys = new SystemProperties([
+            'id' => 'nyancat',
+            'type' => 'Asset',
+            'space' => $this->space,
+            'revision' => 1,
+            'createdAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
+        ]);
+        $asset = new ConcreteAsset([
+            'sys' => $sys,
+            'description' => ['en-US' => 'A picture of Nyan Cat'],
+            'file' => ['en-US' => $this->file],
+        ]);
+        $asset->setLocales($this->space->getLocales());
 
         $this->assertNull($asset->getTitle());
     }
@@ -176,12 +179,19 @@ class AssetTest extends TestCase
 
     public function testJsonSerializeWithoutDescription()
     {
-        $asset = new Asset(
-            ['en-US' => 'Nyan Cat'],
-            null,
-            ['en-US' => $this->file],
-            new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new DateTimeImmutable('2013-09-02T14:56:34.240Z'), new DateTimeImmutable('2013-09-02T14:56:34.240Z'))
-        );
+        $sys = new SystemProperties([
+            'id' => 'nyancat',
+            'type' => 'Asset',
+            'space' => $this->space,
+            'revision' => 1,
+            'createdAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
+            'updatedAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
+        ]);
+        $asset = new ConcreteAsset([
+            'sys' => $sys,
+            'title' => ['en-US' => 'Nyan Cat'],
+            'file' => ['en-US' => $this->file],
+        ]);
 
         $this->assertJsonFixtureEqualsJsonObject('serialize_no_description.json', $asset);
     }

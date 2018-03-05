@@ -9,24 +9,24 @@
 
 namespace Contentful\Tests\Delivery\Unit\Resource\ContentType;
 
-use Contentful\Delivery\Resource\ContentType\Field;
 use Contentful\Tests\Delivery\TestCase;
+use Contentful\Tests\Delivery\Unit\Resource\ConcreteField;
 
 class FieldTest extends TestCase
 {
     public function testGetter()
     {
-        $field = new Field(
-            'id',
-            'name',
-            'type',
-            'linkType',
-            'itemsType',
-            'itemsLinkType',
-            true,
-            false,
-            false
-        );
+        $field = new ConcreteField([
+            'id' => 'id',
+            'name' => 'name',
+            'type' => 'type',
+            'linkType' => 'linkType',
+            'itemsType' => 'itemsType',
+            'itemsLinkType' => 'itemsLinkType',
+            'required' => true,
+            'localized' => false,
+            'disabled' => false,
+        ]);
 
         $this->assertSame('id', $field->getId());
         $this->assertSame('name', $field->getName());
@@ -41,32 +41,30 @@ class FieldTest extends TestCase
 
     public function testJsonSerialize()
     {
-        $field1 = new Field(
-            'one',
-            'oneField',
-            'Link',
-            'Asset',
-            null,
-            null,
-            true,
-            true,
-            true
-        );
-
+        $field1 = new ConcreteField([
+            'id' => 'one',
+            'name' => 'oneField',
+            'type' => 'Link',
+            'linkType' => 'Asset',
+            'itemsType' => null,
+            'itemsLinkType' => null,
+            'required' => true,
+            'localized' => true,
+            'disabled' => true,
+        ]);
         $this->assertJsonFixtureEqualsJsonObject('serialize_one.json', $field1);
 
-        $field2 = new Field(
-            'many',
-            'manyField',
-            'Array',
-            null,
-            'Link',
-            'Asset',
-            false,
-            true,
-            false
-        );
-
+        $field2 = new ConcreteField([
+            'id' => 'many',
+            'name' => 'manyField',
+            'type' => 'Array',
+            'linkType' => null,
+            'itemsType' => 'Link',
+            'itemsLinkType' => 'Asset',
+            'required' => false,
+            'localized' => true,
+            'disabled' => false,
+        ]);
         $this->assertJsonFixtureEqualsJsonObject('serialize_many.json', $field2);
     }
 }

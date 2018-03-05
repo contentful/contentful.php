@@ -9,35 +9,33 @@
 
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
-use Contentful\Delivery\Resource\Locale;
-use Contentful\Delivery\Resource\Space;
-use Contentful\Delivery\SystemProperties;
 use Contentful\Tests\Delivery\TestCase;
 
 class SpaceTest extends TestCase
 {
     public function testGetter()
     {
-        $localeIt = new Locale('it-IT', 'Italian (Italy)', null, true);
-        $localeEn = new Locale('en-US', 'English (United States)', 'it-IT');
-        $sys = new SystemProperties('cfexampleapi', 'Space');
+        $defaultLocale = new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]);
+        $italianLocale = new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
 
-        $space = new Space('Space name', [$localeEn, $localeIt], $sys);
+        return ConcreteSpace::withSys('cfexampleapi', [
+            'name' => 'Space name',
+            'locales' => [$defaultLocale, $italianLocale],
+        ]);
 
         $this->assertSame('cfexampleapi', $space->getId());
         $this->assertSame('Space name', $space->getName());
-        $this->assertCount(2, $space->getLocales());
-        $this->assertSame($localeIt, $space->getDefaultLocale());
-        $this->assertSame($localeEn, $space->getLocale('en-US'));
     }
 
-    public function testJsonSerialization()
+    public function testJsonSerialize()
     {
-        $localeIt = new Locale('it-IT', 'Italian (Italy)', null, true);
-        $localeEn = new Locale('en-US', 'English (United States)', 'it-IT');
-        $sys = new SystemProperties('cfexampleapi', 'Space');
+        $defaultLocale = new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]);
+        $italianLocale = new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
 
-        $space = new Space('Space name', [$localeEn, $localeIt], $sys);
+        return ConcreteSpace::withSys('cfexampleapi', [
+            'name' => 'Space name',
+            'locales' => [$defaultLocale, $italianLocale],
+        ]);
 
         $this->assertJsonFixtureEqualsJsonObject('serialize.json', $space);
     }

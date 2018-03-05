@@ -29,17 +29,4 @@ class QueryTest extends TestCase
 
         $this->assertSame('locale=de-DE', $query->getQueryString());
     }
-
-    public function testIncomingLinks()
-    {
-        $query = new Query();
-        $query->linksToEntry('entryId');
-
-        $this->assertSame('links_to_entry=entryId', $query->getQueryString());
-
-        $query = new Query();
-        $query->linksToAsset('assetId');
-
-        $this->assertSame('links_to_asset=assetId', $query->getQueryString());
-    }
 }

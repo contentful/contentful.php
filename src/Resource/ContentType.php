@@ -11,7 +11,6 @@ namespace Contentful\Delivery\Resource;
 
 use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Delivery\Resource\ContentType\Field;
-use Contentful\Delivery\SystemProperties;
 
 /**
  * Content Types are schemas that define the fields of Entries. Every Entry can only contain values in the fields
@@ -46,26 +45,6 @@ class ContentType extends BaseResource
      * @var string|null
      */
     protected $displayField;
-
-    /**
-     * ContentType constructor.
-     *
-     * @param string           $name
-     * @param string|null      $description
-     * @param Field[]          $fields
-     * @param string|null      $displayField
-     * @param SystemProperties $sys
-     */
-    public function __construct($name, $description, array $fields, $displayField, SystemProperties $sys)
-    {
-        $this->name = $name;
-        $this->description = $description;
-        foreach ($fields as $field) {
-            $this->fields[$field->getId()] = $field;
-        }
-        $this->displayField = $displayField;
-        $this->sys = $sys;
-    }
 
     /**
      * Returns the name of this content type.
@@ -148,7 +127,7 @@ class ContentType extends BaseResource
     /**
      * Returns the revision of this content type.
      *
-     * @return int
+     * @return int|null
      */
     public function getRevision()
     {
@@ -158,7 +137,7 @@ class ContentType extends BaseResource
     /**
      * Returns the time when this content type was last updated.
      *
-     * @return DateTimeImmutable
+     * @return DateTimeImmutable|null
      */
     public function getUpdatedAt()
     {
@@ -168,7 +147,7 @@ class ContentType extends BaseResource
     /**
      * Returns the time when this content type was created.
      *
-     * @return DateTimeImmutable
+     * @return DateTimeImmutable|null
      */
     public function getCreatedAt()
     {
@@ -186,19 +165,15 @@ class ContentType extends BaseResource
     }
 
     /**
-     * Returns an object to be used by `json_encode` to serialize objects of this class.
-     *
-     * @return object
-     *
-     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
-        return (object) [
+        return [
+            'sys' => $this->sys,
             'name' => $this->name,
             'description' => $this->description,
             'displayField' => $this->displayField,
-            'sys' => $this->sys,
             'fields' => \array_values($this->fields),
         ];
     }
