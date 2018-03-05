@@ -1,0 +1,27 @@
+{
+    "sys": {
+        "space": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "88dyiqcr7go8"
+            }
+        },
+        "environment": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Environment",
+                "id": "master"
+            }
+        },
+        "id": "person",
+        "type": "ContentType",
+        "createdAt": "2018-02-19T16:11:55.140Z",
+        "updatedAt": "2018-02-19T16:11:55.140Z",
+        "revision": 1
+    },
+    "displayField": "name",
+    "name": "Person",
+    "description": "",
+    "fields": []
+}

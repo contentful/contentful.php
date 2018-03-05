@@ -10,8 +10,9 @@
 namespace Contentful\Tests\Delivery\Unit\Resource\ContentType;
 
 use Contentful\Delivery\Resource\ContentType\Field;
+use Contentful\Tests\Delivery\TestCase;
 
-class FieldTest extends \PHPUnit_Framework_TestCase
+class FieldTest extends TestCase
 {
     public function testGetter()
     {
@@ -52,7 +53,7 @@ class FieldTest extends \PHPUnit_Framework_TestCase
             true
         );
 
-        $this->assertJsonStringEqualsJsonString('{"name":"oneField","id":"one","type":"Link","required":true,"localized":true,"disabled":true,"linkType":"Asset"}', \json_encode($field1));
+        $this->assertJsonFixtureEqualsJsonObject('serialize_one.json', $field1);
 
         $field2 = new Field(
             'many',
@@ -66,6 +67,6 @@ class FieldTest extends \PHPUnit_Framework_TestCase
             false
         );
 
-        $this->assertJsonStringEqualsJsonString('{"name":"manyField","id":"many","type":"Array","required":false,"localized":true,"items":{"type":"Link","linkType":"Asset"}}', \json_encode($field2));
+        $this->assertJsonFixtureEqualsJsonObject('serialize_many.json', $field2);
     }
 }

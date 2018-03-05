@@ -1,0 +1,7 @@
+{
+    "sys": {
+        "type": "Space",
+        "id": "wrongspace"
+    },
+    "name": "Contentful Example API"
+}

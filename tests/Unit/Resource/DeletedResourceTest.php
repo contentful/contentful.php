@@ -15,8 +15,9 @@ use Contentful\Delivery\Resource\DeletedEntry;
 use Contentful\Delivery\Resource\DeletedResource;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
+use Contentful\Tests\Delivery\TestCase;
 
-class DeletedResourceTest extends \PHPUnit_Framework_TestCase
+class DeletedResourceTest extends TestCase
 {
     public function testGetter()
     {
@@ -100,9 +101,7 @@ class DeletedResourceTest extends \PHPUnit_Framework_TestCase
             new DateTimeImmutable('2014-08-13T08:30:42.559Z')
         ));
 
-        $this->assertJsonStringEqualsJsonString(
-            '{"sys": {"type": "DeletedEntry","id": "4rPdazIwWkuuKEAQgemSmO","space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"revision": 1,"createdAt": "2014-08-11T08:30:42.559Z","updatedAt": "2014-08-12T08:30:42.559Z","deletedAt": "2014-08-13T08:30:42.559Z"}}',
-            \json_encode($resource));
+        $this->assertJsonFixtureEqualsJsonObject('serialize.json', $resource);
     }
 }
 

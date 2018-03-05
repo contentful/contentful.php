@@ -1,0 +1,17 @@
+{
+    "sys": {
+        "type": "DeletedAsset",
+        "id": "5c6VY0gWg0gwaIeYkUUiqG",
+        "space": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "cfexampleapi"
+            }
+        },
+        "revision": 1,
+        "createdAt": "2013-09-09T16:17:12.600Z",
+        "updatedAt": "2013-09-09T16:17:12.600Z",
+        "deletedAt": "2013-09-09T16:17:12.600Z"
+    }
+}

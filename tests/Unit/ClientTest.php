@@ -11,8 +11,9 @@ namespace Contentful\Tests\Delivery\Unit;
 
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Synchronization\Manager;
+use Contentful\Tests\Delivery\TestCase;
 
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
     public function testIsPreview()
     {

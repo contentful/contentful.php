@@ -10,8 +10,9 @@
 namespace Contentful\Tests\Delivery\Unit;
 
 use Contentful\Delivery\Query;
+use Contentful\Tests\Delivery\TestCase;
 
-class QueryTest extends \PHPUnit_Framework_TestCase
+class QueryTest extends TestCase
 {
     public function testQueryStringInclude()
     {

@@ -10,8 +10,9 @@
 namespace Contentful\Tests\Delivery\Unit\Synchronization;
 
 use Contentful\Delivery\Synchronization\Result;
+use Contentful\Tests\Delivery\TestCase;
 
-class ResultTest extends \PHPUnit_Framework_TestCase
+class ResultTest extends TestCase
 {
     public function testGetter()
     {

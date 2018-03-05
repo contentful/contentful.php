@@ -9,6 +9,7 @@
 
 namespace Contentful\Tests\Delivery\Integration;
 
+use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Client;
 use Contentful\Tests\Delivery\TestCase;
 
@@ -35,96 +36,107 @@ class ParseJsonTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi", but space "wrongspace" was detected.
      */
     public function testParseJsonSpaceMismatch()
     {
-        $json = '{"sys": {"type": "Space","id": "wrongspace"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English", "fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon", "fallbackCode": "en-US"}]}';
-
-        $this->client->parseJson($json);
+        $this->client->parseJson($this->getFixtureContent('space_mismatch.json'));
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi", but space "wrongspace" was detected.
      */
     public function testParseJsonContentTypeSpaceMismatch()
     {
-        $json = '{"sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "wrongspace"}},"type": "ContentType","id": "cat","revision": 2,"createdAt": "2013-06-27T22:46:12.852Z","updatedAt": "2013-09-02T13:14:47.863Z"},"fields": [{"id": "name","name": "Name","type": "Text","required": true,"localized": true},{"id": "likes","name": "Likes","type": "Array","required": false,"localized": false,"items": {"type": "Symbol"}},{"id": "color","name": "Color","type": "Symbol","required": false,"localized": false},{"id": "bestFriend","name": "Best Friend","type": "Link","required": false,"localized": false,"linkType": "Entry"},{"id": "birthday","name": "Birthday","type": "Date","required": false,"localized": false},{"id": "lifes","name": "Lifes left","type": "Integer","required": false,"localized": false,"disabled": true},{"id": "lives","name": "Lives left","type": "Integer","required": false,"localized": false},{"id": "image","name": "Image","required": false,"localized": false,"type": "Link","linkType": "Asset"}],"name": "Cat","displayField": "name", "description": "Meow."}';
+        $this->client->parseJson($this->getFixtureContent('content_type_space_mismatch.json'));
+    }
 
-        $this->client->parseJson($json);
+    /**
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi", but space "[blank]" was detected.
+     */
+    public function testParseJsonEmptyObject()
+    {
+        $this->client->parseJson('{}');
+    }
+
+    /**
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi", but space "invalidSpace" was detected.
+     */
+    public function testParseJsonInvalidArray()
+    {
+        $this->client->parseJson($this->getFixtureContent('invalid_array.json'));
+    }
+
+    public function testParseJsonEmptyArray()
+    {
+        $resource = $this->client->parseJson('{"sys":{"type":"Array"},"items":[],"total":0,"limit":0,"skip":0}');
+
+        $this->assertInstanceOf(ResourceArray::class, $resource);
     }
 
     public function testParseJsonSpace()
     {
-        $json = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
+        $space = $this->client->parseJson($this->getFixtureContent('space.json'));
 
-        $obj = $this->client->parseJson($json);
-
-        $this->assertJsonStringEqualsJsonString($json, \json_encode($obj));
+        $this->assertJsonFixtureEqualsJsonObject('space.json', $space);
     }
 
     public function parseJsonDataProvider()
     {
         return [
-            ['{"fields": [{"id": "name","name": "Name","type": "Text","required": true,"localized": true},{"id": "likes","name": "Likes","type": "Array","required": false,"localized": false,"items": {"type": "Symbol"}},{"id": "color","name": "Color","type": "Symbol","required": false,"localized": false},{"id": "bestFriend","name": "Best Friend","type": "Link","required": false,"localized": false,"linkType": "Entry"},{"id": "birthday","name": "Birthday","type": "Date","required": false,"localized": false},{"id": "lifes","name": "Lifes left","type": "Integer","required": false,"localized": false,"disabled": true},{"id": "lives","name": "Lives left","type": "Integer","required": false,"localized": false},{"id": "image","name": "Image","required": false,"localized": false,"type": "Link","linkType": "Asset"}],"name": "Cat","displayField": "name","description": "Meow.","sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"type": "ContentType","id": "cat","revision": 2,"createdAt": "2013-06-27T22:46:12.852Z","updatedAt": "2013-09-02T13:14:47.863Z"}}'],
-            ['{"sys": {"type": "DeletedEntry","id": "4rPdazIwWkuuKEAQgemSmO","space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"revision": 1,"createdAt": "2014-08-11T08:30:42.559Z","updatedAt": "2014-08-11T08:30:42.559Z","deletedAt": "2014-08-11T08:30:42.559Z"}}'],
-            ['{"sys": {"type": "DeletedAsset","id": "5c6VY0gWg0gwaIeYkUUiqG","space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"revision": 1,"createdAt": "2013-09-09T16:17:12.600Z","updatedAt": "2013-09-09T16:17:12.600Z","deletedAt": "2013-09-09T16:17:12.600Z"}}'],
-            ['{"sys": {"type": "DeletedContentType","id": "5JQ715oDQW68k8EiEuKOk8","space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"revision": 1,"createdAt": "2013-09-09T16:17:12.600Z","updatedAt": "2013-09-09T16:17:12.600Z","deletedAt": "2013-09-09T16:17:12.600Z"}}'],
-            ['{"fields": {"title": {"en-US": "Nyan Cat"},"file": {"en-US": {"fileName": "Nyan_cat_250px_frame.png","contentType": "image/png","details": {"image": {"width": 250,"height": 250},"size": 12273},"url": "//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"}}},"sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"type": "Asset","id": "nyancat","revision": 1,"createdAt": "2013-09-02T14:56:34.240Z","updatedAt": "2013-09-02T14:56:34.240Z"}}'],
+            ['parse_and_encode_content_type.json'],
+            ['parse_and_encode_deleted_entry.json'],
+            ['parse_and_encode_deleted_asset.json'],
+            ['parse_and_encode_deleted_content_type.json'],
+            ['parse_and_encode_entry.json'],
         ];
     }
 
     /**
      * @dataProvider parseJsonDataProvider
      */
-    public function testParseAndEncodeJson($json)
+    public function testParseAndEncodeJson($file)
     {
-        $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
-        $this->client->parseJson($space);
+        $this->client->parseJson($this->getFixtureContent('parse_and_encode_space.json'));
+        // $this->client->parseJson($this->getFixtureContent('environment.json'));
 
-        $obj = $this->client->parseJson($json);
-
-        $this->assertJsonStringEqualsJsonString($json, \json_encode($obj));
+        $resource = $this->client->parseJson($this->getFixtureContent($file));
+        $this->assertJsonFixtureEqualsJsonObject($file, $resource);
     }
 
     public function testParseJsonEntry()
     {
-        $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
-        $ct = '{"fields": [{"id": "name","name": "Name","type": "Text","required": true,"localized": true},{"id": "likes","name": "Likes","type": "Array","required": false,"localized": false,"items": {"type": "Symbol"}},{"id": "color","name": "Color","type": "Symbol","required": false,"localized": false},{"id": "bestFriend","name": "Best Friend","type": "Link","required": false,"localized": false,"linkType": "Entry"},{"id": "birthday","name": "Birthday","type": "Date","required": false,"localized": false},{"id": "lifes","name": "Lifes left","type": "Integer","required": false,"localized": false,"disabled": true},{"id": "lives","name": "Lives left","type": "Integer","required": false,"localized": false},{"id": "image","name": "Image","required": false,"localized": false,"type": "Link","linkType": "Asset"}],"name": "Cat","displayField": "name","description": "Meow.","sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"type": "ContentType","id": "cat","revision": 2,"createdAt": "2013-06-27T22:46:12.852Z","updatedAt": "2013-09-02T13:14:47.863Z"}}';
-        $json = '{"fields": {"name": {"en-US": "Nyan Cat","tlh": "Nyan vIghro\'"},"likes": {"en-US": ["rainbows","fish"]},"color": {"en-US": "rainbow"},"bestFriend": {"en-US": {"sys": {"type": "Link","linkType": "Entry","id": "happycat"}}},"birthday": {"en-US": "2011-04-04T22:00:00Z"},"lives": {"en-US": 1337},"image": {"en-US": {"sys": {"type": "Link","linkType": "Asset","id": "nyancat"}}}},"sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"type": "Entry","contentType": {"sys": {"type": "Link","linkType": "ContentType","id": "cat"}},"id": "nyancat","revision": 5,"createdAt": "2013-06-27T22:46:19.513Z","updatedAt": "2013-09-04T09:19:39.027Z"}}';
+        $this->client->parseJson($this->getFixtureContent('space.json'));
+        // $this->client->parseJson($this->getFixtureContent('environment.json'));
+        $this->client->parseJson($this->getFixtureContent('content_type.json'));
 
-        $this->client->parseJson($space);
-        $this->client->parseJson($ct);
-        $obj = $this->client->parseJson($json);
-
-        $this->assertJsonStringEqualsJsonString($json, \json_encode($obj));
+        $entry = $this->client->parseJson($this->getFixtureContent('entry.json'));
+        $this->assertJsonFixtureEqualsJsonObject('entry.json', $entry);
     }
 
     public function testParseJsonSingleLocaleEntry()
     {
-        $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
-        $ct = '{"fields": [{"id": "name","name": "Name","type": "Text","required": true,"localized": true},{"id": "likes","name": "Likes","type": "Array","required": false,"localized": false,"items": {"type": "Symbol"}},{"id": "color","name": "Color","type": "Symbol","required": false,"localized": false},{"id": "bestFriend","name": "Best Friend","type": "Link","required": false,"localized": false,"linkType": "Entry"},{"id": "birthday","name": "Birthday","type": "Date","required": false,"localized": false},{"id": "lifes","name": "Lifes left","type": "Integer","required": false,"localized": false,"disabled": true},{"id": "lives","name": "Lives left","type": "Integer","required": false,"localized": false},{"id": "image","name": "Image","required": false,"localized": false,"type": "Link","linkType": "Asset"}],"name": "Cat","displayField": "name","description": "Meow.","sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"type": "ContentType","id": "cat","revision": 2,"createdAt": "2013-06-27T22:46:12.852Z","updatedAt": "2013-09-02T13:14:47.863Z"}}';
-        $enUsJson = '{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"id":"nyancat","type":"Entry","createdAt":"2013-06-27T22:46:19.513Z","updatedAt":"2013-09-04T09:19:39.027Z","revision":5,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"cat"}},"locale":"en-US"},"fields":{"name":"Nyan Cat","likes":["rainbows","fish"],"color":"rainbow","bestFriend":{"sys":{"type":"Link","linkType":"Entry","id":"happycat"}},"birthday":"2011-04-04T22:00:00Z","lives":1337,"image":{"sys":{"type":"Link","linkType":"Asset","id":"nyancat"}}}}';
-        $tlhJson = '{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"id":"nyancat","type":"Entry","createdAt":"2013-06-27T22:46:19.513Z","updatedAt":"2013-09-04T09:19:39.027Z","revision":5,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"cat"}},"locale":"tlh"},"fields":{"name":"Nyan vIghro\'","likes":["rainbows","fish"],"color":"rainbow","bestFriend":{"sys":{"type":"Link","linkType":"Entry","id":"happycat"}},"birthday":"2011-04-04T22:00:00Z","lives":1337,"image":{"sys":{"type":"Link","linkType":"Asset","id":"nyancat"}}}}';
+        $this->client->parseJson($this->getFixtureContent('space.json'));
+        // $this->client->parseJson($this->getFixtureContent('environment.json'));
+        $this->client->parseJson($this->getFixtureContent('content_type.json'));
 
-        $this->client->parseJson($space);
-        $this->client->parseJson($ct);
+        $enUsEntry = $this->client->parseJson($this->getFixtureContent('entry_single_locale_en_us.json'));
+        $this->assertJsonFixtureEqualsJsonObject('entry_single_locale_en_us.json', $enUsEntry);
 
-        $enUsObj = $this->client->parseJson($enUsJson);
-        $this->assertJsonStringEqualsJsonString($enUsJson, \json_encode($enUsObj));
-
-        $tlhObj = $this->client->parseJson($tlhJson);
-        $this->assertJsonStringEqualsJsonString($tlhJson, \json_encode($tlhObj));
+        $tlhEntry = $this->client->parseJson($this->getFixtureContent('entry_single_locale_tlh.json'));
+        $this->assertJsonFixtureEqualsJsonObject('entry_single_locale_tlh.json', $tlhEntry);
     }
 
     public function testParseJsonSingleLocaleAsset()
     {
-        $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
-        $this->client->parseJson($space);
+        $this->client->parseJson($this->getFixtureContent('space.json'));
+        // $this->client->parseJson($this->getFixtureContent('environment.json'));
 
-        $enUsJson = '{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"id":"nyancat","type":"Asset","createdAt":"2013-09-02T14:56:34.240Z","updatedAt":"2013-09-02T14:56:34.240Z","revision":1,"locale":"en-US"},"fields":{"title":"Nyan Cat","file":{"url":"//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png","details":{"size":12273,"image":{"width":250,"height":250}},"fileName":"Nyan_cat_250px_frame.png","contentType":"image/png"}}}';
-
-        $enUsObj = $this->client->parseJson($enUsJson);
-        $this->assertJsonStringEqualsJsonString($enUsJson, \json_encode($enUsObj));
+        $enUsAsset = $this->client->parseJson($this->getFixtureContent('asset_single_locale_en_us.json'));
+        $this->assertJsonFixtureEqualsJsonObject('asset_single_locale_en_us.json', $enUsAsset);
     }
 }

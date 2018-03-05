@@ -1,0 +1,35 @@
+{
+    "sys": {
+        "space": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "7dh3w86is8ls"
+            }
+        },
+        "environment": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Environment",
+                "id": "master"
+            }
+        },
+        "id": "sampleType",
+        "type": "ContentType",
+        "createdAt": "2016-06-21T08:53:55.767Z",
+        "updatedAt": "2016-06-21T13:16:34.507Z",
+        "revision": 5
+    },
+    "displayField": "title",
+    "name": "Sample Type",
+    "description": "",
+    "fields": [{
+        "id": "title",
+        "name": "title",
+        "type": "Symbol",
+        "localized": true,
+        "required": true,
+        "disabled": false,
+        "omitted": false
+    }]
+}
