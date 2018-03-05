@@ -10,13 +10,14 @@
 namespace Contentful\Delivery;
 
 use Contentful\Core\Api\DateTimeImmutable;
+use Contentful\Core\Resource\SystemPropertiesInterface;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Space;
 
 /**
  * A SystemProperties instance contains the metadata of a resource.
  */
-class SystemProperties implements \JsonSerializable
+class SystemProperties implements SystemPropertiesInterface
 {
     /**
      * @var string
@@ -66,29 +67,23 @@ class SystemProperties implements \JsonSerializable
     /**
      * SystemProperties constructor.
      *
-     * @param string                 $id
-     * @param string                 $type
-     * @param Space|null             $space
-     * @param ContentType|null       $contentType
-     * @param int|null               $revision
-     * @param DateTimeImmutable|null $createdAt
-     * @param DateTimeImmutable|null $updatedAt
-     * @param DateTimeImmutable|null $deletedAt
-     * @param string|null            $locale
+     * @param array $sys
      */
-    public function __construct($id, $type, Space $space = null, ContentType $contentType = null, $revision = null,
-                                DateTimeImmutable $createdAt = null, DateTimeImmutable $updatedAt = null,
-                                DateTimeImmutable $deletedAt = null, $locale = null)
+    public function __construct(array $sys)
     {
-        $this->id = $id;
-        $this->type = $type;
-        $this->space = $space;
-        $this->contentType = $contentType;
-        $this->revision = $revision;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
-        $this->deletedAt = $deletedAt;
-        $this->locale = $locale;
+        $this->id = isset($sys['id']) ? $sys['id'] : null;
+        $this->type = isset($sys['type']) ? $sys['type'] : null;
+
+        $this->space = isset($sys['space']) ? $sys['space'] : null;
+        $this->contentType = isset($sys['contentType']) ? $sys['contentType'] : null;
+
+        $this->revision = isset($sys['revision']) ? $sys['revision'] : null;
+
+        $this->createdAt = isset($sys['createdAt']) ? new DateTimeImmutable($sys['createdAt']) : null;
+        $this->updatedAt = isset($sys['updatedAt']) ? new DateTimeImmutable($sys['updatedAt']) : null;
+        $this->deletedAt = isset($sys['deletedAt']) ? new DateTimeImmutable($sys['deletedAt']) : null;
+
+        $this->locale = isset($sys['locale']) ? $sys['locale'] : null;
     }
 
     /**
@@ -164,25 +159,18 @@ class SystemProperties implements \JsonSerializable
     }
 
     /**
-     * Returns an object to be used by `json_encode` to serialize objects of this class.
-     *
-     * @return object
-     *
-     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
-        $obj = new \stdClass();
+        $sys = [
+            'id' => $this->id,
+            'type' => $this->type,
+        ];
 
-        if (null !== $this->id) {
-            $obj->id = $this->id;
-        }
-        if (null !== $this->type) {
-            $obj->type = $this->type;
-        }
         if (null !== $this->space) {
-            $obj->space = (object) [
-                'sys' => (object) [
+            $sys['space'] = [
+                'sys' => [
                     'type' => 'Link',
                     'linkType' => 'Space',
                     'id' => $this->space->getId(),
@@ -190,30 +178,32 @@ class SystemProperties implements \JsonSerializable
             ];
         }
         if (null !== $this->contentType) {
-            $obj->contentType = (object) [
-                'sys' => (object) [
+            $sys['contentType'] = [
+                'sys' => [
                     'type' => 'Link',
                     'linkType' => 'ContentType',
                     'id' => $this->contentType->getId(),
                 ],
             ];
         }
+
         if (null !== $this->revision) {
-            $obj->revision = $this->revision;
+            $sys['revision'] = $this->revision;
         }
         if (null !== $this->locale) {
-            $obj->locale = $this->locale;
-        }
-        if (null !== $this->createdAt) {
-            $obj->createdAt = (string) $this->createdAt;
-        }
-        if (null !== $this->updatedAt) {
-            $obj->updatedAt = (string) $this->updatedAt;
-        }
-        if (null !== $this->deletedAt) {
-            $obj->deletedAt = (string) $this->deletedAt;
+            $sys['locale'] = $this->locale;
         }
 
-        return $obj;
+        if (null !== $this->createdAt) {
+            $sys['createdAt'] = (string) $this->createdAt;
+        }
+        if (null !== $this->updatedAt) {
+            $sys['updatedAt'] = (string) $this->updatedAt;
+        }
+        if (null !== $this->deletedAt) {
+            $sys['deletedAt'] = (string) $this->deletedAt;
+        }
+
+        return $sys;
     }
 }

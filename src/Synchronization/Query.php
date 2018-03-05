@@ -21,7 +21,7 @@ class Query
     /**
      * Limit the sync to event to a specific type.
      *
-     * @var string
+     * @var string|null
      */
     private $type = 'all';
 
@@ -31,15 +31,6 @@ class Query
      * @var string|null
      */
     private $contentType;
-
-    /**
-     * Query constructor.
-     *
-     * Empty for now, included for forward compatibility.
-     */
-    public function __construct()
-    {
-    }
 
     /**
      * Returns the parameters to execute this query.
@@ -90,7 +81,10 @@ class Query
     {
         $validTypes = ['all', 'Asset', 'Entry', 'Deletion', 'DeletedAsset', 'DeletedEntry'];
         if (!\in_array($type, $validTypes, true)) {
-            throw new \InvalidArgumentException('Unexpected type '.$type);
+            throw new \InvalidArgumentException(\sprintf(
+                'Unexpected type "%s".',
+                $type
+            ));
         }
 
         $this->type = $type;

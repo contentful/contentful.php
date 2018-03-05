@@ -31,20 +31,6 @@ class Query extends BaseQuery
     private $locale;
 
     /**
-     * The ID of the entry to look for.
-     *
-     * @var string|null
-     */
-    private $linksToEntry;
-
-    /**
-     * The ID of the asset to look for.
-     *
-     * @var string|null
-     */
-    private $linksToAsset;
-
-    /**
      * Returns the parameters to execute this query.
      *
      * @return array
@@ -57,12 +43,6 @@ class Query extends BaseQuery
         }
         if (null !== $this->locale) {
             $query['locale'] = $this->locale;
-        }
-        if (null !== $this->linksToEntry) {
-            $query['links_to_entry'] = $this->linksToEntry;
-        }
-        if (null !== $this->linksToAsset) {
-            $query['links_to_asset'] = $this->linksToAsset;
         }
 
         return $query;
@@ -92,34 +72,6 @@ class Query extends BaseQuery
     public function setLocale($locale)
     {
         $this->locale = $locale;
-
-        return $this;
-    }
-
-    /**
-     * Filters for all entries that link to an entry.
-     *
-     * @param string $entryId
-     *
-     * @return $this
-     */
-    public function linksToEntry($entryId)
-    {
-        $this->linksToEntry = $entryId;
-
-        return $this;
-    }
-
-    /**
-     * Filters for all entries that link to an asset.
-     *
-     * @param string $assetId
-     *
-     * @return $this
-     */
-    public function linksToAsset($assetId)
-    {
-        $this->linksToAsset = $assetId;
 
         return $this;
     }

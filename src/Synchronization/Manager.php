@@ -95,7 +95,7 @@ class Manager
      * Continues the synchronization either at the next page,
      * or with the results since the initial synchronization.
      *
-     * @param string $token
+     * @param string|Result $token
      *
      * @throws \RuntimeException if this method is used for a subsequent sync when used with the Preview API
      *

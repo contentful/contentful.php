@@ -46,14 +46,18 @@ class Client extends BaseClient
     const API_PREVIEW = 'PREVIEW';
 
     /**
+     * The URI for the Delivery API.
+     *
      * @var string
      */
     const URI_DELIVERY = 'https://cdn.contentful.com';
 
     /**
+     * The URI for the Preview API.
+     *
      * @var string
      */
-    const URI_PREVIEW = 'http://preview.contentful.com';
+    const URI_PREVIEW = 'https://preview.contentful.com';
 
     /**
      * @var ResourceBuilder
@@ -91,8 +95,8 @@ class Client extends BaseClient
      *                                   to fetch content in all locales.
      * @param array       $options       An array of optional configuration options. The following keys are possible:
      *                                   * guzzle     Override the guzzle instance used by the Contentful client
-     *                                   * logger     Inject a Contentful logger
-     *                                   * baseUri    Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/'). The trailing slash is required.
+     *                                   * logger     A PSR-3 logger
+     *                                   * baseUri    Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/').
      *                                   * cache      Null or a PSR-6 cache item pool. The client only writes to the cache if autoWarmup is true, otherwise, you are responsible for warming it up using \Contentful\Delivery\Cache\CacheWarmer.
      *                                   * autoWarmup Warm up the cache automatically
      */
@@ -136,6 +140,14 @@ class Client extends BaseClient
     public function getApi()
     {
         return $this->isPreview() ? self::API_PREVIEW : self::API_DELIVERY;
+    }
+
+    /**
+     * @return ResourceBuilder
+     */
+    public function getResourceBuilder()
+    {
+        return $this->builder;
     }
 
     /**
@@ -183,9 +195,10 @@ class Client extends BaseClient
             return $this->instanceRepository->get('Asset', $instanceId);
         }
 
-        return $this->requestAndBuild('/spaces/'.$this->spaceId.'/assets/'.$assetId, [
-            'query' => ['locale' => $locale],
-        ]);
+        return $this->requestAndBuild(
+            '/spaces/'.$this->spaceId.'/assets/'.$assetId,
+            ['query' => ['locale' => $locale]]
+        );
     }
 
     /**
@@ -195,15 +208,15 @@ class Client extends BaseClient
      */
     public function getAssets(Query $query = null)
     {
-        $query = null !== $query ? $query : new Query();
-        $queryData = $query->getQueryData();
+        $queryData = $query ? $query->getQueryData() : [];
         if (!isset($queryData['locale'])) {
             $queryData['locale'] = $this->defaultLocale;
         }
 
-        return $this->requestAndBuild('/spaces/'.$this->spaceId.'/assets', [
-            'query' => $queryData,
-        ]);
+        return $this->requestAndBuild(
+            '/spaces/'.$this->spaceId.'/assets',
+            ['query' => $queryData]
+        );
     }
 
     /**
@@ -217,7 +230,9 @@ class Client extends BaseClient
             return $this->instanceRepository->get('ContentType', $contentTypeId);
         }
 
-        return $this->requestAndBuild('/spaces/'.$this->spaceId.'/content_types/'.$contentTypeId);
+        return $this->requestAndBuild(
+            '/spaces/'.$this->spaceId.'/content_types/'.$contentTypeId
+        );
     }
 
     /**
@@ -227,11 +242,10 @@ class Client extends BaseClient
      */
     public function getContentTypes(Query $query = null)
     {
-        $query = null !== $query ? $query : new Query();
-
-        return $this->requestAndBuild('/spaces/'.$this->spaceId.'/content_types', [
-            'query' => $query->getQueryData(),
-        ]);
+        return $this->requestAndBuild(
+            '/spaces/'.$this->spaceId.'/content_types',
+            ['query' => $query ? $query->getQueryData() : []]
+        );
     }
 
     /**
@@ -249,9 +263,10 @@ class Client extends BaseClient
             return $this->instanceRepository->get('Entry', $instanceId);
         }
 
-        return $this->requestAndBuild('/spaces/'.$this->spaceId.'/entries/'.$entryId, [
-            'query' => ['locale' => $locale],
-        ]);
+        return $this->requestAndBuild(
+            '/spaces/'.$this->spaceId.'/entries/'.$entryId,
+            ['query' => ['locale' => $locale]]
+        );
     }
 
     /**
@@ -266,9 +281,10 @@ class Client extends BaseClient
             $queryData['locale'] = $this->defaultLocale;
         }
 
-        return $this->requestAndBuild('/spaces/'.$this->spaceId.'/entries', [
-            'query' => $queryData,
-        ]);
+        return $this->requestAndBuild(
+            '/spaces/'.$this->spaceId.'/entries',
+            ['query' => $queryData]
+        );
     }
 
     /**
@@ -295,25 +311,25 @@ class Client extends BaseClient
      */
     public function resolveLink(Link $link, $locale = null)
     {
-        $id = $link->getId();
-        $type = $link->getLinkType();
-
         switch ($link->getLinkType()) {
             case 'Entry':
-                return $this->getEntry($id, $locale);
+                return $this->getEntry($link->getId(), $locale);
             case 'Asset':
-                return $this->getAsset($id, $locale);
+                return $this->getAsset($link->getId(), $locale);
             default:
-                throw new \InvalidArgumentException('Tyring to resolve link for unknown type "'.$type.'".');
+                throw new \InvalidArgumentException(\sprintf(
+                    'Trying to resolve link for unknown type "%s".',
+                    $link->getLinkType()
+                ));
         }
     }
 
     /**
-     * Revive JSON previously cached.
+     * Parse a JSON string.
      *
      * @param string $json
      *
-     * @throws \InvalidArgumentException When attempting to revive JSON belonging to a different space
+     * @throws \InvalidArgumentException When attempting to parse JSON belonging to a different space
      *
      * @return ResourceInterface|ResourceArray
      */
@@ -383,8 +399,6 @@ class Client extends BaseClient
      * Returns true when using the Preview API.
      *
      * @return bool
-     *
-     * @see https://www.contentful.com/developers/docs/references/content-preview-api/#/reference Preview API Reference
      */
     public function isPreview()
     {
@@ -413,12 +427,7 @@ class Client extends BaseClient
     private function requestAndBuild($path, array $options = [])
     {
         $response = $this->request('GET', $path, $options);
-        $resource = $this->builder->build($response);
 
-        if ($resource instanceof ResourceInterface) {
-            $this->instanceRepository->set($resource);
-        }
-
-        return $resource;
+        return $this->builder->build($response);
     }
 }

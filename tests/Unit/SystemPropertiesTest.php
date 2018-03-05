@@ -27,30 +27,31 @@ class SystemPropertiesTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $sys = new SystemProperties(
-            '123',
-            'Type',
-            $space,
-            $contentType,
-            1,
-            $createdAt = new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            $updatedAt = new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
-            $deletedAt = new DateTimeImmutable('2014-08-13T08:30:42.559Z')
-        );
+        $sys = new SystemProperties([
+            'id' => '123',
+            'type' => 'Type',
+            'space' => $space,
+            'contentType' => $contentType,
+            'revision' => 1,
+            'createdAt' => new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
+            'updatedAt' => new DateTimeImmutable('2015-08-12T08:30:42.559Z'),
+            'deletedAt' => new DateTimeImmutable('2016-08-13T08:30:42.559Z'),
+        ]);
 
         $this->assertSame('123', $sys->getId());
         $this->assertSame('Type', $sys->getType());
         $this->assertSame($space, $sys->getSpace());
         $this->assertSame($contentType, $sys->getContentType());
+        $this->assertSame($space, $sys->getSpace());
         $this->assertSame(1, $sys->getRevision());
-        $this->assertSame($createdAt, $sys->getCreatedAt());
-        $this->assertSame($updatedAt, $sys->getUpdatedAt());
-        $this->assertSame($deletedAt, $sys->getDeletedAt());
+        $this->assertSame('2014-08-11T08:30:42.559Z', (string) $sys->getCreatedAt());
+        $this->assertSame('2015-08-12T08:30:42.559Z', (string) $sys->getUpdatedAt());
+        $this->assertSame('2016-08-13T08:30:42.559Z', (string) $sys->getDeletedAt());
     }
 
     public function testJsonSerializeSpace()
     {
-        $sys = new SystemProperties('123', 'Space');
+        $sys = new SystemProperties(['id' => '123', 'type' => 'Space']);
 
         $this->assertJsonFixtureEqualsJsonObject('serialize_space.json', $sys);
     }
@@ -60,22 +61,20 @@ class SystemPropertiesTest extends TestCase
         $space = $this->getMockBuilder(Space::class)
             ->disableOriginalConstructor()
             ->getMock();
-
         $space->method('getId')
             ->willReturn('cfexampleapi');
 
-        $resource = new SystemProperties(
-            '4rPdazIwWkuuKEAQgemSmO',
-            'DeletedEntry',
-            $space,
-            null,
-            1,
-            new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
-            new DateTimeImmutable('2014-08-13T08:30:42.559Z')
-        );
+        $sys = new SystemProperties([
+            'id' => '4rPdazIwWkuuKEAQgemSmO',
+            'type' => 'DeletedEntry',
+            'space' => $space,
+            'revision' => 1,
+            'createdAt' => new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
+            'updatedAt' => new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
+            'deletedAt' => new DateTimeImmutable('2014-08-13T08:30:42.559Z'),
+        ]);
 
-        $this->assertJsonFixtureEqualsJsonObject('serialize_deleted_resource.json', $resource);
+        $this->assertJsonFixtureEqualsJsonObject('serialize_deleted_resource.json', $sys);
     }
 
     public function testJsonSerializeEntry()
@@ -83,26 +82,24 @@ class SystemPropertiesTest extends TestCase
         $space = $this->getMockBuilder(Space::class)
             ->disableOriginalConstructor()
             ->getMock();
-
         $space->method('getId')
             ->willReturn('cfexampleapi');
 
         $contentType = $this->getMockBuilder(ContentType::class)
             ->disableOriginalConstructor()
             ->getMock();
-
         $contentType->method('getId')
             ->willReturn('human');
 
-        $sys = new SystemProperties(
-            '123',
-            'Type',
-            $space,
-            $contentType,
-            1,
-            new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            new DateTimeImmutable('2014-08-12T08:30:42.559Z')
-        );
+        $sys = new SystemProperties([
+            'id' => '123',
+            'type' => 'Type',
+            'space' => $space,
+            'contentType' => $contentType,
+            'revision' => 1,
+            'createdAt' => new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
+            'updatedAt' => new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
+        ]);
 
         $this->assertJsonFixtureEqualsJsonObject('serialize_entry.json', $sys);
     }

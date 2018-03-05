@@ -14,7 +14,6 @@ use Contentful\Delivery\Cache\CacheItemPoolFactoryInterface;
 use Contentful\Delivery\Client;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,42 +25,26 @@ class ClearCacheCommand extends Command
         $this
             ->setName('delivery:cache:clear')
             ->setDefinition([
-                new InputArgument(
-                    'space-id',
-                    InputArgument::REQUIRED,
-                    'ID of the space to use.'
-                ),
-                new InputArgument(
-                    'access-token',
-                    InputArgument::REQUIRED,
-                    'Token to access the space.'
-                ),
-                new InputArgument(
-                    'cache-item-pool-factory-class',
-                    InputArgument::REQUIRED,
-                    \sprintf(
-                        'The FQCN of a factory class which implements "%s".',
-                        CacheItemPoolFactoryInterface::class
-                    )
-                ),
-                new InputOption(
-                    'use-preview',
-                    null,
-                    InputOption::VALUE_NONE
-                ),
+                new InputOption('access-token', 't', InputOption::VALUE_REQUIRED, 'Token to access the space.'),
+                new InputOption('space-id', 's', InputOption::VALUE_REQUIRED, 'ID of the space to use.'),
+                new InputOption('factory-class', 'f', InputOption::VALUE_REQUIRED, \sprintf(
+                    'The FQCN of a factory class which implements "%s".',
+                    CacheItemPoolFactoryInterface::class
+                )),
+                new InputOption('use-preview', 'p', InputOption::VALUE_NONE),
             ]);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $spaceId = $input->getArgument('space-id');
-        $accessToken = $input->getArgument('access-token');
+        $accessToken = $input->getOption('access-token');
+        $spaceId = $input->getOption('space-id');
         $usePreview = $input->getOption('use-preview');
 
         $client = new Client($accessToken, $spaceId, $usePreview);
         $api = $client->getApi();
 
-        $factoryClass = $input->getArgument('cache-item-pool-factory-class');
+        $factoryClass = $input->getOption('factory-class');
         $cacheItemPoolFactory = new $factoryClass();
         if (!$cacheItemPoolFactory instanceof CacheItemPoolFactoryInterface) {
             throw new \InvalidArgumentException(\sprintf(
@@ -88,6 +71,10 @@ class ClearCacheCommand extends Command
             ));
         }
 
-        $output->writeln(\sprintf('Cache cleared for space "%s" using API "%s".', $spaceId, $api));
+        $output->writeln(\sprintf(
+            '<info>Cache cleared for space "%s" using API "%s".</info>',
+            $spaceId,
+            $api
+        ));
     }
 }

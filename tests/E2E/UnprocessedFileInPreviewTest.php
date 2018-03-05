@@ -18,9 +18,9 @@ class UnprocessedFileInPreviewTest extends TestCase
 {
     /**
      * @requires API no-coverage-proxy
-     * @vcr e2e_file_get_unprocessed_file.json
+     * @vcr e2e_file_remote_upload_unprocessed.json
      */
-    public function testGetUnprocessedFile()
+    public function testFileRemoteUploadUnprocessed()
     {
         $client = $this->getClient('88dyiqcr7go8_preview');
 
@@ -44,9 +44,9 @@ class UnprocessedFileInPreviewTest extends TestCase
      * when dealing with the CMA.
      *
      * @requires API no-coverage-proxy
-     * @vcr e2e_file_uploaded_from_unprocessed_file.json
+     * @vcr e2e_file_local_upload_unprocessed.json
      */
-    public function testUploadedFromFileUnprocessed()
+    public function testFileLocalUploadUnprocessed()
     {
         $client = $this->getClient('88dyiqcr7go8_preview');
 

@@ -11,42 +11,23 @@ namespace Contentful\Delivery\Resource;
 
 use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\File\FileInterface;
-use Contentful\Delivery\SystemProperties;
 
 class Asset extends LocalizedResource
 {
     /**
-     * @var array
+     * @var string[]
      */
     protected $title;
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $description;
 
     /**
-     * @var array
+     * @var FileInterface[]
      */
     protected $file;
-
-    /**
-     * Asset constructor.
-     *
-     * @param array            $title
-     * @param array            $description
-     * @param array            $file
-     * @param SystemProperties $sys
-     */
-    public function __construct($title, $description, $file, SystemProperties $sys)
-    {
-        parent::__construct($sys->getSpace()->getLocales());
-
-        $this->title = $title;
-        $this->description = $description;
-        $this->file = $file;
-        $this->sys = $sys;
-    }
 
     /**
      * @param Locale|string|null $locale
@@ -142,44 +123,34 @@ class Asset extends LocalizedResource
     }
 
     /**
-     * Returns an object to be used by `json_encode` to serialize objects of this class.
-     *
-     * @return object
-     *
-     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php JsonSerializable::jsonSerialize
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
-        $entryLocale = $this->sys->getLocale();
-
-        $obj = (object) [
-            'fields' => (object) [],
+        $locale = $this->sys->getLocale();
+        $asset = [
             'sys' => $this->sys,
+            'fields' => new \stdClass(),
         ];
-        if (null !== $this->file) {
-            if ($entryLocale) {
-                $obj->fields->file = $this->file[$entryLocale];
-            } else {
-                $obj->fields->file = $this->file;
-            }
-        }
 
         if (null !== $this->title) {
-            if ($entryLocale) {
-                $obj->fields->title = $this->title[$entryLocale];
-            } else {
-                $obj->fields->title = $this->title;
-            }
+            $asset['fields']->title = $locale
+                ? $this->title[$locale]
+                : $this->title;
         }
 
         if (null !== $this->description) {
-            if ($entryLocale) {
-                $obj->fields->description = $this->description[$entryLocale];
-            } else {
-                $obj->fields->description = $this->description;
-            }
+            $asset['fields']->description = $locale
+                ? $this->description[$locale]
+                : $this->description;
         }
 
-        return $obj;
+        if (null !== $this->file) {
+            $asset['fields']->file = $locale
+                ? $this->file[$locale]
+                : $this->file;
+        }
+
+        return $asset;
     }
 }

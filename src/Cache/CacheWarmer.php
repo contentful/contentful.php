@@ -50,20 +50,20 @@ class CacheWarmer
     public function warmUp()
     {
         $api = $this->client->getApi();
+
         $space = $this->client->getSpace();
+        $item = $this->cacheItemPool->getItem(InstanceRepository::generateCacheKey($api, 'Space', $space->getId()));
+        $item->set(\json_encode($space));
+        $this->cacheItemPool->saveDeferred($item);
 
         $query = (new Query())
             ->setLimit(100);
         $contentTypes = $this->client->getContentTypes($query);
 
-        $spaceItem = $this->cacheItemPool->getItem(InstanceRepository::generateCacheKey($api, 'Space', $space->getId()));
-        $spaceItem->set(\json_encode($space));
-        $this->cacheItemPool->saveDeferred($spaceItem);
-
         foreach ($contentTypes as $contentType) {
-            $spaceItem = $this->cacheItemPool->getItem(InstanceRepository::generateCacheKey($api, 'ContentType', $contentType->getId()));
-            $spaceItem->set(\json_encode($contentType));
-            $this->cacheItemPool->saveDeferred($spaceItem);
+            $item = $this->cacheItemPool->getItem(InstanceRepository::generateCacheKey($api, 'ContentType', $contentType->getId()));
+            $item->set(\json_encode($contentType));
+            $this->cacheItemPool->saveDeferred($item);
         }
 
         return $this->cacheItemPool->commit();

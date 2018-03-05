@@ -39,11 +39,7 @@ class Space extends BaseMapper
      */
     protected function buildLocale(array $locale)
     {
-        return new LocaleResourceClass(
-            $locale['code'],
-            $locale['name'],
-            $locale['fallbackCode'],
-            $locale['default']
-        );
+        return $this->builder->getMapper(Locale::class)
+            ->map(null, $locale);
     }
 }
