@@ -10,6 +10,7 @@
 namespace Contentful\Delivery\Cache;
 
 use Contentful\Delivery\Client;
+use Contentful\Delivery\InstanceRepository;
 use Contentful\Delivery\Query;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -55,12 +56,12 @@ class CacheWarmer
             ->setLimit(100);
         $contentTypes = $this->client->getContentTypes($query);
 
-        $spaceItem = $this->cacheItemPool->getItem(\Contentful\Delivery\cache_key_space($api, $space->getId()));
+        $spaceItem = $this->cacheItemPool->getItem(InstanceRepository::generateCacheKey($api, 'Space', $space->getId()));
         $spaceItem->set(\json_encode($space));
         $this->cacheItemPool->saveDeferred($spaceItem);
 
         foreach ($contentTypes as $contentType) {
-            $spaceItem = $this->cacheItemPool->getItem(\Contentful\Delivery\cache_key_content_type($api, $contentType->getId()));
+            $spaceItem = $this->cacheItemPool->getItem(InstanceRepository::generateCacheKey($api, 'ContentType', $contentType->getId()));
             $spaceItem->set(\json_encode($contentType));
             $this->cacheItemPool->saveDeferred($spaceItem);
         }

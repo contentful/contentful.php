@@ -13,14 +13,12 @@ use Cache\Adapter\Void\VoidCachePool;
 use Contentful\Core\Api\BaseClient;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Resource\ResourceArray;
-use Contentful\Delivery\Cache\InstanceCache;
+use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
-use Contentful\Delivery\Resource\Locale;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\Synchronization\Manager;
-use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
@@ -48,14 +46,24 @@ class Client extends BaseClient
     const API_PREVIEW = 'PREVIEW';
 
     /**
+     * @var string
+     */
+    const URI_DELIVERY = 'https://cdn.contentful.com';
+
+    /**
+     * @var string
+     */
+    const URI_PREVIEW = 'http://preview.contentful.com';
+
+    /**
      * @var ResourceBuilder
      */
     private $builder;
 
     /**
-     * @var InstanceCache
+     * @var InstanceRepository
      */
-    private $instanceCache;
+    private $instanceRepository;
 
     /**
      * @var bool
@@ -66,16 +74,6 @@ class Client extends BaseClient
      * @var string|null
      */
     private $defaultLocale;
-
-    /**
-     * @var CacheItemPoolInterface
-     */
-    private $cacheItemPool;
-
-    /**
-     * @var bool
-     */
-    private $autoWarmup;
 
     /**
      * @var string
@@ -92,49 +90,44 @@ class Client extends BaseClient
      *                                   string, e.g. "en-US" to fetch content in that locale. Set it to "*"
      *                                   to fetch content in all locales.
      * @param array       $options       An array of optional configuration options. The following keys are possible:
-     *                                   * guzzle      Override the guzzle instance used by the Contentful client
-     *                                   * logger      Inject a Contentful logger
-     *                                   * uriOverride Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/'). The trailing slash is required.
-     *                                   * cache       Null or a PSR-6 cache item pool. The client only writes to the cache if autoWarmup is true, otherwise, you are responsible for warming it up using \Contentful\Delivery\Cache\CacheWarmer.
-     *                                   * autoWarmup  Warm up the cache automatically
+     *                                   * guzzle     Override the guzzle instance used by the Contentful client
+     *                                   * logger     Inject a Contentful logger
+     *                                   * baseUri    Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/'). The trailing slash is required.
+     *                                   * cache      Null or a PSR-6 cache item pool. The client only writes to the cache if autoWarmup is true, otherwise, you are responsible for warming it up using \Contentful\Delivery\Cache\CacheWarmer.
+     *                                   * autoWarmup Warm up the cache automatically
      */
     public function __construct($token, $spaceId, $preview = false, $defaultLocale = null, array $options = [])
     {
-        $baseUri = $preview ? 'https://preview.contentful.com/' : 'https://cdn.contentful.com/';
-
         $options = \array_replace([
             'guzzle' => null,
             'logger' => null,
-            'uriOverride' => null,
+            'baseUri' => null,
             'cacheDir' => null,
             'cache' => null,
             'autoWarmup' => false,
         ], $options);
 
-        $guzzle = $options['guzzle'];
-        $logger = $options['logger'];
-        $uriOverride = $options['uriOverride'];
-        $this->autoWarmup = $options['autoWarmup'];
-
-        if (null !== $uriOverride) {
-            $baseUri = $uriOverride;
+        $baseUri = $preview ? self::URI_PREVIEW : self::URI_DELIVERY;
+        if (null !== $options['baseUri']) {
+            $baseUri = $options['baseUri'];
+            if ('/' === \mb_substr($baseUri, -1)) {
+                $baseUri = \mb_substr($baseUri, 0, -1);
+            }
         }
-        $baseUri .= 'spaces/';
 
-        parent::__construct($token, $baseUri.$spaceId.'/', $logger, $guzzle);
+        parent::__construct($token, $baseUri, $options['logger'], $options['guzzle']);
 
         $this->preview = $preview;
-        $this->instanceCache = new InstanceCache();
         $this->defaultLocale = $defaultLocale;
         $this->spaceId = $spaceId;
 
-        $this->cacheItemPool = $options['cache'] ?: new VoidCachePool();
-
-        if (!$this->cacheItemPool instanceof CacheItemPoolInterface) {
+        $cacheItemPool = $options['cache'] ?: new VoidCachePool();
+        if (!$cacheItemPool instanceof CacheItemPoolInterface) {
             throw new \InvalidArgumentException('The cache parameter must be a PSR-6 cache item pool or null.');
         }
 
-        $this->builder = new ResourceBuilder($this, $this->instanceCache, $this->cacheItemPool, $spaceId);
+        $this->instanceRepository = new InstanceRepository($this, $cacheItemPool, (bool) $options['autoWarmup']);
+        $this->builder = new ResourceBuilder($this, $this->instanceRepository);
     }
 
     /**
@@ -183,9 +176,14 @@ class Client extends BaseClient
      */
     public function getAsset($assetId, $locale = null)
     {
-        $locale = null === $locale ? $this->defaultLocale : $locale;
+        $locale = $locale ?: $this->defaultLocale;
 
-        return $this->requestAndBuild('GET', 'assets/'.$assetId, [
+        $instanceId = $assetId.'-'.($locale ?: '*');
+        if ($this->instanceRepository->has('Asset', $instanceId)) {
+            return $this->instanceRepository->get('Asset', $instanceId);
+        }
+
+        return $this->requestAndBuild('/spaces/'.$this->spaceId.'/assets/'.$assetId, [
             'query' => ['locale' => $locale],
         ]);
     }
@@ -203,7 +201,7 @@ class Client extends BaseClient
             $queryData['locale'] = $this->defaultLocale;
         }
 
-        return $this->requestAndBuild('GET', 'assets', [
+        return $this->requestAndBuild('/spaces/'.$this->spaceId.'/assets', [
             'query' => $queryData,
         ]);
     }
@@ -215,17 +213,11 @@ class Client extends BaseClient
      */
     public function getContentType($contentTypeId)
     {
-        if ($this->instanceCache->hasContentType($contentTypeId)) {
-            return $this->instanceCache->getContentType($contentTypeId);
+        if ($this->instanceRepository->has('ContentType', $contentTypeId)) {
+            return $this->instanceRepository->get('ContentType', $contentTypeId);
         }
 
-        $key = \Contentful\Delivery\cache_key_content_type($this->getApi(), $contentTypeId);
-        $cacheItem = $this->cacheItemPool->getItem($key);
-        if ($cacheItem->isHit()) {
-            return $this->reviveJson($cacheItem->get());
-        }
-
-        return $this->requestAndBuild('GET', 'content_types/'.$contentTypeId, [], $cacheItem);
+        return $this->requestAndBuild('/spaces/'.$this->spaceId.'/content_types/'.$contentTypeId);
     }
 
     /**
@@ -237,7 +229,7 @@ class Client extends BaseClient
     {
         $query = null !== $query ? $query : new Query();
 
-        return $this->requestAndBuild('GET', 'content_types', [
+        return $this->requestAndBuild('/spaces/'.$this->spaceId.'/content_types', [
             'query' => $query->getQueryData(),
         ]);
     }
@@ -250,9 +242,14 @@ class Client extends BaseClient
      */
     public function getEntry($entryId, $locale = null)
     {
-        $locale = null === $locale ? $this->defaultLocale : $locale;
+        $locale = $locale ?: $this->defaultLocale;
 
-        return $this->requestAndBuild('GET', 'entries/'.$entryId, [
+        $instanceId = $entryId.'-'.($locale ?: '*');
+        if ($this->instanceRepository->has('Entry', $instanceId)) {
+            return $this->instanceRepository->get('Entry', $instanceId);
+        }
+
+        return $this->requestAndBuild('/spaces/'.$this->spaceId.'/entries/'.$entryId, [
             'query' => ['locale' => $locale],
         ]);
     }
@@ -269,7 +266,7 @@ class Client extends BaseClient
             $queryData['locale'] = $this->defaultLocale;
         }
 
-        return $this->requestAndBuild('GET', 'entries', [
+        return $this->requestAndBuild('/spaces/'.$this->spaceId.'/entries', [
             'query' => $queryData,
         ]);
     }
@@ -279,17 +276,11 @@ class Client extends BaseClient
      */
     public function getSpace()
     {
-        if ($this->instanceCache->hasSpace()) {
-            return $this->instanceCache->getSpace();
+        if ($this->instanceRepository->has('Space', $this->spaceId)) {
+            return $this->instanceRepository->get('Space', $this->spaceId);
         }
 
-        $key = \Contentful\Delivery\cache_key_space($this->getApi(), $this->spaceId);
-        $cacheItem = $this->cacheItemPool->getItem($key);
-        if ($cacheItem->isHit()) {
-            return $this->reviveJson($cacheItem->get());
-        }
-
-        return $this->requestAndBuild('GET', '', [], $cacheItem);
+        return $this->requestAndBuild('/spaces/'.$this->spaceId);
     }
 
     /**
@@ -322,11 +313,11 @@ class Client extends BaseClient
      *
      * @param string $json
      *
-     * @throws \Contentful\Exception\SpaceMismatchException When attempting to revive JSON belonging to a different space
+     * @throws \InvalidArgumentException When attempting to revive JSON belonging to a different space
      *
-     * @return Asset|ContentType|Entry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\Core\Resource\ResourceArray
+     * @return ResourceInterface|ResourceArray
      */
-    public function reviveJson($json)
+    public function parseJson($json)
     {
         $data = \GuzzleHttp\json_decode($json, true);
 
@@ -380,12 +371,10 @@ class Client extends BaseClient
      * @param array $queryData
      *
      * @return mixed
-     *
-     * @see \Contentful\Delivery\Synchronization\Manager
      */
     public function syncRequest(array $queryData)
     {
-        return $this->request('GET', 'sync', [
+        return $this->request('GET', '/spaces/'.$this->spaceId.'/sync', [
             'query' => $queryData,
         ]);
     }
@@ -416,21 +405,20 @@ class Client extends BaseClient
     }
 
     /**
-     * @param string $method
      * @param string $path
      * @param array  $options
      *
-     * @return Asset|ContentType|Entry|Space|Synchronization\DeletedAsset|Synchronization\DeletedContentType|Synchronization\DeletedEntry|\Contentful\Core\Resource\ResourceArray
+     * @return ResourceInterface|ResourceArray
      */
-    private function requestAndBuild($method, $path, array $options = [], CacheItemInterface $cacheItem = null)
+    private function requestAndBuild($path, array $options = [])
     {
-        $rawData = $this->request($method, $path, $options);
+        $response = $this->request('GET', $path, $options);
+        $resource = $this->builder->buildObjectsFromRawData($response);
 
-        if ($cacheItem && $this->autoWarmup) {
-            $cacheItem->set(\json_encode($rawData));
-            $this->cacheItemPool->save($cacheItem);
+        if ($resource instanceof ResourceInterface) {
+            $this->instanceRepository->set($resource);
         }
 
-        return $this->builder->buildObjectsFromRawData($rawData);
+        return $resource;
     }
 }

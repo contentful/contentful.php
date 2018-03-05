@@ -18,7 +18,6 @@ use Contentful\Core\File\ImageFile;
 use Contentful\Core\File\LocalUploadFile;
 use Contentful\Core\File\RemoteUploadFile;
 use Contentful\Core\Resource\ResourceArray;
-use Contentful\Delivery\Cache\InstanceCache;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\ContentType\Field;
@@ -28,7 +27,6 @@ use Contentful\Delivery\Resource\DeletedEntry;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Locale;
 use Contentful\Delivery\Resource\Space;
-use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * The ResourceBuilder is responsible for turning the responses from the API into instances of PHP classes.
@@ -43,36 +41,20 @@ class ResourceBuilder
     private $client;
 
     /**
-     * @var InstanceCache
+     * @var InstanceRepository
      */
-    private $instanceCache;
-
-    /**
-     * @var CacheItemPoolInterface
-     */
-    private $cacheItemPool;
-
-    /**
-     * The ID of the space this ResourceBuilder is responsible for.
-     *
-     * @var string
-     */
-    private $spaceId;
+    private $instanceRepository;
 
     /**
      * ResourceBuilder constructor.
      *
-     * @param Client                 $client
-     * @param InstanceCache          $instanceCache
-     * @param CacheItemPoolInterface $cacheItemPool
-     * @param string                 $spaceId
+     * @param Client             $client
+     * @param InstanceRepository $instanceRepository
      */
-    public function __construct(Client $client, InstanceCache $instanceCache, CacheItemPoolInterface $cacheItemPool, $spaceId)
+    public function __construct(Client $client, InstanceRepository $instanceRepository)
     {
         $this->client = $client;
-        $this->instanceCache = $instanceCache;
-        $this->cacheItemPool = $cacheItemPool;
-        $this->spaceId = $spaceId;
+        $this->instanceRepository = $instanceRepository;
     }
 
     /**
@@ -276,16 +258,6 @@ class ResourceBuilder
      */
     private function buildContentType(array $data)
     {
-        if ($this->instanceCache->hasContentType($data['sys']['id'])) {
-            return $this->instanceCache->getContentType($data['sys']['id']);
-        }
-
-        $key = \Contentful\Delivery\cache_key_content_type($this->client->getApi(), $data['sys']['id']);
-        $cacheItem = $this->cacheItemPool->getItem($key);
-        if ($cacheItem->isHit()) {
-            $data = \GuzzleHttp\json_decode($cacheItem->get(), true);
-        }
-
         $sys = $this->buildSystemProperties($data['sys']);
         $fields = \array_map([$this, 'buildContentTypeField'], $data['fields']);
         $displayField = isset($data['displayField']) ? $data['displayField'] : null;
@@ -296,7 +268,8 @@ class ResourceBuilder
             $displayField,
             $sys
         );
-        $this->instanceCache->addContentType($contentType);
+
+        $this->instanceRepository->set($contentType);
 
         return $contentType;
     }
@@ -508,17 +481,14 @@ class ResourceBuilder
      */
     private function buildSpace(array $data)
     {
-        if ($this->instanceCache->hasSpace()) {
-            return $this->instanceCache->getSpace();
-        }
-
         $locales = [];
         foreach ($data['locales'] as $locale) {
             $locales[] = new Locale($locale['code'], $locale['name'], $locale['fallbackCode'], $locale['default']);
         }
         $sys = $this->buildSystemProperties($data['sys']);
         $space = new Space($data['name'], $locales, $sys);
-        $this->instanceCache->setSpace($space);
+
+        $this->instanceRepository->set($space);
 
         return $space;
     }

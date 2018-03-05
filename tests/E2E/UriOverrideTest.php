@@ -21,7 +21,7 @@ class UriOverrideTest extends TestCase
     public function testBasicSync()
     {
         $client = new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', false, null, [
-            'uriOverride' => 'https://preview.contentful.com/',
+            'baseUri' => 'https://preview.contentful.com/',
         ]);
         $space = $client->getSpace();
 
