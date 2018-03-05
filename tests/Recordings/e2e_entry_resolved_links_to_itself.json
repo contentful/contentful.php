@@ -46,7 +46,7 @@
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi",
         "headers": {
             "Host": "cdn.contentful.com",
             "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.12",

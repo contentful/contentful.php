@@ -10,8 +10,9 @@
 namespace Contentful\Tests\Delivery\Integration;
 
 use Contentful\Delivery\Client;
+use Contentful\Tests\Delivery\TestCase;
 
-class ReviveJsonTest extends \PHPUnit_Framework_TestCase
+class ParseJsonTest extends TestCase
 {
     /**
      * @var Client
@@ -28,41 +29,41 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testReviveJsonInvalid()
+    public function testParseJsonInvalid()
     {
-        $this->client->reviveJson('{"sys": {"type": "}}');
+        $this->client->parseJson('{"sys": {"type": "}}');
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testReviveJsonSpaceMismatch()
+    public function testParseJsonSpaceMismatch()
     {
         $json = '{"sys": {"type": "Space","id": "wrongspace"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English", "fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon", "fallbackCode": "en-US"}]}';
 
-        $this->client->reviveJson($json);
+        $this->client->parseJson($json);
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testReviveJsonContentTypeSpaceMismatch()
+    public function testParseJsonContentTypeSpaceMismatch()
     {
         $json = '{"sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "wrongspace"}},"type": "ContentType","id": "cat","revision": 2,"createdAt": "2013-06-27T22:46:12.852Z","updatedAt": "2013-09-02T13:14:47.863Z"},"fields": [{"id": "name","name": "Name","type": "Text","required": true,"localized": true},{"id": "likes","name": "Likes","type": "Array","required": false,"localized": false,"items": {"type": "Symbol"}},{"id": "color","name": "Color","type": "Symbol","required": false,"localized": false},{"id": "bestFriend","name": "Best Friend","type": "Link","required": false,"localized": false,"linkType": "Entry"},{"id": "birthday","name": "Birthday","type": "Date","required": false,"localized": false},{"id": "lifes","name": "Lifes left","type": "Integer","required": false,"localized": false,"disabled": true},{"id": "lives","name": "Lives left","type": "Integer","required": false,"localized": false},{"id": "image","name": "Image","required": false,"localized": false,"type": "Link","linkType": "Asset"}],"name": "Cat","displayField": "name", "description": "Meow."}';
 
-        $this->client->reviveJson($json);
+        $this->client->parseJson($json);
     }
 
-    public function testReviveJsonSpace()
+    public function testParseJsonSpace()
     {
         $json = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
 
-        $obj = $this->client->reviveJson($json);
+        $obj = $this->client->parseJson($json);
 
         $this->assertJsonStringEqualsJsonString($json, \json_encode($obj));
     }
 
-    public function reviveJsonDataProvider()
+    public function parseJsonDataProvider()
     {
         return [
             ['{"fields": [{"id": "name","name": "Name","type": "Text","required": true,"localized": true},{"id": "likes","name": "Likes","type": "Array","required": false,"localized": false,"items": {"type": "Symbol"}},{"id": "color","name": "Color","type": "Symbol","required": false,"localized": false},{"id": "bestFriend","name": "Best Friend","type": "Link","required": false,"localized": false,"linkType": "Entry"},{"id": "birthday","name": "Birthday","type": "Date","required": false,"localized": false},{"id": "lifes","name": "Lifes left","type": "Integer","required": false,"localized": false,"disabled": true},{"id": "lives","name": "Lives left","type": "Integer","required": false,"localized": false},{"id": "image","name": "Image","required": false,"localized": false,"type": "Link","linkType": "Asset"}],"name": "Cat","displayField": "name","description": "Meow.","sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"type": "ContentType","id": "cat","revision": 2,"createdAt": "2013-06-27T22:46:12.852Z","updatedAt": "2013-09-02T13:14:47.863Z"}}'],
@@ -74,56 +75,56 @@ class ReviveJsonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider reviveJsonDataProvider
+     * @dataProvider parseJsonDataProvider
      */
-    public function testReviveAndEncodeJson($json)
+    public function testParseAndEncodeJson($json)
     {
         $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
-        $this->client->reviveJson($space);
+        $this->client->parseJson($space);
 
-        $obj = $this->client->reviveJson($json);
+        $obj = $this->client->parseJson($json);
 
         $this->assertJsonStringEqualsJsonString($json, \json_encode($obj));
     }
 
-    public function testReviveJsonEntry()
+    public function testParseJsonEntry()
     {
         $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
         $ct = '{"fields": [{"id": "name","name": "Name","type": "Text","required": true,"localized": true},{"id": "likes","name": "Likes","type": "Array","required": false,"localized": false,"items": {"type": "Symbol"}},{"id": "color","name": "Color","type": "Symbol","required": false,"localized": false},{"id": "bestFriend","name": "Best Friend","type": "Link","required": false,"localized": false,"linkType": "Entry"},{"id": "birthday","name": "Birthday","type": "Date","required": false,"localized": false},{"id": "lifes","name": "Lifes left","type": "Integer","required": false,"localized": false,"disabled": true},{"id": "lives","name": "Lives left","type": "Integer","required": false,"localized": false},{"id": "image","name": "Image","required": false,"localized": false,"type": "Link","linkType": "Asset"}],"name": "Cat","displayField": "name","description": "Meow.","sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"type": "ContentType","id": "cat","revision": 2,"createdAt": "2013-06-27T22:46:12.852Z","updatedAt": "2013-09-02T13:14:47.863Z"}}';
         $json = '{"fields": {"name": {"en-US": "Nyan Cat","tlh": "Nyan vIghro\'"},"likes": {"en-US": ["rainbows","fish"]},"color": {"en-US": "rainbow"},"bestFriend": {"en-US": {"sys": {"type": "Link","linkType": "Entry","id": "happycat"}}},"birthday": {"en-US": "2011-04-04T22:00:00Z"},"lives": {"en-US": 1337},"image": {"en-US": {"sys": {"type": "Link","linkType": "Asset","id": "nyancat"}}}},"sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"type": "Entry","contentType": {"sys": {"type": "Link","linkType": "ContentType","id": "cat"}},"id": "nyancat","revision": 5,"createdAt": "2013-06-27T22:46:19.513Z","updatedAt": "2013-09-04T09:19:39.027Z"}}';
 
-        $this->client->reviveJson($space);
-        $this->client->reviveJson($ct);
-        $obj = $this->client->reviveJson($json);
+        $this->client->parseJson($space);
+        $this->client->parseJson($ct);
+        $obj = $this->client->parseJson($json);
 
         $this->assertJsonStringEqualsJsonString($json, \json_encode($obj));
     }
 
-    public function testReviveJsonSingleLocaleEntry()
+    public function testParseJsonSingleLocaleEntry()
     {
         $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
         $ct = '{"fields": [{"id": "name","name": "Name","type": "Text","required": true,"localized": true},{"id": "likes","name": "Likes","type": "Array","required": false,"localized": false,"items": {"type": "Symbol"}},{"id": "color","name": "Color","type": "Symbol","required": false,"localized": false},{"id": "bestFriend","name": "Best Friend","type": "Link","required": false,"localized": false,"linkType": "Entry"},{"id": "birthday","name": "Birthday","type": "Date","required": false,"localized": false},{"id": "lifes","name": "Lifes left","type": "Integer","required": false,"localized": false,"disabled": true},{"id": "lives","name": "Lives left","type": "Integer","required": false,"localized": false},{"id": "image","name": "Image","required": false,"localized": false,"type": "Link","linkType": "Asset"}],"name": "Cat","displayField": "name","description": "Meow.","sys": {"space": {"sys": {"type": "Link","linkType": "Space","id": "cfexampleapi"}},"type": "ContentType","id": "cat","revision": 2,"createdAt": "2013-06-27T22:46:12.852Z","updatedAt": "2013-09-02T13:14:47.863Z"}}';
         $enUsJson = '{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"id":"nyancat","type":"Entry","createdAt":"2013-06-27T22:46:19.513Z","updatedAt":"2013-09-04T09:19:39.027Z","revision":5,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"cat"}},"locale":"en-US"},"fields":{"name":"Nyan Cat","likes":["rainbows","fish"],"color":"rainbow","bestFriend":{"sys":{"type":"Link","linkType":"Entry","id":"happycat"}},"birthday":"2011-04-04T22:00:00Z","lives":1337,"image":{"sys":{"type":"Link","linkType":"Asset","id":"nyancat"}}}}';
         $tlhJson = '{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"id":"nyancat","type":"Entry","createdAt":"2013-06-27T22:46:19.513Z","updatedAt":"2013-09-04T09:19:39.027Z","revision":5,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"cat"}},"locale":"tlh"},"fields":{"name":"Nyan vIghro\'","likes":["rainbows","fish"],"color":"rainbow","bestFriend":{"sys":{"type":"Link","linkType":"Entry","id":"happycat"}},"birthday":"2011-04-04T22:00:00Z","lives":1337,"image":{"sys":{"type":"Link","linkType":"Asset","id":"nyancat"}}}}';
 
-        $this->client->reviveJson($space);
-        $this->client->reviveJson($ct);
+        $this->client->parseJson($space);
+        $this->client->parseJson($ct);
 
-        $enUsObj = $this->client->reviveJson($enUsJson);
+        $enUsObj = $this->client->parseJson($enUsJson);
         $this->assertJsonStringEqualsJsonString($enUsJson, \json_encode($enUsObj));
 
-        $tlhObj = $this->client->reviveJson($tlhJson);
+        $tlhObj = $this->client->parseJson($tlhJson);
         $this->assertJsonStringEqualsJsonString($tlhJson, \json_encode($tlhObj));
     }
 
-    public function testReviveJsonSingleLocaleAsset()
+    public function testParseJsonSingleLocaleAsset()
     {
         $space = '{"sys": {"type": "Space","id": "cfexampleapi"},"name": "Contentful Example API","locales": [{"code": "en-US","default": true,"name": "English","fallbackCode": null},{"code": "tlh","default": false,"name": "Klingon","fallbackCode": "en-US"}]}';
-        $this->client->reviveJson($space);
+        $this->client->parseJson($space);
 
         $enUsJson = '{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"id":"nyancat","type":"Asset","createdAt":"2013-09-02T14:56:34.240Z","updatedAt":"2013-09-02T14:56:34.240Z","revision":1,"locale":"en-US"},"fields":{"title":"Nyan Cat","file":{"url":"//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png","details":{"size":12273,"image":{"width":250,"height":250}},"fileName":"Nyan_cat_250px_frame.png","contentType":"image/png"}}}';
 
-        $enUsObj = $this->client->reviveJson($enUsJson);
+        $enUsObj = $this->client->parseJson($enUsJson);
         $this->assertJsonStringEqualsJsonString($enUsJson, \json_encode($enUsObj));
     }
 }

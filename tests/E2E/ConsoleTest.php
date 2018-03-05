@@ -51,10 +51,10 @@ class ConsoleTest extends TestCase
 
         $cachePool = CacheItemPoolFactory::$pools['cfexampleapi-DELIVERY'];
 
-        $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-space-cfexampleapi'));
-        $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-contentType-cat'));
-        $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-contentType-dog'));
-        $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-contentType-human'));
+        $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-Space-cfexampleapi'));
+        $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-ContentType-cat'));
+        $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-ContentType-dog'));
+        $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-ContentType-human'));
     }
 
     /**
@@ -73,10 +73,10 @@ class ConsoleTest extends TestCase
 
         $cachePool = CacheItemPoolFactory::$pools['cfexampleapi-PREVIEW'];
 
-        $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-space-cfexampleapi'));
-        $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-contentType-cat'));
-        $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-contentType-dog'));
-        $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-contentType-human'));
+        $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-Space-cfexampleapi'));
+        $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-ContentType-cat'));
+        $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-ContentType-dog'));
+        $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-ContentType-human'));
     }
 
     /**
@@ -133,7 +133,7 @@ class ConsoleTest extends TestCase
         $this->assertContains('Cache cleared for space "cfexampleapi" using API "DELIVERY".', $output);
 
         $cachePool = CacheItemPoolFactory::$pools['cfexampleapi-DELIVERY'];
-        $this->assertFalse($cachePool->hasItem('contentful-DELIVERY-space-cfexampleapi'));
+        $this->assertFalse($cachePool->hasItem('contentful-DELIVERY-Space-cfexampleapi'));
     }
 
     /**
@@ -151,7 +151,7 @@ class ConsoleTest extends TestCase
         $this->assertContains('Cache cleared for space "cfexampleapi" using API "PREVIEW".', $output);
 
         $cachePool = CacheItemPoolFactory::$pools['cfexampleapi-PREVIEW'];
-        $this->assertFalse($cachePool->hasItem('contentful-PREVIEW-space-cfexampleapi'));
+        $this->assertFalse($cachePool->hasItem('contentful-PREVIEW-Space-cfexampleapi'));
     }
 
     /**

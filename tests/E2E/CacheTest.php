@@ -11,6 +11,7 @@ namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Delivery\Cache\CacheClearer;
 use Contentful\Delivery\Cache\CacheWarmer;
+use Contentful\Delivery\InstanceRepository;
 use Contentful\Tests\Delivery\TestCase;
 
 class CacheTest extends TestCase
@@ -29,14 +30,14 @@ class CacheTest extends TestCase
 
         $warmer->warmUp();
 
-        $cacheItem = self::$cache->getItem(\Contentful\Delivery\cache_key_space($client->getApi(), 'cfexampleapi'));
+        $cacheItem = self::$cache->getItem(InstanceRepository::generateCacheKey($client->getApi(), 'Space', 'cfexampleapi'));
         $this->assertTrue($cacheItem->isHit());
 
         $rawSpace = \json_decode($cacheItem->get(), true);
         $this->assertSame('cfexampleapi', $rawSpace['sys']['id']);
 
         $clearer->clear();
-        $this->assertFalse(self::$cache->hasItem(\Contentful\Delivery\cache_key_space($client->getApi(), 'cfexampleapi')));
+        $this->assertFalse(self::$cache->hasItem(InstanceRepository::generateCacheKey($client->getApi(), 'Space', 'cfexampleapi')));
 
         self::$cache->clear();
     }
@@ -88,7 +89,7 @@ class CacheTest extends TestCase
         $this->assertSame('cfexampleapi', $client->getSpace()->getId());
         $this->assertSame('cat', $client->getContentType('cat')->getId());
 
-        $cacheItem = self::$cache->getItem(\Contentful\Delivery\cache_key_space($client->getApi(), 'cfexampleapi'));
+        $cacheItem = self::$cache->getItem(InstanceRepository::generateCacheKey($client->getApi(), 'Space', 'cfexampleapi'));
         $this->assertTrue($cacheItem->isHit());
 
         $rawSpace = \json_decode($cacheItem->get(), true);
@@ -108,7 +109,7 @@ class CacheTest extends TestCase
 
         // This fake content type does not contain fields
         // which will actually be in the real API request.
-        $client->reviveJson('{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"88dyiqcr7go8"}},"id":"person","type":"ContentType","createdAt":"2018-02-19T16:11:55.140Z","updatedAt":"2018-02-19T16:11:55.140Z","revision":1 },"displayField":"name","name":"Person","description":"","fields":[]}');
+        $client->parseJson('{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"88dyiqcr7go8"}},"id":"person","type":"ContentType","createdAt":"2018-02-19T16:11:55.140Z","updatedAt":"2018-02-19T16:11:55.140Z","revision":1 },"displayField":"name","name":"Person","description":"","fields":[]}');
 
         $errorFields = ['name', 'jobTitle', 'picture'];
         // When building entries, missing fields are supposed to trigger

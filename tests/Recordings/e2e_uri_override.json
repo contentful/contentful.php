@@ -1,7 +1,7 @@
 [{
     "request": {
         "method": "GET",
-        "url": "https:\/\/preview.contentful.com\/spaces\/cfexampleapi\/",
+        "url": "https:\/\/preview.contentful.com\/spaces\/cfexampleapi",
         "headers": {
             "Host": "preview.contentful.com",
             "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",

@@ -34,7 +34,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     {
         $testingUrl = \getenv('CONTENTFUL_CDA_SDK_TESTING_URL');
         $options = $testingUrl
-            ? ['uriOverride' => $testingUrl]
+            ? ['baseUri' => $testingUrl]
             : [];
 
         switch ($key) {
