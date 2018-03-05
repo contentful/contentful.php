@@ -1,0 +1,26 @@
+{
+    "sys": {
+        "type": "Space",
+        "id": "rue07lqzt1co"
+    },
+    "name": "Product Catalog App (App Store)",
+    "locales": [{
+        "sys": {
+            "type": "Locale",
+            "id": "enus"
+        },
+        "code": "en-US",
+        "default": true,
+        "name": "U.S. English",
+        "fallbackCode": null
+    }, {
+        "sys": {
+            "type": "Locale",
+            "id": "tlh"
+        },
+        "code": "tlh",
+        "default": false,
+        "name": "Klingon",
+        "fallbackCode": "en-US"
+    }]
+}

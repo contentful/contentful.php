@@ -1,0 +1,59 @@
+{
+    "fields": [{
+        "name": "Company name",
+        "id": "companyName",
+        "type": "Text",
+        "required": true
+    }, {
+        "name": "Logo",
+        "id": "logo",
+        "type": "Link",
+        "linkType": "Asset"
+    }, {
+        "name": "Description",
+        "id": "companyDescription",
+        "type": "Text"
+    }, {
+        "name": "Website",
+        "id": "website",
+        "type": "Symbol"
+    }, {
+        "name": "Twitter",
+        "id": "twitter",
+        "type": "Symbol"
+    }, {
+        "name": "Email",
+        "id": "email",
+        "type": "Symbol"
+    }, {
+        "name": "Phone #",
+        "id": "phone",
+        "type": "Array",
+        "items": {
+            "type": "Symbol"
+        }
+    }],
+    "name": "Brand",
+    "displayField": "companyName",
+    "sys": {
+        "space": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "rue07lqzt1co"
+            }
+        },
+        "environment": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Environment",
+                "id": "master"
+            }
+        },
+        "type": "ContentType",
+        "id": "sFzTZbSuM8coEwygeUYes",
+        "revision": 1,
+        "createdAt": "2015-01-15T16:02:08.382Z",
+        "updatedAt": "2015-01-15T16:02:08.382Z"
+    }
+}

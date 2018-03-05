@@ -1,0 +1,9 @@
+{
+    "name": "oneField",
+    "id": "one",
+    "type": "Link",
+    "required": true,
+    "localized": true,
+    "disabled": true,
+    "linkType": "Asset"
+}

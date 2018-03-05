@@ -109,7 +109,7 @@ class CacheTest extends TestCase
 
         // This fake content type does not contain fields
         // which will actually be in the real API request.
-        $client->parseJson('{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"88dyiqcr7go8"}},"id":"person","type":"ContentType","createdAt":"2018-02-19T16:11:55.140Z","updatedAt":"2018-02-19T16:11:55.140Z","revision":1 },"displayField":"name","name":"Person","description":"","fields":[]}');
+        $client->parseJson($this->getFixtureContent('invalid_content_type.json'));
 
         $errorFields = ['name', 'jobTitle', 'picture'];
         // When building entries, missing fields are supposed to trigger

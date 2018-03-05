@@ -1,0 +1,11 @@
+{
+    "name": "manyField",
+    "id": "many",
+    "type": "Array",
+    "required": false,
+    "localized": true,
+    "items": {
+        "type": "Link",
+        "linkType": "Asset"
+    }
+}

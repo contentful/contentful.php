@@ -1,0 +1,32 @@
+{
+    "sys": {
+        "space": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "cfexampleapi"
+            }
+        },
+        "id": "nyancat",
+        "type": "Asset",
+        "createdAt": "2013-09-02T14:56:34.240Z",
+        "updatedAt": "2013-09-02T14:56:34.240Z",
+        "revision": 1,
+        "locale": "en-US"
+    },
+    "fields": {
+        "title": "Nyan Cat",
+        "file": {
+            "url": "//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png",
+            "details": {
+                "size": 12273,
+                "image": {
+                    "width": 250,
+                    "height": 250
+                }
+            },
+            "fileName": "Nyan_cat_250px_frame.png",
+            "contentType": "image/png"
+        }
+    }
+}

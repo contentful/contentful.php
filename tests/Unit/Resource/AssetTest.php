@@ -16,8 +16,9 @@ use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\Locale;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
+use Contentful\Tests\Delivery\TestCase;
 
-class AssetTest extends \PHPUnit_Framework_TestCase
+class AssetTest extends TestCase
 {
     /**
      * @var Space
@@ -42,7 +43,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
 
         $defaultLocale = new Locale('en-US', 'English (United States)', null, true);
         $klingonLocale = new Locale('tlh', 'Klingon', 'en-US');
-        $germanLocale = new Locale('de-DE', 'German', 'en-US');
+        $italianLocale = new Locale('it-IT', 'Italian', 'en-US');
 
         $space->method('getId')
             ->willReturn('cfexampleapi');
@@ -50,13 +51,13 @@ class AssetTest extends \PHPUnit_Framework_TestCase
             ->willReturn([
                 $defaultLocale,
                 $klingonLocale,
-                $germanLocale,
+                $italianLocale,
             ]);
         $space->method('getLocale')
             ->will(self::returnValueMap([
                 ['en-US', $defaultLocale],
                 ['tlh', $klingonLocale],
-                ['de-DE', $germanLocale],
+                ['it-IT', $italianLocale],
             ]));
         $space->method('getDefaultLocale')
             ->willReturn($defaultLocale);
@@ -79,11 +80,11 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         $this->asset = new Asset(
             [
                 'en-US' => 'Nyan Cat',
-                'de-DE' => 'Kater Karlo',
+                'it-IT' => 'Gatto Nyan',
             ],
             [
                 'en-US' => 'A picture of Nyan Cat',
-                'de-DE' => 'Ein Bild von Nyan Cat',
+                'it-IT' => 'Una foto del Gatto Nyan',
             ],
             ['en-US' => $this->file],
             new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new DateTimeImmutable('2013-09-02T14:56:34.240Z'), new DateTimeImmutable('2013-09-02T14:56:34.240Z'))
@@ -111,7 +112,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         $asset = $this->asset;
 
         $this->assertSame('Nyan Cat', $asset->getTitle());
-        $this->assertSame('Kater Karlo', $asset->getTitle('de-DE'));
+        $this->assertSame('Gatto Nyan', $asset->getTitle('it-IT'));
         $this->assertSame('Nyan Cat', $asset->getTitle('en-US'));
         $this->assertSame('Nyan Cat', $asset->getTitle('tlh'));
     }
@@ -121,14 +122,14 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         $asset = $this->asset;
 
         $this->assertSame('A picture of Nyan Cat', $asset->getDescription());
-        $this->assertSame('Ein Bild von Nyan Cat', $asset->getDescription('de-DE'));
+        $this->assertSame('Una foto del Gatto Nyan', $asset->getDescription('it-IT'));
         $this->assertSame('A picture of Nyan Cat', $asset->getDescription('en-US'));
         $this->assertSame('A picture of Nyan Cat', $asset->getDescription('tlh'));
     }
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Trying to use invalid locale xyz. Available locales are en-US, tlh, de-DE.
+     * @expectedExceptionMessage Trying to use invalid locale xyz. Available locales are en-US, tlh, it-IT.
      */
     public function testGetTitleWithInvalidLocale()
     {
@@ -137,7 +138,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Trying to use invalid locale xyz. Available locales are en-US, tlh, de-DE.
+     * @expectedExceptionMessage Trying to use invalid locale xyz. Available locales are en-US, tlh, it-IT.
      */
     public function testGetDescriptionWithInvalidLocale()
     {
@@ -170,7 +171,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
 
     public function testJsonSerialize()
     {
-        $this->assertJsonStringEqualsJsonString('{"fields":{"title":{"en-US":"Nyan Cat","de-DE":"Kater Karlo"},"description":{"en-US":"A picture of Nyan Cat","de-DE":"Ein Bild von Nyan Cat"},"file":{"en-US":{"fileName":"Nyan_cat_250px_frame.png","contentType":"image/png","details":{"image":{"width":250,"height":250},"size":12273},"url":"//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"}}},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"type":"Asset","id":"nyancat","revision":1,"createdAt":"2013-09-02T14:56:34.240Z","updatedAt":"2013-09-02T14:56:34.240Z"}}', \json_encode($this->asset));
+        $this->assertJsonFixtureEqualsJsonObject('serialize.json', $this->asset);
     }
 
     public function testJsonSerializeWithoutDescription()
@@ -182,6 +183,6 @@ class AssetTest extends \PHPUnit_Framework_TestCase
             new SystemProperties('nyancat', 'Asset', $this->space, null, 1, new DateTimeImmutable('2013-09-02T14:56:34.240Z'), new DateTimeImmutable('2013-09-02T14:56:34.240Z'))
         );
 
-        $this->assertJsonStringEqualsJsonString('{"fields":{"title":{"en-US":"Nyan Cat"},"file":{"en-US":{"fileName":"Nyan_cat_250px_frame.png","contentType":"image/png","details":{"image":{"width":250,"height":250},"size":12273},"url":"//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"}}},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"type":"Asset","id":"nyancat","revision":1,"createdAt":"2013-09-02T14:56:34.240Z","updatedAt":"2013-09-02T14:56:34.240Z"}}', \json_encode($asset));
+        $this->assertJsonFixtureEqualsJsonObject('serialize_no_description.json', $asset);
     }
 }

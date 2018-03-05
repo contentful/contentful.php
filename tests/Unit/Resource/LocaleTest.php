@@ -10,8 +10,9 @@
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
 use Contentful\Delivery\Resource\Locale;
+use Contentful\Tests\Delivery\TestCase;
 
-class LocaleTest extends \PHPUnit_Framework_TestCase
+class LocaleTest extends TestCase
 {
     public function testGetters()
     {
@@ -37,6 +38,6 @@ class LocaleTest extends \PHPUnit_Framework_TestCase
     {
         $locale = new Locale('en-US', 'English (United States)', null);
 
-        $this->assertJsonStringEqualsJsonString('{"code":"en-US","name":"English (United States)","default":false,"fallbackCode":null}', \json_encode($locale));
+        $this->assertJsonFixtureEqualsJsonObject('serialize.json', $locale);
     }
 }

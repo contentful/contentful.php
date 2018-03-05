@@ -1,0 +1,25 @@
+{
+    "sys": {
+        "space": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "rue07lqzt1co"
+            }
+        },
+        "environment": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Environment",
+                "id": "master"
+            }
+        },
+        "id": "nyancat",
+        "type": "Asset",
+        "createdAt": "2013-09-02T14:56:34.240Z",
+        "updatedAt": "2013-09-02T14:56:34.240Z",
+        "revision": 1,
+        "locale": "en-US"
+    },
+    "fields": {}
+}

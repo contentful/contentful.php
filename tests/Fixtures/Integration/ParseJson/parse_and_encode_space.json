@@ -1,0 +1,26 @@
+{
+    "sys": {
+        "type": "Space",
+        "id": "cfexampleapi"
+    },
+    "name": "Contentful Example API",
+    "locales": [{
+        "sys": {
+            "type": "Locale",
+            "id": "enus"
+        },
+        "code": "en-US",
+        "default": true,
+        "name": "English",
+        "fallbackCode": null
+    }, {
+        "sys": {
+            "type": "Locale",
+            "id": "tlh"
+        },
+        "code": "tlh",
+        "default": false,
+        "name": "Klingon",
+        "fallbackCode": "en-US"
+    }]
+}

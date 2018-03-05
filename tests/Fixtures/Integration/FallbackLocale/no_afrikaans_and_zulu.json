@@ -1,0 +1,37 @@
+{
+    "sys": {
+        "space": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "7dh3w86is8ls"
+            }
+        },
+        "environment": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Environment",
+                "id": "master"
+            }
+        },
+        "id": "no-af-and-no-zu-za",
+        "type": "Entry",
+        "createdAt": "2016-07-04T16:10:28.180Z",
+        "updatedAt": "2016-07-05T13:22:00.251Z",
+        "revision": 2,
+        "contentType": {
+            "sys": {
+                "type": "Link",
+                "linkType": "ContentType",
+                "id": "sampleType"
+            }
+        }
+    },
+    "fields": {
+        "title": {
+            "bs-BA": "bs-BA",
+            "en-US": "no-af-and-no-zu-ZA",
+            "ne-NP": "ne-NP"
+        }
+    }
+}

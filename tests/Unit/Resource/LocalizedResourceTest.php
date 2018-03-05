@@ -11,8 +11,9 @@ namespace Contentful\Tests\Delivery\Unit\Resource;
 
 use Contentful\Delivery\Resource\Locale;
 use Contentful\Delivery\Resource\LocalizedResource;
+use Contentful\Tests\Delivery\TestCase;
 
-class LocalizedResourceTest extends \PHPUnit_Framework_TestCase
+class LocalizedResourceTest extends TestCase
 {
     public function testGetDefaultLocale()
     {

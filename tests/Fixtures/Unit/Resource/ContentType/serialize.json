@@ -1,0 +1,46 @@
+{
+    "name": "Human",
+    "description": "Also called homo sapiens",
+    "displayField": "name",
+    "sys": {
+        "space": {
+            "sys": {
+                "id": "cfexampleapi",
+                "linkType": "Space",
+                "type": "Link"
+            }
+        },
+        "id": "human",
+        "type": "ContentType",
+        "revision": 3,
+        "createdAt": "2013-06-27T22:46:14.133Z",
+        "updatedAt": "2013-09-02T15:10:26.818Z"
+    },
+    "fields": [{
+        "id": "name",
+        "name": "Name",
+        "type": "Text",
+        "required": true,
+        "localized": false
+    }, {
+        "id": "likes",
+        "name": "Likes",
+        "type": "Array",
+        "required": false,
+        "localized": false,
+        "items": {
+            "type": "Symbol"
+        }
+    }, {
+        "id": "image",
+        "name": "Image",
+        "type": "Array",
+        "required": false,
+        "localized": false,
+        "disabled": true,
+        "items": {
+            "type": "Link",
+            "linkType": "Asset"
+        }
+    }]
+}

@@ -1,0 +1,52 @@
+{
+    "sys": {
+        "type": "Environment",
+        "id": "master"
+    },
+    "locales": [{
+        "sys": {
+            "type": "Locale",
+            "id": "enus"
+        },
+        "code": "en-US",
+        "default": true,
+        "name": "U.S. English",
+        "fallbackCode": null
+    }, {
+        "sys": {
+            "type": "Locale",
+            "id": "af"
+        },
+        "code": "af",
+        "default": false,
+        "name": "Afrikaans",
+        "fallbackCode": "zu-ZA"
+    }, {
+        "sys": {
+            "type": "Locale",
+            "id": "zuza"
+        },
+        "code": "zu-ZA",
+        "default": false,
+        "name": "Zulu (South Africa)",
+        "fallbackCode": "en-US"
+    }, {
+        "sys": {
+            "type": "Locale",
+            "id": "bsba"
+        },
+        "code": "bs-BA",
+        "default": false,
+        "name": "Bosnian (Bosnia and Herzegovina)",
+        "fallbackCode": "en-US"
+    }, {
+        "sys": {
+            "type": "Locale",
+            "id": "nenp"
+        },
+        "code": "ne-NP",
+        "default": false,
+        "name": "Nepali (Nepal)",
+        "fallbackCode": null
+    }]
+}

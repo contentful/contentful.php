@@ -1,0 +1,17 @@
+{
+    "sys": {
+        "id": "master",
+        "type": "Environment"
+    },
+    "locales": [{
+        "code": "en-US",
+        "default": false,
+        "name": "English (United States)",
+        "fallbackCode": "it-IT"
+    }, {
+        "code": "it-IT",
+        "default": true,
+        "name": "Italian (Italy)",
+        "fallbackCode": null
+    }]
+}

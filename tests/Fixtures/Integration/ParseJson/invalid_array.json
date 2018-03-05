@@ -1,0 +1,28 @@
+{
+    "sys": {
+        "type": "Array"
+    },
+    "items": [{
+        "sys": {
+            "type": "Entry",
+            "id": "something",
+            "space": {
+                "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "invalidSpace"
+                }
+            },
+            "environment": {
+                "sys": {
+                    "type": "Link",
+                    "linkType": "Environment",
+                    "id": "invalidEnvironment"
+                }
+            }
+        }
+    }],
+    "total": 1,
+    "limit": 0,
+    "skip": 0
+}

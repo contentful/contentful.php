@@ -1,0 +1,16 @@
+{
+    "sys": {
+        "type": "Environment",
+        "id": "master"
+    },
+    "locales": [{
+        "sys": {
+            "type": "Locale",
+            "id": "enus"
+        },
+        "code": "en-US",
+        "default": true,
+        "name": "U.S. English",
+        "fallbackCode": null
+    }]
+}

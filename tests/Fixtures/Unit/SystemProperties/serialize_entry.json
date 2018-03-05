@@ -1,0 +1,21 @@
+{
+    "id": "123",
+    "type": "Type",
+    "space": {
+        "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "cfexampleapi"
+        }
+    },
+    "contentType": {
+        "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "human"
+        }
+    },
+    "revision": 1,
+    "createdAt": "2014-08-11T08:30:42.559Z",
+    "updatedAt": "2014-08-12T08:30:42.559Z"
+}

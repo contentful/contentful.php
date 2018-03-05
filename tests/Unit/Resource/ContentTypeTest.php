@@ -14,8 +14,9 @@ use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\ContentType\Field;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
+use Contentful\Tests\Delivery\TestCase;
 
-class ContentTypeTest extends \PHPUnit_Framework_TestCase
+class ContentTypeTest extends TestCase
 {
     public function testGetter()
     {
@@ -27,7 +28,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
         $contentType = new ContentType(
             'Human',
-            'Also called homo sapien',
+            'Also called homo sapiens',
             [
                 $displayField,
                 new Field('likes', 'Likes', 'Array', null, 'Symbol', null),
@@ -39,7 +40,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('human', $contentType->getId());
         $this->assertSame('Human', $contentType->getName());
-        $this->assertSame('Also called homo sapien', $contentType->getDescription());
+        $this->assertSame('Also called homo sapiens', $contentType->getDescription());
         $this->assertSame($space, $contentType->getSpace());
         $this->assertSame($displayField, $contentType->getDisplayField());
         $this->assertSame('2013-06-27T22:46:14.133Z', (string) $contentType->getCreatedAt());
@@ -89,7 +90,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
         $contentType = new ContentType(
             'Human',
-            'Also called homo sapien',
+            'Also called homo sapiens',
             [
                 $displayField,
                 new Field('likes', 'Likes', 'Array', null, 'Symbol', null),
@@ -99,9 +100,6 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
             new SystemProperties('human', 'ContentType', $space, null, 3, new DateTimeImmutable('2013-06-27T22:46:14.133Z'), new DateTimeImmutable('2013-09-02T15:10:26.818Z'))
         );
 
-        $this->assertJsonStringEqualsJsonString(
-            '{"name":"Human","description":"Also called homo sapien","displayField":"name","sys":{"id":"human","type":"ContentType","space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"revision":3,"createdAt":"2013-06-27T22:46:14.133Z","updatedAt":"2013-09-02T15:10:26.818Z"},"fields":[{"name":"Name","id":"name","type":"Text","required":true,"localized":false},{"name":"Likes","id":"likes","type":"Array","required":false,"localized":false,"items":{"type":"Symbol"}},{"name":"Image","id":"image","type":"Array","required":false,"localized":false,"disabled":true,"items":{"type":"Link","linkType":"Asset"}}]}',
-            \json_encode($contentType)
-        );
+        $this->assertJsonFixtureEqualsJsonObject('serialize.json', $contentType);
     }
 }
