@@ -129,7 +129,7 @@ class AssetTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Trying to use invalid locale xyz. Available locales are en-US, tlh, it-IT.
+     * @expectedExceptionMessage Trying to use invalid locale "xyz", available locales are "en-US, tlh, it-IT".
      */
     public function testGetTitleWithInvalidLocale()
     {
@@ -138,7 +138,7 @@ class AssetTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Trying to use invalid locale xyz. Available locales are en-US, tlh, it-IT.
+     * @expectedExceptionMessage Trying to use invalid locale "xyz", available locales are "en-US, tlh, it-IT".
      */
     public function testGetDescriptionWithInvalidLocale()
     {

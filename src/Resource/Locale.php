@@ -17,22 +17,22 @@ class Locale extends BaseResource
     /**
      * @var string
      */
-    private $code;
+    protected $code;
 
     /**
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
      */
-    private $fallbackCode;
+    protected $fallbackCode;
 
     /**
      * @var bool
      */
-    private $default;
+    protected $default;
 
     /**
      * Locale constructor.

@@ -128,7 +128,7 @@ class Manager
         $token = $this->getTokenFromResponse($data);
         $done = isset($data['nextSyncUrl']);
         $items = \array_map(function ($item) {
-            return $this->builder->buildObjectsFromRawData($item);
+            return $this->builder->build($item);
         }, $data['items']);
 
         return new Result($items, $token, $done);

@@ -27,29 +27,34 @@ abstract class LocalizedResource extends BaseResource
      *
      * @var string[]
      */
-    protected $availableLocales = [];
+    protected $locales = [];
+
+    public function __construct(array $locales = [])
+    {
+        $this->setLocales($locales);
+    }
 
     /**
-     * LocalizedResource constructor.
-     *
-     * @param Locale[] $availableLocales the locales available in the space this resource belongs to
+     * @param Locale[] $locales The locales available in the space this resource belongs to
      */
-    public function __construct(array $availableLocales)
+    public function setLocales(array $locales)
     {
-        foreach ($availableLocales as $locale) {
+        foreach ($locales as $locale) {
             if ($locale->isDefault()) {
                 $this->localeCode = $locale->getCode();
             }
-            $this->availableLocales[] = $locale->getCode();
+
+            $this->locales[] = $locale->getCode();
         }
     }
 
     /**
-     * Set the locale for this instance. All future calls to a getter will return the information for this locale.
+     * Set the locale for this instance.
+     * All future calls to a getter will return the information for this locale.
      *
-     * @param Locale|string $locale the locale code as string or an instance of Locale
+     * @param Locale|string $locale The locale code as string or an instance of Locale
      *
-     * @throws \InvalidArgumentException when $locale is not one of the locales supported by the space
+     * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space
      *
      * @return $this
      */
@@ -59,8 +64,12 @@ abstract class LocalizedResource extends BaseResource
             $locale = $locale->getCode();
         }
 
-        if (!\in_array($locale, $this->availableLocales, true)) {
-            throw new \InvalidArgumentException('Trying to switch to invalid locale '.$locale.'. Available locales are '.\implode(', ', $this->availableLocales).'.');
+        if (!\in_array($locale, $this->locales, true)) {
+            throw new \InvalidArgumentException(\sprintf(
+                'Trying to switch to invalid locale "%s", available locales are "%s".',
+                $locale,
+                \implode(', ', $this->locales)
+            ));
         }
 
         $this->localeCode = $locale;
@@ -95,8 +104,12 @@ abstract class LocalizedResource extends BaseResource
             return $this->localeCode;
         }
 
-        if (!\in_array($input, $this->availableLocales, true)) {
-            throw new \InvalidArgumentException('Trying to use invalid locale '.$input.'. Available locales are '.\implode(', ', $this->availableLocales).'.');
+        if (!\in_array($input, $this->locales, true)) {
+            throw new \InvalidArgumentException(\sprintf(
+                'Trying to use invalid locale "%s", available locales are "%s".',
+                $input,
+                \implode(', ', $this->locales)
+            ));
         }
 
         return $input;
@@ -120,9 +133,10 @@ abstract class LocalizedResource extends BaseResource
                 // We've reach the end of the fallback chain and there's no value
                 return null;
             }
+
             ++$loopCounter;
             // The number is arbitrary
-            if ($loopCounter > 128) {
+            if ($loopCounter > 100) {
                 throw new \RuntimeException('Possible endless loop when trying to walk the locale fallback chain.');
             }
         }

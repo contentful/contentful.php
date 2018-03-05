@@ -19,22 +19,12 @@ class Space extends BaseResource
     /**
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * @var Locale[]
      */
-    private $locales = [];
-
-    /**
-     * @var Locale[]
-     */
-    private $localesMap = [];
-
-    /**
-     * @var Locale
-     */
-    private $defaultLocale;
+    protected $locales = [];
 
     /**
      * Space constructor.
@@ -68,8 +58,6 @@ class Space extends BaseResource
     }
 
     /**
-     * Returns the list of all locales supported by this Space.
-     *
      * @return Locale[]
      */
     public function getLocales()
@@ -78,29 +66,42 @@ class Space extends BaseResource
     }
 
     /**
-     * @param  $localeCode string Code of the locale to fetch the object for
+     * @param string $code Code of the locale to fetch the object for
      *
-     * @throws \RuntimeException When no locale with the given code exists
+     * @throws \InvalidArgumentException When no locale with the given code exists
      *
      * @return Locale
      */
-    public function getLocale($localeCode)
+    public function getLocale($code)
     {
-        if (!isset($this->localesMap[$localeCode])) {
-            throw new \InvalidArgumentException("No Locale with the code '".$localeCode."' exists in this space.'");
+        foreach ($this->locales as $locale) {
+            if ($locale->getCode() === $code) {
+                return $locale;
+            }
         }
 
-        return $this->localesMap[$localeCode];
+        throw new \InvalidArgumentException(\sprintf(
+            'No locale with code "%s" exists in this environment.',
+            $code
+        ));
     }
 
     /**
      * Returns the default locale for this space.
      *
+     * @throws \RuntimeException
+     *
      * @return Locale
      */
     public function getDefaultLocale()
     {
-        return $this->defaultLocale;
+        foreach ($this->locales as $locale) {
+            if ($locale->isDefault()) {
+                return $locale;
+            }
+        }
+
+        throw new \RuntimeException('No locale marked as default exists in this environment.');
     }
 
     /**

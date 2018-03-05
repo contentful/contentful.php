@@ -24,28 +24,28 @@ class ContentType extends BaseResource
      *
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * Description of the Content Type.
      *
      * @var string|null
      */
-    private $description;
+    protected $description;
 
     /**
      * The fields, keyed by ID.
      *
      * @var Field[]
      */
-    private $fields = [];
+    protected $fields = [];
 
     /**
      * ID of main field used for display.
      *
      * @var string|null
      */
-    private $displayField;
+    protected $displayField;
 
     /**
      * ContentType constructor.
