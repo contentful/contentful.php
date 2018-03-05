@@ -18,17 +18,17 @@ class Asset extends LocalizedResource
     /**
      * @var array
      */
-    private $title;
+    protected $title;
 
     /**
      * @var array
      */
-    private $description;
+    protected $description;
 
     /**
      * @var array
      */
-    private $file;
+    protected $file;
 
     /**
      * Asset constructor.
@@ -49,68 +49,56 @@ class Asset extends LocalizedResource
     }
 
     /**
-     * The title of the asset.
-     *
      * @param Locale|string|null $locale
-     *
-     * @throws \InvalidArgumentException when $locale is not one of the locales supported by the space
      *
      * @return string|null
      */
     public function getTitle($locale = null)
     {
-        $localeCode = $this->getLocaleFromInput($locale);
-
-        // This checks happens after the call to getLocaleFromInput to make sure the Exception for invalid locales is still thrown.
-        if (null === $this->title) {
-            return null;
-        }
-
-        $localeCode = $this->loopThroughFallbackChain($this->title, $localeCode, $this->getSpace());
-
-        return null === $localeCode ? null : $this->title[$localeCode];
+        return $this->getProperty('title', $locale);
     }
 
     /**
      * @param Locale|string|null $locale
-     *
-     * @throws \InvalidArgumentException when $locale is not one of the locales supported by the space
      *
      * @return string|null
      */
     public function getDescription($locale = null)
     {
-        $localeCode = $this->getLocaleFromInput($locale);
-
-        // This checks happens after the call to getLocaleFromInput to make sure the Exception for invalid locales is still thrown.
-        if (null === $this->description) {
-            return null;
-        }
-
-        $localeCode = $this->loopThroughFallbackChain($this->description, $localeCode, $this->getSpace());
-
-        return null === $localeCode ? null : $this->description[$localeCode];
+        return $this->getProperty('description', $locale);
     }
 
     /**
      * @param Locale|string|null $locale
      *
-     * @throws \InvalidArgumentException when $locale is not one of the locales supported by the space
-     *
-     * @return FileInterface
+     * @return FileInterface|null
      */
     public function getFile($locale = null)
     {
+        return $this->getProperty('file', $locale);
+    }
+
+    /**
+     * @param string             $property
+     * @param Locale|string|null $locale
+     *
+     * @throws \InvalidArgumentException when $locale is not one of the locales supported by the space
+     *
+     * @return string|FileInterface|null
+     */
+    private function getProperty($property, $locale = null)
+    {
         $localeCode = $this->getLocaleFromInput($locale);
 
-        // This checks happens after the call to getLocaleFromInput to make sure the Exception for invalid locales is still thrown.
-        if (null === $this->file) {
+        // This checks happens after the call to getLocaleFromInput
+        // to make sure the Exception for invalid locales is still thrown.
+        if (null === $this->$property) {
             return null;
         }
 
-        $localeCode = $this->loopThroughFallbackChain($this->file, $localeCode, $this->getSpace());
+        $localeCode = $this->loopThroughFallbackChain($this->$property, $localeCode, $this->sys->getSpace());
 
-        return null === $localeCode ? null : $this->file[$localeCode];
+        return null === $localeCode ? null : $this->{$property}[$localeCode];
     }
 
     /**

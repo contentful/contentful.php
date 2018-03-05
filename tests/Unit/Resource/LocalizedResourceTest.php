@@ -51,7 +51,7 @@ class LocalizedResourceTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to switch to invalid locale fr-FR. Available locales are de-DE, en-US.
+     * @expectedExceptionMessage Trying to switch to invalid locale "fr-FR", available locales are "de-DE, en-US".
      */
     public function testSetGetLocaleInvalid()
     {
@@ -97,7 +97,7 @@ class LocalizedResourceTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to use invalid locale en-GB. Available locales are de-DE, en-US.
+     * @expectedExceptionMessage Trying to use invalid locale "en-GB", available locales are "de-DE, en-US".
      */
     public function testGetLocaleFromInputInvalid()
     {

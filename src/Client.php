@@ -330,7 +330,7 @@ class Client extends BaseClient
             ));
         }
 
-        return $this->builder->buildObjectsFromRawData($data);
+        return $this->builder->build($data);
     }
 
     /**
@@ -413,7 +413,7 @@ class Client extends BaseClient
     private function requestAndBuild($path, array $options = [])
     {
         $response = $this->request('GET', $path, $options);
-        $resource = $this->builder->buildObjectsFromRawData($response);
+        $resource = $this->builder->build($response);
 
         if ($resource instanceof ResourceInterface) {
             $this->instanceRepository->set($resource);

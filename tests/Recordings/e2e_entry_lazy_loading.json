@@ -4,8 +4,8 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/entries\/nyancat",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1"
@@ -18,7 +18,7 @@
             "message": "OK"
         },
         "headers": {
-            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
             "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Expose-Headers": "Etag",
@@ -28,17 +28,17 @@
             "ETag": "\"aceb35608529eb4914a59cf65a0b18e2\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "135e271f44832fc29ac1416355ade66f",
+            "X-Contentful-Request-Id": "456b1bc8a2de78871fb6093b3bcbb360",
             "Content-Length": "882",
             "Accept-Ranges": "bytes",
-            "Date": "Thu, 06 Jul 2017 11:37:00 GMT",
+            "Date": "Mon, 05 Mar 2018 15:24:46 GMT",
             "Via": "1.1 varnish",
-            "Age": "1",
+            "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1548-HHN",
-            "X-Cache": "HIT",
-            "X-Cache-Hits": "1",
-            "X-Timer": "S1499341020.040141,VS0,VE0",
+            "X-Served-By": "cache-hhn1550-HHN",
+            "X-Cache": "MISS",
+            "X-Cache-Hits": "0",
+            "X-Timer": "S1520263486.788803,VS0,VE337",
             "Vary": "Accept-Encoding"
         },
         "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"nyancat\",\n    \"type\": \"Entry\",\n    \"createdAt\": \"2013-06-27T22:46:19.513Z\",\n    \"updatedAt\": \"2013-09-04T09:19:39.027Z\",\n    \"revision\": 5,\n    \"contentType\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"ContentType\",\n        \"id\": \"cat\"\n      }\n    },\n    \"locale\": \"en-US\"\n  },\n  \"fields\": {\n    \"name\": \"Nyan Cat\",\n    \"likes\": [\n      \"rainbows\",\n      \"fish\"\n    ],\n    \"color\": \"rainbow\",\n    \"bestFriend\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Entry\",\n        \"id\": \"happycat\"\n      }\n    },\n    \"birthday\": \"2011-04-04T22:00:00+00:00\",\n    \"lives\": 1337,\n    \"image\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Asset\",\n        \"id\": \"nyancat\"\n      }\n    }\n  }\n}\n"
@@ -49,8 +49,8 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1"
@@ -63,7 +63,7 @@
             "message": "OK"
         },
         "headers": {
-            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
             "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Expose-Headers": "Etag",
@@ -73,17 +73,17 @@
             "ETag": "\"17f6b9f68596176aed46fa020bf235af\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "619faf018600aa22a357db0a4914a39f",
+            "X-Contentful-Request-Id": "26d11d5cd9a6014f10e241b95e8af367",
             "Content-Length": "344",
             "Accept-Ranges": "bytes",
-            "Date": "Thu, 06 Jul 2017 11:37:00 GMT",
+            "Date": "Mon, 05 Mar 2018 15:24:46 GMT",
             "Via": "1.1 varnish",
-            "Age": "17",
+            "Age": "1659",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1542-HHN",
+            "X-Served-By": "cache-hhn1521-HHN",
             "X-Cache": "HIT",
-            "X-Cache-Hits": "2",
-            "X-Timer": "S1499341020.178193,VS0,VE0",
+            "X-Cache-Hits": "1",
+            "X-Timer": "S1520263486.324469,VS0,VE0",
             "Vary": "Accept-Encoding"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"cfexampleapi\"\n  },\n  \"name\": \"Contentful Example API\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"English\",\n      \"fallbackCode\": null\n    },\n    {\n      \"code\": \"tlh\",\n      \"default\": false,\n      \"name\": \"Klingon\",\n      \"fallbackCode\": \"en-US\"\n    }\n  ]\n}\n"
@@ -94,8 +94,8 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/content_types\/cat",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1"
@@ -108,7 +108,7 @@
             "message": "OK"
         },
         "headers": {
-            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
             "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Expose-Headers": "Etag",
@@ -119,17 +119,17 @@
             "ETag": "W\/\"8f387b5b6a95416d52c98f2832c5c929\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "b1db4462df715b9ef069340400795942",
+            "X-Contentful-Request-Id": "13cf7426695e32b599b0f935bcb08b0c",
             "Content-Length": "517",
             "Accept-Ranges": "bytes",
-            "Date": "Thu, 06 Jul 2017 11:37:00 GMT",
+            "Date": "Mon, 05 Mar 2018 15:24:46 GMT",
             "Via": "1.1 varnish",
-            "Age": "13",
+            "Age": "1598",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1520-HHN",
+            "X-Served-By": "cache-hhn1543-HHN",
             "X-Cache": "HIT",
             "X-Cache-Hits": "1",
-            "X-Timer": "S1499341020.454604,VS0,VE6",
+            "X-Timer": "S1520263487.524955,VS0,VE1",
             "Vary": "Accept-Encoding"
         },
         "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"cat\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2013-06-27T22:46:12.852Z\",\n    \"updatedAt\": \"2017-07-06T09:58:52.691Z\",\n    \"revision\": 8\n  },\n  \"displayField\": \"name\",\n  \"name\": \"Cat\",\n  \"description\": \"Meow.\",\n  \"fields\": [\n    {\n      \"id\": \"name\",\n      \"name\": \"Name\",\n      \"type\": \"Text\",\n      \"localized\": true,\n      \"required\": true,\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"likes\",\n      \"name\": \"Likes\",\n      \"type\": \"Array\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"omitted\": false,\n      \"items\": {\n        \"type\": \"Symbol\",\n        \"validations\": []\n      }\n    },\n    {\n      \"id\": \"color\",\n      \"name\": \"Color\",\n      \"type\": \"Symbol\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"bestFriend\",\n      \"name\": \"Best Friend\",\n      \"type\": \"Link\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"omitted\": false,\n      \"linkType\": \"Entry\"\n    },\n    {\n      \"id\": \"birthday\",\n      \"name\": \"Birthday\",\n      \"type\": \"Date\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"lifes\",\n      \"name\": \"Lifes left\",\n      \"type\": \"Integer\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": true,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"lives\",\n      \"name\": \"Lives left\",\n      \"type\": \"Integer\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"image\",\n      \"name\": \"Image\",\n      \"type\": \"Link\",\n      \"localized\": false,\n      \"required\": false,\n      \"disabled\": false,\n      \"omitted\": false,\n      \"linkType\": \"Asset\"\n    }\n  ]\n}\n"
@@ -137,11 +137,11 @@
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/entries\/happycat?locale=%2A",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/entries\/happycat?locale=en-US",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1"
@@ -154,40 +154,39 @@
             "message": "OK"
         },
         "headers": {
-            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
             "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Expose-Headers": "Etag",
             "Access-Control-Max-Age": "86400",
             "Cache-Control": "max-age=0",
-            "Content-Encoding": "gzip",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "ETag": "W\/\"38995bf71f693a64b7fcfb5466707189\"",
+            "ETag": "\"55f4b8548a6df4e8baa694eaa04b12ad\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "5bda3300adb79019275c65e025d336f6",
-            "Content-Length": "407",
+            "X-Contentful-Request-Id": "4f0669121884b54cfc6ef8679db77e7e",
+            "Content-Length": "867",
             "Accept-Ranges": "bytes",
-            "Date": "Thu, 06 Jul 2017 11:37:01 GMT",
+            "Date": "Mon, 05 Mar 2018 15:24:47 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1531-HHN",
+            "X-Served-By": "cache-hhn1533-HHN",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
-            "X-Timer": "S1499341021.868797,VS0,VE143",
+            "X-Timer": "S1520263487.731127,VS0,VE520",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"happycat\",\n    \"type\": \"Entry\",\n    \"createdAt\": \"2013-06-27T22:46:20.171Z\",\n    \"updatedAt\": \"2013-11-18T15:58:02.018Z\",\n    \"revision\": 8,\n    \"contentType\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"ContentType\",\n        \"id\": \"cat\"\n      }\n    }\n  },\n  \"fields\": {\n    \"name\": {\n      \"en-US\": \"Happy Cat\",\n      \"tlh\": \"Quch vIghro'\"\n    },\n    \"likes\": {\n      \"en-US\": [\n        \"cheezburger\"\n      ]\n    },\n    \"color\": {\n      \"en-US\": \"gray\"\n    },\n    \"bestFriend\": {\n      \"en-US\": {\n        \"sys\": {\n          \"type\": \"Link\",\n          \"linkType\": \"Entry\",\n          \"id\": \"nyancat\"\n        }\n      }\n    },\n    \"birthday\": {\n      \"en-US\": \"2003-10-28T23:00:00+00:00\"\n    },\n    \"lives\": {\n      \"en-US\": 1\n    },\n    \"image\": {\n      \"en-US\": {\n        \"sys\": {\n          \"type\": \"Link\",\n          \"linkType\": \"Asset\",\n          \"id\": \"happycat\"\n        }\n      }\n    }\n  }\n}\n"
+        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"happycat\",\n    \"type\": \"Entry\",\n    \"createdAt\": \"2013-06-27T22:46:20.171Z\",\n    \"updatedAt\": \"2013-11-18T15:58:02.018Z\",\n    \"revision\": 8,\n    \"contentType\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"ContentType\",\n        \"id\": \"cat\"\n      }\n    },\n    \"locale\": \"en-US\"\n  },\n  \"fields\": {\n    \"name\": \"Happy Cat\",\n    \"likes\": [\n      \"cheezburger\"\n    ],\n    \"color\": \"gray\",\n    \"bestFriend\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Entry\",\n        \"id\": \"nyancat\"\n      }\n    },\n    \"birthday\": \"2003-10-28T23:00:00+00:00\",\n    \"lives\": 1,\n    \"image\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Asset\",\n        \"id\": \"happycat\"\n      }\n    }\n  }\n}\n"
     }
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/assets\/nyancat?locale=%2A",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/assets\/nyancat?locale=en-US",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.51.0 PHP\/7.1.4",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.1.0-dev; platform PHP\/7.1.4; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1"
@@ -200,29 +199,29 @@
             "message": "OK"
         },
         "headers": {
-            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent",
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
             "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Expose-Headers": "Etag",
             "Access-Control-Max-Age": "86400",
             "Cache-Control": "max-age=0",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "ETag": "\"ea482b8bda14cbaaa532d80da667461f\"",
+            "ETag": "\"d902ebea15f5adf746a1a29874959071\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "10325b44c5b993f5148d614e807ce037",
-            "Content-Length": "769",
+            "X-Contentful-Request-Id": "ea91d4a15ada57e72b5a8cd7a32eed75",
+            "Content-Length": "724",
             "Accept-Ranges": "bytes",
-            "Date": "Thu, 06 Jul 2017 11:37:01 GMT",
+            "Date": "Mon, 05 Mar 2018 15:24:48 GMT",
             "Via": "1.1 varnish",
-            "Age": "18",
+            "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1546-HHN",
-            "X-Cache": "HIT",
-            "X-Cache-Hits": "1",
-            "X-Timer": "S1499341022.841296,VS0,VE0",
+            "X-Served-By": "cache-hhn1530-HHN",
+            "X-Cache": "MISS",
+            "X-Cache-Hits": "0",
+            "X-Timer": "S1520263487.461465,VS0,VE559",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"nyancat\",\n    \"type\": \"Asset\",\n    \"createdAt\": \"2013-09-02T14:56:34.240Z\",\n    \"updatedAt\": \"2013-09-02T14:56:34.240Z\",\n    \"revision\": 1\n  },\n  \"fields\": {\n    \"title\": {\n      \"en-US\": \"Nyan Cat\"\n    },\n    \"file\": {\n      \"en-US\": {\n        \"url\": \"\/\/images.contentful.com\/cfexampleapi\/4gp6taAwW4CmSgumq2ekUm\/9da0cd1936871b8d72343e895a00d611\/Nyan_cat_250px_frame.png\",\n        \"details\": {\n          \"size\": 12273,\n          \"image\": {\n            \"width\": 250,\n            \"height\": 250\n          }\n        },\n        \"fileName\": \"Nyan_cat_250px_frame.png\",\n        \"contentType\": \"image\/png\"\n      }\n    }\n  }\n}\n"
+        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"cfexampleapi\"\n      }\n    },\n    \"id\": \"nyancat\",\n    \"type\": \"Asset\",\n    \"createdAt\": \"2013-09-02T14:56:34.240Z\",\n    \"updatedAt\": \"2013-09-02T14:56:34.240Z\",\n    \"revision\": 1,\n    \"locale\": \"en-US\"\n  },\n  \"fields\": {\n    \"title\": \"Nyan Cat\",\n    \"file\": {\n      \"url\": \"\/\/images.contentful.com\/cfexampleapi\/4gp6taAwW4CmSgumq2ekUm\/9da0cd1936871b8d72343e895a00d611\/Nyan_cat_250px_frame.png\",\n      \"details\": {\n        \"size\": 12273,\n        \"image\": {\n          \"width\": 250,\n          \"height\": 250\n        }\n      },\n      \"fileName\": \"Nyan_cat_250px_frame.png\",\n      \"contentType\": \"image\/png\"\n    }\n  }\n}\n"
     }
 }]

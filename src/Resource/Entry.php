@@ -23,17 +23,12 @@ class Entry extends LocalizedResource
     /**
      * @var array
      */
-    private $fields;
+    protected $fields;
 
     /**
      * @var array
      */
-    private $resolvedLinks = [];
-
-    /**
-     * @var Client|null
-     */
-    protected $client;
+    protected $resolvedLinks = [];
 
     /**
      * Entry constructor.
@@ -189,7 +184,8 @@ class Entry extends LocalizedResource
     }
 
     /**
-     * Resolves a Link into an Entry or Asset. Resolved links are cached local to the object.
+     * Resolves a Link into an Entry or Asset.
+     * Resolved links are cached local to the object.
      *
      * @param Link $link
      *
@@ -197,17 +193,18 @@ class Entry extends LocalizedResource
      */
     private function resolveLinkWithCache(Link $link)
     {
-        $cacheId = $link->getLinkType().'-'.$link->getId();
+        $locale = $this->getLocale() ?: '*';
+        $cacheId = $link->getLinkType().'-'.$link->getId().'-'.$locale;
+
         if (isset($this->resolvedLinks[$cacheId])) {
             return $this->resolvedLinks[$cacheId];
         }
-        // If we knew whether the entry was constructed from the single locale or the multi-locale form, we could be
-        // more efficient but we don't so we aren't.
-        $resolvedObj = $this->client->resolveLink($link, '*');
-        $this->resolvedLinks[$cacheId] = $resolvedObj;
-        $resolvedObj->setLocale($this->getLocale());
 
-        return $resolvedObj;
+        $resource = $this->client->resolveLink($link, $locale);
+        $this->resolvedLinks[$cacheId] = $resource;
+        $resource->setLocale($this->getLocale());
+
+        return $resource;
     }
 
     /**

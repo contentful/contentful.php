@@ -30,7 +30,7 @@ abstract class DeletedResource extends BaseResource
     /**
      * Returns the space the resource used to belong to.
      *
-     * @return \Contentful\Delivery\Resource\Space
+     * @return Space
      */
     public function getSpace()
     {

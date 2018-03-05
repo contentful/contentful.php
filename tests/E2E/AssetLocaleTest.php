@@ -34,7 +34,7 @@ class AssetLocaleTest extends TestCase
 
         $asset = $entry->getPicture();
         $this->assertSame('es', $asset->getLocale());
-        $this->assertSame('ben-chang', $asset->getTitle());
+        $this->assertSame('Ben Chang', $asset->getTitle());
         $this->assertSame('I AM A SPANISH GENIUS!', $asset->getDescription());
 
         // Tests that the fallback chain is working correctly.
