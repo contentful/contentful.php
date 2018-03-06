@@ -13,6 +13,8 @@ use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\Entry;
+use Contentful\Delivery\Resource\Environment;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Tests\Delivery\TestCase;
 
 /**
@@ -60,6 +62,8 @@ class EntryTest extends TestCase
         $this->assertSame('nyancat', $entry->getSystemProperties()->getId());
         $this->assertSame('Entry', $entry->getSystemProperties()->getType());
         $this->assertLink('nyancat', 'Entry', $entry->asLink());
+        $this->assertInstanceOf(Environment::class, $entry->getEnvironment());
+        $this->assertInstanceOf(Space::class, $entry->getSpace());
     }
 
     /**
@@ -145,8 +149,9 @@ class EntryTest extends TestCase
 
         $this->assertSame('nyancat', $image->getId());
 
-        // There should be 3 and only 3 requests: the entries with the query, the space and the cat content type
-        $this->assertCount(3, $client->getMessages());
+        // There should be 4 and only 4 requests:
+        // the entries with the query, the space, the locales and the cat content type.
+        $this->assertCount(4, $client->getMessages());
     }
 
     /**

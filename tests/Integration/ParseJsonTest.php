@@ -37,7 +37,7 @@ class ParseJsonTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi", but space "wrongspace" was detected.
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handline space "cfexampleapi" and environment "master", but space "wrongspace" and environment "master" were detected.
      */
     public function testParseJsonSpaceMismatch()
     {
@@ -46,7 +46,7 @@ class ParseJsonTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi", but space "wrongspace" was detected.
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handline space "cfexampleapi" and environment "master", but space "wrongspace" and environment "[blank]" were detected.
      */
     public function testParseJsonContentTypeSpaceMismatch()
     {
@@ -55,7 +55,7 @@ class ParseJsonTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi", but space "[blank]" was detected.
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handline space "cfexampleapi" and environment "master", but space "[blank]" and environment "[blank]" were detected.
      */
     public function testParseJsonEmptyObject()
     {
@@ -64,7 +64,7 @@ class ParseJsonTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi", but space "invalidSpace" was detected.
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handline space "cfexampleapi" and environment "master", but space "invalidSpace" and environment "invalidEnvironment" were detected.
      */
     public function testParseJsonInvalidArray()
     {
@@ -102,7 +102,7 @@ class ParseJsonTest extends TestCase
     public function testParseAndEncodeJson($file)
     {
         $this->client->parseJson($this->getFixtureContent('parse_and_encode_space.json'));
-        // $this->client->parseJson($this->getFixtureContent('environment.json'));
+        $this->client->parseJson($this->getFixtureContent('environment.json'));
 
         $resource = $this->client->parseJson($this->getFixtureContent($file));
         $this->assertJsonFixtureEqualsJsonObject($file, $resource);
@@ -111,7 +111,7 @@ class ParseJsonTest extends TestCase
     public function testParseJsonEntry()
     {
         $this->client->parseJson($this->getFixtureContent('space.json'));
-        // $this->client->parseJson($this->getFixtureContent('environment.json'));
+        $this->client->parseJson($this->getFixtureContent('environment.json'));
         $this->client->parseJson($this->getFixtureContent('content_type.json'));
 
         $entry = $this->client->parseJson($this->getFixtureContent('entry.json'));
@@ -121,7 +121,7 @@ class ParseJsonTest extends TestCase
     public function testParseJsonSingleLocaleEntry()
     {
         $this->client->parseJson($this->getFixtureContent('space.json'));
-        // $this->client->parseJson($this->getFixtureContent('environment.json'));
+        $this->client->parseJson($this->getFixtureContent('environment.json'));
         $this->client->parseJson($this->getFixtureContent('content_type.json'));
 
         $enUsEntry = $this->client->parseJson($this->getFixtureContent('entry_single_locale_en_us.json'));
@@ -134,7 +134,7 @@ class ParseJsonTest extends TestCase
     public function testParseJsonSingleLocaleAsset()
     {
         $this->client->parseJson($this->getFixtureContent('space.json'));
-        // $this->client->parseJson($this->getFixtureContent('environment.json'));
+        $this->client->parseJson($this->getFixtureContent('environment.json'));
 
         $enUsAsset = $this->client->parseJson($this->getFixtureContent('asset_single_locale_en_us.json'));
         $this->assertJsonFixtureEqualsJsonObject('asset_single_locale_en_us.json', $enUsAsset);

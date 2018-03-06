@@ -15,13 +15,7 @@ class SpaceTest extends TestCase
 {
     public function testGetter()
     {
-        $defaultLocale = new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]);
-        $italianLocale = new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
-
-        return ConcreteSpace::withSys('cfexampleapi', [
-            'name' => 'Space name',
-            'locales' => [$defaultLocale, $italianLocale],
-        ]);
+        $space = MockSpace::withSys('cfexampleapi', ['name' => 'Space name']);
 
         $this->assertSame('cfexampleapi', $space->getId());
         $this->assertSame('Space name', $space->getName());
@@ -29,13 +23,7 @@ class SpaceTest extends TestCase
 
     public function testJsonSerialize()
     {
-        $defaultLocale = new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]);
-        $italianLocale = new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
-
-        return ConcreteSpace::withSys('cfexampleapi', [
-            'name' => 'Space name',
-            'locales' => [$defaultLocale, $italianLocale],
-        ]);
+        $space = MockSpace::withSys('cfexampleapi', ['name' => 'Space name']);
 
         $this->assertJsonFixtureEqualsJsonObject('serialize.json', $space);
     }

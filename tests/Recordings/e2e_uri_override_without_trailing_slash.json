@@ -27,11 +27,11 @@
             "CF-Organization-Id": "7BLDDu2FYCNoN4QIWys1BR",
             "CF-Space-Id": "cfexampleapi",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Mon, 05 Mar 2018 18:19:24 GMT",
+            "Date": "Tue, 06 Mar 2018 10:14:58 GMT",
             "ETag": "\"17f6b9f68596176aed46fa020bf235af\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "712aa7f020fac48d936d4cd9422d67be",
+            "X-Contentful-Request-Id": "018b9d52111278db8801e3eceae90b4a",
             "Content-Length": "344",
             "Connection": "keep-alive"
         },

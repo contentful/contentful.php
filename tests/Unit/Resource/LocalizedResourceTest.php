@@ -15,9 +15,9 @@ class LocalizedResourceTest extends TestCase
 {
     public function testGetDefaultLocale()
     {
-        $resource = new ConcreteLocalizedResource([
-            new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
+        $resource = new MockLocalizedResource([
+            new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $this->assertSame('en-US', $resource->getLocale());
@@ -25,9 +25,9 @@ class LocalizedResourceTest extends TestCase
 
     public function testSetGetLocaleString()
     {
-        $resource = new ConcreteLocalizedResource([
-            new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
+        $resource = new MockLocalizedResource([
+            new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $resource->setLocale('it-IT');
@@ -36,11 +36,11 @@ class LocalizedResourceTest extends TestCase
 
     public function testSetGetLocaleObject()
     {
-        $itLocale = new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
+        $itLocale = new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
 
-        $resource = new ConcreteLocalizedResource([
+        $resource = new MockLocalizedResource([
             $itLocale,
-            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $resource->setLocale($itLocale);
@@ -53,9 +53,9 @@ class LocalizedResourceTest extends TestCase
      */
     public function testSetGetLocaleInvalid()
     {
-        $resource = new ConcreteLocalizedResource([
-            new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
+        $resource = new MockLocalizedResource([
+            new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $resource->setLocale('fr-FR');
@@ -63,9 +63,9 @@ class LocalizedResourceTest extends TestCase
 
     public function testGetLocaleFromInputDefault()
     {
-        $resource = new ConcreteLocalizedResource([
-            new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
+        $resource = new MockLocalizedResource([
+            new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $this->assertSame('en-US', $resource->getLocaleFromInput());
@@ -73,9 +73,9 @@ class LocalizedResourceTest extends TestCase
 
     public function testGetLocaleFromInputString()
     {
-        $resource = new ConcreteLocalizedResource([
-            new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
+        $resource = new MockLocalizedResource([
+            new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $this->assertSame('it-IT', $resource->getLocaleFromInput('it-IT'));
@@ -83,11 +83,11 @@ class LocalizedResourceTest extends TestCase
 
     public function testGetLocaleFromInputObject()
     {
-        $itLocale = new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
+        $itLocale = new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
 
-        $resource = new ConcreteLocalizedResource([
+        $resource = new MockLocalizedResource([
             $itLocale,
-            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $this->assertSame('it-IT', $resource->getLocaleFromInput($itLocale));
@@ -99,9 +99,9 @@ class LocalizedResourceTest extends TestCase
      */
     public function testGetLocaleFromInputInvalid()
     {
-        $resource = new ConcreteLocalizedResource([
-            new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
+        $resource = new MockLocalizedResource([
+            new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $resource->getLocaleFromInput('en-GB');
@@ -113,14 +113,14 @@ class LocalizedResourceTest extends TestCase
      */
     public function testInfiniteLoopDetected()
     {
-        $space = new ConcreteSpace([
+        $environment = new MockEnvironment([
             'locales' => [
-                new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-                new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'fallbackCode' => 'it-IT']),
+                new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+                new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'fallbackCode' => 'it-IT']),
             ],
         ]);
-        $resource = new ConcreteLocalizedResource($space->getLocales());
+        $resource = new MockLocalizedResource($environment->getLocales());
 
-        $resource->loopThroughFallbackChain([], 'it-IT', $space);
+        $resource->loopThroughFallbackChain([], 'it-IT', $environment);
     }
 }

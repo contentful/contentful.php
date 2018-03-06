@@ -9,15 +9,15 @@
 
 namespace Contentful\Delivery\Mapper;
 
-use Contentful\Delivery\Resource\Space as ResourceClass;
+use Contentful\Delivery\Resource\Environment as ResourceClass;
 
 /**
- * Space class.
+ * Environment class.
  *
  * This class is responsible for converting raw API data into a PHP object
- * of class Contentful\Delivery\Resource\Space.
+ * of class Contentful\Delivery\Resource\Environment.
  */
-class Space extends BaseMapper
+class Environment extends BaseMapper
 {
     /**
      * {@inheritdoc}
@@ -26,7 +26,9 @@ class Space extends BaseMapper
     {
         return $this->hydrate($resource ?: ResourceClass::class, [
             'sys' => $this->buildSystemProperties($data['sys']),
-            'name' => $data['name'],
+            'locales' => \array_map(function ($locale) {
+                return $this->builder->build($locale);
+            }, $data['locales']),
         ]);
     }
 }

@@ -63,6 +63,13 @@
                 "id": "cat"
             }
         },
+        "environment": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Environment",
+                "id": "master"
+            }
+        },
         "id": "nyancat",
         "revision": 5,
         "createdAt": "2013-06-27T22:46:19.513Z",

@@ -7,7 +7,13 @@
                 "id": "cfexampleapi"
             }
         },
-        "id": "nyancat",
+        "environment": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Environment",
+                "id": "master"
+            }
+        },        "id": "nyancat",
         "type": "Asset",
         "createdAt": "2013-09-02T14:56:34.240Z",
         "updatedAt": "2013-09-02T14:56:34.240Z",
@@ -17,7 +23,7 @@
     "fields": {
         "title": "Nyan Cat",
         "file": {
-            "url": "//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png",
+            "url": "//images.ctfassets.net/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png",
             "details": {
                 "size": 12273,
                 "image": {

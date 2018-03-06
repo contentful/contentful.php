@@ -165,6 +165,16 @@ class ContentType extends BaseResource
     }
 
     /**
+     * Returns the environment this content type belongs to.
+     *
+     * @return Environment|null
+     */
+    public function getEnvironment()
+    {
+        return $this->sys->getEnvironment();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()

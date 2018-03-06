@@ -13,17 +13,17 @@ use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\File\FileInterface;
 use Contentful\Core\File\ImageFile;
 use Contentful\Delivery\Resource\Asset;
+use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Locale;
-use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
 use Contentful\Tests\Delivery\TestCase;
 
 class AssetTest extends TestCase
 {
     /**
-     * @var Space
+     * @var Environment
      */
-    private $space;
+    private $environment;
 
     /**
      * @var ImageFile
@@ -35,24 +35,24 @@ class AssetTest extends TestCase
      */
     private $asset;
 
-    private function createMockSpace()
+    private function createMockEnvironment()
     {
-        $defaultLocale = new ConcreteLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]);
-        $klingonLocale = new ConcreteLocale(['code' => 'tlh', 'name' => 'Klingon', 'fallbackCode' => 'en-US']);
-        $italianLocale = new ConcreteLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
+        $defaultLocale = new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]);
+        $klingonLocale = new MockLocale(['code' => 'tlh', 'name' => 'Klingon', 'fallbackCode' => 'en-US']);
+        $italianLocale = new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
 
-        return ConcreteSpace::withSys('cfexampleapi', [
+        return MockEnvironment::withSys('master', [
             'locales' => [$defaultLocale, $klingonLocale, $italianLocale],
         ]);
     }
 
     public function setUp()
     {
-        $this->space = $this->createMockSpace();
+        $this->environment = $this->createMockEnvironment();
         $this->file = new ImageFile(
             'Nyan_cat_250px_frame.png',
             'image/png',
-            '//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png',
+            '//images.ctfassets.net/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png',
             12273,
             250,
             250
@@ -61,19 +61,19 @@ class AssetTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Asset',
-            'space' => $this->space,
+            'environment' => $this->environment,
             'revision' => 1,
             'createdAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
             'updatedAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
         ]);
 
-        $this->asset = new ConcreteAsset([
+        $this->asset = new MockAsset([
             'sys' => $sys,
             'title' => ['en-US' => 'Nyan Cat', 'it-IT' => 'Gatto Nyan'],
             'description' => ['en-US' => 'A picture of Nyan Cat', 'it-IT' => 'Una foto del Gatto Nyan'],
             'file' => ['en-US' => $this->file],
         ]);
-        $this->asset->setLocales($this->space->getLocales());
+        $this->asset->setLocales($this->environment->getLocales());
     }
 
     public function testGetter()
@@ -87,7 +87,6 @@ class AssetTest extends TestCase
 
         $this->assertSame('nyancat', $asset->getId());
         $this->assertSame(1, $asset->getRevision());
-        $this->assertSame($this->space, $asset->getSpace());
         $this->assertSame('2013-09-02T14:56:34.240Z', (string) $asset->getCreatedAt());
         $this->assertSame('2013-09-02T14:56:34.240Z', (string) $asset->getUpdatedAt());
 
@@ -137,17 +136,17 @@ class AssetTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Asset',
-            'space' => $this->space,
+            'environment' => $this->environment,
             'revision' => 1,
             'createdAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
             'updatedAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
         ]);
-        $asset = new ConcreteAsset([
+        $asset = new MockAsset([
             'sys' => $sys,
             'title' => ['en-US' => 'Nyan Cat'],
             'file' => ['en-US' => $this->file],
         ]);
-        $asset->setLocales($this->space->getLocales());
+        $asset->setLocales($this->environment->getLocales());
 
         $this->assertNull($asset->getDescription());
     }
@@ -157,17 +156,17 @@ class AssetTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Asset',
-            'space' => $this->space,
+            'environment' => $this->environment,
             'revision' => 1,
             'createdAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
             'updatedAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
         ]);
-        $asset = new ConcreteAsset([
+        $asset = new MockAsset([
             'sys' => $sys,
             'description' => ['en-US' => 'A picture of Nyan Cat'],
             'file' => ['en-US' => $this->file],
         ]);
-        $asset->setLocales($this->space->getLocales());
+        $asset->setLocales($this->environment->getLocales());
 
         $this->assertNull($asset->getTitle());
     }
@@ -182,12 +181,12 @@ class AssetTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Asset',
-            'space' => $this->space,
+            'environment' => $this->environment,
             'revision' => 1,
             'createdAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
             'updatedAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
         ]);
-        $asset = new ConcreteAsset([
+        $asset = new MockAsset([
             'sys' => $sys,
             'title' => ['en-US' => 'Nyan Cat'],
             'file' => ['en-US' => $this->file],

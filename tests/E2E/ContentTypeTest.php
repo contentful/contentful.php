@@ -11,6 +11,8 @@ namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Resource\ContentType;
+use Contentful\Delivery\Resource\Environment;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Tests\Delivery\TestCase;
 
 class ContentTypeTest extends TestCase
@@ -38,5 +40,7 @@ class ContentTypeTest extends TestCase
 
         $this->assertInstanceOf(ContentType::class, $contentType);
         $this->assertSame('cat', $contentType->getId());
+        $this->assertInstanceOf(Environment::class, $contentType->getEnvironment());
+        $this->assertInstanceOf(Space::class, $contentType->getSpace());
     }
 }

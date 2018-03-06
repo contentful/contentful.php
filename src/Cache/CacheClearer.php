@@ -51,9 +51,11 @@ class CacheClearer
     {
         $api = $this->client->getApi();
         $space = $this->client->getSpace();
+        $environment = $this->client->getEnvironment();
 
         $keys = [
             InstanceRepository::generateCacheKey($api, 'Space', $space->getId()),
+            InstanceRepository::generateCacheKey($api, 'Environment', $environment->getId()),
         ];
 
         $query = (new Query())

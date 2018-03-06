@@ -111,19 +111,19 @@ abstract class LocalizedResource extends BaseResource
     }
 
     /**
-     * @param array  $valueMap
-     * @param string $localeCode
-     * @param Space  $space
+     * @param array       $valueMap
+     * @param string      $localeCode
+     * @param Environment $environment
      *
      * @throws \RuntimeException If we detect an endless loop
      *
      * @return string|null The locale code for which a value can be found. null if the end of the chain has been reached.
      */
-    protected function loopThroughFallbackChain(array $valueMap, $localeCode, Space $space)
+    protected function loopThroughFallbackChain(array $valueMap, $localeCode, Environment $environment)
     {
         $loopCounter = 0;
         while (!isset($valueMap[$localeCode])) {
-            $localeCode = $space->getLocale($localeCode)->getFallbackCode();
+            $localeCode = $environment->getLocale($localeCode)->getFallbackCode();
             if (null === $localeCode) {
                 // We've reach the end of the fallback chain and there's no value
                 return null;

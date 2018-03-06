@@ -7,6 +7,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 **ATTENTION**: This release contains breaking changes. Please take extra care when updating to this version. See [the upgrade guide](UPGRADE-3.0.md) for more.
 
+### Added
+
+* The SDK now supports space environments.
+* The `ResourceBuilder` now supports custom data type matchers so users can create their own custom resource classes.
+* All resource classes now extend `Contentful\Delivery\Resource\BaseResource`, which implements `Contentful\Core\Resource\ResourceInterface`. You can use these two classes for type hinting.
+
 ### Fixed
 
 * There was an issue when adding a new field to a Contentful content type without purging the SDK cache, with the SDK not knowing how to build the field. Now it will create a temporary fake field of type `Unknown`, and it will also trigger a silenced error of level `E_USER_WARNING` (so users can implement some custom logic for handling the issue, without causing any problems to the actual execution). When retrieving the unknown field, it will be returned *as it was fetched from the API*, so no conversion will be made. This means that dates will be returned as strings, links will be returned as simple arrays, etc. This solution was implemented to prevent the SDK from crashing during those (hopefully) brief moments where the cache is out of sync with Contentful, and it *should not* be relied upon for actually handling the fields in a proper way.
@@ -14,14 +20,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 * The cache system has been rewritten to be made PSR-6 compatible (thanks @magnusnordlander). **[BREAKING]**
-* `DynamicEntry`, `Asset`, `ContentType`, `ContentTypeField`, `Space` and `Locale` classes have been moved to a different namespace. Please check the [the upgrade guide](UPGRADE-3.0.md) for more details. **[BREAKING]**
+* `DynamicEntry`, `Asset`, `ContentType`, `ContentTypeField`, `Space`, and `Locale`, `DeletedAsset`, 'DeletedEntry', and `DeletedContentType` classes have been moved to a different namespace. Please check the [the upgrade guide](UPGRADE-3.0.md) for more details. **[BREAKING]**
+* All parts of the SDK that were not in the `Contentful\Delivery` namespace have been moved to a separate package called [contentful-core.php](https://github.com/contentful/contentful-core.php).
+* The option in the client constructor for specifying a custom URI is not called `baseUri` instead of `uriOverride`, to be more consistent with the one used in Guzzle. **[BREAKING]**
+* The SDK no longer used a custom logger. It now supports any PSR-3 compatible logging implementation for permanent storage, but easy access to a log of current API requests is provides through `Client::getMessages()`, which returns an array of `Contentful\Core\Api\Message`. **[BREAKING]**
+* The SDK now keeps a registry of all resources that are currently managed, called `Contentful\Delivery\InstanceRepository`. This class also wraps the PSR-6 cache pool.
 
 ### Removed
 
 * `Contentful\Delivery\EntryInterface` no longer exists. Use `Contentful\Delivery\Resource\Entry` for type hinting. **[BREAKING]**
 * `Contentful\JsonHelper` was deprecated in 2.2, and has now been removed. **[BREAKING]**
 * `Contentful\DateHelper` was deprecated in 2.2, and has now been removed. **[BREAKING]**
-* `Contentful\File\UploadFile` was deprecated in 2.1, and has now been removed. Use `Contentful\File\RemoteUploadFile` instead. **[BREAKING]**
+* `Contentful\File\UploadFile` was deprecated in 2.1, and has now been removed. Use `Contentful\Core\File\RemoteUploadFile` instead. **[BREAKING]**
+* Resource classes have now a protected constructor, because they are not supposed to be instantiated without using the `ResourceBuilder`. **[BREAKING]**
 
 ## [2.4.1](https://github.com/contentful/contentful.php/tree/2.4.1) (2018-01-25)
 

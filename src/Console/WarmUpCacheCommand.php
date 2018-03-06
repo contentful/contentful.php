@@ -27,6 +27,7 @@ class WarmUpCacheCommand extends Command
             ->setDefinition([
                 new InputOption('access-token', 't', InputOption::VALUE_REQUIRED, 'Token to access the space.'),
                 new InputOption('space-id', 's', InputOption::VALUE_REQUIRED, 'ID of the space to use.'),
+                new InputOption('environment-id', 'e', InputOption::VALUE_REQUIRED, 'ID of the environment to use', 'master'),
                 new InputOption('factory-class', 'f', InputOption::VALUE_REQUIRED, \sprintf(
                     'The FQCN of a factory class which implements "%s".',
                     CacheItemPoolFactoryInterface::class
@@ -39,9 +40,10 @@ class WarmUpCacheCommand extends Command
     {
         $accessToken = $input->getOption('access-token');
         $spaceId = $input->getOption('space-id');
+        $environmentId = $input->getOption('environment-id');
         $usePreview = $input->getOption('use-preview');
 
-        $client = new Client($accessToken, $spaceId, $usePreview);
+        $client = new Client($accessToken, $spaceId, $environmentId, $usePreview);
         $api = $client->getApi();
 
         $factoryClass = $input->getOption('factory-class');
@@ -53,7 +55,7 @@ class WarmUpCacheCommand extends Command
             ));
         }
 
-        $cacheItemPool = $cacheItemPoolFactory->getCacheItemPool($api, $spaceId);
+        $cacheItemPool = $cacheItemPoolFactory->getCacheItemPool($api, $spaceId, $environmentId);
         if (!$cacheItemPool instanceof CacheItemPoolInterface) {
             throw new \InvalidArgumentException(\sprintf(
                 'Object returned by "%s::getCacheItemPool()" must be PSR-6 compatible and implement "%s".',
@@ -63,7 +65,6 @@ class WarmUpCacheCommand extends Command
         }
 
         $warmer = new CacheWarmer($client, $cacheItemPool);
-
         if (!$warmer->warmUp()) {
             throw new \RuntimeException(\sprintf(
                 'The SDK could not warm up the cache. Try checking your PSR-6 implementation (class "%s").',
@@ -72,8 +73,9 @@ class WarmUpCacheCommand extends Command
         }
 
         $output->writeln(\sprintf(
-            '<info>Cache warmed up for space "%s" using API "%s".</info>',
+            '<info>Cache warmed up for space "%s" on environment "%s" using API "%s".</info>',
             $spaceId,
+            $environmentId,
             $api
         ));
     }

@@ -10,13 +10,13 @@
 namespace Contentful\Tests\Delivery\Unit\Resource\ContentType;
 
 use Contentful\Tests\Delivery\TestCase;
-use Contentful\Tests\Delivery\Unit\Resource\ConcreteField;
+use Contentful\Tests\Delivery\Unit\Resource\MockField;
 
 class FieldTest extends TestCase
 {
     public function testGetter()
     {
-        $field = new ConcreteField([
+        $field = new MockField([
             'id' => 'id',
             'name' => 'name',
             'type' => 'type',
@@ -41,7 +41,7 @@ class FieldTest extends TestCase
 
     public function testJsonSerialize()
     {
-        $field1 = new ConcreteField([
+        $field1 = new MockField([
             'id' => 'one',
             'name' => 'oneField',
             'type' => 'Link',
@@ -54,7 +54,7 @@ class FieldTest extends TestCase
         ]);
         $this->assertJsonFixtureEqualsJsonObject('serialize_one.json', $field1);
 
-        $field2 = new ConcreteField([
+        $field2 = new MockField([
             'id' => 'many',
             'name' => 'manyField',
             'type' => 'Array',

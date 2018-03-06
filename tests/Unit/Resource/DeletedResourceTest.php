@@ -28,7 +28,7 @@ class DeletedResourceTest extends TestCase
             'updatedAt' => new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
             'deletedAt' => new DateTimeImmutable('2014-08-13T08:30:42.559Z'),
         ]);
-        $resource = new ConcreteDeletedResource(['sys' => $sys]);
+        $resource = new MockDeletedResource(['sys' => $sys]);
 
         $this->assertSame('4rPdazIwWkuuKEAQgemSmO', $resource->getId());
         $this->assertSame(1, $resource->getRevision());
@@ -47,11 +47,11 @@ class DeletedResourceTest extends TestCase
             'updatedAt' => new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
             'deletedAt' => new DateTimeImmutable('2014-08-13T08:30:42.559Z'),
         ]);
-        $deletedEntry = new ConcreteDeletedEntry(['sys' => $sys]);
+        $deletedEntry = new MockDeletedEntry(['sys' => $sys]);
 
         $this->assertNull($deletedEntry->getContentType());
 
-        $contentType = ConcreteContentType::withSys('cat');
+        $contentType = MockContentType::withSys('cat');
         $sys = new SystemProperties([
             'id' => '4rPdazIwWkuuKEAQgemSmO',
             'type' => 'DeletedEntry',
@@ -61,7 +61,7 @@ class DeletedResourceTest extends TestCase
             'updatedAt' => new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
             'deletedAt' => new DateTimeImmutable('2014-08-13T08:30:42.559Z'),
         ]);
-        $deletedEntry = new ConcreteDeletedEntry(['sys' => $sys]);
+        $deletedEntry = new MockDeletedEntry(['sys' => $sys]);
 
         $this->assertSame($contentType, $deletedEntry->getContentType());
     }
@@ -71,13 +71,13 @@ class DeletedResourceTest extends TestCase
         $sys = new SystemProperties([
             'id' => '4rPdazIwWkuuKEAQgemSmO',
             'type' => 'DeletedEntry',
-            'space' => ConcreteSpace::withSys('cfexampleapi'),
+            'space' => MockSpace::withSys('cfexampleapi'),
             'revision' => 1,
             'createdAt' => new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
             'updatedAt' => new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
             'deletedAt' => new DateTimeImmutable('2014-08-13T08:30:42.559Z'),
         ]);
-        $resource = new ConcreteDeletedResource(['sys' => $sys]);
+        $resource = new MockDeletedResource(['sys' => $sys]);
 
         $this->assertJsonFixtureEqualsJsonObject('serialize.json', $resource);
     }

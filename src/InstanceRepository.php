@@ -37,6 +37,7 @@ class InstanceRepository
         'Asset' => [],
         'ContentType' => [],
         'Entry' => [],
+        'Environment' => [],
         'Locale' => [],
         'Space' => [],
     ];
@@ -84,7 +85,7 @@ class InstanceRepository
     }
 
     /**
-     * Warm up the local resource repository with instances fetched from cache.
+     * Warm up the locale resource repository with instances fetched from cache.
      *
      * @param string $type
      * @param string $resourceId

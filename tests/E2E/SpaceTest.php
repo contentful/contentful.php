@@ -26,6 +26,5 @@ class SpaceTest extends TestCase
         $this->assertInstanceOf(Space::class, $space);
         $this->assertSame('Contentful Example API', $space->getName());
         $this->assertSame('cfexampleapi', $space->getId());
-        $this->assertCount(2, $space->getLocales());
     }
 }

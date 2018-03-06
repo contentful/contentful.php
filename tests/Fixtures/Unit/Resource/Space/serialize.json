@@ -3,16 +3,5 @@
         "id": "cfexampleapi",
         "type": "Space"
     },
-    "name": "Space name",
-    "locales": [{
-        "code": "en-US",
-        "default": false,
-        "name": "English (United States)",
-        "fallbackCode": "it-IT"
-    }, {
-        "code": "it-IT",
-        "default": true,
-        "name": "Italian (Italy)",
-        "fallbackCode": null
-    }]
+    "name": "Space name"
 }
