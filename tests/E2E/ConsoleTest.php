@@ -44,14 +44,16 @@ class ConsoleTest extends TestCase
         $output = $this->getConsoleOutput('delivery:cache:warmup', [
             '--access-token' => 'b4c0n73n7fu1',
             '--space-id' => 'cfexampleapi',
+            '--environment-id' => 'master',
             '--factory-class' => CacheItemPoolFactory::class,
         ]);
 
-        $this->assertContains('Cache warmed up for space "cfexampleapi" using API "DELIVERY".', $output);
+        $this->assertContains('Cache warmed up for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
 
-        $cachePool = CacheItemPoolFactory::$pools['DELIVERY-cfexampleapi'];
+        $cachePool = CacheItemPoolFactory::$pools['DELIVERY-cfexampleapi-master'];
 
         $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-Space-cfexampleapi'));
+        $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-Environment-master'));
         $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-ContentType-cat'));
         $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-ContentType-dog'));
         $this->assertTrue($cachePool->hasItem('contentful-DELIVERY-ContentType-human'));
@@ -65,15 +67,17 @@ class ConsoleTest extends TestCase
         $output = $this->getConsoleOutput('delivery:cache:warmup', [
             '--access-token' => 'e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50',
             '--space-id' => 'cfexampleapi',
+            '--environment-id' => 'master',
             '--factory-class' => CacheItemPoolFactory::class,
             '--use-preview' => true,
         ]);
 
-        $this->assertContains('Cache warmed up for space "cfexampleapi" using API "PREVIEW".', $output);
+        $this->assertContains('Cache warmed up for space "cfexampleapi" on environment "master" using API "PREVIEW".', $output);
 
-        $cachePool = CacheItemPoolFactory::$pools['PREVIEW-cfexampleapi'];
+        $cachePool = CacheItemPoolFactory::$pools['PREVIEW-cfexampleapi-master'];
 
         $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-Space-cfexampleapi'));
+        $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-Environment-master'));
         $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-ContentType-cat'));
         $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-ContentType-dog'));
         $this->assertTrue($cachePool->hasItem('contentful-PREVIEW-ContentType-human'));
@@ -88,6 +92,7 @@ class ConsoleTest extends TestCase
         $this->getConsoleOutput('delivery:cache:warmup', [
             '--access-token' => 'b4c0n73n7fu1',
             '--space-id' => 'cfexampleapi',
+            '--environment-id' => 'master',
             '--factory-class' => InvalidFactory::class,
         ]);
     }
@@ -101,6 +106,7 @@ class ConsoleTest extends TestCase
         $this->getConsoleOutput('delivery:cache:warmup', [
             '--access-token' => 'b4c0n73n7fu1',
             '--space-id' => 'cfexampleapi',
+            '--environment-id' => 'master',
             '--factory-class' => \stdClass::class,
         ]);
     }
@@ -115,6 +121,7 @@ class ConsoleTest extends TestCase
         $this->getConsoleOutput('delivery:cache:warmup', [
             '--access-token' => 'b4c0n73n7fu1',
             '--space-id' => 'cfexampleapi',
+            '--environment-id' => 'master',
             '--factory-class' => NotWorkingCachePoolFactory::class,
         ]);
     }
@@ -127,12 +134,13 @@ class ConsoleTest extends TestCase
         $output = $this->getConsoleOutput('delivery:cache:clear', [
             '--access-token' => 'b4c0n73n7fu1',
             '--space-id' => 'cfexampleapi',
+            '--environment-id' => 'master',
             '--factory-class' => CacheItemPoolFactory::class,
         ]);
 
-        $this->assertContains('Cache cleared for space "cfexampleapi" using API "DELIVERY".', $output);
+        $this->assertContains('Cache cleared for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
 
-        $cachePool = CacheItemPoolFactory::$pools['DELIVERY-cfexampleapi'];
+        $cachePool = CacheItemPoolFactory::$pools['DELIVERY-cfexampleapi-master'];
         $this->assertFalse($cachePool->hasItem('contentful-DELIVERY-Space-cfexampleapi'));
     }
 
@@ -144,13 +152,14 @@ class ConsoleTest extends TestCase
         $output = $this->getConsoleOutput('delivery:cache:clear', [
             '--access-token' => 'e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50',
             '--space-id' => 'cfexampleapi',
+            '--environment-id' => 'master',
             '--factory-class' => CacheItemPoolFactory::class,
             '--use-preview' => true,
         ]);
 
-        $this->assertContains('Cache cleared for space "cfexampleapi" using API "PREVIEW".', $output);
+        $this->assertContains('Cache cleared for space "cfexampleapi" on environment "master" using API "PREVIEW".', $output);
 
-        $cachePool = CacheItemPoolFactory::$pools['PREVIEW-cfexampleapi'];
+        $cachePool = CacheItemPoolFactory::$pools['PREVIEW-cfexampleapi-master'];
         $this->assertFalse($cachePool->hasItem('contentful-PREVIEW-Space-cfexampleapi'));
     }
 
@@ -163,6 +172,7 @@ class ConsoleTest extends TestCase
         $this->getConsoleOutput('delivery:cache:clear', [
             '--access-token' => 'b4c0n73n7fu1',
             '--space-id' => 'cfexampleapi',
+            '--environment-id' => 'master',
             '--factory-class' => InvalidFactory::class,
         ]);
     }
@@ -176,6 +186,7 @@ class ConsoleTest extends TestCase
         $this->getConsoleOutput('delivery:cache:clear', [
             '--access-token' => 'b4c0n73n7fu1',
             '--space-id' => 'cfexampleapi',
+            '--environment-id' => 'master',
             '--factory-class' => \stdClass::class,
         ]);
     }
@@ -190,6 +201,7 @@ class ConsoleTest extends TestCase
         $this->getConsoleOutput('delivery:cache:clear', [
             '--access-token' => 'b4c0n73n7fu1',
             '--space-id' => 'cfexampleapi',
+            '--environment-id' => 'master',
             '--factory-class' => NotWorkingCachePoolFactory::class,
         ]);
     }
@@ -204,11 +216,12 @@ class CacheItemPoolFactory implements CacheItemPoolFactoryInterface
 
     public function __construct()
     {
+        self::$pools = [];
     }
 
-    public function getCacheItemPool($api, $spaceId)
+    public function getCacheItemPool($api, $spaceId, $environmentId)
     {
-        $key = $api.'-'.$spaceId;
+        $key = $api.'-'.$spaceId.'-'.$environmentId;
         if (!isset(self::$pools[$key])) {
             self::$pools[$key] = new ArrayCachePool();
         }
@@ -223,7 +236,7 @@ class InvalidFactory implements CacheItemPoolFactoryInterface
     {
     }
 
-    public function getCacheItemPool($api, $spaceId)
+    public function getCacheItemPool($api, $spaceId, $environmentId)
     {
         return null;
     }
@@ -235,7 +248,7 @@ class NotWorkingCachePoolFactory implements CacheItemPoolFactoryInterface
     {
     }
 
-    public function getCacheItemPool($api, $spaceId)
+    public function getCacheItemPool($api, $spaceId, $environmentId)
     {
         return new NotWorkingCachePool();
     }

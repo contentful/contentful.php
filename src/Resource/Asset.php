@@ -77,7 +77,7 @@ class Asset extends LocalizedResource
             return null;
         }
 
-        $localeCode = $this->loopThroughFallbackChain($this->$property, $localeCode, $this->sys->getSpace());
+        $localeCode = $this->loopThroughFallbackChain($this->$property, $localeCode, $this->sys->getEnvironment());
 
         return null === $localeCode ? null : $this->{$property}[$localeCode];
     }
@@ -113,13 +113,23 @@ class Asset extends LocalizedResource
     }
 
     /**
-     * Returns the Space this Asset belongs to.
+     * Returns the space this asset belongs to.
      *
      * @return Space
      */
     public function getSpace()
     {
         return $this->sys->getSpace();
+    }
+
+    /**
+     * Returns the environment this asset belongs to.
+     *
+     * @return Environment
+     */
+    public function getEnvironment()
+    {
+        return $this->sys->getEnvironment();
     }
 
     /**

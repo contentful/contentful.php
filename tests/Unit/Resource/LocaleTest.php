@@ -15,7 +15,7 @@ class LocaleTest extends TestCase
 {
     public function testGetters()
     {
-        $locale = new ConcreteLocale([
+        $locale = new MockLocale([
             'code' => 'en-US',
             'name' => 'English (United States)',
             'fallbackCode' => null,
@@ -30,7 +30,7 @@ class LocaleTest extends TestCase
 
     public function testWithDefault()
     {
-        $locale = new ConcreteLocale([
+        $locale = new MockLocale([
             'code' => 'en-US',
             'name' => 'English (United States)',
             'fallbackCode' => null,
@@ -41,7 +41,7 @@ class LocaleTest extends TestCase
 
     public function testJsonSerialize()
     {
-        $locale = new ConcreteLocale([
+        $locale = new MockLocale([
             'code' => 'en-US',
             'name' => 'English (United States)',
             'fallbackCode' => null,

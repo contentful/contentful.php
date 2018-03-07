@@ -24,10 +24,8 @@ class Locale extends BaseMapper
      */
     public function map($resource, array $data)
     {
-        $sys = isset($data['sys']) ? $data['sys'] : [];
-
         return $this->hydrate($resource ?: ResourceClass::class, [
-            'sys' => $this->buildSystemProperties($sys),
+            'sys' => $this->buildSystemProperties($data['sys']),
             'code' => $data['code'],
             'name' => $data['name'],
             'default' => $data['default'],

@@ -56,6 +56,11 @@ class CacheWarmer
         $item->set(\json_encode($space));
         $this->cacheItemPool->saveDeferred($item);
 
+        $environment = $this->client->getEnvironment();
+        $item = $this->cacheItemPool->getItem(InstanceRepository::generateCacheKey($api, 'Environment', $environment->getId()));
+        $item->set(\json_encode($environment));
+        $this->cacheItemPool->saveDeferred($item);
+
         $query = (new Query())
             ->setLimit(100);
         $contentTypes = $this->client->getContentTypes($query);

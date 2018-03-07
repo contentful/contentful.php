@@ -19,5 +19,5 @@ foreach ($paths as $path) {
     }
 }
 
-$application = new Contentful\Console\Application();
+$application = new Contentful\Delivery\Console\Application();
 $application->run();

@@ -82,7 +82,7 @@ class SyncTest extends TestCase
             $results[] = $result;
         }
 
-        $this->assertSame(2, \count($results));
+        $this->assertSame(1, \count($results));
         $this->assertTrue($result->isDone());
         $this->assertGreaterThan(40, \mb_strlen($result->getToken()));
     }

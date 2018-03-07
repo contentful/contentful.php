@@ -22,10 +22,10 @@ class FallbackLocaleTest extends TestCase
 {
     private function createClient()
     {
-        $client = new Client('irrelevant', '7dh3w86is8ls');
+        $client = new Client('irrelevant', '7dh3w86is8ls', 'master');
 
         $client->parseJson($this->getFixtureContent('space.json'));
-        // $client->parseJson($this->getFixtureContent('environment.json'));
+        $client->parseJson($this->getFixtureContent('environment.json'));
         $client->parseJson($this->getFixtureContent('content_type.json'));
 
         return $client;

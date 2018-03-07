@@ -41,6 +41,7 @@ class ResourceBuilder extends BaseResourceBuilder
         'DeletedAsset',
         'DeletedContentType',
         'DeletedEntry',
+        'Environment',
         'Entry',
         'Locale',
         'Space',

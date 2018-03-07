@@ -10,28 +10,26 @@
 namespace Contentful\Tests\Delivery\Unit;
 
 use Contentful\Core\Api\DateTimeImmutable;
-use Contentful\Delivery\Resource\ContentType;
-use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
 use Contentful\Tests\Delivery\TestCase;
+use Contentful\Tests\Delivery\Unit\Resource\MockContentType;
+use Contentful\Tests\Delivery\Unit\Resource\MockEnvironment;
+use Contentful\Tests\Delivery\Unit\Resource\MockSpace;
 
 class SystemPropertiesTest extends TestCase
 {
     public function testGetter()
     {
-        $space = $this->getMockBuilder(Space::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $contentType = $this->getMockBuilder(ContentType::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $space = MockSpace::withSys('cfexampleapi');
+        $contentType = MockContentType::withSys('person');
+        $environment = MockEnvironment::withSys('master');
 
         $sys = new SystemProperties([
             'id' => '123',
             'type' => 'Type',
             'space' => $space,
             'contentType' => $contentType,
+            'environment' => $environment,
             'revision' => 1,
             'createdAt' => new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
             'updatedAt' => new DateTimeImmutable('2015-08-12T08:30:42.559Z'),
@@ -43,6 +41,7 @@ class SystemPropertiesTest extends TestCase
         $this->assertSame($space, $sys->getSpace());
         $this->assertSame($contentType, $sys->getContentType());
         $this->assertSame($space, $sys->getSpace());
+        $this->assertSame($environment, $sys->getEnvironment());
         $this->assertSame(1, $sys->getRevision());
         $this->assertSame('2014-08-11T08:30:42.559Z', (string) $sys->getCreatedAt());
         $this->assertSame('2015-08-12T08:30:42.559Z', (string) $sys->getUpdatedAt());
@@ -58,16 +57,10 @@ class SystemPropertiesTest extends TestCase
 
     public function testJsonSerializeDeletedResource()
     {
-        $space = $this->getMockBuilder(Space::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $space->method('getId')
-            ->willReturn('cfexampleapi');
-
         $sys = new SystemProperties([
             'id' => '4rPdazIwWkuuKEAQgemSmO',
             'type' => 'DeletedEntry',
-            'space' => $space,
+            'space' => MockSpace::withSys('cfexampleapi'),
             'revision' => 1,
             'createdAt' => new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
             'updatedAt' => new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
@@ -79,23 +72,12 @@ class SystemPropertiesTest extends TestCase
 
     public function testJsonSerializeEntry()
     {
-        $space = $this->getMockBuilder(Space::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $space->method('getId')
-            ->willReturn('cfexampleapi');
-
-        $contentType = $this->getMockBuilder(ContentType::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $contentType->method('getId')
-            ->willReturn('human');
-
         $sys = new SystemProperties([
             'id' => '123',
             'type' => 'Type',
-            'space' => $space,
-            'contentType' => $contentType,
+            'space' => MockSpace::withSys('cfexampleapi'),
+            'contentType' => MockContentType::withSys('human'),
+            'environment' => MockEnvironment::withSys('master'),
             'revision' => 1,
             'createdAt' => new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
             'updatedAt' => new DateTimeImmutable('2014-08-12T08:30:42.559Z'),

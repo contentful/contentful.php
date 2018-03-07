@@ -23,7 +23,7 @@ class NullValueTest extends TestCase
         $client = new Client('irrelevant', 'rue07lqzt1co');
 
         $client->parseJson($this->getFixtureContent('space.json'));
-        // $client->parseJson($this->getFixtureContent('environment.json'));
+        $client->parseJson($this->getFixtureContent('environment.json'));
         $client->parseJson($this->getFixtureContent('content_type.json'));
         $entry = $client->parseJson($this->getFixtureContent('entry.json'));
 

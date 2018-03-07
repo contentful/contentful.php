@@ -86,9 +86,9 @@ class Locale extends BaseResource
             'fallbackCode' => $this->fallbackCode,
         ];
 
-        // if ($this->sys) {
-        //     $locale['sys'] = $this->sys;
-        // }
+        if ($this->sys) {
+            $locale['sys'] = $this->sys;
+        }
 
         return $locale;
     }

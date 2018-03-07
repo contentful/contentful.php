@@ -19,6 +19,13 @@
                 "id": "cat"
             }
         },
+        "environment": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Environment",
+                "id": "master"
+            }
+        },
         "locale": "en-US"
     },
     "fields": {

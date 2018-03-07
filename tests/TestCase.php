@@ -40,25 +40,28 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
         switch ($key) {
             case 'cfexampleapi':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, $options);
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, null, $options);
             case 'cfexampleapi_preview':
-                return new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', true, null, $options);
+                return new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', 'master', true, null, $options);
             case 'cfexampleapi_cache':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, \array_merge($options, ['cache' => self::$cache]));
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, null, \array_merge($options, ['cache' => self::$cache]));
             case 'cfexampleapi_cache_autowarmup':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', false, null, \array_merge($options, ['cache' => self::$cache, 'autoWarmup' => true]));
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, null, \array_merge($options, ['cache' => self::$cache, 'autoWarmup' => true]));
             case 'cfexampleapi_tlh':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', false, 'tlh', $options);
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, 'tlh', $options);
             case 'cfexampleapi_invalid':
-                return new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', false, null, $options);
+                return new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', 'master', false, null, $options);
             case '88dyiqcr7go8':
-                return new Client('668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756', '88dyiqcr7go8', false, null, $options);
+                return new Client('668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756', '88dyiqcr7go8', 'master', false, null, $options);
             case '88dyiqcr7go8_preview':
-                return new Client('81c469d7241ca02349388602dfc14107157063a6901c378a56e1835d688970bf', '88dyiqcr7go8', true, null, $options);
+                return new Client('81c469d7241ca02349388602dfc14107157063a6901c378a56e1835d688970bf', '88dyiqcr7go8', 'master', true, null, $options);
             case 'bc32cj3kyfet_preview':
-                return new Client('8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963', 'bc32cj3kyfet', true, null, $options);
+                return new Client('8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963', 'bc32cj3kyfet', 'master', true, null, $options);
             default:
-                throw new \InvalidArgumentException('Argument $key is not a valid value');
+                throw new \InvalidArgumentException(\sprintf(
+                    'Key "%s" is not a valid value.',
+                    $key
+                ));
         }
     }
 
@@ -114,6 +117,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected function assertJsonFixtureEqualsJsonObject($file, $object, $message = '')
     {
         $dir = $this->convertClassToFixturePath(\debug_backtrace()[1]['class']);
+
         $this->assertJsonStringEqualsJsonFile($dir.'/'.$file, \GuzzleHttp\json_encode($object), $message);
     }
 
@@ -125,6 +129,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected function assertJsonFixtureEqualsJsonString($file, $string, $message = '')
     {
         $dir = $this->convertClassToFixturePath(\debug_backtrace()[1]['class']);
+
         $this->assertJsonStringEqualsJsonFile($dir.'/'.$file, $string, $message);
     }
 
@@ -165,7 +170,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
-class ConcreteSpace extends \Contentful\Delivery\Resource\Space
+class MockSpace extends \Contentful\Delivery\Resource\Space
 {
     public function __construct(array $data)
     {
@@ -180,7 +185,7 @@ class ConcreteSpace extends \Contentful\Delivery\Resource\Space
     }
 }
 
-class ConcreteLocale extends \Contentful\Delivery\Resource\Locale
+class MockLocale extends \Contentful\Delivery\Resource\Locale
 {
     public function __construct(array $data)
     {
@@ -195,7 +200,22 @@ class ConcreteLocale extends \Contentful\Delivery\Resource\Locale
     }
 }
 
-class ConcreteEntry extends \Contentful\Delivery\Resource\Entry
+class MockEnvironment extends \Contentful\Delivery\Resource\Environment
+{
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
+
+    public static function withSys($id, $data = [])
+    {
+        return new static(\array_merge($data, [
+            'sys' => new \Contentful\Delivery\SystemProperties(['id' => $id, 'type' => 'Environment']),
+        ]));
+    }
+}
+
+class MockEntry extends \Contentful\Delivery\Resource\Entry
 {
     public function __construct(array $data)
     {
@@ -210,7 +230,7 @@ class ConcreteEntry extends \Contentful\Delivery\Resource\Entry
     }
 }
 
-class ConcreteContentType extends \Contentful\Delivery\Resource\ContentType
+class MockContentType extends \Contentful\Delivery\Resource\ContentType
 {
     public function __construct(array $data)
     {
@@ -225,7 +245,7 @@ class ConcreteContentType extends \Contentful\Delivery\Resource\ContentType
     }
 }
 
-class ConcreteField extends \Contentful\Delivery\Resource\ContentType\Field
+class MockField extends \Contentful\Delivery\Resource\ContentType\Field
 {
     public function __construct(array $data)
     {
@@ -237,7 +257,7 @@ class ConcreteField extends \Contentful\Delivery\Resource\ContentType\Field
     }
 }
 
-class ConcreteAsset extends \Contentful\Delivery\Resource\Asset
+class MockAsset extends \Contentful\Delivery\Resource\Asset
 {
     public function __construct(array $data)
     {
@@ -252,7 +272,7 @@ class ConcreteAsset extends \Contentful\Delivery\Resource\Asset
     }
 }
 
-class ConcreteDeletedResource extends \Contentful\Delivery\Resource\DeletedResource
+class MockDeletedResource extends \Contentful\Delivery\Resource\DeletedResource
 {
     public function __construct(array $data)
     {
@@ -260,7 +280,7 @@ class ConcreteDeletedResource extends \Contentful\Delivery\Resource\DeletedResou
     }
 }
 
-class ConcreteDeletedEntry extends \Contentful\Delivery\Resource\DeletedEntry
+class MockDeletedEntry extends \Contentful\Delivery\Resource\DeletedEntry
 {
     public function __construct(array $data)
     {
@@ -268,7 +288,7 @@ class ConcreteDeletedEntry extends \Contentful\Delivery\Resource\DeletedEntry
     }
 }
 
-class ConcreteLocalizedResource extends \Contentful\Delivery\Resource\LocalizedResource
+class MockLocalizedResource extends \Contentful\Delivery\Resource\LocalizedResource
 {
     public function __construct(array $locales)
     {
@@ -280,9 +300,9 @@ class ConcreteLocalizedResource extends \Contentful\Delivery\Resource\LocalizedR
         return parent::getLocaleFromInput($locale);
     }
 
-    public function loopThroughFallbackChain(array $valueMap, $localeCode, \Contentful\Delivery\Resource\Space $space)
+    public function loopThroughFallbackChain(array $valueMap, $localeCode, \Contentful\Delivery\Resource\Environment $environment)
     {
-        return parent::loopThroughFallbackChain($valueMap, $localeCode, $space);
+        return parent::loopThroughFallbackChain($valueMap, $localeCode, $environment);
     }
 
     public function jsonSerialize()

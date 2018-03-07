@@ -65,6 +65,13 @@
                 "id": "cfexampleapi"
             }
         },
+        "environment": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Environment",
+                "id": "master"
+            }
+        },
         "type": "ContentType",
         "id": "cat",
         "revision": 2,

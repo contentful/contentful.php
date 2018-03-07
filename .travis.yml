@@ -76,7 +76,7 @@ after_success:
 
   - |
     # Generate API docs
-    $
+    #
     # We generate API docs only for the build lead (to avoid wasting time on all builds),
     # and when on merges to master, which is the result of this condition and the setting
     # branches: only: master above.

@@ -12,6 +12,7 @@ namespace Contentful\Delivery;
 use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\Resource\SystemPropertiesInterface;
 use Contentful\Delivery\Resource\ContentType;
+use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
 
 /**
@@ -38,6 +39,11 @@ class SystemProperties implements SystemPropertiesInterface
      * @var ContentType|null
      */
     private $contentType;
+
+    /**
+     * @var Environment|null
+     */
+    private $environment;
 
     /**
      * @var int|null
@@ -76,6 +82,7 @@ class SystemProperties implements SystemPropertiesInterface
 
         $this->space = isset($sys['space']) ? $sys['space'] : null;
         $this->contentType = isset($sys['contentType']) ? $sys['contentType'] : null;
+        $this->environment = isset($sys['environment']) ? $sys['environment'] : null;
 
         $this->revision = isset($sys['revision']) ? $sys['revision'] : null;
 
@@ -159,6 +166,14 @@ class SystemProperties implements SystemPropertiesInterface
     }
 
     /**
+     * @return Environment|null
+     */
+    public function getEnvironment()
+    {
+        return $this->environment;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()
@@ -183,6 +198,15 @@ class SystemProperties implements SystemPropertiesInterface
                     'type' => 'Link',
                     'linkType' => 'ContentType',
                     'id' => $this->contentType->getId(),
+                ],
+            ];
+        }
+        if (null !== $this->environment) {
+            $sys['environment'] = [
+                'sys' => [
+                    'type' => 'Link',
+                    'linkType' => 'Environment',
+                    'id' => $this->environment->getId(),
                 ],
             ];
         }

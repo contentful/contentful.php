@@ -71,7 +71,7 @@ abstract class BaseMapper implements MapperInterface
         $hydrator($target, $data);
 
         if ($target instanceof LocalizedResource) {
-            $locales = $this->client->getSpace()->getLocales();
+            $locales = $this->client->getEnvironment()->getLocales();
             $target->setLocales($locales);
 
             /** @var SystemProperties $sys */
@@ -115,6 +115,11 @@ abstract class BaseMapper implements MapperInterface
 
         if (isset($sys['contentType'])) {
             $sys['contentType'] = $this->client->getContentType($sys['contentType']['sys']['id']);
+        }
+
+        // @TODO: Uncomment this once beta is over and sys.environment is always present.
+        if (/*isset($sys['environment']) && */!\in_array($sys['type'], ['Space', 'Locale', 'Environment'], true)) {
+            $sys['environment'] = $this->client->getEnvironment();
         }
 
         return new SystemProperties($sys);

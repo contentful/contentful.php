@@ -14,6 +14,8 @@ use Contentful\Core\File\ImageFile;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Asset;
+use Contentful\Delivery\Resource\Environment;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Tests\Delivery\TestCase;
 
 class AssetTest extends TestCase
@@ -56,6 +58,8 @@ class AssetTest extends TestCase
         $this->assertInstanceOf(Asset::class, $asset);
         $this->assertSame('nyancat', $asset->getId());
         $this->assertInstanceOf(ImageFile::class, $asset->getFile());
+        $this->assertInstanceOf(Environment::class, $asset->getEnvironment());
+        $this->assertInstanceOf(Space::class, $asset->getSpace());
     }
 
     /**
@@ -99,7 +103,7 @@ class AssetTest extends TestCase
         $this->assertNull($asset->getFile('en-US'));
         $this->assertInstanceOf(ImageFile::class, $asset->getFile());
         $this->assertInstanceOf(ImageFile::class, $asset->getFile('es'));
-        $this->assertSame('//images.contentful.com/88dyiqcr7go8/SQOIQ1rZMQQUeyoyGiEUq/84b6aef287ed214b464114655f99bfa8/ben-chang.jpg', $asset->getFile('es')->getUrl());
+        $this->assertSame('//images.ctfassets.net/88dyiqcr7go8/SQOIQ1rZMQQUeyoyGiEUq/84b6aef287ed214b464114655f99bfa8/ben-chang.jpg', $asset->getFile('es')->getUrl());
     }
 
     /**
@@ -116,6 +120,6 @@ class AssetTest extends TestCase
         $this->assertSame('LICENSE.txt', $file->getFileName());
         $this->assertSame(1064, $file->getSize());
         $this->assertSame('text/plain', $file->getContentType());
-        $this->assertSame('//assets.contentful.com/88dyiqcr7go8/47kTpd50rSgKQy2acO2u6Y/e3d92a018de99b451a323a0fcca0b7b7/LICENSE.txt', $file->getUrl());
+        $this->assertSame('//assets.ctfassets.net/88dyiqcr7go8/47kTpd50rSgKQy2acO2u6Y/e3d92a018de99b451a323a0fcca0b7b7/LICENSE.txt', $file->getUrl());
     }
 }

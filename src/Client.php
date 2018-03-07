@@ -17,6 +17,7 @@ use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
+use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\Synchronization\Manager;
 use Psr\Cache\CacheItemPoolInterface;
@@ -24,9 +25,11 @@ use Psr\Cache\CacheItemPoolInterface;
 /**
  * A Client is used to communicate the Contentful Delivery API.
  *
- * A Client is only responsible for one Space. When access to multiple spaces is required, create multiple Clients.
+ * A Client is only responsible for one space and one environment.
+ * When access to multiple spaces or environments is required, create multiple Clients.
  *
- * This class can be configured to use the Preview API instead of the Delivery API. This grants access to not yet published content.
+ * This class can be configured to use the Preview API instead of the Delivery API.
+ * This grants access to not yet published content.
  */
 class Client extends BaseClient
 {
@@ -85,22 +88,28 @@ class Client extends BaseClient
     private $spaceId;
 
     /**
+     * @var string
+     */
+    private $environmentId;
+
+    /**
      * Client constructor.
      *
      * @param string      $token         Delivery API Access Token for the space used with this Client
      * @param string      $spaceId       ID of the space used with this Client
+     * @param string      $environmentId ID of the environment used with this Client
      * @param bool        $preview       true to use the Preview API
      * @param string|null $defaultLocale The default is to fetch the Space's default locale. Set to a locale
      *                                   string, e.g. "en-US" to fetch content in that locale. Set it to "*"
      *                                   to fetch content in all locales.
-     * @param array       $options       An array of optional configuration options. The following keys are possible:
+     * @param array       $options       An array of optional configuration. The following options are available:
      *                                   * guzzle     Override the guzzle instance used by the Contentful client
      *                                   * logger     A PSR-3 logger
      *                                   * baseUri    Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/').
      *                                   * cache      Null or a PSR-6 cache item pool. The client only writes to the cache if autoWarmup is true, otherwise, you are responsible for warming it up using \Contentful\Delivery\Cache\CacheWarmer.
      *                                   * autoWarmup Warm up the cache automatically
      */
-    public function __construct($token, $spaceId, $preview = false, $defaultLocale = null, array $options = [])
+    public function __construct($token, $spaceId, $environmentId = 'master', $preview = false, $defaultLocale = null, array $options = [])
     {
         $options = \array_replace([
             'guzzle' => null,
@@ -114,6 +123,7 @@ class Client extends BaseClient
         $baseUri = $preview ? self::URI_PREVIEW : self::URI_DELIVERY;
         if (null !== $options['baseUri']) {
             $baseUri = $options['baseUri'];
+
             if ('/' === \mb_substr($baseUri, -1)) {
                 $baseUri = \mb_substr($baseUri, 0, -1);
             }
@@ -124,6 +134,7 @@ class Client extends BaseClient
         $this->preview = $preview;
         $this->defaultLocale = $defaultLocale;
         $this->spaceId = $spaceId;
+        $this->environmentId = $environmentId;
 
         $cacheItemPool = $options['cache'] ?: new VoidCachePool();
         if (!$cacheItemPool instanceof CacheItemPoolInterface) {
@@ -196,7 +207,7 @@ class Client extends BaseClient
         }
 
         return $this->requestAndBuild(
-            '/spaces/'.$this->spaceId.'/assets/'.$assetId,
+            '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/assets/'.$assetId,
             ['query' => ['locale' => $locale]]
         );
     }
@@ -214,7 +225,7 @@ class Client extends BaseClient
         }
 
         return $this->requestAndBuild(
-            '/spaces/'.$this->spaceId.'/assets',
+            '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/assets',
             ['query' => $queryData]
         );
     }
@@ -231,7 +242,7 @@ class Client extends BaseClient
         }
 
         return $this->requestAndBuild(
-            '/spaces/'.$this->spaceId.'/content_types/'.$contentTypeId
+            '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/content_types/'.$contentTypeId
         );
     }
 
@@ -243,9 +254,35 @@ class Client extends BaseClient
     public function getContentTypes(Query $query = null)
     {
         return $this->requestAndBuild(
-            '/spaces/'.$this->spaceId.'/content_types',
+            '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/content_types',
             ['query' => $query ? $query->getQueryData() : []]
         );
+    }
+
+    /**
+     * @return Environment
+     */
+    public function getEnvironment()
+    {
+        if ($this->instanceRepository->has('Environment', $this->environmentId)) {
+            return $this->instanceRepository->get('Environment', $this->environmentId);
+        }
+
+        // Because in the CDA there is no native endpoint for handling environments,
+        // we create a fake one in order to assign the collection of locales to it.
+        // We could be using any sort of fake resource for this, like a "LocaleCollection" type,
+        // but given that previously locales were part of the space, whereas now they conceptually
+        // belong to an environment, we choose this kind abstraction.
+        $locales = $this->request('GET', '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/locales');
+        $environment = [
+            'sys' => [
+                'id' => $this->environmentId,
+                'type' => 'Environment',
+            ],
+            'locales' => $locales['items'],
+        ];
+
+        return $this->builder->build($environment);
     }
 
     /**
@@ -264,7 +301,7 @@ class Client extends BaseClient
         }
 
         return $this->requestAndBuild(
-            '/spaces/'.$this->spaceId.'/entries/'.$entryId,
+            '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries/'.$entryId,
             ['query' => ['locale' => $locale]]
         );
     }
@@ -282,7 +319,7 @@ class Client extends BaseClient
         }
 
         return $this->requestAndBuild(
-            '/spaces/'.$this->spaceId.'/entries',
+            '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries',
             ['query' => $queryData]
         );
     }
@@ -338,11 +375,14 @@ class Client extends BaseClient
         $data = \GuzzleHttp\json_decode($json, true);
 
         $spaceId = $this->extractSpaceId($data);
-        if ($spaceId !== $this->spaceId) {
+        $environmentId = $this->extractEnvironmentId($data);
+        if ($spaceId !== $this->spaceId || $environmentId !== $this->environmentId) {
             throw new \InvalidArgumentException(\sprintf(
-                'Trying to parse and build a JSON structure with a client configured for handling space "%s", but space "%s" was detected.',
+                'Trying to parse and build a JSON structure with a client configured for handline space "%s" and environment "%s", but space "%s" and environment "%s" were detected.',
                 $this->spaceId,
-                $spaceId
+                $this->environmentId,
+                $spaceId,
+                $environmentId
             ));
         }
 
@@ -363,6 +403,11 @@ class Client extends BaseClient
             return $data['sys']['id'];
         }
 
+        // Environment resource
+        if (isset($data['sys']['type']) && $data['sys']['type'] === 'Environment') {
+            return $this->spaceId;
+        }
+
         // Resource linked to a space
         if (isset($data['sys']['space'])) {
             return $data['sys']['space']['sys']['id'];
@@ -379,6 +424,43 @@ class Client extends BaseClient
         }
 
         return '[blank]';
+    }
+
+    /**
+     * Checks a data structure and extracts the environment ID, if present.
+     *
+     * @param array $data
+     *
+     * @return string|null
+     */
+    public function extractEnvironmentId(array $data)
+    {
+        // Space resource
+        if (isset($data['sys']['type']) && $data['sys']['type'] === 'Space') {
+            return $this->environmentId;
+        }
+
+        // Environment resource
+        if (isset($data['sys']['type']) && $data['sys']['type'] === 'Environment') {
+            return $data['sys']['id'];
+        }
+
+        // Resource linked to a environment
+        if (isset($data['sys']['environment'])) {
+            return $data['sys']['environment']['sys']['id'];
+        }
+
+        // Array resource with at least an element
+        if (isset($data['items'][0]['sys']['environment'])) {
+            return $data['items'][0]['sys']['environment']['sys']['id'];
+        }
+
+        // Empty array resource
+        if (isset($data['items']) && !$data['items']) {
+            return $this->environmentId;
+        }
+
+        return 'master';
     }
 
     /**

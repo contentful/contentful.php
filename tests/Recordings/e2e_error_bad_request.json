@@ -1,11 +1,11 @@
 [{
     "request": {
         "method": "GET",
-        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/entries\/nyancat?locale=invalidLocale",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/environments\/master\/entries\/nyancat?locale=invalidLocale",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.13",
-            "X-Contentful-User-Agent": "sdk contentful.php\/2.5.0-dev; platform PHP\/7.1.13; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1"
@@ -27,19 +27,19 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "d533d76293f8bb047467344a28beffe0",
+            "X-Contentful-Request-Id": "00cc5c8a72f7f660aacaaa1999e1063d",
             "Content-Length": "160",
             "Accept-Ranges": "bytes",
-            "Date": "Wed, 24 Jan 2018 10:33:02 GMT",
+            "Date": "Tue, 06 Mar 2018 10:14:33 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1551-HHN",
+            "X-Served-By": "cache-hhn1529-HHN",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
-            "X-Timer": "S1516789982.507773,VS0,VE516",
+            "X-Timer": "S1520331274.702653,VS0,VE197",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"BadRequest\"\n  },\n  \"message\": \"Unknown locale: invalidLocale\",\n  \"requestId\": \"d533d76293f8bb047467344a28beffe0\"\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"BadRequest\"\n  },\n  \"message\": \"Unknown locale: invalidLocale\",\n  \"requestId\": \"00cc5c8a72f7f660aacaaa1999e1063d\"\n}\n"
     }
 }]

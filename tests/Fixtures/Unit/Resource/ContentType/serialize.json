@@ -3,13 +3,6 @@
     "description": "Also called homo sapiens",
     "displayField": "name",
     "sys": {
-        "space": {
-            "sys": {
-                "id": "cfexampleapi",
-                "linkType": "Space",
-                "type": "Link"
-            }
-        },
         "id": "human",
         "type": "ContentType",
         "revision": 3,

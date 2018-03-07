@@ -33,11 +33,12 @@ interface CacheItemPoolFactoryInterface
      * for things like using a different directory in the filesystem,
      * but the implementation can simply not use them if they're not necessary.
      *
-     * @param string $api     A string representation of the API in use,
-     *                        it's the result of calling $client->getApi()
-     * @param string $spaceId The ID of the space
+     * @param string $api           A string representation of the API in use,
+     *                              it's the result of calling $client->getApi()
+     * @param string $spaceId       The ID of the space
+     * @param string $environmentId The ID of the environment
      *
      * @return CacheItemPoolInterface
      */
-    public function getCacheItemPool($api, $spaceId);
+    public function getCacheItemPool($api, $spaceId, $environmentId);
 }

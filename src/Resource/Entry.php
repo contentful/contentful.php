@@ -53,11 +53,23 @@ class Entry extends LocalizedResource
     }
 
     /**
-     * @return Space|null
+     * Returns the space this entry belongs to.
+     *
+     * @return Space
      */
     public function getSpace()
     {
         return $this->sys->getSpace();
+    }
+
+    /**
+     * Returns the environment this entry belongs to.
+     *
+     * @return Environment
+     */
+    public function getEnvironment()
+    {
+        return $this->sys->getEnvironment();
     }
 
     /**
@@ -131,10 +143,10 @@ class Entry extends LocalizedResource
         $value = $this->fields[$fieldName];
         if (!$fieldConfig->isLocalized()) {
             if (!isset($value[$locale])) {
-                $locale = $this->getSpace()->getDefaultLocale()->getCode();
+                $locale = $this->sys->getEnvironment()->getDefaultLocale()->getCode();
             }
         } else {
-            $locale = $this->loopThroughFallbackChain($value, $locale, $this->getSpace());
+            $locale = $this->loopThroughFallbackChain($value, $locale, $this->sys->getEnvironment());
 
             // We've reach the end of the fallback chain and there's no value
             if (null === $locale) {

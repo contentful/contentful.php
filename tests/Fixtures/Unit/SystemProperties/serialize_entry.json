@@ -15,6 +15,13 @@
             "id": "human"
         }
     },
+    "environment": {
+        "sys": {
+            "type": "Link",
+            "linkType": "Environment",
+            "id": "master"
+        }
+    },
     "revision": 1,
     "createdAt": "2014-08-11T08:30:42.559Z",
     "updatedAt": "2014-08-12T08:30:42.559Z"

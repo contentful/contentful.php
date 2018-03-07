@@ -2,6 +2,7 @@
 
 $finder = PhpCsFixer\Finder::create()
     ->in('bin')
+    ->in('extra')
     ->in('scripts')
     ->in('src')
     ->in('tests')

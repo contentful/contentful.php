@@ -31,16 +31,11 @@ class Entry extends BaseMapper
     {
         $sys = $this->buildSystemProperties($data['sys']);
         $locale = $sys->getLocale();
-        $contentType = $sys->getContentType();
-
-        if (!$contentType) {
-            throw new \RuntimeException('Trying to build an entry without having a content type specified.');
-        }
 
         return $this->hydrate($resource ?: ResourceClass::class, [
             'sys' => $sys,
             'fields' => isset($data['fields'])
-                ? $this->buildFields($contentType, $data['fields'], $locale)
+                ? $this->buildFields($sys->getContentType(), $data['fields'], $locale)
                 : [],
         ]);
     }

@@ -17,31 +17,28 @@ class ContentTypeTest extends TestCase
 {
     public function testGetter()
     {
-        $space = ConcreteSpace::withSys('cfexampleapi');
         $sys = new SystemProperties([
             'id' => 'human',
             'type' => 'ContentType',
-            'space' => $space,
             'revision' => 3,
             'createdAt' => new DateTimeImmutable('2013-06-27T22:46:14.133Z'),
             'updatedAt' => new DateTimeImmutable('2013-09-02T15:10:26.818Z'),
         ]);
-        $contentType = new ConcreteContentType([
+        $contentType = new MockContentType([
             'sys' => $sys,
             'name' => 'Human',
             'description' => 'Also called homo sapiens',
             'displayField' => 'name',
             'fields' => [
-                'name' => new ConcreteField(['id' => 'name', 'name' => 'Name', 'type' => 'Text', 'required' => true]),
-                'likes' => new ConcreteField(['id' => 'likes', 'name' => 'Likes', 'type' => 'Array', 'itemsType' => 'Symbol']),
-                'image' => new ConcreteField(['id' => 'image', 'name' => 'Image', 'type' => 'Array', 'itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
+                'name' => new MockField(['id' => 'name', 'name' => 'Name', 'type' => 'Text', 'required' => true]),
+                'likes' => new MockField(['id' => 'likes', 'name' => 'Likes', 'type' => 'Array', 'itemsType' => 'Symbol']),
+                'image' => new MockField(['id' => 'image', 'name' => 'Image', 'type' => 'Array', 'itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
             ],
         ]);
 
         $this->assertSame('human', $contentType->getId());
         $this->assertSame('Human', $contentType->getName());
         $this->assertSame('Also called homo sapiens', $contentType->getDescription());
-        $this->assertSame($space, $contentType->getSpace());
         $this->assertSame('name', $contentType->getDisplayField()->getId());
         $this->assertSame('2013-06-27T22:46:14.133Z', (string) $contentType->getCreatedAt());
         $this->assertSame('2013-09-02T15:10:26.818Z', (string) $contentType->getUpdatedAt());
@@ -65,12 +62,12 @@ class ContentTypeTest extends TestCase
             'createdAt' => new DateTimeImmutable('2013-06-27T22:46:14.133Z'),
             'updatedAt' => new DateTimeImmutable('2013-09-02T15:10:26.818Z'),
         ]);
-        $contentType = new ConcreteContentType([
+        $contentType = new MockContentType([
             'sys' => $sys,
             'name' => 'Human',
             'fields' => [
-                'likes' => new ConcreteField(['id' => 'likes', 'name' => 'Likes', 'type' => 'Array', 'itemsType' => 'Symbol']),
-                'image' => new ConcreteField(['id' => 'image', 'name' => 'Image', 'type' => 'Array', 'itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
+                'likes' => new MockField(['id' => 'likes', 'name' => 'Likes', 'type' => 'Array', 'itemsType' => 'Symbol']),
+                'image' => new MockField(['id' => 'image', 'name' => 'Image', 'type' => 'Array', 'itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
             ],
         ]);
 
@@ -84,20 +81,19 @@ class ContentTypeTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'human',
             'type' => 'ContentType',
-            'space' => ConcreteSpace::withSys('cfexampleapi'),
             'revision' => 3,
             'createdAt' => new DateTimeImmutable('2013-06-27T22:46:14.133Z'),
             'updatedAt' => new DateTimeImmutable('2013-09-02T15:10:26.818Z'),
         ]);
-        $contentType = new ConcreteContentType([
+        $contentType = new MockContentType([
             'sys' => $sys,
             'name' => 'Human',
             'description' => 'Also called homo sapiens',
             'displayField' => 'name',
             'fields' => [
-                'name' => new ConcreteField(['id' => 'name', 'name' => 'Name', 'type' => 'Text', 'required' => true]),
-                'likes' => new ConcreteField(['id' => 'likes', 'name' => 'Likes', 'type' => 'Array', 'itemsType' => 'Symbol']),
-                'image' => new ConcreteField(['id' => 'image', 'name' => 'Image', 'type' => 'Array', 'itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
+                'name' => new MockField(['id' => 'name', 'name' => 'Name', 'type' => 'Text', 'required' => true]),
+                'likes' => new MockField(['id' => 'likes', 'name' => 'Likes', 'type' => 'Array', 'itemsType' => 'Symbol']),
+                'image' => new MockField(['id' => 'image', 'name' => 'Image', 'type' => 'Array', 'itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
             ],
         ]);
 

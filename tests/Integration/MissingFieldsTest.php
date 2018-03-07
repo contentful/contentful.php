@@ -23,8 +23,8 @@ class MissingFieldsTest extends TestCase
     {
         $client = new Client('irrelevant', 'rue07lqzt1co');
 
-        $client->parseJson($this->getFixtureContent('space_entry.json'));
-        // $client->parseJson($this->getFixtureContent('environment_entry.json'));
+        $client->parseJson($this->getFixtureContent('space.json'));
+        $client->parseJson($this->getFixtureContent('environment_entry.json'));
         $client->parseJson($this->getFixtureContent('content_type.json'));
         $entry = $client->parseJson($this->getFixtureContent('entry.json'));
 
@@ -35,8 +35,8 @@ class MissingFieldsTest extends TestCase
     {
         $client = new Client('irrelevant', 'rue07lqzt1co', 'master', true);
 
-        $client->parseJson($this->getFixtureContent('space_asset.json'));
-        // $client->parseJson($this->getFixtureContent('environment_asset.json'));
+        $client->parseJson($this->getFixtureContent('space.json'));
+        $client->parseJson($this->getFixtureContent('environment_asset.json'));
         $asset = $client->parseJson($this->getFixtureContent('asset.json'));
 
         $this->assertNull($asset->getTitle());
