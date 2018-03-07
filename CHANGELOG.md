@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 **ATTENTION**: This release contains breaking changes. Please take extra care when updating to this version. See [the upgrade guide](UPGRADE-3.0.md) for more.
 
+### PHP Version
+
+* Support for PHP 5.5 was dropped. PHP 5.5 has reached EOL in July 2016, so we highly discourage anyone from keep using it for multiple reasons, including possible security concerns. The SDK now requires at least PHP 5.6; however, PHP 5.6 is not actively supported and currently only security fixes are provided. Because of this, we strongly encourage everybody to upgrade to a version in the PHP 7 branch, ideally 7.1 or 7.2, which are actively supported. Many other popular frameworks and tools already require a version in the PHP 7 branch: Symfony 4 requires 7.1, Laravel 5.5 requires 7.0, Laravel 5.6 requires 7.1, PHPUnit 6 requires 7.0, PHPUnit 7 requires 7.1, etc. Because of the clear convergence of the PHP ecosystem towards this upgrade, and the availability of tools that allow you to easily manage your PHP version (such as Docker), we can't guarantee that the next major version of this SDK (version 4) will still keep compatibility with PHP 5.6. However, compatibility is guaranteed for the whole lifecycle of the PHP Contentful Delivery SDK version 3, and important bugfixes (including security-related ones) will be backported once version 4 will be released.
+
 ### Added
 
 * The SDK now supports space environments.
