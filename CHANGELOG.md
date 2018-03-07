@@ -22,9 +22,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * The cache system has been rewritten to be made PSR-6 compatible (thanks @magnusnordlander). **[BREAKING]**
 * `DynamicEntry`, `Asset`, `ContentType`, `ContentTypeField`, `Space`, and `Locale`, `DeletedAsset`, 'DeletedEntry', and `DeletedContentType` classes have been moved to a different namespace. Please check the [the upgrade guide](UPGRADE-3.0.md) for more details. **[BREAKING]**
 * All parts of the SDK that were not in the `Contentful\Delivery` namespace have been moved to a separate package called [contentful-core.php](https://github.com/contentful/contentful-core.php).
-* The option in the client constructor for specifying a custom URI is not called `baseUri` instead of `uriOverride`, to be more consistent with the one used in Guzzle. **[BREAKING]**
+* The option in the client constructor for specifying a custom URI is now called `baseUri` instead of `uriOverride`, to be more consistent with the one used in Guzzle. **[BREAKING]**
 * The SDK no longer used a custom logger. It now supports any PSR-3 compatible logging implementation for permanent storage, but easy access to a log of current API requests is provides through `Client::getMessages()`, which returns an array of `Contentful\Core\Api\Message`. **[BREAKING]**
 * The SDK now keeps a registry of all resources that are currently managed, called `Contentful\Delivery\InstanceRepository`. This class also wraps the PSR-6 cache pool.
+* `Client::reviveJson()` is now called `Client::parseJson()` to better reflect its meaning.
 
 ### Removed
 

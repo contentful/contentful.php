@@ -460,7 +460,7 @@ class Client extends BaseClient
             return $this->environmentId;
         }
 
-        return '[blank]';
+        return 'master';
     }
 
     /**

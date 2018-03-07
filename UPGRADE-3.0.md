@@ -66,6 +66,9 @@ These classes have been moved to a separate package, which is required from the 
 | `Contentful\Location`                              | `Contentful\Core\Api\Location`                          |
 | `Contentful\ResourceArray`                         | `Contentful\Core\Resource\ResourceArray`                |
 
+## Changes in `Client::reviveJson()`
+
+`Client::reviveJson()` was a method that allowed you to parse a JSON string that is in a format recognized from the SDK, and turn it into a resource object. In order to better reflect its meaning, it was renamed to `Client::parseJson()`. Previously it would throw a custom exception of type `Contentful\Exception\SpaceMismatchException`, which has since been removed; instead, if trying to parse a JSON string with unrecognized space or environment ID, an exception of type `\InvalidArgumentException` will now be thrown.
 
 ## Removal of EntryInterface and other deprecated classes
 

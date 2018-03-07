@@ -78,7 +78,7 @@ The Content Delivery API only returns published entries. However, you might want
 $client = new \Contentful\Delivery\Client('access-token', 'space-id', 'environment-id', true);
 ```
 
-Apart from the configuration option, you can use the SDK without modifications with one exception: you need to obtain a preview access token, which you can get in the "API" tab of the Contentful web  app. In preview mode, data can be invalid, because no validation is performed on unpublished entries, so tour app needs to take that into account.
+Apart from the configuration option, you can use the SDK without modifications with one exception: you need to obtain a preview access token, which you can get in the "API" tab of the Contentful web  app. In preview mode, data can be invalid, because no validation is performed on unpublished entries, so your app needs to take that into account.
 
 ### Default Locale
 

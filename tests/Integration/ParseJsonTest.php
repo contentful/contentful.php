@@ -46,7 +46,7 @@ class ParseJsonTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handline space "cfexampleapi" and environment "master", but space "wrongspace" and environment "[blank]" were detected.
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handline space "cfexampleapi" and environment "master", but space "wrongspace" and environment "master" were detected.
      */
     public function testParseJsonContentTypeSpaceMismatch()
     {
@@ -55,7 +55,7 @@ class ParseJsonTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handline space "cfexampleapi" and environment "master", but space "[blank]" and environment "[blank]" were detected.
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handline space "cfexampleapi" and environment "master", but space "[blank]" and environment "master" were detected.
      */
     public function testParseJsonEmptyObject()
     {
