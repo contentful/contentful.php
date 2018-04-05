@@ -16,10 +16,7 @@ class FieldTest extends TestCase
 {
     public function testGetter()
     {
-        $field = new MockField([
-            'id' => 'id',
-            'name' => 'name',
-            'type' => 'type',
+        $field = new MockField('id', 'name', 'type', [
             'linkType' => 'linkType',
             'itemsType' => 'itemsType',
             'itemsLinkType' => 'itemsLinkType',
@@ -41,10 +38,7 @@ class FieldTest extends TestCase
 
     public function testJsonSerialize()
     {
-        $field1 = new MockField([
-            'id' => 'one',
-            'name' => 'oneField',
-            'type' => 'Link',
+        $field1 = new MockField('one', 'oneField', 'Link', [
             'linkType' => 'Asset',
             'itemsType' => null,
             'itemsLinkType' => null,
@@ -54,10 +48,7 @@ class FieldTest extends TestCase
         ]);
         $this->assertJsonFixtureEqualsJsonObject('serialize_one.json', $field1);
 
-        $field2 = new MockField([
-            'id' => 'many',
-            'name' => 'manyField',
-            'type' => 'Array',
+        $field2 = new MockField('many', 'manyField', 'Array', [
             'linkType' => null,
             'itemsType' => 'Link',
             'itemsLinkType' => 'Asset',

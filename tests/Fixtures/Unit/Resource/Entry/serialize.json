@@ -48,13 +48,7 @@
         }
     },
     "sys": {
-        "space": {
-            "sys": {
-                "type": "Link",
-                "linkType": "Space",
-                "id": "cfexampleapi"
-            }
-        },
+        "id": "nyancat",
         "type": "Entry",
         "contentType": {
             "sys": {
@@ -70,7 +64,6 @@
                 "id": "master"
             }
         },
-        "id": "nyancat",
         "revision": 5,
         "createdAt": "2013-06-27T22:46:19.513Z",
         "updatedAt": "2013-09-04T09:19:39.027Z"

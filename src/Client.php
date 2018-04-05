@@ -115,7 +115,6 @@ class Client extends BaseClient
             'guzzle' => null,
             'logger' => null,
             'baseUri' => null,
-            'cacheDir' => null,
             'cache' => null,
             'autoWarmup' => false,
         ], $options);

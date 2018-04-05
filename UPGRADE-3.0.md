@@ -207,3 +207,57 @@ The SDK currently only uses two levels of logging: `INFO` for regular requests, 
 The previous mechanism allowed you to optionally pass an instance of `Contentful\Log\ArrayLogger` in order to store information about the requests you made. This behavior is now built-in and you don't have to do anything manually. You can simply use `Client::getMessages()` to access an array of `Contentful\Core\Api\Message` objects, which contain useful information for debugging, such as the raw PSR-7 requests and response objects, the duration of the API call, and the exception object generated from the response (if any).
 
 Because of how PSR-3 loggers work, message objects are serialized as JSON strings before being sent to the logger. You can use `Message::createFromString($json)` to reconstruct the original message object, but bear in mind that some bits of information get lost in the serialization process, such as the difference between `http` and `https` in the request host, and the trace data of the exception.
+
+### Disallowed use of fallback chain except when using the `*` locale
+
+The SDK internally reproduces the locale fallback chain mechanism that is built into the Delivery and Preview API. This is useful in situations where you request the full resource with all its locales, but you still want to be able to use locale fallbacks as if you were requesting them from the API itself. Unfortunately, the SDK would use the chain in situations where this could possibly lead to field values inconsistent with those stored in Contentful.
+
+Let's look at an example to illustrate the possibly problematic behavior. Let's say you have an environment whose locales look like this:
+
+* `en-US` (default)
+* `it-IT` (falls back to `en-US`)
+
+Now, imagine having an entry with a field called `name`, with the following values:
+
+* `en-US`: "_House_"
+* `it-IT`: "_Casa_"
+
+This is what would happen previously (in the SDK v2):
+
+``` php
+// No locale is provided, so Contentful will use the default one, en-US
+$client->getEntry($entryId);
+
+$entry->getName(); // House
+$entry->getName('en-US'); // House
+$entry->getName('it-IT'); // House
+
+
+// Now, all locales are requested
+$client->getEntry($entryId, '*');
+
+$entry->getName(); // House
+$entry->getName('en-US'); // House
+$entry->getName('it-IT'); // Casa
+```
+
+As you can see, `$entry->getName('it-IT')` yields two different results, because the fallback chain is being used with an incomplete dataset.
+
+In order to avoid this situation, the SDK now forbids access to a locale which is different from the one used to fetch the entry. If you want to access multiple locales on a single entry, you need to use the `locale=*` value:
+
+``` php
+// No locale is provided, so Contentful will use the default one, en-US
+$client->getEntry($entryId);
+
+$entry->getName(); // House
+$entry->getName('en-US'); // House
+$entry->getName('it-IT'); // InvalidArgumentException: Entry with ID "<entryId>" was built using locale "en-US", but now access using locale "it-IT" is being attempted.
+
+
+// Now, all locales are requested
+$client->getEntry($entryId, '*');
+
+$entry->getName(); // House
+$entry->getName('en-US'); // House
+$entry->getName('it-IT'); // Casa
+```

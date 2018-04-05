@@ -29,6 +29,7 @@ class EntryLocaleTest extends TestCase
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertSame('Nyan Cat', $entries[0]->getName());
+        $this->assertSame('Nyan Cat', $entries[0]->get('name'));
     }
 
     /**
@@ -45,6 +46,7 @@ class EntryLocaleTest extends TestCase
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertSame('Nyan Cat', $entries[0]->getName());
+        $this->assertSame('Nyan Cat', $entries[0]->get('name'));
     }
 
     /**
@@ -61,10 +63,13 @@ class EntryLocaleTest extends TestCase
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertSame('Nyan vIghro\'', $entries[0]->getName());
+        $this->assertSame('Nyan vIghro\'', $entries[0]->get('name'));
     }
 
     /**
      * @vcr e2e_entry_locale_from_client.json
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Entry with ID "nyancat" was built using locale "tlh", but now access using locale "en-US" is being attempted.
      */
     public function testGetLocaleFromClient()
     {
@@ -75,8 +80,9 @@ class EntryLocaleTest extends TestCase
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
-        $this->assertSame('Nyan vIghro\'', $entries[0]->getName());
-        $this->assertNull($entries[0]->getName('en-US'));
+        $this->assertSame('Nyan vIghro\'', $entries[0]->get('name'));
+
+        $entries[0]->get('name', 'en-US');
     }
 
     /**
@@ -89,5 +95,6 @@ class EntryLocaleTest extends TestCase
         $happycat = $client->getEntry('happycat', 'tlh');
         $nyancat = $happycat->getBestFriend();
         $this->assertSame('Nyan vIghro\'', $nyancat->getName());
+        $this->assertSame('Nyan vIghro\'', $nyancat->get('name'));
     }
 }

@@ -80,9 +80,9 @@ after_success:
     # We generate API docs only for the build lead (to avoid wasting time on all builds),
     # and when on merges to master, which is the result of this condition and the setting
     # branches: only: master above.
-    if [[ ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != false) && $BUILD_LEAD == 1 ]]
+    if [[ ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != '') && $BUILD_LEAD == 1 ]]
     then
-      ./scripts/prepare-docs.sh
+      sh ./scripts/prepare-docs.sh
     fi
 
 deploy:
@@ -91,7 +91,7 @@ deploy:
   github_token: $GITHUB_TOKEN
   local_dir: build/docs
   on:
-    condition: ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != false) && $BUILD_LEAD == 1
+    condition: ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != '') && $BUILD_LEAD == 1
 
 notifications:
   slack:

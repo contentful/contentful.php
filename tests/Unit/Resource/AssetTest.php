@@ -73,7 +73,7 @@ class AssetTest extends TestCase
             'description' => ['en-US' => 'A picture of Nyan Cat', 'it-IT' => 'Una foto del Gatto Nyan'],
             'file' => ['en-US' => $this->file],
         ]);
-        $this->asset->setLocales($this->environment->getLocales());
+        $this->asset->initLocales($this->environment->getLocales());
     }
 
     public function testGetter()
@@ -100,7 +100,6 @@ class AssetTest extends TestCase
         $this->assertSame('Nyan Cat', $asset->getTitle());
         $this->assertSame('Gatto Nyan', $asset->getTitle('it-IT'));
         $this->assertSame('Nyan Cat', $asset->getTitle('en-US'));
-        $this->assertSame('Nyan Cat', $asset->getTitle('tlh'));
     }
 
     public function testGetDescriptionWithLocale()
@@ -110,7 +109,6 @@ class AssetTest extends TestCase
         $this->assertSame('A picture of Nyan Cat', $asset->getDescription());
         $this->assertSame('Una foto del Gatto Nyan', $asset->getDescription('it-IT'));
         $this->assertSame('A picture of Nyan Cat', $asset->getDescription('en-US'));
-        $this->assertSame('A picture of Nyan Cat', $asset->getDescription('tlh'));
     }
 
     /**
@@ -146,7 +144,7 @@ class AssetTest extends TestCase
             'title' => ['en-US' => 'Nyan Cat'],
             'file' => ['en-US' => $this->file],
         ]);
-        $asset->setLocales($this->environment->getLocales());
+        $asset->initLocales($this->environment->getLocales());
 
         $this->assertNull($asset->getDescription());
     }
@@ -166,7 +164,7 @@ class AssetTest extends TestCase
             'description' => ['en-US' => 'A picture of Nyan Cat'],
             'file' => ['en-US' => $this->file],
         ]);
-        $asset->setLocales($this->environment->getLocales());
+        $asset->initLocales($this->environment->getLocales());
 
         $this->assertNull($asset->getTitle());
     }

@@ -97,10 +97,6 @@ class AssetTest extends TestCase
         $this->assertSame('Ben Chang', $asset->getTitle());
         $this->assertSame('I AM A SPANISH GENIUS!', $asset->getDescription());
 
-        // Tests that the fallback chain is working correctly.
-        // Tested chain is es -> it -> en-US
-        $this->assertNull($asset->getFile('it'));
-        $this->assertNull($asset->getFile('en-US'));
         $this->assertInstanceOf(ImageFile::class, $asset->getFile());
         $this->assertInstanceOf(ImageFile::class, $asset->getFile('es'));
         $this->assertSame('//images.ctfassets.net/88dyiqcr7go8/SQOIQ1rZMQQUeyoyGiEUq/84b6aef287ed214b464114655f99bfa8/ben-chang.jpg', $asset->getFile('es')->getUrl());

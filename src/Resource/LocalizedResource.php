@@ -27,19 +27,23 @@ abstract class LocalizedResource extends BaseResource
      *
      * @var string[]
      */
-    protected $locales = [];
+    protected $localeCodes = [];
 
     /**
      * @param Locale[] $locales The locales available in the space this resource belongs to
      */
-    public function setLocales(array $locales)
+    public function initLocales(array $locales)
     {
         foreach ($locales as $locale) {
             if ($locale->isDefault()) {
                 $this->localeCode = $locale->getCode();
             }
 
-            $this->locales[] = $locale->getCode();
+            $this->localeCodes[] = $locale->getCode();
+        }
+
+        if ($this->sys && $this->sys->getLocale()) {
+            $this->localeCode = $this->sys->getLocale();
         }
     }
 
@@ -49,25 +53,11 @@ abstract class LocalizedResource extends BaseResource
      *
      * @param Locale|string $locale The locale code as string or an instance of Locale
      *
-     * @throws \InvalidArgumentException When $locale is not one of the locales supported by the space
-     *
      * @return $this
      */
     public function setLocale($locale)
     {
-        if ($locale instanceof Locale) {
-            $locale = $locale->getCode();
-        }
-
-        if (!\in_array($locale, $this->locales, true)) {
-            throw new \InvalidArgumentException(\sprintf(
-                'Trying to switch to invalid locale "%s", available locales are "%s".',
-                $locale,
-                \implode(', ', $this->locales)
-            ));
-        }
-
-        $this->localeCode = $locale;
+        $this->localeCode = $this->getLocaleFromInput($locale);
 
         return $this;
     }
@@ -99,11 +89,20 @@ abstract class LocalizedResource extends BaseResource
             return $this->localeCode;
         }
 
-        if (!\in_array($input, $this->locales, true)) {
+        if ($this->sys && $this->sys->getLocale() && $input !== $this->sys->getLocale()) {
+            throw new \InvalidArgumentException(\sprintf(
+                'Entry with ID "%s" was built using locale "%s", but now access using locale "%s" is being attempted.',
+                $this->sys->getId(),
+                $this->sys->getLocale(),
+                $input
+            ));
+        }
+
+        if (!\in_array($input, $this->localeCodes, true)) {
             throw new \InvalidArgumentException(\sprintf(
                 'Trying to use invalid locale "%s", available locales are "%s".',
                 $input,
-                \implode(', ', $this->locales)
+                \implode(', ', $this->localeCodes)
             ));
         }
 
@@ -119,13 +118,13 @@ abstract class LocalizedResource extends BaseResource
      *
      * @return string|null The locale code for which a value can be found. null if the end of the chain has been reached.
      */
-    protected function loopThroughFallbackChain(array $valueMap, $localeCode, Environment $environment)
+    protected function walkFallbackChain(array $valueMap, $localeCode, Environment $environment)
     {
         $loopCounter = 0;
         while (!isset($valueMap[$localeCode])) {
             $localeCode = $environment->getLocale($localeCode)->getFallbackCode();
             if (null === $localeCode) {
-                // We've reach the end of the fallback chain and there's no value
+                // We've reached the end of the fallback chain and there's no value
                 return null;
             }
 

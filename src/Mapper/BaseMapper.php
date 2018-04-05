@@ -72,13 +72,7 @@ abstract class BaseMapper implements MapperInterface
 
         if ($target instanceof LocalizedResource) {
             $locales = $this->client->getEnvironment()->getLocales();
-            $target->setLocales($locales);
-
-            /** @var SystemProperties $sys */
-            $sys = $target->getSystemProperties();
-            if ($locale = $sys->getLocale()) {
-                $target->setLocale($locale);
-            }
+            $target->initLocales($locales);
         }
 
         return $target;

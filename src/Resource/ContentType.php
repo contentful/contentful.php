@@ -82,16 +82,25 @@ class ContentType extends BaseResource
      * If the field does not exist, null is returned.
      *
      * @param string $fieldId
+     * @param bool   $tryCaseInsensitive
      *
      * @return Field|null
      */
-    public function getField($fieldId)
+    public function getField($fieldId, $tryCaseInsensitive = false)
     {
-        if (!isset($this->fields[$fieldId])) {
-            return null;
+        if (isset($this->fields[$fieldId])) {
+            return $this->fields[$fieldId];
         }
 
-        return $this->fields[$fieldId];
+        if ($tryCaseInsensitive) {
+            foreach ($this->fields as $name => $field) {
+                if (\mb_strtolower($name) === \mb_strtolower($fieldId)) {
+                    return $field;
+                }
+            }
+        }
+
+        return null;
     }
 
     /**

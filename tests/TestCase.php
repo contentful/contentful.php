@@ -170,6 +170,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
+use Contentful\Delivery\Client;
+
 class MockSpace extends \Contentful\Delivery\Resource\Space
 {
     public function __construct(array $data)
@@ -228,6 +230,11 @@ class MockEntry extends \Contentful\Delivery\Resource\Entry
             'sys' => new \Contentful\Delivery\SystemProperties(['id' => $id, 'type' => 'Entry']),
         ]));
     }
+
+    public function setClient(Client $client = null)
+    {
+        $this->client = $client;
+    }
 }
 
 class MockContentType extends \Contentful\Delivery\Resource\ContentType
@@ -247,8 +254,10 @@ class MockContentType extends \Contentful\Delivery\Resource\ContentType
 
 class MockField extends \Contentful\Delivery\Resource\ContentType\Field
 {
-    public function __construct(array $data)
+    public function __construct($id, $name, $type, array $data = [])
     {
+        parent::__construct($id, $name, $type);
+
         foreach ($data as $property => $value) {
             if (\property_exists($this, $property)) {
                 $this->$property = $value;
@@ -292,7 +301,7 @@ class MockLocalizedResource extends \Contentful\Delivery\Resource\LocalizedResou
 {
     public function __construct(array $locales)
     {
-        $this->setLocales($locales);
+        $this->initLocales($locales);
     }
 
     public function getLocaleFromInput($locale = null)
@@ -300,9 +309,9 @@ class MockLocalizedResource extends \Contentful\Delivery\Resource\LocalizedResou
         return parent::getLocaleFromInput($locale);
     }
 
-    public function loopThroughFallbackChain(array $valueMap, $localeCode, \Contentful\Delivery\Resource\Environment $environment)
+    public function walkFallbackChain(array $valueMap, $localeCode, \Contentful\Delivery\Resource\Environment $environment)
     {
-        return parent::loopThroughFallbackChain($valueMap, $localeCode, $environment);
+        return parent::walkFallbackChain($valueMap, $localeCode, $environment);
     }
 
     public function jsonSerialize()

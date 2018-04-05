@@ -30,9 +30,9 @@ class ContentTypeTest extends TestCase
             'description' => 'Also called homo sapiens',
             'displayField' => 'name',
             'fields' => [
-                'name' => new MockField(['id' => 'name', 'name' => 'Name', 'type' => 'Text', 'required' => true]),
-                'likes' => new MockField(['id' => 'likes', 'name' => 'Likes', 'type' => 'Array', 'itemsType' => 'Symbol']),
-                'image' => new MockField(['id' => 'image', 'name' => 'Image', 'type' => 'Array', 'itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
+                'name' => new MockField('name', 'Name', 'Text', ['required' => true]),
+                'likes' => new MockField('likes', 'Likes', 'Array', ['itemsType' => 'Symbol']),
+                'image' => new MockField('image', 'Image', 'Array', ['itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
             ],
         ]);
 
@@ -66,8 +66,8 @@ class ContentTypeTest extends TestCase
             'sys' => $sys,
             'name' => 'Human',
             'fields' => [
-                'likes' => new MockField(['id' => 'likes', 'name' => 'Likes', 'type' => 'Array', 'itemsType' => 'Symbol']),
-                'image' => new MockField(['id' => 'image', 'name' => 'Image', 'type' => 'Array', 'itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
+                'likes' => new MockField('likes', 'Likes', 'Array', ['itemsType' => 'Symbol']),
+                'image' => new MockField('image', 'Image', 'Array', ['itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
             ],
         ]);
 
@@ -91,9 +91,9 @@ class ContentTypeTest extends TestCase
             'description' => 'Also called homo sapiens',
             'displayField' => 'name',
             'fields' => [
-                'name' => new MockField(['id' => 'name', 'name' => 'Name', 'type' => 'Text', 'required' => true]),
-                'likes' => new MockField(['id' => 'likes', 'name' => 'Likes', 'type' => 'Array', 'itemsType' => 'Symbol']),
-                'image' => new MockField(['id' => 'image', 'name' => 'Image', 'type' => 'Array', 'itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
+                'name' => new MockField('name', 'Name', 'Text', ['required' => true]),
+                'likes' => new MockField('likes', 'Likes', 'Array', ['itemsType' => 'Symbol']),
+                'image' => new MockField('image', 'Image', 'Array', ['itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
             ],
         ]);
 
