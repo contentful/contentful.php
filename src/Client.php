@@ -472,6 +472,13 @@ class Client extends BaseClient
      */
     public function syncRequest(array $queryData)
     {
+        if ('master' !== $this->environmentId) {
+            throw new \RuntimeException(\sprintf(
+                'Sync API is not available on any environment besides "master", but "%s" is currently in use.',
+                $this->environmentId
+            ));
+        }
+
         return $this->request('GET', '/spaces/'.$this->spaceId.'/sync', [
             'query' => $queryData,
         ]);
@@ -497,6 +504,13 @@ class Client extends BaseClient
      */
     public function getSynchronizationManager()
     {
+        if ('master' !== $this->environmentId) {
+            throw new \RuntimeException(\sprintf(
+                'Sync API is not available on any environment besides "master", but "%s" is currently in use.',
+                $this->environmentId
+            ));
+        }
+
         return new Manager($this, $this->builder, $this->preview);
     }
 
