@@ -30,6 +30,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * The SDK no longer used a custom logger. It now supports any PSR-3 compatible logging implementation for permanent storage, but easy access to a log of current API requests is provides through `Client::getMessages()`, which returns an array of `Contentful\Core\Api\Message`. **[BREAKING]**
 * The SDK now keeps a registry of all resources that are currently managed, called `Contentful\Delivery\InstanceRepository`. This class also wraps the PSR-6 cache pool.
 * `Client::reviveJson()` is now called `Client::parseJson()` to better reflect its meaning.
+* The Sync API currently only works with the `master` environment. When trying to perform sync-related operations on a client which is configured with any other environment, a `\RuntimeException` will be thrown.
 
 ### Removed
 

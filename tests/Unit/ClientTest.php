@@ -61,4 +61,24 @@ class ClientTest extends TestCase
             'cache' => new \stdClass(),
         ]);
     }
+
+    /**
+     * @expectedException        \RuntimeException
+     * @expectedExceptionMessage Sync API is not available on any environment besides "master", but "staging" is currently in use.
+     */
+    public function testSyncManagerOnlyOnMaster()
+    {
+        (new Client('irrelevant', 'irrelevant', 'staging'))
+            ->getSynchronizationManager();
+    }
+
+    /**
+     * @expectedException        \RuntimeException
+     * @expectedExceptionMessage Sync API is not available on any environment besides "master", but "staging" is currently in use.
+     */
+    public function testSyncRequestOnlyOnMaster()
+    {
+        (new Client('irrelevant', 'irrelevant', 'staging'))
+            ->syncRequest([]);
+    }
 }
