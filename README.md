@@ -1,10 +1,10 @@
 # contentful.php
 
-[![Packagist](https://img.shields.io/packagist/v/contentful/contentful.svg?style=flat-square)](https://packagist.org/packages/contentful/contentful.php)
-[![Travis](https://img.shields.io/travis/contentful/contentful.php.svg?style=flat-square)](https://travis-ci.org/contentful/contentful.php)
-[![Packagist](https://img.shields.io/github/license/contentful/contentful.php.svg?style=flat-square)](https://packagist.org/packages/contentful/contentful.php)
-[![Code Climate](https://img.shields.io/codeclimate/github/contentful/contentful.php.svg?style=flat-square)](https://codeclimate.com/github/contentful/contentful.php)
-[![Codecov](https://img.shields.io/codecov/c/github/contentful/contentful.php.svg?style=flat-square)](https://codecov.io/gh/contentful/contentful.php)
+[![Packagist](https://img.shields.io/packagist/v/contentful/contentful.svg?style=for-the-badge)](https://packagist.org/packages/contentful/contentful)
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/contentful/contentful.svg?style=for-the-badge)](https://packagist.org/packages/contentful/contentful)
+[![Travis](https://img.shields.io/travis/contentful/contentful.php.svg?style=for-the-badge)](https://travis-ci.org/contentful/contentful.php)
+[![Packagist](https://img.shields.io/github/license/contentful/contentful.php.svg?style=for-the-badge)](https://packagist.org/packages/contentful/contentful.php)
+[![Codecov](https://img.shields.io/codecov/c/github/contentful/contentful.php.svg?style=for-the-badge)](https://codecov.io/gh/contentful/contentful.php)
 
 PHP SDK for [Contentful](https://www.contentful.com)'s Content Delivery API. The SDK requires PHP 5.6 or above, PHP 7 is supported.
 

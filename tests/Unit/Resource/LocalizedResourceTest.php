@@ -49,7 +49,7 @@ class LocalizedResourceTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to switch to invalid locale "fr-FR", available locales are "it-IT, en-US".
+     * @expectedExceptionMessage Trying to use invalid locale "fr-FR", available locales are "it-IT, en-US".
      */
     public function testSetGetLocaleInvalid()
     {
@@ -121,6 +121,6 @@ class LocalizedResourceTest extends TestCase
         ]);
         $resource = new MockLocalizedResource($environment->getLocales());
 
-        $resource->loopThroughFallbackChain([], 'it-IT', $environment);
+        $resource->walkFallbackChain([], 'it-IT', $environment);
     }
 }

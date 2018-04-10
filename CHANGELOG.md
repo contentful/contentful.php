@@ -31,6 +31,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * The SDK now keeps a registry of all resources that are currently managed, called `Contentful\Delivery\InstanceRepository`. This class also wraps the PSR-6 cache pool.
 * `Client::reviveJson()` is now called `Client::parseJson()` to better reflect its meaning.
 * The Sync API currently only works with the `master` environment. When trying to perform sync-related operations on a client which is configured with any other environment, a `\RuntimeException` will be thrown.
+* Previously, entry objects would try to use the locale fallback chain even in situations where this might lead to results that differ from those that would be normally returned from the Delivery (or Preview) API. For this reason, when requesting an entry using any other locale than `locale=*`, the locale fallback chain will not be used. The Sync API defaults to using all locales, so it's not affected. **[BREAKING]**
 
 ### Removed
 

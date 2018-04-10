@@ -77,7 +77,7 @@ class Asset extends LocalizedResource
             return null;
         }
 
-        $localeCode = $this->loopThroughFallbackChain($this->$property, $localeCode, $this->sys->getEnvironment());
+        $localeCode = $this->walkFallbackChain($this->$property, $localeCode, $this->sys->getEnvironment());
 
         return null === $localeCode ? null : $this->{$property}[$localeCode];
     }
