@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * The SDK now supports space environments.
 * The `ResourceBuilder` now supports custom data type matchers so users can create their own custom resource classes.
 * All resource classes now extend `Contentful\Delivery\Resource\BaseResource`, which implements `Contentful\Core\Resource\ResourceInterface`. You can use these two classes for type hinting.
+* Entry objects now support accessing fields through virtual properties with `__get` (`$entry->title`) and using the `ArrayAccess` interface (`$field['title']`).
 
 ### Fixed
 

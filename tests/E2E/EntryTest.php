@@ -186,6 +186,12 @@ class EntryTest extends TestCase
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertNull($entries[0]->getName());
         $this->assertNull($entries[0]->getBestFriend());
+        $this->assertNull($entries[0]->get('name'));
+        $this->assertNull($entries[0]->get('bestFriend'));
+        $this->assertNull($entries[0]->name);
+        $this->assertNull($entries[0]->bestFriend);
+        $this->assertNull($entries[0]['name']);
+        $this->assertNull($entries[0]['bestFriend']);
     }
 
     /**
@@ -205,5 +211,11 @@ class EntryTest extends TestCase
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertSame('Nyan Cat', $entries[0]->getName());
         $this->assertNull($entries[0]->getBestFriend());
+        $this->assertSame('Nyan Cat', $entries[0]->get('name'));
+        $this->assertNull($entries[0]->get('bestFriend'));
+        $this->assertSame('Nyan Cat', $entries[0]->name);
+        $this->assertNull($entries[0]->bestFriend);
+        $this->assertSame('Nyan Cat', $entries[0]['name']);
+        $this->assertNull($entries[0]['bestFriend']);
     }
 }
