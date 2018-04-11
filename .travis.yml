@@ -1,8 +1,5 @@
 language: php
 
-git:
-  depth: 1
-
 env:
   global:
     - GH_REPO="github.com/${TRAVIS_REPO_SLUG}.git"

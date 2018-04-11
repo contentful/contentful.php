@@ -15,7 +15,7 @@ use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\ContentType\Field;
 
-class Entry extends LocalizedResource
+class Entry extends LocalizedResource implements \ArrayAccess
 {
     /**
      * @var array
@@ -76,6 +76,51 @@ class Entry extends LocalizedResource
         // but for some reason the coverage reporter will detect a non-covered
         // closing bracket at the end of the method...
         return $result;
+    }
+
+    /**
+     * Shortcut for accessing fields using $entry->fieldName.
+     * It will use the locale currently defined.
+     *
+     * @param string $name
+     *
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return $this->get($name);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetGet($name)
+    {
+        return $this->get($name);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetExists($name)
+    {
+        return \array_key_exists($name, $this->fields);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetSet($name, $value)
+    {
+        throw new \LogicException('Entry class does not support setting fields.');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetUnset($name)
+    {
+        throw new \LogicException('Entry class does not support unsetting fields.');
     }
 
     /**

@@ -185,6 +185,8 @@ class EntryTest extends TestCase
         $this->assertSame($this->contentType, $this->entry->getContentType());
         $this->assertSame('happycat', $this->entry->getBestFriend()->getId());
         $this->assertSame('garfield', $this->entry->getEnemy()->getId());
+        $this->assertSame('happycat', $this->entry->bestFriend->getId());
+        $this->assertSame('garfield', $this->entry['enemy']->getId());
 
         $link = $this->entry->asLink();
         $this->assertInstanceOf(Link::class, $link);
@@ -198,6 +200,8 @@ class EntryTest extends TestCase
     {
         $this->assertSame('happycat', $this->entry->getBestFriendId());
         $this->assertSame('garfield', $this->entry->getEnemyId());
+        $this->assertSame('happycat', $this->entry->bestFriendId);
+        $this->assertSame('garfield', $this->entry['enemyId']);
     }
 
     /**
@@ -212,6 +216,8 @@ class EntryTest extends TestCase
     public function testAccessingDisabledField()
     {
         $this->assertSame(42, $this->entry->getLifes());
+        $this->assertSame(42, $this->entry->lifes);
+        $this->assertSame(42, $this->entry['lifes']);
     }
 
     public function testLinkResolution()
@@ -265,6 +271,8 @@ class EntryTest extends TestCase
         $entry->initLocales($this->environment->getLocales());
 
         $this->assertSame('l6xdPQ_O8e8', $entry->getYouTubeId());
+        $this->assertSame('l6xdPQ_O8e8', $entry->youtubeId);
+        $this->assertSame('l6xdPQ_O8e8', $entry['youtubeId']);
     }
 
     public function testOneToManyReferenceWithMissingEntry()
@@ -312,6 +320,8 @@ class EntryTest extends TestCase
         $garfieldEntry->initLocales($this->environment->getLocales());
 
         $this->assertSame(['crookshanks', 'nyancat'], $garfieldEntry->getFriendsId());
+        $this->assertSame(['crookshanks', 'nyancat'], $garfieldEntry->friendsId);
+        $this->assertSame(['crookshanks', 'nyancat'], $garfieldEntry['friendsId']);
     }
 
     /**
@@ -331,6 +341,8 @@ class EntryTest extends TestCase
         $entry->initLocales($this->environment->getLocales());
 
         $this->assertSame(['rainbows', 'fish'], $entry->getLikes());
+        $this->assertSame(['rainbows', 'fish'], $entry->likes);
+        $this->assertSame(['rainbows', 'fish'], $entry['likes']);
     }
 
     /**
@@ -357,19 +369,64 @@ class EntryTest extends TestCase
         $this->entry->getBirthdayId();
     }
 
+    /**
+     * @expectedException        \LogicException
+     * @expectedExceptionMessage Entry class does not support setting fields.
+     */
+    public function testOffsetSetThrows()
+    {
+        $this->entry['fieldName'] = 'someValue';
+    }
+
+    /**
+     * @expectedException        \LogicException
+     * @expectedExceptionMessage Entry class does not support unsetting fields.
+     */
+    public function testOffsetUnsetThrows()
+    {
+        unset($this->entry['fieldName']);
+    }
+
     public function testBasicMagicCalls()
     {
         $this->assertSame('Nyan Cat', $this->entry->getName());
         $this->assertSame(['rainbows', 'fish'], $this->entry->getLikes());
         $this->assertSame('happycat', $this->entry->getBestFriendId());
+    }
+
+    public function testBasicGetCalls()
+    {
         $this->assertSame('Nyan Cat', $this->entry->get('name'));
         $this->assertSame(['rainbows', 'fish'], $this->entry->get('likes'));
         $this->assertSame('happycat', $this->entry->get('bestFriendId'));
     }
 
+    public function testBasicMagicGetCalls()
+    {
+        $this->assertSame('Nyan Cat', $this->entry->name);
+        $this->assertSame(['rainbows', 'fish'], $this->entry->likes);
+        $this->assertSame('happycat', $this->entry->bestFriendId);
+    }
+
+    public function testBasicOffsetCalls()
+    {
+        $this->assertSame('Nyan Cat', $this->entry['name']);
+        $this->assertSame(['rainbows', 'fish'], $this->entry['likes']);
+        $this->assertSame('happycat', $this->entry['bestFriendId']);
+    }
+
+    public function testBasicIsset()
+    {
+        $this->assertTrue(isset($this->entry['name']));
+        $this->assertTrue(isset($this->entry['likes']));
+        $this->assertTrue(isset($this->entry['bestFriend']));
+        $this->assertFalse(isset($this->entry['bestFriendId']));
+    }
+
     public function testMagicGetterWithLocale()
     {
         $this->assertSame('Nyan vIghro\'', $this->entry->getName('tlh'));
+        $this->assertSame('Nyan vIghro\'', $this->entry->get('name', 'tlh'));
     }
 
     /**
