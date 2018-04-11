@@ -9,7 +9,6 @@
 
 namespace Contentful\Delivery\Resource;
 
-use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Exception\NotFoundException;
 use Contentful\Core\Resource\ResourceArray;
@@ -22,30 +21,6 @@ class Entry extends LocalizedResource
      * @var array
      */
     protected $fields;
-
-    /**
-     * @return int|null
-     */
-    public function getRevision()
-    {
-        return $this->sys->getRevision();
-    }
-
-    /**
-     * @return DateTimeImmutable|null
-     */
-    public function getUpdatedAt()
-    {
-        return $this->sys->getUpdatedAt();
-    }
-
-    /**
-     * @return DateTimeImmutable|null
-     */
-    public function getCreatedAt()
-    {
-        return $this->sys->getCreatedAt();
-    }
 
     /**
      * Returns the space this entry belongs to.
@@ -73,23 +48,6 @@ class Entry extends LocalizedResource
     public function getContentType()
     {
         return $this->sys->getContentType();
-    }
-
-    /**
-     * Gets all entries that contain links to the current one.
-     * You can provide a Query object in order to set parameters
-     * such as locale, include, and sorting.
-     *
-     * @param Query|null $query
-     *
-     * @return ResourceArray
-     */
-    public function getReferences(Query $query = null)
-    {
-        $query = $query ?: new Query();
-        $query->linksToEntry($this->getId());
-
-        return $this->client->getEntries($query);
     }
 
     /**
@@ -281,6 +239,23 @@ class Entry extends LocalizedResource
         return \array_map(function (Link $link) {
             return $link->getId();
         }, $value);
+    }
+
+    /**
+     * Gets all entries that contain links to the current one.
+     * You can provide a Query object in order to set parameters
+     * such as locale, include, and sorting.
+     *
+     * @param Query|null $query
+     *
+     * @return ResourceArray
+     */
+    public function getReferences(Query $query = null)
+    {
+        $query = $query ?: new Query();
+        $query->linksToEntry($this->getId());
+
+        return $this->client->getEntries($query);
     }
 
     /**

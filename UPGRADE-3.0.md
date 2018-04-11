@@ -261,3 +261,24 @@ $entry->getName(); // House
 $entry->getName('en-US'); // House
 $entry->getName('it-IT'); // Casa
 ```
+
+### Removed shortcuts from resource classes
+
+`Asset`, `ContentType`, `Entry`, and `DeletedResource` classes previously provided shortcut methods for accessing system properties such as revision, createdAt, etc. These shortcut methods have been removed from the main resource, but they're still accessible through a `Contentful\Delivery\SystemProperties` object.
+
+``` php
+// Before
+$entry->getRevision();
+// After
+$entry->getSystemProperties()->getRevision();
+
+// Before
+$asset->getUpdatedAt();
+// After
+$asset->getSystemProperties()->getUpdatedAt();
+
+// Before
+$contentType->getCreatedAt();
+// After
+$contentType->getSystemProperties()->getCreatedAt();
+```

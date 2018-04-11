@@ -9,7 +9,6 @@
 
 namespace Contentful\Delivery\Resource;
 
-use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\File\FileInterface;
 
 class Asset extends LocalizedResource
@@ -28,6 +27,26 @@ class Asset extends LocalizedResource
      * @var FileInterface[]
      */
     protected $file;
+
+    /**
+     * Returns the space this asset belongs to.
+     *
+     * @return Space
+     */
+    public function getSpace()
+    {
+        return $this->sys->getSpace();
+    }
+
+    /**
+     * Returns the environment this asset belongs to.
+     *
+     * @return Environment
+     */
+    public function getEnvironment()
+    {
+        return $this->sys->getEnvironment();
+    }
 
     /**
      * @param Locale|string|null $locale
@@ -80,56 +99,6 @@ class Asset extends LocalizedResource
         $localeCode = $this->walkFallbackChain($this->$property, $localeCode, $this->sys->getEnvironment());
 
         return null === $localeCode ? null : $this->{$property}[$localeCode];
-    }
-
-    /**
-     * Returns the Revision of this Asset.
-     *
-     * @return int
-     */
-    public function getRevision()
-    {
-        return $this->sys->getRevision();
-    }
-
-    /**
-     * Returns the time when this Asset was last changed.
-     *
-     * @return DateTimeImmutable
-     */
-    public function getUpdatedAt()
-    {
-        return $this->sys->getUpdatedAt();
-    }
-
-    /**
-     * Returns the time when this Asset was created.
-     *
-     * @return DateTimeImmutable
-     */
-    public function getCreatedAt()
-    {
-        return $this->sys->getCreatedAt();
-    }
-
-    /**
-     * Returns the space this asset belongs to.
-     *
-     * @return Space
-     */
-    public function getSpace()
-    {
-        return $this->sys->getSpace();
-    }
-
-    /**
-     * Returns the environment this asset belongs to.
-     *
-     * @return Environment
-     */
-    public function getEnvironment()
-    {
-        return $this->sys->getEnvironment();
     }
 
     /**

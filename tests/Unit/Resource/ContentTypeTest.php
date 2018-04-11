@@ -40,9 +40,10 @@ class ContentTypeTest extends TestCase
         $this->assertSame('Human', $contentType->getName());
         $this->assertSame('Also called homo sapiens', $contentType->getDescription());
         $this->assertSame('name', $contentType->getDisplayField()->getId());
-        $this->assertSame('2013-06-27T22:46:14.133Z', (string) $contentType->getCreatedAt());
-        $this->assertSame('2013-09-02T15:10:26.818Z', (string) $contentType->getUpdatedAt());
-        $this->assertSame(3, $contentType->getRevision());
+        $sys = $contentType->getSystemProperties();
+        $this->assertSame('2013-06-27T22:46:14.133Z', (string) $sys->getCreatedAt());
+        $this->assertSame('2013-09-02T15:10:26.818Z', (string) $sys->getUpdatedAt());
+        $this->assertSame(3, $sys->getRevision());
         $this->assertSame('Likes', $contentType->getField('likes')->getName());
 
         $fields = $contentType->getFields();

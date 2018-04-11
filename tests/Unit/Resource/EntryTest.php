@@ -178,9 +178,10 @@ class EntryTest extends TestCase
         ]));
 
         $this->assertSame('nyancat', $this->entry->getId());
-        $this->assertSame(5, $this->entry->getRevision());
-        $this->assertSame('2013-06-27T22:46:19.513Z', (string) $this->entry->getCreatedAt());
-        $this->assertSame('2013-09-04T09:19:39.027Z', (string) $this->entry->getUpdatedAt());
+        $sys = $this->entry->getSystemProperties();
+        $this->assertSame(5, $sys->getRevision());
+        $this->assertSame('2013-06-27T22:46:19.513Z', (string) $sys->getCreatedAt());
+        $this->assertSame('2013-09-04T09:19:39.027Z', (string) $sys->getUpdatedAt());
         $this->assertSame($this->contentType, $this->entry->getContentType());
         $this->assertSame('happycat', $this->entry->getBestFriend()->getId());
         $this->assertSame('garfield', $this->entry->getEnemy()->getId());
