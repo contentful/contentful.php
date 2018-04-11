@@ -68,8 +68,12 @@ class Entry extends BaseMapper
                 $field = $contentType->addUnknownField($name);
             }
 
-            $data = $this->normalizeFieldData($fieldData, $locale);
-            $result[$name] = $this->buildField($field, $data);
+            // If the field is empty (has no values for locales) we simply skip it;
+            // the entry class will be able to properly return default values for those situations.
+            if ($fieldData) {
+                $data = $this->normalizeFieldData($fieldData, $locale);
+                $result[$name] = $this->buildField($field, $data);
+            }
         }
 
         return $result;

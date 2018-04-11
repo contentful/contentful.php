@@ -136,17 +136,19 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @param string      $name
      * @param string|null $locale
+     * @param bool        $resolveLinks If set to false, links and array of links will not be resolved
      *
      * @return mixed
      */
-    public function get($name, $locale = null)
+    public function get($name, $locale = null, $resolveLinks = true)
     {
         $field = $this->sys->getContentType()->getField($name, true);
         if ($field) {
-            return $this->resolveFieldLinks(
-                $this->getRawField($field, $locale),
-                $locale
-            );
+            $result = $this->getUnresolvedField($field, $locale);
+
+            return $resolveLinks
+                ? $this->resolveFieldLinks($result, $locale)
+                : $result;
         }
 
         // If no clean match was found using the provided field name,
@@ -174,7 +176,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return mixed
      */
-    private function getRawField(Field $field, $locale = null)
+    private function getUnresolvedField(Field $field, $locale = null)
     {
         // The field is not currently available on this resource,
         // but it exists in the content type, so we return an appropriate
@@ -276,7 +278,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
             return null;
         }
 
-        $value = $this->getRawField($field, $locale);
+        $value = $this->getUnresolvedField($field, $locale);
         if ($value instanceof Link) {
             return $value->getId();
         }

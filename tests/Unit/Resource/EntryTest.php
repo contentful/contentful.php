@@ -243,6 +243,7 @@ class EntryTest extends TestCase
         ]);
 
         $this->assertSame($crookshanksEntry, $garfieldEntry->getFriend());
+        $this->assertLink($crookshanksEntry->getId(), 'Entry', $garfieldEntry->get('friend', null, false));
     }
 
     /**
