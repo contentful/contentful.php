@@ -9,7 +9,6 @@
 
 namespace Contentful\Delivery\Resource;
 
-use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Delivery\Resource\ContentType\Field;
 
 /**
@@ -45,6 +44,26 @@ class ContentType extends BaseResource
      * @var string|null
      */
     protected $displayField;
+
+    /**
+     * Returns the space this content type belongs to.
+     *
+     * @return Space
+     */
+    public function getSpace()
+    {
+        return $this->sys->getSpace();
+    }
+
+    /**
+     * Returns the environment this content type belongs to.
+     *
+     * @return Environment|null
+     */
+    public function getEnvironment()
+    {
+        return $this->sys->getEnvironment();
+    }
 
     /**
      * Returns the name of this content type.
@@ -131,56 +150,6 @@ class ContentType extends BaseResource
         $this->fields[$name] = new Field($name, $name, 'Unknown');
 
         return $this->fields[$name];
-    }
-
-    /**
-     * Returns the revision of this content type.
-     *
-     * @return int|null
-     */
-    public function getRevision()
-    {
-        return $this->sys->getRevision();
-    }
-
-    /**
-     * Returns the time when this content type was last updated.
-     *
-     * @return DateTimeImmutable|null
-     */
-    public function getUpdatedAt()
-    {
-        return $this->sys->getUpdatedAt();
-    }
-
-    /**
-     * Returns the time when this content type was created.
-     *
-     * @return DateTimeImmutable|null
-     */
-    public function getCreatedAt()
-    {
-        return $this->sys->getCreatedAt();
-    }
-
-    /**
-     * Returns the space this content type belongs to.
-     *
-     * @return Space
-     */
-    public function getSpace()
-    {
-        return $this->sys->getSpace();
-    }
-
-    /**
-     * Returns the environment this content type belongs to.
-     *
-     * @return Environment|null
-     */
-    public function getEnvironment()
-    {
-        return $this->sys->getEnvironment();
     }
 
     /**

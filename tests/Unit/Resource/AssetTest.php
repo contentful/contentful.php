@@ -86,9 +86,10 @@ class AssetTest extends TestCase
         $this->assertSame($this->file, $asset->getFile());
 
         $this->assertSame('nyancat', $asset->getId());
-        $this->assertSame(1, $asset->getRevision());
-        $this->assertSame('2013-09-02T14:56:34.240Z', (string) $asset->getCreatedAt());
-        $this->assertSame('2013-09-02T14:56:34.240Z', (string) $asset->getUpdatedAt());
+        $sys = $asset->getSystemProperties();
+        $this->assertSame(1, $sys->getRevision());
+        $this->assertSame('2013-09-02T14:56:34.240Z', (string) $sys->getCreatedAt());
+        $this->assertSame('2013-09-02T14:56:34.240Z', (string) $sys->getUpdatedAt());
 
         $this->assertLink('nyancat', 'Asset', $asset->asLink());
     }

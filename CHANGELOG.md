@@ -40,6 +40,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * `Contentful\DateHelper` was deprecated in 2.2, and has now been removed. **[BREAKING]**
 * `Contentful\File\UploadFile` was deprecated in 2.1, and has now been removed. Use `Contentful\Core\File\RemoteUploadFile` instead. **[BREAKING]**
 * Resource classes have now a protected constructor, because they are not supposed to be instantiated without using the `ResourceBuilder`. **[BREAKING]**
+* `Asset`, `ContentType`, `Entry`, and `DeletedResource` classes previously provided shortcut methods for accessing system properties such as revision, createdAt, etc. These shortcut methods have been removed from the main resource, but they're still accessible through a `SystemProperties` object. See the upgrade guide for more. **[BREAKING]**
 
 ## [2.4.1](https://github.com/contentful/contentful.php/tree/2.4.1) (2018-01-25)
 

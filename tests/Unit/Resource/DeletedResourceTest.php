@@ -31,10 +31,11 @@ class DeletedResourceTest extends TestCase
         $resource = new MockDeletedResource(['sys' => $sys]);
 
         $this->assertSame('4rPdazIwWkuuKEAQgemSmO', $resource->getId());
-        $this->assertSame(1, $resource->getRevision());
-        $this->assertSame('2014-08-11T08:30:42.559Z', (string) $resource->getCreatedAt());
-        $this->assertSame('2014-08-12T08:30:42.559Z', (string) $resource->getUpdatedAt());
-        $this->assertSame('2014-08-13T08:30:42.559Z', (string) $resource->getDeletedAt());
+        $sys = $resource->getSystemProperties();
+        $this->assertSame(1, $sys->getRevision());
+        $this->assertSame('2014-08-11T08:30:42.559Z', (string) $sys->getCreatedAt());
+        $this->assertSame('2014-08-12T08:30:42.559Z', (string) $sys->getUpdatedAt());
+        $this->assertSame('2014-08-13T08:30:42.559Z', (string) $sys->getDeletedAt());
     }
 
     public function testContentTypeDeletedEntry()
