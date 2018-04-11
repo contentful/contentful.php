@@ -29,4 +29,21 @@ class NullValueTest extends TestCase
 
         $this->assertNull($entry->getLogo());
     }
+
+    /**
+     * @see https://github.com/contentful/contentful.php/issues/103
+     * @see https://github.com/contentful/contentful.php/pull/122
+     */
+    public function testFieldIsPresentButEmpty()
+    {
+        $client = new Client('irrelevant', 'rue07lqzt1co');
+
+        $client->parseJson($this->getFixtureContent('space.json'));
+        $client->parseJson($this->getFixtureContent('environment.json'));
+        $client->parseJson($this->getFixtureContent('content_type.json'));
+        $entry = $client->parseJson($this->getFixtureContent('entry_field_without_values.json'));
+
+        $this->assertNull($entry->get('logo'));
+        $this->assertSame([], $entry->get('phone'));
+    }
 }
