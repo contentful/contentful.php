@@ -27,19 +27,19 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "df7bfcaefdf30cfb6881b8487a576a37",
+            "X-Contentful-Request-Id": "f6fed9ec33a0388844ab7f1464629328",
             "Content-Length": "285",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 16 Apr 2018 08:08:55 GMT",
+            "Date": "Mon, 16 Apr 2018 09:20:38 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-cdg8733-CDG",
+            "X-Served-By": "cache-cdg8723-CDG",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
-            "X-Timer": "S1523866135.296927,VS0,VE215",
+            "X-Timer": "S1523870438.597004,VS0,VE440",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"NotFound\"\n  },\n  \"message\": \"The resource could not be found.\",\n  \"details\": {\n    \"id\": \"not-existing\",\n    \"type\": \"Entry\",\n    \"space\": \"cfexampleapi\",\n    \"environment\": \"master\"\n  },\n  \"requestId\": \"df7bfcaefdf30cfb6881b8487a576a37\"\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"NotFound\"\n  },\n  \"message\": \"The resource could not be found.\",\n  \"details\": {\n    \"id\": \"not-existing\",\n    \"type\": \"Entry\",\n    \"space\": \"cfexampleapi\",\n    \"environment\": \"master\"\n  },\n  \"requestId\": \"f6fed9ec33a0388844ab7f1464629328\"\n}\n"
     }
 }]

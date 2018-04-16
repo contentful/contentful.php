@@ -10,6 +10,8 @@
 namespace Contentful\Delivery;
 
 use Contentful\Core\Api\DateTimeImmutable;
+use Contentful\Core\Api\Link;
+use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Core\Resource\SystemPropertiesInterface;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Environment;
@@ -31,17 +33,17 @@ class SystemProperties implements SystemPropertiesInterface
     private $type;
 
     /**
-     * @var Space|null
+     * @var Link|Space|null
      */
     private $space;
 
     /**
-     * @var ContentType|null
+     * @var Link|ContentType|null
      */
     private $contentType;
 
     /**
-     * @var Environment|null
+     * @var Link|Environment|null
      */
     private $environment;
 
@@ -71,18 +73,25 @@ class SystemProperties implements SystemPropertiesInterface
     private $deletedAt;
 
     /**
+     * @var Client|null
+     */
+    private $client;
+
+    /**
      * SystemProperties constructor.
      *
      * @param array $sys
      */
     public function __construct(array $sys)
     {
+        $this->client = isset($sys['__client']) ? $sys['__client'] : null;
+
         $this->id = isset($sys['id']) ? $sys['id'] : null;
         $this->type = isset($sys['type']) ? $sys['type'] : null;
 
-        $this->space = isset($sys['space']) ? $sys['space'] : null;
-        $this->contentType = isset($sys['contentType']) ? $sys['contentType'] : null;
-        $this->environment = isset($sys['environment']) ? $sys['environment'] : null;
+        $this->space = $this->checkAndBuildResource($sys, 'space');
+        $this->contentType = $this->checkAndBuildResource($sys, 'contentType');
+        $this->environment = $this->checkAndBuildResource($sys, 'environment');
 
         $this->revision = isset($sys['revision']) ? $sys['revision'] : null;
 
@@ -91,6 +100,32 @@ class SystemProperties implements SystemPropertiesInterface
         $this->deletedAt = isset($sys['deletedAt']) ? new DateTimeImmutable($sys['deletedAt']) : null;
 
         $this->locale = isset($sys['locale']) ? $sys['locale'] : null;
+    }
+
+    /**
+     * Utility function for building internal properties that link to resources.
+     *
+     * @param array  $sys
+     * @param string $name
+     *
+     * @return Link|ResourceInterface|null
+     */
+    private function checkAndBuildResource(array $sys, $name)
+    {
+        if (!isset($sys[$name])) {
+            return null;
+        }
+
+        // The system properties might already contain built resource objects,
+        // so before creating a Link, we check whether the value is already a built object.
+        if ($sys[$name] instanceof ResourceInterface) {
+            return $sys[$name];
+        }
+
+        return new Link(
+            $sys[$name]['sys']['id'],
+            $sys[$name]['sys']['linkType']
+        );
     }
 
     /**
@@ -114,6 +149,10 @@ class SystemProperties implements SystemPropertiesInterface
      */
     public function getSpace()
     {
+        if ($this->space instanceof Link) {
+            $this->space = $this->client->resolveLink($this->space);
+        }
+
         return $this->space;
     }
 
@@ -122,7 +161,23 @@ class SystemProperties implements SystemPropertiesInterface
      */
     public function getContentType()
     {
+        if ($this->contentType instanceof Link) {
+            $this->contentType = $this->client->resolveLink($this->contentType);
+        }
+
         return $this->contentType;
+    }
+
+    /**
+     * @return Environment|null
+     */
+    public function getEnvironment()
+    {
+        if ($this->environment instanceof Link) {
+            $this->environment = $this->client->resolveLink($this->environment);
+        }
+
+        return $this->environment;
     }
 
     /**
@@ -163,14 +218,6 @@ class SystemProperties implements SystemPropertiesInterface
     public function getDeletedAt()
     {
         return $this->deletedAt;
-    }
-
-    /**
-     * @return Environment|null
-     */
-    public function getEnvironment()
-    {
-        return $this->environment;
     }
 
     /**

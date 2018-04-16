@@ -27,18 +27,18 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "af52ae85deb46a8b1de91eb43acd07ad",
+            "X-Contentful-Request-Id": "c7620bb1ffdede181a2b9229e638fb4a",
             "Content-Length": "438",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 16 Apr 2018 08:08:56 GMT",
+            "Date": "Mon, 16 Apr 2018 09:20:39 GMT",
             "Via": "1.1 varnish",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-cdg8726-CDG",
+            "X-Served-By": "cache-cdg8748-CDG",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
-            "X-Timer": "S1523866136.093278,VS0,VE244",
+            "X-Timer": "S1523870439.796036,VS0,VE399",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"InvalidQuery\"\n  },\n  \"message\": \"The query you sent was invalid. Probably a filter or ordering specification is not applicable to the type of a field.\",\n  \"details\": {\n    \"errors\": [\n      {\n        \"name\": \"unknown\",\n        \"path\": [\n          \"name\"\n        ],\n        \"details\": \"The path \\\"name\\\" is not recognized\"\n      }\n    ]\n  },\n  \"requestId\": \"af52ae85deb46a8b1de91eb43acd07ad\"\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"InvalidQuery\"\n  },\n  \"message\": \"The query you sent was invalid. Probably a filter or ordering specification is not applicable to the type of a field.\",\n  \"details\": {\n    \"errors\": [\n      {\n        \"name\": \"unknown\",\n        \"path\": [\n          \"name\"\n        ],\n        \"details\": \"The path \\\"name\\\" is not recognized\"\n      }\n    ]\n  },\n  \"requestId\": \"c7620bb1ffdede181a2b9229e638fb4a\"\n}\n"
     }
 }]

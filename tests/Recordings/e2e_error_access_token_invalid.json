@@ -27,19 +27,19 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "578de2db4a93e902b5bfe77dc48584a9",
+            "X-Contentful-Request-Id": "bab69d57fcf7d3510defd051b4f6ff73",
             "Content-Length": "198",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 16 Apr 2018 08:08:55 GMT",
+            "Date": "Mon, 16 Apr 2018 09:20:38 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-cdg8722-CDG",
+            "X-Served-By": "cache-cdg8740-CDG",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
-            "X-Timer": "S1523866136.713748,VS0,VE192",
+            "X-Timer": "S1523870438.216634,VS0,VE231",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"AccessTokenInvalid\"\n  },\n  \"message\": \"The access token you sent could not be found or is invalid.\",\n  \"requestId\": \"578de2db4a93e902b5bfe77dc48584a9\"\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"AccessTokenInvalid\"\n  },\n  \"message\": \"The access token you sent could not be found or is invalid.\",\n  \"requestId\": \"bab69d57fcf7d3510defd051b4f6ff73\"\n}\n"
     }
 }]

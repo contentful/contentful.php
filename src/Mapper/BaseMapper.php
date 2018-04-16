@@ -103,17 +103,7 @@ abstract class BaseMapper implements MapperInterface
      */
     protected function buildSystemProperties(array $sys)
     {
-        if (isset($sys['space'])) {
-            $sys['space'] = $this->client->getSpace();
-        }
-
-        if (isset($sys['contentType'])) {
-            $sys['contentType'] = $this->client->getContentType($sys['contentType']['sys']['id']);
-        }
-
-        if (isset($sys['environment'])) {
-            $sys['environment'] = $this->client->getEnvironment();
-        }
+        $sys['__client'] = $this->client;
 
         return new SystemProperties($sys);
     }
