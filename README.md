@@ -88,6 +88,10 @@ When working with localized content it can be tedious to specify the locale on e
 $client = new \Contentful\Delivery\Client('access-token', 'space-id', 'environment-id', false, 'it-IT');
 ```
 
+## Upgrade from 2.x to 3.0
+
+If you're already using version 2.x of this SDK and want to upgrade to the latest major branch (version 3), please read the [changelog](CHANGELOG.md) and the [upgrade guide](UPGRADE-3.0.md).
+
 ## Documentation
 
 * [SDK API Reference](https://contentful.github.io/contentful.php/api/)
