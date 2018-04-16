@@ -4,7 +4,7 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/environments\/master\/entries?limit=1",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -27,11 +27,11 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Tue, 06 Mar 2018 10:14:30 GMT",
+            "Date": "Mon, 16 Apr 2018 09:20:39 GMT",
             "ETag": "\"7811d6aca5f5ee099a7c2f1c18ad8a76\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "2ab371c17b7b71730967c7a602c43abb",
+            "X-Contentful-Request-Id": "ed7203c69b43f08c0e0b9e1f171ff355",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -43,7 +43,7 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/environments\/master\/entries?limit=2",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -66,11 +66,11 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Tue, 06 Mar 2018 10:14:31 GMT",
+            "Date": "Mon, 16 Apr 2018 09:20:40 GMT",
             "ETag": "\"855535eed9d54df2150444800f46014b\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "82b8b23bf2e4358ce90f1d39994967de",
+            "X-Contentful-Request-Id": "35f5aacc996aed30c005138a3f638009",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -82,7 +82,7 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/environments\/master\/entries?limit=3",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -105,11 +105,11 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Tue, 06 Mar 2018 10:14:31 GMT",
+            "Date": "Mon, 16 Apr 2018 09:20:40 GMT",
             "ETag": "\"cbc5b5d83c973167418a4471026b905a\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "dbfd55bfd0ed6b347128331108c21954",
+            "X-Contentful-Request-Id": "4554aa1b9811a4de34a5325f7aa586f1",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -121,7 +121,7 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/environments\/master\/entries?limit=4",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -144,11 +144,11 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Tue, 06 Mar 2018 10:14:32 GMT",
+            "Date": "Mon, 16 Apr 2018 09:20:41 GMT",
             "ETag": "\"338dd33cc9eb29b8d29e842bfa1261ed\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "1faf8b31d8a868322880bf5994f52326",
+            "X-Contentful-Request-Id": "06eb4eb1d448337e0a4a8d99e7f0b639",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -160,7 +160,7 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/environments\/master\/entries?limit=5",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -183,11 +183,11 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Tue, 06 Mar 2018 10:14:32 GMT",
+            "Date": "Mon, 16 Apr 2018 09:20:42 GMT",
             "ETag": "\"f0c7e0348a98f28f1164eed6719c1d33\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "3bcf7b059e264c2ed169bcd943f86423",
+            "X-Contentful-Request-Id": "6585087aeedfc2d4e64d1f1b4b84f278",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -199,7 +199,7 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/environments\/master\/entries?limit=6",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -219,14 +219,14 @@
             "Access-Control-Expose-Headers": "Etag",
             "Access-Control-Max-Age": "1728000",
             "Content-Type": "application\/vnd.contentful.management.v1+json",
-            "Date": "Tue, 06 Mar 2018 10:14:33 GMT",
+            "Date": "Mon, 16 Apr 2018 09:20:43 GMT",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-RateLimit-Reset": "2727",
-            "X-Contentful-Request-Id": "dfdf1ddaa24489841392f706ad098c72",
-            "transfer-encoding": "chunked",
+            "X-Contentful-RateLimit-Reset": "3257",
+            "X-Contentful-Request-Id": "de701ab77e4ff81e8cfe815914602aef",
+            "Content-Length": "323",
             "Connection": "keep-alive"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"RateLimitExceeded\"\n  },\n  \"message\": \"You have exceeded the rate limit of the Organization this Space belongs to by making too many API requests within a short timespan. Please wait a moment before trying the request again.\",\n  \"requestId\": \"dfdf1ddaa24489841392f706ad098c72\"\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"RateLimitExceeded\"\n  },\n  \"message\": \"You have exceeded the rate limit of the Organization this Space belongs to by making too many API requests within a short timespan. Please wait a moment before trying the request again.\",\n  \"requestId\": \"de701ab77e4ff81e8cfe815914602aef\"\n}\n"
     }
 }]

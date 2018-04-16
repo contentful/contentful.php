@@ -348,10 +348,16 @@ class Client extends BaseClient
     public function resolveLink(Link $link, $locale = null)
     {
         switch ($link->getLinkType()) {
-            case 'Entry':
-                return $this->getEntry($link->getId(), $locale);
             case 'Asset':
                 return $this->getAsset($link->getId(), $locale);
+            case 'ContentType':
+                return $this->getContentType($link->getId());
+            case 'Entry':
+                return $this->getEntry($link->getId(), $locale);
+            case 'Environment':
+                return $this->getEnvironment();
+            case 'Space':
+                return $this->getSpace();
             default:
                 throw new \InvalidArgumentException(\sprintf(
                     'Trying to resolve link for unknown type "%s".',

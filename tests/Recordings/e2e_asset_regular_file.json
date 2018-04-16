@@ -4,7 +4,7 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/88dyiqcr7go8\/environments\/master\/assets\/47kTpd50rSgKQy2acO2u6Y",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -25,68 +25,23 @@
             "Access-Control-Max-Age": "86400",
             "Cache-Control": "max-age=0",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "ETag": "\"6b2da3ae4e5b6426347089f68b6f3be7\"",
+            "ETag": "\"dc9ce084ad122b9ff1a084bb6359c6b4\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "88a63841c5b6e12b5916068296c9179e",
-            "Content-Length": "637",
+            "X-Contentful-Request-Id": "522554d7ee84850bffb88e0be9fe2cb6",
+            "Content-Length": "770",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 06 Mar 2018 10:13:49 GMT",
+            "Date": "Mon, 16 Apr 2018 09:19:49 GMT",
             "Via": "1.1 varnish",
-            "Age": "0",
+            "Age": "4329",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1521-HHN",
-            "X-Cache": "MISS",
-            "X-Cache-Hits": "0",
-            "X-Timer": "S1520331229.035988,VS0,VE378",
-            "Vary": "Accept-Encoding"
-        },
-        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"88dyiqcr7go8\"\n      }\n    },\n    \"id\": \"47kTpd50rSgKQy2acO2u6Y\",\n    \"type\": \"Asset\",\n    \"createdAt\": \"2018-02-28T14:05:53.224Z\",\n    \"updatedAt\": \"2018-02-28T14:05:53.224Z\",\n    \"revision\": 1,\n    \"locale\": \"en-US\"\n  },\n  \"fields\": {\n    \"title\": \"MIT LICENSE\",\n    \"file\": {\n      \"url\": \"\/\/assets.ctfassets.net\/88dyiqcr7go8\/47kTpd50rSgKQy2acO2u6Y\/e3d92a018de99b451a323a0fcca0b7b7\/LICENSE.txt\",\n      \"details\": {\n        \"size\": 1064\n      },\n      \"fileName\": \"LICENSE.txt\",\n      \"contentType\": \"text\/plain\"\n    }\n  }\n}\n"
-    }
-},{
-    "request": {
-        "method": "GET",
-        "url": "https:\/\/cdn.contentful.com\/spaces\/88dyiqcr7go8",
-        "headers": {
-            "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
-            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
-            "Accept": "application\/vnd.contentful.delivery.v1+json",
-            "Accept-Encoding": "gzip",
-            "Authorization": "Bearer 668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756"
-        }
-    },
-    "response": {
-        "status": {
-            "http_version": "1.1",
-            "code": "200",
-            "message": "OK"
-        },
-        "headers": {
-            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
-            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Expose-Headers": "Etag",
-            "Access-Control-Max-Age": "86400",
-            "Cache-Control": "max-age=0",
-            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "ETag": "\"2c57cba8c83129c95bbb8579dced315d\"",
-            "Server": "Contentful",
-            "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "7d042a90e0018c1e15c7e9fa0a4f9c8b",
-            "Content-Length": "442",
-            "Accept-Ranges": "bytes",
-            "Date": "Tue, 06 Mar 2018 10:13:49 GMT",
-            "Via": "1.1 varnish",
-            "Age": "1",
-            "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1551-HHN",
+            "X-Served-By": "cache-cdg8724-CDG",
             "X-Cache": "HIT",
             "X-Cache-Hits": "1",
-            "X-Timer": "S1520331230.646177,VS0,VE0",
+            "X-Timer": "S1523870390.790399,VS0,VE1",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"88dyiqcr7go8\"\n  },\n  \"name\": \"PHP CDA\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"U.S. English\",\n      \"fallbackCode\": null\n    },\n    {\n      \"code\": \"it\",\n      \"default\": false,\n      \"name\": \"Italian\",\n      \"fallbackCode\": \"en-US\"\n    },\n    {\n      \"code\": \"es\",\n      \"default\": false,\n      \"name\": \"Spanish\",\n      \"fallbackCode\": \"it\"\n    }\n  ]\n}\n"
+        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"88dyiqcr7go8\"\n      }\n    },\n    \"id\": \"47kTpd50rSgKQy2acO2u6Y\",\n    \"type\": \"Asset\",\n    \"createdAt\": \"2018-02-28T14:05:53.224Z\",\n    \"updatedAt\": \"2018-02-28T14:05:53.224Z\",\n    \"environment\": {\n      \"sys\": {\n        \"id\": \"master\",\n        \"type\": \"Link\",\n        \"linkType\": \"Environment\"\n      }\n    },\n    \"revision\": 1,\n    \"locale\": \"en-US\"\n  },\n  \"fields\": {\n    \"title\": \"MIT LICENSE\",\n    \"file\": {\n      \"url\": \"\/\/assets.ctfassets.net\/88dyiqcr7go8\/47kTpd50rSgKQy2acO2u6Y\/e3d92a018de99b451a323a0fcca0b7b7\/LICENSE.txt\",\n      \"details\": {\n        \"size\": 1064\n      },\n      \"fileName\": \"LICENSE.txt\",\n      \"contentType\": \"text\/plain\"\n    }\n  }\n}\n"
     }
 },{
     "request": {
@@ -94,7 +49,7 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/88dyiqcr7go8\/environments\/master\/locales",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -118,17 +73,17 @@
             "ETag": "\"3538849fd73df963a89d5a5ec3ab2f29\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "e567ed19107d19804c2abab3e157cb0f",
+            "X-Contentful-Request-Id": "8339c2f46077f2f821be1500a9b44a89",
             "Content-Length": "770",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 06 Mar 2018 10:13:49 GMT",
+            "Date": "Mon, 16 Apr 2018 09:19:50 GMT",
             "Via": "1.1 varnish",
-            "Age": "1",
+            "Age": "4330",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1546-HHN",
+            "X-Served-By": "cache-cdg8732-CDG",
             "X-Cache": "HIT",
-            "X-Cache-Hits": "1",
-            "X-Timer": "S1520331230.833393,VS0,VE0",
+            "X-Cache-Hits": "4",
+            "X-Timer": "S1523870390.135034,VS0,VE0",
             "Vary": "Accept-Encoding"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 3,\n  \"skip\": 0,\n  \"limit\": 1000,\n  \"items\": [\n    {\n      \"code\": \"en-US\",\n      \"name\": \"U.S. English\",\n      \"default\": true,\n      \"fallbackCode\": null,\n      \"sys\": {\n        \"id\": \"19xQBLD6FTsStnt6P5MsyW\",\n        \"type\": \"Locale\",\n        \"version\": 0\n      }\n    },\n    {\n      \"code\": \"it\",\n      \"name\": \"Italian\",\n      \"default\": false,\n      \"fallbackCode\": \"en-US\",\n      \"sys\": {\n        \"id\": \"3UbY70KDWtQQ38TxF5mdeQ\",\n        \"type\": \"Locale\",\n        \"version\": 0\n      }\n    },\n    {\n      \"code\": \"es\",\n      \"name\": \"Spanish\",\n      \"default\": false,\n      \"fallbackCode\": \"it\",\n      \"sys\": {\n        \"id\": \"3Yd7Swgn13v6FPE2LHyvQ2\",\n        \"type\": \"Locale\",\n        \"version\": 0\n      }\n    }\n  ]\n}\n"

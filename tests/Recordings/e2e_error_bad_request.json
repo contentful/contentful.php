@@ -4,7 +4,7 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/environments\/master\/entries\/nyancat?locale=invalidLocale",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -27,19 +27,18 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "00cc5c8a72f7f660aacaaa1999e1063d",
+            "X-Contentful-Request-Id": "de8d1da1502f0e08dc6aa14b8ebf9628",
             "Content-Length": "160",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 06 Mar 2018 10:14:33 GMT",
+            "Date": "Mon, 16 Apr 2018 09:20:43 GMT",
             "Via": "1.1 varnish",
-            "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1529-HHN",
+            "X-Served-By": "cache-cdg8733-CDG",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
-            "X-Timer": "S1520331274.702653,VS0,VE197",
+            "X-Timer": "S1523870444.503560,VS0,VE229",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"BadRequest\"\n  },\n  \"message\": \"Unknown locale: invalidLocale\",\n  \"requestId\": \"00cc5c8a72f7f660aacaaa1999e1063d\"\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"BadRequest\"\n  },\n  \"message\": \"Unknown locale: invalidLocale\",\n  \"requestId\": \"de8d1da1502f0e08dc6aa14b8ebf9628\"\n}\n"
     }
 }]
