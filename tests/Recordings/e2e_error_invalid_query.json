@@ -4,7 +4,7 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/environments\/master\/entries?name=0",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -27,19 +27,18 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "4588532af2ac77597441ce3a4a5f28f5",
+            "X-Contentful-Request-Id": "af52ae85deb46a8b1de91eb43acd07ad",
             "Content-Length": "438",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 06 Mar 2018 10:14:29 GMT",
+            "Date": "Mon, 16 Apr 2018 08:08:56 GMT",
             "Via": "1.1 varnish",
-            "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1540-HHN",
+            "X-Served-By": "cache-cdg8726-CDG",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
-            "X-Timer": "S1520331270.765448,VS0,VE173",
+            "X-Timer": "S1523866136.093278,VS0,VE244",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"InvalidQuery\"\n  },\n  \"message\": \"The query you sent was invalid. Probably a filter or ordering specification is not applicable to the type of a field.\",\n  \"details\": {\n    \"errors\": [\n      {\n        \"name\": \"unknown\",\n        \"path\": [\n          \"name\"\n        ],\n        \"details\": \"The path \\\"name\\\" is not recognized\"\n      }\n    ]\n  },\n  \"requestId\": \"4588532af2ac77597441ce3a4a5f28f5\"\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"InvalidQuery\"\n  },\n  \"message\": \"The query you sent was invalid. Probably a filter or ordering specification is not applicable to the type of a field.\",\n  \"details\": {\n    \"errors\": [\n      {\n        \"name\": \"unknown\",\n        \"path\": [\n          \"name\"\n        ],\n        \"details\": \"The path \\\"name\\\" is not recognized\"\n      }\n    ]\n  },\n  \"requestId\": \"af52ae85deb46a8b1de91eb43acd07ad\"\n}\n"
     }
 }]

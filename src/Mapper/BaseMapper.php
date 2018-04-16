@@ -111,8 +111,7 @@ abstract class BaseMapper implements MapperInterface
             $sys['contentType'] = $this->client->getContentType($sys['contentType']['sys']['id']);
         }
 
-        // @TODO: Uncomment this once beta is over and sys.environment is always present.
-        if (/*isset($sys['environment']) && */!\in_array($sys['type'], ['Space', 'Locale', 'Environment'], true)) {
+        if (isset($sys['environment'])) {
             $sys['environment'] = $this->client->getEnvironment();
         }
 

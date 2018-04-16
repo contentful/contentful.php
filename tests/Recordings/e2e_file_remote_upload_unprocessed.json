@@ -4,7 +4,7 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/88dyiqcr7go8\/environments\/master\/assets\/147y8r7Fx4YSEWYAQyggui",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -27,15 +27,15 @@
             "CF-Organization-Id": "3ubGFD1MWA6VgVYbIwSBg8",
             "CF-Space-Id": "88dyiqcr7go8",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Tue, 06 Mar 2018 10:14:54 GMT",
-            "ETag": "\"e88ecc17222d63e1b526b27b35d2d033\"",
+            "Date": "Mon, 16 Apr 2018 08:09:38 GMT",
+            "ETag": "\"0edf045637ae39d7e282eba9988ef13c\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "600482256fc0723b2e275fb626b2042b",
-            "Content-Length": "607",
+            "X-Contentful-Request-Id": "1209196a21a83720edc4df0c5688c0a3",
+            "Content-Length": "740",
             "Connection": "keep-alive"
         },
-        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"88dyiqcr7go8\"\n      }\n    },\n    \"type\": \"Asset\",\n    \"id\": \"147y8r7Fx4YSEWYAQyggui\",\n    \"revision\": 0,\n    \"createdAt\": \"2017-06-07T13:03:37.151Z\",\n    \"updatedAt\": \"2018-02-27T08:09:16.439Z\",\n    \"locale\": \"en-US\"\n  },\n  \"fields\": {\n    \"title\": \"RemoteUploadFile not processed\",\n    \"description\": \"\",\n    \"file\": {\n      \"upload\": \"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/5\/5c\/F_Scott_Fitzgerald_1921.jpg\",\n      \"fileName\": \"fitzgerald\",\n      \"contentType\": \"image\/jpg\"\n    }\n  }\n}\n"
+        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"88dyiqcr7go8\"\n      }\n    },\n    \"type\": \"Asset\",\n    \"id\": \"147y8r7Fx4YSEWYAQyggui\",\n    \"revision\": 0,\n    \"createdAt\": \"2017-06-07T13:03:37.151Z\",\n    \"updatedAt\": \"2018-02-27T08:09:16.439Z\",\n    \"environment\": {\n      \"sys\": {\n        \"id\": \"master\",\n        \"type\": \"Link\",\n        \"linkType\": \"Environment\"\n      }\n    },\n    \"locale\": \"en-US\"\n  },\n  \"fields\": {\n    \"title\": \"RemoteUploadFile not processed\",\n    \"description\": \"\",\n    \"file\": {\n      \"upload\": \"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/5\/5c\/F_Scott_Fitzgerald_1921.jpg\",\n      \"fileName\": \"fitzgerald\",\n      \"contentType\": \"image\/jpg\"\n    }\n  }\n}\n"
     }
 },{
     "request": {
@@ -43,7 +43,7 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/88dyiqcr7go8",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -66,11 +66,11 @@
             "CF-Organization-Id": "3ubGFD1MWA6VgVYbIwSBg8",
             "CF-Space-Id": "88dyiqcr7go8",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Tue, 06 Mar 2018 10:14:55 GMT",
+            "Date": "Mon, 16 Apr 2018 08:09:38 GMT",
             "ETag": "\"2c57cba8c83129c95bbb8579dced315d\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "37ba2cee05058c5b05828d7aa5842cbe",
+            "X-Contentful-Request-Id": "7c8359b86bb96c676196878f9c244a30",
             "Content-Length": "442",
             "Connection": "keep-alive"
         },
@@ -82,7 +82,7 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/88dyiqcr7go8\/environments\/master\/locales",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -105,11 +105,11 @@
             "CF-Organization-Id": "3ubGFD1MWA6VgVYbIwSBg8",
             "CF-Space-Id": "88dyiqcr7go8",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Tue, 06 Mar 2018 10:14:56 GMT",
+            "Date": "Mon, 16 Apr 2018 08:09:39 GMT",
             "ETag": "\"3538849fd73df963a89d5a5ec3ab2f29\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "fefb1bd8026b5e2ef657b9ce8e5e2e8c",
+            "X-Contentful-Request-Id": "318be4ad6fd9b09e5148fe78cff9cbee",
             "Content-Length": "770",
             "Connection": "keep-alive"
         },

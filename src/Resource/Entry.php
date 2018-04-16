@@ -65,6 +65,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
         $locale = $this->getLocaleFromInput(isset($arguments[0]) ? $arguments[0] : null);
         $field = \mb_substr($name, 3);
 
+        $result = null;
         try {
             $result = $this->get($field, $locale);
         } catch (\Exception $exception) {

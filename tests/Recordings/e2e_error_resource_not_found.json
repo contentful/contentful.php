@@ -4,7 +4,7 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/environments\/master\/entries\/not-existing",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -27,19 +27,19 @@
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "83d05f492df8557586b2a302c5604985",
-            "Content-Length": "256",
+            "X-Contentful-Request-Id": "df7bfcaefdf30cfb6881b8487a576a37",
+            "Content-Length": "285",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 06 Mar 2018 10:14:29 GMT",
+            "Date": "Mon, 16 Apr 2018 08:08:55 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-hhn1529-HHN",
+            "X-Served-By": "cache-cdg8733-CDG",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
-            "X-Timer": "S1520331269.045791,VS0,VE145",
+            "X-Timer": "S1523866135.296927,VS0,VE215",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"NotFound\"\n  },\n  \"message\": \"The resource could not be found.\",\n  \"details\": {\n    \"id\": \"not-existing\",\n    \"type\": \"Entry\",\n    \"space\": \"cfexampleapi\"\n  },\n  \"requestId\": \"83d05f492df8557586b2a302c5604985\"\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"NotFound\"\n  },\n  \"message\": \"The resource could not be found.\",\n  \"details\": {\n    \"id\": \"not-existing\",\n    \"type\": \"Entry\",\n    \"space\": \"cfexampleapi\",\n    \"environment\": \"master\"\n  },\n  \"requestId\": \"df7bfcaefdf30cfb6881b8487a576a37\"\n}\n"
     }
 }]

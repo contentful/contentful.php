@@ -4,7 +4,7 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/cfexampleapi",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.2.1 curl\/7.54.0 PHP\/7.1.14",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
             "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
@@ -27,11 +27,11 @@
             "CF-Organization-Id": "7BLDDu2FYCNoN4QIWys1BR",
             "CF-Space-Id": "cfexampleapi",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Tue, 06 Mar 2018 10:14:58 GMT",
+            "Date": "Mon, 16 Apr 2018 08:09:42 GMT",
             "ETag": "\"17f6b9f68596176aed46fa020bf235af\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "018b9d52111278db8801e3eceae90b4a",
+            "X-Contentful-Request-Id": "adbcfdbcfff7fe81f4e174ee612a1147",
             "Content-Length": "344",
             "Connection": "keep-alive"
         },
