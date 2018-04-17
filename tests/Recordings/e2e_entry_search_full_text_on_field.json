@@ -1,7 +1,7 @@
 [{
     "request": {
         "method": "GET",
-        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/environments\/master\/entries?content_type=dog&fields.description%5Bmatch%5D=bacon%20pancakes",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/environments\/master\/entries?fields.description%5Bmatch%5D=bacon%20pancakes&content_type=dog",
         "headers": {
             "Host": "cdn.contentful.com",
             "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
