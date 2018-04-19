@@ -11,7 +11,6 @@ namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Delivery\Cache\CacheClearer;
 use Contentful\Delivery\Cache\CacheWarmer;
-use Contentful\Delivery\InstanceRepository;
 use Contentful\Tests\Delivery\TestCase;
 
 class CacheTest extends TestCase
@@ -24,20 +23,25 @@ class CacheTest extends TestCase
         self::$cache->clear();
 
         $client = $this->getClient('cfexampleapi');
+        $instanceRepository = $client->getInstanceRepository();
 
         $warmer = new CacheWarmer($client, self::$cache);
         $clearer = new CacheClearer($client, self::$cache);
 
         $warmer->warmUp();
 
-        $cacheItem = self::$cache->getItem(InstanceRepository::generateCacheKey($client->getApi(), 'Space', 'cfexampleapi'));
+        $cacheItem = self::$cache->getItem(
+            $instanceRepository->generateCacheKey($client->getApi(), 'Space', 'cfexampleapi')
+        );
         $this->assertTrue($cacheItem->isHit());
 
         $rawSpace = \json_decode($cacheItem->get(), true);
         $this->assertSame('cfexampleapi', $rawSpace['sys']['id']);
 
         $clearer->clear();
-        $this->assertFalse(self::$cache->hasItem(InstanceRepository::generateCacheKey($client->getApi(), 'Space', 'cfexampleapi')));
+        $this->assertFalse(self::$cache->hasItem(
+            $instanceRepository->generateCacheKey($client->getApi(), 'Space', 'cfexampleapi')
+        ));
 
         self::$cache->clear();
     }
@@ -85,11 +89,12 @@ class CacheTest extends TestCase
         self::$cache->clear();
 
         $client = $this->getClient('cfexampleapi_cache_autowarmup');
+        $instanceRepository = $client->getInstanceRepository();
 
         $this->assertSame('cfexampleapi', $client->getSpace()->getId());
         $this->assertSame('cat', $client->getContentType('cat')->getId());
 
-        $cacheItem = self::$cache->getItem(InstanceRepository::generateCacheKey($client->getApi(), 'Space', 'cfexampleapi'));
+        $cacheItem = self::$cache->getItem($instanceRepository->generateCacheKey($client->getApi(), 'Space', 'cfexampleapi'));
         $this->assertTrue($cacheItem->isHit());
 
         $rawSpace = \json_decode($cacheItem->get(), true);

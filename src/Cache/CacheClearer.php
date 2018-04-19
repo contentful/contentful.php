@@ -10,7 +10,6 @@
 namespace Contentful\Delivery\Cache;
 
 use Contentful\Delivery\Client;
-use Contentful\Delivery\InstanceRepository;
 use Contentful\Delivery\Query;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -52,10 +51,11 @@ class CacheClearer
         $api = $this->client->getApi();
         $space = $this->client->getSpace();
         $environment = $this->client->getEnvironment();
+        $instanceRepository = $this->client->getInstanceRepository();
 
         $keys = [
-            InstanceRepository::generateCacheKey($api, 'Space', $space->getId()),
-            InstanceRepository::generateCacheKey($api, 'Environment', $environment->getId()),
+            $instanceRepository->generateCacheKey($api, 'Space', $space->getId()),
+            $instanceRepository->generateCacheKey($api, 'Environment', $environment->getId()),
         ];
 
         $query = (new Query())
@@ -63,7 +63,7 @@ class CacheClearer
         $contentTypes = $this->client->getContentTypes($query);
 
         foreach ($contentTypes as $contentType) {
-            $keys[] = InstanceRepository::generateCacheKey($api, 'ContentType', $contentType->getId());
+            $keys[] = $instanceRepository->generateCacheKey($api, 'ContentType', $contentType->getId());
         }
 
         return $this->cacheItemPool->deleteItems($keys);
