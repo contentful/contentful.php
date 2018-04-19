@@ -72,16 +72,35 @@ class InstanceRepository
     private $warmupStack = [];
 
     /**
+     * @var string
+     */
+    private $spaceId;
+
+    /**
+     * @var string
+     */
+    private $environmentId;
+
+    /**
      * @param Client                 $client
      * @param CacheItemPoolInterface $cacheItemPool
      * @param bool                   $autoWarmup
+     * @param string                 $spaceId
+     * @param string                 $environmentId
      */
-    public function __construct(Client $client, CacheItemPoolInterface $cacheItemPool, $autoWarmup)
-    {
+    public function __construct(
+        Client $client,
+        CacheItemPoolInterface $cacheItemPool,
+        $autoWarmup,
+        $spaceId,
+        $environmentId
+    ) {
         $this->client = $client;
         $this->api = $client->getApi();
         $this->cacheItemPool = $cacheItemPool;
         $this->autoWarmup = $autoWarmup;
+        $this->spaceId = $spaceId;
+        $this->environmentId = $environmentId;
     }
 
     /**
@@ -92,7 +111,7 @@ class InstanceRepository
      */
     private function warmUp($type, $resourceId)
     {
-        $key = self::generateCacheKey($this->api, $type, $resourceId);
+        $key = $this->generateCacheKey($this->api, $type, $resourceId);
         if (isset($this->warmupStack[$key]) || isset($this->resources[$type][$resourceId]) || !\in_array($type, self::$warmupTypes, true)) {
             return;
         }
@@ -137,7 +156,7 @@ class InstanceRepository
         $this->resources[$type][$resourceId] = $resource;
 
         if ($this->autoWarmup && \in_array($type, self::$warmupTypes, true)) {
-            $key = self::generateCacheKey($this->api, $type, $resourceId);
+            $key = $this->generateCacheKey($this->api, $type, $resourceId);
             $cacheItem = $this->cacheItemPool->getItem($key);
 
             if (!$cacheItem->isHit()) {
@@ -167,11 +186,13 @@ class InstanceRepository
      *
      * @return string
      */
-    public static function generateCacheKey($api, $type, $resourceId)
+    public function generateCacheKey($api, $type, $resourceId)
     {
         return \sprintf(
-            'contentful-%s-%s-%s',
+            'contentful-%s-%s-%s-%s-%s',
             $api,
+            $this->spaceId,
+            $this->environmentId,
             $type,
             $resourceId
         );

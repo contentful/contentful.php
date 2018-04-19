@@ -10,7 +10,6 @@
 namespace Contentful\Delivery\Cache;
 
 use Contentful\Delivery\Client;
-use Contentful\Delivery\InstanceRepository;
 use Contentful\Delivery\Query;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -50,14 +49,19 @@ class CacheWarmer
     public function warmUp()
     {
         $api = $this->client->getApi();
+        $instanceRepository = $this->client->getInstanceRepository();
 
         $space = $this->client->getSpace();
-        $item = $this->cacheItemPool->getItem(InstanceRepository::generateCacheKey($api, 'Space', $space->getId()));
+        $item = $this->cacheItemPool->getItem(
+            $instanceRepository->generateCacheKey($api, 'Space', $space->getId())
+        );
         $item->set(\json_encode($space));
         $this->cacheItemPool->saveDeferred($item);
 
         $environment = $this->client->getEnvironment();
-        $item = $this->cacheItemPool->getItem(InstanceRepository::generateCacheKey($api, 'Environment', $environment->getId()));
+        $item = $this->cacheItemPool->getItem(
+            $instanceRepository->generateCacheKey($api, 'Environment', $environment->getId())
+        );
         $item->set(\json_encode($environment));
         $this->cacheItemPool->saveDeferred($item);
 
@@ -66,7 +70,9 @@ class CacheWarmer
         $contentTypes = $this->client->getContentTypes($query);
 
         foreach ($contentTypes as $contentType) {
-            $item = $this->cacheItemPool->getItem(InstanceRepository::generateCacheKey($api, 'ContentType', $contentType->getId()));
+            $item = $this->cacheItemPool->getItem(
+                $instanceRepository->generateCacheKey($api, 'ContentType', $contentType->getId())
+            );
             $item->set(\json_encode($contentType));
             $this->cacheItemPool->saveDeferred($item);
         }

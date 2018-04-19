@@ -140,7 +140,13 @@ class Client extends BaseClient
             throw new \InvalidArgumentException('The cache parameter must be a PSR-6 cache item pool or null.');
         }
 
-        $this->instanceRepository = new InstanceRepository($this, $cacheItemPool, (bool) $options['autoWarmup']);
+        $this->instanceRepository = new InstanceRepository(
+            $this,
+            $cacheItemPool,
+            (bool) $options['autoWarmup'],
+            $this->spaceId,
+            $this->environmentId
+        );
         $this->builder = new ResourceBuilder($this, $this->instanceRepository);
     }
 
@@ -188,6 +194,16 @@ class Client extends BaseClient
     protected function getApiContentType()
     {
         return 'application/vnd.contentful.delivery.v1+json';
+    }
+
+    /**
+     * Returns the instance repository currently in use.
+     *
+     * @return InstanceRepository
+     */
+    public function getInstanceRepository()
+    {
+        return $this->instanceRepository;
     }
 
     /**
@@ -383,7 +399,7 @@ class Client extends BaseClient
         $environmentId = $this->extractEnvironmentId($data);
         if ($spaceId !== $this->spaceId || $environmentId !== $this->environmentId) {
             throw new \InvalidArgumentException(\sprintf(
-                'Trying to parse and build a JSON structure with a client configured for handline space "%s" and environment "%s", but space "%s" and environment "%s" were detected.',
+                'Trying to parse and build a JSON structure with a client configured for handling space "%s" and environment "%s", but space "%s" and environment "%s" were detected.',
                 $this->spaceId,
                 $this->environmentId,
                 $spaceId,

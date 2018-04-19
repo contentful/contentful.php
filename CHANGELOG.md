@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/3.0.1...HEAD)
 
+### Fixed
+
+* Cache keys now include space ID and environment ID to better handle possible edge cases.
+
 ## [3.0.1](https://github.com/contentful/contentful.php/tree/3.0.1) (2018-04-17)
 
 ### Fixed

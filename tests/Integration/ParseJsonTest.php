@@ -37,7 +37,7 @@ class ParseJsonTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handline space "cfexampleapi" and environment "master", but space "wrongspace" and environment "master" were detected.
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi" and environment "master", but space "wrongspace" and environment "master" were detected.
      */
     public function testParseJsonSpaceMismatch()
     {
@@ -46,7 +46,7 @@ class ParseJsonTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handline space "cfexampleapi" and environment "master", but space "wrongspace" and environment "master" were detected.
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi" and environment "master", but space "wrongspace" and environment "master" were detected.
      */
     public function testParseJsonContentTypeSpaceMismatch()
     {
@@ -55,7 +55,7 @@ class ParseJsonTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handline space "cfexampleapi" and environment "master", but space "[blank]" and environment "master" were detected.
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi" and environment "master", but space "[blank]" and environment "master" were detected.
      */
     public function testParseJsonEmptyObject()
     {
@@ -64,7 +64,7 @@ class ParseJsonTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handline space "cfexampleapi" and environment "master", but space "invalidSpace" and environment "invalidEnvironment" were detected.
+     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi" and environment "master", but space "invalidSpace" and environment "invalidEnvironment" were detected.
      */
     public function testParseJsonInvalidArray()
     {
