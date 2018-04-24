@@ -58,6 +58,16 @@ class Entry extends LocalizedResource implements \ArrayAccess
      */
     public function __call($name, $arguments)
     {
+        if (0 === \mb_strpos($name, 'has')) {
+            $field = $this->sys->getContentType()->getField($name, true);
+
+            // Only works if the "has" is "magic", i.e.
+            // the field is not actually called hasSomething.
+            if (!$field) {
+                return $this->has(\mb_substr($name, 3));
+            }
+        }
+
         // Some templating languages might end up trying to access a field
         // using a method-like syntax "$entry->field()".
         // Even though it's not the suggested approach, we allow that syntax
@@ -108,7 +118,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
      */
     public function offsetExists($name)
     {
-        return \array_key_exists($name, $this->fields);
+        return $this->has($name);
     }
 
     /**
@@ -125,6 +135,20 @@ class Entry extends LocalizedResource implements \ArrayAccess
     public function offsetUnset($name)
     {
         throw new \LogicException('Entry class does not support unsetting fields.');
+    }
+
+    /**
+     * Checks whether the current entry has a field with a certain ID.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function has($name)
+    {
+        $field = $this->sys->getContentType()->getField($name, true);
+
+        return $field ? \array_key_exists($field->getId(), $this->fields) : false;
     }
 
     /**
