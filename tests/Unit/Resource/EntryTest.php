@@ -423,6 +423,51 @@ class EntryTest extends TestCase
         $this->assertSame('happycat', $this->entry['bestFriendId']);
     }
 
+    public function testBasicHas()
+    {
+        $this->assertTrue($this->entry->has('name'));
+        $this->assertTrue($this->entry->has('likes'));
+        $this->assertTrue($this->entry->has('bestFriend'));
+        $this->assertTrue($this->entry->has('bestfriend'));
+        $this->assertFalse($this->entry->has('bestFriendId'));
+    }
+
+    public function testBasicMagicHas()
+    {
+        $this->assertTrue($this->entry->hasName());
+        $this->assertTrue($this->entry->hasLikes());
+        $this->assertTrue($this->entry->hasBestFriend());
+        $this->assertTrue($this->entry->hasbestfriend());
+        $this->assertFalse($this->entry->hasBestFriendId());
+    }
+
+    public function testBasicMagicHasWithHasField()
+    {
+        $sys = new SystemProperties([
+            'id' => 'crookshanks',
+            'environment' => $this->environment,
+            'contentType' => new MockContentType([
+                'name' => 'Cat',
+                'fields' => [
+                    'hasLives' => new MockField('hasLives', 'Has Lives', 'Boolean'),
+                    'hadBaldSpot' => new MockField('hadBaldSpot', 'Had Bald Spot', 'Boolean'),
+                ],
+            ]),
+        ]);
+
+        $entry = new MockEntry(['sys' => $sys, 'fields' => [
+            'hasLives' => ['en-US' => false],
+            'hadBaldSpot' => ['en-US' => true],
+        ]]);
+        $entry->initLocales($this->environment->getLocales());
+
+        // Field is detected and returns the correct value for it
+        $this->assertFalse($entry->hasLives());
+        $this->assertFalse($entry->getHasLives());
+        // Checks for the existence of the field
+        $this->assertTrue($entry->hasHasLives());
+    }
+
     public function testBasicIsset()
     {
         $this->assertTrue(isset($this->entry['name']));
