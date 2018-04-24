@@ -51,6 +51,14 @@ script:
     fi
 
   - |
+    # Static analysis (build lead only since phpstan requires PHP >= 7.0)
+    if [ $BUILD_LEAD == 1 ]
+    then
+      wget https://github.com/phpstan/phpstan/releases/download/0.9.2/phpstan.phar -q -O phpstan.phar
+      php phpstan.phar analyse -l 2 src/
+    fi
+
+  - |
     # Syntax tests
     #
     # We use PHP-CS-Fixer to check for syntax and style errors,
