@@ -395,6 +395,13 @@ class EntryTest extends TestCase
         $this->assertSame('happycat', $this->entry->getBestFriendId());
     }
 
+    public function testBasicMagicCallsWithoutGet()
+    {
+        $this->assertSame('Nyan Cat', $this->entry->name());
+        $this->assertSame(['rainbows', 'fish'], $this->entry->likes());
+        $this->assertSame('happycat', $this->entry->bestFriendId());
+    }
+
     public function testBasicGetCalls()
     {
         $this->assertSame('Nyan Cat', $this->entry->get('name'));
