@@ -58,16 +58,19 @@ class Entry extends LocalizedResource implements \ArrayAccess
      */
     public function __call($name, $arguments)
     {
-        if (0 !== \mb_strpos($name, 'get')) {
-            \trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', E_USER_ERROR);
+        // Some templating languages might end up trying to access a field
+        // using a method-like syntax "$entry->field()".
+        // Even though it's not the suggested approach, we allow that syntax
+        // for maximum compatibility purposes.
+        if (0 === \mb_strpos($name, 'get')) {
+            $name = \mb_substr($name, 3);
         }
 
         $locale = $this->getLocaleFromInput(isset($arguments[0]) ? $arguments[0] : null);
-        $field = \mb_substr($name, 3);
 
         $result = null;
         try {
-            $result = $this->get($field, $locale);
+            $result = $this->get($name, $locale);
         } catch (\Exception $exception) {
             \trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', E_USER_ERROR);
         }
