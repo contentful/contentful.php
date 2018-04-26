@@ -26,7 +26,6 @@ class InstanceRepository
     private static $warmupTypes = [
         'ContentType',
         'Environment',
-        'Locale',
         'Space',
     ];
 

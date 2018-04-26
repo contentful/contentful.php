@@ -134,16 +134,12 @@ class ResourceBuilder extends BaseResourceBuilder
      */
     private function buildIncludes(array $data)
     {
-        if (isset($data['includes']['Entry'])) {
-            foreach ($data['includes']['Entry'] as $item) {
-                $this->build($item);
-            }
-        }
-
-        if (isset($data['includes']['Asset'])) {
-            foreach ($data['includes']['Asset'] as $item) {
-                $this->build($item);
-            }
+        $items = \array_merge(
+            isset($data['includes']['Entry']) ? $data['includes']['Entry'] : [],
+            isset($data['includes']['Asset']) ? $data['includes']['Asset'] : []
+        );
+        foreach ($items as $item) {
+            $this->build($item);
         }
     }
 
@@ -158,29 +154,19 @@ class ResourceBuilder extends BaseResourceBuilder
      */
     private function buildContentTypeCollection(array $data)
     {
-        $ids = [];
+        $items = \array_merge(
+            $data['items'],
+            isset($data['includes']['Entry']) ? $data['includes']['Entry'] : []
+        );
 
-        foreach ($data['items'] as $item) {
-            if (isset($item['sys']['contentType'])) {
-                $id = $item['sys']['contentType']['sys']['id'];
+        $ids = \array_map(function ($item) {
+            return 'Entry' === $item['sys']['type']
+                ? $item['sys']['contentType']['sys']['id']
+                : null;
+        }, $items);
 
-                if (!$this->instanceRepository->has('ContentType', $id)) {
-                    $ids[] = $id;
-                }
-            }
-        }
-
-        $includes = isset($data['includes']['Entry']) ? $data['includes']['Entry'] : [];
-        foreach ($includes as $item) {
-            if (isset($item['sys']['contentType'])) {
-                $id = $item['sys']['contentType']['sys']['id'];
-
-                if (!$this->instanceRepository->has('ContentType', $id)) {
-                    $ids[] = $id;
-                }
-            }
-        }
-
-        return \array_unique($ids);
+        return \array_filter(\array_unique($ids), function ($id) {
+            return $id && !$this->instanceRepository->has('ContentType', $id);
+        });
     }
 }
