@@ -5,6 +5,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/3.0.2...HEAD)
 
+### Added
+
+* Entries now have a `has($field)` method (with a magic `hasX()` equivalent) which returns whether an entry has the given field currently loaded.
+
+### Changed
+
+* The magic `__call` method now allow for access also using the actual field name, without `get` prefix (for instance `$entry->title()`). This was done to further improve compatibility on edge cases with templating engines such as Twig.
+
 ## [3.0.2](https://github.com/contentful/contentful.php/tree/3.0.2) (2018-04-19)
 
 ### Fixed

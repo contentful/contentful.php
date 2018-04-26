@@ -75,7 +75,7 @@ These classes have been moved to a separate package, which is required from the 
 * `Contentful\Delivery\EntryInterface` has been removed. If you need, use directly `Contentful\Delivery\Resource\Entry` for type hinting.
 * `Contentful\JsonHelper` (deprecated since 2.2): it was a class used internally and this should not have effects on users' codebases, however if for whatever reason you were using it, you should replace `JsonHelper::decode()` with `GuzzleHttp\json_decode()` and `JsonHelper::encode()` with `GuzzleHttp\json_decode()`, which wrap PHP standard functions in order to provide better error handling.
 * `Contentful\DateHelper` (deprecated since 2.2): if you were using `DateHelper::formatForJson()` directly, replace those uses with `Contentful\format_date_for_json()`, which provides the same features.
-* `Contentful\File\UploadFile` (deprecated since 2.1): if you were using this class for type hinting, you should replace it with `Contentful\File\RemoteUploadFile`. This class provides the same function, and it's just a renamed version of the previous one, to better differentiate between that and `LocalUploadFile`. In fact, `UploadFile` was actually already an empty class extending `RemoteUploadFile`.
+* `Contentful\File\UploadFile` (deprecated since 2.1): if you were using this class for type hinting, you should replace it with `Contentful\Core\File\RemoteUploadFile`. This class provides the same function, and it's just a renamed version of the previous one, to better differentiate between that and `LocalUploadFile`. In fact, `UploadFile` was actually already an empty class extending `RemoteUploadFile`.
 
 ## Updated cache mechanism
 
