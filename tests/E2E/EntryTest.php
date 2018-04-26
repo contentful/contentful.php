@@ -112,10 +112,10 @@ class EntryTest extends TestCase
         $this->assertSame('happycat', $bestFriend->getId());
         $this->assertSame($bestFriend, $nyancat->getBestFriend());
 
-        // but not globally
+        // and also globally
         $happycat = $client->getEntry('happycat');
         $this->assertSame($bestFriend->getId(), $happycat->getId());
-        $this->assertNotSame($bestFriend, $happycat);
+        $this->assertSame($bestFriend, $happycat);
     }
 
     /**

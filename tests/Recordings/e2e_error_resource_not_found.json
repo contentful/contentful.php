@@ -1,11 +1,56 @@
 [{
     "request": {
         "method": "GET",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/environments\/master\/locales",
+        "headers": {
+            "Host": "cdn.contentful.com",
+            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
+            "X-Contentful-User-Agent": "sdk contentful.php\/3.2.0-dev; platform PHP\/7.1.14; os macOS;",
+            "Accept": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer b4c0n73n7fu1"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "86400",
+            "Cache-Control": "max-age=0",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "ETag": "\"028bb030b13282c4390f03bf31ad99f8\"",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "0c3af1fb111227060b1a031d01d640f7",
+            "Content-Length": "546",
+            "Accept-Ranges": "bytes",
+            "Date": "Thu, 26 Apr 2018 12:52:23 GMT",
+            "Via": "1.1 varnish",
+            "Age": "6700",
+            "Connection": "keep-alive",
+            "X-Served-By": "cache-hhn1548-HHN",
+            "X-Cache": "HIT",
+            "X-Cache-Hits": "1",
+            "X-Timer": "S1524747143.082798,VS0,VE1",
+            "Vary": "Accept-Encoding"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 2,\n  \"skip\": 0,\n  \"limit\": 1000,\n  \"items\": [\n    {\n      \"code\": \"en-US\",\n      \"name\": \"English\",\n      \"default\": true,\n      \"fallbackCode\": null,\n      \"sys\": {\n        \"id\": \"2oQPjMCL9bQkylziydLh57\",\n        \"type\": \"Locale\",\n        \"version\": 1\n      }\n    },\n    {\n      \"code\": \"tlh\",\n      \"name\": \"Klingon\",\n      \"default\": false,\n      \"fallbackCode\": \"en-US\",\n      \"sys\": {\n        \"id\": \"3zpZmkZrHTIekHmXgflXaV\",\n        \"type\": \"Locale\",\n        \"version\": 0\n      }\n    }\n  ]\n}\n"
+    }
+},{
+    "request": {
+        "method": "GET",
         "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/environments\/master\/entries\/not-existing",
         "headers": {
             "Host": "cdn.contentful.com",
             "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
-            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
+            "X-Contentful-User-Agent": "sdk contentful.php\/3.2.0-dev; platform PHP\/7.1.14; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer b4c0n73n7fu1"
@@ -25,21 +70,22 @@
             "Access-Control-Max-Age": "86400",
             "Cache-Control": "max-age=0",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "ETag": "\"6dfb36cd57c4af9f02425d83fdcf4081\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "f6fed9ec33a0388844ab7f1464629328",
+            "X-Contentful-Request-Id": "4d02d3b010ea3f6a11068fb6812d10dc",
             "Content-Length": "285",
             "Accept-Ranges": "bytes",
-            "Date": "Mon, 16 Apr 2018 09:20:38 GMT",
+            "Date": "Thu, 26 Apr 2018 12:52:23 GMT",
             "Via": "1.1 varnish",
             "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-cdg8723-CDG",
+            "X-Served-By": "cache-hhn1528-HHN",
             "X-Cache": "MISS",
             "X-Cache-Hits": "0",
-            "X-Timer": "S1523870438.597004,VS0,VE440",
+            "X-Timer": "S1524747143.335360,VS0,VE441",
             "Vary": "Accept-Encoding"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"NotFound\"\n  },\n  \"message\": \"The resource could not be found.\",\n  \"details\": {\n    \"id\": \"not-existing\",\n    \"type\": \"Entry\",\n    \"space\": \"cfexampleapi\",\n    \"environment\": \"master\"\n  },\n  \"requestId\": \"f6fed9ec33a0388844ab7f1464629328\"\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"NotFound\"\n  },\n  \"message\": \"The resource could not be found.\",\n  \"details\": {\n    \"id\": \"not-existing\",\n    \"type\": \"Entry\",\n    \"space\": \"cfexampleapi\",\n    \"environment\": \"master\"\n  },\n  \"requestId\": \"4d02d3b010ea3f6a11068fb6812d10dc\"\n}\n"
     }
 }]
