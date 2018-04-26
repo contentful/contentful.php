@@ -216,14 +216,11 @@ class Client extends BaseClient
     {
         $locale = $locale ?: $this->defaultLocale;
 
-        $instanceId = $assetId.'-'.($locale ?: '*');
-        if ($this->instanceRepository->has('Asset', $instanceId)) {
-            return $this->instanceRepository->get('Asset', $instanceId);
-        }
-
         return $this->requestAndBuild(
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/assets/'.$assetId,
-            ['query' => ['locale' => $locale]]
+            ['locale' => $locale],
+            'Asset',
+            $assetId.'-'.($locale ?: '*')
         );
     }
 
@@ -241,7 +238,7 @@ class Client extends BaseClient
 
         return $this->requestAndBuild(
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/assets',
-            ['query' => $queryData]
+            $queryData
         );
     }
 
@@ -252,12 +249,11 @@ class Client extends BaseClient
      */
     public function getContentType($contentTypeId)
     {
-        if ($this->instanceRepository->has('ContentType', $contentTypeId)) {
-            return $this->instanceRepository->get('ContentType', $contentTypeId);
-        }
-
         return $this->requestAndBuild(
-            '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/content_types/'.$contentTypeId
+            '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/content_types/'.$contentTypeId,
+            [],
+            'ContentType',
+            $contentTypeId
         );
     }
 
@@ -270,7 +266,7 @@ class Client extends BaseClient
     {
         return $this->requestAndBuild(
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/content_types',
-            ['query' => $query ? $query->getQueryData() : []]
+            $query ? $query->getQueryData() : []
         );
     }
 
@@ -287,7 +283,7 @@ class Client extends BaseClient
         // we create a fake one in order to assign the collection of locales to it.
         // We could be using any sort of fake resource for this, like a "LocaleCollection" type,
         // but given that previously locales were part of the space, whereas now they conceptually
-        // belong to an environment, we choose this kind abstraction.
+        // belong to an environment, we choose this kind of abstraction.
         $locales = $this->request('GET', '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/locales');
         $environment = [
             'sys' => [
@@ -310,14 +306,11 @@ class Client extends BaseClient
     {
         $locale = $locale ?: $this->defaultLocale;
 
-        $instanceId = $entryId.'-'.($locale ?: '*');
-        if ($this->instanceRepository->has('Entry', $instanceId)) {
-            return $this->instanceRepository->get('Entry', $instanceId);
-        }
-
         return $this->requestAndBuild(
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries/'.$entryId,
-            ['query' => ['locale' => $locale]]
+            ['locale' => $locale],
+            'Entry',
+            $entryId.'-'.($locale ?: '*')
         );
     }
 
@@ -335,7 +328,7 @@ class Client extends BaseClient
 
         return $this->requestAndBuild(
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries',
-            ['query' => $queryData]
+            $queryData
         );
     }
 
@@ -344,11 +337,12 @@ class Client extends BaseClient
      */
     public function getSpace()
     {
-        if ($this->instanceRepository->has('Space', $this->spaceId)) {
-            return $this->instanceRepository->get('Space', $this->spaceId);
-        }
-
-        return $this->requestAndBuild('/spaces/'.$this->spaceId);
+        return $this->requestAndBuild(
+            '/spaces/'.$this->spaceId,
+            [],
+            'Space',
+            $this->spaceId
+        );
     }
 
     /**
@@ -536,14 +530,20 @@ class Client extends BaseClient
     }
 
     /**
-     * @param string $path
-     * @param array  $options
+     * @param string      $path
+     * @param array       $query
+     * @param string|null $type
+     * @param string|null $cacheKey
      *
      * @return ResourceInterface|ResourceArray
      */
-    private function requestAndBuild($path, array $options = [])
+    private function requestAndBuild($path, array $query = [], $type = null, $cacheKey = null)
     {
-        $response = $this->request('GET', $path, $options);
+        if ($type && $cacheKey && $this->instanceRepository->has($type, $cacheKey)) {
+            return $this->instanceRepository->get($type, $cacheKey);
+        }
+
+        $response = $this->request('GET', $path, ['query' => $query]);
 
         return $this->builder->build($response);
     }

@@ -109,26 +109,28 @@ class Asset extends LocalizedResource
         $locale = $this->sys->getLocale();
         $asset = [
             'sys' => $this->sys,
-            'fields' => new \stdClass(),
+            'fields' => [],
         ];
 
         if (null !== $this->title) {
-            $asset['fields']->title = $locale
+            $asset['fields']['title'] = $locale
                 ? $this->title[$locale]
                 : $this->title;
         }
 
         if (null !== $this->description) {
-            $asset['fields']->description = $locale
+            $asset['fields']['description'] = $locale
                 ? $this->description[$locale]
                 : $this->description;
         }
 
         if (null !== $this->file) {
-            $asset['fields']->file = $locale
+            $asset['fields']['file'] = $locale
                 ? $this->file[$locale]
                 : $this->file;
         }
+
+        $asset['fields'] = (object) $asset['fields'];
 
         return $asset;
     }

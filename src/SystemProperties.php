@@ -88,18 +88,16 @@ class SystemProperties implements SystemPropertiesInterface
 
         $this->id = isset($sys['id']) ? $sys['id'] : null;
         $this->type = isset($sys['type']) ? $sys['type'] : null;
+        $this->revision = isset($sys['revision']) ? $sys['revision'] : null;
+        $this->locale = isset($sys['locale']) ? $sys['locale'] : null;
 
         $this->space = $this->checkAndBuildResource($sys, 'space');
         $this->contentType = $this->checkAndBuildResource($sys, 'contentType');
         $this->environment = $this->checkAndBuildResource($sys, 'environment');
 
-        $this->revision = isset($sys['revision']) ? $sys['revision'] : null;
-
-        $this->createdAt = isset($sys['createdAt']) ? new DateTimeImmutable($sys['createdAt']) : null;
-        $this->updatedAt = isset($sys['updatedAt']) ? new DateTimeImmutable($sys['updatedAt']) : null;
-        $this->deletedAt = isset($sys['deletedAt']) ? new DateTimeImmutable($sys['deletedAt']) : null;
-
-        $this->locale = isset($sys['locale']) ? $sys['locale'] : null;
+        $this->createdAt = $this->checkAndBuildDate($sys, 'createdAt');
+        $this->updatedAt = $this->checkAndBuildDate($sys, 'updatedAt');
+        $this->deletedAt = $this->checkAndBuildDate($sys, 'deletedAt');
     }
 
     /**
@@ -126,6 +124,23 @@ class SystemProperties implements SystemPropertiesInterface
             $sys[$name]['sys']['id'],
             $sys[$name]['sys']['linkType']
         );
+    }
+
+    /**
+     * Utility function for building internal properties that are dates.
+     *
+     * @param array  $sys
+     * @param string $name
+     *
+     * @return DateTimeImmutable|null
+     */
+    private function checkAndBuildDate(array $sys, $name)
+    {
+        if (!isset($sys[$name])) {
+            return null;
+        }
+
+        return new DateTimeImmutable($sys[$name]);
     }
 
     /**
@@ -225,56 +240,23 @@ class SystemProperties implements SystemPropertiesInterface
      */
     public function jsonSerialize()
     {
-        $sys = [
+        return \array_filter([
             'id' => $this->id,
             'type' => $this->type,
-        ];
-
-        if (null !== $this->space) {
-            $sys['space'] = [
-                'sys' => [
-                    'type' => 'Link',
-                    'linkType' => 'Space',
-                    'id' => $this->space->getId(),
-                ],
-            ];
-        }
-        if (null !== $this->contentType) {
-            $sys['contentType'] = [
-                'sys' => [
-                    'type' => 'Link',
-                    'linkType' => 'ContentType',
-                    'id' => $this->contentType->getId(),
-                ],
-            ];
-        }
-        if (null !== $this->environment) {
-            $sys['environment'] = [
-                'sys' => [
-                    'type' => 'Link',
-                    'linkType' => 'Environment',
-                    'id' => $this->environment->getId(),
-                ],
-            ];
-        }
-
-        if (null !== $this->revision) {
-            $sys['revision'] = $this->revision;
-        }
-        if (null !== $this->locale) {
-            $sys['locale'] = $this->locale;
-        }
-
-        if (null !== $this->createdAt) {
-            $sys['createdAt'] = (string) $this->createdAt;
-        }
-        if (null !== $this->updatedAt) {
-            $sys['updatedAt'] = (string) $this->updatedAt;
-        }
-        if (null !== $this->deletedAt) {
-            $sys['deletedAt'] = (string) $this->deletedAt;
-        }
-
-        return $sys;
+            'space' => $this->space instanceof ResourceInterface
+                ? $this->space->asLink()
+                : $this->space,
+            'contentType' => $this->contentType instanceof ResourceInterface
+                ? $this->contentType->asLink()
+                : $this->contentType,
+            'environment' => $this->environment instanceof ResourceInterface
+                ? $this->environment->asLink()
+                : $this->environment,
+            'revision' => $this->revision,
+            'locale' => $this->locale,
+            'createdAt' => $this->createdAt,
+            'updatedAt' => $this->updatedAt,
+            'deletedAt' => $this->deletedAt,
+        ]);
     }
 }
