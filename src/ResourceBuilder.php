@@ -103,19 +103,21 @@ class ResourceBuilder extends BaseResourceBuilder
     {
         $type = $data['sys']['type'];
 
-        if ('Array' !== $type && $this->instanceRepository->has($type, $data['sys']['id'])) {
-            return $this->instanceRepository->get($type, $data['sys']['id']);
+        if ('Array' === $type) {
+            $this->buildContentTypeCollection($data);
+            $this->buildIncludes($data);
+
+            return parent::build($data);
         }
 
-        if ('Array' === $type) {
-            $ids = $this->buildContentTypeCollection($data);
-            if ($ids) {
-                $query = (new Query())
-                    ->where('sys.id', \implode(',', $ids), 'in');
-                $this->client->getContentTypes($query);
-            }
+        $cacheKey = $data['sys']['id'];
+        // Assets and entries are stored in cache using their locales.
+        if (\in_array($data['sys']['type'], ['Asset', 'Entry'], true)) {
+            $cacheKey .= '-'.(isset($data['sys']['locale']) ? $data['sys']['locale'] : '*');
+        }
 
-            $this->buildIncludes($data);
+        if ($this->instanceRepository->has($type, $cacheKey)) {
+            return $this->instanceRepository->get($type, $cacheKey);
         }
 
         $resource = parent::build($data, $resource);
@@ -125,22 +127,6 @@ class ResourceBuilder extends BaseResourceBuilder
         }
 
         return $resource;
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return array
-     */
-    private function buildIncludes(array $data)
-    {
-        $items = \array_merge(
-            isset($data['includes']['Entry']) ? $data['includes']['Entry'] : [],
-            isset($data['includes']['Asset']) ? $data['includes']['Asset'] : []
-        );
-        foreach ($items as $item) {
-            $this->build($item);
-        }
     }
 
     /**
@@ -165,8 +151,30 @@ class ResourceBuilder extends BaseResourceBuilder
                 : null;
         }, $items);
 
-        return \array_filter(\array_unique($ids), function ($id) {
+        $ids = \array_filter(\array_unique($ids), function ($id) {
             return $id && !$this->instanceRepository->has('ContentType', $id);
         });
+
+        if ($ids) {
+            $query = (new Query())
+                ->where('sys.id', \implode(',', $ids), 'in');
+            $this->client->getContentTypes($query);
+        }
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    private function buildIncludes(array $data)
+    {
+        $items = \array_merge(
+            isset($data['includes']['Entry']) ? $data['includes']['Entry'] : [],
+            isset($data['includes']['Asset']) ? $data['includes']['Asset'] : []
+        );
+        foreach ($items as $item) {
+            $this->build($item);
+        }
     }
 }

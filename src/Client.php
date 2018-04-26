@@ -207,6 +207,22 @@ class Client extends BaseClient
     }
 
     /**
+     * Returns the locale to be used in a cache key.
+     *
+     * @param string|null $locale
+     *
+     * @return string
+     */
+    private function getLocaleForCacheKey($locale)
+    {
+        if ($locale) {
+            return $locale;
+        }
+
+        return $this->getEnvironment()->getDefaultLocale()->getCode();
+    }
+
+    /**
      * @param string      $assetId
      * @param string|null $locale
      *
@@ -220,7 +236,7 @@ class Client extends BaseClient
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/assets/'.$assetId,
             ['locale' => $locale],
             'Asset',
-            $assetId.'-'.($locale ?: '*')
+            $assetId.'-'.$this->getLocaleForCacheKey($locale)
         );
     }
 
@@ -310,7 +326,7 @@ class Client extends BaseClient
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries/'.$entryId,
             ['locale' => $locale],
             'Entry',
-            $entryId.'-'.($locale ?: '*')
+            $entryId.'-'.$this->getLocaleForCacheKey($locale)
         );
     }
 
