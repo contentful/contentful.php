@@ -5,6 +5,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/3.1.0...HEAD)
 
+### Added
+
+* Sync API now also works on non-master environments.
+
+### Fixed
+
+* Cache keys for entries and assets sometimes did not contain the locale part, leading to possibly duplicate requests. Now info about locales is prefetched, making sure that cache keys are always correct.
+
 ## [3.1.0](https://github.com/contentful/contentful.php/tree/3.1.0) (2018-04-26)
 
 ### Added
