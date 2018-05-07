@@ -20,14 +20,6 @@ To add this package to your `composer.json` and install it execute the following
 composer require contentful/contentful
 ```
 
-Then, if not already done, include the Composer autoloader:
-
-``` php
-<?php
-
-require_once 'vendor/autoload.php';
-```
-
 ## Usage
 
 All interactions with the SDK go through `Contentful\Delivery\Client`. To create a new client an access token and a space ID have to be passed to the constructor.
@@ -42,33 +34,30 @@ To fetch an `Entry` just call the method `getEntry()` with the ID of the desired
 $entry = $client->getEntry('entry-id');
 ```
 
-The fields of an entry can than be accessed through getter methods.
+The fields of an entry can than be accessed in different ways. This example assumes you have a `title` field in your entry:
 
 ``` php
-$entry->getId(); // 'entry-id'
+// Virtual getter methods
+echo $entry->getTitle();
+
+// Virtual properties
+echo $entry->title;
+
+// Array-like syntax
+echo $entry['title'];
+
+// Using the "get" method
+echo $entry->get('title');
 ```
 
 More than one Entry can be fetched by calling `getEntries()`. This methods takes an optional `Contentful\Delivery\Query` object, which allows filtering and sorting results.
 
 ``` php
 $query = (new \Contentful\Delivery\Query())
-    ->where('sys.updatedAt', new \DateTime('2013-01-01'));
+    ->where('sys.updatedAt', new \DateTime('2018-01-01'));
 
 $entries = $client->getEntries($query);
 ```
-
-### Default Ordering
-
-Bear in mind that there is no default ordering included for any method which returns a `Contentful\Core\Resource\ResourceArray` instance. This means that if you plan to page through more than 100 results with multiple requests, there is no guarantee that you will cover all entries. It is however possible to specify custom ordering:
-
-``` php
-$query = (new \Contentful\Delivery\Query())
-    ->orderBy('sys.createdAt', true);
-
-$entries = $client->getEntries($query);
-```
-
-The above snippet will fetch all entries, ordered by newest-to-oldest.
 
 ### Preview Mode
 
@@ -94,6 +83,7 @@ If you're already using version 2.x of this SDK and want to upgrade to the lates
 
 ## Documentation
 
+* Read our [getting started tutorial](https://www.contentful.com/developers/docs/php/tutorials/getting-started-with-contentful-and-php/) for a quick look at the features provided by this SDK.
 * [SDK API Reference](https://contentful.github.io/contentful.php/api/)
 * Check the [Contentful for PHP](https://www.contentful.com/developers/docs/php/) page for tutorials, example apps, and more information on other ways of using PHP with Contentful
 * [CDA REST API reference](https://www.contentful.com/developers/docs/references/content-delivery-api/) for additional details on the Delivery API
