@@ -362,14 +362,14 @@ class Client extends BaseClient
     }
 
     /**
-     * Resolve a link to it's resource.
+     * Resolve a link to its actual resource.
      *
      * @param Link        $link
      * @param string|null $locale
      *
      * @throws \InvalidArgumentException when encountering an unexpected link type
      *
-     * @return Asset|Entry
+     * @return ResourceInterface
      */
     public function resolveLink(Link $link, $locale = null)
     {
