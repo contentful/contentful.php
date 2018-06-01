@@ -135,8 +135,6 @@ class ResourceBuilder extends BaseResourceBuilder
      * for every content type.
      *
      * @param array $data
-     *
-     * @return string[]
      */
     private function buildContentTypeCollection(array $data)
     {
@@ -164,8 +162,6 @@ class ResourceBuilder extends BaseResourceBuilder
 
     /**
      * @param array $data
-     *
-     * @return array
      */
     private function buildIncludes(array $data)
     {

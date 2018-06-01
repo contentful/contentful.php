@@ -25,7 +25,7 @@ abstract class BaseMapper implements MapperInterface
     /**
      * @var \Closure[]
      */
-    private static $hydrators = [];
+    private $hydrators = [];
 
     /**
      * @var ResourceBuilder
@@ -85,11 +85,11 @@ abstract class BaseMapper implements MapperInterface
      */
     private function getHydrator($class)
     {
-        if (isset(self::$hydrators[$class])) {
-            return self::$hydrators[$class];
+        if (isset($this->hydrators[$class])) {
+            return $this->hydrators[$class];
         }
 
-        return self::$hydrators[$class] = \Closure::bind(function ($object, $properties) {
+        return $this->hydrators[$class] = \Closure::bind(function ($object, $properties) {
             foreach ($properties as $property => $value) {
                 $object->$property = $value;
             }
