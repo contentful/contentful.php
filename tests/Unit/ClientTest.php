@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the contentful.php package.
+ * This file is part of the contentful/contentful package.
  *
  * @copyright 2015-2018 Contentful GmbH
  * @license   MIT
