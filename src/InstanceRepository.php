@@ -188,7 +188,7 @@ class InstanceRepository
     public function generateCacheKey($api, $type, $resourceId)
     {
         return \sprintf(
-            'contentful-%s-%s-%s-%s-%s',
+            'contentful.%s.%s.%s.%s.%s',
             $api,
             $this->spaceId,
             $this->environmentId,
