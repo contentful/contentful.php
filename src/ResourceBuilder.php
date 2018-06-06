@@ -117,7 +117,16 @@ class ResourceBuilder extends BaseResourceBuilder
         }
 
         if ($this->instanceRepository->has($type, $cacheKey)) {
-            return $this->instanceRepository->get($type, $cacheKey);
+            $resource = $this->instanceRepository->get($type, $cacheKey);
+
+            // If it's an entry, we still proceed with the resource building,
+            // as it might have fields that were not previously loaded
+            // due to the use of the select query operator.
+            // For any other resource, we skip the building because
+            // we have the result cached already.
+            if ('Entry' !== $data['sys']['type']) {
+                return $resource;
+            }
         }
 
         $resource = parent::build($data, $resource);

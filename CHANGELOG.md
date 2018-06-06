@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/3.2.1...HEAD)
 
+## Fixed
+
+* The SDK internally keeps a registry of built resources, and for this reason, partially selecting fields in an entry might have resulted in successive API calls returning the first "incomplete" version. Now entries are continuously updated, so multiple successive API calls will update a resource to include all recently-fetched fields, plus the already existing ones.
+
 ## [3.2.1](https://github.com/contentful/contentful.php/tree/3.2.1) (2018-06-01)
 
 Maintenance release.

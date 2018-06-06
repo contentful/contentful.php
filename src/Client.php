@@ -430,12 +430,12 @@ class Client extends BaseClient
     private function extractSpaceId(array $data)
     {
         // Space resource
-        if (isset($data['sys']['type']) && $data['sys']['type'] === 'Space') {
+        if (isset($data['sys']['type']) && 'Space' === $data['sys']['type']) {
             return $data['sys']['id'];
         }
 
         // Environment resource
-        if (isset($data['sys']['type']) && $data['sys']['type'] === 'Environment') {
+        if (isset($data['sys']['type']) && 'Environment' === $data['sys']['type']) {
             return $this->spaceId;
         }
 
@@ -467,12 +467,12 @@ class Client extends BaseClient
     public function extractEnvironmentId(array $data)
     {
         // Space resource
-        if (isset($data['sys']['type']) && $data['sys']['type'] === 'Space') {
+        if (isset($data['sys']['type']) && 'Space' === $data['sys']['type']) {
             return $this->environmentId;
         }
 
         // Environment resource
-        if (isset($data['sys']['type']) && $data['sys']['type'] === 'Environment') {
+        if (isset($data['sys']['type']) && 'Environment' === $data['sys']['type']) {
             return $data['sys']['id'];
         }
 

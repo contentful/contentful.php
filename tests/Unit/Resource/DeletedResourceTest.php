@@ -10,9 +10,6 @@
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
 use Contentful\Core\Api\DateTimeImmutable;
-use Contentful\Delivery\Resource\ContentType;
-use Contentful\Delivery\Resource\DeletedEntry;
-use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
 use Contentful\Tests\Delivery\TestCase;
 
