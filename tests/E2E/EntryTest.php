@@ -218,4 +218,140 @@ class EntryTest extends TestCase
         $this->assertSame('Nyan Cat', $entries[0]['name']);
         $this->assertNull($entries[0]['bestFriend']);
     }
+
+    /**
+     * @vcr e2e_entry_partial_building_with_default_locale.json
+     */
+    public function testPartialBuildingWithDefaultLocale()
+    {
+        $client = $this->getClient('88dyiqcr7go8');
+
+        $query = (new Query())
+            ->setContentType('complexContentType')
+            ->select(['fields.link', 'fields.location', 'fields.date', 'fields.arrayOfLinks'])
+            ->where('sys.id', '5teS5mSVJ66qg6QOIY0SWI')
+        ;
+        $entry = $client->getEntries($query)[0];
+
+        $this->assertTrue($entry->has('date'));
+        $this->assertSame('2017-12-31T22:00:00Z', (string) $entry->get('date'));
+
+        $this->assertTrue($entry->has('location'));
+        $location = $entry->get('location');
+        $this->assertSame(43.7682899, $location->getLatitude());
+        $this->assertSame(11.2556199, $location->getLongitude());
+
+        $this->assertTrue($entry->has('link'));
+        $link = $entry->get('link', null, false);
+        $this->assertSame('SQOIQ1rZMQQUeyoyGiEUq', $link->getId());
+        $this->assertSame('Asset', $link->getLinkType());
+
+        $this->assertTrue($entry->has('arrayOfLinks'));
+        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
+        $this->assertSame('5teS5mSVJ66qg6QOIY0SWI', $arrayOfLinks[0]->getId());
+        $this->assertSame('Entry', $arrayOfLinks[0]->getLinkType());
+
+        $this->assertFalse($entry->has('text'));
+        $this->assertFalse($entry->has('boolean'));
+
+        $query = (new Query())
+            ->setContentType('complexContentType')
+            ->select(['fields.text', 'fields.boolean'])
+            ->where('sys.id', '5teS5mSVJ66qg6QOIY0SWI')
+        ;
+        $entry = $client->getEntries($query)[0];
+
+        $this->assertTrue($entry->has('date'));
+        $this->assertSame('2017-12-31T22:00:00Z', (string) $entry->get('date'));
+
+        $this->assertTrue($entry->has('location'));
+        $location = $entry->get('location');
+        $this->assertSame(43.7682899, $location->getLatitude());
+        $this->assertSame(11.2556199, $location->getLongitude());
+
+        $this->assertTrue($entry->has('link'));
+        $link = $entry->get('link', null, false);
+        $this->assertSame('SQOIQ1rZMQQUeyoyGiEUq', $link->getId());
+        $this->assertSame('Asset', $link->getLinkType());
+
+        $this->assertTrue($entry->has('arrayOfLinks'));
+        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
+        $this->assertSame('5teS5mSVJ66qg6QOIY0SWI', $arrayOfLinks[0]->getId());
+        $this->assertSame('Entry', $arrayOfLinks[0]->getLinkType());
+
+        $this->assertTrue($entry->has('text'));
+        $this->assertSame('Some text', $entry->get('text'));
+
+        $this->assertTrue($entry->has('boolean'));
+        $this->assertTrue($entry->get('boolean'));
+    }
+
+    /**
+     * @vcr e2e_entry_partial_building_with_all_locales.json
+     */
+    public function testPartialBuildingWithAllLocales()
+    {
+        $client = $this->getClient('88dyiqcr7go8');
+
+        $query = (new Query())
+            ->setLocale('*')
+            ->setContentType('complexContentType')
+            ->select(['fields.link', 'fields.location', 'fields.date', 'fields.arrayOfLinks'])
+            ->where('sys.id', '5teS5mSVJ66qg6QOIY0SWI')
+        ;
+        $entry = $client->getEntries($query)[0];
+
+        $this->assertTrue($entry->has('date'));
+        $this->assertSame('2017-12-31T22:00:00Z', (string) $entry->get('date'));
+
+        $this->assertTrue($entry->has('location'));
+        $location = $entry->get('location');
+        $this->assertSame(43.7682899, $location->getLatitude());
+        $this->assertSame(11.2556199, $location->getLongitude());
+
+        $this->assertTrue($entry->has('link'));
+        $link = $entry->get('link', null, false);
+        $this->assertSame('SQOIQ1rZMQQUeyoyGiEUq', $link->getId());
+        $this->assertSame('Asset', $link->getLinkType());
+
+        $this->assertTrue($entry->has('arrayOfLinks'));
+        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
+        $this->assertSame('5teS5mSVJ66qg6QOIY0SWI', $arrayOfLinks[0]->getId());
+        $this->assertSame('Entry', $arrayOfLinks[0]->getLinkType());
+
+        $this->assertFalse($entry->has('text'));
+        $this->assertFalse($entry->has('boolean'));
+
+        $query = (new Query())
+            ->setLocale('*')
+            ->setContentType('complexContentType')
+            ->select(['fields.text', 'fields.boolean'])
+            ->where('sys.id', '5teS5mSVJ66qg6QOIY0SWI')
+        ;
+        $entry = $client->getEntries($query)[0];
+
+        $this->assertTrue($entry->has('date'));
+        $this->assertSame('2017-12-31T22:00:00Z', (string) $entry->get('date'));
+
+        $this->assertTrue($entry->has('location'));
+        $location = $entry->get('location');
+        $this->assertSame(43.7682899, $location->getLatitude());
+        $this->assertSame(11.2556199, $location->getLongitude());
+
+        $this->assertTrue($entry->has('link'));
+        $link = $entry->get('link', null, false);
+        $this->assertSame('SQOIQ1rZMQQUeyoyGiEUq', $link->getId());
+        $this->assertSame('Asset', $link->getLinkType());
+
+        $this->assertTrue($entry->has('arrayOfLinks'));
+        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
+        $this->assertSame('5teS5mSVJ66qg6QOIY0SWI', $arrayOfLinks[0]->getId());
+        $this->assertSame('Entry', $arrayOfLinks[0]->getLinkType());
+
+        $this->assertTrue($entry->has('text'));
+        $this->assertSame('Some text', $entry->get('text'));
+
+        $this->assertTrue($entry->has('boolean'));
+        $this->assertTrue($entry->get('boolean'));
+    }
 }
