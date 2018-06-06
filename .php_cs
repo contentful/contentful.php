@@ -1,5 +1,14 @@
 <?php
 
+$year = date('Y');
+
+$fileHeaderComment = <<<COMMENT
+This file is part of the contentful/contentful package.
+
+@copyright 2015-$year Contentful GmbH
+@license   MIT
+COMMENT;
+
 $finder = PhpCsFixer\Finder::create()
     ->in('bin')
     ->in('extra')
@@ -11,10 +20,16 @@ $finder = PhpCsFixer\Finder::create()
 return PhpCsFixer\Config::create()
     ->setFinder($finder)
     ->setRiskyAllowed(true)
+    ->setCacheFile(__DIR__.'/.php_cs.cache')
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
         'array_syntax' => ['syntax' => 'short'],
+        'header_comment' => [
+            'commentType' => 'PHPDoc',
+            'header' => $fileHeaderComment,
+            'separate' => 'both',
+        ],
         'linebreak_after_opening_tag' => true,
         'mb_str_functions' => true,
         'native_function_invocation' => true,
@@ -29,5 +44,4 @@ return PhpCsFixer\Config::create()
         'strict_comparison' => true,
         'strict_param' => true,
     ])
-    ->setCacheFile(__DIR__.'/.php_cs.cache')
 ;
