@@ -15,7 +15,6 @@ use Contentful\Core\Api\Location;
 use Contentful\Delivery\Resource\ContentType as ResourceContentType;
 use Contentful\Delivery\Resource\ContentType\Field as ResourceContentTypeField;
 use Contentful\Delivery\Resource\Entry as ResourceClass;
-use Contentful\Delivery\Resource\Locale as ResourceLocale;
 
 /**
  * Entry class.
@@ -61,7 +60,7 @@ class Entry extends BaseMapper
         }
 
         if ($previous) {
-            $fields = $this->mergePreviousFields($contentType, $fields, $locale, $previous);
+            $fields = $this->mergePreviousFields($fields, $previous);
         }
 
         $result = [];
@@ -100,46 +99,31 @@ class Entry extends BaseMapper
      * the API using the "select" operator), the resulting object is increasingly updated,
      * therefore the new object will contain the biggest set of old plus new fields.
      *
-     * @param ResourceContentType $contentType
-     * @param array               $fields      The field values that have been returned by the API
-     * @param string|null         $locale      Either a string if a locale is used, or null if all locales are present
-     * @param ResourceClass       $previous    the previous entry object that was already built, if present
+     * @param array         $fields The field values that have been returned by the API
+     * @param ResourceClass $entry  The previous entry object that was already built, if present
      *
      * @return array
      */
-    private function mergePreviousFields(
-        ResourceContentType $contentType,
-        array $fields,
-        $locale,
-        ResourceClass $previous
-    ) {
-        $environment = $previous->getEnvironment();
-        $defaultLocale = $environment->getDefaultLocale()->getCode();
+    private function mergePreviousFields(array $fields, ResourceClass $entry)
+    {
+        // Entry fields have private access, so we use this trick to fetch them.
+        // https://ocramius.github.io/blog/accessing-private-php-class-members-without-reflection/
+        $extractor = \Closure::bind(function (ResourceClass $entry) {
+            return $entry->fields;
+        }, null, $entry);
+        $currentFields = $extractor($entry);
 
-        // If no locale is available, it means we need to deal with all of them.
-        // To normalize this behavior, we treat them as an array either way.
-        $locales = $locale
-            ? [$locale]
-            : \array_map(function (ResourceLocale $locale) {
-                return $locale->getCode();
-            }, $environment->getLocales());
+        foreach ($fields as $name => $values) {
+            if (!isset($currentFields[$name])) {
+                $currentFields[$name] = [];
+            }
 
-        // As we can't know for certain which fields will be present (some might not be available
-        // in the current API response, some might be excluded anyway because they're blank...)
-        // we just use the field definitions from the content type and progressively check which fields
-        // are actually present.
-        foreach ($contentType->getFields() as $field) {
-            $fieldId = $field->getId();
-            $fieldLocales = $field->isLocalized() ? $locales : [$defaultLocale];
-
-            foreach ($fieldLocales as $locale) {
-                if (!isset($fields[$fieldId][$locale]) && $previous->has($fieldId)) {
-                    $fields[$fieldId][$locale] = $previous->get($fieldId, $locale, false);
-                }
+            foreach ($values as $locale => $value) {
+                $currentFields[$name][$locale] = $value;
             }
         }
 
-        return $fields;
+        return $currentFields;
     }
 
     /**
