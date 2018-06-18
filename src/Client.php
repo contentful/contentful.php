@@ -159,6 +159,22 @@ class Client extends BaseClient
     }
 
     /**
+     * @return string
+     */
+    public function getSpaceId()
+    {
+        return $this->spaceId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEnvironmentId()
+    {
+        return $this->environmentId;
+    }
+
+    /**
      * @return ResourceBuilder
      */
     public function getResourceBuilder()

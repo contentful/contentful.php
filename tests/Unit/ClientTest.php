@@ -16,6 +16,14 @@ use Contentful\Tests\Delivery\TestCase;
 
 class ClientTest extends TestCase
 {
+    public function testClientAndEnvironmentIdAreSet()
+    {
+        $client = new Client('token', 'my_space_id', 'my_environment_id');
+
+        $this->assertSame('my_space_id', $client->getSpaceId());
+        $this->assertSame('my_environment_id', $client->getEnvironmentId());
+    }
+
     public function testIsDelivery()
     {
         $client = new Client('b4c0n73n7fu1', 'cfexampleapi');
