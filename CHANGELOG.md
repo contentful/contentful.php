@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/3.2.3...HEAD)
+## [3.3.0](https://github.com/contentful/contentful.php/tree/3.3.0) (2018-06-18)
 
 ### Added
 
