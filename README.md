@@ -38,6 +38,8 @@
 </p>
 
 
+> Attention! Version 3 of this package supports PHP 5.6, but starting from version 4, PHP 7 will be required.
+
 > PHP SDK for the Contentful [Content Delivery API](https://www.contentful.com/developers/docs/references/content-delivery-api/) and [Content Preview API](https://www.contentful.com/developers/docs/references/content-preview-api/). It helps you to easily access your Content stored in Contentful with your PHP applications.
 
 ## What is Contentful?
