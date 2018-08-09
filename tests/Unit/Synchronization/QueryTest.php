@@ -19,7 +19,7 @@ class QueryTest extends TestCase
     {
         $queryBuilder = new Query();
 
-        $this->assertSame('initial=1', $queryBuilder->getQueryString());
+        $this->assertSame('initial=true', $queryBuilder->getQueryString());
     }
 
     /**
@@ -36,7 +36,7 @@ class QueryTest extends TestCase
         $queryBuilder = new Query();
         $queryBuilder->setType('Entry');
 
-        $this->assertSame('initial=1&type=Entry', $queryBuilder->getQueryString());
+        $this->assertSame('initial=true&type=Entry', $queryBuilder->getQueryString());
     }
 
     public function testGetSetContentTypeFromObject()
@@ -51,7 +51,7 @@ class QueryTest extends TestCase
 
         $queryBuilder->setContentType($contentType);
 
-        $this->assertSame('initial=1&type=Entry&content_type=cat', $queryBuilder->getQueryString());
+        $this->assertSame('initial=true&type=Entry&content_type=cat', $queryBuilder->getQueryString());
     }
 
     public function testFilterByContentType()
@@ -59,6 +59,6 @@ class QueryTest extends TestCase
         $queryBuilder = new Query();
         $queryBuilder->setContentType('cat');
 
-        $this->assertSame('initial=1&type=Entry&content_type=cat', $queryBuilder->getQueryString());
+        $this->assertSame('initial=true&type=Entry&content_type=cat', $queryBuilder->getQueryString());
     }
 }
