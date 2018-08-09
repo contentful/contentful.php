@@ -9,7 +9,9 @@
 
 namespace Contentful\Tests\Delivery\E2E;
 
+use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\Entry;
+use Contentful\Delivery\Synchronization\Query;
 use Contentful\Delivery\Synchronization\Result;
 use Contentful\Tests\Delivery\TestCase;
 
@@ -85,5 +87,40 @@ class SyncTest extends TestCase
         $this->assertSame(1, \count($results));
         $this->assertTrue($result->isDone());
         $this->assertGreaterThan(40, \mb_strlen($result->getToken()));
+    }
+
+    /**
+     * @vcr e2e_sync_type.json
+     */
+    public function testSyncType()
+    {
+        $client = $this->getClient('cfexampleapi');
+        $manager = $client->getSynchronizationManager();
+
+        $query = (new Query())
+            ->setType('Asset')
+        ;
+        $result = $manager->startSync($query);
+
+        $this->assertInstanceOf(Result::class, $result);
+        $this->assertGreaterThan(40, \mb_strlen($result->getToken()));
+        $this->assertTrue($result->isDone());
+
+        $items = $result->getItems();
+        $this->assertInstanceOf(Asset::class, $items[0]);
+
+        $query = (new Query())
+            ->setType('Entry')
+            ->setContentType('cat')
+        ;
+        $result = $manager->startSync($query);
+
+        $this->assertInstanceOf(Result::class, $result);
+        $this->assertGreaterThan(40, \mb_strlen($result->getToken()));
+        $this->assertTrue($result->isDone());
+
+        $items = $result->getItems();
+        $this->assertInstanceOf(Entry::class, $items[0]);
+        $this->assertSame('cat', $items[0]->getSystemProperties()->getContentType()->getId());
     }
 }
