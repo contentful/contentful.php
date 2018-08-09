@@ -40,7 +40,7 @@ class Query
     public function getQueryData()
     {
         $data = [
-            'initial' => true,
+            'initial' => 'true',
             'type' => 'all' !== $this->type ? $this->type : null,
             'content_type' => $this->contentType,
         ];

@@ -10,6 +10,7 @@
 namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Delivery\Query;
+use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Tests\Delivery\TestCase;
 
@@ -124,5 +125,28 @@ class EntryFilterTest extends TestCase
         ;
         $assets = $client->getAssets($query);
         $this->assertCount(4, $assets);
+
+        // entries?include={value}
+        // Using include=0 means that every link will have to be fetched from the API
+        // so we check that the client has made another query for fetching the happy cat entry.
+        // We create a new client because the previous one will have entries and assets already cached locally.
+        $client = $this->getClient('cfexampleapi');
+        $query = (new Query())
+            ->setInclude(0)
+        ;
+        $entries = $client->getEntries($query);
+        $currentTotal = \count($client->getMessages());
+        /** @var Entry $entry */
+        foreach ($entries as $entry) {
+            if ('nyancat' === $entry->getId()) {
+                /** @var Asset $image */
+                $image = $entry->get('image');
+                $this->assertInstanceOf(Asset::class, $image);
+                $this->assertSame('nyancat', $image->getId());
+                break;
+            }
+        }
+
+        $this->assertCount($currentTotal + 1, $client->getMessages());
     }
 }
