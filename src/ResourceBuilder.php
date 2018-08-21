@@ -110,14 +110,16 @@ class ResourceBuilder extends BaseResourceBuilder
             return parent::build($data);
         }
 
-        $cacheKey = $data['sys']['id'];
+        $resourceId = $data['sys']['id'];
+
         // Assets and entries are stored in cache using their locales.
+        $locale = null;
         if (\in_array($data['sys']['type'], ['Asset', 'Entry'], true)) {
-            $cacheKey .= '-'.(isset($data['sys']['locale']) ? $data['sys']['locale'] : '*');
+            $locale = isset($data['sys']['locale']) ? $data['sys']['locale'] : '*';
         }
 
-        if ($this->instanceRepository->has($type, $cacheKey)) {
-            $resource = $this->instanceRepository->get($type, $cacheKey);
+        if ($this->instanceRepository->has($type, $resourceId, $locale)) {
+            $resource = $this->instanceRepository->get($type, $resourceId, $locale);
 
             // If it's an entry, we still proceed with the resource building,
             // as it might have fields that were not previously loaded

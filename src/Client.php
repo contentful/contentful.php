@@ -252,7 +252,8 @@ class Client extends BaseClient
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/assets/'.$assetId,
             ['locale' => $locale],
             'Asset',
-            $assetId.'-'.$this->getLocaleForCacheKey($locale)
+            $assetId,
+            $this->getLocaleForCacheKey($locale)
         );
     }
 
@@ -342,7 +343,8 @@ class Client extends BaseClient
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries/'.$entryId,
             ['locale' => $locale],
             'Entry',
-            $entryId.'-'.$this->getLocaleForCacheKey($locale)
+            $entryId,
+            $this->getLocaleForCacheKey($locale)
         );
     }
 
@@ -413,7 +415,7 @@ class Client extends BaseClient
      *
      * @param string $json
      *
-     * @throws \InvalidArgumentException When attempting to parse JSON belonging to a different space
+     * @throws \InvalidArgumentException When attempting to parse JSON belonging to a different space or environment
      *
      * @return ResourceInterface|ResourceArray
      */
@@ -551,14 +553,15 @@ class Client extends BaseClient
      * @param string      $path
      * @param array       $query
      * @param string|null $type
-     * @param string|null $cacheKey
+     * @param string|null $resourceId
+     * @param string|null $locale
      *
      * @return ResourceInterface|ResourceArray
      */
-    private function requestAndBuild($path, array $query = [], $type = null, $cacheKey = null)
+    private function requestAndBuild($path, array $query = [], $type = null, $resourceId = null, $locale = null)
     {
-        if ($type && $cacheKey && $this->instanceRepository->has($type, $cacheKey)) {
-            return $this->instanceRepository->get($type, $cacheKey);
+        if ($type && $resourceId && $this->instanceRepository->has($type, $resourceId, $locale)) {
+            return $this->instanceRepository->get($type, $resourceId, $locale);
         }
 
         $response = $this->request('GET', $path, ['query' => $query]);
