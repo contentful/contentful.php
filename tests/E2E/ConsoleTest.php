@@ -52,11 +52,11 @@ class ConsoleTest extends TestCase
 
         $cachePool = CacheItemPoolFactory::$pools['DELIVERY.cfexampleapi.master'];
 
-        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Space.cfexampleapi'));
-        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Environment.master'));
-        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.ContentType.cat'));
-        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.ContentType.dog'));
-        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.ContentType.human'));
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Space.cfexampleapi.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Environment.master.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.ContentType.cat.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.ContentType.dog.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.ContentType.human.__ALL__'));
     }
 
     /**
@@ -76,11 +76,11 @@ class ConsoleTest extends TestCase
 
         $cachePool = CacheItemPoolFactory::$pools['PREVIEW.cfexampleapi.master'];
 
-        $this->assertTrue($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.Space.cfexampleapi'));
-        $this->assertTrue($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.Environment.master'));
-        $this->assertTrue($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.ContentType.cat'));
-        $this->assertTrue($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.ContentType.dog'));
-        $this->assertTrue($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.ContentType.human'));
+        $this->assertTrue($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.Space.cfexampleapi.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.Environment.master.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.ContentType.cat.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.ContentType.dog.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.ContentType.human.__ALL__'));
     }
 
     /**
@@ -141,7 +141,7 @@ class ConsoleTest extends TestCase
         $this->assertContains('Cache cleared for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
 
         $cachePool = CacheItemPoolFactory::$pools['DELIVERY.cfexampleapi.master'];
-        $this->assertFalse($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Space.cfexampleapi'));
+        $this->assertFalse($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Space.cfexampleapi.__ALL__'));
     }
 
     /**
@@ -160,7 +160,7 @@ class ConsoleTest extends TestCase
         $this->assertContains('Cache cleared for space "cfexampleapi" on environment "master" using API "PREVIEW".', $output);
 
         $cachePool = CacheItemPoolFactory::$pools['PREVIEW.cfexampleapi.master'];
-        $this->assertFalse($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.Space.cfexampleapi'));
+        $this->assertFalse($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.Space.cfexampleapi.__ALL__'));
     }
 
     /**

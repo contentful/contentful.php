@@ -11,6 +11,7 @@ namespace Contentful\Delivery;
 
 use Contentful\Core\Resource\ResourceInterface;
 use Psr\Cache\CacheItemPoolInterface;
+use function GuzzleHttp\json_encode as guzzle_json_encode;
 
 /**
  * InstanceRepository class.
@@ -30,16 +31,9 @@ class InstanceRepository
     ];
 
     /**
-     * @var array[ResourceInterface[]]
+     * @var ResourceInterface[]
      */
-    private $resources = [
-        'Asset' => [],
-        'ContentType' => [],
-        'Entry' => [],
-        'Environment' => [],
-        'Locale' => [],
-        'Space' => [],
-    ];
+    private $resources = [];
 
     /**
      * @var Client
@@ -105,35 +99,36 @@ class InstanceRepository
     /**
      * Warm up the locale resource repository with instances fetched from cache.
      *
+     * @param string $key
      * @param string $type
-     * @param string $resourceId
      */
-    private function warmUp($type, $resourceId)
+    private function warmUp($key, $type)
     {
-        $key = $this->generateCacheKey($this->api, $type, $resourceId);
-        if (isset($this->warmupStack[$key]) || isset($this->resources[$type][$resourceId]) || !\in_array($type, self::$warmupTypes, true)) {
+        if (isset($this->warmupStack[$key]) || isset($this->resources[$key]) || !\in_array($type, self::$warmupTypes, true)) {
             return;
         }
 
         $item = $this->cacheItemPool->getItem($key);
         if ($item->isHit()) {
             $this->warmupStack[$key] = true;
-            $this->resources[$type][$resourceId] = $this->client->parseJson($item->get());
+            $this->resources[$key] = $this->client->parseJson($item->get());
             unset($this->warmupStack[$key]);
         }
     }
 
     /**
-     * @param string $type
-     * @param string $resourceId
+     * @param string      $type
+     * @param string      $resourceId
+     * @param string|null $locale
      *
      * @return bool
      */
-    public function has($type, $resourceId)
+    public function has($type, $resourceId, $locale = null)
     {
-        $this->warmUp($type, $resourceId);
+        $key = $this->generateCacheKey($this->api, $type, $resourceId, $locale);
+        $this->warmUp($key, $type);
 
-        return isset($this->resources[$type][$resourceId]);
+        return isset($this->resources[$key]);
     }
 
     /**
@@ -144,56 +139,64 @@ class InstanceRepository
         /** @var SystemProperties $sys */
         $sys = $resource->getSystemProperties();
         $type = $sys->getType();
-        $resourceId = $sys->getId();
 
-        if ('Entry' === $type || 'Asset' === $type) {
-            $locale = $sys->getLocale();
+        $key = $this->generateCacheKey(
+            $this->api,
+            $type,
+            $sys->getId(),
+            $sys->getLocale()
+        );
 
-            $resourceId .= '-'.($locale ?: '*');
-        }
-
-        $this->resources[$type][$resourceId] = $resource;
+        $this->resources[$key] = $resource;
 
         if ($this->autoWarmup && \in_array($type, self::$warmupTypes, true)) {
-            $key = $this->generateCacheKey($this->api, $type, $resourceId);
             $cacheItem = $this->cacheItemPool->getItem($key);
 
             if (!$cacheItem->isHit()) {
-                $cacheItem->set(\GuzzleHttp\json_encode($resource));
+                $cacheItem->set(guzzle_json_encode($resource));
                 $this->cacheItemPool->save($cacheItem);
             }
         }
     }
 
     /**
-     * @param string $type
-     * @param string $resourceId
+     * @param string      $type
+     * @param string      $resourceId
+     * @param string|null $locale
      *
      * @return ResourceInterface
      */
-    public function get($type, $resourceId)
+    public function get($type, $resourceId, $locale = null)
     {
-        $this->warmUp($type, $resourceId);
+        $key = $this->generateCacheKey($this->api, $type, $resourceId, $locale);
+        $this->warmUp($key, $type);
 
-        return $this->resources[$type][$resourceId];
+        return $this->resources[$key];
     }
 
     /**
-     * @param string $api
-     * @param string $type
-     * @param string $resourceId
+     * @param string      $api
+     * @param string      $type
+     * @param string      $resourceId
+     * @param string|null $locale
      *
      * @return string
      */
-    public function generateCacheKey($api, $type, $resourceId)
+    public function generateCacheKey($api, $type, $resourceId, $locale = null)
     {
+        $locale = \strtr($locale ?: '__ALL__', [
+            '-' => '_',
+            '*' => '__ALL__',
+        ]);
+
         return \sprintf(
-            'contentful.%s.%s.%s.%s.%s',
+            'contentful.%s.%s.%s.%s.%s.%s',
             $api,
             $this->spaceId,
             $this->environmentId,
             $type,
-            $resourceId
+            $resourceId,
+            $locale
         );
     }
 }
