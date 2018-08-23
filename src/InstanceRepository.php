@@ -195,7 +195,7 @@ class InstanceRepository
             $this->spaceId,
             $this->environmentId,
             $type,
-            $resourceId,
+            \str_replace('-', '_', $resourceId),
             $locale
         );
     }

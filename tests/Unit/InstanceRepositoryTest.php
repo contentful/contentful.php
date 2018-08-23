@@ -40,5 +40,13 @@ class InstanceRepositoryTest extends \PHPUnit_Framework_TestCase
             'en-US'
         );
         $this->assertSame('contentful.DELIVERY.cfexampleapi.master.Entry.entryId.en_US', $key);
+
+        $key = $instanceRepository->generateCacheKey(
+            'DELIVERY',
+            'Entry',
+            'entry-id-._',
+            'en-US'
+        );
+        $this->assertSame('contentful.DELIVERY.cfexampleapi.master.Entry.entry_id_._.en_US', $key);
     }
 }
