@@ -27,50 +27,6 @@ class ParseJsonTest extends TestCase
         parent::setUp();
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testParseJsonInvalid()
-    {
-        $this->client->parseJson('{"sys": {"type": "}}');
-    }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi" and environment "master", but space "wrongspace" and environment "master" were detected.
-     */
-    public function testParseJsonSpaceMismatch()
-    {
-        $this->client->parseJson($this->getFixtureContent('space_mismatch.json'));
-    }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi" and environment "master", but space "wrongspace" and environment "master" were detected.
-     */
-    public function testParseJsonContentTypeSpaceMismatch()
-    {
-        $this->client->parseJson($this->getFixtureContent('content_type_space_mismatch.json'));
-    }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi" and environment "master", but space "[blank]" and environment "master" were detected.
-     */
-    public function testParseJsonEmptyObject()
-    {
-        $this->client->parseJson('{}');
-    }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi" and environment "master", but space "invalidSpace" and environment "invalidEnvironment" were detected.
-     */
-    public function testParseJsonInvalidArray()
-    {
-        $this->client->parseJson($this->getFixtureContent('invalid_array.json'));
-    }
-
     public function testParseJsonEmptyArray()
     {
         $resource = $this->client->parseJson('{"sys":{"type":"Array"},"items":[],"total":0,"limit":0,"skip":0}');
