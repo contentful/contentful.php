@@ -32,7 +32,8 @@ class ClearCacheCommand extends Command
                     'The FQCN of a factory class which implements "%s".',
                     CacheItemPoolFactoryInterface::class
                 )),
-                new InputOption('use-preview', 'p', InputOption::VALUE_NONE),
+                new InputOption('use-preview', 'p', InputOption::VALUE_NONE, 'Use the Preview API instead of the Delivery API'),
+                new InputOption('cache-content', 'c', InputOption::VALUE_NONE, 'Include entries and assets'),
             ]);
     }
 
@@ -41,7 +42,8 @@ class ClearCacheCommand extends Command
         $accessToken = $input->getOption('access-token');
         $spaceId = $input->getOption('space-id');
         $environmentId = $input->getOption('environment-id');
-        $usePreview = $input->getOption('use-preview');
+        $usePreview = (bool) $input->getOption('use-preview');
+        $cacheContent = (bool) $input->getOption('cache-content');
 
         $client = new Client($accessToken, $spaceId, $environmentId, $usePreview);
         $api = $client->getApi();
@@ -65,7 +67,7 @@ class ClearCacheCommand extends Command
         }
 
         $clearer = new CacheClearer($client, $cacheItemPool);
-        if (!$clearer->clear()) {
+        if (!$clearer->clear($cacheContent)) {
             throw new \RuntimeException(\sprintf(
                 'The SDK could not clear the cache. Try checking your PSR-6 implementation (class "%s").',
                 \get_class($cacheItemPool)
