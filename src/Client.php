@@ -108,11 +108,12 @@ class Client extends BaseClient
      *                                   string, e.g. "en-US" to fetch content in that locale. Set it to "*"
      *                                   to fetch content in all locales.
      * @param array       $options       An array of optional configuration. The following options are available:
-     *                                   * guzzle     Override the guzzle instance used by the Contentful client
-     *                                   * logger     A PSR-3 logger
-     *                                   * baseUri    Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/').
-     *                                   * cache      Null or a PSR-6 cache item pool. The client only writes to the cache if autoWarmup is true, otherwise, you are responsible for warming it up using \Contentful\Delivery\Cache\CacheWarmer.
-     *                                   * autoWarmup Warm up the cache automatically
+     *                                   * guzzle       Override the guzzle instance used by the Contentful client
+     *                                   * logger       A PSR-3 logger
+     *                                   * baseUri      Override the uri that is used to connect to the Contentful API (e.g. 'https://cdn.contentful.com/').
+     *                                   * cache        Null or a PSR-6 cache item pool. The client only writes to the cache if autoWarmup is true, otherwise, you are responsible for warming it up using \Contentful\Delivery\Cache\CacheWarmer.
+     *                                   * autoWarmup   Warm up the cache automatically for content types and locales
+     *                                   * cacheContent Warm up the cache automatically for entries and assets (requires autoWarmup to also be set to true)
      */
     public function __construct($token, $spaceId, $environmentId = 'master', $preview = false, $defaultLocale = null, array $options = [])
     {
@@ -122,6 +123,7 @@ class Client extends BaseClient
             'baseUri' => null,
             'cache' => null,
             'autoWarmup' => false,
+            'cacheContent' => false,
         ], $options);
 
         $baseUri = $preview ? self::URI_PREVIEW : self::URI_DELIVERY;
@@ -150,7 +152,8 @@ class Client extends BaseClient
             $cacheItemPool,
             (bool) $options['autoWarmup'],
             $this->spaceId,
-            $this->environmentId
+            $this->environmentId,
+            (bool) $options['cacheContent']
         );
         $this->builder = new ResourceBuilder($this, $this->instanceRepository);
         $this->scopedJsonDecoder = new ScopedJsonDecoder($this->spaceId, $this->environmentId);

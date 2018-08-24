@@ -47,6 +47,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
                 return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, null, \array_merge($options, ['cache' => self::$cache]));
             case 'cfexampleapi_cache_autowarmup':
                 return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, null, \array_merge($options, ['cache' => self::$cache, 'autoWarmup' => true]));
+            case 'cfexampleapi_cache_autowarmup_content':
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, null, \array_merge($options, ['cache' => self::$cache, 'autoWarmup' => true, 'cacheContent' => true]));
             case 'cfexampleapi_tlh':
                 return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, 'tlh', $options);
             case 'cfexampleapi_invalid':
