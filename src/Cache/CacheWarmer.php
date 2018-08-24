@@ -9,9 +9,8 @@
 
 namespace Contentful\Delivery\Cache;
 
-use Contentful\Delivery\Client;
-use Contentful\Delivery\Query;
-use Psr\Cache\CacheItemPoolInterface;
+use Contentful\Delivery\SystemProperties;
+use function GuzzleHttp\json_encode as guzzle_json_encode;
 
 /**
  * CacheWarmer class.
@@ -19,63 +18,31 @@ use Psr\Cache\CacheItemPoolInterface;
  * Use this class to save the needed cache information in a
  * PSR-6 compatible pool.
  */
-class CacheWarmer
+class CacheWarmer extends BaseCacheHandler
 {
     /**
-     * @var Client
-     */
-    private $client;
-
-    /**
-     * @var CacheItemPoolInterface
-     */
-    private $cacheItemPool;
-
-    /**
-     * CacheWarmer constructor.
+     * @param bool $cacheContent
      *
-     * @param Client                 $client
-     * @param CacheItemPoolInterface $cacheItemPool
-     */
-    public function __construct(Client $client, CacheItemPoolInterface $cacheItemPool)
-    {
-        $this->client = $client;
-        $this->cacheItemPool = $cacheItemPool;
-    }
-
-    /**
      * @return bool
      */
-    public function warmUp()
+    public function warmUp($cacheContent = false)
     {
         $api = $this->client->getApi();
         $instanceRepository = $this->client->getInstanceRepository();
+        $previous = $this->toggleAutoWarmup($instanceRepository, false);
 
-        $space = $this->client->getSpace();
-        $item = $this->cacheItemPool->getItem(
-            $instanceRepository->generateCacheKey($api, 'Space', $space->getId())
-        );
-        $item->set(\json_encode($space));
-        $this->cacheItemPool->saveDeferred($item);
+        foreach ($this->fetchResources($cacheContent) as $resource) {
+            /** @var SystemProperties $sys */
+            $sys = $resource->getSystemProperties();
+            $key = $instanceRepository->generateCacheKey($api, $sys->getType(), $sys->getId(), $sys->getLocale());
 
-        $environment = $this->client->getEnvironment();
-        $item = $this->cacheItemPool->getItem(
-            $instanceRepository->generateCacheKey($api, 'Environment', $environment->getId())
-        );
-        $item->set(\json_encode($environment));
-        $this->cacheItemPool->saveDeferred($item);
+            $item = $this->cacheItemPool->getItem($key);
+            $item->set(guzzle_json_encode($resource));
 
-        $query = (new Query())
-            ->setLimit(100);
-        $contentTypes = $this->client->getContentTypes($query);
-
-        foreach ($contentTypes as $contentType) {
-            $item = $this->cacheItemPool->getItem(
-                $instanceRepository->generateCacheKey($api, 'ContentType', $contentType->getId())
-            );
-            $item->set(\json_encode($contentType));
             $this->cacheItemPool->saveDeferred($item);
         }
+
+        $this->toggleAutoWarmup($instanceRepository, $previous);
 
         return $this->cacheItemPool->commit();
     }

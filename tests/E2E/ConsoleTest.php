@@ -205,6 +205,55 @@ class ConsoleTest extends TestCase
             '--factory-class' => NotWorkingCachePoolFactory::class,
         ]);
     }
+
+    /**
+     * @vcr e2e_console_cache_warmup_with_content.json
+     */
+    public function testCacheWarmupWithContent()
+    {
+        $output = $this->getConsoleOutput('delivery:cache:warmup', [
+            '--access-token' => 'b4c0n73n7fu1',
+            '--space-id' => 'cfexampleapi',
+            '--environment-id' => 'master',
+            '--factory-class' => CacheItemPoolFactory::class,
+            '--cache-content' => true,
+        ]);
+
+        $this->assertContains('Cache warmed up for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
+
+        $cachePool = CacheItemPoolFactory::$pools['DELIVERY.cfexampleapi.master'];
+
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Space.cfexampleapi.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Environment.master.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.ContentType.cat.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.ContentType.dog.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.ContentType.human.__ALL__'));
+
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Entry.nyancat.__ALL__'));
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Entry.nyancat.en_US'));
+        $this->assertTrue($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Entry.nyancat.tlh'));
+    }
+
+    /**
+     * @vcr e2e_console_cache_clear_with_content.json
+     */
+    public function testCacheClearWithContent()
+    {
+        $output = $this->getConsoleOutput('delivery:cache:clear', [
+            '--access-token' => 'b4c0n73n7fu1',
+            '--space-id' => 'cfexampleapi',
+            '--environment-id' => 'master',
+            '--factory-class' => CacheItemPoolFactory::class,
+            '--cache-content' => true,
+        ]);
+
+        $this->assertContains('Cache cleared for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
+
+        $cachePool = CacheItemPoolFactory::$pools['DELIVERY.cfexampleapi.master'];
+        $this->assertFalse($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Space.cfexampleapi.__ALL__'));
+
+        $this->assertFalse($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Entry.nyancat.__ALL__'));
+    }
 }
 
 class CacheItemPoolFactory implements CacheItemPoolFactoryInterface

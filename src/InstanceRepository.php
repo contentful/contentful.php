@@ -80,13 +80,15 @@ class InstanceRepository
      * @param bool                   $autoWarmup
      * @param string                 $spaceId
      * @param string                 $environmentId
+     * @param bool                   $cacheContent
      */
     public function __construct(
         Client $client,
         CacheItemPoolInterface $cacheItemPool,
         $autoWarmup,
         $spaceId,
-        $environmentId
+        $environmentId,
+        $cacheContent = false
     ) {
         $this->client = $client;
         $this->api = $client->getApi();
@@ -94,6 +96,11 @@ class InstanceRepository
         $this->autoWarmup = $autoWarmup;
         $this->spaceId = $spaceId;
         $this->environmentId = $environmentId;
+
+        if ($cacheContent) {
+            self::$warmupTypes[] = 'Entry';
+            self::$warmupTypes[] = 'Asset';
+        }
     }
 
     /**
