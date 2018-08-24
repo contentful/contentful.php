@@ -36,7 +36,7 @@ class Client extends BaseClient
     /**
      * @var string
      */
-    const VERSION = '3.4.0-dev';
+    const VERSION = '3.4.0';
 
     /**
      * @var string

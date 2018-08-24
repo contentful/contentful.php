@@ -3,11 +3,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/3.3.0...HEAD)
+## [3.4.0](https://github.com/contentful/contentful.php/tree/3.4.0) (2018-08-24)
 
 ### Added
 
 * The SDK can now use a locally-cached copy of entries and asset. While this _will not_ prevent API calls when using `getEntries` or `getAssets`, it will intercept calls made with `getEntry` and `getAsset`, including those being made when resolving a link from an entry. You can enable this either using the CLI commands with the `--cache-content` flag, or passing `'cacheContent' => true` to the `$options` array in the client constructor (requires `'autoWarmup'` to also be set to true).
+
+### Fixed
+
+* Made sure that cache keys are always PSR-6 compliant. Certain PSR-6 implementations have more lax requirements and the SDK took advantage of that, but now all keys only use the character set defined in the official specification.
 
 ## [3.3.0](https://github.com/contentful/contentful.php/tree/3.3.0) (2018-06-18)
 
