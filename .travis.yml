@@ -3,100 +3,66 @@ language: php
 env:
   global:
     - GH_REPO="github.com/${TRAVIS_REPO_SLUG}.git"
-    - BUILD_LEAD=0
-    - SYNTAX_TEST=0
 
 matrix:
   fast_finish: true
   include:
-    - php: 7.1
-      env: SYNTAX_TEST=1
-    - php: 5.6
-    - php: 7.0
-    - php: 7.1
-      env: BUILD_LEAD=1
     - php: 7.2
+    - php: 7.1
+    - php: 7.0
+    - php: 5.6
 
 branches:
   only:
     - master
 
 before_install:
-  - |
-    # Disable XDebug
-    #
-    # XDebug makes PHPUnit and PHP-CS-Fixer slow.
-    # We need it only for generating the code coverage report,
-    # so we disable it everywhere but for the build lead.
-    if [ $BUILD_LEAD == 0 ]
-    then
-      phpenv config-rm xdebug.ini
-    fi
+  - cp $HOME/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini /tmp
+  - phpenv config-rm xdebug.ini
 
-install:
-  - |
-    # Install dependencies
-    # We don't need to install dependencies when doing the syntax check.
-    if [ $SYNTAX_TEST == 0 ]
-    then
-      composer install
-    fi
+install: travis_retry composer update --prefer-dist
 
-script:
-  - |
-    # PHPUnit tests
-    if [ $SYNTAX_TEST == 0 ]
-    then
-      php vendor/bin/phpunit --stop-on-error --stop-on-failure -v
-    fi
+jobs:
+  include:
+    - stage: test
+      name: Low dependencies
+      install: travis_retry composer update --prefer-dist --prefer-lowest
 
-  - |
-    # Static analysis (build lead only since phpstan requires PHP >= 7.0)
-    if [ $BUILD_LEAD == 1 ]
-    then
-      wget https://github.com/phpstan/phpstan/releases/download/0.9.2/phpstan.phar -q -O phpstan.phar
-      php phpstan.phar analyse -l 2 src/
-    fi
+    - stage: test
+      name: Code coverage
+      before_install: ~
+      script: ./vendor/bin/phpunit
+      after_script: travis_retry bash <(curl -s https://codecov.io/bash) -f build/logs/clover.xml
 
-  - |
-    # Syntax tests
-    #
-    # We use PHP-CS-Fixer to check for syntax and style errors,
-    # but we run a separate build for that to take advantage of build parallelism.
-    if [ $SYNTAX_TEST == 1 ]
-    then
-      wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -q -O php-cs-fixer.phar
-      php php-cs-fixer.phar fix --dry-run --stop-on-violation -v
-    fi
+    - stage: code quality
+      name: Coding standards
+      install: travis_retry wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -q -O php-cs-fixer.phar
+      script: php php-cs-fixer.phar fix --dry-run --stop-on-violation -v
 
-after_success:
-  - |
-    # Upload code coverage
-    #
-    # The code coverage report is only generated when BUILD_LEAD is 1.
-    if [ $BUILD_LEAD == 1 ]
-    then
-      travis_retry bash <(curl -s https://codecov.io/bash) -f build/logs/clover.xml
-    fi
+    - stage: code quality
+      name: Static analysis
+      install: travis_retry composer install --prefer-dist
+      before_script: wget https://github.com/phpstan/phpstan/releases/download/0.9.2/phpstan.phar -q -O phpstan.phar
+      script: vendor/bin/phpstan analyse --level=2 src
 
-  - |
-    # Generate API docs
-    #
-    # We generate API docs only for the build lead (to avoid wasting time on all builds),
-    # and when on merges to master, which is the result of this condition and the setting
-    # branches: only: master above.
-    if [[ ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != '') && $BUILD_LEAD == 1 ]]
-    then
-      sh ./scripts/prepare-docs.sh
-    fi
+    - stage: prepare deploy
+      name: Build API docs
+      script: sh ./scripts/prepare-docs.sh
 
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: build/docs
-  on:
-    condition: ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != '') && $BUILD_LEAD == 1
+    - stage: deploy
+      name: Deploy API docs to GitHub pages
+      provider: pages
+      skip_cleanup: true
+      github_token: $GITHUB_TOKEN
+      local_dir: build/docs
+
+stages:
+  - test
+  - code quality
+  - name: prepare deploy
+    if: branch = master
+  - name: deploy
+    if: branch = master
 
 notifications:
   slack:
