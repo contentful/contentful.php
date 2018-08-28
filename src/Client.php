@@ -98,6 +98,11 @@ class Client extends BaseClient
     private $scopedJsonDecoder;
 
     /**
+     * @var LinkResolver
+     */
+    private $linkResolver;
+
+    /**
      * Client constructor.
      *
      * @param string      $token         Delivery API Access Token for the space used with this Client
@@ -157,6 +162,7 @@ class Client extends BaseClient
         );
         $this->builder = new ResourceBuilder($this, $this->instanceRepository);
         $this->scopedJsonDecoder = new ScopedJsonDecoder($this->spaceId, $this->environmentId);
+        $this->linkResolver = new LinkResolver($this);
     }
 
     /**
@@ -400,23 +406,9 @@ class Client extends BaseClient
      */
     public function resolveLink(Link $link, $locale = null)
     {
-        switch ($link->getLinkType()) {
-            case 'Asset':
-                return $this->getAsset($link->getId(), $locale);
-            case 'ContentType':
-                return $this->getContentType($link->getId());
-            case 'Entry':
-                return $this->getEntry($link->getId(), $locale);
-            case 'Environment':
-                return $this->getEnvironment();
-            case 'Space':
-                return $this->getSpace();
-            default:
-                throw new \InvalidArgumentException(\sprintf(
-                    'Trying to resolve link for unknown type "%s".',
-                    $link->getLinkType()
-                ));
-        }
+        return $this->linkResolver->resolveLink($link, [
+            'locale' => $locale,
+        ]);
     }
 
     /**
