@@ -60,7 +60,7 @@ class Manager
      *
      * @return \Generator An instance of Result wrapped in a Generator object
      */
-    public function sync($token = null, Query $query = null)
+    public function sync($token = \null, Query $query = \null)
     {
         do {
             $result = $token ? $this->continueSync($token) : $this->startSync($query);
@@ -83,9 +83,9 @@ class Manager
      *
      * @return Result
      */
-    public function startSync(Query $query = null)
+    public function startSync(Query $query = \null)
     {
-        $query = null !== $query ? $query : new Query();
+        $query = \null !== $query ? $query : new Query();
         $response = $this->client->syncRequest($query->getQueryData());
 
         return $this->buildResult($response);
@@ -146,7 +146,7 @@ class Manager
         $url = isset($data['nextSyncUrl']) ? $data['nextSyncUrl'] : $data['nextPageUrl'];
 
         $queryValues = [];
-        \parse_str(\parse_url($url, PHP_URL_QUERY), $queryValues);
+        \parse_str(\parse_url($url, \PHP_URL_QUERY), $queryValues);
 
         return $queryValues['sync_token'];
     }

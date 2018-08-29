@@ -79,13 +79,13 @@ abstract class LocalizedResource extends BaseResource
      *
      * @return string
      */
-    protected function getLocaleFromInput($input = null)
+    protected function getLocaleFromInput($input = \null)
     {
         if ($input instanceof Locale) {
             $input = $input->getCode();
         }
 
-        if (null === $input) {
+        if (\null === $input) {
             return $this->localeCode;
         }
 
@@ -98,7 +98,7 @@ abstract class LocalizedResource extends BaseResource
             ));
         }
 
-        if (!\in_array($input, $this->localeCodes, true)) {
+        if (!\in_array($input, $this->localeCodes, \true)) {
             throw new \InvalidArgumentException(\sprintf(
                 'Trying to use invalid locale "%s", available locales are "%s".',
                 $input,
@@ -123,9 +123,9 @@ abstract class LocalizedResource extends BaseResource
         $loopCounter = 0;
         while (!isset($valueMap[$localeCode])) {
             $localeCode = $environment->getLocale($localeCode)->getFallbackCode();
-            if (null === $localeCode) {
+            if (\null === $localeCode) {
                 // We've reached the end of the fallback chain and there's no value
-                return null;
+                return \null;
             }
 
             ++$loopCounter;

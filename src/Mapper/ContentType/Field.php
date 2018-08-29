@@ -29,12 +29,12 @@ class Field extends BaseMapper
             'id' => $data['id'],
             'name' => $data['name'],
             'type' => $data['type'],
-            'linkType' => isset($data['linkType']) ? $data['linkType'] : null,
-            'itemsType' => isset($data['items']) && isset($data['items']['type']) ? $data['items']['type'] : null,
-            'itemsLinkType' => isset($data['items']) && isset($data['items']['linkType']) ? $data['items']['linkType'] : null,
-            'required' => isset($data['required']) ? $data['required'] : false,
-            'localized' => isset($data['localized']) ? $data['localized'] : false,
-            'disabled' => isset($data['disabled']) ? $data['disabled'] : false,
+            'linkType' => isset($data['linkType']) ? $data['linkType'] : \null,
+            'itemsType' => isset($data['items']) && isset($data['items']['type']) ? $data['items']['type'] : \null,
+            'itemsLinkType' => isset($data['items']) && isset($data['items']['linkType']) ? $data['items']['linkType'] : \null,
+            'required' => isset($data['required']) ? $data['required'] : \false,
+            'localized' => isset($data['localized']) ? $data['localized'] : \false,
+            'disabled' => isset($data['disabled']) ? $data['disabled'] : \false,
         ]);
     }
 
@@ -43,6 +43,6 @@ class Field extends BaseMapper
      */
     protected function injectClient()
     {
-        return false;
+        return \false;
     }
 }

@@ -24,7 +24,7 @@ class CacheClearer extends BaseCacheHandler
      *
      * @return bool
      */
-    public function clear($cacheContent = false)
+    public function clear($cacheContent = \false)
     {
         $api = $this->client->getApi();
         $instanceRepository = $this->client->getInstanceRepository();

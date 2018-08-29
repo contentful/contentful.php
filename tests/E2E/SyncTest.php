@@ -48,7 +48,8 @@ class SyncTest extends TestCase
     public function testPreviewSync()
     {
         $manager = $this->getClient('cfexampleapi_preview')
-            ->getSynchronizationManager();
+            ->getSynchronizationManager()
+        ;
 
         $result = $manager->startSync();
 
@@ -64,7 +65,8 @@ class SyncTest extends TestCase
     public function testPreviewSyncContinue()
     {
         $manager = $this->getClient('cfexampleapi_preview')
-            ->getSynchronizationManager();
+            ->getSynchronizationManager()
+        ;
 
         $result = $manager->startSync();
         $manager->continueSync($result);
@@ -77,14 +79,15 @@ class SyncTest extends TestCase
     public function testSyncFull()
     {
         $manager = $this->getClient('cfexampleapi')
-            ->getSynchronizationManager();
+            ->getSynchronizationManager()
+        ;
 
         $results = [];
         foreach ($manager->sync() as $result) {
             $results[] = $result;
         }
 
-        $this->assertSame(1, \count($results));
+        $this->assertCount(1, $results);
         $this->assertTrue($result->isDone());
         $this->assertGreaterThan(40, \mb_strlen($result->getToken()));
     }

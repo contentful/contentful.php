@@ -59,7 +59,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
     public function __call($name, $arguments)
     {
         if (0 === \mb_strpos($name, 'has')) {
-            $field = $this->sys->getContentType()->getField($name, true);
+            $field = $this->sys->getContentType()->getField($name, \true);
 
             // Only works if the "has" is "magic", i.e.
             // the field is not actually called hasSomething.
@@ -76,13 +76,13 @@ class Entry extends LocalizedResource implements \ArrayAccess
             $name = \mb_substr($name, 3);
         }
 
-        $locale = $this->getLocaleFromInput(isset($arguments[0]) ? $arguments[0] : null);
+        $locale = $this->getLocaleFromInput(isset($arguments[0]) ? $arguments[0] : \null);
 
-        $result = null;
+        $result = \null;
         try {
             $result = $this->get($name, $locale);
         } catch (\Exception $exception) {
-            \trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', E_USER_ERROR);
+            \trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', \E_USER_ERROR);
         }
 
         // This is an ugly hack to trick the coverage reporter;
@@ -146,9 +146,9 @@ class Entry extends LocalizedResource implements \ArrayAccess
      */
     public function has($name)
     {
-        $field = $this->sys->getContentType()->getField($name, true);
+        $field = $this->sys->getContentType()->getField($name, \true);
 
-        return $field ? \array_key_exists($field->getId(), $this->fields) : false;
+        return $field ? \array_key_exists($field->getId(), $this->fields) : \false;
     }
 
     /**
@@ -168,9 +168,9 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return mixed
      */
-    public function get($name, $locale = null, $resolveLinks = true)
+    public function get($name, $locale = \null, $resolveLinks = \true)
     {
-        $field = $this->sys->getContentType()->getField($name, true);
+        $field = $this->sys->getContentType()->getField($name, \true);
         if ($field) {
             $result = $this->getUnresolvedField($field, $locale);
 
@@ -182,7 +182,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
         // If no clean match was found using the provided field name,
         // let's attempt to see if we're fetching an ID of a link or array of links.
         $value = $this->getFieldWithId($name, $locale);
-        if (null !== $value) {
+        if (\null !== $value) {
             return $value;
         }
 
@@ -204,13 +204,13 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return mixed
      */
-    private function getUnresolvedField(Field $field, $locale = null)
+    private function getUnresolvedField(Field $field, $locale = \null)
     {
         // The field is not currently available on this resource,
         // but it exists in the content type, so we return an appropriate
         // default value.
         if (!isset($this->fields[$field->getId()])) {
-            return 'Array' === $field->getType() ? [] : null;
+            return 'Array' === $field->getType() ? [] : \null;
         }
 
         $value = $this->fields[$field->getId()];
@@ -251,7 +251,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
             return $value[$locale];
         }
 
-        return 'Array' === $field->getType() ? [] : null;
+        return 'Array' === $field->getType() ? [] : \null;
     }
 
     /**
@@ -274,7 +274,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
                 try {
                     return $this->client->resolveLink($value, $locale);
                 } catch (NotFoundException $exception) {
-                    return null;
+                    return \null;
                 }
             }, $field));
         }
@@ -294,16 +294,16 @@ class Entry extends LocalizedResource implements \ArrayAccess
     private function getFieldWithId($name, $locale)
     {
         if ('Id' !== \mb_substr($name, -2)) {
-            return null;
+            return \null;
         }
 
-        $field = $this->sys->getContentType()->getField(\mb_substr($name, 0, -2), true);
+        $field = $this->sys->getContentType()->getField(\mb_substr($name, 0, -2), \true);
         if (!$field) {
-            return null;
+            return \null;
         }
 
         if ('Link' !== $field->getType() && ('Array' !== $field->getType() || 'Link' !== $field->getItemsType())) {
-            return null;
+            return \null;
         }
 
         $value = $this->getUnresolvedField($field, $locale);
@@ -325,7 +325,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return ResourceArray
      */
-    public function getReferences(Query $query = null)
+    public function getReferences(Query $query = \null)
     {
         $query = $query ?: new Query();
         $query->linksToEntry($this->getId());

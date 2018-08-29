@@ -25,7 +25,8 @@ class EntrySearchTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->setContentType('cat');
+            ->setContentType('cat')
+        ;
 
         $entries = $client->getEntries($query);
 
@@ -40,7 +41,8 @@ class EntrySearchTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->where('sys.id', 'nyancat');
+            ->where('sys.id', 'nyancat')
+        ;
 
         $entries = $client->getEntries($query);
 
@@ -56,7 +58,8 @@ class EntrySearchTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->where('sys.id', 'nyancat', 'ne');
+            ->where('sys.id', 'nyancat', 'ne')
+        ;
 
         $entries = $client->getEntries($query);
 
@@ -73,7 +76,8 @@ class EntrySearchTest extends TestCase
 
         $query = (new Query())
             ->setContentType('cat')
-            ->where('fields.likes', 'lasagna');
+            ->where('fields.likes', 'lasagna')
+        ;
 
         $entries = $client->getEntries($query);
 
@@ -88,7 +92,8 @@ class EntrySearchTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->where('sys.id', 'finn,jake', 'in');
+            ->where('sys.id', 'finn,jake', 'in')
+        ;
 
         $entries = $client->getEntries($query);
 
@@ -106,7 +111,8 @@ class EntrySearchTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->where('sys.updatedAt', new DateTimeImmutable('2013-01-01T00:00:00Z'), 'lte');
+            ->where('sys.updatedAt', new DateTimeImmutable('2013-01-01T00:00:00Z'), 'lte')
+        ;
 
         $entries = $client->getEntries($query);
 
@@ -121,7 +127,8 @@ class EntrySearchTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->where('query', 'bacon');
+            ->where('query', 'bacon')
+        ;
 
         $entries = $client->getEntries($query);
 
@@ -137,7 +144,8 @@ class EntrySearchTest extends TestCase
 
         $query = (new Query())
             ->setContentType('dog')
-            ->where('fields.description', 'bacon pancakes', 'match');
+            ->where('fields.description', 'bacon pancakes', 'match')
+        ;
 
         $entries = $client->getEntries($query);
 
@@ -152,7 +160,8 @@ class EntrySearchTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->linksToEntry('nyancat');
+            ->linksToEntry('nyancat')
+        ;
 
         $entries = $client->getEntries($query);
 
@@ -170,7 +179,8 @@ class EntrySearchTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->linksToAsset('nyancat');
+            ->linksToAsset('nyancat')
+        ;
 
         $entries = $client->getEntries($query);
 

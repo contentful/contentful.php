@@ -84,7 +84,7 @@ class EntryFilterTest extends TestCase
 
         // entries?order=-{attribute}
         $query = (new Query())
-            ->orderBy('sys.createdAt', true)
+            ->orderBy('sys.createdAt', \true)
         ;
         $entries = $client->getEntries($query);
         $this->assertSame('San Francisco', $entries[0]->get('name'));

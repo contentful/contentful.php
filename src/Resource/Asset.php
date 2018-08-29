@@ -53,7 +53,7 @@ class Asset extends LocalizedResource
      *
      * @return string|null
      */
-    public function getTitle($locale = null)
+    public function getTitle($locale = \null)
     {
         return $this->getProperty('title', $locale);
     }
@@ -63,7 +63,7 @@ class Asset extends LocalizedResource
      *
      * @return string|null
      */
-    public function getDescription($locale = null)
+    public function getDescription($locale = \null)
     {
         return $this->getProperty('description', $locale);
     }
@@ -73,7 +73,7 @@ class Asset extends LocalizedResource
      *
      * @return FileInterface|null
      */
-    public function getFile($locale = null)
+    public function getFile($locale = \null)
     {
         return $this->getProperty('file', $locale);
     }
@@ -86,19 +86,19 @@ class Asset extends LocalizedResource
      *
      * @return string|FileInterface|null
      */
-    private function getProperty($property, $locale = null)
+    private function getProperty($property, $locale = \null)
     {
         $localeCode = $this->getLocaleFromInput($locale);
 
         // This checks happens after the call to getLocaleFromInput
         // to make sure the Exception for invalid locales is still thrown.
-        if (null === $this->$property) {
-            return null;
+        if (\null === $this->$property) {
+            return \null;
         }
 
         $localeCode = $this->walkFallbackChain($this->$property, $localeCode, $this->sys->getEnvironment());
 
-        return null === $localeCode ? null : $this->{$property}[$localeCode];
+        return \null === $localeCode ? \null : $this->{$property}[$localeCode];
     }
 
     /**
@@ -112,19 +112,19 @@ class Asset extends LocalizedResource
             'fields' => [],
         ];
 
-        if (null !== $this->title) {
+        if (\null !== $this->title) {
             $asset['fields']['title'] = $locale
                 ? $this->title[$locale]
                 : $this->title;
         }
 
-        if (null !== $this->description) {
+        if (\null !== $this->description) {
             $asset['fields']['description'] = $locale
                 ? $this->description[$locale]
                 : $this->description;
         }
 
-        if (null !== $this->file) {
+        if (\null !== $this->file) {
             $asset['fields']['file'] = $locale
                 ? $this->file[$locale]
                 : $this->file;

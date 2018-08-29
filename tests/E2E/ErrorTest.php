@@ -46,7 +46,8 @@ class ErrorTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->where('name', 0);
+            ->where('name', 0)
+        ;
 
         $client->getEntries($query);
     }

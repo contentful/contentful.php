@@ -84,12 +84,12 @@ class SystemProperties implements SystemPropertiesInterface
      */
     public function __construct(array $sys)
     {
-        $this->client = isset($sys['__client']) ? $sys['__client'] : null;
+        $this->client = isset($sys['__client']) ? $sys['__client'] : \null;
 
-        $this->id = isset($sys['id']) ? $sys['id'] : null;
-        $this->type = isset($sys['type']) ? $sys['type'] : null;
-        $this->revision = isset($sys['revision']) ? $sys['revision'] : null;
-        $this->locale = isset($sys['locale']) ? $sys['locale'] : null;
+        $this->id = isset($sys['id']) ? $sys['id'] : \null;
+        $this->type = isset($sys['type']) ? $sys['type'] : \null;
+        $this->revision = isset($sys['revision']) ? $sys['revision'] : \null;
+        $this->locale = isset($sys['locale']) ? $sys['locale'] : \null;
 
         $this->space = $this->checkAndBuildResource($sys, 'space');
         $this->contentType = $this->checkAndBuildResource($sys, 'contentType');
@@ -111,7 +111,7 @@ class SystemProperties implements SystemPropertiesInterface
     private function checkAndBuildResource(array $sys, $name)
     {
         if (!isset($sys[$name])) {
-            return null;
+            return \null;
         }
 
         // The system properties might already contain built resource objects,
@@ -137,7 +137,7 @@ class SystemProperties implements SystemPropertiesInterface
     private function checkAndBuildDate(array $sys, $name)
     {
         if (!isset($sys[$name])) {
-            return null;
+            return \null;
         }
 
         return new DateTimeImmutable($sys[$name]);

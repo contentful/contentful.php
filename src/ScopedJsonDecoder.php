@@ -42,7 +42,7 @@ class ScopedJsonDecoder
      */
     public function decode($json)
     {
-        $data = guzzle_json_decode($json, true);
+        $data = guzzle_json_decode($json, \true);
 
         $spaceId = $this->extractSpaceId($data);
         $environmentId = $this->extractEnvironmentId($data);

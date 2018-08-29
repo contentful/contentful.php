@@ -18,8 +18,8 @@ class LocaleTest extends TestCase
         $locale = new MockLocale([
             'code' => 'en-US',
             'name' => 'English (United States)',
-            'fallbackCode' => null,
-            'default' => true,
+            'fallbackCode' => \null,
+            'default' => \true,
         ]);
 
         $this->assertSame('en-US', $locale->getCode());
@@ -33,7 +33,7 @@ class LocaleTest extends TestCase
         $locale = new MockLocale([
             'code' => 'en-US',
             'name' => 'English (United States)',
-            'fallbackCode' => null,
+            'fallbackCode' => \null,
         ]);
 
         $this->assertFalse($locale->isDefault());
@@ -44,8 +44,8 @@ class LocaleTest extends TestCase
         $locale = new MockLocale([
             'code' => 'en-US',
             'name' => 'English (United States)',
-            'fallbackCode' => null,
-            'default' => false,
+            'fallbackCode' => \null,
+            'default' => \false,
         ]);
 
         $this->assertJsonFixtureEqualsJsonObject('serialize.json', $locale);

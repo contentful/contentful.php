@@ -30,7 +30,8 @@ class EntryTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->setLocale('*');
+            ->setLocale('*')
+        ;
         $assets = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $assets);
@@ -126,7 +127,8 @@ class EntryTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->where('sys.id', 'nyancat');
+            ->where('sys.id', 'nyancat')
+        ;
         $nyancat = $client->getEntries($query)[0];
         $bestFriend = $nyancat->getBestFriend();
         $bestFriendsBestFriend = $bestFriend->getBestFriend();
@@ -143,7 +145,8 @@ class EntryTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->where('sys.id', 'nyancat');
+            ->where('sys.id', 'nyancat')
+        ;
         $nyancat = $client->getEntries($query)[0];
         $image = $nyancat->getImage();
 
@@ -180,7 +183,8 @@ class EntryTest extends TestCase
             ->setContentType('cat')
             ->select(['sys'])
             ->where('sys.id', 'nyancat')
-            ->setLimit(1);
+            ->setLimit(1)
+        ;
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
@@ -205,7 +209,8 @@ class EntryTest extends TestCase
             ->setContentType('cat')
             ->select(['fields.name'])
             ->where('sys.id', 'nyancat')
-            ->setLimit(1);
+            ->setLimit(1)
+        ;
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
@@ -242,12 +247,12 @@ class EntryTest extends TestCase
         $this->assertSame(11.2556199, $location->getLongitude());
 
         $this->assertTrue($entry->has('link'));
-        $link = $entry->get('link', null, false);
+        $link = $entry->get('link', \null, \false);
         $this->assertSame('SQOIQ1rZMQQUeyoyGiEUq', $link->getId());
         $this->assertSame('Asset', $link->getLinkType());
 
         $this->assertTrue($entry->has('arrayOfLinks'));
-        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
+        $arrayOfLinks = $entry->get('arrayOfLinks', \null, \false);
         $this->assertSame('5teS5mSVJ66qg6QOIY0SWI', $arrayOfLinks[0]->getId());
         $this->assertSame('Entry', $arrayOfLinks[0]->getLinkType());
 
@@ -270,12 +275,12 @@ class EntryTest extends TestCase
         $this->assertSame(11.2556199, $location->getLongitude());
 
         $this->assertTrue($entry->has('link'));
-        $link = $entry->get('link', null, false);
+        $link = $entry->get('link', \null, \false);
         $this->assertSame('SQOIQ1rZMQQUeyoyGiEUq', $link->getId());
         $this->assertSame('Asset', $link->getLinkType());
 
         $this->assertTrue($entry->has('arrayOfLinks'));
-        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
+        $arrayOfLinks = $entry->get('arrayOfLinks', \null, \false);
         $this->assertSame('5teS5mSVJ66qg6QOIY0SWI', $arrayOfLinks[0]->getId());
         $this->assertSame('Entry', $arrayOfLinks[0]->getLinkType());
 
@@ -310,12 +315,12 @@ class EntryTest extends TestCase
         $this->assertSame(11.2556199, $location->getLongitude());
 
         $this->assertTrue($entry->has('link'));
-        $link = $entry->get('link', null, false);
+        $link = $entry->get('link', \null, \false);
         $this->assertSame('SQOIQ1rZMQQUeyoyGiEUq', $link->getId());
         $this->assertSame('Asset', $link->getLinkType());
 
         $this->assertTrue($entry->has('arrayOfLinks'));
-        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
+        $arrayOfLinks = $entry->get('arrayOfLinks', \null, \false);
         $this->assertSame('5teS5mSVJ66qg6QOIY0SWI', $arrayOfLinks[0]->getId());
         $this->assertSame('Entry', $arrayOfLinks[0]->getLinkType());
 
@@ -339,12 +344,12 @@ class EntryTest extends TestCase
         $this->assertSame(11.2556199, $location->getLongitude());
 
         $this->assertTrue($entry->has('link'));
-        $link = $entry->get('link', null, false);
+        $link = $entry->get('link', \null, \false);
         $this->assertSame('SQOIQ1rZMQQUeyoyGiEUq', $link->getId());
         $this->assertSame('Asset', $link->getLinkType());
 
         $this->assertTrue($entry->has('arrayOfLinks'));
-        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
+        $arrayOfLinks = $entry->get('arrayOfLinks', \null, \false);
         $this->assertSame('5teS5mSVJ66qg6QOIY0SWI', $arrayOfLinks[0]->getId());
         $this->assertSame('Entry', $arrayOfLinks[0]->getLinkType());
 
@@ -379,12 +384,12 @@ class EntryTest extends TestCase
         $this->assertSame(11.2556199, $location->getLongitude());
 
         $this->assertTrue($entry->has('link'));
-        $link = $entry->get('link', null, false);
+        $link = $entry->get('link', \null, \false);
         $this->assertSame('SQOIQ1rZMQQUeyoyGiEUq', $link->getId());
         $this->assertSame('Asset', $link->getLinkType());
 
         $this->assertTrue($entry->has('arrayOfLinks'));
-        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
+        $arrayOfLinks = $entry->get('arrayOfLinks', \null, \false);
         $this->assertSame('5teS5mSVJ66qg6QOIY0SWI', $arrayOfLinks[0]->getId());
         $this->assertSame('Entry', $arrayOfLinks[0]->getLinkType());
 
@@ -408,12 +413,12 @@ class EntryTest extends TestCase
         $this->assertSame(11.2556199, $location->getLongitude());
 
         $this->assertTrue($entry->has('link'));
-        $link = $entry->get('link', null, false);
+        $link = $entry->get('link', \null, \false);
         $this->assertSame('SQOIQ1rZMQQUeyoyGiEUq', $link->getId());
         $this->assertSame('Asset', $link->getLinkType());
 
         $this->assertTrue($entry->has('arrayOfLinks'));
-        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
+        $arrayOfLinks = $entry->get('arrayOfLinks', \null, \false);
         $this->assertSame('5teS5mSVJ66qg6QOIY0SWI', $arrayOfLinks[0]->getId());
         $this->assertSame('Entry', $arrayOfLinks[0]->getLinkType());
 

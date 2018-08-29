@@ -23,7 +23,8 @@ class GzipEncodingTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->setLocale('*');
+            ->setLocale('*')
+        ;
         $client->getEntries($query);
 
         $message = $client->getMessages()[0];

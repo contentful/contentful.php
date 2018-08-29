@@ -43,14 +43,14 @@ class EntryTest extends TestCase
         $localeEn = new MockLocale([
             'code' => 'en-US',
             'name' => 'English (United States)',
-            'fallbackCode' => null,
-            'default' => true,
+            'fallbackCode' => \null,
+            'default' => \true,
         ]);
         $localeTlh = new MockLocale([
             'code' => 'tlh',
             'name' => 'Klingon',
             'fallbackCode' => 'en-US',
-            'default' => false,
+            'default' => \false,
         ]);
 
         return MockEnvironment::withSys('master', [
@@ -69,13 +69,13 @@ class EntryTest extends TestCase
             'description' => 'Meow.',
             'displayField' => 'name',
             'fields' => [
-                'name' => new MockField('name', 'Name', 'Text', ['localized' => true, 'disabled' => true]),
+                'name' => new MockField('name', 'Name', 'Text', ['localized' => \true, 'disabled' => \true]),
                 'likes' => new MockField('likes', 'Likes', 'Array', ['itemsType' => 'Symbol']),
                 'color' => new MockField('color', 'Color', 'Symbol'),
                 'bestFriend' => new MockField('bestFriend', 'Best Friend', 'Link', ['linkType' => 'Entry']),
                 'Enemy' => new MockField('Enemy', 'Enemy', 'Link', ['linkType' => 'Entry']),
                 'birthday' => new MockField('name', 'Birthday', 'Date'),
-                'lifes' => new MockField('lifes', 'Lifes left', 'Integer', ['disabled' => true]),
+                'lifes' => new MockField('lifes', 'Lifes left', 'Integer', ['disabled' => \true]),
                 'lives' => new MockField('lives', 'Lives left', 'Integer'),
                 'image' => new MockField('image', 'Image', 'Link', ['linkType' => 'Asset']),
             ],
@@ -114,7 +114,8 @@ class EntryTest extends TestCase
     {
         $client = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
 
         foreach ($entries as $entry) {
             $entry->setClient($client);
@@ -132,7 +133,8 @@ class EntryTest extends TestCase
                 throw new NotFoundException(
                     new ClientException('Exception message', new Request('GET', ''))
                 );
-            });
+            })
+        ;
 
         return $client;
     }
@@ -193,7 +195,7 @@ class EntryTest extends TestCase
         $this->assertSame('nyancat', $link->getId());
         $this->assertSame('Entry', $link->getLinkType());
 
-        $this->entry->setClient(null);
+        $this->entry->setClient(\null);
     }
 
     public function testIdGetter()
@@ -225,7 +227,7 @@ class EntryTest extends TestCase
         $contentType = new MockContentType([
             'name' => 'Cat',
             'fields' => [
-                'name' => new MockField('name', 'Name', 'Text', ['localized' => true, 'disabled' => true]),
+                'name' => new MockField('name', 'Name', 'Text', ['localized' => \true, 'disabled' => \true]),
                 'friend' => new MockField('friend', 'Friend', 'Link'),
             ],
         ]);
@@ -243,7 +245,7 @@ class EntryTest extends TestCase
         ]);
 
         $this->assertSame($crookshanksEntry, $garfieldEntry->getFriend());
-        $this->assertLink($crookshanksEntry->getId(), 'Entry', $garfieldEntry->get('friend', null, false));
+        $this->assertLink($crookshanksEntry->getId(), 'Entry', $garfieldEntry->get('friend', \null, \false));
     }
 
     /**
@@ -254,7 +256,7 @@ class EntryTest extends TestCase
         $contentType = new MockContentType([
             'name' => 'Cat',
             'fields' => [
-                'name' => new MockField('name', 'Name', 'Text', ['localized' => true, 'disabled' => true]),
+                'name' => new MockField('name', 'Name', 'Text', ['localized' => \true, 'disabled' => \true]),
                 'youTubeId' => new MockField('youTubeId', 'YouTube', 'Symbol'),
             ],
         ]);
@@ -281,7 +283,7 @@ class EntryTest extends TestCase
         $contentType = new MockContentType([
             'name' => 'Cat',
             'fields' => [
-                'name' => new MockField('name', 'Name', 'Text', ['localized' => true, 'disabled' => true]),
+                'name' => new MockField('name', 'Name', 'Text', ['localized' => \true, 'disabled' => \true]),
                 'friends' => new MockField('friends', 'Friends', 'Array', ['itemsType' => 'Link']),
             ],
         ]);
@@ -309,7 +311,7 @@ class EntryTest extends TestCase
         $contentType = new MockContentType([
             'name' => 'Cat',
             'fields' => [
-                'name' => new MockField('name', 'Name', 'Text', ['localized' => true, 'disabled' => true]),
+                'name' => new MockField('name', 'Name', 'Text', ['localized' => \true, 'disabled' => \true]),
                 'friends' => new MockField('friends', 'Friends', 'Array', ['itemsType' => 'Link']),
             ],
         ]);
@@ -456,8 +458,8 @@ class EntryTest extends TestCase
         ]);
 
         $entry = new MockEntry(['sys' => $sys, 'fields' => [
-            'hasLives' => ['en-US' => false],
-            'hadBaldSpot' => ['en-US' => true],
+            'hasLives' => ['en-US' => \false],
+            'hadBaldSpot' => ['en-US' => \true],
         ]]);
         $entry->initLocales($this->environment->getLocales());
 

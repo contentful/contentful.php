@@ -105,7 +105,7 @@ class ContentType extends BaseResource
      *
      * @return Field|null
      */
-    public function getField($fieldId, $tryCaseInsensitive = false)
+    public function getField($fieldId, $tryCaseInsensitive = \false)
     {
         if (isset($this->fields[$fieldId])) {
             return $this->fields[$fieldId];
@@ -119,7 +119,7 @@ class ContentType extends BaseResource
             }
         }
 
-        return null;
+        return \null;
     }
 
     /**
@@ -131,8 +131,8 @@ class ContentType extends BaseResource
      */
     public function getDisplayField()
     {
-        if (null === $this->displayField) {
-            return null;
+        if (\null === $this->displayField) {
+            return \null;
         }
 
         return $this->getField($this->displayField);

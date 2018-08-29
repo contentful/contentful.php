@@ -86,7 +86,7 @@ class ResourceBuilder extends BaseResourceBuilder
             return 'ResourceArray';
         }
 
-        if (\in_array($data['sys']['type'], self::$availableTypes, true)) {
+        if (\in_array($data['sys']['type'], self::$availableTypes, \true)) {
             return $data['sys']['type'];
         }
 
@@ -99,7 +99,7 @@ class ResourceBuilder extends BaseResourceBuilder
     /**
      * {@inheritdoc}
      */
-    public function build(array $data, ResourceInterface $resource = null)
+    public function build(array $data, ResourceInterface $resource = \null)
     {
         $type = $data['sys']['type'];
 
@@ -113,8 +113,8 @@ class ResourceBuilder extends BaseResourceBuilder
         $resourceId = $data['sys']['id'];
 
         // Assets and entries are stored in cache using their locales.
-        $locale = null;
-        if (\in_array($data['sys']['type'], ['Asset', 'Entry'], true)) {
+        $locale = \null;
+        if (\in_array($data['sys']['type'], ['Asset', 'Entry'], \true)) {
             $locale = isset($data['sys']['locale']) ? $data['sys']['locale'] : '*';
         }
 
@@ -157,7 +157,7 @@ class ResourceBuilder extends BaseResourceBuilder
         $ids = \array_map(function ($item) {
             return 'Entry' === $item['sys']['type']
                 ? $item['sys']['contentType']['sys']['id']
-                : null;
+                : \null;
         }, $items);
 
         $ids = \array_filter(\array_unique($ids), function ($id) {
@@ -166,7 +166,8 @@ class ResourceBuilder extends BaseResourceBuilder
 
         if ($ids) {
             $query = (new Query())
-                ->where('sys.id', \implode(',', $ids), 'in');
+                ->where('sys.id', \implode(',', $ids), 'in')
+            ;
             $this->client->getContentTypes($query);
         }
     }

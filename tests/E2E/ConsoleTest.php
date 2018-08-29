@@ -69,7 +69,7 @@ class ConsoleTest extends TestCase
             '--space-id' => 'cfexampleapi',
             '--environment-id' => 'master',
             '--factory-class' => CacheItemPoolFactory::class,
-            '--use-preview' => true,
+            '--use-preview' => \true,
         ]);
 
         $this->assertContains('Cache warmed up for space "cfexampleapi" on environment "master" using API "PREVIEW".', $output);
@@ -154,7 +154,7 @@ class ConsoleTest extends TestCase
             '--space-id' => 'cfexampleapi',
             '--environment-id' => 'master',
             '--factory-class' => CacheItemPoolFactory::class,
-            '--use-preview' => true,
+            '--use-preview' => \true,
         ]);
 
         $this->assertContains('Cache cleared for space "cfexampleapi" on environment "master" using API "PREVIEW".', $output);
@@ -216,7 +216,7 @@ class ConsoleTest extends TestCase
             '--space-id' => 'cfexampleapi',
             '--environment-id' => 'master',
             '--factory-class' => CacheItemPoolFactory::class,
-            '--cache-content' => true,
+            '--cache-content' => \true,
         ]);
 
         $this->assertContains('Cache warmed up for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
@@ -244,7 +244,7 @@ class ConsoleTest extends TestCase
             '--space-id' => 'cfexampleapi',
             '--environment-id' => 'master',
             '--factory-class' => CacheItemPoolFactory::class,
-            '--cache-content' => true,
+            '--cache-content' => \true,
         ]);
 
         $this->assertContains('Cache cleared for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
@@ -287,7 +287,7 @@ class InvalidFactory implements CacheItemPoolFactoryInterface
 
     public function getCacheItemPool($api, $spaceId, $environmentId)
     {
-        return null;
+        return \null;
     }
 }
 
@@ -317,37 +317,37 @@ class NotWorkingCachePool implements CacheItemPoolInterface
 
     public function hasItem($key)
     {
-        return false;
+        return \false;
     }
 
     public function clear()
     {
-        return false;
+        return \false;
     }
 
     public function deleteItem($key)
     {
-        return false;
+        return \false;
     }
 
     public function deleteItems(array $keys)
     {
-        return false;
+        return \false;
     }
 
     public function save(CacheItemInterface $item)
     {
-        return false;
+        return \false;
     }
 
     public function saveDeferred(CacheItemInterface $item)
     {
-        return false;
+        return \false;
     }
 
     public function commit()
     {
-        return false;
+        return \false;
     }
 }
 
@@ -367,12 +367,12 @@ class NotWorkingCacheItem implements CacheItemInterface
 
     public function get()
     {
-        return null;
+        return \null;
     }
 
     public function isHit()
     {
-        return false;
+        return \false;
     }
 
     public function set($value)
