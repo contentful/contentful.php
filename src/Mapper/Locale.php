@@ -38,6 +38,6 @@ class Locale extends BaseMapper
      */
     protected function injectClient()
     {
-        return false;
+        return \false;
     }
 }

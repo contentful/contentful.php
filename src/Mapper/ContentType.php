@@ -34,8 +34,8 @@ class ContentType extends BaseMapper
         return $this->hydrate($resource ?: ResourceClass::class, [
             'sys' => $this->buildSystemProperties($data['sys']),
             'name' => $data['name'],
-            'displayField' => isset($data['displayField']) ? $data['displayField'] : null,
-            'description' => isset($data['description']) ? $data['description'] : null,
+            'displayField' => isset($data['displayField']) ? $data['displayField'] : \null,
+            'description' => isset($data['description']) ? $data['description'] : \null,
             'fields' => $fields,
         ]);
     }
@@ -48,6 +48,7 @@ class ContentType extends BaseMapper
     protected function mapField(array $data)
     {
         return $this->builder->getMapper(__NAMESPACE__.'\\ContentType\\Field')
-            ->map(null, $data);
+            ->map(\null, $data)
+        ;
     }
 }

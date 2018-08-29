@@ -120,19 +120,19 @@ class Client extends BaseClient
      *                                   * autoWarmup   Warm up the cache automatically for content types and locales
      *                                   * cacheContent Warm up the cache automatically for entries and assets (requires autoWarmup to also be set to true)
      */
-    public function __construct($token, $spaceId, $environmentId = 'master', $preview = false, $defaultLocale = null, array $options = [])
+    public function __construct($token, $spaceId, $environmentId = 'master', $preview = \false, $defaultLocale = \null, array $options = [])
     {
         $options = \array_replace([
-            'guzzle' => null,
-            'logger' => null,
-            'baseUri' => null,
-            'cache' => null,
-            'autoWarmup' => false,
-            'cacheContent' => false,
+            'guzzle' => \null,
+            'logger' => \null,
+            'baseUri' => \null,
+            'cache' => \null,
+            'autoWarmup' => \false,
+            'cacheContent' => \false,
         ], $options);
 
         $baseUri = $preview ? self::URI_PREVIEW : self::URI_DELIVERY;
-        if (null !== $options['baseUri']) {
+        if (\null !== $options['baseUri']) {
             $baseUri = $options['baseUri'];
 
             if ('/' === \mb_substr($baseUri, -1)) {
@@ -259,7 +259,7 @@ class Client extends BaseClient
      *
      * @return Asset
      */
-    public function getAsset($assetId, $locale = null)
+    public function getAsset($assetId, $locale = \null)
     {
         $locale = $locale ?: $this->defaultLocale;
 
@@ -277,7 +277,7 @@ class Client extends BaseClient
      *
      * @return ResourceArray
      */
-    public function getAssets(Query $query = null)
+    public function getAssets(Query $query = \null)
     {
         $queryData = $query ? $query->getQueryData() : [];
         if (!isset($queryData['locale'])) {
@@ -310,7 +310,7 @@ class Client extends BaseClient
      *
      * @return ResourceArray
      */
-    public function getContentTypes(Query $query = null)
+    public function getContentTypes(Query $query = \null)
     {
         return $this->requestAndBuild(
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/content_types',
@@ -350,7 +350,7 @@ class Client extends BaseClient
      *
      * @return Entry
      */
-    public function getEntry($entryId, $locale = null)
+    public function getEntry($entryId, $locale = \null)
     {
         $locale = $locale ?: $this->defaultLocale;
 
@@ -368,7 +368,7 @@ class Client extends BaseClient
      *
      * @return ResourceArray
      */
-    public function getEntries(Query $query = null)
+    public function getEntries(Query $query = \null)
     {
         $queryData = $query ? $query->getQueryData() : [];
         if (!isset($queryData['locale'])) {
@@ -404,7 +404,7 @@ class Client extends BaseClient
      *
      * @return ResourceInterface
      */
-    public function resolveLink(Link $link, $locale = null)
+    public function resolveLink(Link $link, $locale = \null)
     {
         return $this->linkResolver->resolveLink($link, [
             'locale' => $locale,
@@ -473,7 +473,7 @@ class Client extends BaseClient
      *
      * @return ResourceInterface|ResourceArray
      */
-    private function requestAndBuild($path, array $query = [], $type = null, $resourceId = null, $locale = null)
+    private function requestAndBuild($path, array $query = [], $type = \null, $resourceId = \null, $locale = \null)
     {
         if ($type && $resourceId && $this->instanceRepository->has($type, $resourceId, $locale)) {
             return $this->instanceRepository->get($type, $resourceId, $locale);

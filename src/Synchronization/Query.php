@@ -41,7 +41,7 @@ class Query
     {
         $data = [
             'initial' => 'true',
-            'type' => 'all' !== $this->type ? $this->type : null,
+            'type' => 'all' !== $this->type ? $this->type : \null,
             'content_type' => $this->contentType,
         ];
 
@@ -55,7 +55,7 @@ class Query
      */
     public function getQueryString()
     {
-        return \http_build_query($this->getQueryData(), '', '&', PHP_QUERY_RFC3986);
+        return \http_build_query($this->getQueryData(), '', '&', \PHP_QUERY_RFC3986);
     }
 
     /**
@@ -80,7 +80,7 @@ class Query
     public function setType($type)
     {
         $validTypes = ['all', 'Asset', 'Entry', 'Deletion', 'DeletedAsset', 'DeletedEntry'];
-        if (!\in_array($type, $validTypes, true)) {
+        if (!\in_array($type, $validTypes, \true)) {
             throw new \InvalidArgumentException(\sprintf(
                 'Unexpected type "%s".',
                 $type

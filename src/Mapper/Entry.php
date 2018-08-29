@@ -52,7 +52,7 @@ class Entry extends BaseMapper
         ResourceContentType $contentType,
         array $fields,
         $locale,
-        ResourceClass $previous = null
+        ResourceClass $previous = \null
     ) {
         // We normalize the field data to always contain locales.
         foreach ($fields as $name => $data) {
@@ -78,7 +78,7 @@ class Entry extends BaseMapper
                     $contentType->getName(),
                     $contentType->getId(),
                     $name
-                ), E_USER_WARNING);
+                ), \E_USER_WARNING);
                 $field = $contentType->addUnknownField($name);
             }
 
@@ -110,7 +110,7 @@ class Entry extends BaseMapper
         // https://ocramius.github.io/blog/accessing-private-php-class-members-without-reflection/
         $extractor = \Closure::bind(function (ResourceClass $entry) {
             return $entry->fields;
-        }, null, $entry);
+        }, \null, $entry);
         $currentFields = $extractor($entry);
 
         foreach ($fields as $name => $values) {
@@ -151,7 +151,7 @@ class Entry extends BaseMapper
      *
      * @return mixed
      */
-    private function formatValue($type, $value, $itemsType = null)
+    private function formatValue($type, $value, $itemsType = \null)
     {
         // Certain fields are already built as objects (Location, Link, DateTimeImmutable)
         // if the entry has already been built partially.
@@ -160,8 +160,8 @@ class Entry extends BaseMapper
             $value = $value->jsonSerialize();
         }
 
-        if (null === $value) {
-            return null;
+        if (\null === $value) {
+            return \null;
         }
 
         if ('Date' === $type) {

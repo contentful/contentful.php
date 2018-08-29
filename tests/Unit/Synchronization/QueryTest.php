@@ -44,10 +44,12 @@ class QueryTest extends TestCase
         $queryBuilder = new Query();
         $contentType = $this->getMockBuilder(ContentType::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
 
         $contentType->method('getId')
-            ->willReturn('cat');
+            ->willReturn('cat')
+        ;
 
         $queryBuilder->setContentType($contentType);
 

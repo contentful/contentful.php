@@ -41,7 +41,7 @@ class ClientTest extends TestCase
 
     public function testIsPreview()
     {
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', true);
+        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', \true);
 
         $this->assertTrue($client->isPreview());
         $this->assertSame('PREVIEW', $client->getApi());
@@ -65,7 +65,7 @@ class ClientTest extends TestCase
      */
     public function testInvalidCachePool()
     {
-        new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, null, [
+        new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', \false, \null, [
             'cache' => new \stdClass(),
         ]);
     }

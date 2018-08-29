@@ -17,7 +17,7 @@ class ResultTest extends TestCase
     public function testGetter()
     {
         $arr = [];
-        $result = new Result($arr, 'token', false);
+        $result = new Result($arr, 'token', \false);
 
         $this->assertSame($arr, $result->getItems());
         $this->assertSame('token', $result->getToken());

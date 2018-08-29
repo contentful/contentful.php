@@ -33,7 +33,7 @@ class MissingFieldsTest extends TestCase
 
     public function testMissingFieldsInAssets()
     {
-        $client = new Client('irrelevant', 'rue07lqzt1co', 'master', true);
+        $client = new Client('irrelevant', 'rue07lqzt1co', 'master', \true);
 
         $client->parseJson($this->getFixtureContent('space.json'));
         $client->parseJson($this->getFixtureContent('environment_asset.json'));

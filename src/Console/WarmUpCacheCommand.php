@@ -34,7 +34,8 @@ class WarmUpCacheCommand extends Command
                 )),
                 new InputOption('use-preview', 'p', InputOption::VALUE_NONE, 'Use the Preview API instead of the Delivery API'),
                 new InputOption('cache-content', 'c', InputOption::VALUE_NONE, 'Include entries and assets'),
-            ]);
+            ])
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -25,11 +25,11 @@ class CacheWarmer extends BaseCacheHandler
      *
      * @return bool
      */
-    public function warmUp($cacheContent = false)
+    public function warmUp($cacheContent = \false)
     {
         $api = $this->client->getApi();
         $instanceRepository = $this->client->getInstanceRepository();
-        $previous = $this->toggleAutoWarmup($instanceRepository, false);
+        $previous = $this->toggleAutoWarmup($instanceRepository, \false);
 
         foreach ($this->fetchResources($cacheContent) as $resource) {
             /** @var SystemProperties $sys */

@@ -49,7 +49,7 @@ abstract class BaseCacheHandler
             $instanceRepository->autoWarmup = (bool) $value;
 
             return $previous;
-        }, null, InstanceRepository::class);
+        }, \null, InstanceRepository::class);
     }
 
     /**
@@ -70,7 +70,7 @@ abstract class BaseCacheHandler
      *
      * @return ResourceInterface[]
      */
-    protected function fetchResources($cacheContent = false)
+    protected function fetchResources($cacheContent = \false)
     {
         $resources = [
             $this->client->getSpace(),

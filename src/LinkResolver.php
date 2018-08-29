@@ -34,7 +34,7 @@ class LinkResolver implements LinkResolverInterface
      */
     public function resolveLink(Link $link, array $parameters = [])
     {
-        $locale = isset($parameters['locale']) ? $parameters['locale'] : null;
+        $locale = isset($parameters['locale']) ? $parameters['locale'] : \null;
 
         switch ($link->getLinkType()) {
             case 'Asset':

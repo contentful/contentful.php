@@ -47,7 +47,8 @@ VCR::configure()
 
         return $first === $second;
     })
-    ->enableRequestMatchers(['method', 'url', 'query_string', 'host', 'body', 'post_fields', 'custom_headers']);
+    ->enableRequestMatchers(['method', 'url', 'query_string', 'host', 'body', 'post_fields', 'custom_headers'])
+;
 
 VCR::turnOn();
 VCR::turnOff();

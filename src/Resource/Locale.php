@@ -32,7 +32,7 @@ class Locale extends BaseResource
     /**
      * @var bool
      */
-    protected $default = false;
+    protected $default = \false;
 
     /**
      * Returns the locale code.

@@ -19,11 +19,13 @@ class InstanceRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         $client = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
         $client->method('getApi')
-            ->willReturn('DELIVERY');
+            ->willReturn('DELIVERY')
+        ;
 
-        $instanceRepository = new InstanceRepository($client, new ArrayCachePool(), false, 'cfexampleapi', 'master');
+        $instanceRepository = new InstanceRepository($client, new ArrayCachePool(), \false, 'cfexampleapi', 'master');
 
         $key = $instanceRepository->generateCacheKey(
             'DELIVERY',

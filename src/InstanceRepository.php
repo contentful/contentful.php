@@ -88,7 +88,7 @@ class InstanceRepository
         $autoWarmup,
         $spaceId,
         $environmentId,
-        $cacheContent = false
+        $cacheContent = \false
     ) {
         $this->client = $client;
         $this->api = $client->getApi();
@@ -111,13 +111,13 @@ class InstanceRepository
      */
     private function warmUp($key, $type)
     {
-        if (isset($this->warmupStack[$key]) || isset($this->resources[$key]) || !\in_array($type, self::$warmupTypes, true)) {
+        if (isset($this->warmupStack[$key]) || isset($this->resources[$key]) || !\in_array($type, self::$warmupTypes, \true)) {
             return;
         }
 
         $item = $this->cacheItemPool->getItem($key);
         if ($item->isHit()) {
-            $this->warmupStack[$key] = true;
+            $this->warmupStack[$key] = \true;
             $this->resources[$key] = $this->client->parseJson($item->get());
             unset($this->warmupStack[$key]);
         }
@@ -130,7 +130,7 @@ class InstanceRepository
      *
      * @return bool
      */
-    public function has($type, $resourceId, $locale = null)
+    public function has($type, $resourceId, $locale = \null)
     {
         $key = $this->generateCacheKey($this->api, $type, $resourceId, $locale);
         $this->warmUp($key, $type);
@@ -156,7 +156,7 @@ class InstanceRepository
 
         $this->resources[$key] = $resource;
 
-        if ($this->autoWarmup && \in_array($type, self::$warmupTypes, true)) {
+        if ($this->autoWarmup && \in_array($type, self::$warmupTypes, \true)) {
             $cacheItem = $this->cacheItemPool->getItem($key);
 
             if (!$cacheItem->isHit()) {
@@ -173,7 +173,7 @@ class InstanceRepository
      *
      * @return ResourceInterface
      */
-    public function get($type, $resourceId, $locale = null)
+    public function get($type, $resourceId, $locale = \null)
     {
         $key = $this->generateCacheKey($this->api, $type, $resourceId, $locale);
         $this->warmUp($key, $type);
@@ -189,7 +189,7 @@ class InstanceRepository
      *
      * @return string
      */
-    public function generateCacheKey($api, $type, $resourceId, $locale = null)
+    public function generateCacheKey($api, $type, $resourceId, $locale = \null)
     {
         $locale = \strtr($locale ?: '__ALL__', [
             '-' => '_',

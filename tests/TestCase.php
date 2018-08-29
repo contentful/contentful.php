@@ -40,25 +40,25 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
         switch ($key) {
             case 'cfexampleapi':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, null, $options);
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', \false, \null, $options);
             case 'cfexampleapi_preview':
-                return new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', 'master', true, null, $options);
+                return new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', 'master', \true, \null, $options);
             case 'cfexampleapi_cache':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, null, \array_merge($options, ['cache' => self::$cache]));
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', \false, \null, \array_merge($options, ['cache' => self::$cache]));
             case 'cfexampleapi_cache_autowarmup':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, null, \array_merge($options, ['cache' => self::$cache, 'autoWarmup' => true]));
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', \false, \null, \array_merge($options, ['cache' => self::$cache, 'autoWarmup' => \true]));
             case 'cfexampleapi_cache_autowarmup_content':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, null, \array_merge($options, ['cache' => self::$cache, 'autoWarmup' => true, 'cacheContent' => true]));
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', \false, \null, \array_merge($options, ['cache' => self::$cache, 'autoWarmup' => \true, 'cacheContent' => \true]));
             case 'cfexampleapi_tlh':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', false, 'tlh', $options);
+                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', \false, 'tlh', $options);
             case 'cfexampleapi_invalid':
-                return new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', 'master', false, null, $options);
+                return new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', 'master', \false, \null, $options);
             case '88dyiqcr7go8':
-                return new Client('668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756', '88dyiqcr7go8', 'master', false, null, $options);
+                return new Client('668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756', '88dyiqcr7go8', 'master', \false, \null, $options);
             case '88dyiqcr7go8_preview':
-                return new Client('81c469d7241ca02349388602dfc14107157063a6901c378a56e1835d688970bf', '88dyiqcr7go8', 'master', true, null, $options);
+                return new Client('81c469d7241ca02349388602dfc14107157063a6901c378a56e1835d688970bf', '88dyiqcr7go8', 'master', \true, \null, $options);
             case 'bc32cj3kyfet_preview':
-                return new Client('8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963', 'bc32cj3kyfet', 'master', true, null, $options);
+                return new Client('8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963', 'bc32cj3kyfet', 'master', \true, \null, $options);
             default:
                 throw new \InvalidArgumentException(\sprintf(
                     'Key "%s" is not a valid value.',
@@ -96,7 +96,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function markTestAsPassed()
     {
-        $this->assertTrue(true, 'Test case did not throw an exception and passed.');
+        $this->assertTrue(\true, 'Test case did not throw an exception and passed.');
     }
 
     /**
@@ -233,7 +233,7 @@ class MockEntry extends \Contentful\Delivery\Resource\Entry
         ]));
     }
 
-    public function setClient(Client $client = null)
+    public function setClient(Client $client = \null)
     {
         $this->client = $client;
     }
@@ -306,7 +306,7 @@ class MockLocalizedResource extends \Contentful\Delivery\Resource\LocalizedResou
         $this->initLocales($locales);
     }
 
-    public function getLocaleFromInput($locale = null)
+    public function getLocaleFromInput($locale = \null)
     {
         return parent::getLocaleFromInput($locale);
     }

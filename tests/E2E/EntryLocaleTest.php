@@ -24,7 +24,8 @@ class EntryLocaleTest extends TestCase
 
         $query = (new Query())
             ->setContentType('cat')
-            ->setLocale('*');
+            ->setLocale('*')
+        ;
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
@@ -41,7 +42,8 @@ class EntryLocaleTest extends TestCase
 
         $query = (new Query())
             ->setContentType('cat')
-            ->setLocale('en-US');
+            ->setLocale('en-US')
+        ;
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
@@ -58,7 +60,8 @@ class EntryLocaleTest extends TestCase
 
         $query = (new Query())
             ->setContentType('cat')
-            ->setLocale('tlh');
+            ->setLocale('tlh')
+        ;
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);
@@ -76,7 +79,8 @@ class EntryLocaleTest extends TestCase
         $client = $this->getClient('cfexampleapi_tlh');
 
         $query = (new Query())
-            ->setContentType('cat');
+            ->setContentType('cat')
+        ;
         $entries = $client->getEntries($query);
 
         $this->assertInstanceOf(ResourceArray::class, $entries);

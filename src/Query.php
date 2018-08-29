@@ -38,10 +38,10 @@ class Query extends BaseQuery
     public function getQueryData()
     {
         $query = parent::getQueryData();
-        if (null !== $this->include) {
+        if (\null !== $this->include) {
             $query['include'] = $this->include;
         }
-        if (null !== $this->locale) {
+        if (\null !== $this->locale) {
             $query['locale'] = $this->locale;
         }
 

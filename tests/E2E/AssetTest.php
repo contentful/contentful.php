@@ -28,7 +28,8 @@ class AssetTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->setLocale('*');
+            ->setLocale('*')
+        ;
         $assets = $client->getAssets($query);
 
         $this->assertInstanceOf(ResourceArray::class, $assets);
@@ -85,7 +86,8 @@ class AssetTest extends TestCase
         $query = (new Query())
             ->setInclude(1)
             ->where('sys.id', 'Kpwt1njxgAm04oQYyUScm')
-            ->setLocale('es');
+            ->setLocale('es')
+        ;
 
         $entry = $client->getEntries($query)[0];
         // This is to make sure that the retrieved asset has the locale code correctly initialized
