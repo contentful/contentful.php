@@ -4,12 +4,12 @@ env:
   global:
     - GH_REPO="github.com/${TRAVIS_REPO_SLUG}.git"
     - BUILD_LEAD=0
-    - SYNTAX_TEST=0
+    - QUALITY_CHECK=0
 
 matrix:
   fast_finish: true
   include:
-    - php: 7.1
+    - php: 7.2
       env: QUALITY_CHECK=1
     - php: 5.6
     - php: 7.0
@@ -23,13 +23,8 @@ branches:
 
 before_install:
   # Disable XDebug
-  #
-  # XDebug makes PHPUnit and PHP-CS-Fixer slow.
-  # We need it only for generating the code coverage report,
-  # so we disable it everywhere but for the build lead.
   - |
-    if [ $BUILD_LEAD == 0 ]
-    then
+    if [ $BUILD_LEAD == 0 ]; then
       phpenv config-rm xdebug.ini
     fi
 
@@ -51,7 +46,7 @@ script:
   # Static analysis
   - |
     if [ $QUALITY_CHECK == 1 ]; then
-      php phpstan.phar analyse -l 2 src/
+      php phpstan.phar analyse --level=2 src/
     fi
 
   # Syntax tests
@@ -62,18 +57,12 @@ script:
 
 after_success:
   # Upload code coverage
-  #
-  # The code coverage report is only generated when BUILD_LEAD is 1
   - |
     if [ $BUILD_LEAD == 1 ]; then
       travis_retry bash <(curl -s https://codecov.io/bash) -f build/logs/clover.xml
     fi
 
   # Generate API docs
-  #
-  # We generate API docs only for the build lead (to avoid wasting time on all builds),
-  # and when on merges to master, which is the result of this condition and the setting
-  # branches: only: master above.
   - |
     if [[ ($TRAVIS_PULL_REQUEST == false || $TRAVIS_TAG != '') && $BUILD_LEAD == 1 ]]; then
       sh ./scripts/prepare-docs.sh

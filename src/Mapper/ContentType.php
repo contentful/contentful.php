@@ -47,7 +47,7 @@ class ContentType extends BaseMapper
      */
     protected function mapField(array $data)
     {
-        return $this->builder->getMapper(__NAMESPACE__.'\\ContentType\\Field')
+        return $this->builder->getMapper(ContentType\Field::class)
             ->map(\null, $data)
         ;
     }

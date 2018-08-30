@@ -12,6 +12,7 @@ namespace Contentful\Delivery\Mapper;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Core\ResourceBuilder\MapperInterface;
+use Contentful\Core\ResourceBuilder\ObjectHydrator;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Resource\LocalizedResource;
 use Contentful\Delivery\ResourceBuilder;
@@ -23,11 +24,6 @@ use Contentful\Delivery\SystemProperties;
 abstract class BaseMapper implements MapperInterface
 {
     /**
-     * @var \Closure[]
-     */
-    private $hydrators = [];
-
-    /**
      * @var ResourceBuilder
      */
     protected $builder;
@@ -36,6 +32,11 @@ abstract class BaseMapper implements MapperInterface
      * @var Client
      */
     protected $client;
+
+    /**
+     * @var ObjectHydrator
+     */
+    protected $hydrator;
 
     /**
      * BaseMapper constructor.
@@ -47,6 +48,7 @@ abstract class BaseMapper implements MapperInterface
     {
         $this->builder = $builder;
         $this->client = $client;
+        $this->hydrator = new ObjectHydrator();
     }
 
     /**
@@ -57,19 +59,11 @@ abstract class BaseMapper implements MapperInterface
      */
     protected function hydrate($target, array $data)
     {
-        $class = \is_object($target) ? \get_class($target) : $target;
-        if (\is_string($target)) {
-            $target = (new \ReflectionClass($class))
-                ->newInstanceWithoutConstructor()
-            ;
-        }
-
         if ($this->injectClient()) {
             $data['client'] = $this->client;
         }
 
-        $hydrator = $this->getHydrator($class);
-        $hydrator($target, $data);
+        $target = $this->hydrator->hydrate($target, $data);
 
         if ($target instanceof LocalizedResource) {
             $locales = $this->client->getEnvironment()->getLocales();
@@ -77,24 +71,6 @@ abstract class BaseMapper implements MapperInterface
         }
 
         return $target;
-    }
-
-    /**
-     * @param string $class
-     *
-     * @return \Closure
-     */
-    private function getHydrator($class)
-    {
-        if (isset($this->hydrators[$class])) {
-            return $this->hydrators[$class];
-        }
-
-        return $this->hydrators[$class] = \Closure::bind(function ($object, $properties) {
-            foreach ($properties as $property => $value) {
-                $object->$property = $value;
-            }
-        }, \null, $class);
     }
 
     /**
