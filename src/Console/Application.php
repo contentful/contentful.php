@@ -7,9 +7,10 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Console;
 
-use Contentful\Delivery\Client;
 use Symfony\Component\Console\Application as AbstractApplication;
 
 /**
@@ -19,10 +20,13 @@ class Application extends AbstractApplication
 {
     public function __construct()
     {
-        parent::__construct('contentful', Client::VERSION);
+        parent::__construct('contentful');
     }
 
-    protected function getDefaultCommands()
+    /**
+     * {@inheritdoc}
+     */
+    protected function getDefaultCommands(): array
     {
         $defaultCommands = parent::getDefaultCommands();
         $defaultCommands[] = new WarmUpCacheCommand();

@@ -7,11 +7,12 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Cache;
 
 use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Delivery\Client;
-use Contentful\Delivery\InstanceRepository;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Locale;
 use Psr\Cache\CacheItemPoolInterface;
@@ -29,11 +30,6 @@ abstract class BaseCacheHandler
     protected $cacheItemPool;
 
     /**
-     * @var \Closure
-     */
-    protected $toggler;
-
-    /**
      * CacheWarmer constructor.
      *
      * @param Client                 $client
@@ -43,26 +39,6 @@ abstract class BaseCacheHandler
     {
         $this->client = $client;
         $this->cacheItemPool = $cacheItemPool;
-
-        $this->toggler = \Closure::bind(function (InstanceRepository $instanceRepository, $value) {
-            $previous = $instanceRepository->autoWarmup;
-            $instanceRepository->autoWarmup = (bool) $value;
-
-            return $previous;
-        }, \null, InstanceRepository::class);
-    }
-
-    /**
-     * @param InstanceRepository $instanceRepository
-     * @param bool               $value
-     *
-     * @return bool
-     */
-    protected function toggleAutoWarmup(InstanceRepository $instanceRepository, $value)
-    {
-        $toggler = $this->toggler;
-
-        return $toggler($instanceRepository, $value);
     }
 
     /**
@@ -70,7 +46,7 @@ abstract class BaseCacheHandler
      *
      * @return ResourceInterface[]
      */
-    protected function fetchResources($cacheContent = \false)
+    protected function fetchResources(bool $cacheContent = \false)
     {
         $resources = [
             $this->client->getSpace(),
@@ -110,7 +86,7 @@ abstract class BaseCacheHandler
      *
      * @return \Generator
      */
-    private function fetchCollection($type, $locales)
+    private function fetchCollection(string $type, array $locales): \Generator
     {
         foreach ($locales as $locale) {
             $skip = 0;

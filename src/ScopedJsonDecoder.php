@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery;
 
 use function GuzzleHttp\json_decode as guzzle_json_decode;
@@ -29,7 +31,7 @@ class ScopedJsonDecoder
      * @param string $spaceId
      * @param string $environmentId
      */
-    public function __construct($spaceId, $environmentId)
+    public function __construct(string $spaceId, string $environmentId)
     {
         $this->spaceId = $spaceId;
         $this->environmentId = $environmentId;
@@ -40,7 +42,7 @@ class ScopedJsonDecoder
      *
      * @return array
      */
-    public function decode($json)
+    public function decode(string $json): array
     {
         $data = guzzle_json_decode($json, \true);
 
@@ -65,9 +67,9 @@ class ScopedJsonDecoder
      *
      * @param array $data
      *
-     * @return string|null
+     * @return string
      */
-    private function extractSpaceId(array $data)
+    private function extractSpaceId(array $data): string
     {
         // Space resource
         if (isset($data['sys']['type']) && 'Space' === $data['sys']['type']) {
@@ -102,9 +104,9 @@ class ScopedJsonDecoder
      *
      * @param array $data
      *
-     * @return string|null
+     * @return string
      */
-    public function extractEnvironmentId(array $data)
+    public function extractEnvironmentId(array $data): string
     {
         // Space resource
         if (isset($data['sys']['type']) && 'Space' === $data['sys']['type']) {

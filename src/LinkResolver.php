@@ -7,10 +7,13 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery;
 
 use Contentful\Core\Api\Link;
 use Contentful\Core\Api\LinkResolverInterface;
+use Contentful\Core\Resource\ResourceInterface;
 
 class LinkResolver implements LinkResolverInterface
 {
@@ -32,9 +35,9 @@ class LinkResolver implements LinkResolverInterface
     /**
      * {@inheritdoc}
      */
-    public function resolveLink(Link $link, array $parameters = [])
+    public function resolveLink(Link $link, array $parameters = []): ResourceInterface
     {
-        $locale = isset($parameters['locale']) ? $parameters['locale'] : \null;
+        $locale = $parameters['locale'] ?? '';
 
         switch ($link->getLinkType()) {
             case 'Asset':

@@ -7,15 +7,18 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
+use Contentful\Tests\Delivery\Implementation\MockLocale;
 use Contentful\Tests\Delivery\TestCase;
 
 class LocaleTest extends TestCase
 {
     public function testGetters()
     {
-        $locale = new MockLocale([
+        $locale = MockLocale::withSys('en-US', [
             'code' => 'en-US',
             'name' => 'English (United States)',
             'fallbackCode' => \null,
@@ -30,7 +33,7 @@ class LocaleTest extends TestCase
 
     public function testWithDefault()
     {
-        $locale = new MockLocale([
+        $locale = MockLocale::withSys('en-US', [
             'code' => 'en-US',
             'name' => 'English (United States)',
             'fallbackCode' => \null,
@@ -41,7 +44,7 @@ class LocaleTest extends TestCase
 
     public function testJsonSerialize()
     {
-        $locale = new MockLocale([
+        $locale = MockLocale::withSys('en-US', [
             'code' => 'en-US',
             'name' => 'English (United States)',
             'fallbackCode' => \null,

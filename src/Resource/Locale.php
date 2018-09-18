@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Resource;
 
 /**
@@ -80,15 +82,12 @@ class Locale extends BaseResource
     public function jsonSerialize()
     {
         $locale = [
+            'sys' => $this->sys,
             'code' => $this->code,
             'default' => $this->default,
             'name' => $this->name,
             'fallbackCode' => $this->fallbackCode,
         ];
-
-        if ($this->sys) {
-            $locale['sys'] = $this->sys;
-        }
 
         return $locale;
     }

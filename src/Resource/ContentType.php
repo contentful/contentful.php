@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Resource;
 
 use Contentful\Delivery\Resource\ContentType\Field;

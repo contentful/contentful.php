@@ -4,11 +4,19 @@
         "type": "Environment"
     },
     "locales": [{
+        "sys": {
+            "id": "en-US",
+            "type": "Locale"
+        },
         "code": "en-US",
         "default": false,
         "name": "English (United States)",
         "fallbackCode": "it-IT"
     }, {
+        "sys": {
+            "id": "it-IT",
+            "type": "Locale"
+        },
         "code": "it-IT",
         "default": true,
         "name": "Italian (Italy)",

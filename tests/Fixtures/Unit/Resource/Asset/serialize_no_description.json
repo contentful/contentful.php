@@ -19,6 +19,13 @@
         }
     },
     "sys": {
+        "space": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "spaceId"
+            }
+        },
         "environment": {
             "sys": {
                 "type": "Link",

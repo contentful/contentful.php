@@ -7,10 +7,13 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery;
 
 use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Core\ResourceBuilder\BaseResourceBuilder;
+use Contentful\Core\ResourceBuilder\MapperInterface;
 
 /**
  * ResourceBuilder class.
@@ -64,7 +67,7 @@ class ResourceBuilder extends BaseResourceBuilder
     /**
      * {@inheritdoc}
      */
-    protected function getMapperNamespace()
+    protected function getMapperNamespace(): string
     {
         return __NAMESPACE__.'\\Mapper';
     }
@@ -72,7 +75,7 @@ class ResourceBuilder extends BaseResourceBuilder
     /**
      * {@inheritdoc}
      */
-    protected function createMapper($fqcn)
+    protected function createMapper($fqcn): MapperInterface
     {
         return new $fqcn($this, $this->client);
     }
@@ -80,7 +83,7 @@ class ResourceBuilder extends BaseResourceBuilder
     /**
      * {@inheritdoc}
      */
-    protected function getSystemType(array $data)
+    protected function getSystemType(array $data): string
     {
         if ('Array' === $data['sys']['type']) {
             return 'ResourceArray';
@@ -115,7 +118,7 @@ class ResourceBuilder extends BaseResourceBuilder
         // Assets and entries are stored in cache using their locales.
         $locale = \null;
         if (\in_array($data['sys']['type'], ['Asset', 'Entry'], \true)) {
-            $locale = isset($data['sys']['locale']) ? $data['sys']['locale'] : '*';
+            $locale = $data['sys']['locale'] ?? '*';
         }
 
         if ($this->instanceRepository->has($type, $resourceId, $locale)) {
@@ -151,7 +154,7 @@ class ResourceBuilder extends BaseResourceBuilder
     {
         $items = \array_merge(
             $data['items'],
-            isset($data['includes']['Entry']) ? $data['includes']['Entry'] : []
+            $data['includes']['Entry'] ?? []
         );
 
         $ids = \array_map(function ($item) {
@@ -166,7 +169,7 @@ class ResourceBuilder extends BaseResourceBuilder
 
         if ($ids) {
             $query = (new Query())
-                ->where('sys.id', \implode(',', $ids), 'in')
+                ->where('sys.id[in]', \implode(',', $ids))
             ;
             $this->client->getContentTypes($query);
         }
@@ -178,8 +181,8 @@ class ResourceBuilder extends BaseResourceBuilder
     private function buildIncludes(array $data)
     {
         $items = \array_merge(
-            isset($data['includes']['Entry']) ? $data['includes']['Entry'] : [],
-            isset($data['includes']['Asset']) ? $data['includes']['Asset'] : []
+            $data['includes']['Entry'] ?? [],
+            $data['includes']['Asset'] ?? []
         );
         foreach ($items as $item) {
             $this->build($item);

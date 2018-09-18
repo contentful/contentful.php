@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Core\Api\DateTimeImmutable;
@@ -58,7 +60,7 @@ class EntrySearchTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->where('sys.id', 'nyancat', 'ne')
+            ->where('sys.id[ne]', 'nyancat')
         ;
 
         $entries = $client->getEntries($query);
@@ -92,7 +94,7 @@ class EntrySearchTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->where('sys.id', 'finn,jake', 'in')
+            ->where('sys.id[in]', 'finn,jake')
         ;
 
         $entries = $client->getEntries($query);
@@ -100,8 +102,6 @@ class EntrySearchTest extends TestCase
         $this->assertInstanceOf(ResourceArray::class, $entries);
         $this->assertCount(2, $entries);
     }
-
-    // Existance test has problems with php-vcr
 
     /**
      * @vcr e2e_entry_search_range.json
@@ -111,7 +111,7 @@ class EntrySearchTest extends TestCase
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->where('sys.updatedAt', new DateTimeImmutable('2013-01-01T00:00:00Z'), 'lte')
+            ->where('sys.updatedAt[lte]', new DateTimeImmutable('2013-01-01T00:00:00Z'))
         ;
 
         $entries = $client->getEntries($query);
@@ -144,7 +144,7 @@ class EntrySearchTest extends TestCase
 
         $query = (new Query())
             ->setContentType('dog')
-            ->where('fields.description', 'bacon pancakes', 'match')
+            ->where('fields.description[match]', 'bacon pancakes')
         ;
 
         $entries = $client->getEntries($query);

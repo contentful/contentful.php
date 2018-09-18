@@ -7,10 +7,12 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\Unit\Resource\ContentType;
 
+use Contentful\Tests\Delivery\Implementation\MockField;
 use Contentful\Tests\Delivery\TestCase;
-use Contentful\Tests\Delivery\Unit\Resource\MockField;
 
 class FieldTest extends TestCase
 {

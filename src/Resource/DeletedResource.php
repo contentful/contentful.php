@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Resource;
 
 /**
@@ -20,7 +22,7 @@ abstract class DeletedResource extends BaseResource
     public function jsonSerialize()
     {
         return [
-            'sys' => $this->sys,
+            'sys' => $this->getSystemProperties(),
         ];
     }
 }

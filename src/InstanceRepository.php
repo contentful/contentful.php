@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery;
 
 use Contentful\Core\Resource\ResourceInterface;
@@ -21,15 +23,6 @@ use function GuzzleHttp\json_encode as guzzle_json_encode;
  */
 class InstanceRepository
 {
-    /**
-     * @var string[]
-     */
-    private static $warmupTypes = [
-        'ContentType',
-        'Environment',
-        'Space',
-    ];
-
     /**
      * @var ResourceInterface[]
      */
@@ -51,11 +44,6 @@ class InstanceRepository
     private $cacheItemPool;
 
     /**
-     * @var bool
-     */
-    private $autoWarmup;
-
-    /**
      * When retrieving from cache, there's the risk of an endless loop,
      * so we keep track of the resources we're currently warming up, and
      * skip the process if we track that we're already in the process of doing so.
@@ -75,9 +63,13 @@ class InstanceRepository
     private $environmentId;
 
     /**
+     * @var bool
+     */
+    private $cacheContent;
+
+    /**
      * @param Client                 $client
      * @param CacheItemPoolInterface $cacheItemPool
-     * @param bool                   $autoWarmup
      * @param string                 $spaceId
      * @param string                 $environmentId
      * @param bool                   $cacheContent
@@ -85,22 +77,25 @@ class InstanceRepository
     public function __construct(
         Client $client,
         CacheItemPoolInterface $cacheItemPool,
-        $autoWarmup,
-        $spaceId,
-        $environmentId,
-        $cacheContent = \false
+        string $spaceId,
+        string $environmentId,
+        bool $cacheContent = \false
     ) {
         $this->client = $client;
         $this->api = $client->getApi();
         $this->cacheItemPool = $cacheItemPool;
-        $this->autoWarmup = $autoWarmup;
         $this->spaceId = $spaceId;
         $this->environmentId = $environmentId;
+        $this->cacheContent = $cacheContent;
+    }
 
-        if ($cacheContent) {
-            self::$warmupTypes[] = 'Entry';
-            self::$warmupTypes[] = 'Asset';
+    private function mustBeCached(string $type): bool
+    {
+        if ($this->cacheContent) {
+            return \true;
         }
+
+        return !\in_array($type, ['Asset', 'Entry'], \true);
     }
 
     /**
@@ -109,9 +104,9 @@ class InstanceRepository
      * @param string $key
      * @param string $type
      */
-    private function warmUp($key, $type)
+    private function warmUp(string $key, string $type)
     {
-        if (isset($this->warmupStack[$key]) || isset($this->resources[$key]) || !\in_array($type, self::$warmupTypes, \true)) {
+        if (isset($this->warmupStack[$key]) || isset($this->resources[$key]) || !$this->mustBeCached($type)) {
             return;
         }
 
@@ -130,9 +125,9 @@ class InstanceRepository
      *
      * @return bool
      */
-    public function has($type, $resourceId, $locale = \null)
+    public function has(string $type, string $resourceId, string $locale = \null): bool
     {
-        $key = $this->generateCacheKey($this->api, $type, $resourceId, $locale);
+        $key = $this->generateCacheKey($type, $resourceId, $locale);
         $this->warmUp($key, $type);
 
         return isset($this->resources[$key]);
@@ -147,22 +142,17 @@ class InstanceRepository
         $sys = $resource->getSystemProperties();
         $type = $sys->getType();
 
-        $key = $this->generateCacheKey(
-            $this->api,
-            $type,
-            $sys->getId(),
-            $sys->getLocale()
-        );
-
+        $key = $this->generateCacheKey($type, $sys->getId(), $sys->getLocale());
         $this->resources[$key] = $resource;
 
-        if ($this->autoWarmup && \in_array($type, self::$warmupTypes, \true)) {
-            $cacheItem = $this->cacheItemPool->getItem($key);
+        if (!$this->mustBeCached($type)) {
+            return;
+        }
 
-            if (!$cacheItem->isHit()) {
-                $cacheItem->set(guzzle_json_encode($resource));
-                $this->cacheItemPool->save($cacheItem);
-            }
+        $cacheItem = $this->cacheItemPool->getItem($key);
+        if (!$cacheItem->isHit()) {
+            $cacheItem->set(guzzle_json_encode($resource));
+            $this->cacheItemPool->save($cacheItem);
         }
     }
 
@@ -173,23 +163,22 @@ class InstanceRepository
      *
      * @return ResourceInterface
      */
-    public function get($type, $resourceId, $locale = \null)
+    public function get(string $type, string $resourceId, string $locale = \null): ResourceInterface
     {
-        $key = $this->generateCacheKey($this->api, $type, $resourceId, $locale);
+        $key = $this->generateCacheKey($type, $resourceId, $locale);
         $this->warmUp($key, $type);
 
         return $this->resources[$key];
     }
 
     /**
-     * @param string      $api
      * @param string      $type
      * @param string      $resourceId
      * @param string|null $locale
      *
      * @return string
      */
-    public function generateCacheKey($api, $type, $resourceId, $locale = \null)
+    public function generateCacheKey(string $type, string $resourceId, string $locale = \null): string
     {
         $locale = \strtr($locale ?: '__ALL__', [
             '-' => '_',
@@ -198,7 +187,7 @@ class InstanceRepository
 
         return \sprintf(
             'contentful.%s.%s.%s.%s.%s.%s',
-            $api,
+            $this->api,
             $this->spaceId,
             $this->environmentId,
             $type,

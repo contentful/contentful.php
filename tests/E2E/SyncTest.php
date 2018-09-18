@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Delivery\Resource\Asset;

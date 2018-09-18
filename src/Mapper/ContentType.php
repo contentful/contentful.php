@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Mapper;
 
 use Contentful\Delivery\Resource\ContentType as ResourceClass;
@@ -34,8 +36,8 @@ class ContentType extends BaseMapper
         return $this->hydrate($resource ?: ResourceClass::class, [
             'sys' => $this->buildSystemProperties($data['sys']),
             'name' => $data['name'],
-            'displayField' => isset($data['displayField']) ? $data['displayField'] : \null,
-            'description' => isset($data['description']) ? $data['description'] : \null,
+            'displayField' => $data['displayField'] ?? \null,
+            'description' => $data['description'] ?? \null,
             'fields' => $fields,
         ]);
     }
@@ -47,8 +49,19 @@ class ContentType extends BaseMapper
      */
     protected function mapField(array $data)
     {
-        return $this->builder->getMapper(ContentType\Field::class)
-            ->map(\null, $data)
-        ;
+        /** @var ResourceContentTypeField $field */
+        $field = $this->hydrator->hydrate(ResourceContentTypeField::class, [
+            'id' => $data['id'],
+            'name' => $data['name'],
+            'type' => $data['type'],
+            'linkType' => $data['linkType'] ?? \null,
+            'itemsType' => isset($data['items']) && isset($data['items']['type']) ? $data['items']['type'] : \null,
+            'itemsLinkType' => isset($data['items']) && isset($data['items']['linkType']) ? $data['items']['linkType'] : \null,
+            'required' => $data['required'] ?? \false,
+            'localized' => $data['localized'] ?? \false,
+            'disabled' => $data['disabled'] ?? \false,
+        ]);
+
+        return $field;
     }
 }

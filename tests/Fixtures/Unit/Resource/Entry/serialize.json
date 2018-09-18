@@ -50,6 +50,13 @@
     "sys": {
         "id": "nyancat",
         "type": "Entry",
+        "space": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "spaceId"
+            }
+        },
         "contentType": {
             "sys": {
                 "type": "Link",

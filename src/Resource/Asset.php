@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Resource;
 
 use Contentful\Core\File\FileInterface;
@@ -55,7 +57,10 @@ class Asset extends LocalizedResource
      */
     public function getTitle($locale = \null)
     {
-        return $this->getProperty('title', $locale);
+        /** @var string|null $title */
+        $title = $this->getProperty('title', $locale);
+
+        return $title;
     }
 
     /**
@@ -65,7 +70,10 @@ class Asset extends LocalizedResource
      */
     public function getDescription($locale = \null)
     {
-        return $this->getProperty('description', $locale);
+        /** @var string|null $description */
+        $description = $this->getProperty('description', $locale);
+
+        return $description;
     }
 
     /**
@@ -75,7 +83,10 @@ class Asset extends LocalizedResource
      */
     public function getFile($locale = \null)
     {
-        return $this->getProperty('file', $locale);
+        /** @var FileInterface|null $file */
+        $file = $this->getProperty('file', $locale);
+
+        return $file;
     }
 
     /**
@@ -98,7 +109,9 @@ class Asset extends LocalizedResource
 
         $localeCode = $this->walkFallbackChain($this->$property, $localeCode, $this->sys->getEnvironment());
 
-        return \null === $localeCode ? \null : $this->{$property}[$localeCode];
+        return \null === $localeCode
+            ? \null
+            : $this->{$property}[$localeCode];
     }
 
     /**

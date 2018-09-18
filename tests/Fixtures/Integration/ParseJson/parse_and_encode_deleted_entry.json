@@ -16,6 +16,13 @@
                 "id": "master"
             }
         },
+        "contentType": {
+            "sys": {
+                "type": "Link",
+                "linkType": "ContentType",
+                "id": "contentTypeId"
+            }
+        },
         "revision": 1,
         "createdAt": "2014-08-11T08:30:42.559Z",
         "updatedAt": "2014-08-11T08:30:42.559Z",

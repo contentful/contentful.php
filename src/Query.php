@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery;
 
 use Contentful\Core\Api\BaseQuery;
@@ -35,7 +37,7 @@ class Query extends BaseQuery
      *
      * @return array
      */
-    public function getQueryData()
+    public function getQueryData(): array
     {
         $query = parent::getQueryData();
         if (\null !== $this->include) {
@@ -55,7 +57,7 @@ class Query extends BaseQuery
      *
      * @return $this
      */
-    public function setInclude($include)
+    public function setInclude(int $include = \null)
     {
         $this->include = $include;
 
@@ -69,7 +71,7 @@ class Query extends BaseQuery
      *
      * @return $this
      */
-    public function setLocale($locale)
+    public function setLocale(string $locale = \null)
     {
         $this->locale = $locale;
 

@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Synchronization;
 
 use Contentful\Delivery\Client;
@@ -34,7 +36,7 @@ class Manager
     /**
      * @var bool
      */
-    private $preview;
+    private $isDeliveryApi;
 
     /**
      * Manager constructor.
@@ -43,15 +45,15 @@ class Manager
      *
      * @param Client          $client
      * @param ResourceBuilder $builder
-     * @param bool            $preview
+     * @param bool            $isDeliveryApi
      *
      * @see \Contentful\Delivery\Client::getSynchronizationManager()
      */
-    public function __construct(Client $client, ResourceBuilder $builder, $preview)
+    public function __construct(Client $client, ResourceBuilder $builder, bool $isDeliveryApi)
     {
         $this->client = $client;
         $this->builder = $builder;
-        $this->preview = $preview;
+        $this->isDeliveryApi = $isDeliveryApi;
     }
 
     /**
@@ -60,7 +62,7 @@ class Manager
      *
      * @return \Generator An instance of Result wrapped in a Generator object
      */
-    public function sync($token = \null, Query $query = \null)
+    public function sync(string $token = \null, Query $query = \null)
     {
         do {
             $result = $token ? $this->continueSync($token) : $this->startSync($query);
@@ -101,10 +103,10 @@ class Manager
      *
      * @return Result
      */
-    public function continueSync($token)
+    public function continueSync($token): Result
     {
         if ($token instanceof Result) {
-            if ($this->preview && $token->isDone()) {
+            if (!$this->isDeliveryApi && $token->isDone()) {
                 throw new \RuntimeException('Can not continue syncing when using the Content Preview API.');
             }
 
@@ -123,7 +125,7 @@ class Manager
      *
      * @return Result
      */
-    private function buildResult(array $data)
+    private function buildResult(array $data): Result
     {
         $token = $this->getTokenFromResponse($data);
         $done = isset($data['nextSyncUrl']);
@@ -141,9 +143,9 @@ class Manager
      *
      * @return string
      */
-    private function getTokenFromResponse(array $data)
+    private function getTokenFromResponse(array $data): string
     {
-        $url = isset($data['nextSyncUrl']) ? $data['nextSyncUrl'] : $data['nextPageUrl'];
+        $url = $data['nextSyncUrl'] ?? $data['nextPageUrl'];
 
         $queryValues = [];
         \parse_str(\parse_url($url, \PHP_URL_QUERY), $queryValues);

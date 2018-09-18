@@ -6,6 +6,9 @@
  * @copyright 2015-2018 Contentful GmbH
  * @license   MIT
  */
+
+declare(strict_types=1);
+
 use VCR\Request;
 use VCR\VCR;
 

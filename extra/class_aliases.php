@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 /**
  * Version 3 of the SDK moves some classes to a different location.
  * This file provides an easy drop-in compatibility layer which allows you
@@ -45,7 +47,6 @@ $classes = [
     'Contentful\\Link' => 'Contentful\\Core\\Api\\Link',
     'Contentful\\Location' => 'Contentful\\Core\\Api\\Location',
     'Contentful\\ResourceArray' => 'Contentful\\Core\\Resource\\ResourceArray',
-    'Contentful\\Delivery\\DynamicEntry' => 'Contentful\\Delivery\\Resource\\Entry',
     'Contentful\\Delivery\\Asset' => 'Contentful\\Delivery\\Resource\\Asset',
     'Contentful\\Delivery\\ContentType' => 'Contentful\\Delivery\\Resource\\ContentType',
     'Contentful\\Delivery\\ContentTypeField' => 'Contentful\\Delivery\\Resource\\ContentType\\Field',
