@@ -7,14 +7,14 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\E2E;
 
-use Cache\Adapter\PHPArray\ArrayCachePool;
-use Contentful\Delivery\Cache\CacheItemPoolFactoryInterface;
 use Contentful\Delivery\Console\Application;
+use Contentful\Tests\Delivery\Implementation\CacheItemPoolFactory;
+use Contentful\Tests\Delivery\Implementation\NotWorkingCachePoolFactory;
 use Contentful\Tests\Delivery\TestCase;
-use Psr\Cache\CacheItemInterface;
-use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class ConsoleTest extends TestCase
@@ -25,7 +25,7 @@ class ConsoleTest extends TestCase
      *
      * @return string
      */
-    private function getConsoleOutput($commandName, array $params)
+    private function getConsoleOutput(string $commandName, array $params): string
     {
         $application = new Application();
         $command = $application->find($commandName);
@@ -85,20 +85,6 @@ class ConsoleTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Object returned by "Contentful\Tests\Delivery\E2E\InvalidFactory::getCacheItemPool()" must be PSR-6 compatible and implement "Psr\Cache\CacheItemPoolInterface".
-     */
-    public function testCacheWarmupInvalidFactoryReturn()
-    {
-        $this->getConsoleOutput('delivery:cache:warmup', [
-            '--access-token' => 'b4c0n73n7fu1',
-            '--space-id' => 'cfexampleapi',
-            '--environment-id' => 'master',
-            '--factory-class' => InvalidFactory::class,
-        ]);
-    }
-
-    /**
-     * @expectedException        \InvalidArgumentException
      * @expectedExceptionMessage Cache item pool factory must implement "Contentful\Delivery\Cache\CacheItemPoolFactoryInterface".
      */
     public function testCacheWarmupInvalidFactory()
@@ -114,7 +100,7 @@ class ConsoleTest extends TestCase
     /**
      * @vcr e2e_console_cache_warmup_not_working.json
      * @expectedException        \RuntimeException
-     * @expectedExceptionMessage The SDK could not warm up the cache. Try checking your PSR-6 implementation (class "Contentful\Tests\Delivery\E2E\NotWorkingCachePool").
+     * @expectedExceptionMessage The SDK could not warm up the cache. Try checking your PSR-6 implementation (class "Contentful\Tests\Delivery\Implementation\NotWorkingCachePool").
      */
     public function testCacheWarmupNotWorking()
     {
@@ -165,20 +151,6 @@ class ConsoleTest extends TestCase
 
     /**
      * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Object returned by "Contentful\Tests\Delivery\E2E\InvalidFactory::getCacheItemPool()" must be PSR-6 compatible and implement "Psr\Cache\CacheItemPoolInterface".
-     */
-    public function testCacheClearInvalidFactoryReturn()
-    {
-        $this->getConsoleOutput('delivery:cache:clear', [
-            '--access-token' => 'b4c0n73n7fu1',
-            '--space-id' => 'cfexampleapi',
-            '--environment-id' => 'master',
-            '--factory-class' => InvalidFactory::class,
-        ]);
-    }
-
-    /**
-     * @expectedException        \InvalidArgumentException
      * @expectedExceptionMessage Cache item pool factory must implement "Contentful\Delivery\Cache\CacheItemPoolFactoryInterface".
      */
     public function testCacheClearInvalidFactory()
@@ -194,7 +166,7 @@ class ConsoleTest extends TestCase
     /**
      * @vcr e2e_console_cache_clear_not_working.json
      * @expectedException        \RuntimeException
-     * @expectedExceptionMessage The SDK could not clear the cache. Try checking your PSR-6 implementation (class "Contentful\Tests\Delivery\E2E\NotWorkingCachePool").
+     * @expectedExceptionMessage The SDK could not clear the cache. Try checking your PSR-6 implementation (class "Contentful\Tests\Delivery\Implementation\NotWorkingCachePool").
      */
     public function testCacheClearNotWorking()
     {
@@ -253,140 +225,5 @@ class ConsoleTest extends TestCase
         $this->assertFalse($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Space.cfexampleapi.__ALL__'));
 
         $this->assertFalse($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Entry.nyancat.__ALL__'));
-    }
-}
-
-class CacheItemPoolFactory implements CacheItemPoolFactoryInterface
-{
-    /**
-     * @var ArrayCachePool[]
-     */
-    public static $pools = [];
-
-    public function __construct()
-    {
-        self::$pools = [];
-    }
-
-    public function getCacheItemPool($api, $spaceId, $environmentId)
-    {
-        $key = $api.'.'.$spaceId.'.'.$environmentId;
-        if (!isset(self::$pools[$key])) {
-            self::$pools[$key] = new ArrayCachePool();
-        }
-
-        return self::$pools[$key];
-    }
-}
-
-class InvalidFactory implements CacheItemPoolFactoryInterface
-{
-    public function __construct()
-    {
-    }
-
-    public function getCacheItemPool($api, $spaceId, $environmentId)
-    {
-        return \null;
-    }
-}
-
-class NotWorkingCachePoolFactory implements CacheItemPoolFactoryInterface
-{
-    public function __construct()
-    {
-    }
-
-    public function getCacheItemPool($api, $spaceId, $environmentId)
-    {
-        return new NotWorkingCachePool();
-    }
-}
-
-class NotWorkingCachePool implements CacheItemPoolInterface
-{
-    public function getItem($key)
-    {
-        return new NotWorkingCacheItem($key);
-    }
-
-    public function getItems(array $keys = [])
-    {
-        return [];
-    }
-
-    public function hasItem($key)
-    {
-        return \false;
-    }
-
-    public function clear()
-    {
-        return \false;
-    }
-
-    public function deleteItem($key)
-    {
-        return \false;
-    }
-
-    public function deleteItems(array $keys)
-    {
-        return \false;
-    }
-
-    public function save(CacheItemInterface $item)
-    {
-        return \false;
-    }
-
-    public function saveDeferred(CacheItemInterface $item)
-    {
-        return \false;
-    }
-
-    public function commit()
-    {
-        return \false;
-    }
-}
-
-class NotWorkingCacheItem implements CacheItemInterface
-{
-    private $key;
-
-    public function __construct($key)
-    {
-        $this->key = $key;
-    }
-
-    public function getKey()
-    {
-        return $this->key;
-    }
-
-    public function get()
-    {
-        return \null;
-    }
-
-    public function isHit()
-    {
-        return \false;
-    }
-
-    public function set($value)
-    {
-        return $this;
-    }
-
-    public function expiresAt($expiration)
-    {
-        return $this;
-    }
-
-    public function expiresAfter($time)
-    {
-        return $this;
     }
 }

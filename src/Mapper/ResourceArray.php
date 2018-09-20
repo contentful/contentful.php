@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Mapper;
 
 use Contentful\Core\Resource\ResourceArray as ResourceClass;

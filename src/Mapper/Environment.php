@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Mapper;
 
 use Contentful\Delivery\Resource\Environment as ResourceClass;

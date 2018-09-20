@@ -7,13 +7,18 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
-use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Delivery\SystemProperties;
+use Contentful\Tests\Delivery\Implementation\MockContentType;
+use Contentful\Tests\Delivery\Implementation\MockDeletedEntry;
+use Contentful\Tests\Delivery\Implementation\MockEnvironment;
+use Contentful\Tests\Delivery\Implementation\MockSpace;
 use Contentful\Tests\Delivery\TestCase;
 
-class DeletedResourceTest extends TestCase
+class DeletedEntryTest extends TestCase
 {
     public function testGetter()
     {
@@ -21,11 +26,14 @@ class DeletedResourceTest extends TestCase
             'id' => '4rPdazIwWkuuKEAQgemSmO',
             'type' => 'DeletedEntry',
             'revision' => 1,
-            'createdAt' => new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            'updatedAt' => new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
-            'deletedAt' => new DateTimeImmutable('2014-08-13T08:30:42.559Z'),
+            'space' => MockSpace::withSys('spaceId'),
+            'environment' => MockEnvironment::withSys('master'),
+            'contentType' => MockContentType::withSys('contentTypeId'),
+            'createdAt' => '2014-08-11T08:30:42.559Z',
+            'updatedAt' => '2014-08-12T08:30:42.559Z',
+            'deletedAt' => '2014-08-13T08:30:42.559Z',
         ]);
-        $resource = new MockDeletedResource(['sys' => $sys]);
+        $resource = new MockDeletedEntry(['sys' => $sys]);
 
         $this->assertSame('4rPdazIwWkuuKEAQgemSmO', $resource->getId());
         $sys = $resource->getSystemProperties();
@@ -37,27 +45,17 @@ class DeletedResourceTest extends TestCase
 
     public function testContentTypeDeletedEntry()
     {
-        $sys = new SystemProperties([
-            'id' => '4rPdazIwWkuuKEAQgemSmO',
-            'type' => 'DeletedEntry',
-            'revision' => 1,
-            'createdAt' => new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            'updatedAt' => new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
-            'deletedAt' => new DateTimeImmutable('2014-08-13T08:30:42.559Z'),
-        ]);
-        $deletedEntry = new MockDeletedEntry(['sys' => $sys]);
-
-        $this->assertNull($deletedEntry->getContentType());
-
         $contentType = MockContentType::withSys('cat');
         $sys = new SystemProperties([
             'id' => '4rPdazIwWkuuKEAQgemSmO',
             'type' => 'DeletedEntry',
             'revision' => 1,
+            'space' => MockSpace::withSys('spaceId'),
+            'environment' => MockEnvironment::withSys('master'),
             'contentType' => $contentType,
-            'createdAt' => new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            'updatedAt' => new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
-            'deletedAt' => new DateTimeImmutable('2014-08-13T08:30:42.559Z'),
+            'createdAt' => '2014-08-11T08:30:42.559Z',
+            'updatedAt' => '2014-08-12T08:30:42.559Z',
+            'deletedAt' => '2014-08-13T08:30:42.559Z',
         ]);
         $deletedEntry = new MockDeletedEntry(['sys' => $sys]);
 
@@ -70,12 +68,14 @@ class DeletedResourceTest extends TestCase
             'id' => '4rPdazIwWkuuKEAQgemSmO',
             'type' => 'DeletedEntry',
             'space' => MockSpace::withSys('cfexampleapi'),
+            'environment' => MockEnvironment::withSys('master'),
+            'contentType' => MockContentType::withSys('contentTypeId'),
             'revision' => 1,
-            'createdAt' => new DateTimeImmutable('2014-08-11T08:30:42.559Z'),
-            'updatedAt' => new DateTimeImmutable('2014-08-12T08:30:42.559Z'),
-            'deletedAt' => new DateTimeImmutable('2014-08-13T08:30:42.559Z'),
+            'createdAt' => '2014-08-11T08:30:42.559Z',
+            'updatedAt' => '2014-08-12T08:30:42.559Z',
+            'deletedAt' => '2014-08-13T08:30:42.559Z',
         ]);
-        $resource = new MockDeletedResource(['sys' => $sys]);
+        $resource = new MockDeletedEntry(['sys' => $sys]);
 
         $this->assertJsonFixtureEqualsJsonObject('serialize.json', $resource);
     }

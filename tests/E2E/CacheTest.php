@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Delivery\Cache\CacheClearer;
@@ -32,7 +34,7 @@ class CacheTest extends TestCase
         $warmer->warmUp();
 
         $cacheItem = self::$cache->getItem(
-            $instanceRepository->generateCacheKey($client->getApi(), 'Space', 'cfexampleapi')
+            $instanceRepository->generateCacheKey('Space', 'cfexampleapi')
         );
         $this->assertTrue($cacheItem->isHit());
 
@@ -41,7 +43,7 @@ class CacheTest extends TestCase
 
         $clearer->clear();
         $this->assertFalse(self::$cache->hasItem(
-            $instanceRepository->generateCacheKey($client->getApi(), 'Space', 'cfexampleapi')
+            $instanceRepository->generateCacheKey('Space', 'cfexampleapi')
         ));
 
         self::$cache->clear();
@@ -95,7 +97,7 @@ class CacheTest extends TestCase
         $this->assertSame('cfexampleapi', $client->getSpace()->getId());
         $this->assertSame('cat', $client->getContentType('cat')->getId());
 
-        $cacheItem = self::$cache->getItem($instanceRepository->generateCacheKey($client->getApi(), 'Space', 'cfexampleapi'));
+        $cacheItem = self::$cache->getItem($instanceRepository->generateCacheKey('Space', 'cfexampleapi'));
         $this->assertTrue($cacheItem->isHit());
 
         $resource = guzzle_json_decode($cacheItem->get(), \true);
@@ -119,25 +121,25 @@ class CacheTest extends TestCase
         $this->assertSame('nyancat', $client->getEntry('nyancat', '*')->getId());
         $this->assertSame('nyancat', $client->getAsset('nyancat', '*')->getId());
 
-        $cacheItem = self::$cache->getItem($instanceRepository->generateCacheKey($client->getApi(), 'Space', 'cfexampleapi'));
+        $cacheItem = self::$cache->getItem($instanceRepository->generateCacheKey('Space', 'cfexampleapi'));
         $this->assertTrue($cacheItem->isHit());
         $resource = guzzle_json_decode($cacheItem->get(), \true);
         $this->assertSame('cfexampleapi', $resource['sys']['id']);
         $this->assertSame('Space', $resource['sys']['type']);
 
-        $cacheItem = self::$cache->getItem($instanceRepository->generateCacheKey($client->getApi(), 'ContentType', 'cat'));
+        $cacheItem = self::$cache->getItem($instanceRepository->generateCacheKey('ContentType', 'cat'));
         $this->assertTrue($cacheItem->isHit());
         $resource = guzzle_json_decode($cacheItem->get(), \true);
         $this->assertSame('cat', $resource['sys']['id']);
         $this->assertSame('ContentType', $resource['sys']['type']);
 
-        $cacheItem = self::$cache->getItem($instanceRepository->generateCacheKey($client->getApi(), 'Entry', 'nyancat'));
+        $cacheItem = self::$cache->getItem($instanceRepository->generateCacheKey('Entry', 'nyancat'));
         $this->assertTrue($cacheItem->isHit());
         $resource = guzzle_json_decode($cacheItem->get(), \true);
         $this->assertSame('nyancat', $resource['sys']['id']);
         $this->assertSame('Entry', $resource['sys']['type']);
 
-        $cacheItem = self::$cache->getItem($instanceRepository->generateCacheKey($client->getApi(), 'Asset', 'nyancat'));
+        $cacheItem = self::$cache->getItem($instanceRepository->generateCacheKey('Asset', 'nyancat'));
         $this->assertTrue($cacheItem->isHit());
         $resource = guzzle_json_decode($cacheItem->get(), \true);
         $this->assertSame('nyancat', $resource['sys']['id']);

@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Resource;
 
 use Contentful\Core\Api\Link;
@@ -76,20 +78,9 @@ class Entry extends LocalizedResource implements \ArrayAccess
             $name = \mb_substr($name, 3);
         }
 
-        $locale = $this->getLocaleFromInput(isset($arguments[0]) ? $arguments[0] : \null);
+        $locale = $this->getLocaleFromInput($arguments[0] ?? \null);
 
-        $result = \null;
-        try {
-            $result = $this->get($name, $locale);
-        } catch (\Exception $exception) {
-            \trigger_error('Call to undefined method '.__CLASS__.'::'.$name.'()', \E_USER_ERROR);
-        }
-
-        // This is an ugly hack to trick the coverage reporter;
-        // we could be returning this in the try/catch without creating a variable,
-        // but for some reason the coverage reporter will detect a non-covered
-        // closing bracket at the end of the method...
-        return $result;
+        return $this->get($name, $locale);
     }
 
     /**
@@ -266,7 +257,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
     private function resolveFieldLinks($field, $locale)
     {
         if ($field instanceof Link) {
-            return $this->client->resolveLink($field, $locale);
+            return $this->client->resolveLink($field, (string) $locale);
         }
 
         if (\is_array($field) && isset($field[0]) && $field[0] instanceof Link) {

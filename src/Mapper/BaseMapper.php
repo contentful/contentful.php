@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Mapper;
 
 use Contentful\Core\Resource\ResourceArray;
@@ -63,6 +65,7 @@ abstract class BaseMapper implements MapperInterface
             $data['client'] = $this->client;
         }
 
+        /** @var ResourceInterface|ResourceArray $target */
         $target = $this->hydrator->hydrate($target, $data);
 
         if ($target instanceof LocalizedResource) {

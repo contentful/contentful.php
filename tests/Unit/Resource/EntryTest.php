@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
 use Contentful\Core\Api\DateTimeImmutable;
@@ -17,6 +19,12 @@ use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\SystemProperties;
+use Contentful\Tests\Delivery\Implementation\MockContentType;
+use Contentful\Tests\Delivery\Implementation\MockEntry;
+use Contentful\Tests\Delivery\Implementation\MockEnvironment;
+use Contentful\Tests\Delivery\Implementation\MockField;
+use Contentful\Tests\Delivery\Implementation\MockLocale;
+use Contentful\Tests\Delivery\Implementation\MockSpace;
 use Contentful\Tests\Delivery\TestCase;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
@@ -60,11 +68,7 @@ class EntryTest extends TestCase
 
     private function createMockContentType()
     {
-        return new MockContentType([
-            'sys' => new SystemProperties([
-                'id' => 'cat',
-                'type' => 'ContentType',
-            ]),
+        return MockContentType::withSys('cat', [
             'name' => 'Cat',
             'description' => 'Meow.',
             'displayField' => 'name',
@@ -87,11 +91,12 @@ class EntryTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Entry',
+            'space' => MockSpace::withSys('spaceId'),
             'contentType' => $contentType,
             'environment' => $environment,
             'revision' => 5,
-            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:19.513Z'),
-            'updatedAt' => new DateTimeImmutable('2013-09-04T09:19:39.027Z'),
+            'createdAt' => '2013-06-27T22:46:19.513Z',
+            'updatedAt' => '2013-09-04T09:19:39.027Z',
         ]);
 
         $entry = new MockEntry(['sys' => $sys, 'fields' => [
@@ -150,8 +155,13 @@ class EntryTest extends TestCase
     {
         $sys = new SystemProperties([
             'id' => 'crookshanks',
+            'type' => 'Entry',
+            'space' => MockSpace::withSys('spaceId'),
             'environment' => $this->environment,
             'contentType' => $contentType,
+            'revision' => 5,
+            'createdAt' => '2013-06-27T22:46:19.513Z',
+            'updatedAt' => '2013-09-04T09:19:39.027Z',
         ]);
 
         $entry = new MockEntry(['sys' => $sys, 'fields' => [
@@ -167,8 +177,12 @@ class EntryTest extends TestCase
         return new SystemProperties([
             'id' => 'garfield',
             'type' => 'Entry',
+            'space' => MockSpace::withSys('spaceId'),
             'environment' => $this->environment,
             'contentType' => $contentType,
+            'revision' => 5,
+            'createdAt' => '2013-06-27T22:46:19.513Z',
+            'updatedAt' => '2013-09-04T09:19:39.027Z',
         ]);
     }
 
@@ -264,8 +278,12 @@ class EntryTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Entry',
+            'space' => MockSpace::withSys('spaceId'),
             'contentType' => $contentType,
             'environment' => $this->environment,
+            'revision' => 5,
+            'createdAt' => '2013-06-27T22:46:19.513Z',
+            'updatedAt' => '2013-09-04T09:19:39.027Z',
         ]);
         $entry = new MockEntry(['sys' => $sys, 'fields' => [
             'name' => ['en-US' => 'Test Entry'],
@@ -308,7 +326,7 @@ class EntryTest extends TestCase
 
     public function testGetIdsOfLinksArray()
     {
-        $contentType = new MockContentType([
+        $contentType = MockContentType::withSys('cat', [
             'name' => 'Cat',
             'fields' => [
                 'name' => new MockField('name', 'Name', 'Text', ['localized' => \true, 'disabled' => \true]),
@@ -334,8 +352,13 @@ class EntryTest extends TestCase
     {
         $sys = new SystemProperties([
             'id' => 'nyancat',
+            'type' => 'Entry',
+            'space' => MockSpace::withSys('spaceId'),
             'environment' => $this->environment,
             'contentType' => $this->contentType,
+            'revision' => 5,
+            'createdAt' => '2013-06-27T22:46:19.513Z',
+            'updatedAt' => '2013-09-04T09:19:39.027Z',
             'locale' => 'tlh',
         ]);
         $entry = new MockEntry(['sys' => $sys, 'fields' => [
@@ -349,7 +372,8 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Trying to access non existent field "noSuchMethod" on an entry with content type "Cat" ("cat").
      */
     public function testNonExistingMethod()
     {
@@ -357,7 +381,8 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Trying to access non existent field "NoSuchField" on an entry with content type "Cat" ("cat").
      */
     public function testNonExistingField()
     {
@@ -365,7 +390,8 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Trying to access non existent field "BirthdayId" on an entry with content type "Cat" ("cat").
      */
     public function testGetIdOnNonLinkField()
     {
@@ -447,14 +473,19 @@ class EntryTest extends TestCase
     {
         $sys = new SystemProperties([
             'id' => 'crookshanks',
+            'type' => 'Entry',
+            'space' => MockSpace::withSys(),
             'environment' => $this->environment,
-            'contentType' => new MockContentType([
+            'contentType' => MockContentType::withSys('cat', [
                 'name' => 'Cat',
                 'fields' => [
                     'hasLives' => new MockField('hasLives', 'Has Lives', 'Boolean'),
                     'hadBaldSpot' => new MockField('hadBaldSpot', 'Had Bald Spot', 'Boolean'),
                 ],
             ]),
+            'revision' => 5,
+            'createdAt' => '2013-06-27T22:46:19.513Z',
+            'updatedAt' => '2013-09-04T09:19:39.027Z',
         ]);
 
         $entry = new MockEntry(['sys' => $sys, 'fields' => [

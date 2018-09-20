@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Cache;
 
 use Contentful\Delivery\SystemProperties;
@@ -24,16 +26,15 @@ class CacheClearer extends BaseCacheHandler
      *
      * @return bool
      */
-    public function clear($cacheContent = \false)
+    public function clear($cacheContent = \false): bool
     {
-        $api = $this->client->getApi();
         $instanceRepository = $this->client->getInstanceRepository();
 
         $keys = [];
         foreach ($this->fetchResources($cacheContent) as $resource) {
             /** @var SystemProperties $sys */
             $sys = $resource->getSystemProperties();
-            $keys[] = $instanceRepository->generateCacheKey($api, $sys->getType(), $sys->getId(), $sys->getLocale());
+            $keys[] = $instanceRepository->generateCacheKey($sys->getType(), $sys->getId(), $sys->getLocale());
         }
 
         return $this->cacheItemPool->deleteItems($keys);

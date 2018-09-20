@@ -7,10 +7,13 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\Unit;
 
 use Contentful\Core\Api\Link;
 use Contentful\Delivery\Client;
+use Contentful\Delivery\ClientOptions;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\Tests\Delivery\TestCase;
 
@@ -28,7 +31,7 @@ class ClientTest extends TestCase
     {
         $client = new Client('b4c0n73n7fu1', 'cfexampleapi');
 
-        $this->assertFalse($client->isPreview());
+        $this->assertFalse($client->isPreviewApi());
         $this->assertSame('DELIVERY', $client->getApi());
     }
 
@@ -41,9 +44,9 @@ class ClientTest extends TestCase
 
     public function testIsPreview()
     {
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', \true);
+        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', ClientOptions::create()->usingPreviewApi());
 
-        $this->assertTrue($client->isPreview());
+        $this->assertTrue($client->isPreviewApi());
         $this->assertSame('PREVIEW', $client->getApi());
     }
 
@@ -57,16 +60,5 @@ class ClientTest extends TestCase
         $link = new Link('linkId', 'invalidLinkType');
 
         $client->resolveLink($link);
-    }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage The cache parameter must be a PSR-6 cache item pool or null.
-     */
-    public function testInvalidCachePool()
-    {
-        new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', \false, \null, [
-            'cache' => new \stdClass(),
-        ]);
     }
 }

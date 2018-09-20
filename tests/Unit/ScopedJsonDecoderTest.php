@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\Unit;
 
 use Contentful\Delivery\ScopedJsonDecoder;

@@ -7,13 +7,16 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\Unit;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\InstanceRepository;
+use Contentful\Tests\Delivery\TestCase;
 
-class InstanceRepositoryTest extends \PHPUnit_Framework_TestCase
+class InstanceRepositoryTest extends TestCase
 {
     public function testCacheKey()
     {
@@ -25,10 +28,9 @@ class InstanceRepositoryTest extends \PHPUnit_Framework_TestCase
             ->willReturn('DELIVERY')
         ;
 
-        $instanceRepository = new InstanceRepository($client, new ArrayCachePool(), \false, 'cfexampleapi', 'master');
+        $instanceRepository = new InstanceRepository($client, new ArrayCachePool(), 'cfexampleapi', 'master');
 
         $key = $instanceRepository->generateCacheKey(
-            'DELIVERY',
             'Entry',
             'entryId',
             '*'
@@ -36,7 +38,6 @@ class InstanceRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('contentful.DELIVERY.cfexampleapi.master.Entry.entryId.__ALL__', $key);
 
         $key = $instanceRepository->generateCacheKey(
-            'DELIVERY',
             'Entry',
             'entryId',
             'en-US'
@@ -44,7 +45,6 @@ class InstanceRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('contentful.DELIVERY.cfexampleapi.master.Entry.entryId.en_US', $key);
 
         $key = $instanceRepository->generateCacheKey(
-            'DELIVERY',
             'Entry',
             'entry-id-._',
             'en-US'

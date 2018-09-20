@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Core\Resource\ResourceArray;
@@ -18,7 +20,7 @@ use Contentful\Delivery\Resource\Space;
 use Contentful\Tests\Delivery\TestCase;
 
 /**
- * Test that objects can be constructed successfullly in various scenarios.
+ * Test that objects can be constructed successfully in various scenarios.
  */
 class EntryTest extends TestCase
 {

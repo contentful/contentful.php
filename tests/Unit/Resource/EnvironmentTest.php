@@ -7,21 +7,25 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
+use Contentful\Tests\Delivery\Implementation\MockEnvironment;
+use Contentful\Tests\Delivery\Implementation\MockLocale;
 use Contentful\Tests\Delivery\TestCase;
 
 class EnvironmentTest extends TestCase
 {
     public function testGetters()
     {
-        $localeEn = new MockLocale([
+        $localeEn = MockLocale::withSys('en-US', [
             'code' => 'en-US',
             'name' => 'English (United States)',
             'fallbackCode' => 'it-IT',
             'default' => \false,
         ]);
-        $localeIt = new MockLocale([
+        $localeIt = MockLocale::withSys('it-IT', [
             'code' => 'it-IT',
             'name' => 'Italian (Italy)',
             'fallbackCode' => \null,
@@ -51,18 +55,20 @@ class EnvironmentTest extends TestCase
      */
     public function testInvalidDefault()
     {
-        MockEnvironment::withSys('master', ['locales' => []])->getDefaultLocale('invalid');
+        MockEnvironment::withSys('master', ['locales' => []])
+            ->getDefaultLocale()
+        ;
     }
 
     public function testJsonSerialize()
     {
-        $localeEn = new MockLocale([
+        $localeEn = MockLocale::withSys('en-US', [
             'code' => 'en-US',
             'name' => 'English (United States)',
             'fallbackCode' => 'it-IT',
             'default' => \false,
         ]);
-        $localeIt = new MockLocale([
+        $localeIt = MockLocale::withSys('it-IT', [
             'code' => 'it-IT',
             'name' => 'Italian (Italy)',
             'fallbackCode' => \null,

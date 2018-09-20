@@ -7,19 +7,29 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
-use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\File\FileInterface;
 use Contentful\Core\File\ImageFile;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\Environment;
-use Contentful\Delivery\Resource\Locale;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties;
+use Contentful\Tests\Delivery\Implementation\MockAsset;
+use Contentful\Tests\Delivery\Implementation\MockEnvironment;
+use Contentful\Tests\Delivery\Implementation\MockLocale;
+use Contentful\Tests\Delivery\Implementation\MockSpace;
 use Contentful\Tests\Delivery\TestCase;
 
 class AssetTest extends TestCase
 {
+    /**
+     * @var Space
+     */
+    private $space;
+
     /**
      * @var Environment
      */
@@ -48,6 +58,7 @@ class AssetTest extends TestCase
 
     public function setUp()
     {
+        $this->space = MockSpace::withSys('spaceId');
         $this->environment = $this->createMockEnvironment();
         $this->file = new ImageFile(
             'Nyan_cat_250px_frame.png',
@@ -61,10 +72,11 @@ class AssetTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Asset',
+            'space' => $this->space,
             'environment' => $this->environment,
             'revision' => 1,
-            'createdAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
-            'updatedAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
+            'createdAt' => '2013-09-02T14:56:34.240Z',
+            'updatedAt' => '2013-09-02T14:56:34.240Z',
         ]);
 
         $this->asset = new MockAsset([
@@ -135,10 +147,11 @@ class AssetTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Asset',
+            'space' => $this->space,
             'environment' => $this->environment,
             'revision' => 1,
-            'createdAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
-            'updatedAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
+            'createdAt' => '2013-09-02T14:56:34.240Z',
+            'updatedAt' => '2013-09-02T14:56:34.240Z',
         ]);
         $asset = new MockAsset([
             'sys' => $sys,
@@ -155,10 +168,11 @@ class AssetTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Asset',
+            'space' => $this->space,
             'environment' => $this->environment,
             'revision' => 1,
-            'createdAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
-            'updatedAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
+            'createdAt' => '2013-09-02T14:56:34.240Z',
+            'updatedAt' => '2013-09-02T14:56:34.240Z',
         ]);
         $asset = new MockAsset([
             'sys' => $sys,
@@ -180,10 +194,11 @@ class AssetTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Asset',
+            'space' => $this->space,
             'environment' => $this->environment,
             'revision' => 1,
-            'createdAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
-            'updatedAt' => new DateTimeImmutable('2013-09-02T14:56:34.240Z'),
+            'createdAt' => '2013-09-02T14:56:34.240Z',
+            'updatedAt' => '2013-09-02T14:56:34.240Z',
         ]);
         $asset = new MockAsset([
             'sys' => $sys,

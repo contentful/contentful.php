@@ -5,6 +5,20 @@
     "sys": {
         "id": "human",
         "type": "ContentType",
+        "space": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "spaceId"
+            }
+        },
+        "environment": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Environment",
+                "id": "master"
+            }
+        },
         "revision": 3,
         "createdAt": "2013-06-27T22:46:14.133Z",
         "updatedAt": "2013-09-02T15:10:26.818Z"

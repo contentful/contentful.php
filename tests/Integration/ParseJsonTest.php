@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\Integration;
 
 use Contentful\Core\Resource\ResourceArray;
@@ -45,7 +47,6 @@ class ParseJsonTest extends TestCase
     {
         return [
             ['parse_and_encode_content_type.json'],
-            ['parse_and_encode_deleted_entry.json'],
             ['parse_and_encode_deleted_asset.json'],
             ['parse_and_encode_deleted_content_type.json'],
             ['parse_and_encode_entry.json'],

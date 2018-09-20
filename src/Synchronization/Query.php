@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Synchronization;
 
 use Contentful\Delivery\Resource\ContentType;
@@ -37,7 +39,7 @@ class Query
      *
      * @return array
      */
-    public function getQueryData()
+    public function getQueryData(): array
     {
         $data = [
             'initial' => 'true',
@@ -53,7 +55,7 @@ class Query
      *
      * @return string
      */
-    public function getQueryString()
+    public function getQueryString(): string
     {
         return \http_build_query($this->getQueryData(), '', '&', \PHP_QUERY_RFC3986);
     }
@@ -77,7 +79,7 @@ class Query
      *
      * @return $this
      */
-    public function setType($type)
+    public function setType(string $type = \null)
     {
         $validTypes = ['all', 'Asset', 'Entry', 'Deletion', 'DeletedAsset', 'DeletedEntry'];
         if (!\in_array($type, $validTypes, \true)) {

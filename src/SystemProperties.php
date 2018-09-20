@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery;
 
 use Contentful\Core\Api\DateTimeImmutable;
@@ -84,12 +86,12 @@ class SystemProperties implements SystemPropertiesInterface
      */
     public function __construct(array $sys)
     {
-        $this->client = isset($sys['__client']) ? $sys['__client'] : \null;
+        $this->client = $sys['__client'] ?? \null;
 
-        $this->id = isset($sys['id']) ? $sys['id'] : \null;
-        $this->type = isset($sys['type']) ? $sys['type'] : \null;
-        $this->revision = isset($sys['revision']) ? $sys['revision'] : \null;
-        $this->locale = isset($sys['locale']) ? $sys['locale'] : \null;
+        $this->id = $sys['id'] ?? \null;
+        $this->type = $sys['type'] ?? \null;
+        $this->revision = $sys['revision'] ?? \null;
+        $this->locale = $sys['locale'] ?? \null;
 
         $this->space = $this->checkAndBuildResource($sys, 'space');
         $this->contentType = $this->checkAndBuildResource($sys, 'contentType');
@@ -146,7 +148,7 @@ class SystemProperties implements SystemPropertiesInterface
     /**
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
@@ -154,7 +156,7 @@ class SystemProperties implements SystemPropertiesInterface
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }

@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Mapper;
 
 use Contentful\Core\Api\Link;
@@ -54,7 +56,7 @@ class Asset extends BaseMapper
      *
      * @return FileInterface
      */
-    protected function buildFile(array $data)
+    protected function buildFile(array $data): FileInterface
     {
         if (isset($data['uploadFrom'])) {
             return new LocalUploadFile(

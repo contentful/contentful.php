@@ -1,4 +1,8 @@
 {
+    "sys": {
+        "id": "en-US",
+        "type": "Locale"
+    },
     "code": "en-US",
     "name": "English (United States)",
     "default": false,

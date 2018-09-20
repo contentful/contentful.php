@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Cache;
 
 use Psr\Cache\CacheItemPoolInterface;
@@ -40,5 +42,5 @@ interface CacheItemPoolFactoryInterface
      *
      * @return CacheItemPoolInterface
      */
-    public function getCacheItemPool($api, $spaceId, $environmentId);
+    public function getCacheItemPool(string $api, string $spaceId, string $environmentId): CacheItemPoolInterface;
 }

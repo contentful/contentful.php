@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Synchronization;
 
 /**
@@ -36,7 +38,7 @@ class Result
      * @param string $token
      * @param bool   $done
      */
-    public function __construct(array $items, $token, $done)
+    public function __construct(array $items, string $token, bool $done)
     {
         $this->items = $items;
         $this->token = $token;
@@ -48,7 +50,7 @@ class Result
      *
      * @return array
      */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->items;
     }
@@ -58,7 +60,7 @@ class Result
      *
      * @return string
      */
-    public function getToken()
+    public function getToken(): string
     {
         return $this->token;
     }
@@ -68,7 +70,7 @@ class Result
      *
      * @return bool
      */
-    public function isDone()
+    public function isDone(): bool
     {
         return $this->done;
     }

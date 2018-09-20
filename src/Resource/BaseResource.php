@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Resource;
 
 use Contentful\Core\Api\Link;
@@ -44,10 +46,8 @@ abstract class BaseResource implements ResourceInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return SystemProperties
      */
-    public function getSystemProperties()
+    public function getSystemProperties(): SystemProperties
     {
         return $this->sys;
     }
@@ -55,27 +55,27 @@ abstract class BaseResource implements ResourceInterface
     /**
      * {@inheritdoc}
      */
-    public function asLink()
+    public function asLink(): Link
     {
         return new Link(
-            $this->sys->getId(),
-            $this->sys->getType()
+            $this->getSystemProperties()->getId(),
+            $this->getSystemProperties()->getType()
         );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getId()
+    public function getId(): string
     {
-        return $this->sys->getId();
+        return $this->getSystemProperties()->getId();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getType()
+    public function getType(): string
     {
-        return $this->sys->getType();
+        return $this->getSystemProperties()->getType();
     }
 }

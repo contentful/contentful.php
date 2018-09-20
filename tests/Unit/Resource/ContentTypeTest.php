@@ -7,10 +7,15 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
-use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Delivery\SystemProperties;
+use Contentful\Tests\Delivery\Implementation\MockContentType;
+use Contentful\Tests\Delivery\Implementation\MockEnvironment;
+use Contentful\Tests\Delivery\Implementation\MockField;
+use Contentful\Tests\Delivery\Implementation\MockSpace;
 use Contentful\Tests\Delivery\TestCase;
 
 class ContentTypeTest extends TestCase
@@ -20,9 +25,11 @@ class ContentTypeTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'human',
             'type' => 'ContentType',
+            'space' => MockSpace::withSys('spaceId'),
+            'environment' => MockEnvironment::withSys('master'),
             'revision' => 3,
-            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:14.133Z'),
-            'updatedAt' => new DateTimeImmutable('2013-09-02T15:10:26.818Z'),
+            'createdAt' => '2013-06-27T22:46:14.133Z',
+            'updatedAt' => '2013-09-02T15:10:26.818Z',
         ]);
         $contentType = new MockContentType([
             'sys' => $sys,
@@ -59,9 +66,11 @@ class ContentTypeTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'human',
             'type' => 'ContentType',
+            'space' => MockSpace::withSys('spaceId'),
+            'environment' => MockEnvironment::withSys('master'),
             'revision' => 3,
-            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:14.133Z'),
-            'updatedAt' => new DateTimeImmutable('2013-09-02T15:10:26.818Z'),
+            'createdAt' => '2013-06-27T22:46:14.133Z',
+            'updatedAt' => '2013-09-02T15:10:26.818Z',
         ]);
         $contentType = new MockContentType([
             'sys' => $sys,
@@ -82,9 +91,11 @@ class ContentTypeTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'human',
             'type' => 'ContentType',
+            'space' => MockSpace::withSys('spaceId'),
+            'environment' => MockEnvironment::withSys('master'),
             'revision' => 3,
-            'createdAt' => new DateTimeImmutable('2013-06-27T22:46:14.133Z'),
-            'updatedAt' => new DateTimeImmutable('2013-09-02T15:10:26.818Z'),
+            'createdAt' => '2013-06-27T22:46:14.133Z',
+            'updatedAt' => '2013-09-02T15:10:26.818Z',
         ]);
         $contentType = new MockContentType([
             'sys' => $sys,

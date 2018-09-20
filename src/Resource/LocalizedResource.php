@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Resource;
 
 /**
@@ -42,8 +44,9 @@ abstract class LocalizedResource extends BaseResource
             $this->localeCodes[] = $locale->getCode();
         }
 
-        if ($this->sys && $this->sys->getLocale()) {
-            $this->localeCode = $this->sys->getLocale();
+        $locale = $this->sys->getLocale();
+        if ($locale) {
+            $this->localeCode = $locale;
         }
     }
 
@@ -89,7 +92,7 @@ abstract class LocalizedResource extends BaseResource
             return $this->localeCode;
         }
 
-        if ($this->sys && $this->sys->getLocale() && $input !== $this->sys->getLocale()) {
+        if ($this->sys->getLocale() && $input !== $this->sys->getLocale()) {
             throw new \InvalidArgumentException(\sprintf(
                 'Entry with ID "%s" was built using locale "%s", but now access using locale "%s" is being attempted.',
                 $this->sys->getId(),

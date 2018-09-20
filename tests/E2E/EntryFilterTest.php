@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Delivery\Query;
@@ -26,7 +28,7 @@ class EntryFilterTest extends TestCase
         // entries?content_type={content_type}&{attribute}%5Bnin%5D={value}
         $query = (new Query())
             ->setContentType('cat')
-            ->where('sys.id', ['nyancat'], 'nin')
+            ->where('sys.id[nin]', ['nyancat'])
         ;
         $entries = $client->getEntries($query);
         /** @var Entry $entry */
@@ -39,14 +41,14 @@ class EntryFilterTest extends TestCase
         // entries?content_type={content_type}&{attribute}%5Bexists%5D={value}
         $query = (new Query())
             ->setContentType('cat')
-            ->where('fields.name', 'true', 'exists')
+            ->where('fields.name[exists]', 'true')
         ;
         $entries = $client->getEntries($query);
         $this->assertCount(3, $entries);
 
         // entries?{attribute}%5Blte%5D={value}
         $query = (new Query())
-            ->where('sys.createdAt', '2013-06-27T22:46:19.513Z', 'lte')
+            ->where('sys.createdAt[lte]', '2013-06-27T22:46:19.513Z')
         ;
         $entries = $client->getEntries($query);
         $this->assertCount(1, $entries);
@@ -54,7 +56,7 @@ class EntryFilterTest extends TestCase
         // entries?content_type={content_type}&fields.{field_id}%5Bmatch%5D={value}
         $query = (new Query())
             ->setContentType('cat')
-            ->where('fields.name', 'cat', 'match')
+            ->where('fields.name[match]', 'cat')
         ;
         $entries = $client->getEntries($query);
         $this->assertCount(2, $entries);
@@ -62,7 +64,7 @@ class EntryFilterTest extends TestCase
         // entries?fields.center%5Bnear%5D={coordinate}&content_type={content_type}
         $query = (new Query())
             ->setContentType('1t9IbcfdCk6m04uISSsaIK')
-            ->where('fields.center', '51.508530,-0.076132', 'near')
+            ->where('fields.center[near]', '51.508530,-0.076132')
         ;
         $entries = $client->getEntries($query);
         $this->assertSame('London', $entries[0]->get('name'));
@@ -70,7 +72,7 @@ class EntryFilterTest extends TestCase
         // entries?fields.center%5Bwithin%5D={rectangle}&content_type={content_type}
         $query = (new Query())
             ->setContentType('1t9IbcfdCk6m04uISSsaIK')
-            ->where('fields.center', '48,-1,52,0', 'within')
+            ->where('fields.center[within]', '48,-1,52,0')
         ;
         $entries = $client->getEntries($query);
         $this->assertSame('London', $entries[0]->get('name'));

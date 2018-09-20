@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Mapper;
 
 use Contentful\Core\Api\DateTimeImmutable;
@@ -151,7 +153,7 @@ class Entry extends BaseMapper
      *
      * @return mixed
      */
-    private function formatValue($type, $value, $itemsType = \null)
+    private function formatValue(string $type, $value, string $itemsType = \null)
     {
         // Certain fields are already built as objects (Location, Link, DateTimeImmutable)
         // if the entry has already been built partially.
@@ -178,7 +180,7 @@ class Entry extends BaseMapper
 
         if ('Array' === $type) {
             return \array_map(function ($value) use ($itemsType) {
-                return $this->formatValue($itemsType, $value);
+                return $this->formatValue((string) $itemsType, $value);
             }, $value);
         }
 

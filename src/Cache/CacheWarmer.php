@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Contentful\Delivery\Cache;
 
 use Contentful\Delivery\SystemProperties;
@@ -25,24 +27,20 @@ class CacheWarmer extends BaseCacheHandler
      *
      * @return bool
      */
-    public function warmUp($cacheContent = \false)
+    public function warmUp($cacheContent = \false): bool
     {
-        $api = $this->client->getApi();
         $instanceRepository = $this->client->getInstanceRepository();
-        $previous = $this->toggleAutoWarmup($instanceRepository, \false);
 
         foreach ($this->fetchResources($cacheContent) as $resource) {
             /** @var SystemProperties $sys */
             $sys = $resource->getSystemProperties();
-            $key = $instanceRepository->generateCacheKey($api, $sys->getType(), $sys->getId(), $sys->getLocale());
+            $key = $instanceRepository->generateCacheKey($sys->getType(), $sys->getId(), $sys->getLocale());
 
             $item = $this->cacheItemPool->getItem($key);
             $item->set(guzzle_json_encode($resource));
 
             $this->cacheItemPool->saveDeferred($item);
         }
-
-        $this->toggleAutoWarmup($instanceRepository, $previous);
 
         return $this->cacheItemPool->commit();
     }
