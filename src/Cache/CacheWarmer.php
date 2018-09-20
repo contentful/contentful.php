@@ -11,7 +11,8 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Cache;
 
-use Contentful\Delivery\SystemProperties;
+use Contentful\Core\Resource\SystemPropertiesInterface;
+use Contentful\Delivery\SystemProperties\LocalizedResource as LocalizedResourceSystemProperties;
 use function GuzzleHttp\json_encode as guzzle_json_encode;
 
 /**
@@ -32,9 +33,13 @@ class CacheWarmer extends BaseCacheHandler
         $instanceRepository = $this->client->getInstanceRepository();
 
         foreach ($this->fetchResources($cacheContent) as $resource) {
-            /** @var SystemProperties $sys */
+            /** @var SystemPropertiesInterface $sys */
             $sys = $resource->getSystemProperties();
-            $key = $instanceRepository->generateCacheKey($sys->getType(), $sys->getId(), $sys->getLocale());
+
+            $locale = $sys instanceof LocalizedResourceSystemProperties
+                ? $sys->getLocale()
+                : \null;
+            $key = $instanceRepository->generateCacheKey($sys->getType(), $sys->getId(), $locale);
 
             $item = $this->cacheItemPool->getItem($key);
             $item->set(guzzle_json_encode($resource));

@@ -16,7 +16,7 @@ use Contentful\Core\File\ImageFile;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
-use Contentful\Delivery\SystemProperties;
+use Contentful\Delivery\SystemProperties\Asset as SystemProperties;
 use Contentful\Tests\Delivery\Implementation\MockAsset;
 use Contentful\Tests\Delivery\Implementation\MockEnvironment;
 use Contentful\Tests\Delivery\Implementation\MockLocale;

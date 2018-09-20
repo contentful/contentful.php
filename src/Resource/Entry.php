@@ -16,6 +16,7 @@ use Contentful\Core\Exception\NotFoundException;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\ContentType\Field;
+use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
 
 class Entry extends LocalizedResource implements \ArrayAccess
 {
@@ -23,6 +24,19 @@ class Entry extends LocalizedResource implements \ArrayAccess
      * @var array
      */
     protected $fields;
+
+    /**
+     * @var SystemProperties
+     */
+    protected $sys;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSystemProperties(): SystemProperties
+    {
+        return $this->sys;
+    }
 
     /**
      * Returns the space this entry belongs to.

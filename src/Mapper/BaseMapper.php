@@ -13,12 +13,12 @@ namespace Contentful\Delivery\Mapper;
 
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Core\Resource\ResourceInterface;
+use Contentful\Core\Resource\SystemPropertiesInterface;
 use Contentful\Core\ResourceBuilder\MapperInterface;
 use Contentful\Core\ResourceBuilder\ObjectHydrator;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Resource\LocalizedResource;
 use Contentful\Delivery\ResourceBuilder;
-use Contentful\Delivery\SystemProperties;
 
 /**
  * BaseMapper class.
@@ -77,15 +77,28 @@ abstract class BaseMapper implements MapperInterface
     }
 
     /**
-     * @param array $sys
+     * @param string $class
+     * @param array  $data
      *
-     * @return SystemProperties
+     * @return SystemPropertiesInterface
      */
-    protected function buildSystemProperties(array $sys)
+    protected function createSystemProperties(string $class, array $data): SystemPropertiesInterface
     {
-        $sys['__client'] = $this->client;
+        $sys = $data['sys'];
 
-        return new SystemProperties($sys);
+        if (isset($sys['space'])) {
+            $sys['space'] = $this->client->getSpace();
+        }
+
+        if (isset($sys['environment'])) {
+            $sys['environment'] = $this->client->getEnvironment();
+        }
+
+        if (isset($sys['contentType'])) {
+            $sys['contentType'] = $this->client->getContentType($sys['contentType']['sys']['id']);
+        }
+
+        return new $class($sys);
     }
 
     /**

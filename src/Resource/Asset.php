@@ -12,9 +12,15 @@ declare(strict_types=1);
 namespace Contentful\Delivery\Resource;
 
 use Contentful\Core\File\FileInterface;
+use Contentful\Delivery\SystemProperties\Asset as SystemProperties;
 
 class Asset extends LocalizedResource
 {
+    /**
+     * @var SystemProperties
+     */
+    protected $sys;
+
     /**
      * @var string[]
      */
@@ -29,6 +35,14 @@ class Asset extends LocalizedResource
      * @var FileInterface[]
      */
     protected $file;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSystemProperties(): SystemProperties
+    {
+        return $this->sys;
+    }
 
     /**
      * Returns the space this asset belongs to.

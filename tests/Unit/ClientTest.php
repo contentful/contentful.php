@@ -32,6 +32,7 @@ class ClientTest extends TestCase
         $client = new Client('b4c0n73n7fu1', 'cfexampleapi');
 
         $this->assertFalse($client->isPreviewApi());
+        $this->assertTrue($client->isDeliveryApi());
         $this->assertSame('DELIVERY', $client->getApi());
     }
 
@@ -47,6 +48,7 @@ class ClientTest extends TestCase
         $client = new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', ClientOptions::create()->usingPreviewApi());
 
         $this->assertTrue($client->isPreviewApi());
+        $this->assertFalse($client->isDeliveryApi());
         $this->assertSame('PREVIEW', $client->getApi());
     }
 

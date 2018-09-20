@@ -12,16 +12,27 @@ declare(strict_types=1);
 namespace Contentful\Tests\Delivery\Implementation;
 
 use Contentful\Delivery\Resource\Asset;
-use Contentful\Delivery\SystemProperties;
+use Contentful\Delivery\SystemProperties\Asset as SystemProperties;
 
 class MockAsset extends Asset
 {
+    /**
+     * MockAsset constructor.
+     *
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         parent::__construct($data);
     }
 
-    public static function withSys($id, $data = [])
+    /**
+     * @param string $id
+     * @param array  $data
+     *
+     * @return MockAsset
+     */
+    public static function withSys(string $id = 'assetId', array $data = []): self
     {
         return new static(\array_merge($data, [
             'sys' => new SystemProperties([

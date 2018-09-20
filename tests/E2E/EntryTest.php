@@ -154,9 +154,9 @@ class EntryTest extends TestCase
 
         $this->assertSame('nyancat', $image->getId());
 
-        // There should be 3 and only 3 requests:
-        // the entries with the query, the locales and the cat content type.
-        $this->assertCount(3, $client->getMessages());
+        // There should be 4 and only 4 requests:
+        // the entries with the query, the space, the locales and the cat content type.
+        $this->assertCount(4, $client->getMessages());
     }
 
     /**

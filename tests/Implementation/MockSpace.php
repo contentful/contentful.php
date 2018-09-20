@@ -12,16 +12,27 @@ declare(strict_types=1);
 namespace Contentful\Tests\Delivery\Implementation;
 
 use Contentful\Delivery\Resource\Space;
-use Contentful\Delivery\SystemProperties;
+use Contentful\Delivery\SystemProperties\Space as SystemProperties;
 
 class MockSpace extends Space
 {
+    /**
+     * MockSpace constructor.
+     *
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         parent::__construct($data);
     }
 
-    public static function withSys(string $id = 'spaceId', array $data = [])
+    /**
+     * @param string $id
+     * @param array  $data
+     *
+     * @return MockSpace
+     */
+    public static function withSys(string $id = 'spaceId', array $data = []): self
     {
         return new static(\array_merge($data, [
             'sys' => new SystemProperties([

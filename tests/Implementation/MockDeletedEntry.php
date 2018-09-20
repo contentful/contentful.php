@@ -15,6 +15,11 @@ use Contentful\Delivery\Resource\DeletedEntry;
 
 class MockDeletedEntry extends DeletedEntry
 {
+    /**
+     * MockDeletedEntry constructor.
+     *
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         parent::__construct($data);

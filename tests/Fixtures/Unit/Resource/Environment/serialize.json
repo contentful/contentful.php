@@ -6,7 +6,8 @@
     "locales": [{
         "sys": {
             "id": "en-US",
-            "type": "Locale"
+            "type": "Locale",
+            "version": 1
         },
         "code": "en-US",
         "default": false,
@@ -15,7 +16,8 @@
     }, {
         "sys": {
             "id": "it-IT",
-            "type": "Locale"
+            "type": "Locale",
+            "version": 1
         },
         "code": "it-IT",
         "default": true,

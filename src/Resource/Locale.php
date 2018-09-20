@@ -11,11 +11,18 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Resource;
 
+use Contentful\Delivery\SystemProperties\Locale as SystemProperties;
+
 /**
  * Value object encoding a locale.
  */
 class Locale extends BaseResource
 {
+    /**
+     * @var SystemProperties
+     */
+    protected $sys;
+
     /**
      * @var string
      */
@@ -35,6 +42,14 @@ class Locale extends BaseResource
      * @var bool
      */
     protected $default = \false;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSystemProperties(): SystemProperties
+    {
+        return $this->sys;
+    }
 
     /**
      * Returns the locale code.
