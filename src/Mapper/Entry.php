@@ -17,6 +17,7 @@ use Contentful\Core\Api\Location;
 use Contentful\Delivery\Resource\ContentType as ResourceContentType;
 use Contentful\Delivery\Resource\ContentType\Field as ResourceContentTypeField;
 use Contentful\Delivery\Resource\Entry as ResourceClass;
+use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
 
 /**
  * Entry class.
@@ -31,7 +32,8 @@ class Entry extends BaseMapper
      */
     public function map($resource, array $data)
     {
-        $sys = $this->buildSystemProperties($data['sys']);
+        /** @var SystemProperties $sys */
+        $sys = $this->createSystemProperties(SystemProperties::class, $data);
         $locale = $sys->getLocale();
 
         return $this->hydrate($resource ?: ResourceClass::class, [

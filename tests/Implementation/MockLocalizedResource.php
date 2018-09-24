@@ -13,7 +13,7 @@ namespace Contentful\Tests\Delivery\Implementation;
 
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\LocalizedResource;
-use Contentful\Delivery\SystemProperties;
+use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
 
 class MockLocalizedResource extends LocalizedResource
 {
@@ -33,6 +33,11 @@ class MockLocalizedResource extends LocalizedResource
         ]);
 
         $this->initLocales($locales);
+    }
+
+    public function getSystemProperties()
+    {
+        return $this->sys;
     }
 
     public function getLocaleFromInput($locale = \null)

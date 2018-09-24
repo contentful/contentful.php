@@ -4,8 +4,8 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/environments\/master\/entries?limit=1",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
-            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.3.3 curl\/7.54.0 PHP\/7.1.21",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.0.0-dev; platform PHP\/7.1.21; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963"
@@ -27,11 +27,12 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Mon, 16 Apr 2018 09:20:39 GMT",
+            "Contentful-Api": "cpa",
+            "Date": "Mon, 24 Sep 2018 08:30:43 GMT",
             "ETag": "\"7811d6aca5f5ee099a7c2f1c18ad8a76\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "ed7203c69b43f08c0e0b9e1f171ff355",
+            "X-Contentful-Request-Id": "a896a9433d16da327d04057f38691951",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -43,8 +44,8 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/environments\/master\/entries?limit=2",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
-            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.3.3 curl\/7.54.0 PHP\/7.1.21",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.0.0-dev; platform PHP\/7.1.21; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963"
@@ -66,11 +67,12 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Mon, 16 Apr 2018 09:20:40 GMT",
+            "Contentful-Api": "cpa",
+            "Date": "Mon, 24 Sep 2018 08:30:44 GMT",
             "ETag": "\"855535eed9d54df2150444800f46014b\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "35f5aacc996aed30c005138a3f638009",
+            "X-Contentful-Request-Id": "21e30af951ff663880ae9670569c5ac9",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -82,8 +84,8 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/environments\/master\/entries?limit=3",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
-            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.3.3 curl\/7.54.0 PHP\/7.1.21",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.0.0-dev; platform PHP\/7.1.21; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963"
@@ -105,11 +107,12 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Mon, 16 Apr 2018 09:20:40 GMT",
+            "Contentful-Api": "cpa",
+            "Date": "Mon, 24 Sep 2018 08:30:45 GMT",
             "ETag": "\"cbc5b5d83c973167418a4471026b905a\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "4554aa1b9811a4de34a5325f7aa586f1",
+            "X-Contentful-Request-Id": "8ef741a6eda403839529bb38c68e98e7",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -121,8 +124,8 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/environments\/master\/entries?limit=4",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
-            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.3.3 curl\/7.54.0 PHP\/7.1.21",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.0.0-dev; platform PHP\/7.1.21; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963"
@@ -144,11 +147,12 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Mon, 16 Apr 2018 09:20:41 GMT",
+            "Contentful-Api": "cpa",
+            "Date": "Mon, 24 Sep 2018 08:30:46 GMT",
             "ETag": "\"338dd33cc9eb29b8d29e842bfa1261ed\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "06eb4eb1d448337e0a4a8d99e7f0b639",
+            "X-Contentful-Request-Id": "44f3dd4f5b71c5f89c79a58d2fba4a07",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -160,8 +164,8 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/environments\/master\/entries?limit=5",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
-            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.3.3 curl\/7.54.0 PHP\/7.1.21",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.0.0-dev; platform PHP\/7.1.21; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963"
@@ -183,11 +187,12 @@
             "CF-Organization-Id": "67Ij2xR5gkpAM7kKjMylGm",
             "CF-Space-Id": "bc32cj3kyfet",
             "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Date": "Mon, 16 Apr 2018 09:20:42 GMT",
+            "Contentful-Api": "cpa",
+            "Date": "Mon, 24 Sep 2018 08:30:46 GMT",
             "ETag": "\"f0c7e0348a98f28f1164eed6719c1d33\"",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Request-Id": "6585087aeedfc2d4e64d1f1b4b84f278",
+            "X-Contentful-Request-Id": "e810558d62aaae4c858ee49308bef0d8",
             "Content-Length": "95",
             "Connection": "keep-alive"
         },
@@ -199,8 +204,8 @@
         "url": "https:\/\/preview.contentful.com\/spaces\/bc32cj3kyfet\/environments\/master\/entries?limit=6",
         "headers": {
             "Host": "preview.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.3.2 curl\/7.54.0 PHP\/7.1.14",
-            "X-Contentful-User-Agent": "sdk contentful.php\/3.0.0-dev; platform PHP\/7.1.14; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.3.3 curl\/7.54.0 PHP\/7.1.21",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.0.0-dev; platform PHP\/7.1.21; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963"
@@ -219,14 +224,15 @@
             "Access-Control-Expose-Headers": "Etag",
             "Access-Control-Max-Age": "1728000",
             "Content-Type": "application\/vnd.contentful.management.v1+json",
-            "Date": "Mon, 16 Apr 2018 09:20:43 GMT",
+            "Contentful-Api": "cpa",
+            "Date": "Mon, 24 Sep 2018 08:30:47 GMT",
             "Server": "Contentful",
             "X-Content-Type-Options": "nosniff",
-            "X-Contentful-RateLimit-Reset": "3257",
-            "X-Contentful-Request-Id": "de701ab77e4ff81e8cfe815914602aef",
+            "X-Contentful-RateLimit-Reset": "3553",
+            "X-Contentful-Request-Id": "97b04ab3790be4da707732a6c11dc3f1",
             "Content-Length": "323",
             "Connection": "keep-alive"
         },
-        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"RateLimitExceeded\"\n  },\n  \"message\": \"You have exceeded the rate limit of the Organization this Space belongs to by making too many API requests within a short timespan. Please wait a moment before trying the request again.\",\n  \"requestId\": \"de701ab77e4ff81e8cfe815914602aef\"\n}\n"
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"RateLimitExceeded\"\n  },\n  \"message\": \"You have exceeded the rate limit of the Organization this Space belongs to by making too many API requests within a short timespan. Please wait a moment before trying the request again.\",\n  \"requestId\": \"97b04ab3790be4da707732a6c11dc3f1\"\n}\n"
     }
 }]

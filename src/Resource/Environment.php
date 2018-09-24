@@ -11,12 +11,27 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Resource;
 
+use Contentful\Delivery\SystemProperties\Environment as SystemProperties;
+
 class Environment extends BaseResource
 {
+    /**
+     * @var SystemProperties
+     */
+    protected $sys;
+
     /**
      * @var Locale[]
      */
     protected $locales = [];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSystemProperties(): SystemProperties
+    {
+        return $this->sys;
+    }
 
     /**
      * @return Locale[]

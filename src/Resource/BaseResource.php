@@ -14,7 +14,6 @@ namespace Contentful\Delivery\Resource;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Delivery\Client;
-use Contentful\Delivery\SystemProperties;
 
 abstract class BaseResource implements ResourceInterface
 {
@@ -22,11 +21,6 @@ abstract class BaseResource implements ResourceInterface
      * @var Client
      */
     protected $client;
-
-    /**
-     * @var SystemProperties
-     */
-    protected $sys;
 
     /**
      * Resources in this SDK should not be built using `$new Class()`.
@@ -42,14 +36,6 @@ abstract class BaseResource implements ResourceInterface
                 $this->$property = $value;
             }
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getSystemProperties(): SystemProperties
-    {
-        return $this->sys;
     }
 
     /**

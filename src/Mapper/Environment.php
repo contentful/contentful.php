@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Contentful\Delivery\Mapper;
 
 use Contentful\Delivery\Resource\Environment as ResourceClass;
+use Contentful\Delivery\SystemProperties\Environment as SystemProperties;
 
 /**
  * Environment class.
@@ -27,7 +28,7 @@ class Environment extends BaseMapper
     public function map($resource, array $data)
     {
         return $this->hydrate($resource ?: ResourceClass::class, [
-            'sys' => $this->buildSystemProperties($data['sys']),
+            'sys' => $this->createSystemProperties(SystemProperties::class, $data),
             'locales' => \array_map(function ($locale) {
                 return $this->builder->build($locale);
             }, $data['locales']),

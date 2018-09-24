@@ -12,16 +12,27 @@ declare(strict_types=1);
 namespace Contentful\Tests\Delivery\Implementation;
 
 use Contentful\Delivery\Resource\ContentType;
-use Contentful\Delivery\SystemProperties;
+use Contentful\Delivery\SystemProperties\ContentType as SystemProperties;
 
 class MockContentType extends ContentType
 {
+    /**
+     * MockContentType constructor.
+     *
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         parent::__construct($data);
     }
 
-    public static function withSys($id, $data = [])
+    /**
+     * @param string $id
+     * @param array  $data
+     *
+     * @return MockContentType
+     */
+    public static function withSys(string $id = 'contentTypeId', array $data = []): self
     {
         return new static(\array_merge($data, [
             'sys' => new SystemProperties([

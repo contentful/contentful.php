@@ -11,7 +11,8 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Cache;
 
-use Contentful\Delivery\SystemProperties;
+use Contentful\Core\Resource\SystemPropertiesInterface;
+use Contentful\Delivery\SystemProperties\LocalizedResource as LocalizedResourceSystemProperties;
 
 /**
  * CacheClearer class.
@@ -32,9 +33,13 @@ class CacheClearer extends BaseCacheHandler
 
         $keys = [];
         foreach ($this->fetchResources($cacheContent) as $resource) {
-            /** @var SystemProperties $sys */
+            /** @var SystemPropertiesInterface $sys */
             $sys = $resource->getSystemProperties();
-            $keys[] = $instanceRepository->generateCacheKey($sys->getType(), $sys->getId(), $sys->getLocale());
+
+            $locale = $sys instanceof LocalizedResourceSystemProperties
+                ? $sys->getLocale()
+                : \null;
+            $keys[] = $instanceRepository->generateCacheKey($sys->getType(), $sys->getId(), $locale);
         }
 
         return $this->cacheItemPool->deleteItems($keys);

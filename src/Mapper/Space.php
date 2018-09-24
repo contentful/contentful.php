@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Contentful\Delivery\Mapper;
 
 use Contentful\Delivery\Resource\Space as ResourceClass;
+use Contentful\Delivery\SystemProperties\Space as SystemProperties;
 
 /**
  * Space class.
@@ -27,7 +28,7 @@ class Space extends BaseMapper
     public function map($resource, array $data)
     {
         return $this->hydrate($resource ?: ResourceClass::class, [
-            'sys' => $this->buildSystemProperties($data['sys']),
+            'sys' => $this->createSystemProperties(SystemProperties::class, $data),
             'name' => $data['name'],
         ]);
     }

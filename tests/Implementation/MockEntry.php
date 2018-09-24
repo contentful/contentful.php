@@ -13,16 +13,27 @@ namespace Contentful\Tests\Delivery\Implementation;
 
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Resource\Entry;
-use Contentful\Delivery\SystemProperties;
+use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
 
 class MockEntry extends Entry
 {
+    /**
+     * MockEntry constructor.
+     *
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         parent::__construct($data);
     }
 
-    public static function withSys($id, $data = [])
+    /**
+     * @param string $id
+     * @param array  $data
+     *
+     * @return MockEntry
+     */
+    public static function withSys(string $id = 'entryId', array $data = []): self
     {
         return new static(\array_merge($data, [
             'sys' => new SystemProperties([

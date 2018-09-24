@@ -11,15 +11,30 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Resource;
 
+use Contentful\Delivery\SystemProperties\Space as SystemProperties;
+
 /**
  * The Space class represents a single space identified by its ID and holding some metadata.
  */
 class Space extends BaseResource
 {
     /**
+     * @var SystemProperties
+     */
+    protected $sys;
+
+    /**
      * @var string
      */
     protected $name;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSystemProperties(): SystemProperties
+    {
+        return $this->sys;
+    }
 
     /**
      * Returns the name of this space.

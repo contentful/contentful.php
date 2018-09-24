@@ -12,6 +12,8 @@ declare(strict_types=1);
 namespace Contentful\Delivery;
 
 use Contentful\Core\Resource\ResourceInterface;
+use Contentful\Core\Resource\SystemPropertiesInterface;
+use Contentful\Delivery\SystemProperties\LocalizedResource as LocalizedResourceSystemProperties;
 use Psr\Cache\CacheItemPoolInterface;
 use function GuzzleHttp\json_encode as guzzle_json_encode;
 
@@ -113,7 +115,9 @@ class InstanceRepository
         $item = $this->cacheItemPool->getItem($key);
         if ($item->isHit()) {
             $this->warmupStack[$key] = \true;
-            $this->resources[$key] = $this->client->parseJson($item->get());
+            /** @var ResourceInterface $resource */
+            $resource = $this->client->parseJson($item->get());
+            $this->resources[$key] = $resource;
             unset($this->warmupStack[$key]);
         }
     }
@@ -138,11 +142,14 @@ class InstanceRepository
      */
     public function set(ResourceInterface $resource)
     {
-        /** @var SystemProperties $sys */
+        /** @var SystemPropertiesInterface $sys */
         $sys = $resource->getSystemProperties();
         $type = $sys->getType();
 
-        $key = $this->generateCacheKey($type, $sys->getId(), $sys->getLocale());
+        $locale = $sys instanceof LocalizedResourceSystemProperties
+            ? $sys->getLocale()
+            : \null;
+        $key = $this->generateCacheKey($type, $sys->getId(), $locale);
         $this->resources[$key] = $resource;
 
         if (!$this->mustBeCached($type)) {

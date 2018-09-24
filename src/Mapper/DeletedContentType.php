@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Contentful\Delivery\Mapper;
 
 use Contentful\Delivery\Resource\DeletedContentType as ResourceClass;
+use Contentful\Delivery\SystemProperties\DeletedContentType as SystemProperties;
 
 /**
  * DeletedContentType class.
@@ -27,7 +28,7 @@ class DeletedContentType extends BaseMapper
     public function map($resource, array $data)
     {
         return $this->hydrate($resource ?: ResourceClass::class, [
-            'sys' => $this->buildSystemProperties($data['sys']),
+            'sys' => $this->createSystemProperties(SystemProperties::class, $data),
         ]);
     }
 }

@@ -18,6 +18,7 @@ use Contentful\Core\File\ImageFile;
 use Contentful\Core\File\LocalUploadFile;
 use Contentful\Core\File\RemoteUploadFile;
 use Contentful\Delivery\Resource\Asset as ResourceClass;
+use Contentful\Delivery\SystemProperties\Asset as SystemProperties;
 
 /**
  * Asset class.
@@ -32,7 +33,8 @@ class Asset extends BaseMapper
      */
     public function map($resource, array $data)
     {
-        $sys = $this->buildSystemProperties($data['sys']);
+        /** @var SystemProperties $sys */
+        $sys = $this->createSystemProperties(SystemProperties::class, $data);
         $locale = $sys->getLocale();
 
         return $this->hydrate($resource ?: ResourceClass::class, [

@@ -12,10 +12,15 @@ declare(strict_types=1);
 namespace Contentful\Tests\Delivery\Implementation;
 
 use Contentful\Delivery\Resource\Locale;
-use Contentful\Delivery\SystemProperties;
+use Contentful\Delivery\SystemProperties\Locale as SystemProperties;
 
 class MockLocale extends Locale
 {
+    /**
+     * MockLocale constructor.
+     *
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         $data['sys'] = $data['sys'] ?? new SystemProperties(['id' => $data['code'], 'type' => 'Locale']);
@@ -23,10 +28,20 @@ class MockLocale extends Locale
         parent::__construct($data);
     }
 
-    public static function withSys(string $id, $data = []): self
+    /**
+     * @param string $id
+     * @param array  $data
+     *
+     * @return MockLocale
+     */
+    public static function withSys(string $id = 'localeId', array $data = []): self
     {
         return new static(\array_merge($data, [
-            'sys' => new SystemProperties(['id' => $id, 'type' => 'Locale']),
+            'sys' => new SystemProperties([
+                'id' => $id,
+                'type' => 'Locale',
+                'version' => 1,
+            ]),
         ]));
     }
 }

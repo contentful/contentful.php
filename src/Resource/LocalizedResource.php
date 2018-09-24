@@ -11,9 +11,13 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Resource;
 
+use Contentful\Delivery\SystemProperties\LocalizedResource as SystemProperties;
+
 /**
  * A LocalizedResource can store information for multiple locales.
  * The methods in this base class allow switching between the locales.
+ *
+ * @property SystemProperties $sys
  */
 abstract class LocalizedResource extends BaseResource
 {

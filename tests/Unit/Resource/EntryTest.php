@@ -18,7 +18,7 @@ use Contentful\Delivery\Client;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
-use Contentful\Delivery\SystemProperties;
+use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
 use Contentful\Tests\Delivery\Implementation\MockContentType;
 use Contentful\Tests\Delivery\Implementation\MockEntry;
 use Contentful\Tests\Delivery\Implementation\MockEnvironment;

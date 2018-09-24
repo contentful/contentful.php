@@ -13,6 +13,7 @@ namespace Contentful\Delivery\Mapper;
 
 use Contentful\Delivery\Resource\ContentType as ResourceClass;
 use Contentful\Delivery\Resource\ContentType\Field as ResourceContentTypeField;
+use Contentful\Delivery\SystemProperties\ContentType as SystemProperties;
 
 /**
  * ContentType class.
@@ -34,7 +35,7 @@ class ContentType extends BaseMapper
         }
 
         return $this->hydrate($resource ?: ResourceClass::class, [
-            'sys' => $this->buildSystemProperties($data['sys']),
+            'sys' => $this->createSystemProperties(SystemProperties::class, $data),
             'name' => $data['name'],
             'displayField' => $data['displayField'] ?? \null,
             'description' => $data['description'] ?? \null,

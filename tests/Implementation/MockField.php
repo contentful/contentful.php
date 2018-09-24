@@ -15,7 +15,15 @@ use Contentful\Delivery\Resource\ContentType\Field;
 
 class MockField extends Field
 {
-    public function __construct($id, $name, $type, array $data = [])
+    /**
+     * MockField constructor.
+     *
+     * @param string $id
+     * @param string $name
+     * @param string $type
+     * @param array  $data
+     */
+    public function __construct(string $id, string $name, string $type, array $data = [])
     {
         parent::__construct($id, $name, $type);
 

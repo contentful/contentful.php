@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Contentful\Delivery\Resource;
 
 use Contentful\Delivery\Resource\ContentType\Field;
+use Contentful\Delivery\SystemProperties\ContentType as SystemProperties;
 
 /**
  * Content Types are schemas that define the fields of Entries. Every Entry can only contain values in the fields
@@ -19,6 +20,11 @@ use Contentful\Delivery\Resource\ContentType\Field;
  */
 class ContentType extends BaseResource
 {
+    /**
+     * @var SystemProperties
+     */
+    protected $sys;
+
     /**
      * Name of the Content Type.
      *
@@ -46,6 +52,14 @@ class ContentType extends BaseResource
      * @var string|null
      */
     protected $displayField;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSystemProperties(): SystemProperties
+    {
+        return $this->sys;
+    }
 
     /**
      * Returns the space this content type belongs to.

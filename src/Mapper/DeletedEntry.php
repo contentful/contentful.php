@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Contentful\Delivery\Mapper;
 
 use Contentful\Delivery\Resource\DeletedEntry as ResourceClass;
+use Contentful\Delivery\SystemProperties\DeletedEntry as SystemProperties;
 
 /**
  * DeletedEntry class.
@@ -27,7 +28,7 @@ class DeletedEntry extends BaseMapper
     public function map($resource, array $data)
     {
         return $this->hydrate($resource ?: ResourceClass::class, [
-            'sys' => $this->buildSystemProperties($data['sys']),
+            'sys' => $this->createSystemProperties(SystemProperties::class, $data),
         ]);
     }
 }

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Unit\Resource;
 
-use Contentful\Delivery\SystemProperties;
+use Contentful\Delivery\SystemProperties\DeletedEntry as SystemProperties;
 use Contentful\Tests\Delivery\Implementation\MockContentType;
 use Contentful\Tests\Delivery\Implementation\MockDeletedEntry;
 use Contentful\Tests\Delivery\Implementation\MockEnvironment;

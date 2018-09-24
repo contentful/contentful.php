@@ -11,9 +11,23 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Resource;
 
+use Contentful\Delivery\SystemProperties\DeletedAsset as SystemProperties;
+
 /**
  * A DeletedAsset describes an asset that has been deleted.
  */
 class DeletedAsset extends DeletedResource
 {
+    /**
+     * @var SystemProperties
+     */
+    protected $sys;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSystemProperties(): SystemProperties
+    {
+        return $this->sys;
+    }
 }
