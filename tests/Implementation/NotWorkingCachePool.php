@@ -16,47 +16,74 @@ use Psr\Cache\CacheItemPoolInterface;
 
 class NotWorkingCachePool implements CacheItemPoolInterface
 {
-    public function getItem($key)
+    /**
+     * {@inheritdoc}
+     */
+    public function getItem($key): CacheItemInterface
     {
         return new NotWorkingCacheItem($key);
     }
 
-    public function getItems(array $keys = [])
+    /**
+     * {@inheritdoc}
+     */
+    public function getItems(array $keys = []): array
     {
         return [];
     }
 
-    public function hasItem($key)
+    /**
+     * {@inheritdoc}
+     */
+    public function hasItem($key): bool
     {
         return \false;
     }
 
-    public function clear()
+    /**
+     * {@inheritdoc}
+     */
+    public function clear(): bool
     {
         return \false;
     }
 
-    public function deleteItem($key)
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteItem($key): bool
     {
         return \false;
     }
 
-    public function deleteItems(array $keys)
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteItems(array $keys): bool
     {
         return \false;
     }
 
-    public function save(CacheItemInterface $item)
+    /**
+     * {@inheritdoc}
+     */
+    public function save(CacheItemInterface $item): bool
     {
         return \false;
     }
 
-    public function saveDeferred(CacheItemInterface $item)
+    /**
+     * {@inheritdoc}
+     */
+    public function saveDeferred(CacheItemInterface $item): bool
     {
         return \false;
     }
 
-    public function commit()
+    /**
+     * {@inheritdoc}
+     */
+    public function commit(): bool
     {
         return \false;
     }

@@ -15,38 +15,64 @@ use Psr\Cache\CacheItemInterface;
 
 class NotWorkingCacheItem implements CacheItemInterface
 {
+    /**
+     * @var string
+     */
     private $key;
 
-    public function __construct($key)
+    /**
+     * NotWorkingCacheItem constructor.
+     *
+     * @param string $key
+     */
+    public function __construct(string $key)
     {
         $this->key = $key;
     }
 
-    public function getKey()
+    /**
+     * {@inheritdoc}
+     */
+    public function getKey(): string
     {
         return $this->key;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function get()
     {
         return \null;
     }
 
-    public function isHit()
+    /**
+     * {@inheritdoc}
+     */
+    public function isHit(): bool
     {
         return \false;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function set($value)
     {
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function expiresAt($expiration)
     {
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function expiresAfter($time)
     {
         return $this;

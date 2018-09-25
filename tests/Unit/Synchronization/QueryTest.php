@@ -19,9 +19,9 @@ class QueryTest extends TestCase
 {
     public function testFilterWithNoOptions()
     {
-        $queryBuilder = new Query();
+        $query = new Query();
 
-        $this->assertSame('initial=true', $queryBuilder->getQueryString());
+        $this->assertSame('initial=true', $query->getQueryString());
     }
 
     /**
@@ -29,40 +29,44 @@ class QueryTest extends TestCase
      */
     public function testSetTypeInvalidValue()
     {
-        $queryBuilder = new Query();
-        $queryBuilder->setType('Invalid');
+        (new Query())
+            ->setType('Invalid')
+        ;
     }
 
     public function testFilterByType()
     {
-        $queryBuilder = new Query();
-        $queryBuilder->setType('Entry');
+        $query = (new Query())
+            ->setType('Entry')
+        ;
 
-        $this->assertSame('initial=true&type=Entry', $queryBuilder->getQueryString());
+        $this->assertSame('initial=true&type=Entry', $query->getQueryString());
     }
 
     public function testGetSetContentTypeFromObject()
     {
-        $queryBuilder = new Query();
-        $contentType = $this->getMockBuilder(ContentType::class)
-            ->disableOriginalConstructor()
-            ->getMock()
+        $query = (new Query())
+            ->setContentType(new class() extends ContentType {
+                public function __construct()
+                {
+                }
+
+                public function getId(): string
+                {
+                    return 'cat';
+                }
+            })
         ;
 
-        $contentType->method('getId')
-            ->willReturn('cat')
-        ;
-
-        $queryBuilder->setContentType($contentType);
-
-        $this->assertSame('initial=true&type=Entry&content_type=cat', $queryBuilder->getQueryString());
+        $this->assertSame('initial=true&type=Entry&content_type=cat', $query->getQueryString());
     }
 
     public function testFilterByContentType()
     {
-        $queryBuilder = new Query();
-        $queryBuilder->setContentType('cat');
+        $query = (new Query())
+            ->setContentType('cat')
+        ;
 
-        $this->assertSame('initial=true&type=Entry&content_type=cat', $queryBuilder->getQueryString());
+        $this->assertSame('initial=true&type=Entry&content_type=cat', $query->getQueryString());
     }
 }

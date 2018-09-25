@@ -1,0 +1,30 @@
+{
+    "id": "entryId",
+    "type": "DeletedEntry",
+    "revision": 1,
+    "locale": "en-US",
+    "createdAt": "2018-01-01T12:00:00.123Z",
+    "updatedAt": "2018-01-01T12:00:00.123Z",
+    "space": {
+        "sys": {
+            "type": "Link",
+            "id": "spaceId",
+            "linkType": "Space"
+        }
+    },
+    "environment": {
+        "sys": {
+            "type": "Link",
+            "id": "environmentId",
+            "linkType": "Environment"
+        }
+    },
+    "contentType": {
+        "sys": {
+            "type": "Link",
+            "id": "contentTypeId",
+            "linkType": "ContentType"
+        }
+    },
+    "deletedAt": "2018-01-01T12:00:00.123Z"
+}

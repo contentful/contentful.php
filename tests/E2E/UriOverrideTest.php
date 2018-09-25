@@ -18,11 +18,12 @@ use Contentful\Tests\Delivery\TestCase;
 class UriOverrideTest extends TestCase
 {
     /**
-     * @requires API no-coverage-proxy
      * @vcr e2e_uri_override_without_trailing_slash.json
      */
     public function testOverrideWithoutTrailingSlash()
     {
+        $this->skipIfApiCoverage();
+
         $options = ClientOptions::create()
             ->withHost('https://preview.contentful.com')
         ;
@@ -33,11 +34,12 @@ class UriOverrideTest extends TestCase
     }
 
     /**
-     * @requires API no-coverage-proxy
      * @vcr e2e_uri_override_with_trailing_slash.json
      */
     public function testOverrideWithTrailingSlash()
     {
+        $this->skipIfApiCoverage();
+
         $options = ClientOptions::create()
             ->withHost('https://preview.contentful.com/')
         ;

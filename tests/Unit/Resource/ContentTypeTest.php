@@ -22,11 +22,14 @@ class ContentTypeTest extends TestCase
 {
     public function testGetter()
     {
+        $space = MockSpace::withSys('spaceId');
+        $environment = MockEnvironment::withSys('environmentId');
+
         $sys = new SystemProperties([
             'id' => 'human',
             'type' => 'ContentType',
-            'space' => MockSpace::withSys('spaceId'),
-            'environment' => MockEnvironment::withSys('master'),
+            'space' => $space,
+            'environment' => $environment,
             'revision' => 3,
             'createdAt' => '2013-06-27T22:46:14.133Z',
             'updatedAt' => '2013-09-02T15:10:26.818Z',
@@ -44,6 +47,8 @@ class ContentTypeTest extends TestCase
         ]);
 
         $this->assertSame('human', $contentType->getId());
+        $this->assertSame($space, $contentType->getSpace());
+        $this->assertSame($environment, $contentType->getEnvironment());
         $this->assertSame('Human', $contentType->getName());
         $this->assertSame('Also called homo sapiens', $contentType->getDescription());
         $this->assertSame('name', $contentType->getDisplayField()->getId());
@@ -67,7 +72,7 @@ class ContentTypeTest extends TestCase
             'id' => 'human',
             'type' => 'ContentType',
             'space' => MockSpace::withSys('spaceId'),
-            'environment' => MockEnvironment::withSys('master'),
+            'environment' => MockEnvironment::withSys('environmentId'),
             'revision' => 3,
             'createdAt' => '2013-06-27T22:46:14.133Z',
             'updatedAt' => '2013-09-02T15:10:26.818Z',
@@ -92,7 +97,7 @@ class ContentTypeTest extends TestCase
             'id' => 'human',
             'type' => 'ContentType',
             'space' => MockSpace::withSys('spaceId'),
-            'environment' => MockEnvironment::withSys('master'),
+            'environment' => MockEnvironment::withSys('environmentId'),
             'revision' => 3,
             'createdAt' => '2013-06-27T22:46:14.133Z',
             'updatedAt' => '2013-09-02T15:10:26.818Z',

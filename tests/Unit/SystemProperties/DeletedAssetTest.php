@@ -41,5 +41,7 @@ class DeletedAssetTest extends TestCase
         $this->assertSame('2018-01-01T12:00:00.123Z', (string) $sys->getCreatedAt());
         $this->assertSame('2018-01-01T12:00:00.123Z', (string) $sys->getUpdatedAt());
         $this->assertSame('2018-01-01T12:00:00.123Z', (string) $sys->getDeletedAt());
+
+        $this->assertJsonFixtureEqualsJsonObject('serialize.json', $sys);
     }
 }

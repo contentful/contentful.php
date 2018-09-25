@@ -108,7 +108,7 @@ class Field implements \JsonSerializable
      * @param string $name
      * @param string $type
      */
-    public function __construct($id, $name, $type)
+    public function __construct(string $id, string $name, string $type)
     {
         $this->id = $id;
         $this->name = $name;
@@ -116,25 +116,23 @@ class Field implements \JsonSerializable
     }
 
     /**
-     * Returns the ID of the content type.
-     *
+     * Returns the ID of the field.
      * This is the internal identifier of the content type and is unique in the space.
      *
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * Returns the name of the content type.
-     *
+     * Returns the name of the field.
      * This is a human friendly name shown to the user.
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -152,10 +150,11 @@ class Field implements \JsonSerializable
      * - Link
      * - Array
      * - Object
+     * - Location
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -179,7 +178,7 @@ class Field implements \JsonSerializable
      *
      * @return bool
      */
-    public function isRequired()
+    public function isRequired(): bool
     {
         return $this->required;
     }
@@ -189,7 +188,7 @@ class Field implements \JsonSerializable
      *
      * @return bool
      */
-    public function isLocalized()
+    public function isLocalized(): bool
     {
         return $this->localized;
     }
@@ -201,7 +200,7 @@ class Field implements \JsonSerializable
      *
      * @return bool
      */
-    public function isDisabled()
+    public function isDisabled(): bool
     {
         return $this->disabled;
     }
@@ -211,13 +210,7 @@ class Field implements \JsonSerializable
      *
      * Possible values are:
      * - Symbol
-     * - Text
-     * - Integer
-     * - Number
-     * - Date
-     * - Boolean
      * - Link
-     * - Object
      *
      * @return string|null
      */
@@ -243,7 +236,7 @@ class Field implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $field = [
             'id' => $this->id,

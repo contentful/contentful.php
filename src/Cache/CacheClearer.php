@@ -39,7 +39,7 @@ class CacheClearer extends BaseCacheHandler
             $locale = $sys instanceof LocalizedResourceSystemProperties
                 ? $sys->getLocale()
                 : \null;
-            $keys[] = $instanceRepository->generateCacheKey($sys->getType(), $sys->getId(), $locale);
+            $keys[] = $instanceRepository->generateKey($sys->getType(), $sys->getId(), $locale);
         }
 
         return $this->cacheItemPool->deleteItems($keys);

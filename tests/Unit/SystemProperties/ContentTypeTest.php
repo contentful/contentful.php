@@ -37,5 +37,7 @@ class ContentTypeTest extends TestCase
         $this->assertSame('environmentId', $sys->getEnvironment()->getId());
         $this->assertSame('2018-01-01T12:00:00.123Z', (string) $sys->getCreatedAt());
         $this->assertSame('2018-01-01T12:00:00.123Z', (string) $sys->getUpdatedAt());
+
+        $this->assertJsonFixtureEqualsJsonObject('serialize.json', $sys);
     }
 }

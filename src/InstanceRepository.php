@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Contentful\Delivery;
 
 use Contentful\Core\Resource\ResourceInterface;
-use Contentful\Core\Resource\SystemPropertiesInterface;
 use Contentful\Delivery\SystemProperties\LocalizedResource as LocalizedResourceSystemProperties;
 use Psr\Cache\CacheItemPoolInterface;
 use function GuzzleHttp\json_encode as guzzle_json_encode;
@@ -23,8 +22,17 @@ use function GuzzleHttp\json_encode as guzzle_json_encode;
  * This class acts as a registry for current objects managed by the Client.
  * It also abstracts access to objects stored in cache.
  */
-class InstanceRepository
+class InstanceRepository implements InstanceRepositoryInterface
 {
+    /**
+     * @var string[]
+     */
+    private $warmupTypes = [
+        'ContentType',
+        'Environment',
+        'Space',
+    ];
+
     /**
      * @var ResourceInterface[]
      */
@@ -67,37 +75,31 @@ class InstanceRepository
     /**
      * @var bool
      */
-    private $cacheContent;
+    private $autoWarmup;
 
     /**
      * @param Client                 $client
      * @param CacheItemPoolInterface $cacheItemPool
-     * @param string                 $spaceId
-     * @param string                 $environmentId
+     * @param bool                   $autoWarmup
      * @param bool                   $cacheContent
      */
     public function __construct(
         Client $client,
         CacheItemPoolInterface $cacheItemPool,
-        string $spaceId,
-        string $environmentId,
+        bool $autoWarmup = \false,
         bool $cacheContent = \false
     ) {
         $this->client = $client;
         $this->api = $client->getApi();
         $this->cacheItemPool = $cacheItemPool;
-        $this->spaceId = $spaceId;
-        $this->environmentId = $environmentId;
-        $this->cacheContent = $cacheContent;
-    }
+        $this->spaceId = $client->getSpaceId();
+        $this->environmentId = $client->getEnvironmentId();
+        $this->autoWarmup = $autoWarmup;
 
-    private function mustBeCached(string $type): bool
-    {
-        if ($this->cacheContent) {
-            return \true;
+        if ($cacheContent) {
+            $this->warmupTypes[] = 'Entry';
+            $this->warmupTypes[] = 'Asset';
         }
-
-        return !\in_array($type, ['Asset', 'Entry'], \true);
     }
 
     /**
@@ -108,7 +110,10 @@ class InstanceRepository
      */
     private function warmUp(string $key, string $type)
     {
-        if (isset($this->warmupStack[$key]) || isset($this->resources[$key]) || !$this->mustBeCached($type)) {
+        $currentlyWarmingUp = isset($this->warmupStack[$key]);
+        $alreadyWarmedUp = isset($this->resources[$key]);
+        $shouldWarmUp = \in_array($type, $this->warmupTypes, \true);
+        if ($currentlyWarmingUp || $alreadyWarmedUp || !$shouldWarmUp) {
             return;
         }
 
@@ -123,69 +128,70 @@ class InstanceRepository
     }
 
     /**
-     * @param string      $type
-     * @param string      $resourceId
-     * @param string|null $locale
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function has(string $type, string $resourceId, string $locale = \null): bool
     {
-        $key = $this->generateCacheKey($type, $resourceId, $locale);
+        $key = $this->generateKey($type, $resourceId, $locale);
         $this->warmUp($key, $type);
 
         return isset($this->resources[$key]);
     }
 
     /**
-     * @param ResourceInterface $resource
+     * {@inheritdoc}
      */
-    public function set(ResourceInterface $resource)
+    public function set(ResourceInterface $resource): bool
     {
-        /** @var SystemPropertiesInterface $sys */
         $sys = $resource->getSystemProperties();
         $type = $sys->getType();
 
         $locale = $sys instanceof LocalizedResourceSystemProperties
             ? $sys->getLocale()
             : \null;
-        $key = $this->generateCacheKey($type, $sys->getId(), $locale);
+        $key = $this->generateKey($type, $sys->getId(), $locale);
+
+        if (isset($this->resources[$key])) {
+            return \false;
+        }
+
         $this->resources[$key] = $resource;
 
-        if (!$this->mustBeCached($type)) {
-            return;
+        if ($this->autoWarmup && \in_array($type, $this->warmupTypes, \true)) {
+            $cacheItem = $this->cacheItemPool->getItem($key);
+            if (!$cacheItem->isHit()) {
+                $cacheItem->set(guzzle_json_encode($resource));
+                $this->cacheItemPool->save($cacheItem);
+            }
         }
 
-        $cacheItem = $this->cacheItemPool->getItem($key);
-        if (!$cacheItem->isHit()) {
-            $cacheItem->set(guzzle_json_encode($resource));
-            $this->cacheItemPool->save($cacheItem);
-        }
+        return \true;
     }
 
     /**
-     * @param string      $type
-     * @param string      $resourceId
-     * @param string|null $locale
-     *
-     * @return ResourceInterface
+     * {@inheritdoc}
      */
     public function get(string $type, string $resourceId, string $locale = \null): ResourceInterface
     {
-        $key = $this->generateCacheKey($type, $resourceId, $locale);
+        $key = $this->generateKey($type, $resourceId, $locale);
         $this->warmUp($key, $type);
+
+        if (!isset($this->resources[$key])) {
+            throw new \OutOfBoundsException(\sprintf(
+                'Instance repository could not find a resource with type "%s", ID "%s"%s.',
+                $type,
+                $resourceId,
+                $locale ? ', and locale "'.$locale.'"' : ''
+            ));
+        }
 
         return $this->resources[$key];
     }
 
     /**
-     * @param string      $type
-     * @param string      $resourceId
-     * @param string|null $locale
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function generateCacheKey(string $type, string $resourceId, string $locale = \null): string
+    public function generateKey(string $type, string $resourceId, string $locale = \null): string
     {
         $locale = \strtr($locale ?: '__ALL__', [
             '-' => '_',

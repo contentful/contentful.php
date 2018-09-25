@@ -74,7 +74,7 @@ abstract class LocalizedResource extends BaseResource
      *
      * @return string
      */
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->localeCode;
     }
@@ -86,7 +86,7 @@ abstract class LocalizedResource extends BaseResource
      *
      * @return string
      */
-    protected function getLocaleFromInput($input = \null)
+    protected function getLocaleFromInput($input = \null): string
     {
         if ($input instanceof Locale) {
             $input = $input->getCode();
@@ -123,15 +123,15 @@ abstract class LocalizedResource extends BaseResource
      *
      * @throws \RuntimeException If we detect an endless loop
      *
-     * @return string|null The locale code for which a value can be found. null if the end of the chain has been reached.
+     * @return string|null the locale code for which a value can be found, or null if the end of the chain was reached
      */
-    protected function walkFallbackChain(array $valueMap, $localeCode, Environment $environment)
+    protected function walkFallbackChain(array $valueMap, string $localeCode, Environment $environment)
     {
         $loopCounter = 0;
         while (!isset($valueMap[$localeCode])) {
             $localeCode = $environment->getLocale($localeCode)->getFallbackCode();
             if (\null === $localeCode) {
-                // We've reached the end of the fallback chain and there's no value
+                // We reached the end of the fallback chain and there's no value
                 return \null;
             }
 

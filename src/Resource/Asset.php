@@ -49,7 +49,7 @@ class Asset extends LocalizedResource
      *
      * @return Space
      */
-    public function getSpace()
+    public function getSpace(): Space
     {
         return $this->sys->getSpace();
     }
@@ -59,7 +59,7 @@ class Asset extends LocalizedResource
      *
      * @return Environment
      */
-    public function getEnvironment()
+    public function getEnvironment(): Environment
     {
         return $this->sys->getEnvironment();
     }
@@ -111,7 +111,7 @@ class Asset extends LocalizedResource
      *
      * @return string|FileInterface|null
      */
-    private function getProperty($property, $locale = \null)
+    private function getProperty(string $property, $locale = \null)
     {
         $localeCode = $this->getLocaleFromInput($locale);
 
@@ -131,7 +131,7 @@ class Asset extends LocalizedResource
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $locale = $this->sys->getLocale();
         $asset = [

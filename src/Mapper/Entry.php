@@ -18,6 +18,8 @@ use Contentful\Delivery\Resource\ContentType as ResourceContentType;
 use Contentful\Delivery\Resource\ContentType\Field as ResourceContentTypeField;
 use Contentful\Delivery\Resource\Entry as ResourceClass;
 use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
+use function GuzzleHttp\json_decode as guzzle_json_decode;
+use function GuzzleHttp\json_encode as guzzle_json_encode;
 
 /**
  * Entry class.
@@ -30,18 +32,24 @@ class Entry extends BaseMapper
     /**
      * {@inheritdoc}
      */
-    public function map($resource, array $data)
+    public function map($resource, array $data): ResourceClass
     {
         /** @var SystemProperties $sys */
         $sys = $this->createSystemProperties(SystemProperties::class, $data);
         $locale = $sys->getLocale();
 
-        return $this->hydrate($resource ?: ResourceClass::class, [
+        /** @var ResourceClass $entry */
+        $entry = $this->hydrator->hydrate($resource ?: ResourceClass::class, [
             'sys' => $sys,
+            'client' => $this->client,
             'fields' => isset($data['fields'])
                 ? $this->buildFields($sys->getContentType(), $data['fields'], $locale, $resource)
                 : [],
         ]);
+
+        $entry->initLocales($entry->getSystemProperties()->getEnvironment()->getLocales());
+
+        return $entry;
     }
 
     /**
@@ -55,9 +63,9 @@ class Entry extends BaseMapper
     private function buildFields(
         ResourceContentType $contentType,
         array $fields,
-        $locale,
+        string $locale = \null,
         ResourceClass $previous = \null
-    ) {
+    ): array {
         // We normalize the field data to always contain locales.
         foreach ($fields as $name => $data) {
             $fields[$name] = $locale ? [$locale => $data] : $data;
@@ -108,7 +116,7 @@ class Entry extends BaseMapper
      *
      * @return array
      */
-    private function mergePreviousFields(array $fields, ResourceClass $entry)
+    private function mergePreviousFields(array $fields, ResourceClass $entry): array
     {
         // Entry fields have private access, so we use this trick to fetch them.
         // https://ocramius.github.io/blog/accessing-private-php-class-members-without-reflection/
@@ -136,7 +144,7 @@ class Entry extends BaseMapper
      *
      * @return array
      */
-    private function buildField(ResourceContentTypeField $field, array $data)
+    private function buildField(ResourceContentTypeField $field, array $data): array
     {
         $result = [];
         foreach ($data as $locale => $value) {
@@ -161,7 +169,7 @@ class Entry extends BaseMapper
         // if the entry has already been built partially.
         // We restore these objects to their JSON implementations to avoid conflicts.
         if (\is_object($value) && $value instanceof \JsonSerializable) {
-            $value = $value->jsonSerialize();
+            $value = guzzle_json_decode(guzzle_json_encode($value), \true);
         }
 
         if (\null === $value) {

@@ -25,5 +25,7 @@ class EnvironmentTest extends TestCase
 
         $this->assertSame('environmentId', $sys->getId());
         $this->assertSame('Environment', $sys->getType());
+
+        $this->assertJsonFixtureEqualsJsonObject('serialize.json', $sys);
     }
 }

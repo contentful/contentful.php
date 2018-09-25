@@ -55,12 +55,13 @@ class ErrorTest extends TestCase
     }
 
     /**
-     * @requires API no-coverage-proxy
      * @expectedException \Contentful\Core\Exception\RateLimitExceededException
      * @vcr e2e_error_rate_limit.json
      */
     public function testRateLimitExceeded()
     {
+        $this->skipIfApiCoverage();
+
         $client = $this->getClient('bc32cj3kyfet_preview');
 
         $query = new Query();

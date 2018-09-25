@@ -44,11 +44,12 @@ class SyncTest extends TestCase
     }
 
     /**
-     * @requires API no-coverage-proxy
      * @vcr e2e_sync_preview.json
      */
     public function testPreviewSync()
     {
+        $this->skipIfApiCoverage();
+
         $manager = $this->getClient('cfexampleapi_preview')
             ->getSynchronizationManager()
         ;
@@ -60,12 +61,13 @@ class SyncTest extends TestCase
     }
 
     /**
-     * @requires API no-coverage-proxy
      * @vcr e2e_sync_preview_continue.json
      * @expectedException \RuntimeException
      */
     public function testPreviewSyncContinue()
     {
+        $this->skipIfApiCoverage();
+
         $manager = $this->getClient('cfexampleapi_preview')
             ->getSynchronizationManager()
         ;
@@ -75,11 +77,12 @@ class SyncTest extends TestCase
     }
 
     /**
-     * @requires API no-coverage-proxy
      * @vcr e2e_sync_full.json
      */
     public function testSyncFull()
     {
+        $this->skipIfApiCoverage();
+
         $manager = $this->getClient('cfexampleapi')
             ->getSynchronizationManager()
         ;

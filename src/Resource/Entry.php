@@ -14,6 +14,7 @@ namespace Contentful\Delivery\Resource;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Exception\NotFoundException;
 use Contentful\Core\Resource\ResourceArray;
+use Contentful\Delivery\ClientInterface;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\ContentType\Field;
 use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
@@ -31,6 +32,11 @@ class Entry extends LocalizedResource implements \ArrayAccess
     protected $sys;
 
     /**
+     * @var ClientInterface
+     */
+    protected $client;
+
+    /**
      * {@inheritdoc}
      */
     public function getSystemProperties(): SystemProperties
@@ -43,7 +49,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return Space
      */
-    public function getSpace()
+    public function getSpace(): Space
     {
         return $this->sys->getSpace();
     }
@@ -53,15 +59,15 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return Environment
      */
-    public function getEnvironment()
+    public function getEnvironment(): Environment
     {
         return $this->sys->getEnvironment();
     }
 
     /**
-     * @return ContentType|null
+     * @return ContentType
      */
-    public function getContentType()
+    public function getContentType(): ContentType
     {
         return $this->sys->getContentType();
     }
@@ -72,7 +78,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return mixed
      */
-    public function __call($name, $arguments)
+    public function __call(string $name, array $arguments)
     {
         if (0 === \mb_strpos($name, 'has')) {
             $field = $this->sys->getContentType()->getField($name, \true);
@@ -105,7 +111,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return mixed
      */
-    public function __get($name)
+    public function __get(string $name)
     {
         return $this->get($name);
     }
@@ -149,7 +155,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return bool
      */
-    public function has($name)
+    public function has(string $name): bool
     {
         $field = $this->sys->getContentType()->getField($name, \true);
 
@@ -173,7 +179,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return mixed
      */
-    public function get($name, $locale = \null, $resolveLinks = \true)
+    public function get(string $name, string $locale = \null, bool $resolveLinks = \true)
     {
         $field = $this->sys->getContentType()->getField($name, \true);
         if ($field) {
@@ -209,7 +215,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return mixed
      */
-    private function getUnresolvedField(Field $field, $locale = \null)
+    private function getUnresolvedField(Field $field, string $locale = \null)
     {
         // The field is not currently available on this resource,
         // but it exists in the content type, so we return an appropriate
@@ -268,10 +274,10 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return mixed
      */
-    private function resolveFieldLinks($field, $locale)
+    private function resolveFieldLinks($field, string $locale = \null)
     {
         if ($field instanceof Link) {
-            return $this->client->resolveLink($field, (string) $locale);
+            return $this->client->resolveLink($field, $locale);
         }
 
         if (\is_array($field) && isset($field[0]) && $field[0] instanceof Link) {
@@ -296,7 +302,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return null|string|string[] Returns null if $name is not a valid field ID string
      */
-    private function getFieldWithId($name, $locale)
+    private function getFieldWithId(string $name, string $locale = \null)
     {
         if ('Id' !== \mb_substr($name, -2)) {
             return \null;
@@ -330,7 +336,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
      *
      * @return ResourceArray
      */
-    public function getReferences(Query $query = \null)
+    public function getReferences(Query $query = \null): ResourceArray
     {
         $query = $query ?: new Query();
         $query->linksToEntry($this->getId());
@@ -341,7 +347,7 @@ class Entry extends LocalizedResource implements \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $locale = $this->sys->getLocale();
 

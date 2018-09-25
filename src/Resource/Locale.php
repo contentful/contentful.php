@@ -56,7 +56,7 @@ class Locale extends BaseResource
      *
      * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
@@ -66,7 +66,7 @@ class Locale extends BaseResource
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -76,7 +76,7 @@ class Locale extends BaseResource
      *
      * @return bool
      */
-    public function isDefault()
+    public function isDefault(): bool
     {
         return $this->default;
     }
@@ -94,7 +94,7 @@ class Locale extends BaseResource
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $locale = [
             'sys' => $this->sys,

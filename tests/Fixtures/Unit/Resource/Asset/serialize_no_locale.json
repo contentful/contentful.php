@@ -1,0 +1,40 @@
+{
+    "fields": {
+        "title": "Nyan Cat",
+        "description": "A picture of Nyan Cat",
+        "file": {
+            "fileName": "Nyan_cat_250px_frame.png",
+            "contentType": "image/png",
+            "details": {
+                "image": {
+                    "width": 250,
+                    "height": 250
+                },
+                "size": 12273
+            },
+            "url": "//images.ctfassets.net/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"
+        }
+    },
+    "sys": {
+        "space": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "spaceId"
+            }
+        },
+        "environment": {
+            "sys": {
+                "type": "Link",
+                "linkType": "Environment",
+                "id": "master"
+            }
+        },
+        "type": "Asset",
+        "id": "nyancat",
+        "revision": 1,
+        "createdAt": "2013-09-02T14:56:34.240Z",
+        "updatedAt": "2013-09-02T14:56:34.240Z",
+        "locale": "en-US"
+    }
+}

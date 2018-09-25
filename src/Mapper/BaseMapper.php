@@ -11,14 +11,12 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Mapper;
 
-use Contentful\Core\Resource\ResourceArray;
 use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Core\Resource\SystemPropertiesInterface;
 use Contentful\Core\ResourceBuilder\MapperInterface;
 use Contentful\Core\ResourceBuilder\ObjectHydrator;
-use Contentful\Delivery\Client;
-use Contentful\Delivery\Resource\LocalizedResource;
-use Contentful\Delivery\ResourceBuilder;
+use Contentful\Core\ResourceBuilder\ResourceBuilderInterface;
+use Contentful\Delivery\ClientInterface;
 
 /**
  * BaseMapper class.
@@ -26,12 +24,12 @@ use Contentful\Delivery\ResourceBuilder;
 abstract class BaseMapper implements MapperInterface
 {
     /**
-     * @var ResourceBuilder
+     * @var ResourceBuilderInterface
      */
     protected $builder;
 
     /**
-     * @var Client
+     * @var ClientInterface
      */
     protected $client;
 
@@ -43,37 +41,14 @@ abstract class BaseMapper implements MapperInterface
     /**
      * BaseMapper constructor.
      *
-     * @param ResourceBuilder $builder
-     * @param Client          $client
+     * @param ResourceBuilderInterface $builder
+     * @param ClientInterface          $client
      */
-    public function __construct(ResourceBuilder $builder, Client $client)
+    public function __construct(ResourceBuilderInterface $builder, ClientInterface $client)
     {
         $this->builder = $builder;
         $this->client = $client;
         $this->hydrator = new ObjectHydrator();
-    }
-
-    /**
-     * @param string|object $target either a FQCN, or an object whose class will be automatically inferred
-     * @param array         $data
-     *
-     * @return ResourceInterface|ResourceArray
-     */
-    protected function hydrate($target, array $data)
-    {
-        if ($this->injectClient()) {
-            $data['client'] = $this->client;
-        }
-
-        /** @var ResourceInterface|ResourceArray $target */
-        $target = $this->hydrator->hydrate($target, $data);
-
-        if ($target instanceof LocalizedResource) {
-            $locales = $this->client->getEnvironment()->getLocales();
-            $target->initLocales($locales);
-        }
-
-        return $target;
     }
 
     /**
@@ -86,15 +61,15 @@ abstract class BaseMapper implements MapperInterface
     {
         $sys = $data['sys'];
 
-        if (isset($sys['space'])) {
+        if (isset($sys['space']) && !$sys['space'] instanceof ResourceInterface) {
             $sys['space'] = $this->client->getSpace();
         }
 
-        if (isset($sys['environment'])) {
+        if (isset($sys['environment']) && !$sys['environment'] instanceof ResourceInterface) {
             $sys['environment'] = $this->client->getEnvironment();
         }
 
-        if (isset($sys['contentType'])) {
+        if (isset($sys['contentType']) && !$sys['contentType'] instanceof ResourceInterface) {
             $sys['contentType'] = $this->client->getContentType($sys['contentType']['sys']['id']);
         }
 
@@ -107,22 +82,12 @@ abstract class BaseMapper implements MapperInterface
      *
      * @return array
      */
-    protected function normalizeFieldData($fieldData, $locale)
+    protected function normalizeFieldData($fieldData, string $locale = \null)
     {
         if (!$locale) {
             return $fieldData;
         }
 
         return [$locale => $fieldData];
-    }
-
-    /**
-     * Override this method for blocking the mapper from injecting the client property.
-     *
-     * @return bool
-     */
-    protected function injectClient()
-    {
-        return \true;
     }
 }

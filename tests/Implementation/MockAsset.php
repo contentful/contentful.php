@@ -27,12 +27,13 @@ class MockAsset extends Asset
     }
 
     /**
-     * @param string $id
-     * @param array  $data
+     * @param string      $id
+     * @param array       $data
+     * @param string|null $locale
      *
      * @return MockAsset
      */
-    public static function withSys(string $id = 'assetId', array $data = []): self
+    public static function withSys(string $id = 'assetId', array $data = [], string $locale = \null): self
     {
         return new static(\array_merge($data, [
             'sys' => new SystemProperties([
@@ -43,6 +44,7 @@ class MockAsset extends Asset
                 'revision' => 1,
                 'createdAt' => '2010-01-01T12:00:00.123Z',
                 'updatedAt' => '2010-01-01T12:00:00.123Z',
+                'locale' => $locale,
             ]),
         ]));
     }

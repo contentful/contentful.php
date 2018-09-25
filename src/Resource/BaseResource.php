@@ -13,15 +13,9 @@ namespace Contentful\Delivery\Resource;
 
 use Contentful\Core\Api\Link;
 use Contentful\Core\Resource\ResourceInterface;
-use Contentful\Delivery\Client;
 
 abstract class BaseResource implements ResourceInterface
 {
-    /**
-     * @var Client
-     */
-    protected $client;
-
     /**
      * Resources in this SDK should not be built using `$new Class()`.
      * This method is only useful in testing environments, where the resource

@@ -15,7 +15,7 @@ use Contentful\Core\Api\BaseClient;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Core\Resource\ResourceInterface;
-use Contentful\Delivery\Cache\ProxyCacheItemPool;
+use Contentful\Core\ResourceBuilder\ResourceBuilderInterface;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
@@ -32,13 +32,8 @@ use Contentful\Delivery\Synchronization\Manager;
  * This class can be configured to use the Preview API instead of the Delivery API.
  * This grants access to not yet published content.
  */
-class Client extends BaseClient
+class Client extends BaseClient implements ClientInterface
 {
-    /**
-     * @var string
-     */
-    const VERSION = '4.0.0-dev';
-
     /**
      * @var string
      */
@@ -111,8 +106,12 @@ class Client extends BaseClient
      * @param string             $environmentId ID of the environment used with this Client
      * @param ClientOptions|null $options
      */
-    public function __construct($token, $spaceId, $environmentId = 'master', ClientOptions $options = \null)
-    {
+    public function __construct(
+        string $token,
+        string $spaceId,
+        string $environmentId = 'master',
+        ClientOptions $options = \null
+    ) {
         $this->spaceId = $spaceId;
         $this->environmentId = $environmentId;
 
@@ -124,13 +123,10 @@ class Client extends BaseClient
         $this->isDeliveryApi = self::URI_PREVIEW !== $options->getHost();
         $this->defaultLocale = $options->getDefaultLocale();
 
-        $cacheItemPool = new ProxyCacheItemPool($options->getCacheItemPool(), !$options->hasCacheAutoWarmup());
-
         $this->instanceRepository = new InstanceRepository(
             $this,
-            $cacheItemPool,
-            $this->spaceId,
-            $this->environmentId,
+            $options->getCacheItemPool(),
+            $options->hasCacheAutoWarmup(),
             $options->hasCacheContent()
         );
         $this->builder = new ResourceBuilder($this, $this->instanceRepository);
@@ -165,9 +161,9 @@ class Client extends BaseClient
     }
 
     /**
-     * @return ResourceBuilder
+     * @return ResourceBuilderInterface
      */
-    public function getResourceBuilder()
+    public function getResourceBuilder(): ResourceBuilderInterface
     {
         return $this->builder;
     }
@@ -201,7 +197,7 @@ class Client extends BaseClient
      *
      * @return InstanceRepository
      */
-    public function getInstanceRepository(): InstanceRepository
+    public function getInstanceRepository(): InstanceRepositoryInterface
     {
         return $this->instanceRepository;
     }
@@ -223,10 +219,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @param string      $assetId
-     * @param string|null $locale
-     *
-     * @return Asset
+     * {@inheritdoc}
      */
     public function getAsset(string $assetId, string $locale = \null): Asset
     {
@@ -245,9 +238,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @param Query|null $query
-     *
-     * @return ResourceArray
+     * {@inheritdoc}
      */
     public function getAssets(Query $query = \null): ResourceArray
     {
@@ -266,9 +257,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @param string $contentTypeId
-     *
-     * @return ContentType
+     * {@inheritdoc}
      */
     public function getContentType(string $contentTypeId): ContentType
     {
@@ -284,9 +273,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @param Query|null $query
-     *
-     * @return ResourceArray
+     * {@inheritdoc}
      */
     public function getContentTypes(Query $query = \null): ResourceArray
     {
@@ -300,7 +287,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return Environment
+     * {@inheritdoc}
      */
     public function getEnvironment(): Environment
     {
@@ -317,7 +304,7 @@ class Client extends BaseClient
         // but given that previously locales were part of the space, whereas now they conceptually
         // belong to an environment, we choose this kind of abstraction.
         $locales = $this->request('GET', '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/locales');
-        $environment = [
+        $environmentData = [
             'sys' => [
                 'id' => $this->environmentId,
                 'type' => 'Environment',
@@ -326,16 +313,13 @@ class Client extends BaseClient
         ];
 
         /** @var Environment $environment */
-        $environment = $this->builder->build($environment);
+        $environment = $this->builder->build($environmentData);
 
         return $environment;
     }
 
     /**
-     * @param string      $entryId
-     * @param string|null $locale
-     *
-     * @return Entry
+     * {@inheritdoc}
      */
     public function getEntry(string $entryId, string $locale = \null): Entry
     {
@@ -354,9 +338,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @param Query|null $query
-     *
-     * @return ResourceArray
+     * {@inheritdoc}
      */
     public function getEntries(Query $query = \null): ResourceArray
     {
@@ -375,7 +357,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return Space
+     * {@inheritdoc}
      */
     public function getSpace(): Space
     {
@@ -391,19 +373,12 @@ class Client extends BaseClient
     }
 
     /**
-     * Resolve a link to its actual resource.
-     *
-     * @param Link   $link
-     * @param string $locale
-     *
-     * @throws \InvalidArgumentException when encountering an unexpected link type
-     *
-     * @return ResourceInterface
+     * {@inheritdoc}
      */
-    public function resolveLink(Link $link, string $locale = ''): ResourceInterface
+    public function resolveLink(Link $link, string $locale = \null): ResourceInterface
     {
         return $this->linkResolver->resolveLink($link, [
-            'locale' => $locale,
+            'locale' => (string) $locale,
         ]);
     }
 

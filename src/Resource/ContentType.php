@@ -66,7 +66,7 @@ class ContentType extends BaseResource
      *
      * @return Space
      */
-    public function getSpace()
+    public function getSpace(): Space
     {
         return $this->sys->getSpace();
     }
@@ -74,9 +74,9 @@ class ContentType extends BaseResource
     /**
      * Returns the environment this content type belongs to.
      *
-     * @return Environment|null
+     * @return Environment
      */
-    public function getEnvironment()
+    public function getEnvironment(): Environment
     {
         return $this->sys->getEnvironment();
     }
@@ -86,17 +86,18 @@ class ContentType extends BaseResource
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * Returns all the fields of this content type as an associative array. The key is the ID of the field.
+     * Returns all the fields of this content type as an associative array.
+     * The key is the ID of the field.
      *
      * @return Field[]
      */
-    public function getFields()
+    public function getFields(): array
     {
         return $this->fields;
     }
@@ -121,7 +122,7 @@ class ContentType extends BaseResource
      *
      * @return Field|null
      */
-    public function getField($fieldId, $tryCaseInsensitive = \false)
+    public function getField(string $fieldId, bool $tryCaseInsensitive = \false)
     {
         if (isset($this->fields[$fieldId])) {
             return $this->fields[$fieldId];
@@ -161,7 +162,7 @@ class ContentType extends BaseResource
      *
      * @return Field
      */
-    public function addUnknownField($name)
+    public function addUnknownField(string $name): Field
     {
         $this->fields[$name] = new Field($name, $name, 'Unknown');
 
@@ -171,7 +172,7 @@ class ContentType extends BaseResource
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'sys' => $this->sys,

@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Unit;
 
-use Contentful\Core\Api\Link;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\ClientOptions;
 use Contentful\Delivery\Synchronization\Manager;
@@ -50,17 +49,5 @@ class ClientTest extends TestCase
         $this->assertTrue($client->isPreviewApi());
         $this->assertFalse($client->isDeliveryApi());
         $this->assertSame('PREVIEW', $client->getApi());
-    }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to resolve link for unknown type "invalidLinkType".
-     */
-    public function testInvalidLink()
-    {
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi');
-        $link = new Link('linkId', 'invalidLinkType');
-
-        $client->resolveLink($link);
     }
 }

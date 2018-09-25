@@ -31,13 +31,14 @@ class Asset extends BaseMapper
     /**
      * {@inheritdoc}
      */
-    public function map($resource, array $data)
+    public function map($resource, array $data): ResourceClass
     {
         /** @var SystemProperties $sys */
         $sys = $this->createSystemProperties(SystemProperties::class, $data);
         $locale = $sys->getLocale();
 
-        return $this->hydrate($resource ?: ResourceClass::class, [
+        /** @var ResourceClass $asset */
+        $asset = $this->hydrator->hydrate($resource ?: ResourceClass::class, [
             'sys' => $sys,
             'title' => isset($data['fields']['title'])
                 ? $this->normalizeFieldData($data['fields']['title'], $locale)
@@ -49,6 +50,10 @@ class Asset extends BaseMapper
                 ? \array_map([$this, 'buildFile'], $this->normalizeFieldData($data['fields']['file'], $locale))
                 : \null,
         ]);
+
+        $asset->initLocales($asset->getSystemProperties()->getEnvironment()->getLocales());
+
+        return $asset;
     }
 
     /**

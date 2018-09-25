@@ -16,7 +16,7 @@
             "sys": {
                 "type": "Link",
                 "linkType": "Environment",
-                "id": "master"
+                "id": "environmentId"
             }
         },
         "revision": 3,

@@ -35,9 +35,9 @@ class DeletedEntry extends DeletedResource
      * This method always returns null when used with the sync API.
      * It does return a value when parsing a webhook response.
      *
-     * @return ContentType|null
+     * @return ContentType
      */
-    public function getContentType()
+    public function getContentType(): ContentType
     {
         return $this->sys->getContentType();
     }
