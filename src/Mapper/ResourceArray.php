@@ -24,7 +24,7 @@ class ResourceArray extends BaseMapper
     /**
      * {@inheritdoc}
      */
-    public function map($resource, array $data)
+    public function map($resource, array $data): ResourceClass
     {
         return new ResourceClass(
             \array_map(function ($item) {

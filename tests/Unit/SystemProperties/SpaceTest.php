@@ -25,5 +25,7 @@ class SpaceTest extends TestCase
 
         $this->assertSame('spaceId', $sys->getId());
         $this->assertSame('Space', $sys->getType());
+
+        $this->assertJsonFixtureEqualsJsonObject('serialize.json', $sys);
     }
 }

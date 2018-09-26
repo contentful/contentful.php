@@ -66,6 +66,21 @@ class LocalizedResourceTest extends TestCase
         $resource->setLocale('fr-FR');
     }
 
+    /**
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Entry with ID "resourceId" was built using locale "it-IT", but now access using locale "en-US" is being attempted.
+     */
+    public function testAccessInvalidLocale()
+    {
+        $resource = new MockLocalizedResource([
+            new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => \true]),
+        ], 'it-IT');
+        $resource->setLocale('it-IT');
+
+        $resource->getLocaleFromInput('en-US');
+    }
+
     public function testGetLocaleFromInputDefault()
     {
         $resource = new MockLocalizedResource([
@@ -127,5 +142,19 @@ class LocalizedResourceTest extends TestCase
         $resource = new MockLocalizedResource($environment->getLocales());
 
         $resource->walkFallbackChain([], 'it-IT', $environment);
+    }
+
+    public function testEndOfFallbackChain()
+    {
+        $environment = new MockEnvironment([
+            'locales' => [
+                new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
+                new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'fallbackCode' => \null]),
+            ],
+        ]);
+        $resource = new MockLocalizedResource($environment->getLocales());
+
+        $this->assertNull($resource->walkFallbackChain([], 'it-IT', $environment));
+        $this->assertSame('en-US', $resource->walkFallbackChain(['en-US' => 'Some value'], 'en-US', $environment));
     }
 }

@@ -36,7 +36,7 @@ class Environment extends BaseResource
     /**
      * @return Locale[]
      */
-    public function getLocales()
+    public function getLocales(): array
     {
         return $this->locales;
     }
@@ -48,7 +48,7 @@ class Environment extends BaseResource
      *
      * @return Locale
      */
-    public function getLocale($code)
+    public function getLocale(string $code): Locale
     {
         foreach ($this->locales as $locale) {
             if ($locale->getCode() === $code) {
@@ -69,7 +69,7 @@ class Environment extends BaseResource
      *
      * @return Locale
      */
-    public function getDefaultLocale()
+    public function getDefaultLocale(): Locale
     {
         foreach ($this->locales as $locale) {
             if ($locale->isDefault()) {
@@ -83,7 +83,7 @@ class Environment extends BaseResource
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'sys' => $this->sys,

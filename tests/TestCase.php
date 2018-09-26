@@ -34,61 +34,95 @@ class TestCase extends BaseTestCase
      *
      * @return Client
      */
-    protected function getClient($key)
+    protected function getClient(string $key): Client
     {
-        $testingUrl = \getenv('CONTENTFUL_CDA_SDK_TESTING_URL');
-        $options = new ClientOptions();
-        if ($testingUrl) {
-            $options = $options->withHost($testingUrl);
-        }
+        $config = $this->getClientConfiguration($key);
 
-        switch ($key) {
-            case 'cfexampleapi':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', $options);
-            case 'cfexampleapi_preview':
-                return new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', 'master', $options->usingPreviewApi());
-            case 'cfexampleapi_cache':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', $options->withCache(self::$cache));
-            case 'cfexampleapi_cache_autowarmup':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', $options->withCache(self::$cache, \true));
-            case 'cfexampleapi_cache_autowarmup_content':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', $options->withCache(self::$cache, \true, \true));
-            case 'cfexampleapi_tlh':
-                return new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', $options->withDefaultLocale('tlh'));
-            case 'cfexampleapi_invalid':
-                return new Client('e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50', 'cfexampleapi', 'master', $options);
-            case '88dyiqcr7go8':
-                return new Client('668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756', '88dyiqcr7go8', 'master', $options);
-            case '88dyiqcr7go8_preview':
-                return new Client('81c469d7241ca02349388602dfc14107157063a6901c378a56e1835d688970bf', '88dyiqcr7go8', 'master', $options->usingPreviewApi());
-            case 'bc32cj3kyfet_preview':
-                return new Client('8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963', 'bc32cj3kyfet', 'master', $options->usingPreviewApi());
-            default:
-                throw new \InvalidArgumentException(\sprintf(
-                    'Key "%s" is not a valid value.',
-                    $key
-                ));
-        }
+        return new Client(
+            $config['token'],
+            $config['space'],
+            $config['environment'],
+            $config['options']
+        );
     }
 
-    protected function checkRequirements()
+    /**
+     * @param string $key
+     *
+     * @return array
+     */
+    private function getClientConfiguration(string $key): array
     {
-        if (!\getenv('CONTENTFUL_CDA_SDK_TESTING_URL')) {
-            return parent::checkRequirements();
+        $config = [
+            'cfexampleapi' => [],
+            'cfexampleapi_preview' => [
+                'token' => 'e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50',
+                'options' => ClientOptions::create()
+                    ->usingPreviewApi(),
+            ],
+            'cfexampleapi_cache' => [
+                'options' => ClientOptions::create()
+                    ->withCache(self::$cache),
+            ],
+            'cfexampleapi_cache_autowarmup' => [
+                'options' => ClientOptions::create()
+                    ->withCache(self::$cache, \true),
+            ],
+            'cfexampleapi_cache_autowarmup_content' => [
+                'options' => ClientOptions::create()
+                    ->withCache(self::$cache, \true, \true),
+            ],
+            'cfexampleapi_tlh' => [
+                'options' => ClientOptions::create()
+                    ->withDefaultLocale('tlh'),
+            ],
+            'cfexampleapi_invalid' => [
+                'token' => 'e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50',
+            ],
+            '88dyiqcr7go8' => [
+                'token' => '668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756',
+                'space' => '88dyiqcr7go8',
+            ],
+            '88dyiqcr7go8_preview' => [
+                'token' => '81c469d7241ca02349388602dfc14107157063a6901c378a56e1835d688970bf',
+                'space' => '88dyiqcr7go8',
+                'options' => ClientOptions::create()
+                    ->usingPreviewApi(),
+            ],
+            'bc32cj3kyfet_preview' => [
+                'token' => '8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963',
+                'space' => 'bc32cj3kyfet',
+                'options' => ClientOptions::create()
+                    ->usingPreviewApi(),
+            ],
+        ];
+
+        if (!isset($config[$key])) {
+            throw new \InvalidArgumentException(\sprintf(
+                'Key "%s" is not a valid value.',
+                $key
+            ));
         }
 
-        $annotations = $this->getAnnotations();
+        $defaultOptions = ClientOptions::create();
+        if ($testingUrl = \getenv('CONTENTFUL_CDA_SDK_TESTING_URL')) {
+            $defaultOptions = $defaultOptions->withHost($testingUrl);
+        }
 
-        foreach (['class', 'method'] as $depth) {
-            if (empty($annotations[$depth]['requires'])) {
-                continue;
-            }
+        $default = [
+            'token' => 'b4c0n73n7fu1',
+            'space' => 'cfexampleapi',
+            'environment' => 'master',
+            'options' => $defaultOptions,
+        ];
 
-            $requires = \array_flip($annotations[$depth]['requires']);
+        return \array_merge($default, $config[$key]);
+    }
 
-            if (isset($requires['API no-coverage-proxy'])) {
-                return $this->markTestSkipped('This configuration blocks tests that should not be run when in the coverage proxy environment.');
-            }
+    protected function skipIfApiCoverage()
+    {
+        if (\getenv('CONTENTFUL_CDA_SDK_TESTING_URL')) {
+            return $this->markTestSkipped('This configuration blocks tests that should not be run when in the coverage proxy environment.');
         }
     }
 }

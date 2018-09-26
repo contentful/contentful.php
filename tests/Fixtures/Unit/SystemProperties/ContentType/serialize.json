@@ -1,0 +1,21 @@
+{
+    "id": "contentTypeId",
+    "type": "ContentType",
+    "revision": 1,
+    "createdAt": "2018-01-01T12:00:00.123Z",
+    "updatedAt": "2018-01-01T12:00:00.123Z",
+    "environment": {
+        "sys": {
+            "type": "Link",
+            "id": "environmentId",
+            "linkType": "Environment"
+        }
+    },
+    "space": {
+        "sys": {
+            "type": "Link",
+            "id": "spaceId",
+            "linkType": "Space"
+        }
+    }
+}

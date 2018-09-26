@@ -41,7 +41,7 @@ class Space extends BaseResource
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -49,7 +49,7 @@ class Space extends BaseResource
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'sys' => $this->sys,

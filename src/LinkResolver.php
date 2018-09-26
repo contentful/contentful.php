@@ -18,16 +18,16 @@ use Contentful\Core\Resource\ResourceInterface;
 class LinkResolver implements LinkResolverInterface
 {
     /**
-     * @var Client
+     * @var ClientInterface
      */
     private $client;
 
     /**
      * LinkResolver constructor.
      *
-     * @param Client $client
+     * @param ClientInterface $client
      */
-    public function __construct(Client $client)
+    public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }

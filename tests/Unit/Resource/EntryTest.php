@@ -14,11 +14,15 @@ namespace Contentful\Tests\Delivery\Unit\Resource;
 use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Exception\NotFoundException;
-use Contentful\Delivery\Client;
+use Contentful\Core\Resource\ResourceInterface;
+use Contentful\Delivery\ClientInterface;
+use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
+use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
+use Contentful\Tests\Delivery\Implementation\MockClient;
 use Contentful\Tests\Delivery\Implementation\MockContentType;
 use Contentful\Tests\Delivery\Implementation\MockEntry;
 use Contentful\Tests\Delivery\Implementation\MockEnvironment;
@@ -37,6 +41,11 @@ class EntryTest extends TestCase
     private $entry;
 
     /**
+     * @var Space
+     */
+    private $space;
+
+    /**
      * @var Environment
      */
     private $environment;
@@ -46,7 +55,12 @@ class EntryTest extends TestCase
      */
     private $contentType;
 
-    private function createMockEnvironment()
+    private function createMockSpace(): Space
+    {
+        return MockSpace::withSys('spaceId');
+    }
+
+    private function createMockEnvironment(): Environment
     {
         $localeEn = new MockLocale([
             'code' => 'en-US',
@@ -66,7 +80,7 @@ class EntryTest extends TestCase
         ]);
     }
 
-    private function createMockContentType()
+    private function createMockContentType(): ContentType
     {
         return MockContentType::withSys('cat', [
             'name' => 'Cat',
@@ -86,14 +100,16 @@ class EntryTest extends TestCase
         ]);
     }
 
-    private function createMockEntry(Environment $environment, ContentType $contentType)
+    private function createMockEntry(): Entry
     {
+        $this->space = MockSpace::withSys('spaceId');
+
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Entry',
-            'space' => MockSpace::withSys('spaceId'),
-            'contentType' => $contentType,
-            'environment' => $environment,
+            'space' => $this->space,
+            'environment' => $this->environment,
+            'contentType' => $this->contentType,
             'revision' => 5,
             'createdAt' => '2013-06-27T22:46:19.513Z',
             'updatedAt' => '2013-09-04T09:19:39.027Z',
@@ -115,21 +131,27 @@ class EntryTest extends TestCase
         return $entry;
     }
 
-    private function createMockClient(array $entries = [])
+    private function createMockClient(array $entries = []): ClientInterface
     {
-        $client = $this->getMockBuilder(Client::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        return new class($entries) extends MockClient {
+            /**
+             * @var MockEntry[]
+             */
+            private $entries;
 
-        foreach ($entries as $entry) {
-            $entry->setClient($client);
-        }
+            public function __construct(array $entries, string $spaceId = 'spaceId', string $environmentId = 'environmentId')
+            {
+                $this->entries = $entries;
+                foreach ($this->entries as $entry) {
+                    $entry->setClient($this);
+                }
 
-        $client->expects($this->any())
-            ->method('resolveLink')
-            ->willReturnCallback(function (Link $link) use ($entries) {
-                foreach ($entries as $id => $entry) {
+                parent::__construct($spaceId, $environmentId);
+            }
+
+            public function resolveLink(Link $link, string $locale = \null): ResourceInterface
+            {
+                foreach ($this->entries as $id => $entry) {
                     if ($id === $link->getId()) {
                         return $entry;
                     }
@@ -138,17 +160,16 @@ class EntryTest extends TestCase
                 throw new NotFoundException(
                     new ClientException('Exception message', new Request('GET', ''))
                 );
-            })
-        ;
-
-        return $client;
+            }
+        };
     }
 
     public function setUp()
     {
+        $this->space = $this->createMockSpace();
         $this->environment = $this->createMockEnvironment();
         $this->contentType = $this->createMockContentType();
-        $this->entry = $this->createMockEntry($this->environment, $this->contentType);
+        $this->entry = $this->createMockEntry();
     }
 
     private function createCrookshanksEntry(ContentType $contentType)
@@ -156,7 +177,7 @@ class EntryTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'crookshanks',
             'type' => 'Entry',
-            'space' => MockSpace::withSys('spaceId'),
+            'space' => $this->space,
             'environment' => $this->environment,
             'contentType' => $contentType,
             'revision' => 5,
@@ -177,7 +198,7 @@ class EntryTest extends TestCase
         return new SystemProperties([
             'id' => 'garfield',
             'type' => 'Entry',
-            'space' => MockSpace::withSys('spaceId'),
+            'space' => $this->space,
             'environment' => $this->environment,
             'contentType' => $contentType,
             'revision' => 5,
@@ -210,6 +231,9 @@ class EntryTest extends TestCase
         $this->assertSame('Entry', $link->getLinkType());
 
         $this->entry->setClient(\null);
+
+        $this->assertSame($this->space, $this->entry->getSpace());
+        $this->assertSame($this->environment, $this->entry->getEnvironment());
     }
 
     public function testIdGetter()
@@ -278,7 +302,7 @@ class EntryTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Entry',
-            'space' => MockSpace::withSys('spaceId'),
+            'space' => $this->space,
             'contentType' => $contentType,
             'environment' => $this->environment,
             'revision' => 5,
@@ -353,7 +377,7 @@ class EntryTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'nyancat',
             'type' => 'Entry',
-            'space' => MockSpace::withSys('spaceId'),
+            'space' => $this->space,
             'environment' => $this->environment,
             'contentType' => $this->contentType,
             'revision' => 5,
@@ -416,56 +440,42 @@ class EntryTest extends TestCase
         unset($this->entry['fieldName']);
     }
 
-    public function testBasicMagicCalls()
+    public function testGet()
     {
         $this->assertSame('Nyan Cat', $this->entry->getName());
-        $this->assertSame(['rainbows', 'fish'], $this->entry->getLikes());
-        $this->assertSame('happycat', $this->entry->getBestFriendId());
-    }
-
-    public function testBasicMagicCallsWithoutGet()
-    {
         $this->assertSame('Nyan Cat', $this->entry->name());
-        $this->assertSame(['rainbows', 'fish'], $this->entry->likes());
-        $this->assertSame('happycat', $this->entry->bestFriendId());
-    }
-
-    public function testBasicGetCalls()
-    {
         $this->assertSame('Nyan Cat', $this->entry->get('name'));
-        $this->assertSame(['rainbows', 'fish'], $this->entry->get('likes'));
-        $this->assertSame('happycat', $this->entry->get('bestFriendId'));
-    }
-
-    public function testBasicMagicGetCalls()
-    {
         $this->assertSame('Nyan Cat', $this->entry->name);
-        $this->assertSame(['rainbows', 'fish'], $this->entry->likes);
-        $this->assertSame('happycat', $this->entry->bestFriendId);
-    }
-
-    public function testBasicOffsetCalls()
-    {
         $this->assertSame('Nyan Cat', $this->entry['name']);
+
+        $this->assertSame(['rainbows', 'fish'], $this->entry->getLikes());
+        $this->assertSame(['rainbows', 'fish'], $this->entry->likes());
+        $this->assertSame(['rainbows', 'fish'], $this->entry->get('likes'));
+        $this->assertSame(['rainbows', 'fish'], $this->entry->likes);
         $this->assertSame(['rainbows', 'fish'], $this->entry['likes']);
+
+        $this->assertSame('happycat', $this->entry->getBestFriendId());
+        $this->assertSame('happycat', $this->entry->bestFriendId());
+        $this->assertSame('happycat', $this->entry->get('bestFriendId'));
+        $this->assertSame('happycat', $this->entry->bestFriendId);
         $this->assertSame('happycat', $this->entry['bestFriendId']);
     }
 
-    public function testBasicHas()
+    public function testHas()
     {
         $this->assertTrue($this->entry->has('name'));
-        $this->assertTrue($this->entry->has('likes'));
-        $this->assertTrue($this->entry->has('bestFriend'));
-        $this->assertTrue($this->entry->has('bestfriend'));
-        $this->assertFalse($this->entry->has('bestFriendId'));
-    }
-
-    public function testBasicMagicHas()
-    {
         $this->assertTrue($this->entry->hasName());
+
+        $this->assertTrue($this->entry->has('likes'));
         $this->assertTrue($this->entry->hasLikes());
+
+        $this->assertTrue($this->entry->has('bestFriend'));
         $this->assertTrue($this->entry->hasBestFriend());
+
+        $this->assertTrue($this->entry->has('bestfriend'));
         $this->assertTrue($this->entry->hasbestfriend());
+
+        $this->assertFalse($this->entry->has('bestFriendId'));
         $this->assertFalse($this->entry->hasBestFriendId());
     }
 
@@ -474,7 +484,7 @@ class EntryTest extends TestCase
         $sys = new SystemProperties([
             'id' => 'crookshanks',
             'type' => 'Entry',
-            'space' => MockSpace::withSys(),
+            'space' => $this->space,
             'environment' => $this->environment,
             'contentType' => MockContentType::withSys('cat', [
                 'name' => 'Cat',
@@ -522,6 +532,95 @@ class EntryTest extends TestCase
     public function testAccessNonLocalizedFieldWithNonDefaultLocale()
     {
         $this->entry->get('likes', 'tlh');
+    }
+
+    public function testLinksToEntry()
+    {
+        $entry = MockEntry::withSys('entryId');
+        $client = new MockClient();
+
+        $entry->setClient($client);
+
+        // Result will be a dummy, so we inspect the actual query
+        $entry->getReferences();
+        $query = $client->getLastQuery();
+        $this->assertSame('links_to_entry=entryId', $query->getQueryString());
+
+        $query = (new Query())
+            ->setContentType('someContentType')
+        ;
+        $entry->getReferences($query);
+        $query = $client->getLastQuery();
+        $this->assertSame('content_type=someContentType&links_to_entry=entryId', $query->getQueryString());
+    }
+
+    public function testFallbackChain()
+    {
+        $environment = MockEnvironment::withSys('environmentId', [
+            'locales' => [
+                new MockLocale([
+                    'code' => 'en-US',
+                    'name' => 'English (United States)',
+                    'fallbackCode' => \null,
+                    'default' => \true,
+                ]),
+                new MockLocale([
+                    'code' => 'tlh',
+                    'name' => 'Klingon',
+                    'fallbackCode' => 'en-US',
+                    'default' => \false,
+                ]),
+                new MockLocale([
+                    'code' => 'it-IT',
+                    'name' => 'Italian',
+                    'fallbackCode' => \null,
+                    'default' => \false,
+                ]),
+            ],
+        ]);
+
+        $sys = new SystemProperties([
+            'id' => 'entryId',
+            'type' => 'Entry',
+            'space' => $this->space,
+            'environment' => $environment,
+            'contentType' => MockContentType::withSys('person', [
+                'name' => 'Person',
+                'displayField' => 'name',
+                'fields' => [
+                    'field1' => new MockField('field1', 'Field 1', 'Text', ['localized' => \true]),
+                    'field2' => new MockField('field2', 'Field 2', 'Array', ['localized' => \true, 'itemsType' => 'Symbol']),
+                    'field3' => new MockField('field3', 'Field 3', 'Text', ['localized' => \true, 'itemsType' => 'Symbol']),
+                    'field4' => new MockField('field4', 'Field 4', 'Array', ['localized' => \true, 'itemsType' => 'Symbol']),
+                    'field5' => new MockField('field5', 'Field 5', 'Text', ['localized' => \true, 'itemsType' => 'Symbol']),
+                ],
+            ]),
+            'revision' => 1,
+            'createdAt' => '2018-01-01T12:00:00.123Z',
+            'updatedAt' => '2018-01-01T12:00:00.123Z',
+        ]);
+
+        $entry = new MockEntry([
+            'sys' => $sys,
+            'fields' => [
+                'field1' => [
+                    'en-US' => 'Some value',
+                ],
+                'field2' => [
+                    'en-US' => 'Another value',
+                ],
+                'field3' => [
+                    'en-US' => 'More values',
+                ],
+            ],
+        ]);
+        $entry->initLocales($environment->getLocales());
+
+        $this->assertSame('Some value', $entry->get('field1', 'tlh'));
+        $this->assertSame([], $entry->get('field2', 'it-IT'));
+        $this->assertNull($entry->get('field3', 'it-IT'));
+        $this->assertSame([], $entry->get('field4', 'en-US'));
+        $this->assertNull($entry->get('field5', 'en-US'));
     }
 
     public function testJsonSerialize()

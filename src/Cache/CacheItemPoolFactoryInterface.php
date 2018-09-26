@@ -23,13 +23,6 @@ use Psr\Cache\CacheItemPoolInterface;
 interface CacheItemPoolFactoryInterface
 {
     /**
-     * Empty constructor.
-     *
-     * The factory should not expect to receive any parameters when being instantiated.
-     */
-    public function __construct();
-
-    /**
      * Returns a PSR-6 CacheItemPoolInterface object.
      * The method receives two parameters, which can be used
      * for things like using a different directory in the filesystem,

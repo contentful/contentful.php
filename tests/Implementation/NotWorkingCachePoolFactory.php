@@ -16,10 +16,9 @@ use Psr\Cache\CacheItemPoolInterface;
 
 class NotWorkingCachePoolFactory implements CacheItemPoolFactoryInterface
 {
-    public function __construct()
-    {
-    }
-
+    /**
+     * {@inheritdoc}
+     */
     public function getCacheItemPool(string $api, string $spaceId, string $environmentId): CacheItemPoolInterface
     {
         return new NotWorkingCachePool();

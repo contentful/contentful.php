@@ -22,11 +22,17 @@ class CacheItemPoolFactory implements CacheItemPoolFactoryInterface
      */
     public static $pools = [];
 
+    /**
+     * CacheItemPoolFactory constructor.
+     */
     public function __construct()
     {
         self::$pools = [];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getCacheItemPool(string $api, string $spaceId, string $environmentId): CacheItemPoolInterface
     {
         $key = $api.'.'.$spaceId.'.'.$environmentId;

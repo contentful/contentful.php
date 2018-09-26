@@ -45,7 +45,7 @@ script:
   # Static analysis
   - |
     if [ $QUALITY_CHECK == 1 ]; then
-      php phpstan.phar analyse --level=2 src/
+      php phpstan.phar analyse --level=max src/
     fi
 
   # Syntax tests

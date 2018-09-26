@@ -17,11 +17,12 @@ use Contentful\Tests\Delivery\TestCase;
 class GzipEncodingTest extends TestCase
 {
     /**
-     * @requires API no-coverage-proxy
      * @vcr e2e_gzip_encoding.json
      */
     public function testContentEncodingHeader()
     {
+        $this->skipIfApiCoverage();
+
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())

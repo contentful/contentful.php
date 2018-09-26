@@ -26,7 +26,7 @@ class ContentType extends BaseMapper
     /**
      * {@inheritdoc}
      */
-    public function map($resource, array $data)
+    public function map($resource, array $data): ResourceClass
     {
         $fields = [];
         foreach ($data['fields'] as $field) {
@@ -34,13 +34,16 @@ class ContentType extends BaseMapper
             $fields[$field->getId()] = $field;
         }
 
-        return $this->hydrate($resource ?: ResourceClass::class, [
+        /** @var ResourceClass $contentType */
+        $contentType = $this->hydrator->hydrate($resource ?: ResourceClass::class, [
             'sys' => $this->createSystemProperties(SystemProperties::class, $data),
             'name' => $data['name'],
             'displayField' => $data['displayField'] ?? \null,
             'description' => $data['description'] ?? \null,
             'fields' => $fields,
         ]);
+
+        return $contentType;
     }
 
     /**
@@ -48,7 +51,7 @@ class ContentType extends BaseMapper
      *
      * @return ResourceContentTypeField
      */
-    protected function mapField(array $data)
+    protected function mapField(array $data): ResourceContentTypeField
     {
         /** @var ResourceContentTypeField $field */
         $field = $this->hydrator->hydrate(ResourceContentTypeField::class, [

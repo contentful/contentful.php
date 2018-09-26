@@ -25,10 +25,13 @@ class DeletedContentType extends BaseMapper
     /**
      * {@inheritdoc}
      */
-    public function map($resource, array $data)
+    public function map($resource, array $data): ResourceClass
     {
-        return $this->hydrate($resource ?: ResourceClass::class, [
+        /** @var ResourceClass $deletedContentType */
+        $deletedContentType = $this->hydrator->hydrate($resource ?: ResourceClass::class, [
             'sys' => $this->createSystemProperties(SystemProperties::class, $data),
         ]);
+
+        return $deletedContentType;
     }
 }

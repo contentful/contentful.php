@@ -27,5 +27,7 @@ class LocaleTest extends TestCase
         $this->assertSame('localeId', $sys->getId());
         $this->assertSame('Locale', $sys->getType());
         $this->assertSame(1, $sys->getRevision());
+
+        $this->assertJsonFixtureEqualsJsonObject('serialize.json', $sys);
     }
 }

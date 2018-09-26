@@ -26,12 +26,12 @@ use Contentful\Core\ResourceBuilder\MapperInterface;
 class ResourceBuilder extends BaseResourceBuilder
 {
     /**
-     * @var Client
+     * @var ClientInterface
      */
     private $client;
 
     /**
-     * @var InstanceRepository
+     * @var InstanceRepositoryInterface
      */
     private $instanceRepository;
 
@@ -53,10 +53,10 @@ class ResourceBuilder extends BaseResourceBuilder
     /**
      * ResourceBuilder constructor.
      *
-     * @param Client             $client
-     * @param InstanceRepository $instanceRepository
+     * @param ClientInterface             $client
+     * @param InstanceRepositoryInterface $instanceRepository
      */
-    public function __construct(Client $client, InstanceRepository $instanceRepository)
+    public function __construct(ClientInterface $client, InstanceRepositoryInterface $instanceRepository)
     {
         $this->client = $client;
         $this->instanceRepository = $instanceRepository;
@@ -157,13 +157,13 @@ class ResourceBuilder extends BaseResourceBuilder
             $data['includes']['Entry'] ?? []
         );
 
-        $ids = \array_map(function ($item) {
+        $ids = \array_map(function (array $item) {
             return 'Entry' === $item['sys']['type']
                 ? $item['sys']['contentType']['sys']['id']
                 : \null;
         }, $items);
 
-        $ids = \array_filter(\array_unique($ids), function ($id) {
+        $ids = \array_filter(\array_unique($ids), function ($id): bool {
             return $id && !$this->instanceRepository->has('ContentType', $id);
         });
 

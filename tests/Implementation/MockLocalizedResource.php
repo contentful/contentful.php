@@ -19,7 +19,7 @@ class MockLocalizedResource extends LocalizedResource
 {
     protected $sys;
 
-    public function __construct(array $locales)
+    public function __construct(array $locales, string $currentLocale = \null)
     {
         $this->sys = new SystemProperties([
             'id' => 'resourceId',
@@ -30,6 +30,7 @@ class MockLocalizedResource extends LocalizedResource
             'revision' => 1,
             'createdAt' => '2010-01-01T12:00:00.123Z',
             'updatedAt' => '2010-01-01T12:00:00.123Z',
+            'locale' => $currentLocale,
         ]);
 
         $this->initLocales($locales);
@@ -40,17 +41,17 @@ class MockLocalizedResource extends LocalizedResource
         return $this->sys;
     }
 
-    public function getLocaleFromInput($locale = \null)
+    public function getLocaleFromInput($locale = \null): string
     {
         return parent::getLocaleFromInput($locale);
     }
 
-    public function walkFallbackChain(array $valueMap, $localeCode, Environment $environment)
+    public function walkFallbackChain(array $valueMap, string $localeCode, Environment $environment)
     {
         return parent::walkFallbackChain($valueMap, $localeCode, $environment);
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [];
     }

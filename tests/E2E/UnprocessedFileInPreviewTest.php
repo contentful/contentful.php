@@ -19,11 +19,12 @@ use Contentful\Tests\Delivery\TestCase;
 class UnprocessedFileInPreviewTest extends TestCase
 {
     /**
-     * @requires API no-coverage-proxy
      * @vcr e2e_file_remote_upload_unprocessed.json
      */
     public function testFileRemoteUploadUnprocessed()
     {
+        $this->skipIfApiCoverage();
+
         $client = $this->getClient('88dyiqcr7go8_preview');
 
         $asset = $client->getAsset('147y8r7Fx4YSEWYAQyggui');
@@ -45,11 +46,12 @@ class UnprocessedFileInPreviewTest extends TestCase
      * using the Management API. This is irrelevant for the Delivery API, but it's good to rememember
      * when dealing with the CMA.
      *
-     * @requires API no-coverage-proxy
      * @vcr e2e_file_local_upload_unprocessed.json
      */
     public function testFileLocalUploadUnprocessed()
     {
+        $this->skipIfApiCoverage();
+
         $client = $this->getClient('88dyiqcr7go8_preview');
 
         $asset = $client->getAsset('lp8z7n381EmisqwMgmqW2');

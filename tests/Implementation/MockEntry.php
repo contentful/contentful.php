@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Implementation;
 
-use Contentful\Delivery\Client;
+use Contentful\Delivery\ClientInterface;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
 
@@ -28,12 +28,13 @@ class MockEntry extends Entry
     }
 
     /**
-     * @param string $id
-     * @param array  $data
+     * @param string      $id
+     * @param array       $data
+     * @param string|null $locale
      *
      * @return MockEntry
      */
-    public static function withSys(string $id = 'entryId', array $data = []): self
+    public static function withSys(string $id = 'entryId', array $data = [], string $locale = \null): self
     {
         return new static(\array_merge($data, [
             'sys' => new SystemProperties([
@@ -45,11 +46,15 @@ class MockEntry extends Entry
                 'revision' => 1,
                 'createdAt' => '2010-01-01T12:00:00.123Z',
                 'updatedAt' => '2010-01-01T12:00:00.123Z',
+                'locale' => $locale,
             ]),
         ]));
     }
 
-    public function setClient(Client $client = \null)
+    /**
+     * @param ClientInterface|null $client
+     */
+    public function setClient(ClientInterface $client = \null)
     {
         $this->client = $client;
     }

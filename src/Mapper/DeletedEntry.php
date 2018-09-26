@@ -25,10 +25,13 @@ class DeletedEntry extends BaseMapper
     /**
      * {@inheritdoc}
      */
-    public function map($resource, array $data)
+    public function map($resource, array $data): ResourceClass
     {
-        return $this->hydrate($resource ?: ResourceClass::class, [
+        /** @var ResourceClass $deletedEntry */
+        $deletedEntry = $this->hydrator->hydrate($resource ?: ResourceClass::class, [
             'sys' => $this->createSystemProperties(SystemProperties::class, $data),
         ]);
+
+        return $deletedEntry;
     }
 }

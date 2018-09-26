@@ -97,6 +97,9 @@ class AssetTest extends TestCase
         $this->assertInstanceOf(FileInterface::class, $asset->getFile());
         $this->assertSame($this->file, $asset->getFile());
 
+        $this->assertSame($this->space, $asset->getSpace());
+        $this->assertSame($this->environment, $asset->getEnvironment());
+
         $this->assertSame('nyancat', $asset->getId());
         $sys = $asset->getSystemProperties();
         $this->assertSame(1, $sys->getRevision());
@@ -104,6 +107,35 @@ class AssetTest extends TestCase
         $this->assertSame('2013-09-02T14:56:34.240Z', (string) $sys->getUpdatedAt());
 
         $this->assertLink('nyancat', 'Asset', $asset->asLink());
+    }
+
+    public function testEmptyFieldReturnsNull()
+    {
+        $sys = new SystemProperties([
+            'id' => 'nyancat',
+            'type' => 'Asset',
+            'space' => $this->space,
+            'environment' => $this->environment,
+            'revision' => 1,
+            'createdAt' => '2013-09-02T14:56:34.240Z',
+            'updatedAt' => '2013-09-02T14:56:34.240Z',
+        ]);
+
+        $asset = new MockAsset([
+            'sys' => $sys,
+            'title' => [],
+            'description' => [],
+            'file' => [],
+        ]);
+        $asset->initLocales($this->environment->getLocales());
+
+        $this->assertNull($asset->getTitle('en-US'));
+        $this->assertNull($asset->getDescription('en-US'));
+        $this->assertNull($asset->getFile('en-US'));
+
+        $this->assertNull($asset->getTitle('it-IT'));
+        $this->assertNull($asset->getDescription('it-IT'));
+        $this->assertNull($asset->getFile('it-IT'));
     }
 
     public function testGetTitleWithLocale()
@@ -207,5 +239,28 @@ class AssetTest extends TestCase
         ]);
 
         $this->assertJsonFixtureEqualsJsonObject('serialize_no_description.json', $asset);
+    }
+
+    public function testJsonSerializeNoLocale()
+    {
+        $sys = new SystemProperties([
+            'id' => 'nyancat',
+            'type' => 'Asset',
+            'space' => $this->space,
+            'environment' => $this->environment,
+            'revision' => 1,
+            'createdAt' => '2013-09-02T14:56:34.240Z',
+            'updatedAt' => '2013-09-02T14:56:34.240Z',
+            'locale' => 'en-US',
+        ]);
+
+        $asset = new MockAsset([
+            'sys' => $sys,
+            'title' => ['en-US' => 'Nyan Cat'],
+            'description' => ['en-US' => 'A picture of Nyan Cat'],
+            'file' => ['en-US' => $this->file],
+        ]);
+
+        $this->assertJsonFixtureEqualsJsonObject('serialize_no_locale.json', $asset);
     }
 }
