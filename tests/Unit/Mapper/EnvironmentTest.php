@@ -15,6 +15,7 @@ use Contentful\Delivery\Mapper\Environment as Mapper;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Locale;
 use Contentful\Tests\Delivery\Implementation\MockClient;
+use Contentful\Tests\Delivery\Implementation\MockParser;
 use Contentful\Tests\Delivery\Implementation\MockResourceBuilder;
 use Contentful\Tests\Delivery\TestCase;
 
@@ -24,7 +25,8 @@ class EnvironmentTest extends TestCase
     {
         $mapper = new Mapper(
             new MockResourceBuilder(),
-            new MockClient()
+            new MockClient(),
+            new MockParser()
         );
 
         /** @var Environment $resource */

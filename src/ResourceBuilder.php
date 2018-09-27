@@ -14,6 +14,7 @@ namespace Contentful\Delivery;
 use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Core\ResourceBuilder\BaseResourceBuilder;
 use Contentful\Core\ResourceBuilder\MapperInterface;
+use Contentful\StructuredText\ParserInterface;
 
 /**
  * ResourceBuilder class.
@@ -36,6 +37,11 @@ class ResourceBuilder extends BaseResourceBuilder
     private $instanceRepository;
 
     /**
+     * @var ParserInterface
+     */
+    private $richTextParser;
+
+    /**
      * @var string[]
      */
     private static $availableTypes = [
@@ -55,11 +61,16 @@ class ResourceBuilder extends BaseResourceBuilder
      *
      * @param ClientInterface             $client
      * @param InstanceRepositoryInterface $instanceRepository
+     * @param ParserInterface             $richTextParser
      */
-    public function __construct(ClientInterface $client, InstanceRepositoryInterface $instanceRepository)
-    {
+    public function __construct(
+        ClientInterface $client,
+        InstanceRepositoryInterface $instanceRepository,
+        ParserInterface $richTextParser
+    ) {
         $this->client = $client;
         $this->instanceRepository = $instanceRepository;
+        $this->richTextParser = $richTextParser;
 
         parent::__construct();
     }
@@ -77,7 +88,7 @@ class ResourceBuilder extends BaseResourceBuilder
      */
     protected function createMapper($fqcn): MapperInterface
     {
-        return new $fqcn($this, $this->client);
+        return new $fqcn($this, $this->client, $this->richTextParser);
     }
 
     /**

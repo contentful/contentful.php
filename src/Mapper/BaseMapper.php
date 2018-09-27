@@ -17,6 +17,7 @@ use Contentful\Core\ResourceBuilder\MapperInterface;
 use Contentful\Core\ResourceBuilder\ObjectHydrator;
 use Contentful\Core\ResourceBuilder\ResourceBuilderInterface;
 use Contentful\Delivery\ClientInterface;
+use Contentful\StructuredText\ParserInterface;
 
 /**
  * BaseMapper class.
@@ -34,6 +35,11 @@ abstract class BaseMapper implements MapperInterface
     protected $client;
 
     /**
+     * @var ParserInterface
+     */
+    protected $richTextParser;
+
+    /**
      * @var ObjectHydrator
      */
     protected $hydrator;
@@ -43,11 +49,13 @@ abstract class BaseMapper implements MapperInterface
      *
      * @param ResourceBuilderInterface $builder
      * @param ClientInterface          $client
+     * @param ParserInterface          $richTextParser
      */
-    public function __construct(ResourceBuilderInterface $builder, ClientInterface $client)
+    public function __construct(ResourceBuilderInterface $builder, ClientInterface $client, ParserInterface $richTextParser)
     {
         $this->builder = $builder;
         $this->client = $client;
+        $this->richTextParser = $richTextParser;
         $this->hydrator = new ObjectHydrator();
     }
 

@@ -106,7 +106,7 @@ class TestCase extends BaseTestCase
 
         $defaultOptions = ClientOptions::create();
         if ($testingUrl = \getenv('CONTENTFUL_CDA_SDK_TESTING_URL')) {
-            $defaultOptions = $defaultOptions->withHost($testingUrl);
+            $defaultOptions->withHost($testingUrl);
         }
 
         $default = [
@@ -122,7 +122,7 @@ class TestCase extends BaseTestCase
     protected function skipIfApiCoverage()
     {
         if (\getenv('CONTENTFUL_CDA_SDK_TESTING_URL')) {
-            return $this->markTestSkipped('This configuration blocks tests that should not be run when in the coverage proxy environment.');
+            $this->markTestSkipped('This configuration blocks tests that should not be run when in the coverage proxy environment.');
         }
     }
 }

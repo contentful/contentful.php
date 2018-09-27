@@ -13,7 +13,9 @@ namespace Contentful\Tests\Delivery\Unit;
 
 use Contentful\Delivery\Client;
 use Contentful\Delivery\ClientOptions;
+use Contentful\Delivery\ResourceBuilder;
 use Contentful\Delivery\Synchronization\Manager;
+use Contentful\StructuredText\Parser;
 use Contentful\Tests\Delivery\TestCase;
 
 class ClientTest extends TestCase
@@ -24,6 +26,9 @@ class ClientTest extends TestCase
 
         $this->assertSame('my_space_id', $client->getSpaceId());
         $this->assertSame('my_environment_id', $client->getEnvironmentId());
+
+        $this->assertInstanceOf(ResourceBuilder::class, $client->getResourceBuilder());
+        $this->assertInstanceOf(Parser::class, $client->getRichTextParser());
     }
 
     public function testIsDelivery()

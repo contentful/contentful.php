@@ -15,6 +15,7 @@ use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Mapper\ResourceArray as Mapper;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Tests\Delivery\Implementation\MockClient;
+use Contentful\Tests\Delivery\Implementation\MockParser;
 use Contentful\Tests\Delivery\Implementation\MockResourceBuilder;
 use Contentful\Tests\Delivery\TestCase;
 
@@ -24,7 +25,8 @@ class ResourceArrayTest extends TestCase
     {
         $mapper = new Mapper(
             new MockResourceBuilder(),
-            new MockClient()
+            new MockClient(),
+            new MockParser()
         );
 
         /** @var ResourceArray $resource */

@@ -19,10 +19,13 @@ use Contentful\Delivery\Mapper\Entry as Mapper;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\ContentType\Field;
 use Contentful\Delivery\Resource\Entry;
+use Contentful\StructuredText\Node\NodeInterface;
+use Contentful\StructuredText\Node\Text;
 use Contentful\Tests\Delivery\Implementation\MockClient;
 use Contentful\Tests\Delivery\Implementation\MockContentType;
 use Contentful\Tests\Delivery\Implementation\MockEntry;
 use Contentful\Tests\Delivery\Implementation\MockEnvironment;
+use Contentful\Tests\Delivery\Implementation\MockParser;
 use Contentful\Tests\Delivery\Implementation\MockResourceBuilder;
 use Contentful\Tests\Delivery\Implementation\MockSpace;
 use Contentful\Tests\Delivery\TestCase;
@@ -43,6 +46,7 @@ class EntryTest extends TestCase
             'pictures' => new Field('pictures', 'Pictures', 'Array'),
             'custom' => new Field('custom', 'Custom', 'Object'),
             'nullValue' => new Field('nullValue', 'Null value', 'Symbol'),
+            'richText' => new Field('richText', 'Rich text', 'StructuredText'),
         ];
 
         $hydrator = new ObjectHydrator();
@@ -66,7 +70,8 @@ class EntryTest extends TestCase
     {
         $mapper = new Mapper(
             new MockResourceBuilder(),
-            new MockClient()
+            new MockClient(),
+            new MockParser()
         );
 
         $space = MockSpace::withSys('spaceId');
@@ -126,6 +131,10 @@ class EntryTest extends TestCase
                 ],
                 'nullValue' => \null,
                 'extraField' => 'Some extra field',
+                'richText' => [
+                    'nodeType' => 'document',
+                    'content' => [],
+                ],
             ],
         ]);
 
@@ -178,13 +187,17 @@ class EntryTest extends TestCase
 
         $this->assertInternalType('string', $resource->get('extraField'));
         $this->assertSame('Some extra field', $resource->get('extraField'));
+
+        $this->assertInstanceOf(NodeInterface::class, $resource->get('richText'));
+        $this->assertInstanceOf(Text::class, $resource->get('richText'));
     }
 
     public function testWithPreviousEntry()
     {
         $mapper = new Mapper(
             new MockResourceBuilder(),
-            new MockClient()
+            new MockClient(),
+            new MockParser()
         );
 
         $space = MockSpace::withSys('spaceId');
