@@ -33,44 +33,34 @@ class ClientOptionsTest extends TestCase
         $this->assertNull($options->getDefaultLocale());
     }
 
-    public function testImmutable()
-    {
-        $options = new ClientOptions();
-
-        $this->assertNotSame($options, $options->usingDeliveryApi());
-        $this->assertNotSame($options, $options->usingPreviewApi());
-        $this->assertNotSame($options, $options->withHost('https://cdn.contentful.com'));
-        $this->assertNotSame($options, $options->withDefaultLocale('en-US'));
-        $this->assertNotSame($options, $options->withCache(new ArrayCachePool(), \false, \false));
-        $this->assertNotSame($options, $options->withLogger(new NullLogger()));
-        $this->assertNotSame($options, $options->withHttpClient(new HttpClient()));
-    }
-
     public function testGetSet()
     {
         $options = new ClientOptions();
 
-        $options = $options->usingPreviewApi();
+        $options->usingPreviewApi();
         $this->assertSame('https://preview.contentful.com', $options->getHost());
 
-        $options = $options->withHost('https://www.example.com/');
+        $options->usingDeliveryApi();
+        $this->assertSame('https://cdn.contentful.com', $options->getHost());
+
+        $options->withHost('https://www.example.com/');
         $this->assertSame('https://www.example.com', $options->getHost());
 
-        $options = $options->withDefaultLocale('it-IT');
+        $options->withDefaultLocale('it-IT');
         $this->assertSame('it-IT', $options->getDefaultLocale());
 
         $cachePool = new ArrayCachePool();
-        $options = $options->withCache($cachePool, \true, \true);
+        $options->withCache($cachePool, \true, \true);
         $this->assertSame($cachePool, $options->getCacheItemPool());
         $this->assertTrue($options->hasCacheAutoWarmup());
         $this->assertTrue($options->hasCacheContent());
 
         $logger = new NullLogger();
-        $options = $options->withLogger($logger);
+        $options->withLogger($logger);
         $this->assertSame($logger, $options->getLogger());
 
         $client = new HttpClient();
-        $options = $options->withHttpClient($client);
+        $options->withHttpClient($client);
         $this->assertSame($client, $options->getHttpClient());
     }
 }
