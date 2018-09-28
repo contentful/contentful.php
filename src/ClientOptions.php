@@ -79,10 +79,9 @@ class ClientOptions
      */
     public function withDefaultLocale(string $locale)
     {
-        $clone = clone $this;
-        $clone->defaultLocale = $locale;
+        $this->defaultLocale = $locale;
 
-        return $clone;
+        return $this;
     }
 
     /**
@@ -98,10 +97,9 @@ class ClientOptions
      */
     public function usingDeliveryApi(): self
     {
-        $clone = clone $this;
-        $clone->host = Client::URI_DELIVERY;
+        $this->host = Client::URI_DELIVERY;
 
-        return $clone;
+        return $this;
     }
 
     /**
@@ -109,10 +107,9 @@ class ClientOptions
      */
     public function usingPreviewApi(): self
     {
-        $clone = clone $this;
-        $clone->host = Client::URI_PREVIEW;
+        $this->host = Client::URI_PREVIEW;
 
-        return $clone;
+        return $this;
     }
 
     /**
@@ -126,10 +123,9 @@ class ClientOptions
             $host = \mb_substr($host, 0, -1);
         }
 
-        $clone = clone $this;
-        $clone->host = $host;
+        $this->host = $host;
 
-        return $clone;
+        return $this;
     }
 
     /**
@@ -152,12 +148,11 @@ class ClientOptions
         bool $autoWarmup = \false,
         bool $cacheContent = \false
     ): self {
-        $clone = clone $this;
-        $clone->cacheItemPool = $cacheItemPool;
-        $clone->cacheAutoWarmup = $autoWarmup;
-        $clone->cacheContent = $cacheContent;
+        $this->cacheItemPool = $cacheItemPool;
+        $this->cacheAutoWarmup = $autoWarmup;
+        $this->cacheContent = $cacheContent;
 
-        return $clone;
+        return $this;
     }
 
     /**
@@ -193,10 +188,9 @@ class ClientOptions
      */
     public function withLogger(LoggerInterface $logger): self
     {
-        $clone = clone $this;
-        $clone->logger = $logger;
+        $this->logger = $logger;
 
-        return $clone;
+        return $this;
     }
 
     /**
@@ -214,10 +208,9 @@ class ClientOptions
      */
     public function withHttpClient(HttpClient $client): self
     {
-        $clone = clone $this;
-        $clone->httpClient = $client;
+        $this->httpClient = $client;
 
-        return $clone;
+        return $this;
     }
 
     /**
