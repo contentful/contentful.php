@@ -22,6 +22,7 @@ use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\Synchronization\Manager;
+use Contentful\StructuredText\Parser;
 
 /**
  * A Client is used to communicate the Contentful Delivery API.
@@ -99,6 +100,11 @@ class Client extends BaseClient implements ClientInterface
     private $linkResolver;
 
     /**
+     * @var Parser
+     */
+    private $richTextParser;
+
+    /**
      * Client constructor.
      *
      * @param string             $token         Delivery API Access Token for the space used with this Client
@@ -129,9 +135,11 @@ class Client extends BaseClient implements ClientInterface
             $options->hasCacheAutoWarmup(),
             $options->hasCacheContent()
         );
-        $this->builder = new ResourceBuilder($this, $this->instanceRepository);
+
         $this->scopedJsonDecoder = new ScopedJsonDecoder($this->spaceId, $this->environmentId);
         $this->linkResolver = new LinkResolver($this);
+        $this->richTextParser = new Parser($this->linkResolver);
+        $this->builder = new ResourceBuilder($this, $this->instanceRepository, $this->richTextParser);
 
         parent::__construct($token, $options->getHost(), $options->getLogger(), $options->getHttpClient());
     }
@@ -166,6 +174,14 @@ class Client extends BaseClient implements ClientInterface
     public function getResourceBuilder(): ResourceBuilderInterface
     {
         return $this->builder;
+    }
+
+    /**
+     * @return Parser
+     */
+    public function getRichTextParser(): Parser
+    {
+        return $this->richTextParser;
     }
 
     /**

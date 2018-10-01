@@ -14,6 +14,7 @@ namespace Contentful\Tests\Unit\Mapper;
 use Contentful\Delivery\Mapper\Locale as Mapper;
 use Contentful\Delivery\Resource\Locale;
 use Contentful\Tests\Delivery\Implementation\MockClient;
+use Contentful\Tests\Delivery\Implementation\MockParser;
 use Contentful\Tests\Delivery\Implementation\MockResourceBuilder;
 use Contentful\Tests\Delivery\TestCase;
 
@@ -23,7 +24,8 @@ class LocaleTest extends TestCase
     {
         $mapper = new Mapper(
             new MockResourceBuilder(),
-            new MockClient()
+            new MockClient(),
+            new MockParser()
         );
 
         /** @var Locale $resource */

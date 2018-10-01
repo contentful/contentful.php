@@ -20,6 +20,7 @@ use Contentful\Delivery\Resource\Asset;
 use Contentful\Tests\Delivery\Implementation\MockClient;
 use Contentful\Tests\Delivery\Implementation\MockEnvironment;
 use Contentful\Tests\Delivery\Implementation\MockLocale;
+use Contentful\Tests\Delivery\Implementation\MockParser;
 use Contentful\Tests\Delivery\Implementation\MockResourceBuilder;
 use Contentful\Tests\Delivery\Implementation\MockSpace;
 use Contentful\Tests\Delivery\TestCase;
@@ -30,7 +31,8 @@ class AssetTest extends TestCase
     {
         $mapper = new Mapper(
             new MockResourceBuilder(),
-            new MockClient()
+            new MockClient(),
+            new MockParser()
         );
 
         $space = MockSpace::withSys('spaceId');

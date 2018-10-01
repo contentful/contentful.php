@@ -176,24 +176,21 @@ class Entry extends BaseMapper
             return \null;
         }
 
-        if ('Date' === $type) {
-            return new DateTimeImmutable($value, new \DateTimeZone('UTC'));
+        switch ($type) {
+            case 'StructuredText':
+                return $this->richTextParser->parse($value);
+            case 'Date':
+                return new DateTimeImmutable($value, new \DateTimeZone('UTC'));
+            case 'Location':
+                return new Location($value['lat'], $value['lon']);
+            case 'Link':
+                return new Link($value['sys']['id'], $value['sys']['linkType']);
+            case 'Array':
+                return \array_map(function ($value) use ($itemsType) {
+                    return $this->formatValue((string) $itemsType, $value);
+                }, $value);
+            default:
+                return $value;
         }
-
-        if ('Location' === $type) {
-            return new Location($value['lat'], $value['lon']);
-        }
-
-        if ('Link' === $type) {
-            return new Link($value['sys']['id'], $value['sys']['linkType']);
-        }
-
-        if ('Array' === $type) {
-            return \array_map(function ($value) use ($itemsType) {
-                return $this->formatValue((string) $itemsType, $value);
-            }, $value);
-        }
-
-        return $value;
     }
 }

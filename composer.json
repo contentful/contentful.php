@@ -6,6 +6,7 @@
     "require": {
         "php": "^7.0",
         "contentful/core": "2.0.0-beta1",
+        "contentful/structured-text-renderer": "dev-master",
         "psr/cache": "^1.0",
         "symfony/console": "~2.7|~3.0|~4.0",
         "symfony/filesystem": "~2.7|~3.0|~4.0",

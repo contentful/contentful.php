@@ -54,8 +54,11 @@ abstract class BaseCacheCommand extends Command
      */
     protected function getClient(InputInterface $input): Client
     {
+        /** @var string $accessToken */
         $accessToken = $input->getOption('access-token');
+        /** @var string $spaceId */
         $spaceId = $input->getOption('space-id');
+        /** @var string $environmentId */
         $environmentId = $input->getOption('environment-id');
         $options = new ClientOptions();
         if ($input->getOption('use-preview')) {
