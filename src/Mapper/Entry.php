@@ -177,18 +177,18 @@ class Entry extends BaseMapper
         }
 
         switch ($type) {
-            case 'StructuredText':
-                return $this->richTextParser->parse($value);
-            case 'Date':
-                return new DateTimeImmutable($value, new \DateTimeZone('UTC'));
-            case 'Location':
-                return new Location($value['lat'], $value['lon']);
-            case 'Link':
-                return new Link($value['sys']['id'], $value['sys']['linkType']);
             case 'Array':
                 return \array_map(function ($value) use ($itemsType) {
                     return $this->formatValue((string) $itemsType, $value);
                 }, $value);
+            case 'Date':
+                return new DateTimeImmutable($value, new \DateTimeZone('UTC'));
+            case 'Link':
+                return new Link($value['sys']['id'], $value['sys']['linkType']);
+            case 'Location':
+                return new Location($value['lat'], $value['lon']);
+            case 'RichText':
+                return $this->richTextParser->parse($value);
             default:
                 return $value;
         }

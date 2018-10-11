@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\E2E;
 
-use Contentful\StructuredText\Node\Document;
-use Contentful\StructuredText\Renderer;
+use Contentful\RichText\Node\Document;
+use Contentful\RichText\Renderer;
 use Contentful\Tests\Delivery\TestCase;
 
 class EntryRichTextTest extends TestCase

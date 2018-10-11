@@ -14,7 +14,7 @@ namespace Contentful\Delivery;
 use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Core\ResourceBuilder\BaseResourceBuilder;
 use Contentful\Core\ResourceBuilder\MapperInterface;
-use Contentful\StructuredText\ParserInterface;
+use Contentful\RichText\ParserInterface;
 
 /**
  * ResourceBuilder class.

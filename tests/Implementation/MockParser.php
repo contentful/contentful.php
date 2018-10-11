@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Implementation;
 
-use Contentful\StructuredText\Node\NodeInterface;
-use Contentful\StructuredText\Node\Text;
-use Contentful\StructuredText\ParserInterface;
+use Contentful\RichText\Node\NodeInterface;
+use Contentful\RichText\Node\Text;
+use Contentful\RichText\ParserInterface;
 
 class MockParser implements ParserInterface
 {
