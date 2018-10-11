@@ -17,7 +17,7 @@ use Contentful\Core\ResourceBuilder\MapperInterface;
 use Contentful\Core\ResourceBuilder\ObjectHydrator;
 use Contentful\Core\ResourceBuilder\ResourceBuilderInterface;
 use Contentful\Delivery\ClientInterface;
-use Contentful\StructuredText\ParserInterface;
+use Contentful\RichText\ParserInterface;
 
 /**
  * BaseMapper class.

@@ -15,7 +15,7 @@ use Contentful\Delivery\Client;
 use Contentful\Delivery\ClientOptions;
 use Contentful\Delivery\ResourceBuilder;
 use Contentful\Delivery\Synchronization\Manager;
-use Contentful\StructuredText\Parser;
+use Contentful\RichText\Parser;
 use Contentful\Tests\Delivery\TestCase;
 
 class ClientTest extends TestCase

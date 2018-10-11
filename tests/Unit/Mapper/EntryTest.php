@@ -19,8 +19,8 @@ use Contentful\Delivery\Mapper\Entry as Mapper;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\ContentType\Field;
 use Contentful\Delivery\Resource\Entry;
-use Contentful\StructuredText\Node\NodeInterface;
-use Contentful\StructuredText\Node\Text;
+use Contentful\RichText\Node\NodeInterface;
+use Contentful\RichText\Node\Text;
 use Contentful\Tests\Delivery\Implementation\MockClient;
 use Contentful\Tests\Delivery\Implementation\MockContentType;
 use Contentful\Tests\Delivery\Implementation\MockEntry;
@@ -46,7 +46,7 @@ class EntryTest extends TestCase
             'pictures' => new Field('pictures', 'Pictures', 'Array'),
             'custom' => new Field('custom', 'Custom', 'Object'),
             'nullValue' => new Field('nullValue', 'Null value', 'Symbol'),
-            'richText' => new Field('richText', 'Rich text', 'StructuredText'),
+            'richText' => new Field('richText', 'Rich text', 'RichText'),
         ];
 
         $hydrator = new ObjectHydrator();

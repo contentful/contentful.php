@@ -22,7 +22,7 @@ use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\Synchronization\Manager;
-use Contentful\StructuredText\Parser;
+use Contentful\RichText\Parser;
 
 /**
  * A Client is used to communicate the Contentful Delivery API.
