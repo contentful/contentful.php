@@ -36,10 +36,10 @@ class CacheWarmer extends BaseCacheHandler
             /** @var SystemPropertiesInterface $sys */
             $sys = $resource->getSystemProperties();
 
-            $locale = $sys instanceof LocalizedResourceSystemProperties
-                ? $sys->getLocale()
-                : \null;
-            $key = $instanceRepository->generateKey($sys->getType(), $sys->getId(), $locale);
+            $options = $sys instanceof LocalizedResourceSystemProperties
+                ? ['locale' => $sys->getLocale()]
+                : [];
+            $key = $instanceRepository->generateKey($sys->getType(), $sys->getId(), $options);
 
             $item = $this->cacheItemPool->getItem($key);
             $item->set(guzzle_json_encode($resource));

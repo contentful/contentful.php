@@ -12,9 +12,10 @@ declare(strict_types=1);
 namespace Contentful\Delivery\Resource;
 
 use Contentful\Core\File\FileInterface;
+use Contentful\Core\Resource\AssetInterface;
 use Contentful\Delivery\SystemProperties\Asset as SystemProperties;
 
-class Asset extends LocalizedResource
+class Asset extends LocalizedResource implements AssetInterface
 {
     /**
      * @var SystemProperties

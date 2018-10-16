@@ -13,11 +13,11 @@ namespace Contentful\Tests\Delivery\Unit;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Contentful\Delivery\Client;
-use Contentful\Delivery\InstanceRepository;
+use Contentful\Delivery\ResourcePool;
 use Contentful\Tests\Delivery\Implementation\MockEntry;
 use Contentful\Tests\Delivery\TestCase;
 
-class InstanceRepositoryTest extends TestCase
+class ResourcePoolTest extends TestCase
 {
     private function createClient(): Client
     {
@@ -45,50 +45,50 @@ class InstanceRepositoryTest extends TestCase
 
     public function testGetSetData()
     {
-        $instanceRepository = new InstanceRepository($this->createClient(), new ArrayCachePool(), \true);
+        $instanceRepository = new ResourcePool($this->createClient(), new ArrayCachePool(), \true);
 
-        $this->assertFalse($instanceRepository->has('Entry', 'entryId', 'en-US'));
+        $this->assertFalse($instanceRepository->has('Entry', 'entryId', ['locale' => 'en-US']));
         $entry = MockEntry::withSys('entryId', [], 'en-US');
-        $this->assertTrue($instanceRepository->set($entry));
+        $this->assertTrue($instanceRepository->save($entry));
 
-        $this->assertTrue($instanceRepository->has('Entry', 'entryId', 'en-US'));
-        $this->assertSame($entry, $instanceRepository->get('Entry', 'entryId', 'en-US'));
+        $this->assertTrue($instanceRepository->has('Entry', 'entryId', ['locale' => 'en-US']));
+        $this->assertSame($entry, $instanceRepository->get('Entry', 'entryId', ['locale' => 'en-US']));
     }
 
     /**
-     * @expectedException \OutOfBoundsException
-     * @expectedExceptionMessage Instance repository could not find a resource with type "Entry", ID "invalidId", and locale "en-US".
+     * @expectedException        \OutOfBoundsException
+     * @expectedExceptionMessage Resource pool could not find a resource with type "Entry", ID "invalidId", and locale "en-US".
      */
     public function testGetInvalidKey()
     {
-        $instanceRepository = new InstanceRepository($this->createClient(), new ArrayCachePool());
+        $instanceRepository = new ResourcePool($this->createClient(), new ArrayCachePool());
 
-        $instanceRepository->get('Entry', 'invalidId', 'en-US');
+        $instanceRepository->get('Entry', 'invalidId', ['locale' => 'en-US']);
     }
 
     public function testGenerateKey()
     {
-        $instanceRepository = new InstanceRepository($this->createClient(), new ArrayCachePool());
+        $instanceRepository = new ResourcePool($this->createClient(), new ArrayCachePool());
 
         $key = $instanceRepository->generateKey(
             'Entry',
             'entryId',
-            '*'
+            ['locale' => '*']
         );
         $this->assertSame('contentful.DELIVERY.cfexampleapi.master.Entry.entryId.__ALL__', $key);
 
         $key = $instanceRepository->generateKey(
             'Entry',
             'entryId',
-            'en-US'
+            ['locale' => 'en-US']
         );
         $this->assertSame('contentful.DELIVERY.cfexampleapi.master.Entry.entryId.en_US', $key);
 
         $key = $instanceRepository->generateKey(
             'Entry',
             'entry-id-._',
-            'en-US'
+            ['locale' => 'en-US']
         );
-        $this->assertSame('contentful.DELIVERY.cfexampleapi.master.Entry.entry_id_._.en_US', $key);
+        $this->assertSame('contentful.DELIVERY.cfexampleapi.master.Entry.entry___45___id___45______46______95___.en_US', $key);
     }
 }
