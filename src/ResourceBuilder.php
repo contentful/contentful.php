@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Contentful\Delivery;
 
 use Contentful\Core\Resource\ResourceInterface;
+use Contentful\Core\Resource\ResourcePoolInterface;
 use Contentful\Core\ResourceBuilder\BaseResourceBuilder;
 use Contentful\Core\ResourceBuilder\MapperInterface;
 use Contentful\RichText\ParserInterface;
@@ -32,9 +33,9 @@ class ResourceBuilder extends BaseResourceBuilder
     private $client;
 
     /**
-     * @var InstanceRepositoryInterface
+     * @var ResourcePoolInterface
      */
-    private $instanceRepository;
+    private $resourcePool;
 
     /**
      * @var ParserInterface
@@ -59,17 +60,17 @@ class ResourceBuilder extends BaseResourceBuilder
     /**
      * ResourceBuilder constructor.
      *
-     * @param ClientInterface             $client
-     * @param InstanceRepositoryInterface $instanceRepository
-     * @param ParserInterface             $richTextParser
+     * @param ClientInterface       $client
+     * @param ResourcePoolInterface $resourcePool
+     * @param ParserInterface       $richTextParser
      */
     public function __construct(
         ClientInterface $client,
-        InstanceRepositoryInterface $instanceRepository,
+        ResourcePoolInterface $resourcePool,
         ParserInterface $richTextParser
     ) {
         $this->client = $client;
-        $this->instanceRepository = $instanceRepository;
+        $this->resourcePool = $resourcePool;
         $this->richTextParser = $richTextParser;
 
         parent::__construct();
@@ -132,8 +133,8 @@ class ResourceBuilder extends BaseResourceBuilder
             $locale = $data['sys']['locale'] ?? '*';
         }
 
-        if ($this->instanceRepository->has($type, $resourceId, $locale)) {
-            $resource = $this->instanceRepository->get($type, $resourceId, $locale);
+        if ($this->resourcePool->has($type, $resourceId, ['locale' => $locale])) {
+            $resource = $this->resourcePool->get($type, $resourceId, ['locale' => $locale]);
 
             // If it's an entry, we still proceed with the resource building,
             // as it might have fields that were not previously loaded
@@ -148,7 +149,7 @@ class ResourceBuilder extends BaseResourceBuilder
         $resource = parent::build($data, $resource);
 
         if ($resource instanceof ResourceInterface) {
-            $this->instanceRepository->set($resource);
+            $this->resourcePool->save($resource);
         }
 
         return $resource;
@@ -175,7 +176,7 @@ class ResourceBuilder extends BaseResourceBuilder
         }, $items);
 
         $ids = \array_filter(\array_unique($ids), function ($id): bool {
-            return $id && !$this->instanceRepository->has('ContentType', $id);
+            return $id && !$this->resourcePool->has('ContentType', $id);
         });
 
         if ($ids) {

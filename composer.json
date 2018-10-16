@@ -5,8 +5,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.0",
-        "contentful/core": "2.0.0-beta1",
-        "contentful/rich-text": "1.0.0-beta4",
+        "contentful/core": "2.0.0-beta2",
+        "contentful/rich-text": "1.0.0-beta5",
         "psr/cache": "^1.0",
         "symfony/console": "~2.7|~3.0|~4.0",
         "symfony/filesystem": "~2.7|~3.0|~4.0",
@@ -29,6 +29,12 @@
         "files": ["vendor/contentful/core/scripts/TestCase.php"]
     },
     "bin": ["bin/contentful"],
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-quick-fail": "php vendor/bin/phpunit --stop-on-error --stop-on-failure -v",
+        "lint-syntax": "$([ -f php-cs-fixer.phar ] && echo \"php php-cs-fixer.phar\" || echo \"php-cs-fixer\") fix --dry-run --stop-on-violation --show-progress=none --verbose",
+        "lint-static-analysis": "$([ -f phpstan.phar ] && echo \"php phpstan.phar\" || echo \"phpstan\") analyse --no-progress --level=max src/"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "4.0.0-dev"

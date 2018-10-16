@@ -15,6 +15,7 @@ use Contentful\Core\Api\BaseClient;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Core\Resource\ResourceInterface;
+use Contentful\Core\Resource\ResourcePoolInterface;
 use Contentful\Core\ResourceBuilder\ResourceBuilderInterface;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
@@ -65,9 +66,9 @@ class Client extends BaseClient implements ClientInterface
     private $builder;
 
     /**
-     * @var InstanceRepository
+     * @var ResourcePoolInterface
      */
-    private $instanceRepository;
+    private $resourcePool;
 
     /**
      * @var bool
@@ -129,7 +130,7 @@ class Client extends BaseClient implements ClientInterface
         $this->isDeliveryApi = self::URI_PREVIEW !== $options->getHost();
         $this->defaultLocale = $options->getDefaultLocale();
 
-        $this->instanceRepository = new InstanceRepository(
+        $this->resourcePool = new ResourcePool(
             $this,
             $options->getCacheItemPool(),
             $options->hasCacheAutoWarmup(),
@@ -139,7 +140,7 @@ class Client extends BaseClient implements ClientInterface
         $this->scopedJsonDecoder = new ScopedJsonDecoder($this->spaceId, $this->environmentId);
         $this->linkResolver = new LinkResolver($this);
         $this->richTextParser = new Parser($this->linkResolver);
-        $this->builder = new ResourceBuilder($this, $this->instanceRepository, $this->richTextParser);
+        $this->builder = new ResourceBuilder($this, $this->resourcePool, $this->richTextParser);
 
         parent::__construct($token, $options->getHost(), $options->getLogger(), $options->getHttpClient());
     }
@@ -187,7 +188,7 @@ class Client extends BaseClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    protected function getSdkName(): string
+    protected static function getSdkName(): string
     {
         return 'contentful.php';
     }
@@ -195,7 +196,7 @@ class Client extends BaseClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    protected function getPackageName(): string
+    protected static function getPackageName(): string
     {
         return 'contentful/contentful';
     }
@@ -203,19 +204,19 @@ class Client extends BaseClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    protected function getApiContentType(): string
+    protected static function getApiContentType(): string
     {
         return 'application/vnd.contentful.delivery.v1+json';
     }
 
     /**
-     * Returns the instance repository currently in use.
+     * Returns the resource pool currently in use.
      *
-     * @return InstanceRepository
+     * @return ResourcePoolInterface
      */
-    public function getInstanceRepository(): InstanceRepositoryInterface
+    public function getInstanceRepository(): ResourcePoolInterface
     {
-        return $this->instanceRepository;
+        return $this->resourcePool;
     }
 
     /**
@@ -242,7 +243,7 @@ class Client extends BaseClient implements ClientInterface
         $locale = $locale ?: $this->defaultLocale;
 
         /** @var Asset $asset */
-        $asset = $this->requestAndBuild(
+        $asset = $this->requestWithCache(
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/assets/'.$assetId,
             ['locale' => $locale],
             'Asset',
@@ -264,9 +265,10 @@ class Client extends BaseClient implements ClientInterface
         }
 
         /** @var ResourceArray $assets */
-        $assets = $this->requestAndBuild(
+        $assets = $this->request(
+            'GET',
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/assets',
-            $queryData
+            ['query' => $queryData]
         );
 
         return $assets;
@@ -278,7 +280,7 @@ class Client extends BaseClient implements ClientInterface
     public function getContentType(string $contentTypeId): ContentType
     {
         /** @var ContentType $contentType */
-        $contentType = $this->requestAndBuild(
+        $contentType = $this->requestWithCache(
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/content_types/'.$contentTypeId,
             [],
             'ContentType',
@@ -294,9 +296,10 @@ class Client extends BaseClient implements ClientInterface
     public function getContentTypes(Query $query = \null): ResourceArray
     {
         /** @var ResourceArray $contentTypes */
-        $contentTypes = $this->requestAndBuild(
+        $contentTypes = $this->request(
+            'GET',
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/content_types',
-            $query ? $query->getQueryData() : []
+            ['query' => $query ? $query->getQueryData() : []]
         );
 
         return $contentTypes;
@@ -307,9 +310,9 @@ class Client extends BaseClient implements ClientInterface
      */
     public function getEnvironment(): Environment
     {
-        if ($this->instanceRepository->has('Environment', $this->environmentId)) {
+        if ($this->resourcePool->has('Environment', $this->environmentId)) {
             /** @var Environment $environment */
-            $environment = $this->instanceRepository->get('Environment', $this->environmentId);
+            $environment = $this->resourcePool->get('Environment', $this->environmentId);
 
             return $environment;
         }
@@ -319,7 +322,10 @@ class Client extends BaseClient implements ClientInterface
         // We could be using any sort of fake resource for this, like a "LocaleCollection" type,
         // but given that previously locales were part of the space, whereas now they conceptually
         // belong to an environment, we choose this kind of abstraction.
-        $locales = $this->request('GET', '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/locales');
+        $locales = $this->callApi(
+            'GET',
+            '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/locales'
+        );
         $environmentData = [
             'sys' => [
                 'id' => $this->environmentId,
@@ -342,7 +348,7 @@ class Client extends BaseClient implements ClientInterface
         $locale = $locale ?: $this->defaultLocale;
 
         /** @var Entry $entry */
-        $entry = $this->requestAndBuild(
+        $entry = $this->requestWithCache(
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries/'.$entryId,
             ['locale' => $locale],
             'Entry',
@@ -364,9 +370,10 @@ class Client extends BaseClient implements ClientInterface
         }
 
         /** @var ResourceArray $entries */
-        $entries = $this->requestAndBuild(
+        $entries = $this->request(
+            'GET',
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries',
-            $queryData
+            ['query' => $queryData]
         );
 
         return $entries;
@@ -378,7 +385,7 @@ class Client extends BaseClient implements ClientInterface
     public function getSpace(): Space
     {
         /** @var Space $space */
-        $space = $this->requestAndBuild(
+        $space = $this->requestWithCache(
             '/spaces/'.$this->spaceId,
             [],
             'Space',
@@ -419,11 +426,11 @@ class Client extends BaseClient implements ClientInterface
      *
      * @param array $queryData
      *
-     * @return mixed
+     * @return array
      */
-    public function syncRequest(array $queryData)
+    public function syncRequest(array $queryData): array
     {
-        return $this->request('GET', '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/sync', [
+        return $this->callApi('GET', '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/sync', [
             'query' => $queryData,
         ]);
     }
@@ -462,7 +469,17 @@ class Client extends BaseClient implements ClientInterface
     }
 
     /**
-     * @param string      $path
+     * {@inheritdoc}
+     */
+    public function request(string $method, string $uri, array $options = []): ResourceInterface
+    {
+        $response = $this->callApi('GET', $uri, $options);
+
+        return $this->builder->build($response);
+    }
+
+    /**
+     * @param string      $uri
      * @param array       $query
      * @param string|null $type
      * @param string|null $resourceId
@@ -470,19 +487,17 @@ class Client extends BaseClient implements ClientInterface
      *
      * @return ResourceInterface|ResourceArray
      */
-    private function requestAndBuild(
-        string $path,
+    private function requestWithCache(
+        string $uri,
         array $query = [],
         string $type = \null,
         string $resourceId = \null,
         string $locale = \null
     ) {
-        if ($type && $resourceId && $this->instanceRepository->has($type, $resourceId, $locale)) {
-            return $this->instanceRepository->get($type, $resourceId, $locale);
+        if ($type && $resourceId && $this->resourcePool->has($type, $resourceId, ['locale' => $locale])) {
+            return $this->resourcePool->get($type, $resourceId, ['locale' => $locale]);
         }
 
-        $response = (array) $this->request('GET', $path, ['query' => $query]);
-
-        return $this->builder->build($response);
+        return $this->request('GET', $uri, ['query' => $query]);
     }
 }

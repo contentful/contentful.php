@@ -11,18 +11,19 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery;
 
+use Contentful\Core\Resource\BaseResourcePool;
 use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Delivery\SystemProperties\LocalizedResource as LocalizedResourceSystemProperties;
 use Psr\Cache\CacheItemPoolInterface;
 use function GuzzleHttp\json_encode as guzzle_json_encode;
 
 /**
- * InstanceRepository class.
+ * ResourcePool class.
  *
  * This class acts as a registry for current objects managed by the Client.
  * It also abstracts access to objects stored in cache.
  */
-class InstanceRepository implements InstanceRepositoryInterface
+class ResourcePool extends BaseResourcePool
 {
     /**
      * @var string[]
@@ -32,11 +33,6 @@ class InstanceRepository implements InstanceRepositoryInterface
         'Environment',
         'Space',
     ];
-
-    /**
-     * @var ResourceInterface[]
-     */
-    private $resources = [];
 
     /**
      * @var Client
@@ -130,9 +126,9 @@ class InstanceRepository implements InstanceRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function has(string $type, string $resourceId, string $locale = \null): bool
+    public function has(string $type, string $id, array $options = []): bool
     {
-        $key = $this->generateKey($type, $resourceId, $locale);
+        $key = $this->generateKey($type, $id, $options);
         $this->warmUp($key, $type);
 
         return isset($this->resources[$key]);
@@ -141,7 +137,7 @@ class InstanceRepository implements InstanceRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function set(ResourceInterface $resource): bool
+    public function save(ResourceInterface $resource): bool
     {
         $sys = $resource->getSystemProperties();
         $type = $sys->getType();
@@ -149,7 +145,7 @@ class InstanceRepository implements InstanceRepositoryInterface
         $locale = $sys instanceof LocalizedResourceSystemProperties
             ? $sys->getLocale()
             : \null;
-        $key = $this->generateKey($type, $sys->getId(), $locale);
+        $key = $this->generateKey($type, $sys->getId(), ['locale' => $locale]);
 
         if (isset($this->resources[$key])) {
             return \false;
@@ -171,16 +167,17 @@ class InstanceRepository implements InstanceRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function get(string $type, string $resourceId, string $locale = \null): ResourceInterface
+    public function get(string $type, string $id, array $options = []): ResourceInterface
     {
-        $key = $this->generateKey($type, $resourceId, $locale);
+        $locale = $options['locale'] ?? \null;
+        $key = $this->generateKey($type, $id, $options);
         $this->warmUp($key, $type);
 
         if (!isset($this->resources[$key])) {
             throw new \OutOfBoundsException(\sprintf(
-                'Instance repository could not find a resource with type "%s", ID "%s"%s.',
+                'Resource pool could not find a resource with type "%s", ID "%s"%s.',
                 $type,
-                $resourceId,
+                $id,
                 $locale ? ', and locale "'.$locale.'"' : ''
             ));
         }
@@ -191,9 +188,9 @@ class InstanceRepository implements InstanceRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function generateKey(string $type, string $resourceId, string $locale = \null): string
+    public function generateKey(string $type, string $id, array $options = []): string
     {
-        $locale = \strtr($locale ?: '__ALL__', [
+        $locale = \strtr($options['locale'] ?? '__ALL__', [
             '-' => '_',
             '*' => '__ALL__',
         ]);
@@ -204,7 +201,7 @@ class InstanceRepository implements InstanceRepositoryInterface
             $this->spaceId,
             $this->environmentId,
             $type,
-            \str_replace('-', '_', $resourceId),
+            $this->sanitize($id),
             $locale
         );
     }

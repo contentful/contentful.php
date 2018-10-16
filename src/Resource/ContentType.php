@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Resource;
 
+use Contentful\Core\Resource\ContentTypeInterface;
 use Contentful\Delivery\Resource\ContentType\Field;
 use Contentful\Delivery\SystemProperties\ContentType as SystemProperties;
 
@@ -18,7 +19,7 @@ use Contentful\Delivery\SystemProperties\ContentType as SystemProperties;
  * Content Types are schemas that define the fields of Entries. Every Entry can only contain values in the fields
  * defined by its Content Type, and the values of those fields must match the data type defined in the Content Type.
  */
-class ContentType extends BaseResource
+class ContentType extends BaseResource implements ContentTypeInterface
 {
     /**
      * @var SystemProperties
