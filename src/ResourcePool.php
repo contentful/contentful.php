@@ -131,6 +131,13 @@ class ResourcePool extends BaseResourcePool
         $key = $this->generateKey($type, $id, $options);
         $this->warmUp($key, $type);
 
+        if (isset($this->resources[$key])) {
+            return true;
+        }
+
+        unset($options['locale']);
+        $key = $this->generateKey($type, $id, $options);
+
         return isset($this->resources[$key]);
     }
 
@@ -173,16 +180,23 @@ class ResourcePool extends BaseResourcePool
         $key = $this->generateKey($type, $id, $options);
         $this->warmUp($key, $type);
 
-        if (!isset($this->resources[$key])) {
-            throw new \OutOfBoundsException(\sprintf(
-                'Resource pool could not find a resource with type "%s", ID "%s"%s.',
-                $type,
-                $id,
-                $locale ? ', and locale "'.$locale.'"' : ''
-            ));
+        if (isset($this->resources[$key])) {
+            return $this->resources[$key];
         }
 
-        return $this->resources[$key];
+        unset($options['locale']);
+        $key = $this->generateKey($type, $id, $options);
+
+        if (isset($this->resources[$key])) {
+            return $this->resources[$key];
+        }
+
+        throw new \OutOfBoundsException(\sprintf(
+            'Resource pool could not find a resource with type "%s", ID "%s"%s.',
+            $type,
+            $id,
+            $locale ? ', and locale "'.$locale.'"' : ''
+        ));
     }
 
     /**
