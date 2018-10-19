@@ -43,7 +43,7 @@ VCR::configure()
     ->setMode('once')
     ->setStorage('json')
     ->enableLibraryHooks(['stream_wrapper', 'curl'])
-    ->setCassettePath('tests/Recordings')
+    ->setCassettePath(__DIR__ . '/Recordings')
     ->addRequestMatcher('custom_headers', function (Request $first, Request $second) {
         $first = clean_headers_array($first);
         $second = clean_headers_array($second);
