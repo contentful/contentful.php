@@ -160,6 +160,28 @@ class EntryTest extends TestCase
     }
 
     /**
+     * @vcr e2e_entry_assets_resolved_from_includes_with_all_locales.json
+     */
+    public function testAssetsResolvedFromIncludesWithAllLocales()
+    {
+        $client = $this->getClient('cfexampleapi');
+
+        $query = (new Query())
+            ->where('sys.id', 'nyancat')
+            ->setLocale('*')
+        ;
+
+        $nyancat = $client->getEntries($query)[0];
+        $image = $nyancat->get('image');
+
+        $this->assertSame('nyancat', $image->getId());
+
+        // There should be 4 and only 4 requests:
+        // the entries with the query, the space, the locales and the cat content type.
+        $this->assertCount(4, $client->getMessages());
+    }
+
+    /**
      * @vcr e2e_entry_resolved_links_to_itself.json
      */
     public function testEntryResolvedLinksToItself()
