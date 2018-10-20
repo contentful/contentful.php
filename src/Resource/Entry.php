@@ -277,6 +277,13 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      */
     private function resolveFieldLinks($field, string $locale = \null)
     {
+        // If there is no locale, it means the current entry
+        // has been requested using the * locale, so we explicitly set it
+        // to avoid issues with the resource pool
+        if (\null === $locale) {
+            $locale = '*';
+        }
+
         if ($field instanceof Link) {
             return $this->client->resolveLink($field, $locale);
         }
