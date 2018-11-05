@@ -58,4 +58,12 @@ class MockEntry extends Entry
     {
         $this->client = $client;
     }
+
+    /**
+     * @return ClientInterface|null
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
 }
