@@ -87,7 +87,11 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
             // Only works if the "has" is "magic", i.e.
             // the field is not actually called hasSomething.
             if (!$field) {
-                return $this->has(\mb_substr($name, 3));
+                return $this->has(
+                    \mb_substr($name, 3),
+                    $arguments[0] ?? \null,
+                    $arguments[1] ?? \true
+                );
             }
         }
 
@@ -152,15 +156,44 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
     /**
      * Checks whether the current entry has a field with a certain ID.
      *
+     * @param string      $name
+     * @param string|null $locale
+     * @param bool        $checkLinksAreResolved
+     *
+     * @return bool
+     */
+    public function has(string $name, string $locale = \null, bool $checkLinksAreResolved = \true): bool
+    {
+        $field = $this->sys->getContentType()->getField($name, \true);
+
+        if (!$field) {
+            return \false;
+        }
+
+        if (!\array_key_exists($field->getId(), $this->fields)) {
+            return \false;
+        }
+
+        try {
+            $result = $this->getUnresolvedField($field, $locale);
+            if ($checkLinksAreResolved) {
+                $this->resolveFieldLinks($result, $locale);
+            }
+        } catch (\Exception $exception) {
+            return \false;
+        }
+
+        return \true;
+    }
+
+    /**
      * @param string $name
      *
      * @return bool
      */
-    public function has(string $name): bool
+    public function __isset(string $name)
     {
-        $field = $this->sys->getContentType()->getField($name, \true);
-
-        return $field ? \array_key_exists($field->getId(), $this->fields) : \false;
+        return $this->has($name);
     }
 
     /**

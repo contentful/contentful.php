@@ -23,6 +23,7 @@ use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
 use Contentful\Tests\Delivery\Implementation\MockClient;
+use Contentful\Tests\Delivery\Implementation\MockClientEntryHas;
 use Contentful\Tests\Delivery\Implementation\MockContentType;
 use Contentful\Tests\Delivery\Implementation\MockEntry;
 use Contentful\Tests\Delivery\Implementation\MockEnvironment;
@@ -463,6 +464,9 @@ class EntryTest extends TestCase
 
     public function testHas()
     {
+        $client = $this->entry->getClient();
+        $this->entry->setCLient(new MockClientEntryHas(['happycat']));
+
         $this->assertTrue($this->entry->has('name'));
         $this->assertTrue($this->entry->hasName());
 
@@ -477,6 +481,11 @@ class EntryTest extends TestCase
 
         $this->assertFalse($this->entry->has('bestFriendId'));
         $this->assertFalse($this->entry->hasBestFriendId());
+
+        $this->assertFalse($this->entry->has('image'));
+        $this->assertFalse($this->entry->hasImage());
+
+        $this->entry->setClient($client);
     }
 
     public function testBasicMagicHasWithHasField()
@@ -513,10 +522,22 @@ class EntryTest extends TestCase
 
     public function testBasicIsset()
     {
+        $client = $this->entry->getClient();
+        $this->entry->setCLient(new MockClientEntryHas(['happycat']));
+
         $this->assertTrue(isset($this->entry['name']));
         $this->assertTrue(isset($this->entry['likes']));
         $this->assertTrue(isset($this->entry['bestFriend']));
         $this->assertFalse(isset($this->entry['bestFriendId']));
+        $this->assertFalse(isset($this->entry['image']));
+
+        $this->assertTrue(isset($this->entry->name));
+        $this->assertTrue(isset($this->entry->likes));
+        $this->assertTrue(isset($this->entry->bestFriend));
+        $this->assertFalse(isset($this->entry->bestFriendId));
+        $this->assertFalse(isset($this->entry->image));
+
+        $this->entry->setClient($client);
     }
 
     public function testMagicGetterWithLocale()

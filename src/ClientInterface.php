@@ -40,7 +40,7 @@ interface ClientInterface
      *
      * @param Query|null $query
      *
-     * @return ResourceArray
+     * @return ResourceArray|Asset[]
      */
     public function getAssets(Query $query = \null): ResourceArray;
 
@@ -60,7 +60,7 @@ interface ClientInterface
      *
      * @param Query|null $query
      *
-     * @return ResourceArray
+     * @return ResourceArray|ContentType[]
      */
     public function getContentTypes(Query $query = \null): ResourceArray;
 
@@ -88,7 +88,7 @@ interface ClientInterface
      *
      * @param Query|null $query
      *
-     * @return ResourceArray
+     * @return ResourceArray|Entry[]
      */
     public function getEntries(Query $query = \null): ResourceArray;
 
