@@ -18,9 +18,9 @@ use Contentful\Tests\Delivery\TestCase;
 class UriOverrideTest extends TestCase
 {
     /**
-     * @vcr e2e_uri_override_without_trailing_slash.json
+     * @vcr uri_override_without_trailing_slash.json
      */
-    public function testOverrideWithoutTrailingSlash()
+    public function testWithoutTrailingSlash()
     {
         $this->skipIfApiCoverage();
 
@@ -34,9 +34,9 @@ class UriOverrideTest extends TestCase
     }
 
     /**
-     * @vcr e2e_uri_override_with_trailing_slash.json
+     * @vcr uri_override_with_trailing_slash.json
      */
-    public function testOverrideWithTrailingSlash()
+    public function testWithTrailingSlash()
     {
         $this->skipIfApiCoverage();
 

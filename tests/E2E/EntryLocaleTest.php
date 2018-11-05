@@ -18,14 +18,14 @@ use Contentful\Tests\Delivery\TestCase;
 class EntryLocaleTest extends TestCase
 {
     /**
-     * @vcr e2e_entry_locale_get_all.json
+     * @vcr entry_locale_get_all.json
      */
     public function testGetAll()
     {
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->setContentType('cat')
+            ->where('sys.id', 'nyancat')
             ->setLocale('*')
         ;
         $entries = $client->getEntries($query);
@@ -36,14 +36,14 @@ class EntryLocaleTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_locale_get_en_us.json
+     * @vcr entry_locale_get_en_us.json
      */
     public function testGetEnUs()
     {
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->setContentType('cat')
+            ->where('sys.id', 'nyancat')
             ->setLocale('en-US')
         ;
         $entries = $client->getEntries($query);
@@ -54,14 +54,14 @@ class EntryLocaleTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_locale_get_tlh.json
+     * @vcr entry_locale_get_tlh.json
      */
     public function testGetTlh()
     {
         $client = $this->getClient('cfexampleapi');
 
         $query = (new Query())
-            ->setContentType('cat')
+            ->where('sys.id', 'nyancat')
             ->setLocale('tlh')
         ;
         $entries = $client->getEntries($query);
@@ -72,16 +72,16 @@ class EntryLocaleTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_locale_from_client.json
-     * @expectedException        \InvalidArgumentException
+     * @vcr entry_locale_get_from_client.json
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Entry with ID "nyancat" was built using locale "tlh", but now access using locale "en-US" is being attempted.
      */
-    public function testGetLocaleFromClient()
+    public function testGetFromClient()
     {
         $client = $this->getClient('cfexampleapi_tlh');
 
         $query = (new Query())
-            ->setContentType('cat')
+            ->where('sys.id', 'nyancat')
         ;
         $entries = $client->getEntries($query);
 
@@ -92,9 +92,9 @@ class EntryLocaleTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_locale_lazy_loading.json
+     * @vcr entry_locale_lazy_loading.json
      */
-    public function testLocaleUsedWithLazyLoading()
+    public function testLazyLoading()
     {
         $client = $this->getClient('cfexampleapi');
 

@@ -19,7 +19,7 @@ use Contentful\Tests\Delivery\TestCase;
 class UnprocessedFileInPreviewTest extends TestCase
 {
     /**
-     * @vcr e2e_file_remote_upload_unprocessed.json
+     * @vcr file_remote_upload_unprocessed.json
      */
     public function testFileRemoteUploadUnprocessed()
     {
@@ -46,7 +46,7 @@ class UnprocessedFileInPreviewTest extends TestCase
      * using the Management API. This is irrelevant for the Delivery API, but it's good to rememember
      * when dealing with the CMA.
      *
-     * @vcr e2e_file_local_upload_unprocessed.json
+     * @vcr file_local_upload_unprocessed.json
      */
     public function testFileLocalUploadUnprocessed()
     {

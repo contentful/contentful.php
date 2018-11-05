@@ -20,9 +20,9 @@ use Contentful\Tests\Delivery\TestCase;
 class EntrySearchTest extends TestCase
 {
     /**
-     * @vcr e2e_entry_search_by_content_type.json
+     * @vcr entry_search_by_content_type.json
      */
-    public function testSearchByContentType()
+    public function testByContentType()
     {
         $client = $this->getClient('cfexampleapi');
 
@@ -36,9 +36,9 @@ class EntrySearchTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_search_equality.json
+     * @vcr entry_search_equality.json
      */
-    public function testSearchEquality()
+    public function testEquality()
     {
         $client = $this->getClient('cfexampleapi');
 
@@ -53,9 +53,9 @@ class EntrySearchTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_search_inequality.json
+     * @vcr entry_search_inequality.json
      */
-    public function testSearchInequality()
+    public function testInequality()
     {
         $client = $this->getClient('cfexampleapi');
 
@@ -70,9 +70,9 @@ class EntrySearchTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_search_array_equals.json
+     * @vcr entry_search_array_equality.json
      */
-    public function testSearchArrayEquality()
+    public function testArrayEquality()
     {
         $client = $this->getClient('cfexampleapi');
 
@@ -87,9 +87,9 @@ class EntrySearchTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_search_inclusion.json
+     * @vcr entry_search_inclusion.json
      */
-    public function testSearchInclusion()
+    public function testInclusion()
     {
         $client = $this->getClient('cfexampleapi');
 
@@ -104,9 +104,9 @@ class EntrySearchTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_search_range.json
+     * @vcr entry_search_range.json
      */
-    public function testSearchRange()
+    public function testRange()
     {
         $client = $this->getClient('cfexampleapi');
 
@@ -120,9 +120,9 @@ class EntrySearchTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_search_full_text.json
+     * @vcr entry_search_full_text.json
      */
-    public function testSearchFullText()
+    public function testFullText()
     {
         $client = $this->getClient('cfexampleapi');
 
@@ -136,9 +136,9 @@ class EntrySearchTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_search_full_text_on_field.json
+     * @vcr entry_search_full_text_on_field.json
      */
-    public function testSearchFullTextOnField()
+    public function testFullTextOnField()
     {
         $client = $this->getClient('cfexampleapi');
 
@@ -153,9 +153,9 @@ class EntrySearchTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_search_links_to_entries.json
+     * @vcr entry_search_links_to_entries.json
      */
-    public function testSearchLinksToEntries()
+    public function testLinksToEntries()
     {
         $client = $this->getClient('cfexampleapi');
 
@@ -172,9 +172,9 @@ class EntrySearchTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_search_links_to_assets.json
+     * @vcr entry_search_links_to_assets.json
      */
-    public function testSearchLinksToAssets()
+    public function testLinksToAssets()
     {
         $client = $this->getClient('cfexampleapi');
 

@@ -19,9 +19,9 @@ use function GuzzleHttp\json_decode as guzzle_json_decode;
 class CacheTest extends TestCase
 {
     /**
-     * @vcr e2e_cache_warmup_clear.json
+     * @vcr cache_warmup_clear.json
      */
-    public function testCacheWarmupClear()
+    public function testWarmupClear()
     {
         self::$cache->clear();
 
@@ -50,7 +50,7 @@ class CacheTest extends TestCase
     }
 
     /**
-     * @vcr e2e_cache_empty.json
+     * @vcr cache_api_works_with_empty_cache.json
      */
     public function testApiWorksWithEmptyCache()
     {
@@ -65,7 +65,7 @@ class CacheTest extends TestCase
     }
 
     /**
-     * @vcr e2e_cache_access_cached.json
+     * @vcr cache_access_cached_content.json
      */
     public function testAccessCachedContent()
     {
@@ -85,7 +85,7 @@ class CacheTest extends TestCase
     }
 
     /**
-     * @vcr e2e_cache_access_cached_autowarmup.json
+     * @vcr cache_cached_content_auto_warmup.json
      */
     public function testCachedContentAutoWarmup()
     {
@@ -107,7 +107,7 @@ class CacheTest extends TestCase
     }
 
     /**
-     * @vcr e2e_cache_access_cached_autowarmup_with_entries_and_assets.json
+     * @vcr cache_cached_content_auto_warmup_with_entries_and_assets.json
      */
     public function testCachedContentAutoWarmupWithEntriesAndAssets()
     {
@@ -149,7 +149,7 @@ class CacheTest extends TestCase
     }
 
     /**
-     * @vcr e2e_cache_invalid_cached_content_type.json
+     * @vcr cache_invalid_cached_content_type.json
      */
     public function testInvalidCachedContentType()
     {

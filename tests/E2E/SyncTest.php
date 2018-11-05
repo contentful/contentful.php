@@ -20,9 +20,9 @@ use Contentful\Tests\Delivery\TestCase;
 class SyncTest extends TestCase
 {
     /**
-     * @vcr e2e_sync_basic.json
+     * @vcr sync_basic.json
      */
-    public function testBasicSync()
+    public function testBasic()
     {
         $client = $this->getClient('cfexampleapi');
 
@@ -44,9 +44,9 @@ class SyncTest extends TestCase
     }
 
     /**
-     * @vcr e2e_sync_preview.json
+     * @vcr sync_preview.json
      */
-    public function testPreviewSync()
+    public function testPreview()
     {
         $this->skipIfApiCoverage();
 
@@ -61,10 +61,10 @@ class SyncTest extends TestCase
     }
 
     /**
-     * @vcr e2e_sync_preview_continue.json
+     * @vcr sync_preview_continue.json
      * @expectedException \RuntimeException
      */
-    public function testPreviewSyncContinue()
+    public function testPreviewContinue()
     {
         $this->skipIfApiCoverage();
 
@@ -77,9 +77,9 @@ class SyncTest extends TestCase
     }
 
     /**
-     * @vcr e2e_sync_full.json
+     * @vcr sync_full.json
      */
-    public function testSyncFull()
+    public function testFull()
     {
         $this->skipIfApiCoverage();
 
@@ -98,9 +98,9 @@ class SyncTest extends TestCase
     }
 
     /**
-     * @vcr e2e_sync_type.json
+     * @vcr sync_type.json
      */
-    public function testSyncType()
+    public function testType()
     {
         $client = $this->getClient('cfexampleapi');
         $manager = $client->getSynchronizationManager();

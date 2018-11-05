@@ -37,7 +37,7 @@ class ConsoleTest extends TestCase
     }
 
     /**
-     * @vcr e2e_console_cache_warmup_delivery.json
+     * @vcr console_cache_warmup_delivery.json
      */
     public function testCacheWarmupDelivery()
     {
@@ -60,7 +60,7 @@ class ConsoleTest extends TestCase
     }
 
     /**
-     * @vcr e2e_console_cache_warmup_preview.json
+     * @vcr console_cache_warmup_preview.json
      */
     public function testCacheWarmupPreview()
     {
@@ -98,7 +98,7 @@ class ConsoleTest extends TestCase
     }
 
     /**
-     * @vcr e2e_console_cache_warmup_not_working.json
+     * @vcr console_cache_warmup_not_working.json
      * @expectedException        \RuntimeException
      * @expectedExceptionMessage The SDK could not warm up the cache. Try checking your PSR-6 implementation (class "Contentful\Tests\Delivery\Implementation\NotWorkingCachePool").
      */
@@ -113,7 +113,7 @@ class ConsoleTest extends TestCase
     }
 
     /**
-     * @vcr e2e_console_cache_clear_delivery.json
+     * @vcr console_cache_clear_delivery.json
      */
     public function testCacheClearDelivery()
     {
@@ -131,7 +131,7 @@ class ConsoleTest extends TestCase
     }
 
     /**
-     * @vcr e2e_console_cache_clear_preview.json
+     * @vcr console_cache_clear_preview.json
      */
     public function testCacheClearPreview()
     {
@@ -164,7 +164,7 @@ class ConsoleTest extends TestCase
     }
 
     /**
-     * @vcr e2e_console_cache_clear_not_working.json
+     * @vcr console_cache_clear_not_working.json
      * @expectedException        \RuntimeException
      * @expectedExceptionMessage The SDK could not clear the cache. Try checking your PSR-6 implementation (class "Contentful\Tests\Delivery\Implementation\NotWorkingCachePool").
      */
@@ -179,7 +179,7 @@ class ConsoleTest extends TestCase
     }
 
     /**
-     * @vcr e2e_console_cache_warmup_with_content.json
+     * @vcr console_cache_warmup_with_content.json
      */
     public function testCacheWarmupWithContent()
     {
@@ -207,7 +207,7 @@ class ConsoleTest extends TestCase
     }
 
     /**
-     * @vcr e2e_console_cache_clear_with_content.json
+     * @vcr console_cache_clear_with_content.json
      */
     public function testCacheClearWithContent()
     {

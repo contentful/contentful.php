@@ -19,7 +19,7 @@ use Contentful\Tests\Delivery\TestCase;
 class EntryFilterTest extends TestCase
 {
     /**
-     * @vcr e2e_entry_filter_all.json
+     * @vcr entry_filter_all.json
      */
     public function testAll()
     {
