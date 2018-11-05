@@ -1,0 +1,48 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/cfexampleapi\/environments\/master\/entries?name=0",
+        "headers": {
+            "Host": "cdn.contentful.com",
+            "User-Agent": "GuzzleHttp\/6.3.3 curl\/7.54.0 PHP\/7.2.9",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.0.0-dev; platform PHP\/7.2.9; os macOS;",
+            "Accept": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer b4c0n73n7fu1"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "400",
+            "message": "Bad Request"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "86400",
+            "Cache-Control": "max-age=0",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Contentful-Api": "cda_cached",
+            "ETag": "\"a216a0a9dda678ca083044387a74468f\"",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Region": "us-east-1",
+            "X-Contentful-Request-Id": "33b477ec47188a1aa83cb510f4a8bd7b",
+            "Content-Length": "438",
+            "Accept-Ranges": "bytes",
+            "Date": "Mon, 05 Nov 2018 13:48:51 GMT",
+            "Via": "1.1 varnish",
+            "Age": "0",
+            "Connection": "keep-alive",
+            "X-Served-By": "cache-hhn1541-HHN",
+            "X-Cache": "MISS",
+            "X-Cache-Hits": "0",
+            "X-Timer": "S1541425731.933640,VS0,VE158",
+            "Vary": "Accept-Encoding"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"InvalidQuery\"\n  },\n  \"message\": \"The query you sent was invalid. Probably a filter or ordering specification is not applicable to the type of a field.\",\n  \"details\": {\n    \"errors\": [\n      {\n        \"name\": \"unknown\",\n        \"path\": [\n          \"name\"\n        ],\n        \"details\": \"The path \\\"name\\\" is not recognized\"\n      }\n    ]\n  },\n  \"requestId\": \"33b477ec47188a1aa83cb510f4a8bd7b\"\n}\n"
+    }
+}]

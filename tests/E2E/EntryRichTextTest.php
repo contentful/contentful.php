@@ -20,7 +20,7 @@ use Contentful\Tests\Delivery\TestCase;
 class EntryRichTextTest extends TestCase
 {
     /**
-     * @vcr e2e_entry_rich_text_renders.json
+     * @vcr entry_rich_text_renders.json
      */
     public function testRenders()
     {

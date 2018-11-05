@@ -25,7 +25,7 @@ use Contentful\Tests\Delivery\TestCase;
 class EntryTest extends TestCase
 {
     /**
-     * @vcr e2e_entry_get_all_locale_all.json
+     * @vcr entry_get_all.json
      */
     public function testGetAll()
     {
@@ -40,7 +40,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_get_all_locale_default.json
+     * @vcr entry_get_all_default_locale.json
      */
     public function testGetAllDefaultLocale()
     {
@@ -52,7 +52,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_get_one_locale_all.json
+     * @vcr entry_get_one.json
      */
     public function testGetOne()
     {
@@ -70,7 +70,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_get_one_locale_default.json
+     * @vcr entry_get_one_default_locale.json
      */
     public function testGetOneDefaultLocale()
     {
@@ -83,7 +83,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_lazy_loading.json
+     * @vcr entry_lazy_loading.json
      */
     public function testLazyLoading()
     {
@@ -102,7 +102,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_lazy_loading_cached.json
+     * @vcr entry_lazy_load_is_cached.json
      */
     public function testLazyLoadIsCached()
     {
@@ -122,7 +122,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_withing_graph_identical.json
+     * @vcr entry_entries_within_graph_are_identical.json
      */
     public function testEntriesWithinGraphAreIdentical()
     {
@@ -140,7 +140,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_assets_resolved_from_includes.json
+     * @vcr entry_assets_resolved_from_includes.json
      */
     public function testAssetsResolvedFromIncludes()
     {
@@ -160,7 +160,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_assets_resolved_from_includes_with_all_locales.json
+     * @vcr entry_assets_resolved_from_includes_with_all_locales.json
      */
     public function testAssetsResolvedFromIncludesWithAllLocales()
     {
@@ -182,7 +182,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_resolved_links_to_itself.json
+     * @vcr entry_resolved_links_to_itself.json
      */
     public function testEntryResolvedLinksToItself()
     {
@@ -197,7 +197,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_select_metadata.json
+     * @vcr entry_select_only_metadata.json
      */
     public function testSelectOnlyMetadata()
     {
@@ -223,7 +223,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_select_one_field.json
+     * @vcr entry_select_only_one_field.json
      */
     public function testSelectOnlyOneField()
     {
@@ -249,7 +249,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_partial_building_with_default_locale.json
+     * @vcr entry_partial_building_with_default_locale.json
      */
     public function testPartialBuildingWithDefaultLocale()
     {
@@ -316,7 +316,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_partial_building_with_all_locales.json
+     * @vcr entry_partial_building_with_all_locales.json
      */
     public function testPartialBuildingWithAllLocales()
     {
@@ -385,7 +385,7 @@ class EntryTest extends TestCase
     }
 
     /**
-     * @vcr e2e_entry_partial_building_with_non_default_locale.json
+     * @vcr entry_partial_building_with_non_default_locale.json
      */
     public function testPartialBuildingWithNonDefaultLocale()
     {

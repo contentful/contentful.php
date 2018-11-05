@@ -17,9 +17,9 @@ use Contentful\Tests\Delivery\TestCase;
 class SpaceTest extends TestCase
 {
     /**
-     * @vcr e2e_space_get.json
+     * @vcr space_get.json
      */
-    public function testGetSpace()
+    public function testGet()
     {
         $client = $this->getClient('cfexampleapi');
 

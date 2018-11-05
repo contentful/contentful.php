@@ -1,0 +1,41 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/preview.contentful.com\/spaces\/cfexampleapi",
+        "headers": {
+            "Host": "preview.contentful.com",
+            "User-Agent": "GuzzleHttp\/6.3.3 curl\/7.54.0 PHP\/7.2.9",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.0.0-dev; platform PHP\/7.2.9; os macOS;",
+            "Accept": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "1728000",
+            "CF-Cache-Name": "content_delivery",
+            "CF-Organization-Id": "7BLDDu2FYCNoN4QIWys1BR",
+            "CF-Space-Id": "cfexampleapi",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Contentful-Api": "cpa",
+            "Date": "Mon, 05 Nov 2018 13:50:15 GMT",
+            "ETag": "\"17f6b9f68596176aed46fa020bf235af\"",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "05b12cb89f015b42771cac2250f353a5",
+            "Content-Length": "344",
+            "Connection": "keep-alive"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"cfexampleapi\"\n  },\n  \"name\": \"Contentful Example API\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"English\",\n      \"fallbackCode\": null\n    },\n    {\n      \"code\": \"tlh\",\n      \"default\": false,\n      \"name\": \"Klingon\",\n      \"fallbackCode\": \"en-US\"\n    }\n  ]\n}\n"
+    }
+}]

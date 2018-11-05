@@ -1,0 +1,122 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/preview.contentful.com\/spaces\/cfexampleapi",
+        "headers": {
+            "Host": "preview.contentful.com",
+            "User-Agent": "GuzzleHttp\/6.3.3 curl\/7.54.0 PHP\/7.2.9",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.0.0-dev; platform PHP\/7.2.9; os macOS;",
+            "Accept": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "1728000",
+            "CF-Cache-Name": "content_delivery",
+            "CF-Organization-Id": "7BLDDu2FYCNoN4QIWys1BR",
+            "CF-Space-Id": "cfexampleapi",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Contentful-Api": "cpa",
+            "Date": "Mon, 05 Nov 2018 13:44:30 GMT",
+            "ETag": "\"17f6b9f68596176aed46fa020bf235af\"",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "e7a5ff250d523a87ec2375a48fc43c07",
+            "Content-Length": "344",
+            "Connection": "keep-alive"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"cfexampleapi\"\n  },\n  \"name\": \"Contentful Example API\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"English\",\n      \"fallbackCode\": null\n    },\n    {\n      \"code\": \"tlh\",\n      \"default\": false,\n      \"name\": \"Klingon\",\n      \"fallbackCode\": \"en-US\"\n    }\n  ]\n}\n"
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/preview.contentful.com\/spaces\/cfexampleapi\/environments\/master\/locales",
+        "headers": {
+            "Host": "preview.contentful.com",
+            "User-Agent": "GuzzleHttp\/6.3.3 curl\/7.54.0 PHP\/7.2.9",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.0.0-dev; platform PHP\/7.2.9; os macOS;",
+            "Accept": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "1728000",
+            "CF-Cache-Name": "content_delivery",
+            "CF-Organization-Id": "7BLDDu2FYCNoN4QIWys1BR",
+            "CF-Space-Id": "cfexampleapi",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Contentful-Api": "cpa",
+            "Date": "Mon, 05 Nov 2018 13:44:30 GMT",
+            "ETag": "\"028bb030b13282c4390f03bf31ad99f8\"",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "263ce78281eaf25d1a4289bf8260c9cc",
+            "Content-Length": "546",
+            "Connection": "keep-alive"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 2,\n  \"skip\": 0,\n  \"limit\": 1000,\n  \"items\": [\n    {\n      \"code\": \"en-US\",\n      \"name\": \"English\",\n      \"default\": true,\n      \"fallbackCode\": null,\n      \"sys\": {\n        \"id\": \"2oQPjMCL9bQkylziydLh57\",\n        \"type\": \"Locale\",\n        \"version\": 1\n      }\n    },\n    {\n      \"code\": \"tlh\",\n      \"name\": \"Klingon\",\n      \"default\": false,\n      \"fallbackCode\": \"en-US\",\n      \"sys\": {\n        \"id\": \"3zpZmkZrHTIekHmXgflXaV\",\n        \"type\": \"Locale\",\n        \"version\": 0\n      }\n    }\n  ]\n}\n"
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/preview.contentful.com\/spaces\/cfexampleapi\/environments\/master\/content_types?limit=100",
+        "headers": {
+            "Host": "preview.contentful.com",
+            "User-Agent": "GuzzleHttp\/6.3.3 curl\/7.54.0 PHP\/7.2.9",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.0.0-dev; platform PHP\/7.2.9; os macOS;",
+            "Accept": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "1728000",
+            "CF-Cache-Name": "content_delivery",
+            "CF-Organization-Id": "7BLDDu2FYCNoN4QIWys1BR",
+            "CF-Space-Id": "cfexampleapi",
+            "Content-Encoding": "gzip",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Contentful-Api": "cpa",
+            "Date": "Mon, 05 Nov 2018 13:44:31 GMT",
+            "ETag": "W\/\"0fb501bb98b10ea21bd995c34639da0b\"",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Request-Id": "325e56d9f9c8440979e59d7622a9e234",
+            "Content-Length": "897",
+            "Connection": "keep-alive"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 4,\n  \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"type\": \"ContentType\",\n        \"id\": \"human\",\n        \"revision\": 3,\n        \"createdAt\": \"2013-06-27T22:46:12.239Z\",\n        \"updatedAt\": \"2013-10-31T14:59:48.307Z\",\n        \"environment\": {\n          \"sys\": {\n            \"id\": \"master\",\n            \"type\": \"Link\",\n            \"linkType\": \"Environment\"\n          }\n        }\n      },\n      \"displayField\": \"name\",\n      \"name\": \"Human\",\n      \"description\": null,\n      \"fields\": [\n        {\n          \"id\": \"name\",\n          \"name\": \"Name\",\n          \"type\": \"Text\",\n          \"localized\": false,\n          \"required\": true,\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"description\",\n          \"name\": \"Description\",\n          \"type\": \"Text\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"likes\",\n          \"name\": \"Likes\",\n          \"type\": \"Array\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": false,\n          \"omitted\": false,\n          \"items\": {\n            \"type\": \"Symbol\",\n            \"validations\": []\n          }\n        },\n        {\n          \"id\": \"image\",\n          \"name\": \"Image\",\n          \"type\": \"Array\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": true,\n          \"omitted\": false,\n          \"items\": {\n            \"type\": \"Link\",\n            \"validations\": [],\n            \"linkType\": \"Asset\"\n          }\n        }\n      ]\n    },\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"type\": \"ContentType\",\n        \"id\": \"dog\",\n        \"revision\": 2,\n        \"createdAt\": \"2013-06-27T22:46:11.460Z\",\n        \"updatedAt\": \"2013-10-31T14:59:43.263Z\",\n        \"environment\": {\n          \"sys\": {\n            \"id\": \"master\",\n            \"type\": \"Link\",\n            \"linkType\": \"Environment\"\n          }\n        }\n      },\n      \"displayField\": \"name\",\n      \"name\": \"Dog\",\n      \"description\": \"Bark!\",\n      \"fields\": [\n        {\n          \"id\": \"name\",\n          \"name\": \"Name\",\n          \"type\": \"Text\",\n          \"localized\": false,\n          \"required\": true,\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"description\",\n          \"name\": \"Description\",\n          \"type\": \"Text\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"image\",\n          \"name\": \"Image\",\n          \"type\": \"Link\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": false,\n          \"omitted\": false,\n          \"linkType\": \"Asset\"\n        }\n      ]\n    },\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"type\": \"ContentType\",\n        \"id\": \"1t9IbcfdCk6m04uISSsaIK\",\n        \"revision\": 1,\n        \"createdAt\": \"2014-02-21T13:40:44.040Z\",\n        \"updatedAt\": \"2014-02-21T13:42:33.014Z\",\n        \"environment\": {\n          \"sys\": {\n            \"id\": \"master\",\n            \"type\": \"Link\",\n            \"linkType\": \"Environment\"\n          }\n        }\n      },\n      \"displayField\": \"name\",\n      \"name\": \"City\",\n      \"description\": null,\n      \"fields\": [\n        {\n          \"id\": \"name\",\n          \"name\": \"Name\",\n          \"type\": \"Text\",\n          \"localized\": false,\n          \"required\": true,\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"center\",\n          \"name\": \"Center\",\n          \"type\": \"Location\",\n          \"localized\": false,\n          \"required\": true,\n          \"disabled\": false,\n          \"omitted\": false\n        }\n      ]\n    },\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n        \"type\": \"ContentType\",\n        \"id\": \"cat\",\n        \"revision\": 8,\n        \"createdAt\": \"2013-06-27T22:46:10.704Z\",\n        \"updatedAt\": \"2017-07-06T09:58:52.710Z\",\n        \"environment\": {\n          \"sys\": {\n            \"id\": \"master\",\n            \"type\": \"Link\",\n            \"linkType\": \"Environment\"\n          }\n        }\n      },\n      \"displayField\": \"name\",\n      \"name\": \"Cat\",\n      \"description\": \"Meow.\",\n      \"fields\": [\n        {\n          \"id\": \"name\",\n          \"name\": \"Name\",\n          \"type\": \"Text\",\n          \"localized\": true,\n          \"required\": true,\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"likes\",\n          \"name\": \"Likes\",\n          \"type\": \"Array\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": false,\n          \"omitted\": false,\n          \"items\": {\n            \"type\": \"Symbol\",\n            \"validations\": []\n          }\n        },\n        {\n          \"id\": \"color\",\n          \"name\": \"Color\",\n          \"type\": \"Symbol\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"bestFriend\",\n          \"name\": \"Best Friend\",\n          \"type\": \"Link\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": false,\n          \"omitted\": false,\n          \"linkType\": \"Entry\"\n        },\n        {\n          \"id\": \"birthday\",\n          \"name\": \"Birthday\",\n          \"type\": \"Date\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"lifes\",\n          \"name\": \"Lifes left\",\n          \"type\": \"Integer\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": true,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"lives\",\n          \"name\": \"Lives left\",\n          \"type\": \"Integer\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"image\",\n          \"name\": \"Image\",\n          \"type\": \"Link\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": false,\n          \"omitted\": false,\n          \"linkType\": \"Asset\"\n        }\n      ]\n    }\n  ]\n}\n"
+    }
+}]

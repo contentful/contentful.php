@@ -20,7 +20,7 @@ use Contentful\Tests\Delivery\TestCase;
 class ContentTypeTest extends TestCase
 {
     /**
-     * @vcr e2e_content_type_get_all.json
+     * @vcr content_type_get_all.json
      */
     public function testGetAll()
     {
@@ -32,7 +32,7 @@ class ContentTypeTest extends TestCase
     }
 
     /**
-     * @vcr e2e_content_type_get_one.json
+     * @vcr content_type_get_one.json
      */
     public function testGetOne()
     {

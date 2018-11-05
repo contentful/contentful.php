@@ -19,7 +19,7 @@ class ErrorTest extends TestCase
 {
     /**
      * @expectedException \Contentful\Core\Exception\NotFoundException
-     * @vcr e2e_error_resource_not_found.json
+     * @vcr error_resource_not_found.json
      */
     public function testResourceNotFound()
     {
@@ -30,7 +30,7 @@ class ErrorTest extends TestCase
 
     /**
      * @expectedException \Contentful\Core\Exception\AccessTokenInvalidException
-     * @vcr e2e_error_access_token_invalid.json
+     * @vcr error_access_token_invalid.json
      */
     public function testAccessTokenInvalid()
     {
@@ -41,7 +41,7 @@ class ErrorTest extends TestCase
 
     /**
      * @expectedException \Contentful\Core\Exception\InvalidQueryException
-     * @vcr e2e_error_invalid_query.json
+     * @vcr error_invalid_query.json
      */
     public function testInvalidQuery()
     {
@@ -56,7 +56,7 @@ class ErrorTest extends TestCase
 
     /**
      * @expectedException \Contentful\Core\Exception\RateLimitExceededException
-     * @vcr e2e_error_rate_limit.json
+     * @vcr error_rate_limit_exceeded.json
      */
     public function testRateLimitExceeded()
     {
@@ -71,16 +71,16 @@ class ErrorTest extends TestCase
                 $query->setLimit($i);
                 $client->getEntries($query);
             }
-        } catch (RateLimitExceededException $e) {
-            $this->assertInternalType('int', $e->getRateLimitReset());
+        } catch (RateLimitExceededException $exception) {
+            $this->assertInternalType('int', $exception->getRateLimitReset());
 
-            throw $e;
+            throw $exception;
         }
     }
 
     /**
      * @expectedException \Contentful\Core\Exception\BadRequestException
-     * @vcr e2e_error_bad_request.json
+     * @vcr error_bad_request.json
      */
     public function testBadRequest()
     {

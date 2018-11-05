@@ -17,7 +17,7 @@ use Contentful\Tests\Delivery\TestCase;
 class GzipEncodingTest extends TestCase
 {
     /**
-     * @vcr e2e_gzip_encoding.json
+     * @vcr gzip_encoding_content_encoding_header.json
      */
     public function testContentEncodingHeader()
     {

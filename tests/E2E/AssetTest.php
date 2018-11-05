@@ -23,7 +23,7 @@ use Contentful\Tests\Delivery\TestCase;
 class AssetTest extends TestCase
 {
     /**
-     * @vcr e2e_asset_get_all_locale_all.json
+     * @vcr asset_get_all.json
      */
     public function testGetAll()
     {
@@ -38,7 +38,7 @@ class AssetTest extends TestCase
     }
 
     /**
-     * @vcr e2e_asset_get_all_locale_default.json
+     * @vcr asset_get_all_single_locale.json
      */
     public function testGetAllSingleLocale()
     {
@@ -50,7 +50,7 @@ class AssetTest extends TestCase
     }
 
     /**
-     * @vcr e2e_asset_get_one_locale_all.json
+     * @vcr asset_get_one.json
      */
     public function testGetOne()
     {
@@ -66,7 +66,7 @@ class AssetTest extends TestCase
     }
 
     /**
-     * @vcr e2e_asset_get_one_locale_default.json
+     * @vcr asset_get_one_single_locale.json
      */
     public function testGetOneSingleLocale()
     {
@@ -79,7 +79,7 @@ class AssetTest extends TestCase
     }
 
     /**
-     * @vcr e2e_asset_included_locale.json
+     * @vcr asset_included_asset_locale.json
      */
     public function testIncludedAssetLocale()
     {
@@ -107,7 +107,7 @@ class AssetTest extends TestCase
     }
 
     /**
-     * @vcr e2e_asset_regular_file.json
+     * @vcr asset_regular_file.json
      */
     public function testRegularFile()
     {
