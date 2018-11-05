@@ -29,7 +29,7 @@ class CacheClearer extends BaseCacheHandler
      */
     public function clear($cacheContent = \false): bool
     {
-        $instanceRepository = $this->client->getInstanceRepository();
+        $resourcePool = $this->client->getResourcePool();
 
         $keys = [];
         foreach ($this->fetchResources($cacheContent) as $resource) {
@@ -39,7 +39,7 @@ class CacheClearer extends BaseCacheHandler
             $options = $sys instanceof LocalizedResourceSystemProperties
                 ? ['locale' => $sys->getLocale()]
                 : [];
-            $keys[] = $instanceRepository->generateKey($sys->getType(), $sys->getId(), $options);
+            $keys[] = $resourcePool->generateKey($sys->getType(), $sys->getId(), $options);
         }
 
         return $this->cacheItemPool->deleteItems($keys);

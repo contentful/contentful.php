@@ -214,7 +214,7 @@ class Client extends BaseClient implements ClientInterface
      *
      * @return ResourcePoolInterface
      */
-    public function getInstanceRepository(): ResourcePoolInterface
+    public function getResourcePool(): ResourcePoolInterface
     {
         return $this->resourcePool;
     }

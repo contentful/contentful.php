@@ -5,6 +5,36 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/3.4.0...HEAD)
 
+**ATTENTION**: This release contains breaking changes. Please take extra care when updating to this version. See [the upgrade guide](UPGRADE-4.0.md) for more.
+
+### PHP Version
+
+* Support for PHP 5.6 was dropped. The library now requires PHP 7.0 or higher, and all files use strict types, with scalar type declarations present whenever possible. As PHP 7.0 is also about to reach end of life, we strongly suggest you upgrade to at least PHP 7.1. However, this major release line of the SDK (version 4) will support PHP 7.0 regardless of its status.
+
+### Added
+
+* The `Client` constructor signature was changed: `public function __construct(string $accessToken, string $spaceId, string $environmentId = 'master', \Contentful\Delivery\ClientOptions $options = null)`. All options that were previously handled through the remaining parameters or the options array can now be set using the `ClientOptions` object. See the upgrade guide for a more detailed explanation. **[BREAKING]**
+* The `Client` object now implements `Contentful\Delivery\ClientInterface`. We encourage users to type hint against this interface rather than against the concrete implementation.
+* The SDK now offers support for rich text. Check the upgrade guide for more.
+
+### Changed
+
+* The SDK now uses version 2 of the `contentful/core` package. We encouraged users to check its [changelog](https://github.com/contentful/contentful-core.php/blob/2.0.0/CHANGELOG.md) and [upgrade guide](https://github.com/contentful/contentful-core.php/blob/2.0.0/UPGRADE-2.0.md).
+* The `Query::where()` method used to accept a third parameter, which was used to specify the type of search (for instance with operators `near` or `lte`). As many users did not know this and appended the operator to the first parameter of `where()`, now the third parameter was removed. **[BREAKING]**
+* The way system properties are handled was completely changed: previously the SDK used a general `SystemProperties` class with many nullable properties, now every resource type has its own system properties implementation. For instance, the calling `Contentful\Delivery\Resource\Entry::getSystemProperties()` will now return an instance of `Contentful\Delivery\SystemProperties\Entry`, which contains only the necessary methods. **[BREAKING]**
+* Method `Entry::has()` when checking against a link by default checks if the link can also be resolved. This behavior can be turned off by setting the third parameter to `false`.
+* Logic for resolving links was moved from the `Client` to a `LinkResolver` object. The client still provides a convenience `resolveLink()` method which forwards the call.
+* Method `Client::isPreview()` was renamed `Client::isPreviewApi()`. Its opposite, `Client::isDeliveryApi()`, was also added. **[BREAKING]**
+* Method `Contentful\Delivery\Mapper\BaseMapper::hydrate()` was removed. If using a custom mapper, you can use `$this->hydrator->hydrate(object|string $target, array $data)`. **[BREAKING]**
+* Interface `CacheItemPoolFactoryInterface` now enforces the return type. **[BREAKING]**
+* Class `InstanceRepository` was renamed `ResourcePool`, and method `Client::getInstanceRepository()` was renamed `Client::getResourcePool()`. **[BREAKING]**
+* Method `ResourcePool::generateKey()` contained the `$api` parameter, which was removed as a resource pool object is supposed to operate within a single API context. **[BREAKING]**
+* Third parameter of synchronization manager constructor was changed from `$preview` to `$isDeliveryApi`, which is the opposite value. However, users should never build the manager themselves, as they should access it through `Client::getSyncronizationManager()`. **[BREAKING]**
+
+### Fixed
+
+* Using magic method `Entry::getSomething()` with an invalid field previously resulte in an error being triggered. This behavior was fixed and now a regulard `InvalidArgumentException` is thrown. **[BREAKING]**
+
 ## [3.4.0](https://github.com/contentful/contentful.php/tree/3.4.0) (2018-08-24)
 
 ### Added

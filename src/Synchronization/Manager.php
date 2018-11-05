@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Synchronization;
 
+use Contentful\Core\ResourceBuilder\ResourceBuilderInterface;
 use Contentful\Delivery\Client;
-use Contentful\Delivery\ResourceBuilder;
 
 /**
  * The synchronization Manager can be used to sync a Space to this server.
@@ -29,7 +29,7 @@ class Manager
     private $client;
 
     /**
-     * @var ResourceBuilder
+     * @var ResourceBuilderInterface
      */
     private $builder;
 
@@ -43,13 +43,13 @@ class Manager
      *
      * Do not instantiate this class yourself, use Contentful\Delivery\Client::getSynchronizationManager() instead.
      *
-     * @param Client          $client
-     * @param ResourceBuilder $builder
-     * @param bool            $isDeliveryApi
+     * @param Client                   $client
+     * @param ResourceBuilderInterface $builder
+     * @param bool                     $isDeliveryApi
      *
      * @see \Contentful\Delivery\Client::getSynchronizationManager()
      */
-    public function __construct(Client $client, ResourceBuilder $builder, bool $isDeliveryApi)
+    public function __construct(Client $client, ResourceBuilderInterface $builder, bool $isDeliveryApi)
     {
         $this->client = $client;
         $this->builder = $builder;
