@@ -100,7 +100,7 @@ class ResourcePool extends BaseResourcePool
     }
 
     /**
-     * Warm up the locale resource repository with instances fetched from cache.
+     * Warm up the locale resource pool with instances fetched from cache.
      *
      * @param string $key
      * @param string $type

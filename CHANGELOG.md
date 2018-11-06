@@ -14,8 +14,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 * The `Client` constructor signature was changed: `public function __construct(string $accessToken, string $spaceId, string $environmentId = 'master', \Contentful\Delivery\ClientOptions $options = null)`. All options that were previously handled through the remaining parameters or the options array can now be set using the `ClientOptions` object. See the upgrade guide for a more detailed explanation. **[BREAKING]**
-* The `Client` object now implements `Contentful\Delivery\ClientInterface`. We encourage users to type hint against this interface rather than against the concrete implementation.
-* The SDK now offers support for rich text. Check the upgrade guide for more.
+* The `Client` object now implements `Contentful\Delivery\Client\ClientInterface`. We encourage users to type hint against this interface rather than against the concrete implementation.
+* The SDK now offers support for rich text. Check the [tutorial](https://www.contentful.com/developers/docs/php/tutorials/using-rich-text-in-the-php-cda-sdk/) on the Contentful website for more.
 
 ### Changed
 
@@ -33,7 +33,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-* Using magic method `Entry::getSomething()` with an invalid field previously resulte in an error being triggered. This behavior was fixed and now a regulard `InvalidArgumentException` is thrown. **[BREAKING]**
+* Using magic method `Entry::getSomething()` with an invalid field previously resulte in an error being triggered. This behavior was fixed and now a regular `InvalidArgumentException` is thrown. **[BREAKING]**
 
 ## [3.4.0](https://github.com/contentful/contentful.php/tree/3.4.0) (2018-08-24)
 
