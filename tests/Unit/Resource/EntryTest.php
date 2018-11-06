@@ -15,7 +15,7 @@ use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Exception\NotFoundException;
 use Contentful\Core\Resource\ResourceInterface;
-use Contentful\Delivery\ClientInterface;
+use Contentful\Delivery\Client\ClientInterface;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;

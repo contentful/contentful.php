@@ -24,7 +24,7 @@ class Locale extends BaseSystemProperties
     {
         parent::__construct($sys);
 
-        $this->revision = $sys['version'] ?? 1;
+        $this->initRevision($sys);
     }
 
     /**
@@ -32,8 +32,9 @@ class Locale extends BaseSystemProperties
      */
     public function jsonSerialize(): array
     {
-        return \array_merge(parent::jsonSerialize(), [
-            'version' => $this->revision,
-        ]);
+        return \array_merge(
+            parent::jsonSerialize(),
+            $this->jsonSerializeRevision('version')
+        );
     }
 }

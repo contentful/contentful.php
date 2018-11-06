@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\SystemProperties;
 
-use Contentful\Core\Api\DateTimeImmutable;
-
 abstract class LocalizedResource extends BaseSystemProperties
 {
     use Component\EditedTrait,
@@ -29,12 +27,10 @@ abstract class LocalizedResource extends BaseSystemProperties
     {
         parent::__construct($sys);
 
-        $this->revision = $sys['revision'];
-        $this->locale = $sys['locale'] ?? \null;
-        $this->space = $sys['space'];
-        $this->environment = $sys['environment'];
-        $this->createdAt = new DateTimeImmutable($sys['createdAt']);
-        $this->updatedAt = new DateTimeImmutable($sys['updatedAt']);
+        $this->initEdited($sys);
+        $this->initEnvironment($sys);
+        $this->initLocale($sys);
+        $this->initSpace($sys);
     }
 
     /**
@@ -42,13 +38,12 @@ abstract class LocalizedResource extends BaseSystemProperties
      */
     public function jsonSerialize(): array
     {
-        return \array_filter(\array_merge(parent::jsonSerialize(), [
-            'revision' => $this->revision,
-            'locale' => $this->locale,
-            'createdAt' => $this->createdAt,
-            'updatedAt' => $this->updatedAt,
-            'space' => $this->space->asLink(),
-            'environment' => $this->environment->asLink(),
-        ]));
+        return \array_filter(\array_merge(
+            parent::jsonSerialize(),
+            $this->jsonSerializeEdited(),
+            $this->jsonSerializeEnvironment(),
+            $this->jsonSerializeLocale(),
+            $this->jsonSerializeSpace()
+        ));
     }
 }

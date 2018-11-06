@@ -30,8 +30,6 @@ class CacheWarmer extends BaseCacheHandler
      */
     public function warmUp($cacheContent = \false): bool
     {
-        $resourcePool = $this->client->getResourcePool();
-
         foreach ($this->fetchResources($cacheContent) as $resource) {
             /** @var SystemPropertiesInterface $sys */
             $sys = $resource->getSystemProperties();
@@ -39,7 +37,7 @@ class CacheWarmer extends BaseCacheHandler
             $options = $sys instanceof LocalizedResourceSystemProperties
                 ? ['locale' => $sys->getLocale()]
                 : [];
-            $key = $resourcePool->generateKey($sys->getType(), $sys->getId(), $options);
+            $key = $this->resourcePool->generateKey($sys->getType(), $sys->getId(), $options);
 
             $item = $this->cacheItemPool->getItem($key);
             $item->set(guzzle_json_encode($resource));

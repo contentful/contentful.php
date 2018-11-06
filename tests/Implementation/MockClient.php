@@ -14,7 +14,7 @@ namespace Contentful\Tests\Delivery\Implementation;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Core\Resource\ResourceInterface;
-use Contentful\Delivery\ClientInterface;
+use Contentful\Delivery\Client\ClientInterface;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
@@ -142,6 +142,30 @@ class MockClient implements ClientInterface
     public function resolveLink(Link $link, string $locale = \null): ResourceInterface
     {
         return MockEntry::withSys($link->getId());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getApi(): string
+    {
+        return 'DELIVERY';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSpaceId(): string
+    {
+        return $this->spaceId;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEnvironmentId(): string
+    {
+        return $this->environmentId;
     }
 
     /**

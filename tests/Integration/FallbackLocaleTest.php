@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Integration;
 
-use Contentful\Delivery\Client;
 use Contentful\Tests\Delivery\TestCase;
 
 /**
@@ -24,7 +23,7 @@ class FallbackLocaleTest extends TestCase
 {
     private function createClient()
     {
-        $client = new Client('irrelevant', '7dh3w86is8ls', 'master');
+        $client = $this->getJsonDecoderClient('7dh3w86is8ls', 'master');
 
         $client->parseJson($this->getFixtureContent('space.json'));
         $client->parseJson($this->getFixtureContent('environment.json'));

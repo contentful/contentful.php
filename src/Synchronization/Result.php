@@ -11,13 +11,15 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Synchronization;
 
+use Contentful\Core\Resource\ResourceInterface;
+
 /**
  * The Result of synchronization.
  */
 class Result
 {
     /**
-     * @var array
+     * @var ResourceInterface[]
      */
     private $items;
 
@@ -34,9 +36,9 @@ class Result
     /**
      * Result constructor.
      *
-     * @param array  $items
-     * @param string $token
-     * @param bool   $done
+     * @param ResourceInterface[] $items
+     * @param string              $token
+     * @param bool                $done
      */
     public function __construct(array $items, string $token, bool $done)
     {
@@ -48,7 +50,7 @@ class Result
     /**
      * Returns the items retrieved by this synchronization operation.
      *
-     * @return array
+     * @return ResourceInterface[]
      */
     public function getItems(): array
     {

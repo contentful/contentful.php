@@ -14,6 +14,7 @@ namespace Contentful\Delivery;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Api\LinkResolverInterface;
 use Contentful\Core\Resource\ResourceInterface;
+use Contentful\Delivery\Client\ClientInterface;
 
 class LinkResolver implements LinkResolverInterface
 {

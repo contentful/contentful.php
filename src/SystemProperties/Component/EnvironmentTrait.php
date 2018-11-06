@@ -21,6 +21,24 @@ trait EnvironmentTrait
     protected $environment;
 
     /**
+     * @param array $data
+     */
+    protected function initEnvironment(array $data)
+    {
+        $this->environment = $data['environment'];
+    }
+
+    /**
+     * @return array
+     */
+    protected function jsonSerializeEnvironment(): array
+    {
+        return [
+            'environment' => $this->environment->asLink(),
+        ];
+    }
+
+    /**
      * @return Environment
      */
     public function getEnvironment(): Environment

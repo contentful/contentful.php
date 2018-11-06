@@ -13,10 +13,14 @@ namespace Contentful\Delivery;
 
 use Contentful\Core\Api\BaseClient;
 use Contentful\Core\Api\Link;
+use Contentful\Core\Api\LinkResolverInterface;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Core\Resource\ResourcePoolInterface;
 use Contentful\Core\ResourceBuilder\ResourceBuilderInterface;
+use Contentful\Delivery\Client\ClientInterface;
+use Contentful\Delivery\Client\JsonDecoderClientInterface;
+use Contentful\Delivery\Client\SynchronizationClientInterface;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
@@ -34,7 +38,7 @@ use Contentful\RichText\Parser;
  * This class can be configured to use the Preview API instead of the Delivery API.
  * This grants access to not yet published content.
  */
-class Client extends BaseClient implements ClientInterface
+class Client extends BaseClient implements ClientInterface, SynchronizationClientInterface, JsonDecoderClientInterface
 {
     /**
      * @var string
@@ -61,7 +65,7 @@ class Client extends BaseClient implements ClientInterface
     const URI_PREVIEW = 'https://preview.contentful.com';
 
     /**
-     * @var ResourceBuilder
+     * @var ResourceBuilderInterface
      */
     private $builder;
 
@@ -96,7 +100,7 @@ class Client extends BaseClient implements ClientInterface
     private $scopedJsonDecoder;
 
     /**
-     * @var LinkResolver
+     * @var LinkResolverInterface
      */
     private $linkResolver;
 
@@ -422,20 +426,6 @@ class Client extends BaseClient implements ClientInterface
     }
 
     /**
-     * Internal method for \Contentful\Delivery\Synchronization\Manager.
-     *
-     * @param array $queryData
-     *
-     * @return array
-     */
-    public function syncRequest(array $queryData): array
-    {
-        return $this->callApi('GET', '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/sync', [
-            'query' => $queryData,
-        ]);
-    }
-
-    /**
      * Returns true when using the Delivery API.
      *
      * @return bool
@@ -456,16 +446,21 @@ class Client extends BaseClient implements ClientInterface
     }
 
     /**
-     * Get an instance of the synchronization manager. Note that with the Preview API only an initial sync
-     * is giving valid results.
-     *
-     * @return Manager
-     *
-     * @see https://www.contentful.com/developers/docs/concepts/sync/ Sync API
+     * {@inheritdoc}
      */
     public function getSynchronizationManager(): Manager
     {
         return new Manager($this, $this->builder, $this->isDeliveryApi);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function syncRequest(array $queryData): array
+    {
+        return $this->callApi('GET', '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/sync', [
+            'query' => $queryData,
+        ]);
     }
 
     /**

@@ -12,7 +12,8 @@ declare(strict_types=1);
 namespace Contentful\Delivery\Cache;
 
 use Contentful\Core\Resource\ResourceInterface;
-use Contentful\Delivery\Client;
+use Contentful\Core\Resource\ResourcePoolInterface;
+use Contentful\Delivery\Client\ClientInterface;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Locale;
 use Psr\Cache\CacheItemPoolInterface;
@@ -20,9 +21,14 @@ use Psr\Cache\CacheItemPoolInterface;
 abstract class BaseCacheHandler
 {
     /**
-     * @var Client
+     * @var ClientInterface
      */
     protected $client;
+
+    /**
+     * @var ResourcePoolInterface
+     */
+    protected $resourcePool;
 
     /**
      * @var CacheItemPoolInterface
@@ -32,12 +38,17 @@ abstract class BaseCacheHandler
     /**
      * CacheWarmer constructor.
      *
-     * @param Client                 $client
+     * @param ClientInterface        $client
+     * @param ResourcePoolInterface  $resourcePool
      * @param CacheItemPoolInterface $cacheItemPool
      */
-    public function __construct(Client $client, CacheItemPoolInterface $cacheItemPool)
-    {
+    public function __construct(
+        ClientInterface $client,
+        ResourcePoolInterface $resourcePool,
+        CacheItemPoolInterface $cacheItemPool
+    ) {
         $this->client = $client;
+        $this->resourcePool = $resourcePool;
         $this->cacheItemPool = $cacheItemPool;
     }
 

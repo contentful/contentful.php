@@ -11,8 +11,9 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Synchronization;
 
+use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Core\ResourceBuilder\ResourceBuilderInterface;
-use Contentful\Delivery\Client;
+use Contentful\Delivery\Client\SynchronizationClientInterface;
 
 /**
  * The synchronization Manager can be used to sync a Space to this server.
@@ -24,7 +25,7 @@ use Contentful\Delivery\Client;
 class Manager
 {
     /**
-     * @var Client
+     * @var SynchronizationClientInterface
      */
     private $client;
 
@@ -41,16 +42,20 @@ class Manager
     /**
      * Manager constructor.
      *
-     * Do not instantiate this class yourself, use Contentful\Delivery\Client::getSynchronizationManager() instead.
+     * Do not instantiate this class yourself,
+     * use SynchronizationClientInterface::getSynchronizationManager() instead.
      *
-     * @param Client                   $client
-     * @param ResourceBuilderInterface $builder
-     * @param bool                     $isDeliveryApi
+     * @param SynchronizationClientInterface $client
+     * @param ResourceBuilderInterface       $builder
+     * @param bool                           $isDeliveryApi
      *
-     * @see \Contentful\Delivery\Client::getSynchronizationManager()
+     * @see Client::getSynchronizationManager()
      */
-    public function __construct(Client $client, ResourceBuilderInterface $builder, bool $isDeliveryApi)
-    {
+    public function __construct(
+        SynchronizationClientInterface $client,
+        ResourceBuilderInterface $builder,
+        bool $isDeliveryApi
+    ) {
         $this->client = $client;
         $this->builder = $builder;
         $this->isDeliveryApi = $isDeliveryApi;
@@ -62,7 +67,7 @@ class Manager
      *
      * @return \Generator An instance of Result wrapped in a Generator object
      */
-    public function sync(string $token = \null, Query $query = \null)
+    public function sync(string $token = \null, Query $query = \null): \Generator
     {
         do {
             $result = $token ? $this->continueSync($token) : $this->startSync($query);
@@ -129,7 +134,8 @@ class Manager
     {
         $token = $this->getTokenFromResponse($data);
         $done = isset($data['nextSyncUrl']);
-        $items = \array_map(function ($item) {
+
+        $items = \array_map(function (array $item): ResourceInterface {
             return $this->builder->build($item);
         }, $data['items']);
 

@@ -11,17 +11,20 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\SystemProperties;
 
-use Contentful\Core\Api\DateTimeImmutable;
-
 class DeletedAsset extends Asset
 {
     use Component\DeletedTrait;
 
+    /**
+     * DeletedAsset constructor.
+     *
+     * @param array $sys
+     */
     public function __construct(array $sys)
     {
         parent::__construct($sys);
 
-        $this->deletedAt = new DateTimeImmutable($sys['deletedAt']);
+        $this->initDeletedAt($sys);
     }
 
     /**
@@ -29,8 +32,9 @@ class DeletedAsset extends Asset
      */
     public function jsonSerialize(): array
     {
-        return \array_merge(parent::jsonSerialize(), [
-            'deletedAt' => $this->deletedAt,
-        ]);
+        return \array_merge(
+            parent::jsonSerialize(),
+            $this->jsonSerializeDeletedAt()
+        );
     }
 }
