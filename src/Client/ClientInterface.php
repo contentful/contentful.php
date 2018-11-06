@@ -22,6 +22,14 @@ use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
 
+/**
+ * ClientInterface.
+ *
+ * This interface should be used whenever referring to a client object instance,
+ * as it decouples the method signatures from the actual implementation.
+ *
+ * It provides definitions for all methods which return API resources.
+ */
 interface ClientInterface extends ScopedClientInterface
 {
     /**
@@ -37,7 +45,7 @@ interface ClientInterface extends ScopedClientInterface
     public function getAsset(string $assetId, string $locale = \null): Asset;
 
     /**
-     * Returns a collection of Asset objects.
+     * Returns a collection of Asset objects wrapped in a ResourceArray instance.
      *
      * @param Query|null $query
      *
@@ -57,7 +65,7 @@ interface ClientInterface extends ScopedClientInterface
     public function getContentType(string $contentTypeId): ContentType;
 
     /**
-     * Returns a collection of ContentType objects.
+     * Returns a collection of ContentType objects wrapped in a ResourceArray instance.
      *
      * @param Query|null $query
      *
@@ -85,7 +93,7 @@ interface ClientInterface extends ScopedClientInterface
     public function getEntry(string $entryId, string $locale = \null): Entry;
 
     /**
-     * Returns a collection of Entry objects.
+     * Returns a collection of Entry objects wrapped in a ResourceArray instance.
      *
      * @param Query|null $query
      *
