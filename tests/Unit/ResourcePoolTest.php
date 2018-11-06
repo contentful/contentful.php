@@ -12,47 +12,23 @@ declare(strict_types=1);
 namespace Contentful\Tests\Delivery\Unit;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
-use Contentful\Delivery\Client;
 use Contentful\Delivery\ResourcePool;
+use Contentful\Tests\Delivery\Implementation\JsonDecoderClient;
 use Contentful\Tests\Delivery\Implementation\MockEntry;
 use Contentful\Tests\Delivery\TestCase;
 
 class ResourcePoolTest extends TestCase
 {
-    private function createClient(): Client
-    {
-        return new class() extends Client {
-            public function __construct()
-            {
-            }
-
-            public function getApi(): string
-            {
-                return 'DELIVERY';
-            }
-
-            public function getSpaceId(): string
-            {
-                return 'cfexampleapi';
-            }
-
-            public function getEnvironmentId(): string
-            {
-                return 'master';
-            }
-        };
-    }
-
     public function testGetSetData()
     {
-        $instanceRepository = new ResourcePool($this->createClient(), new ArrayCachePool(), \true);
+        $resourcePool = new ResourcePool(new JsonDecoderClient(), new ArrayCachePool(), \true);
 
-        $this->assertFalse($instanceRepository->has('Entry', 'entryId', ['locale' => 'en-US']));
+        $this->assertFalse($resourcePool->has('Entry', 'entryId', ['locale' => 'en-US']));
         $entry = MockEntry::withSys('entryId', [], 'en-US');
-        $this->assertTrue($instanceRepository->save($entry));
+        $this->assertTrue($resourcePool->save($entry));
 
-        $this->assertTrue($instanceRepository->has('Entry', 'entryId', ['locale' => 'en-US']));
-        $this->assertSame($entry, $instanceRepository->get('Entry', 'entryId', ['locale' => 'en-US']));
+        $this->assertTrue($resourcePool->has('Entry', 'entryId', ['locale' => 'en-US']));
+        $this->assertSame($entry, $resourcePool->get('Entry', 'entryId', ['locale' => 'en-US']));
     }
 
     /**
@@ -61,14 +37,14 @@ class ResourcePoolTest extends TestCase
      */
     public function testGetInvalidKey()
     {
-        $instanceRepository = new ResourcePool($this->createClient(), new ArrayCachePool());
+        $instanceRepository = new ResourcePool(new JsonDecoderClient(), new ArrayCachePool());
 
         $instanceRepository->get('Entry', 'invalidId', ['locale' => 'en-US']);
     }
 
     public function testGenerateKey()
     {
-        $instanceRepository = new ResourcePool($this->createClient(), new ArrayCachePool());
+        $instanceRepository = new ResourcePool(new JsonDecoderClient(), new ArrayCachePool());
 
         $key = $instanceRepository->generateKey(
             'Entry',

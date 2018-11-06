@@ -15,6 +15,7 @@ use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Core\Resource\ResourcePoolInterface;
 use Contentful\Core\ResourceBuilder\BaseResourceBuilder;
 use Contentful\Core\ResourceBuilder\MapperInterface;
+use Contentful\Delivery\Client\ClientInterface;
 use Contentful\RichText\ParserInterface;
 
 /**

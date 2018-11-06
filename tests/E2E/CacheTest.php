@@ -28,8 +28,8 @@ class CacheTest extends TestCase
         $client = $this->getClient('cfexampleapi');
         $resourcePool = $client->getResourcePool();
 
-        $warmer = new CacheWarmer($client, self::$cache);
-        $clearer = new CacheClearer($client, self::$cache);
+        $warmer = new CacheWarmer($client, $client->getResourcePool(), self::$cache);
+        $clearer = new CacheClearer($client, $client->getResourcePool(), self::$cache);
 
         $warmer->warmUp();
 
@@ -73,7 +73,7 @@ class CacheTest extends TestCase
 
         $client = $this->getClient('cfexampleapi');
 
-        $warmer = new CacheWarmer($client, self::$cache);
+        $warmer = new CacheWarmer($client, $client->getResourcePool(), self::$cache);
         $warmer->warmUp();
 
         $client = $this->getClient('cfexampleapi_cache');

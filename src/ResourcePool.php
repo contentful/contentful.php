@@ -13,6 +13,7 @@ namespace Contentful\Delivery;
 
 use Contentful\Core\Resource\BaseResourcePool;
 use Contentful\Core\Resource\ResourceInterface;
+use Contentful\Delivery\Client\JsonDecoderClientInterface;
 use Contentful\Delivery\SystemProperties\LocalizedResource as LocalizedResourceSystemProperties;
 use Psr\Cache\CacheItemPoolInterface;
 use function GuzzleHttp\json_encode as guzzle_json_encode;
@@ -35,7 +36,7 @@ class ResourcePool extends BaseResourcePool
     ];
 
     /**
-     * @var Client
+     * @var JsonDecoderClientInterface
      */
     private $client;
 
@@ -74,13 +75,13 @@ class ResourcePool extends BaseResourcePool
     private $autoWarmup;
 
     /**
-     * @param Client                 $client
-     * @param CacheItemPoolInterface $cacheItemPool
-     * @param bool                   $autoWarmup
-     * @param bool                   $cacheContent
+     * @param JsonDecoderClientInterface $client
+     * @param CacheItemPoolInterface     $cacheItemPool
+     * @param bool                       $autoWarmup
+     * @param bool                       $cacheContent
      */
     public function __construct(
-        Client $client,
+        JsonDecoderClientInterface $client,
         CacheItemPoolInterface $cacheItemPool,
         bool $autoWarmup = \false,
         bool $cacheContent = \false

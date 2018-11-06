@@ -9,19 +9,20 @@
 
 declare(strict_types=1);
 
-namespace Contentful\Delivery;
+namespace Contentful\Delivery\Client;
 
 use Contentful\Core\Api\Link;
 use Contentful\Core\Exception\NotFoundException;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Core\Resource\ResourceInterface;
+use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
 
-interface ClientInterface
+interface ClientInterface extends ScopedClientInterface
 {
     /**
      * Returns a single Asset object corresponding to the given ID.

@@ -11,7 +11,11 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Integration;
 
-use Contentful\Delivery\Client;
+use Contentful\Delivery\ResourceBuilder;
+use Contentful\RichText\Parser;
+use Contentful\Tests\Delivery\Implementation\LinkResolver;
+use Contentful\Tests\Delivery\Implementation\MockClient;
+use Contentful\Tests\Delivery\Implementation\MockResourcePool;
 use Contentful\Tests\Delivery\TestCase;
 
 class InvalidBuilderTypeTest extends TestCase
@@ -22,9 +26,13 @@ class InvalidBuilderTypeTest extends TestCase
      */
     public function testExceptionOnInvalidSysType()
     {
-        $client = new Client('irrelevant', '7dh3w86is8ls', 'master');
+        $builder = new ResourceBuilder(
+            new MockClient(),
+            new MockResourcePool(),
+            new Parser(new LinkResolver())
+        );
 
-        $client->getResourceBuilder()->build([
+        $builder->build([
             'sys' => [
                 'type' => 'invalidType',
                 'id' => 'invalidId',

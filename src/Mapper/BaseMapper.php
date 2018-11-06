@@ -16,7 +16,7 @@ use Contentful\Core\Resource\SystemPropertiesInterface;
 use Contentful\Core\ResourceBuilder\MapperInterface;
 use Contentful\Core\ResourceBuilder\ObjectHydrator;
 use Contentful\Core\ResourceBuilder\ResourceBuilderInterface;
-use Contentful\Delivery\ClientInterface;
+use Contentful\Delivery\Client\ClientInterface;
 use Contentful\RichText\ParserInterface;
 
 /**

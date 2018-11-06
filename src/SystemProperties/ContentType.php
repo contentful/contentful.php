@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\SystemProperties;
 
-use Contentful\Core\Api\DateTimeImmutable;
-
 class ContentType extends BaseSystemProperties
 {
     use Component\EditedTrait,
@@ -28,11 +26,9 @@ class ContentType extends BaseSystemProperties
     {
         parent::__construct($sys);
 
-        $this->revision = $sys['revision'];
-        $this->environment = $sys['environment'];
-        $this->space = $sys['space'];
-        $this->createdAt = new DateTimeImmutable($sys['createdAt']);
-        $this->updatedAt = new DateTimeImmutable($sys['updatedAt']);
+        $this->initEdited($sys);
+        $this->initEnvironment($sys);
+        $this->initSpace($sys);
     }
 
     /**
@@ -40,12 +36,11 @@ class ContentType extends BaseSystemProperties
      */
     public function jsonSerialize(): array
     {
-        return \array_filter(\array_merge(parent::jsonSerialize(), [
-            'revision' => $this->revision,
-            'createdAt' => $this->createdAt,
-            'updatedAt' => $this->updatedAt,
-            'environment' => $this->environment->asLink(),
-            'space' => $this->space->asLink(),
-        ]));
+        return \array_filter(\array_merge(
+            parent::jsonSerialize(),
+            $this->jsonSerializeEdited(),
+            $this->jsonSerializeEnvironment(),
+            $this->jsonSerializeSpace()
+        ));
     }
 }

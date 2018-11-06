@@ -13,6 +13,7 @@ namespace Contentful\Tests\Delivery;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Contentful\Delivery\Client;
+use Contentful\Delivery\Client\JsonDecoderClientInterface;
 use Contentful\Delivery\ClientOptions;
 use Contentful\Tests\TestCase as BaseTestCase;
 use Psr\Cache\CacheItemPoolInterface;
@@ -117,6 +118,21 @@ class TestCase extends BaseTestCase
         ];
 
         return \array_merge($default, $config[$key]);
+    }
+
+    /**
+     * @param string        $spaceId
+     * @param string        $environment
+     * @param ClientOptions $options
+     *
+     * @return JsonDecoderClientInterface
+     */
+    protected function getJsonDecoderClient(
+        string $spaceId,
+        string $environment = 'master',
+        ClientOptions $options = \null
+    ): JsonDecoderClientInterface {
+        return new Client('irrelevant', $spaceId, $environment, $options);
     }
 
     protected function skipIfApiCoverage()

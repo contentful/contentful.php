@@ -28,6 +28,27 @@ trait EditedTrait
     protected $updatedAt;
 
     /**
+     * @param array $data
+     */
+    protected function initEdited(array $data)
+    {
+        $this->initRevision($data);
+        $this->createdAt = new DateTimeImmutable($data['createdAt']);
+        $this->updatedAt = new DateTimeImmutable($data['updatedAt']);
+    }
+
+    /**
+     * @return array
+     */
+    protected function jsonSerializeEdited(): array
+    {
+        return \array_merge($this->jsonSerializeRevision(), [
+            'createdAt' => $this->createdAt,
+            'updatedAt' => $this->updatedAt,
+        ]);
+    }
+
+    /**
      * @return DateTimeImmutable
      */
     public function getCreatedAt(): DateTimeImmutable

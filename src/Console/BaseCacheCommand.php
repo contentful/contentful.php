@@ -11,8 +11,10 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\Console;
 
+use Contentful\Core\Resource\ResourcePoolInterface;
 use Contentful\Delivery\Cache\CacheItemPoolFactoryInterface;
 use Contentful\Delivery\Client;
+use Contentful\Delivery\Client\ClientInterface;
 use Contentful\Delivery\ClientOptions;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Command\Command;
@@ -21,6 +23,21 @@ use Symfony\Component\Console\Input\InputOption;
 
 abstract class BaseCacheCommand extends Command
 {
+    /**
+     * @var ClientInterface
+     */
+    protected $client;
+
+    /**
+     * @var ResourcePoolInterface
+     */
+    protected $resourcePool;
+
+    /**
+     * @var CacheItemPoolInterface
+     */
+    protected $cacheItemPool;
+
     /**
      * @return string
      */
@@ -49,10 +66,8 @@ abstract class BaseCacheCommand extends Command
 
     /**
      * @param InputInterface $input
-     *
-     * @return Client
      */
-    protected function getClient(InputInterface $input): Client
+    protected function initClient(InputInterface $input)
     {
         /** @var string $accessToken */
         $accessToken = $input->getOption('access-token');
@@ -65,16 +80,20 @@ abstract class BaseCacheCommand extends Command
             $options = $options->usingPreviewApi();
         }
 
-        return new Client($accessToken, $spaceId, $environmentId, $options);
+        $client = new Client($accessToken, $spaceId, $environmentId, $options);
+
+        $this->client = $client;
+        $this->resourcePool = $client->getResourcePool();
+        $this->cacheItemPool = $this->getCacheItemPool($input, $client);
     }
 
     /**
-     * @param InputInterface $input
-     * @param Client         $client
+     * @param InputInterface  $input
+     * @param ClientInterface $client
      *
      * @return CacheItemPoolInterface
      */
-    protected function getCacheItemPool(InputInterface $input, Client $client): CacheItemPoolInterface
+    private function getCacheItemPool(InputInterface $input, ClientInterface $client): CacheItemPoolInterface
     {
         $factoryClass = $input->getOption('factory-class');
         $cacheItemPoolFactory = new $factoryClass();

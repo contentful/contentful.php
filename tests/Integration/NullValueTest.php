@@ -11,18 +11,18 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Integration;
 
-use Contentful\Delivery\Client;
 use Contentful\Tests\Delivery\TestCase;
 
 /**
- * The Contentful API differentiates between `null` and no value. For some fields this is rather rare as the web app
- * never sets the value to null. This test cases should cover these corner cases.
+ * The Contentful API differentiates between `null` and no value.
+ * For some fields this is rather rare as the web app never sets the value to null.
+ * This test cases should cover these corner cases.
  */
 class NullValueTest extends TestCase
 {
     public function testNullAsValueForLink()
     {
-        $client = new Client('irrelevant', 'rue07lqzt1co');
+        $client = $this->getJsonDecoderClient('rue07lqzt1co');
 
         $client->parseJson($this->getFixtureContent('space.json'));
         $client->parseJson($this->getFixtureContent('environment.json'));
@@ -38,7 +38,7 @@ class NullValueTest extends TestCase
      */
     public function testFieldIsPresentButEmpty()
     {
-        $client = new Client('irrelevant', 'rue07lqzt1co');
+        $client = $this->getJsonDecoderClient('rue07lqzt1co');
 
         $client->parseJson($this->getFixtureContent('space.json'));
         $client->parseJson($this->getFixtureContent('environment.json'));

@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery\SystemProperties;
 
-use Contentful\Core\Api\DateTimeImmutable;
-
 class DeletedEntry extends Entry
 {
     use Component\DeletedTrait;
@@ -26,7 +24,7 @@ class DeletedEntry extends Entry
     {
         parent::__construct($sys);
 
-        $this->deletedAt = new DateTimeImmutable($sys['deletedAt']);
+        $this->initDeletedAt($sys);
     }
 
     /**
@@ -34,8 +32,9 @@ class DeletedEntry extends Entry
      */
     public function jsonSerialize(): array
     {
-        return \array_filter(\array_merge(parent::jsonSerialize(), [
-            'deletedAt' => $this->deletedAt,
-        ]));
+        return \array_merge(
+            parent::jsonSerialize(),
+            $this->jsonSerializeDeletedAt()
+        );
     }
 }

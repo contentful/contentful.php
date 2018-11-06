@@ -19,6 +19,24 @@ trait RevisionTrait
     protected $revision;
 
     /**
+     * @param array $data
+     */
+    protected function initRevision(array $data)
+    {
+        $this->revision = $data['revision'] ?? $data['version'] ?? 1;
+    }
+
+    /**
+     * @return array
+     */
+    protected function jsonSerializeRevision(string $name = 'revision'): array
+    {
+        return [
+            $name => $this->revision,
+        ];
+    }
+
+    /**
      * @return int
      */
     public function getRevision(): int

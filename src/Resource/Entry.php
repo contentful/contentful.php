@@ -15,7 +15,7 @@ use Contentful\Core\Api\Link;
 use Contentful\Core\Exception\NotFoundException;
 use Contentful\Core\Resource\EntryInterface;
 use Contentful\Core\Resource\ResourceArray;
-use Contentful\Delivery\ClientInterface;
+use Contentful\Delivery\Client\ClientInterface;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\ContentType\Field;
 use Contentful\Delivery\SystemProperties\Entry as SystemProperties;

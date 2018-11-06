@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Implementation;
 
-use Contentful\Delivery\ClientInterface;
+use Contentful\Delivery\Client\ClientInterface;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
 
