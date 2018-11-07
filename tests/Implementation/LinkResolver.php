@@ -24,4 +24,14 @@ class LinkResolver implements LinkResolverInterface
     {
         return MockEntry::withSys();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function resolveLinkCollection(array $links, string $locale = \null): array
+    {
+        return \array_map(function (Link $link) use ($locale): ResourceInterface {
+            return $this->resolveLink($link, $locale);
+        }, $links);
+    }
 }

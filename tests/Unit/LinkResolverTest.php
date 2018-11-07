@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Contentful\Tests\Unit;
 
 use Contentful\Core\Api\Link;
+use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Delivery\LinkResolver;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
@@ -19,6 +20,7 @@ use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
 use Contentful\Tests\Delivery\Implementation\MockClient;
+use Contentful\Tests\Delivery\Implementation\MockResourcePool;
 use Contentful\Tests\Delivery\TestCase;
 
 class LinkResolverTest extends TestCase
@@ -27,7 +29,7 @@ class LinkResolverTest extends TestCase
     {
         $spaceId = \bin2hex(\random_bytes(5));
         $environmentId = \bin2hex(\random_bytes(5));
-        $linkResolver = new LinkResolver(new MockClient($spaceId, $environmentId));
+        $linkResolver = new LinkResolver(new MockClient($spaceId, $environmentId), new MockResourcePool());
 
         $resourceId = \bin2hex(\random_bytes(5));
         /** @var Asset $resource */
@@ -66,8 +68,42 @@ class LinkResolverTest extends TestCase
      */
     public function testInvalidLink()
     {
-        $linkResolver = new LinkResolver(new MockClient());
+        $linkResolver = new LinkResolver(new MockClient(), new MockResourcePool());
 
         $linkResolver->resolveLink(new Link('irrelevant', 'InvalidType'));
+    }
+
+    public function testLinkCollectionIsResolved()
+    {
+        $linkResolver = new LinkResolver(new MockClient(), new MockResourcePool());
+
+        $links = [
+            new Link('spaceId', 'Space'),
+            new Link('environmentId', 'Environment'),
+            new Link('entryId', 'Entry'),
+            new Link('contentTypeId', 'ContentType'),
+            new Link('assetId', 'Asset'),
+        ];
+
+        $results = $linkResolver->resolveLinkCollection($links);
+
+        $this->assertContainsOnlyInstancesOf(ResourceInterface::class, $results);
+
+        $this->assertInstanceOf(Space::class, $results[0]);
+        $this->assertInstanceOf(Environment::class, $results[1]);
+        $this->assertInstanceOf(Entry::class, $results[2]);
+        $this->assertInstanceOf(ContentType::class, $results[3]);
+        $this->assertInstanceOf(Asset::class, $results[4]);
+    }
+
+    /**
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Trying to resolve link for unknown type "InvalidType".
+     */
+    public function testInvalidLinkCollection()
+    {
+        $linkResolver = new LinkResolver(new MockClient(), new MockResourcePool());
+
+        $linkResolver->resolveLinkCollection([new Link('irrelevant', 'InvalidType')]);
     }
 }

@@ -142,7 +142,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         );
 
         $this->scopedJsonDecoder = new ScopedJsonDecoder($this->spaceId, $this->environmentId);
-        $this->linkResolver = new LinkResolver($this);
+        $this->linkResolver = new LinkResolver($this, $this->resourcePool);
         $this->richTextParser = new Parser($this->linkResolver);
         $this->builder = new ResourceBuilder($this, $this->resourcePool, $this->richTextParser);
 
@@ -407,6 +407,14 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         return $this->linkResolver->resolveLink($link, [
             'locale' => (string) $locale,
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function resolveLinkCollection(array $links, string $locale = \null): array
+    {
+        return $this->linkResolver->resolveLinkCollection($links, $locale);
     }
 
     /**

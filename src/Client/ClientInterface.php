@@ -119,4 +119,16 @@ interface ClientInterface extends ScopedClientInterface
      * @return ResourceInterface
      */
     public function resolveLink(Link $link, string $locale = \null): ResourceInterface;
+
+    /**
+     * Resolves an array of links.
+     * A method implementing this may apply some optimizations
+     * to reduce the amount of necessary API calls.
+     *
+     * @param Link[]      $links
+     * @param string|null $locale
+     *
+     * @return ResourceInterface[]
+     */
+    public function resolveLinkCollection(array $links, string $locale = \null): array;
 }
