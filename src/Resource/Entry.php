@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Contentful\Delivery\Resource;
 
 use Contentful\Core\Api\Link;
-use Contentful\Core\Exception\NotFoundException;
 use Contentful\Core\Resource\EntryInterface;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Client\ClientInterface;
@@ -89,7 +88,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
             if (!$field) {
                 return $this->has(
                     \mb_substr($name, 3),
-                    $arguments[0] ?? \null,
+                    $this->getLocaleFromInput($arguments[0] ?? \null),
                     $arguments[1] ?? \true
                 );
             }
@@ -105,7 +104,11 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
 
         $locale = $this->getLocaleFromInput($arguments[0] ?? \null);
 
-        return $this->get($name, $locale);
+        return $this->get(
+            $name,
+            $locale,
+            (bool) ($arguments[1] ?? \true)
+        );
     }
 
     /**
@@ -194,6 +197,30 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
     public function __isset(string $name)
     {
         return $this->has($name);
+    }
+
+    /**
+     * Returns all fields of the current entry, with some optimizations applied.
+     * Links are resolved by default. If you want to get raw link objects rather than
+     * complete resources, set the $resolveLinks parameter to false.
+     *
+     * @param string|null $locale
+     * @param bool        $resolveLinks
+     *
+     * @return array
+     */
+    public function all(string $locale = \null, bool $resolveLinks = \true): array
+    {
+        $values = [];
+        foreach ($this->getContentType()->getFields() as $field) {
+            $result = $this->getUnresolvedField($field, $locale);
+
+            $values[$field->getId()] = $resolveLinks
+                ? $this->resolveFieldLinks($result, $locale)
+                : $result;
+        }
+
+        return $values;
     }
 
     /**
@@ -322,13 +349,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
         }
 
         if (\is_array($field) && isset($field[0]) && $field[0] instanceof Link) {
-            return \array_filter(\array_map(function (Link $value) use ($locale) {
-                try {
-                    return $this->client->resolveLink($value, $locale);
-                } catch (NotFoundException $exception) {
-                    return \null;
-                }
-            }, $field));
+            return $this->client->resolveLinkCollection($field, $locale);
         }
 
         return $field;

@@ -147,6 +147,16 @@ class MockClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
+    public function resolveLinkCollection(array $links, string $locale = \null): array
+    {
+        return \array_map(function (Link $link): Entry {
+            return MockEntry::withSys($link->getId());
+        }, $links);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getApi(): string
     {
         return 'DELIVERY';

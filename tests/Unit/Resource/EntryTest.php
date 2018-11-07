@@ -162,6 +162,19 @@ class EntryTest extends TestCase
                     new ClientException('Exception message', new Request('GET', ''))
                 );
             }
+
+            public function resolveLinkCollection(array $links, string $locale = \null): array
+            {
+                $resources = [];
+                foreach ($links as $link) {
+                    try {
+                        $resources[] = $this->resolveLink($link, $locale);
+                    } catch (NotFoundException $exception) {
+                    }
+                }
+
+                return $resources;
+            }
         };
     }
 
@@ -332,10 +345,13 @@ class EntryTest extends TestCase
         ]);
 
         $crookshanksEntry = $this->createCrookshanksEntry($contentType);
-        $garfieldEntry = new MockEntry(['sys' => $this->createGarfieldSys($contentType), 'fields' => [
-            'name' => ['en-US' => 'Garfield'],
-            'friends' => ['en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')]],
-        ]]);
+        $garfieldEntry = new MockEntry([
+            'sys' => $this->createGarfieldSys($contentType),
+            'fields' => [
+                'name' => ['en-US' => 'Garfield'],
+                'friends' => ['en-US' => [new Link('crookshanks', 'Entry'), new Link('nyancat', 'Entry')]],
+            ],
+        ]);
         $garfieldEntry->initLocales($this->environment->getLocales());
 
         $this->createMockClient([
