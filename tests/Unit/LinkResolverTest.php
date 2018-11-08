@@ -104,6 +104,6 @@ class LinkResolverTest extends TestCase
     {
         $linkResolver = new LinkResolver(new MockClient(), new MockResourcePool());
 
-        $linkResolver->resolveLinkCollection([new Link('irrelevant', 'InvalidType')]);
+        $linkResolver->resolveLinkCollection([new Link('irrelevant', 'InvalidType')], []);
     }
 }
