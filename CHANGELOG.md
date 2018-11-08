@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/3.4.0...HEAD)
+## [4.0.0](https://github.com/contentful/contentful.php/tree/4.0.0) (2018-11-08)
 
 **ATTENTION**: This release contains breaking changes. Please take extra care when updating to this version. See [the upgrade guide](UPGRADE-4.0.md) for more.
 

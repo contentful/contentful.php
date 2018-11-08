@@ -1,4 +1,6 @@
 ![PHP](.github/header-php.png)
+
+
 <p align="center">
   <a href="https://www.contentful.com/slack/">
     <img src="https://img.shields.io/badge/-Join%20Community%20Slack-2AB27B.svg?logo=slack&maxAge=31557600" alt="Join Contentful Community Slack" />
@@ -37,8 +39,6 @@
   </a>
 </p>
 
-
-> Attention! Version 3 of this package supports PHP 5.6, but starting from version 4, PHP 7 will be required.
 
 > PHP SDK for the Contentful [Content Delivery API](https://www.contentful.com/developers/docs/references/content-delivery-api/) and [Content Preview API](https://www.contentful.com/developers/docs/references/content-preview-api/). It helps you to easily access your Content stored in Contentful with your PHP applications.
 
@@ -81,7 +81,7 @@
 
 ## Getting started
 
-In order to get started with the Contentful PHP SDK you'll need not only to install it, but also to get credentials which will allow you to have access to your content in Contentful.
+In order to get started with the Contentful PHP SDK you'll need not only to install it, but also to get credentials which will allow you to have access to your content in Contentful. This package requires PHP 7.0 or higher.
 
 ### Installation
 
@@ -114,12 +114,9 @@ try {
 This SDK can also be used with the Preview API. In order to do so, you need to use the Preview API access token, available on the same page where you get the Delivery API token, and tell the client to use the different API:
 
 ``` php
-$client = new \Contentful\Delivery\Client(
-    'b4c0n73n7fu1',
-    'cfexampleapi',
-    'master',
-    true // Set this to true to use the Preview API
-);
+$options = \Contentful\Delivery\ClientOptions::create()
+    ->usingPreviewApi();
+$client = new \Contentful\Delivery\Client($accessToken, $spaceId, $environmentId, $options);
 ```
 
 You can find all available methods of our client in our [reference documentation](https://contentful.github.io/contentful.php).
@@ -144,37 +141,43 @@ For more information, check the [Contentful REST API reference on Authentication
 
 ### Configuration
 
-The client constructor supports several options you may set to achieve the expected behavior:
+The `ClientOptions` class allows you to configure the client in a variety of different ways:
 
 ``` php
+$options = \Contentful\Delivery\ClientOptions::create()
+    ->usingPreviewApi()
+    ->withDefaultLocale(string $defaultLocale = null)
+    ->withHost(string $host)
+    ->withLogger(Psr\Log\LoggerInterface $logger)
+    ->withCache(Psr\Cache\CacheItemPoolInterface $cache, bool $autoWarmup = false, bool $cacheContent = false)
+    ->withHttpClient(GuzzleHttp\Client $client)
+;
+
 $client = new \Contentful\Delivery\Client(
-    $accessToken,
-    $spaceId,
-    $environmentId = 'master',
-    $usePreview = false,
-    $defaultLocale = null,
-    $options = [
-        'baseUri' => $baseUri = null,
-        'guzzle' => $guzzle = null,
-        'logger' => $logger = null,
-        'cache' => $cache = null,
-        'autoWarmup' => $autoWarmup = false,
-    ]
+    string $accessToken,
+    string $spaceId,
+    string $environmentId = 'master',
+    ClientOptions $options = null
 );
 ```
 
-| Name             | Default    | Description |
+| Client parameter | Default    | Description |
 | ---------------- | ---------- | ----------- |
 | `$accessToken`   |            | **Required**. Your access token |
 | `$spaceId`       |            | **Required**. Your space ID |
 | `$environmentId` | `'master'` | Your environment ID |
-| `$usePreview`    | `false`    | Set to true to use the Preview API instead of the default Delivery API |
-| `$defaultLocale` | `null`     | Set a locale to be automatically used for all requests |
-| `$baseUri`       | `null`     | A string to override the default Contentful API URL (`https://cdn.contentful.com` for Delivery API, and `https://preview.contentful.com` for Preview API) |
-| `$guzzle`        | `null`     | A custom instance of a `GuzzleHttp\Client` object |
-| `$logger`        | `null`     | A PSR-3 logger which implements `Psr\Log\LoggerInterface` |
-| `$cache`         | `null`     | A PSR-6 cache item pool which implements `Psr\Cache\CacheItemPoolInterface` |
-| `$autoWarmup`    | `false`    | When using a cache pool, set this to true to automatically fill the cache during regular use |
+| `$options`       | `null`     | A `ClientOptions` object |
+
+| ClientOptions method | Parameters | Description |
+| -------------------- | ---------- | ----------- |
+| `usingPreviewApi()` | - | Use the Preview API host (`preview.contentful.com`) |
+| `withDefaultLocale()` | `string $locale` | Set a locale to be automatically used for all requests |
+| `withHost()` | `string $host` | A string to override the default Contentful API URL, useful if you have a proxy between your application and the Contentful API |
+| `withLogger()` | `Psr\Log\LoggerInterface $logger` | A PSR-3 logger. Two types of logs are written: a generic one using either the `INFO` or `ERROR` level (depending on the response status code) with a brief summary, and a complete dump of request and response using the `DEBUG` level. We suggest to configure the logger minimum level according to your needs. |
+| `withCache()` | `Psr\Cache\CacheItemPoolInterface $cache` | A PSR-6 cache item pool. This will be used to stored data such as content types and locales, which are always needed but don't change often |
+| `withCache()` | `bool $autoWarmup = false` | When using a cache pool, set this to true to automatically fill the cache during regular use |
+| `withCache()` | `bool $cacheContent = false` | When using a cache pool with `$autoWarmup` set to true, se this to true to fill the cache with entries and assets during runtime. This may speed up execution when calling `$client->getEntry($entryId)` and `$client->getAsset($assetId)`, but *not* when calling the `getEntries()` and `getAssets()` methods, as the client can't reliably know which entries or assets will be returned by the API, and for this reason the cache can't intercept the call. |
+| `withHttpClient()` | `GuzzleHttp\Client $client` | A Guzzle client instance, which can be configured with custom middleware |
 
 ### Reference documentation
 
@@ -189,7 +192,9 @@ Most methods also have examples which show you how to use them.
 
 ### Upgrade
 
-For details about how to upgrade from version 2.x to version 3, please check the [upgrade guide](UPGRADE-3.0.md).
+For details about how to upgrade from version 3.x to version 4, please check the [changelog entry for version 4.0.0](CHANGELOG.md#400-2018-11-08) and the [upgrade to version 4 guide](UPGRADE-4.0.md).
+
+For details about how to upgrade from version 2.x to version 3, please check the [changelog entry for version 3.0.0](CHANGELOG.md#300-2018-04-16) and the [upgrade to version 3 guide](UPGRADE-3.0.md).
 
 ## Reach out to us
 
