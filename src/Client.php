@@ -414,7 +414,9 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
      */
     public function resolveLinkCollection(array $links, string $locale = \null): array
     {
-        return $this->linkResolver->resolveLinkCollection($links, $locale);
+        return $this->linkResolver->resolveLinkCollection($links, [
+            'locale' => (string) $locale,
+        ]);
     }
 
     /**

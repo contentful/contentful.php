@@ -70,8 +70,10 @@ class LinkResolver implements LinkResolverInterface
     /**
      * {@inheritdoc}
      */
-    public function resolveLinkCollection(array $links, string $locale = \null): array
+    public function resolveLinkCollection(array $links, array $parameters = []): array
     {
+        $locale = $parameters['locale'] ?? \null;
+
         // We load all resources for the given resource types
         $types = \array_unique(\array_map(function (Link $link) {
             return $link->getLinkType();
