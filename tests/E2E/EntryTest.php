@@ -454,4 +454,397 @@ class EntryTest extends TestCase
         $this->assertTrue($entry->has('boolean'));
         $this->assertTrue($entry->get('boolean'));
     }
+
+    /**
+     * @vcr entry_non_default_locale_on_linked_entries.json
+     */
+    public function testNonDefaultLocaleOnLinkedEntries()
+    {
+        $client = $this->getClient('88dyiqcr7go8');
+
+        $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es', 'it');
+
+        $this->assertSame('it', $entry->getLocale());
+        $this->assertSame('it', $entry->getSystemProperties()->getLocale());
+
+        /** @var Entry[] $related */
+        $related = $entry->get('related');
+        $this->assertCount(2, $related);
+
+        foreach ($related as $relatedEntry) {
+            $this->assertSame('it', $relatedEntry->getLocale());
+            $this->assertSame('it', $relatedEntry->getSystemProperties()->getLocale());
+        }
+
+        $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es', '*');
+
+        $this->assertSame('en-US', $entry->getLocale());
+        $this->assertNull($entry->getSystemProperties()->getLocale());
+
+        $this->assertSame('Building', $entry->get('title', 'en-US'));
+        $this->assertSame('Edificio', $entry->get('title', 'it'));
+
+        // By not specifing the locale, the entry should use its current setting,
+        // and in this case that "locale=*"
+        /** @var Entry[] $related */
+        $related = $entry->get('related');
+        $this->assertCount(2, $related);
+
+        foreach ($related as $relatedEntry) {
+            $this->assertSame('en-US', $relatedEntry->getLocale());
+            $this->assertNull($relatedEntry->getSystemProperties()->getLocale());
+        }
+
+        /** @var Entry[] $related */
+        $related = $entry->get('related', 'it');
+        $this->assertCount(2, $related);
+
+        foreach ($related as $relatedEntry) {
+            $this->assertSame('it', $relatedEntry->getLocale());
+            $this->assertSame('it', $relatedEntry->getSystemProperties()->getLocale());
+        }
+
+        // There should be 7 API calls:
+        // 1) Fetch main entry with locale "it"
+        // 2) Fetch space
+        // 3) Fetch locales
+        // 4) Fetch content type
+        // 5) Fetch related entries with locale "it"
+        // 6) Fetch main entry with locale "*"
+        // 7) Fetch related entries with locale "*"
+        //
+        // There should *not* be another call for related entries with locale "it",
+        // as the resource pool should have those cached already.
+        $this->assertCount(7, $client->getMessages());
+    }
+
+    /**
+     * @vcr entry_link_resolver_only_fetches_missing_entries_with_default_locale.json
+     */
+    public function testLinkResolverOnlyFetchesMissingEntriesWithDefaultLocale()
+    {
+        $client = $this->getClient('88dyiqcr7go8');
+        $resourcePool = $client->getResourcePool();
+
+        $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es');
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => 'en-US',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => 'en-US',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => 'en-US',
+        ]));
+
+        // This is just to preload the entry
+        $client->getEntry('2vATHvqCV2e0MoakIk42s');
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => 'en-US',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => 'en-US',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => 'en-US',
+        ]));
+
+        // First entry, space, locales, content type, second entry
+        $this->assertCount(5, $client->getMessages());
+
+        // This will trigger the fetching of the missing entry
+        $entry->get('related');
+        // First entry, space, locales, content type, second entry, third entry
+        $this->assertCount(6, $client->getMessages());
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => 'en-US',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => 'en-US',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => 'en-US',
+        ]));
+
+        $message = $client->getMessages()[5];
+        $this->assertSame(
+            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=en-US',
+            (string) $message->getRequest()->getUri()
+        );
+    }
+
+    /**
+     * @vcr entry_link_resolver_does_not_fetch_preloaded_entries_with_default_locale.json
+     */
+    public function testLinkResolverDoesNotFetchPreloadedEntriesWithDefaultLocale()
+    {
+        $client = $this->getClient('88dyiqcr7go8');
+        $resourcePool = $client->getResourcePool();
+
+        $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es');
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => 'en-US',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => 'en-US',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => 'en-US',
+        ]));
+
+        // This is just to preload the entries
+        $client->getEntry('2vATHvqCV2e0MoakIk42s');
+        $client->getEntry('4mJOqrfVEQWCs8iIYU4qkG');
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => 'en-US',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => 'en-US',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => 'en-US',
+        ]));
+
+        // First entry, space, locales, content type, second entry, third entry
+        $this->assertCount(6, $client->getMessages());
+
+        // This should not trigger further API calls
+        $entry->get('related');
+        // First entry, space, locales, content type, second entry, third entry
+        $this->assertCount(6, $client->getMessages());
+
+        $this->assertSame(
+            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s',
+            (string) $client->getMessages()[4]->getRequest()->getUri()
+        );
+        $this->assertSame(
+            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG',
+            (string) $client->getMessages()[5]->getRequest()->getUri()
+        );
+    }
+
+    /**
+     * @vcr entry_link_resolver_only_fetches_missing_entries_with_non_default_locale.json
+     */
+    public function testLinkResolverOnlyFetchesMissingEntriesWithNonDefaultLocale()
+    {
+        $client = $this->getClient('88dyiqcr7go8');
+        $resourcePool = $client->getResourcePool();
+
+        $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es', 'it');
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => 'it',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => 'it',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => 'it',
+        ]));
+
+        // This is just to preload the entry
+        $client->getEntry('2vATHvqCV2e0MoakIk42s', 'it');
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => 'it',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => 'it',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => 'it',
+        ]));
+
+        // First entry, space, locales, content type, second entry
+        $this->assertCount(5, $client->getMessages());
+
+        // This will trigger the fetching of the missing entry
+        $entry->get('related', 'it');
+        // First entry, space, locales, content type, second entry, third entry
+        $this->assertCount(6, $client->getMessages());
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => 'it',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => 'it',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => 'it',
+        ]));
+
+        $message = $client->getMessages()[5];
+        $this->assertSame(
+            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=it',
+            (string) $message->getRequest()->getUri()
+        );
+    }
+
+    /**
+     * @vcr entry_link_resolver_does_not_fetch_preloaded_entries_with_non_default_locale.json
+     */
+    public function testLinkResolverDoesNotFetchPreloadedEntriesWithNonDefaultLocale()
+    {
+        $client = $this->getClient('88dyiqcr7go8');
+        $resourcePool = $client->getResourcePool();
+
+        $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es', 'it');
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => 'it',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => 'it',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => 'it',
+        ]));
+
+        // This is just to preload the entries
+        $client->getEntry('2vATHvqCV2e0MoakIk42s', 'it');
+        $client->getEntry('4mJOqrfVEQWCs8iIYU4qkG', 'it');
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => 'it',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => 'it',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => 'it',
+        ]));
+
+        // First entry, space, locales, content type, second entry, third entry
+        $this->assertCount(6, $client->getMessages());
+
+        // This should not trigger further API calls
+        $entry->get('related');
+        // First entry, space, locales, content type, second entry, third entry
+        $this->assertCount(6, $client->getMessages());
+
+        $this->assertSame(
+            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s?locale=it',
+            (string) $client->getMessages()[4]->getRequest()->getUri()
+        );
+        $this->assertSame(
+            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG?locale=it',
+            (string) $client->getMessages()[5]->getRequest()->getUri()
+        );
+    }
+
+    /**
+     * @vcr entry_link_resolver_only_fetches_missing_entries_with_all_locales.json
+     */
+    public function testLinkResolverOnlyFetchesMissingEntriesWithAllLocales()
+    {
+        $client = $this->getClient('88dyiqcr7go8');
+        $resourcePool = $client->getResourcePool();
+
+        $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es', '*');
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => '*',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => '*',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => '*',
+        ]));
+
+        // This is just to preload the entry
+        $client->getEntry('2vATHvqCV2e0MoakIk42s', '*');
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => '*',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => '*',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => '*',
+        ]));
+
+        // First entry, space, locales, content type, second entry
+        $this->assertCount(5, $client->getMessages());
+
+        // This will trigger the fetching of the missing entry
+        $entry->get('related');
+        // First entry, space, locales, content type, second entry, third entry
+        $this->assertCount(6, $client->getMessages());
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => '*',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => '*',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => '*',
+        ]));
+
+        $message = $client->getMessages()[5];
+        $this->assertSame(
+            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=%2A',
+            (string) $message->getRequest()->getUri()
+        );
+    }
+
+    /**
+     * @vcr entry_link_resolver_does_not_fetch_preloaded_entries_with_all_locales.json
+     */
+    public function testLinkResolverDoesNotFetchPreloadedEntriesWithAllLocales()
+    {
+        $client = $this->getClient('88dyiqcr7go8');
+        $resourcePool = $client->getResourcePool();
+
+        $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es', '*');
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => '*',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => '*',
+        ]));
+        $this->assertFalse($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => '*',
+        ]));
+
+        // This is just to preload the entries
+        $client->getEntry('2vATHvqCV2e0MoakIk42s', '*');
+        $client->getEntry('4mJOqrfVEQWCs8iIYU4qkG', '*');
+
+        $this->assertTrue($resourcePool->has('Entry', '4SRm6VeGUwGIyEaCekO6es', [
+            'locale' => '*',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '2vATHvqCV2e0MoakIk42s', [
+            'locale' => '*',
+        ]));
+        $this->assertTrue($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => '*',
+        ]));
+
+        // First entry, space, locales, content type, second entry, third entry
+        $this->assertCount(6, $client->getMessages());
+
+        // This should not trigger further API calls
+        $entry->get('related');
+        // First entry, space, locales, content type, second entry, third entry
+        $this->assertCount(6, $client->getMessages());
+
+        $this->assertSame(
+            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s?locale=%2A',
+            (string) $client->getMessages()[4]->getRequest()->getUri()
+        );
+        $this->assertSame(
+            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG?locale=%2A',
+            (string) $client->getMessages()[5]->getRequest()->getUri()
+        );
+    }
 }

@@ -71,6 +71,8 @@ abstract class LocalizedResource extends BaseResource
 
     /**
      * The locale code for the currently set locale.
+     * It will be either the default locale if the resource was fetched using "locale=*",
+     * or the one that was used in the API request.
      *
      * @return string
      */
