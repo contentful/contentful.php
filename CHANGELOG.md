@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/4.0.1...HEAD)
 
+### Fixed
+
+* Resolving links from an entry using non-default locale caused the SDK to wrongly assume the `locale=*`. Now this is fixed, and the  entry will use either its current locale, if set, or the the `locale=*` if no locales are currently configured.
+
 ## [4.0.1](https://github.com/contentful/contentful.php/tree/4.0.1) (2018-11-08)
 
 ### Fixed
