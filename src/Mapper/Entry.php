@@ -15,7 +15,6 @@ use Contentful\Core\Api\DateTimeImmutable;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Api\Location;
 use Contentful\Delivery\Resource\ContentType as ResourceContentType;
-use Contentful\Delivery\Resource\ContentType\Field as ResourceContentTypeField;
 use Contentful\Delivery\Resource\Entry as ResourceClass;
 use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
 use function GuzzleHttp\json_decode as guzzle_json_decode;
@@ -38,12 +37,24 @@ class Entry extends BaseMapper
         $sys = $this->createSystemProperties(SystemProperties::class, $data);
         $locale = $sys->getLocale();
 
+        // We normalize the field data to always contain locales.
+        foreach ($data['fields'] ?? [] as $name => $value) {
+            // If the value is an empty array, and no locale was used,
+            // we remove the value as the entry itself will handle default values.
+            if (!$locale && $value === []) {
+                unset($data['fields'][$name]);
+                continue;
+            }
+
+            $data['fields'][$name] = $locale ? [$locale => $value] : $value;
+        }
+
         /** @var ResourceClass $entry */
         $entry = $this->hydrator->hydrate($resource ?: ResourceClass::class, [
             'sys' => $sys,
             'client' => $this->client,
             'fields' => isset($data['fields'])
-                ? $this->buildFields($sys->getContentType(), $data['fields'], $locale, $resource)
+                ? $this->buildFields($sys->getContentType(), $data['fields'], $resource)
                 : [],
         ]);
 
@@ -55,7 +66,6 @@ class Entry extends BaseMapper
     /**
      * @param ResourceContentType $contentType
      * @param array               $fields
-     * @param string|null         $locale
      * @param ResourceClass|null  $previous
      *
      * @return array
@@ -63,19 +73,12 @@ class Entry extends BaseMapper
     private function buildFields(
         ResourceContentType $contentType,
         array $fields,
-        string $locale = \null,
         ResourceClass $previous = \null
     ): array {
-        // We normalize the field data to always contain locales.
-        foreach ($fields as $name => $data) {
-            $fields[$name] = $locale ? [$locale => $data] : $data;
-        }
-
         if ($previous) {
             $fields = $this->mergePreviousFields($fields, $previous);
         }
 
-        $result = [];
         foreach ($fields as $name => $data) {
             $field = $contentType->getField($name);
 
@@ -94,14 +97,16 @@ class Entry extends BaseMapper
                 $field = $contentType->addUnknownField($name);
             }
 
-            // If the field is empty (has no values for locales) we simply skip it;
-            // the entry class will be able to properly return default values for those situations.
-            if ($data) {
-                $result[$name] = $this->buildField($field, $data);
+            foreach ($data as $locale => $value) {
+                $fields[$name][$locale] = $this->formatValue(
+                    $field->getType(),
+                    $value,
+                    $field->getItemsType()
+                );
             }
         }
 
-        return $result;
+        return $fields;
     }
 
     /**
@@ -136,22 +141,6 @@ class Entry extends BaseMapper
         }
 
         return $currentFields;
-    }
-
-    /**
-     * @param ResourceContentTypeField $field
-     * @param array                    $data
-     *
-     * @return array
-     */
-    private function buildField(ResourceContentTypeField $field, array $data): array
-    {
-        $result = [];
-        foreach ($data as $locale => $value) {
-            $result[$locale] = $this->formatValue($field->getType(), $value, $field->getItemsType());
-        }
-
-        return $result;
     }
 
     /**

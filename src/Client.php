@@ -26,6 +26,7 @@ use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
+use Contentful\Delivery\ResourcePool\Factory;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\RichText\Parser;
 
@@ -134,13 +135,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         $this->isDeliveryApi = self::URI_PREVIEW !== $options->getHost();
         $this->defaultLocale = $options->getDefaultLocale();
 
-        $this->resourcePool = new ResourcePool(
-            $this,
-            $options->getCacheItemPool(),
-            $options->hasCacheAutoWarmup(),
-            $options->hasCacheContent()
-        );
-
+        $this->resourcePool = Factory::create($this, $options);
         $this->scopedJsonDecoder = new ScopedJsonDecoder($this->spaceId, $this->environmentId);
         $this->linkResolver = new LinkResolver($this, $this->resourcePool);
         $this->richTextParser = new Parser($this->linkResolver);

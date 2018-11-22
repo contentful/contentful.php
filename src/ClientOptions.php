@@ -55,6 +55,11 @@ class ClientOptions
     private $httpClient;
 
     /**
+     * @var bool
+     */
+    private $usesLowMemoryResourcePool = \false;
+
+    /**
      * ClientOptions constructor.
      */
     public function __construct()
@@ -219,5 +224,41 @@ class ClientOptions
     public function getHttpClient(): HttpClient
     {
         return $this->httpClient;
+    }
+
+    /**
+     * Configures the client to use the default resource pool implementation,
+     * which may use more memory in extreme scenarios (tens of thousands of resources).
+     *
+     * @return ClientOptions
+     */
+    public function withNormalResourcePool(): self
+    {
+        $this->usesLowMemoryResourcePool = \false;
+
+        return $this;
+    }
+
+    /**
+     * Configures the client to use a resource pool which will not cache entries and assets,
+     * which is useful when handling tens of thousand of resources,
+     * but it may cause extra API calls in normal scenarios.
+     * Use this option only if the default resource pool is causing you memory errors.
+     *
+     * @return ClientOptions
+     */
+    public function withLowMemoryResourcePool(): self
+    {
+        $this->usesLowMemoryResourcePool = \true;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function usesLowMemoryResourcePool(): bool
+    {
+        return $this->usesLowMemoryResourcePool;
     }
 }

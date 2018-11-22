@@ -20,6 +20,8 @@ use Psr\Cache\CacheItemPoolInterface;
 
 class TestCase extends BaseTestCase
 {
+    const ENV_VAR_HOST = 'CONTENTFUL_CDA_SDK_TESTING_URL';
+
     /**
      * @var CacheItemPoolInterface
      */
@@ -96,6 +98,12 @@ class TestCase extends BaseTestCase
                 'options' => ClientOptions::create()
                     ->usingPreviewApi(),
             ],
+            'low_memory' => [
+                'token' => '265b7a9d3307c5019d1d5ca97dab8e7e06d46d2e16d5d6bf584d5981cb3471c2',
+                'space' => 'rtei2u35b4tn',
+                'options' => ClientOptions::create()
+                    ->withLowMemoryResourcePool(),
+            ],
         ];
 
         if (!isset($config[$key])) {
@@ -106,7 +114,7 @@ class TestCase extends BaseTestCase
         }
 
         $defaultOptions = ClientOptions::create();
-        if ($testingUrl = \getenv('CONTENTFUL_CDA_SDK_TESTING_URL')) {
+        if ($testingUrl = \getenv(self::ENV_VAR_HOST)) {
             $defaultOptions->withHost($testingUrl);
         }
 
@@ -135,10 +143,31 @@ class TestCase extends BaseTestCase
         return new Client('irrelevant', $spaceId, $environment, $options);
     }
 
+    /**
+     * @param string $default
+     *
+     * @return string
+     */
+    protected function getHost(string $default = 'https://cdn.contentful.com'): string
+    {
+        return \getenv(self::ENV_VAR_HOST) ?: $default;
+    }
+
     protected function skipIfApiCoverage()
     {
-        if (\getenv('CONTENTFUL_CDA_SDK_TESTING_URL')) {
+        if (\getenv(self::ENV_VAR_HOST)) {
             $this->markTestSkipped('This configuration blocks tests that should not be run when in the coverage proxy environment.');
         }
+    }
+
+    protected function runOnApiCoverage(): bool
+    {
+        if (!\getenv(self::ENV_VAR_HOST)) {
+            $this->markTestAsPassed();
+
+            return \false;
+        }
+
+        return \true;
     }
 }

@@ -31,6 +31,7 @@ class ClientOptionsTest extends TestCase
         $this->assertFalse($options->hasCacheAutoWarmup());
         $this->assertFalse($options->hasCacheContent());
         $this->assertNull($options->getDefaultLocale());
+        $this->assertFalse($options->usesLowMemoryResourcePool());
     }
 
     public function testGetSet()
@@ -62,5 +63,11 @@ class ClientOptionsTest extends TestCase
         $client = new HttpClient();
         $options->withHttpClient($client);
         $this->assertSame($client, $options->getHttpClient());
+
+        $options->withLowMemoryResourcePool();
+        $this->assertTrue($options->usesLowMemoryResourcePool());
+
+        $options->withNormalResourcePool();
+        $this->assertFalse($options->usesLowMemoryResourcePool());
     }
 }
