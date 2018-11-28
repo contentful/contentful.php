@@ -26,9 +26,13 @@
         "psr-4": {
             "Contentful\\Tests\\Delivery\\": "tests"
         },
-        "files": ["vendor/contentful/core/scripts/TestCase.php"]
+        "files": [
+            "vendor/contentful/core/scripts/TestCase.php"
+        ]
     },
-    "bin": ["bin/contentful"],
+    "bin": [
+        "bin/contentful"
+    ],
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-quick-fail": "php vendor/bin/phpunit --stop-on-error --stop-on-failure -v",
@@ -37,7 +41,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.1.0-dev"
+            "dev-master": "4.2.0-dev"
         }
     },
     "suggest": {
