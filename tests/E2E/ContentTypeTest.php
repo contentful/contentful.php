@@ -24,7 +24,7 @@ class ContentTypeTest extends TestCase
      */
     public function testGetAll()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $contentTypes = $client->getContentTypes();
 
@@ -36,7 +36,7 @@ class ContentTypeTest extends TestCase
      */
     public function testGetOne()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $contentType = $client->getContentType('cat');
 

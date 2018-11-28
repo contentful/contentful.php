@@ -22,7 +22,7 @@ class EntryLocaleTest extends TestCase
      */
     public function testGetAll()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->where('sys.id', 'nyancat')
@@ -40,7 +40,7 @@ class EntryLocaleTest extends TestCase
      */
     public function testGetEnUs()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->where('sys.id', 'nyancat')
@@ -58,7 +58,7 @@ class EntryLocaleTest extends TestCase
      */
     public function testGetTlh()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->where('sys.id', 'nyancat')
@@ -78,7 +78,7 @@ class EntryLocaleTest extends TestCase
      */
     public function testGetFromClient()
     {
-        $client = $this->getClient('cfexampleapi_tlh');
+        $client = $this->getClient('default_klingon');
 
         $query = (new Query())
             ->where('sys.id', 'nyancat')
@@ -96,7 +96,7 @@ class EntryLocaleTest extends TestCase
      */
     public function testLazyLoading()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $happycat = $client->getEntry('happycat', 'tlh');
         $nyancat = $happycat->getBestFriend();

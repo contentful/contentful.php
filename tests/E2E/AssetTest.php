@@ -27,7 +27,7 @@ class AssetTest extends TestCase
      */
     public function testGetAll()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->setLocale('*')
@@ -42,7 +42,7 @@ class AssetTest extends TestCase
      */
     public function testGetAllSingleLocale()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $assets = $client->getAssets();
 
@@ -54,7 +54,7 @@ class AssetTest extends TestCase
      */
     public function testGetOne()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $asset = $client->getAsset('nyancat', '*');
 
@@ -70,7 +70,7 @@ class AssetTest extends TestCase
      */
     public function testGetOneSingleLocale()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $asset = $client->getAsset('nyancat');
 
@@ -83,7 +83,7 @@ class AssetTest extends TestCase
      */
     public function testIncludedAssetLocale()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
 
         $query = (new Query())
             ->setInclude(1)
@@ -111,7 +111,7 @@ class AssetTest extends TestCase
      */
     public function testRegularFile()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
 
         $asset = $client->getAsset('47kTpd50rSgKQy2acO2u6Y');
 

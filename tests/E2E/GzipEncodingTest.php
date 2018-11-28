@@ -23,7 +23,7 @@ class GzipEncodingTest extends TestCase
     {
         $this->skipIfApiCoverage();
 
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->setLocale('*')

@@ -24,7 +24,7 @@ class SyncTest extends TestCase
      */
     public function testBasic()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $manager = $client->getSynchronizationManager();
 
@@ -50,7 +50,7 @@ class SyncTest extends TestCase
     {
         $this->skipIfApiCoverage();
 
-        $manager = $this->getClient('cfexampleapi_preview')
+        $manager = $this->getClient('default_preview')
             ->getSynchronizationManager()
         ;
 
@@ -68,7 +68,7 @@ class SyncTest extends TestCase
     {
         $this->skipIfApiCoverage();
 
-        $manager = $this->getClient('cfexampleapi_preview')
+        $manager = $this->getClient('default_preview')
             ->getSynchronizationManager()
         ;
 
@@ -83,7 +83,7 @@ class SyncTest extends TestCase
     {
         $this->skipIfApiCoverage();
 
-        $manager = $this->getClient('cfexampleapi')
+        $manager = $this->getClient('default')
             ->getSynchronizationManager()
         ;
 
@@ -102,7 +102,7 @@ class SyncTest extends TestCase
      */
     public function testType()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
         $manager = $client->getSynchronizationManager();
 
         $query = (new Query())

@@ -57,42 +57,42 @@ class TestCase extends BaseTestCase
     private function getClientConfiguration(string $key): array
     {
         $config = [
-            'cfexampleapi' => [],
-            'cfexampleapi_preview' => [
+            'default' => [],
+            'default_preview' => [
                 'token' => 'e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50',
                 'options' => ClientOptions::create()
                     ->usingPreviewApi(),
             ],
-            'cfexampleapi_cache' => [
+            'default_cache' => [
                 'options' => ClientOptions::create()
                     ->withCache(self::$cache),
             ],
-            'cfexampleapi_cache_autowarmup' => [
+            'default_cache_autowarmup' => [
                 'options' => ClientOptions::create()
                     ->withCache(self::$cache, \true),
             ],
-            'cfexampleapi_cache_autowarmup_content' => [
+            'default_cache_autowarmup_content' => [
                 'options' => ClientOptions::create()
                     ->withCache(self::$cache, \true, \true),
             ],
-            'cfexampleapi_tlh' => [
+            'default_klingon' => [
                 'options' => ClientOptions::create()
                     ->withDefaultLocale('tlh'),
             ],
-            'cfexampleapi_invalid' => [
+            'default_invalid' => [
                 'token' => 'e5e8d4c5c122cf28fc1af3ff77d28bef78a3952957f15067bbc29f2f0dde0b50',
             ],
-            '88dyiqcr7go8' => [
+            'new' => [
                 'token' => '668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756',
                 'space' => '88dyiqcr7go8',
             ],
-            '88dyiqcr7go8_preview' => [
+            'new_preview' => [
                 'token' => '81c469d7241ca02349388602dfc14107157063a6901c378a56e1835d688970bf',
                 'space' => '88dyiqcr7go8',
                 'options' => ClientOptions::create()
                     ->usingPreviewApi(),
             ],
-            'bc32cj3kyfet_preview' => [
+            'rate_limit' => [
                 'token' => '8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963',
                 'space' => 'bc32cj3kyfet',
                 'options' => ClientOptions::create()
@@ -148,7 +148,7 @@ class TestCase extends BaseTestCase
      *
      * @return string
      */
-    protected function getHost(string $default = 'https://cdn.contentful.com'): string
+    protected function getHost(string $default = 'https://cdn.contentful.com/'): string
     {
         return \getenv(self::ENV_VAR_HOST) ?: $default;
     }
