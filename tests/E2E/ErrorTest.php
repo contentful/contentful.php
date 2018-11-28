@@ -23,7 +23,7 @@ class ErrorTest extends TestCase
      */
     public function testResourceNotFound()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $client->getEntry('not-existing');
     }
@@ -34,7 +34,7 @@ class ErrorTest extends TestCase
      */
     public function testAccessTokenInvalid()
     {
-        $client = $this->getClient('cfexampleapi_invalid');
+        $client = $this->getClient('default_invalid');
 
         $client->getEntries();
     }
@@ -45,7 +45,7 @@ class ErrorTest extends TestCase
      */
     public function testInvalidQuery()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->where('name', 0)
@@ -62,7 +62,7 @@ class ErrorTest extends TestCase
     {
         $this->skipIfApiCoverage();
 
-        $client = $this->getClient('bc32cj3kyfet_preview');
+        $client = $this->getClient('rate_limit');
 
         $query = new Query();
 
@@ -84,7 +84,7 @@ class ErrorTest extends TestCase
      */
     public function testBadRequest()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $client->getEntry('nyancat', 'invalidLocale');
     }

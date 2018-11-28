@@ -25,7 +25,7 @@ class UnprocessedFileInPreviewTest extends TestCase
     {
         $this->skipIfApiCoverage();
 
-        $client = $this->getClient('88dyiqcr7go8_preview');
+        $client = $this->getClient('new_preview');
 
         $asset = $client->getAsset('147y8r7Fx4YSEWYAQyggui');
 
@@ -52,7 +52,7 @@ class UnprocessedFileInPreviewTest extends TestCase
     {
         $this->skipIfApiCoverage();
 
-        $client = $this->getClient('88dyiqcr7go8_preview');
+        $client = $this->getClient('new_preview');
 
         $asset = $client->getAsset('lp8z7n381EmisqwMgmqW2');
 

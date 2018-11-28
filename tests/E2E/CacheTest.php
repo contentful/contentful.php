@@ -25,7 +25,7 @@ class CacheTest extends TestCase
     {
         self::$cache->clear();
 
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
         $resourcePool = $client->getResourcePool();
 
         $warmer = new CacheWarmer($client, $client->getResourcePool(), self::$cache);
@@ -56,7 +56,7 @@ class CacheTest extends TestCase
     {
         self::$cache->clear();
 
-        $client = $this->getClient('cfexampleapi_cache');
+        $client = $this->getClient('default_cache');
 
         $this->assertSame('cfexampleapi', $client->getSpace()->getId());
         $this->assertSame('cat', $client->getContentType('cat')->getId());
@@ -71,12 +71,12 @@ class CacheTest extends TestCase
     {
         self::$cache->clear();
 
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $warmer = new CacheWarmer($client, $client->getResourcePool(), self::$cache);
         $warmer->warmUp();
 
-        $client = $this->getClient('cfexampleapi_cache');
+        $client = $this->getClient('default_cache');
 
         $this->assertSame('cfexampleapi', $client->getSpace()->getId());
         $this->assertSame('cat', $client->getContentType('cat')->getId());
@@ -91,7 +91,7 @@ class CacheTest extends TestCase
     {
         self::$cache->clear();
 
-        $client = $this->getClient('cfexampleapi_cache_autowarmup');
+        $client = $this->getClient('default_cache_autowarmup');
         $resourcePool = $client->getResourcePool();
 
         $this->assertSame('cfexampleapi', $client->getSpace()->getId());
@@ -113,7 +113,7 @@ class CacheTest extends TestCase
     {
         self::$cache->clear();
 
-        $client = $this->getClient('cfexampleapi_cache_autowarmup_content');
+        $client = $this->getClient('default_cache_autowarmup_content');
         $resourcePool = $client->getResourcePool();
 
         $this->assertSame('cfexampleapi', $client->getSpace()->getId());
@@ -155,7 +155,7 @@ class CacheTest extends TestCase
     {
         self::$cache->clear();
 
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
 
         // This fake content type does not contain fields
         // which will actually be in the real API request.

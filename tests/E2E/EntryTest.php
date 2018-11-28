@@ -29,7 +29,7 @@ class EntryTest extends TestCase
      */
     public function testGetAll()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->setLocale('*')
@@ -44,7 +44,7 @@ class EntryTest extends TestCase
      */
     public function testGetAllDefaultLocale()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $assets = $client->getEntries();
 
@@ -56,7 +56,7 @@ class EntryTest extends TestCase
      */
     public function testGetOne()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $entry = $client->getEntry('nyancat', '*');
 
@@ -86,7 +86,7 @@ class EntryTest extends TestCase
      */
     public function testGetOneDefaultLocale()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $entry = $client->getEntry('nyancat');
 
@@ -99,7 +99,7 @@ class EntryTest extends TestCase
      */
     public function testLazyLoading()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $entry = $client->getEntry('nyancat');
         $bestFriend = $entry->getBestFriend();
@@ -118,7 +118,7 @@ class EntryTest extends TestCase
      */
     public function testLazyLoadIsCached()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $nyancat = $client->getEntry('nyancat');
         $bestFriend = $nyancat->getBestFriend();
@@ -138,7 +138,7 @@ class EntryTest extends TestCase
      */
     public function testEntriesWithinGraphAreIdentical()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->where('sys.id', 'nyancat')
@@ -156,7 +156,7 @@ class EntryTest extends TestCase
      */
     public function testAssetsResolvedFromIncludes()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->where('sys.id', 'nyancat')
@@ -176,7 +176,7 @@ class EntryTest extends TestCase
      */
     public function testAssetsResolvedFromIncludesWithAllLocales()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->where('sys.id', 'nyancat')
@@ -198,7 +198,7 @@ class EntryTest extends TestCase
      */
     public function testEntryResolvedLinksToItself()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
         $entry = $client->getEntry('nyancat');
 
         $references = $entry->getReferences();
@@ -213,7 +213,7 @@ class EntryTest extends TestCase
      */
     public function testSelectOnlyMetadata()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->setContentType('cat')
@@ -239,7 +239,7 @@ class EntryTest extends TestCase
      */
     public function testSelectOnlyOneField()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->setContentType('cat')
@@ -265,7 +265,7 @@ class EntryTest extends TestCase
      */
     public function testPartialBuildingWithDefaultLocale()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
 
         $query = (new Query())
             ->setContentType('complexContentType')
@@ -329,7 +329,7 @@ class EntryTest extends TestCase
      */
     public function testPartialBuildingWithAllLocales()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
 
         $query = (new Query())
             ->setLocale('*')
@@ -395,7 +395,7 @@ class EntryTest extends TestCase
      */
     public function testPartialBuildingWithNonDefaultLocale()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
 
         $query = (new Query())
             ->setContentType('complexContentType')
@@ -460,7 +460,7 @@ class EntryTest extends TestCase
      */
     public function testNonDefaultLocaleOnLinkedEntries()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
 
         $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es', 'it');
 
@@ -523,7 +523,7 @@ class EntryTest extends TestCase
      */
     public function testLinkResolverOnlyFetchesMissingEntriesWithDefaultLocale()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
         $resourcePool = $client->getResourcePool();
 
         $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es');
@@ -571,7 +571,7 @@ class EntryTest extends TestCase
 
         $message = $client->getMessages()[5];
         $this->assertSame(
-            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=en-US',
+            $this->getHost().'spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=en-US',
             (string) $message->getRequest()->getUri()
         );
     }
@@ -581,7 +581,7 @@ class EntryTest extends TestCase
      */
     public function testLinkResolverDoesNotFetchPreloadedEntriesWithDefaultLocale()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
         $resourcePool = $client->getResourcePool();
 
         $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es');
@@ -619,11 +619,11 @@ class EntryTest extends TestCase
         $this->assertCount(6, $client->getMessages());
 
         $this->assertSame(
-            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s',
+            $this->getHost().'spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s',
             (string) $client->getMessages()[4]->getRequest()->getUri()
         );
         $this->assertSame(
-            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG',
+            $this->getHost().'spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG',
             (string) $client->getMessages()[5]->getRequest()->getUri()
         );
     }
@@ -633,7 +633,7 @@ class EntryTest extends TestCase
      */
     public function testLinkResolverOnlyFetchesMissingEntriesWithNonDefaultLocale()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
         $resourcePool = $client->getResourcePool();
 
         $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es', 'it');
@@ -681,7 +681,7 @@ class EntryTest extends TestCase
 
         $message = $client->getMessages()[5];
         $this->assertSame(
-            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=it',
+            $this->getHost().'spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=it',
             (string) $message->getRequest()->getUri()
         );
     }
@@ -691,7 +691,7 @@ class EntryTest extends TestCase
      */
     public function testLinkResolverDoesNotFetchPreloadedEntriesWithNonDefaultLocale()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
         $resourcePool = $client->getResourcePool();
 
         $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es', 'it');
@@ -729,11 +729,11 @@ class EntryTest extends TestCase
         $this->assertCount(6, $client->getMessages());
 
         $this->assertSame(
-            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s?locale=it',
+            $this->getHost().'spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s?locale=it',
             (string) $client->getMessages()[4]->getRequest()->getUri()
         );
         $this->assertSame(
-            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG?locale=it',
+            $this->getHost().'spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG?locale=it',
             (string) $client->getMessages()[5]->getRequest()->getUri()
         );
     }
@@ -743,7 +743,7 @@ class EntryTest extends TestCase
      */
     public function testLinkResolverOnlyFetchesMissingEntriesWithAllLocales()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
         $resourcePool = $client->getResourcePool();
 
         $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es', '*');
@@ -791,7 +791,7 @@ class EntryTest extends TestCase
 
         $message = $client->getMessages()[5];
         $this->assertSame(
-            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=%2A',
+            $this->getHost().'spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=%2A',
             (string) $message->getRequest()->getUri()
         );
     }
@@ -801,7 +801,7 @@ class EntryTest extends TestCase
      */
     public function testLinkResolverDoesNotFetchPreloadedEntriesWithAllLocales()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
         $resourcePool = $client->getResourcePool();
 
         $entry = $client->getEntry('4SRm6VeGUwGIyEaCekO6es', '*');
@@ -839,11 +839,11 @@ class EntryTest extends TestCase
         $this->assertCount(6, $client->getMessages());
 
         $this->assertSame(
-            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s?locale=%2A',
+            $this->getHost().'spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s?locale=%2A',
             (string) $client->getMessages()[4]->getRequest()->getUri()
         );
         $this->assertSame(
-            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG?locale=%2A',
+            $this->getHost().'spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG?locale=%2A',
             (string) $client->getMessages()[5]->getRequest()->getUri()
         );
     }

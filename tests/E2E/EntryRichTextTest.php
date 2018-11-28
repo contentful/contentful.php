@@ -24,7 +24,7 @@ class EntryRichTextTest extends TestCase
      */
     public function testRenders()
     {
-        $client = $this->getClient('88dyiqcr7go8');
+        $client = $this->getClient('new');
         $query = (new Query())
             ->where('sys.id', '4GYCqu19WwmgKEo8ysc4e4')
             ->setLimit(1)

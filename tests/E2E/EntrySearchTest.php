@@ -24,7 +24,7 @@ class EntrySearchTest extends TestCase
      */
     public function testByContentType()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->setContentType('cat')
@@ -40,7 +40,7 @@ class EntrySearchTest extends TestCase
      */
     public function testEquality()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->where('sys.id', 'nyancat')
@@ -57,7 +57,7 @@ class EntrySearchTest extends TestCase
      */
     public function testInequality()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->where('sys.id[ne]', 'nyancat')
@@ -74,7 +74,7 @@ class EntrySearchTest extends TestCase
      */
     public function testArrayEquality()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->setContentType('cat')
@@ -91,7 +91,7 @@ class EntrySearchTest extends TestCase
      */
     public function testInclusion()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->where('sys.id[in]', 'finn,jake')
@@ -108,7 +108,7 @@ class EntrySearchTest extends TestCase
      */
     public function testRange()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->where('sys.updatedAt[lte]', new DateTimeImmutable('2013-01-01T00:00:00Z'))
@@ -124,7 +124,7 @@ class EntrySearchTest extends TestCase
      */
     public function testFullText()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->where('query', 'bacon')
@@ -140,7 +140,7 @@ class EntrySearchTest extends TestCase
      */
     public function testFullTextOnField()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->setContentType('dog')
@@ -157,7 +157,7 @@ class EntrySearchTest extends TestCase
      */
     public function testLinksToEntries()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->linksToEntry('nyancat')
@@ -176,7 +176,7 @@ class EntrySearchTest extends TestCase
      */
     public function testLinksToAssets()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $query = (new Query())
             ->linksToAsset('nyancat')

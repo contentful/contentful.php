@@ -21,7 +21,7 @@ class SpaceTest extends TestCase
      */
     public function testGet()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         $space = $client->getSpace();
 

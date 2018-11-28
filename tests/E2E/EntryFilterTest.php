@@ -23,7 +23,7 @@ class EntryFilterTest extends TestCase
      */
     public function testAll()
     {
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
 
         // entries?content_type={content_type}&{attribute}%5Bnin%5D={value}
         $query = (new Query())
@@ -132,7 +132,7 @@ class EntryFilterTest extends TestCase
         // Using include=0 means that every link will have to be fetched from the API
         // so we check that the client has made another query for fetching the happy cat entry.
         // We create a new client because the previous one will have entries and assets already cached locally.
-        $client = $this->getClient('cfexampleapi');
+        $client = $this->getClient('default');
         $query = (new Query())
             ->setInclude(0)
         ;
