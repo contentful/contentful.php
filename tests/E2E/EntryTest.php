@@ -571,7 +571,7 @@ class EntryTest extends TestCase
 
         $message = $client->getMessages()[5];
         $this->assertSame(
-            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=en-US',
+            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=en-US',
             (string) $message->getRequest()->getUri()
         );
     }
@@ -619,11 +619,11 @@ class EntryTest extends TestCase
         $this->assertCount(6, $client->getMessages());
 
         $this->assertSame(
-            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s',
+            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s',
             (string) $client->getMessages()[4]->getRequest()->getUri()
         );
         $this->assertSame(
-            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG',
+            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG',
             (string) $client->getMessages()[5]->getRequest()->getUri()
         );
     }
@@ -681,7 +681,7 @@ class EntryTest extends TestCase
 
         $message = $client->getMessages()[5];
         $this->assertSame(
-            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=it',
+            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=it',
             (string) $message->getRequest()->getUri()
         );
     }
@@ -729,11 +729,11 @@ class EntryTest extends TestCase
         $this->assertCount(6, $client->getMessages());
 
         $this->assertSame(
-            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s?locale=it',
+            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s?locale=it',
             (string) $client->getMessages()[4]->getRequest()->getUri()
         );
         $this->assertSame(
-            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG?locale=it',
+            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG?locale=it',
             (string) $client->getMessages()[5]->getRequest()->getUri()
         );
     }
@@ -791,7 +791,7 @@ class EntryTest extends TestCase
 
         $message = $client->getMessages()[5];
         $this->assertSame(
-            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=%2A',
+            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries?sys.id%5Bin%5D=4mJOqrfVEQWCs8iIYU4qkG&locale=%2A',
             (string) $message->getRequest()->getUri()
         );
     }
@@ -839,11 +839,11 @@ class EntryTest extends TestCase
         $this->assertCount(6, $client->getMessages());
 
         $this->assertSame(
-            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s?locale=%2A',
+            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries/2vATHvqCV2e0MoakIk42s?locale=%2A',
             (string) $client->getMessages()[4]->getRequest()->getUri()
         );
         $this->assertSame(
-            'https://cdn.contentful.com/spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG?locale=%2A',
+            $this->getHost().'/spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG?locale=%2A',
             (string) $client->getMessages()[5]->getRequest()->getUri()
         );
     }

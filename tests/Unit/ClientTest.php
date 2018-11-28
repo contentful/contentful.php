@@ -14,6 +14,8 @@ namespace Contentful\Tests\Delivery\Unit;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\ClientOptions;
 use Contentful\Delivery\ResourceBuilder;
+use Contentful\Delivery\ResourcePool\Extended;
+use Contentful\Delivery\ResourcePool\Standard;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\RichText\Parser;
 use Contentful\Tests\Delivery\TestCase;
@@ -49,10 +51,32 @@ class ClientTest extends TestCase
 
     public function testIsPreview()
     {
-        $client = new Client('b4c0n73n7fu1', 'cfexampleapi', 'master', ClientOptions::create()->usingPreviewApi());
+        $client = new Client(
+            'b4c0n73n7fu1',
+            'cfexampleapi',
+            'master',
+            ClientOptions::create()->usingPreviewApi()
+        );
 
         $this->assertTrue($client->isPreviewApi());
         $this->assertFalse($client->isDeliveryApi());
         $this->assertSame('PREVIEW', $client->getApi());
+    }
+
+    public function testUsesCorrectResourcePool()
+    {
+        $client = new Client(
+            'b4c0n73n7fu1',
+            'cfexampleapi'
+        );
+        $this->assertInstanceOf(Extended::class, $client->getResourcePool());
+
+        $client = new Client(
+            'b4c0n73n7fu1',
+            'cfexampleapi',
+            'master',
+            ClientOptions::create()->withLowMemoryResourcePool()
+        );
+        $this->assertInstanceOf(Standard::class, $client->getResourcePool());
     }
 }

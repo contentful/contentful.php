@@ -5,6 +5,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/4.0.2...HEAD)
 
+<!-- PENDING-CHANGES -->
+## Added
+* When working with huge datasets (tens of thousands of resources), for instance with custom CLI commands, the default resource pool may have caused the application to use too much memory and crash. Now there are two different resource pools: `Contentful\Delivery\ResourcePool\Standard`, which is a lightweight implemention and only caches space, environment and content types, and `Contentful\Delivery\ResourcePool\Extended`, which also keeps a reference to entries and assets. The latter class was known as `Contentful\Delivery\ResourcePool`, which has now been deprecated and will be removed in version 5.0. The `Extended` class is the default one, as it is designed to work with regular PHP requests. In order to use the `Standard` pool, you must enable it through the `ClienOptions` class:
+  ```php
+  $options = ClientOptions::create()
+      ->withLowMemoryResourcePool();
+  $client = new Client($token, $spaceId, $environmentId, $options);
+  ```
+  As this resource pool provides no caching (and `include` values are now skipped, for this reason), it might cause the SDK to make more API calls, so its used is discouraged for regular web applications.
+<!-- /PENDING-CHANGES -->
+
 ## [4.0.2](https://github.com/contentful/contentful.php/tree/4.0.2) (2018-11-09)
 
 ### Fixed
