@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2018 Contentful GmbH
+ * @copyright 2015-2019 Contentful GmbH
  * @license   MIT
  */
 
@@ -13,8 +13,8 @@ namespace Contentful\Delivery\ResourcePool;
 
 use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Delivery\Client\JsonDecoderClientInterface;
-use Psr\Cache\CacheItemPoolInterface;
 use function GuzzleHttp\json_encode as guzzle_json_encode;
+use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * Extended class.

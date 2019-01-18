@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2018 Contentful GmbH
+ * @copyright 2015-2019 Contentful GmbH
  * @license   MIT
  */
 
@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Delivery\Resource\Asset;
+use Contentful\Delivery\Resource\DeletedEntry;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Synchronization\Query;
 use Contentful\Delivery\Synchronization\Result;
@@ -130,5 +131,25 @@ class SyncTest extends TestCase
         $items = $result->getItems();
         $this->assertInstanceOf(Entry::class, $items[0]);
         $this->assertSame('cat', $items[0]->getSystemProperties()->getContentType()->getId());
+    }
+
+    /**
+     * @vcr deleted_entry_with_sync_api.json
+     */
+    public function testDeletedEntryWithSyncApi()
+    {
+        $client = $this->getClient('new');
+        $manager = $client->getSynchronizationManager();
+
+        $token = 'w5ZGw6JFwqZmVcKsE8Kow4grw45QdyYxwpvDhWzCrMOCZcO4XsK5wqfDmUfDrsOXM8KwH8Knw4VxARRWwpLDiVBIPMOnS8K8wpDDvXbCli8vGsOtaykzAU3CmcKhwrXCqsOow74-DcO0w78XNMOsJsOPw4gfai0';
+        $result = $manager->continueSync($token);
+        /** @var DeletedEntry $entry */
+        $entry = $result->getItems()[0];
+
+        $this->assertSame('1snrLzDMcQjgAkmYI91S9S', $entry->getId());
+
+        $contentType = $entry->getContentType();
+        $this->assertSame('__DeletedEntryContentType', $contentType->getId());
+        $this->assertSame('Deleted Entry', $contentType->getName());
     }
 }

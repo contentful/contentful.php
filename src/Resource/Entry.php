@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2018 Contentful GmbH
+ * @copyright 2015-2019 Contentful GmbH
  * @license   MIT
  */
 
@@ -363,7 +363,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * @param string      $name
      * @param string|null $locale
      *
-     * @return null|string|string[] Returns null if $name is not a valid field ID string
+     * @return string|string[]|null Returns null if $name is not a valid field ID string
      */
     private function getFieldWithId(string $name, string $locale = \null)
     {
