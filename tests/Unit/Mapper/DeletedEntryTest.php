@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2018 Contentful GmbH
+ * @copyright 2015-2019 Contentful GmbH
  * @license   MIT
  */
 
@@ -14,7 +14,6 @@ namespace Contentful\Tests\Unit\Mapper;
 use Contentful\Delivery\Mapper\DeletedEntry as Mapper;
 use Contentful\Delivery\Resource\DeletedEntry;
 use Contentful\Tests\Delivery\Implementation\MockClient;
-use Contentful\Tests\Delivery\Implementation\MockContentType;
 use Contentful\Tests\Delivery\Implementation\MockEnvironment;
 use Contentful\Tests\Delivery\Implementation\MockParser;
 use Contentful\Tests\Delivery\Implementation\MockResourceBuilder;
@@ -33,7 +32,6 @@ class DeletedEntryTest extends TestCase
 
         $space = MockSpace::withSys('spaceId');
         $environment = MockEnvironment::withSys('environmentId');
-        $contentType = MockContentType::withSys('contentTypeId');
 
         /** @var DeletedEntry $resource */
         $resource = $mapper->map(\null, [
@@ -42,7 +40,6 @@ class DeletedEntryTest extends TestCase
                 'type' => 'DeletedEntry',
                 'space' => $space,
                 'environment' => $environment,
-                'contentType' => $contentType,
                 'revision' => 1,
                 'createdAt' => '2016-01-01T12:00:00.123Z',
                 'updatedAt' => '2017-01-01T12:00:00.123Z',
@@ -57,10 +54,21 @@ class DeletedEntryTest extends TestCase
         $sys = $resource->getSystemProperties();
         $this->assertSame($space, $sys->getSpace());
         $this->assertSame($environment, $sys->getEnvironment());
-        $this->assertSame($contentType, $sys->getContentType());
         $this->assertSame(1, $sys->getRevision());
         $this->assertSame('2016-01-01T12:00:00.123Z', (string) $sys->getCreatedAt());
         $this->assertSame('2017-01-01T12:00:00.123Z', (string) $sys->getUpdatedAt());
         $this->assertSame('2018-01-01T12:00:00.123Z', (string) $sys->getDeletedAt());
+
+        $contentType = $sys->getContentType();
+        $this->assertSame('__DeletedEntryContentType', $contentType->getId());
+        $this->assertSame(1, $contentType->getSystemProperties()->getRevision());
+        $this->assertSame(
+            '2015-01-01T12:00:00Z',
+            (string) $contentType->getSystemProperties()->getCreatedAt()
+        );
+        $this->assertSame(
+            '2015-01-01T12:00:00Z',
+            (string) $contentType->getSystemProperties()->getUpdatedAt()
+        );
     }
 }
