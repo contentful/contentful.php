@@ -3,13 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/4.1.0...HEAD)
+## [Unreleased](https://github.com/contentful/contentful.php/compare/4.1.1...HEAD)
 
 <!-- PENDING-CHANGES -->
+> No meaningful changes since last release.
+<!-- /PENDING-CHANGES -->
+
+## [4.1.1](https://github.com/contentful/contentful.php/tree/4.1.1) (2019-01-18)
+
 ### Fixed
 * Sync API now correctly works with deleted entries.
 * The SDK now works correctly when using an access token which does not have access to the `master` environment.
-<!-- /PENDING-CHANGES -->
 
 ## [4.1.0](https://github.com/contentful/contentful.php/tree/4.1.0) (2018-11-28)
 
