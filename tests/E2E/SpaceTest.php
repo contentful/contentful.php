@@ -29,4 +29,16 @@ class SpaceTest extends TestCase
         $this->assertSame('Contentful Example API', $space->getName());
         $this->assertSame('cfexampleapi', $space->getId());
     }
+
+    /**
+     * @vcr space_get_with_limited_permissions.json
+     */
+    public function testGetWithLimitedPermissions()
+    {
+        $client = $this->getClient('new_limited_permissions');
+
+        $space = $client->getSpace();
+
+        $this->assertSame($client->getSpaceId(), $space->getName());
+    }
 }

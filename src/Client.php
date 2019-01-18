@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Contentful\Delivery;
 
 use Contentful\Core\Api\BaseClient;
+use Contentful\Core\Api\Exception;
 use Contentful\Core\Api\Link;
 use Contentful\Core\Api\LinkResolverInterface;
 use Contentful\Core\Resource\ResourceArray;
@@ -383,13 +384,26 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
      */
     public function getSpace(): Space
     {
-        /** @var Space $space */
-        $space = $this->requestWithCache(
-            '/spaces/'.$this->spaceId,
-            [],
-            'Space',
-            $this->spaceId
-        );
+        try {
+            /** @var Space $space */
+            $space = $this->requestWithCache(
+                '/spaces/'.$this->spaceId,
+                [],
+                'Space',
+                $this->spaceId
+            );
+        } catch (Exception $exception) {
+            // An edge case with environments might result in space data not being available.
+            // As it *is* technically needed, we provide a fake space object.
+            /** @var Space $space */
+            $space = $this->builder->build([
+                'sys' => [
+                    'id' => $this->spaceId,
+                    'type' => 'Space',
+                ],
+                'name' => $this->spaceId,
+            ]);
+        }
 
         return $space;
     }

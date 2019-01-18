@@ -92,6 +92,11 @@ class TestCase extends BaseTestCase
                 'options' => ClientOptions::create()
                     ->usingPreviewApi(),
             ],
+            'new_limited_permissions' => [
+                'token' => '8857df140f638519fc7218095a6711d8baa6db8b303797e6d9900e46ced2a7ea',
+                'space' => '88dyiqcr7go8',
+                'environment' => 'secondary-environment',
+            ],
             'rate_limit' => [
                 'token' => '8740056d546471e0640d189615470cc12ce2d3188332352ecfb53edac59c4963',
                 'space' => 'bc32cj3kyfet',

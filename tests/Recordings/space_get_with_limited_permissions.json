@@ -1,0 +1,47 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/cdn.contentful.com\/spaces\/88dyiqcr7go8",
+        "headers": {
+            "Host": "cdn.contentful.com",
+            "User-Agent": "GuzzleHttp\/6.3.3 curl\/7.63.0 PHP\/7.2.13",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.2.0-dev; platform PHP\/7.2.13; os macOS;",
+            "Accept": "application\/vnd.contentful.delivery.v1+json",
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer 8857df140f638519fc7218095a6711d8baa6db8b303797e6d9900e46ced2a7ea"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "404",
+            "message": "Not Found"
+        },
+        "headers": {
+            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Etag",
+            "Access-Control-Max-Age": "86400",
+            "Cache-Control": "max-age=0",
+            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
+            "Contentful-Api": "cda_cached",
+            "ETag": "\"8e776e267205c8db3c17c40d9a1c5406\"",
+            "Server": "Contentful",
+            "X-Content-Type-Options": "nosniff",
+            "X-Contentful-Region": "us-east-1",
+            "X-Contentful-Request-Id": "1caef686261755c348aa8491d570ada0",
+            "Content-Length": "256",
+            "Accept-Ranges": "bytes",
+            "Date": "Fri, 18 Jan 2019 15:49:39 GMT",
+            "Via": "1.1 varnish",
+            "Age": "269",
+            "Connection": "keep-alive",
+            "X-Served-By": "cache-hhn1533-HHN",
+            "X-Cache": "HIT",
+            "X-Cache-Hits": "1",
+            "Vary": "Accept-Encoding"
+        },
+        "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"NotFound\"\n  },\n  \"message\": \"The resource could not be found.\",\n  \"details\": {\n    \"type\": \"Environment\",\n    \"id\": \"master\",\n    \"space\": \"88dyiqcr7go8\"\n  },\n  \"requestId\": \"1caef686261755c348aa8491d570ada0\"\n}\n"
+    }
+}]
