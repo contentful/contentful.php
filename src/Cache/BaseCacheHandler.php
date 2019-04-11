@@ -57,7 +57,7 @@ abstract class BaseCacheHandler
      *
      * @return ResourceInterface[]
      */
-    protected function fetchResources(bool $cacheContent = \false)
+    protected function fetchResources(bool $cacheContent = false)
     {
         $resources = [
             $this->client->getSpace(),

@@ -19,7 +19,7 @@ class MockLocalizedResource extends LocalizedResource
 {
     protected $sys;
 
-    public function __construct(array $locales, string $currentLocale = \null)
+    public function __construct(array $locales, string $currentLocale = null)
     {
         $this->sys = new SystemProperties([
             'id' => 'resourceId',
@@ -41,7 +41,7 @@ class MockLocalizedResource extends LocalizedResource
         return $this->sys;
     }
 
-    public function getLocaleFromInput($locale = \null): string
+    public function getLocaleFromInput($locale = null): string
     {
         return parent::getLocaleFromInput($locale);
     }

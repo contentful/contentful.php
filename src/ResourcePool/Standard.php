@@ -62,7 +62,7 @@ class Standard extends BaseResourcePool
      */
     protected function savesResource(string $type): bool
     {
-        return \in_array($type, ['ContentType', 'Environment', 'Space'], \true);
+        return \in_array($type, ['ContentType', 'Environment', 'Space'], true);
     }
 
     /**
@@ -76,7 +76,7 @@ class Standard extends BaseResourcePool
 
         return $sys instanceof LocalizedResourceSystemProperties
             ? $sys->getLocale()
-            : \null;
+            : null;
     }
 
     /**
@@ -95,7 +95,7 @@ class Standard extends BaseResourcePool
     public function has(string $type, string $id, array $options = []): bool
     {
         if (!$this->savesResource($type)) {
-            return \false;
+            return false;
         }
 
         $key = $this->generateKey($type, $id, $options);
@@ -110,7 +110,7 @@ class Standard extends BaseResourcePool
     public function save(ResourceInterface $resource): bool
     {
         if (!$this->savesResource($resource->getType())) {
-            return \false;
+            return false;
         }
 
         $key = $this->generateKey(
@@ -130,7 +130,7 @@ class Standard extends BaseResourcePool
      */
     public function get(string $type, string $id, array $options = []): ResourceInterface
     {
-        $locale = $options['locale'] ?? \null;
+        $locale = $options['locale'] ?? null;
         $key = $this->generateKey($type, $id, $options);
         $this->warmUp($key, $type);
 

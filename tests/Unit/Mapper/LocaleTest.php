@@ -29,7 +29,7 @@ class LocaleTest extends TestCase
         );
 
         /** @var Locale $resource */
-        $resource = $mapper->map(\null, [
+        $resource = $mapper->map(null, [
             'sys' => [
                 'id' => 'en-US',
                 'type' => 'Locale',
@@ -37,8 +37,8 @@ class LocaleTest extends TestCase
             ],
             'code' => 'en-US',
             'name' => 'English (United States)',
-            'default' => \true,
-            'fallbackCode' => \null,
+            'default' => true,
+            'fallbackCode' => null,
         ]);
 
         $this->assertInstanceOf(Locale::class, $resource);

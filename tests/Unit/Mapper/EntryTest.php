@@ -78,15 +78,15 @@ class EntryTest extends TestCase
         $environment = MockEnvironment::withSys('environmentId');
         $contentType = $this->createContentType();
 
-        $hasTriggeredError = \false;
+        $hasTriggeredError = false;
         \set_error_handler(function (int $errorNumber, string $message) use (&$hasTriggeredError) {
             $this->assertSame(0, \error_reporting(\E_USER_DEPRECATED));
             $this->assertSame('Entry of content type "Person" ("person") being built contains field "extraField" which is not present in the content type definition. Please check your cache for stale content type definitions.', $message);
-            $hasTriggeredError = \true;
+            $hasTriggeredError = true;
         }, \E_ALL);
 
         /** @var Entry $resource */
-        $resource = $mapper->map(\null, [
+        $resource = $mapper->map(null, [
             'sys' => [
                 'id' => 'saitama',
                 'type' => 'Entry',
@@ -108,7 +108,7 @@ class EntryTest extends TestCase
                     'lon' => 138.7669125,
                 ],
                 'birthday' => '2012-12-12T12:00:00.123Z',
-                'isActive' => \true,
+                'isActive' => true,
                 'bestFriend' => [
                     'sys' => [
                         'type' => 'Link',
@@ -129,7 +129,7 @@ class EntryTest extends TestCase
                 'custom' => [
                     'rank' => 'B',
                 ],
-                'nullValue' => \null,
+                'nullValue' => null,
                 'extraField' => 'Some extra field',
                 'richText' => [
                     'nodeType' => 'document',
@@ -176,12 +176,12 @@ class EntryTest extends TestCase
         $this->assertInternalType('bool', $resource->get('isActive'));
         $this->assertTrue($resource->get('isActive'));
 
-        $this->assertInstanceOf(Link::class, $resource->get('bestFriend', \null, \false));
-        $this->assertLink('genos', 'Entry', $resource->get('bestFriend', \null, \false));
+        $this->assertInstanceOf(Link::class, $resource->get('bestFriend', null, false));
+        $this->assertLink('genos', 'Entry', $resource->get('bestFriend', null, false));
 
-        $this->assertContainsOnlyInstancesOf(Link::class, $resource->get('pictures', \null, \false));
-        $this->assertLink('saitama', 'Asset', $resource->get('pictures', \null, \false)[0]);
-        $this->assertLink('saitama2', 'Asset', $resource->get('pictures', \null, \false)[1]);
+        $this->assertContainsOnlyInstancesOf(Link::class, $resource->get('pictures', null, false));
+        $this->assertLink('saitama', 'Asset', $resource->get('pictures', null, false)[0]);
+        $this->assertLink('saitama2', 'Asset', $resource->get('pictures', null, false)[1]);
 
         $this->assertNull($resource->get('nullValue'));
 

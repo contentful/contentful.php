@@ -37,10 +37,10 @@ class MockClientEntryHas extends MockClient
     /**
      * {@inheritdoc}
      */
-    public function resolveLink(Link $link, string $locale = \null): ResourceInterface
+    public function resolveLink(Link $link, string $locale = null): ResourceInterface
     {
         $id = $link->getId();
-        if (\in_array($id, $this->availableLinks, \true)) {
+        if (\in_array($id, $this->availableLinks, true)) {
             return 'Entry' === $link->getLinkType()
                 ? MockEntry::withSys($id)
                 : MockAsset::withSys($id);

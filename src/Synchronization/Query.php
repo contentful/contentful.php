@@ -43,7 +43,7 @@ class Query
     {
         $data = [
             'initial' => 'true',
-            'type' => 'all' !== $this->type ? $this->type : \null,
+            'type' => 'all' !== $this->type ? $this->type : null,
             'content_type' => $this->contentType,
         ];
 
@@ -79,10 +79,10 @@ class Query
      *
      * @return $this
      */
-    public function setType(string $type = \null)
+    public function setType(string $type = null)
     {
         $validTypes = ['all', 'Asset', 'Entry', 'Deletion', 'DeletedAsset', 'DeletedEntry'];
-        if (!\in_array($type, $validTypes, \true)) {
+        if (!\in_array($type, $validTypes, true)) {
             throw new \InvalidArgumentException(\sprintf(
                 'Unexpected type "%s".',
                 $type

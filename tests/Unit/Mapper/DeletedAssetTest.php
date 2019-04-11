@@ -34,7 +34,7 @@ class DeletedAssetTest extends TestCase
         $environment = MockEnvironment::withSys('environmentId');
 
         /** @var DeletedAsset $resource */
-        $resource = $mapper->map(\null, [
+        $resource = $mapper->map(null, [
             'sys' => [
                 'id' => 'deletedAssetId',
                 'type' => 'DeletedAsset',

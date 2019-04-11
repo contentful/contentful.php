@@ -19,7 +19,7 @@ class MockResourceBuilder implements ResourceBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function build(array $data, ResourceInterface $resource = \null)
+    public function build(array $data, ResourceInterface $resource = null)
     {
         if ($resource) {
             return $resource;
@@ -27,7 +27,7 @@ class MockResourceBuilder implements ResourceBuilderInterface
 
         $type = $data['sys']['type'] ?? 'Entry';
         $id = $data['sys']['id'] ?? 'entryId';
-        $locale = $data['sys']['locale'] ?? \null;
+        $locale = $data['sys']['locale'] ?? null;
 
         unset($data['sys']);
 

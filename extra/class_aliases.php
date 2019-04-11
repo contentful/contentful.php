@@ -60,5 +60,5 @@ $classes = [
 ];
 
 foreach ($classes as $previous => $new) {
-    \class_alias($new, $previous, \true);
+    \class_alias($new, $previous, true);
 }

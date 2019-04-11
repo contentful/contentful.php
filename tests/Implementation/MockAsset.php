@@ -33,7 +33,7 @@ class MockAsset extends Asset
      *
      * @return MockAsset
      */
-    public static function withSys(string $id = 'assetId', array $data = [], string $locale = \null): self
+    public static function withSys(string $id = 'assetId', array $data = [], string $locale = null): self
     {
         return new static(\array_merge($data, [
             'sys' => new SystemProperties([

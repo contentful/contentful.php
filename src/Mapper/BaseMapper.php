@@ -90,7 +90,7 @@ abstract class BaseMapper implements MapperInterface
      *
      * @return array
      */
-    protected function normalizeFieldData($fieldData, string $locale = \null)
+    protected function normalizeFieldData($fieldData, string $locale = null)
     {
         if (!$locale) {
             return $fieldData;

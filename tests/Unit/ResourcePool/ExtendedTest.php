@@ -21,7 +21,7 @@ class ExtendedTest extends TestCase
 {
     public function testGetSetData()
     {
-        $resourcePool = new Extended(new JsonDecoderClient(), new ArrayCachePool(), \true);
+        $resourcePool = new Extended(new JsonDecoderClient(), new ArrayCachePool(), true);
 
         $this->assertFalse($resourcePool->has('Entry', 'entryId', ['locale' => 'en-US']));
         $entry = MockEntry::withSys('entryId', [], 'en-US');

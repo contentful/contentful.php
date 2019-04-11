@@ -51,7 +51,7 @@ class ClientOptionsTest extends TestCase
         $this->assertSame('it-IT', $options->getDefaultLocale());
 
         $cachePool = new ArrayCachePool();
-        $options->withCache($cachePool, \true, \true);
+        $options->withCache($cachePool, true, true);
         $this->assertSame($cachePool, $options->getCacheItemPool());
         $this->assertTrue($options->hasCacheAutoWarmup());
         $this->assertTrue($options->hasCacheContent());

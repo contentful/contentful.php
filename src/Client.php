@@ -123,7 +123,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         string $token,
         string $spaceId,
         string $environmentId = 'master',
-        ClientOptions $options = \null
+        ClientOptions $options = null
     ) {
         $this->spaceId = $spaceId;
         $this->environmentId = $environmentId;
@@ -226,7 +226,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
      *
      * @return string
      */
-    private function getLocaleForCacheKey(string $locale = \null): string
+    private function getLocaleForCacheKey(string $locale = null): string
     {
         if ($locale) {
             return $locale;
@@ -238,7 +238,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     /**
      * {@inheritdoc}
      */
-    public function getAsset(string $assetId, string $locale = \null): Asset
+    public function getAsset(string $assetId, string $locale = null): Asset
     {
         $locale = $locale ?: $this->defaultLocale;
 
@@ -257,7 +257,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     /**
      * {@inheritdoc}
      */
-    public function getAssets(Query $query = \null): ResourceArray
+    public function getAssets(Query $query = null): ResourceArray
     {
         $queryData = $query ? $query->getQueryData() : [];
         if (!isset($queryData['locale'])) {
@@ -293,7 +293,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     /**
      * {@inheritdoc}
      */
-    public function getContentTypes(Query $query = \null): ResourceArray
+    public function getContentTypes(Query $query = null): ResourceArray
     {
         /** @var ResourceArray $contentTypes */
         $contentTypes = $this->request(
@@ -343,7 +343,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     /**
      * {@inheritdoc}
      */
-    public function getEntry(string $entryId, string $locale = \null): Entry
+    public function getEntry(string $entryId, string $locale = null): Entry
     {
         $locale = $locale ?: $this->defaultLocale;
 
@@ -362,7 +362,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     /**
      * {@inheritdoc}
      */
-    public function getEntries(Query $query = \null): ResourceArray
+    public function getEntries(Query $query = null): ResourceArray
     {
         $queryData = $query ? $query->getQueryData() : [];
         if (!isset($queryData['locale'])) {
@@ -411,7 +411,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     /**
      * {@inheritdoc}
      */
-    public function resolveLink(Link $link, string $locale = \null): ResourceInterface
+    public function resolveLink(Link $link, string $locale = null): ResourceInterface
     {
         return $this->linkResolver->resolveLink($link, [
             'locale' => (string) $locale,
@@ -421,7 +421,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     /**
      * {@inheritdoc}
      */
-    public function resolveLinkCollection(array $links, string $locale = \null): array
+    public function resolveLinkCollection(array $links, string $locale = null): array
     {
         return $this->linkResolver->resolveLinkCollection($links, [
             'locale' => (string) $locale,
@@ -504,9 +504,9 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     private function requestWithCache(
         string $uri,
         array $query = [],
-        string $type = \null,
-        string $resourceId = \null,
-        string $locale = \null
+        string $type = null,
+        string $resourceId = null,
+        string $locale = null
     ) {
         if ($type && $resourceId && $this->resourcePool->has($type, $resourceId, ['locale' => $locale])) {
             return $this->resourcePool->get($type, $resourceId, ['locale' => $locale]);

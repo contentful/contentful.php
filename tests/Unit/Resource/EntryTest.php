@@ -66,14 +66,14 @@ class EntryTest extends TestCase
         $localeEn = new MockLocale([
             'code' => 'en-US',
             'name' => 'English (United States)',
-            'fallbackCode' => \null,
-            'default' => \true,
+            'fallbackCode' => null,
+            'default' => true,
         ]);
         $localeTlh = new MockLocale([
             'code' => 'tlh',
             'name' => 'Klingon',
             'fallbackCode' => 'en-US',
-            'default' => \false,
+            'default' => false,
         ]);
 
         return MockEnvironment::withSys('master', [
@@ -88,13 +88,13 @@ class EntryTest extends TestCase
             'description' => 'Meow.',
             'displayField' => 'name',
             'fields' => [
-                'name' => new MockField('name', 'Name', 'Text', ['localized' => \true, 'disabled' => \true]),
+                'name' => new MockField('name', 'Name', 'Text', ['localized' => true, 'disabled' => true]),
                 'likes' => new MockField('likes', 'Likes', 'Array', ['itemsType' => 'Symbol']),
                 'color' => new MockField('color', 'Color', 'Symbol'),
                 'bestFriend' => new MockField('bestFriend', 'Best Friend', 'Link', ['linkType' => 'Entry']),
                 'Enemy' => new MockField('Enemy', 'Enemy', 'Link', ['linkType' => 'Entry']),
                 'birthday' => new MockField('name', 'Birthday', 'Date'),
-                'lifes' => new MockField('lifes', 'Lifes left', 'Integer', ['disabled' => \true]),
+                'lifes' => new MockField('lifes', 'Lifes left', 'Integer', ['disabled' => true]),
                 'lives' => new MockField('lives', 'Lives left', 'Integer'),
                 'image' => new MockField('image', 'Image', 'Link', ['linkType' => 'Asset']),
             ],
@@ -150,7 +150,7 @@ class EntryTest extends TestCase
                 parent::__construct($spaceId, $environmentId);
             }
 
-            public function resolveLink(Link $link, string $locale = \null): ResourceInterface
+            public function resolveLink(Link $link, string $locale = null): ResourceInterface
             {
                 foreach ($this->entries as $id => $entry) {
                     if ($id === $link->getId()) {
@@ -163,7 +163,7 @@ class EntryTest extends TestCase
                 );
             }
 
-            public function resolveLinkCollection(array $links, string $locale = \null): array
+            public function resolveLinkCollection(array $links, string $locale = null): array
             {
                 $resources = [];
                 foreach ($links as $link) {
@@ -244,7 +244,7 @@ class EntryTest extends TestCase
         $this->assertSame('nyancat', $link->getId());
         $this->assertSame('Entry', $link->getLinkType());
 
-        $this->entry->setClient(\null);
+        $this->entry->setClient(null);
 
         $this->assertSame($this->space, $this->entry->getSpace());
         $this->assertSame($this->environment, $this->entry->getEnvironment());
@@ -279,7 +279,7 @@ class EntryTest extends TestCase
         $contentType = new MockContentType([
             'name' => 'Cat',
             'fields' => [
-                'name' => new MockField('name', 'Name', 'Text', ['localized' => \true, 'disabled' => \true]),
+                'name' => new MockField('name', 'Name', 'Text', ['localized' => true, 'disabled' => true]),
                 'friend' => new MockField('friend', 'Friend', 'Link'),
             ],
         ]);
@@ -297,7 +297,7 @@ class EntryTest extends TestCase
         ]);
 
         $this->assertSame($crookshanksEntry, $garfieldEntry->getFriend());
-        $this->assertLink($crookshanksEntry->getId(), 'Entry', $garfieldEntry->get('friend', \null, \false));
+        $this->assertLink($crookshanksEntry->getId(), 'Entry', $garfieldEntry->get('friend', null, false));
     }
 
     /**
@@ -308,7 +308,7 @@ class EntryTest extends TestCase
         $contentType = new MockContentType([
             'name' => 'Cat',
             'fields' => [
-                'name' => new MockField('name', 'Name', 'Text', ['localized' => \true, 'disabled' => \true]),
+                'name' => new MockField('name', 'Name', 'Text', ['localized' => true, 'disabled' => true]),
                 'youTubeId' => new MockField('youTubeId', 'YouTube', 'Symbol'),
             ],
         ]);
@@ -339,7 +339,7 @@ class EntryTest extends TestCase
         $contentType = new MockContentType([
             'name' => 'Cat',
             'fields' => [
-                'name' => new MockField('name', 'Name', 'Text', ['localized' => \true, 'disabled' => \true]),
+                'name' => new MockField('name', 'Name', 'Text', ['localized' => true, 'disabled' => true]),
                 'friends' => new MockField('friends', 'Friends', 'Array', ['itemsType' => 'Link']),
             ],
         ]);
@@ -370,7 +370,7 @@ class EntryTest extends TestCase
         $contentType = MockContentType::withSys('cat', [
             'name' => 'Cat',
             'fields' => [
-                'name' => new MockField('name', 'Name', 'Text', ['localized' => \true, 'disabled' => \true]),
+                'name' => new MockField('name', 'Name', 'Text', ['localized' => true, 'disabled' => true]),
                 'friends' => new MockField('friends', 'Friends', 'Array', ['itemsType' => 'Link']),
             ],
         ]);
@@ -524,8 +524,8 @@ class EntryTest extends TestCase
         ]);
 
         $entry = new MockEntry(['sys' => $sys, 'fields' => [
-            'hasLives' => ['en-US' => \false],
-            'hadBaldSpot' => ['en-US' => \true],
+            'hasLives' => ['en-US' => false],
+            'hadBaldSpot' => ['en-US' => true],
         ]]);
         $entry->initLocales($this->environment->getLocales());
 
@@ -598,20 +598,20 @@ class EntryTest extends TestCase
                 new MockLocale([
                     'code' => 'en-US',
                     'name' => 'English (United States)',
-                    'fallbackCode' => \null,
-                    'default' => \true,
+                    'fallbackCode' => null,
+                    'default' => true,
                 ]),
                 new MockLocale([
                     'code' => 'tlh',
                     'name' => 'Klingon',
                     'fallbackCode' => 'en-US',
-                    'default' => \false,
+                    'default' => false,
                 ]),
                 new MockLocale([
                     'code' => 'it-IT',
                     'name' => 'Italian',
-                    'fallbackCode' => \null,
-                    'default' => \false,
+                    'fallbackCode' => null,
+                    'default' => false,
                 ]),
             ],
         ]);
@@ -625,11 +625,11 @@ class EntryTest extends TestCase
                 'name' => 'Person',
                 'displayField' => 'name',
                 'fields' => [
-                    'field1' => new MockField('field1', 'Field 1', 'Text', ['localized' => \true]),
-                    'field2' => new MockField('field2', 'Field 2', 'Array', ['localized' => \true, 'itemsType' => 'Symbol']),
-                    'field3' => new MockField('field3', 'Field 3', 'Text', ['localized' => \true, 'itemsType' => 'Symbol']),
-                    'field4' => new MockField('field4', 'Field 4', 'Array', ['localized' => \true, 'itemsType' => 'Symbol']),
-                    'field5' => new MockField('field5', 'Field 5', 'Text', ['localized' => \true, 'itemsType' => 'Symbol']),
+                    'field1' => new MockField('field1', 'Field 1', 'Text', ['localized' => true]),
+                    'field2' => new MockField('field2', 'Field 2', 'Array', ['localized' => true, 'itemsType' => 'Symbol']),
+                    'field3' => new MockField('field3', 'Field 3', 'Text', ['localized' => true, 'itemsType' => 'Symbol']),
+                    'field4' => new MockField('field4', 'Field 4', 'Array', ['localized' => true, 'itemsType' => 'Symbol']),
+                    'field5' => new MockField('field5', 'Field 5', 'Text', ['localized' => true, 'itemsType' => 'Symbol']),
                 ],
             ]),
             'revision' => 1,

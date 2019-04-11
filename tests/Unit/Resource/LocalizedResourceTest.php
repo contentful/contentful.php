@@ -22,7 +22,7 @@ class LocalizedResourceTest extends TestCase
     {
         $resource = new MockLocalizedResource([
             new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => \true]),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $this->assertSame('en-US', $resource->getLocale());
@@ -32,7 +32,7 @@ class LocalizedResourceTest extends TestCase
     {
         $resource = new MockLocalizedResource([
             new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => \true]),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $resource->setLocale('it-IT');
@@ -45,7 +45,7 @@ class LocalizedResourceTest extends TestCase
 
         $resource = new MockLocalizedResource([
             $itLocale,
-            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => \true]),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $resource->setLocale($itLocale);
@@ -60,7 +60,7 @@ class LocalizedResourceTest extends TestCase
     {
         $resource = new MockLocalizedResource([
             new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => \true]),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $resource->setLocale('fr-FR');
@@ -74,7 +74,7 @@ class LocalizedResourceTest extends TestCase
     {
         $resource = new MockLocalizedResource([
             new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => \true]),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ], 'it-IT');
         $resource->setLocale('it-IT');
 
@@ -85,7 +85,7 @@ class LocalizedResourceTest extends TestCase
     {
         $resource = new MockLocalizedResource([
             new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => \true]),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $this->assertSame('en-US', $resource->getLocaleFromInput());
@@ -95,7 +95,7 @@ class LocalizedResourceTest extends TestCase
     {
         $resource = new MockLocalizedResource([
             new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => \true]),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $this->assertSame('it-IT', $resource->getLocaleFromInput('it-IT'));
@@ -107,7 +107,7 @@ class LocalizedResourceTest extends TestCase
 
         $resource = new MockLocalizedResource([
             $itLocale,
-            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => \true]),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $this->assertSame('it-IT', $resource->getLocaleFromInput($itLocale));
@@ -121,7 +121,7 @@ class LocalizedResourceTest extends TestCase
     {
         $resource = new MockLocalizedResource([
             new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => \true]),
+            new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
         ]);
 
         $resource->getLocaleFromInput('en-GB');
@@ -149,7 +149,7 @@ class LocalizedResourceTest extends TestCase
         $environment = new MockEnvironment([
             'locales' => [
                 new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
-                new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'fallbackCode' => \null]),
+                new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'fallbackCode' => null]),
             ],
         ]);
         $resource = new MockLocalizedResource($environment->getLocales());

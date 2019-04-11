@@ -30,7 +30,7 @@ class ResourceArrayTest extends TestCase
         );
 
         /** @var ResourceArray $resource */
-        $resource = $mapper->map(\null, [
+        $resource = $mapper->map(null, [
             'sys' => [
                 'type' => 'Array',
             ],

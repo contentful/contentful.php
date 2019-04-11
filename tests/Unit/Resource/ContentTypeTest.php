@@ -40,9 +40,9 @@ class ContentTypeTest extends TestCase
             'description' => 'Also called homo sapiens',
             'displayField' => 'name',
             'fields' => [
-                'name' => new MockField('name', 'Name', 'Text', ['required' => \true]),
+                'name' => new MockField('name', 'Name', 'Text', ['required' => true]),
                 'likes' => new MockField('likes', 'Likes', 'Array', ['itemsType' => 'Symbol']),
-                'image' => new MockField('image', 'Image', 'Array', ['itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => \true]),
+                'image' => new MockField('image', 'Image', 'Array', ['itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
             ],
         ]);
 
@@ -82,7 +82,7 @@ class ContentTypeTest extends TestCase
             'name' => 'Human',
             'fields' => [
                 'likes' => new MockField('likes', 'Likes', 'Array', ['itemsType' => 'Symbol']),
-                'image' => new MockField('image', 'Image', 'Array', ['itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => \true]),
+                'image' => new MockField('image', 'Image', 'Array', ['itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
             ],
         ]);
 
@@ -108,9 +108,9 @@ class ContentTypeTest extends TestCase
             'description' => 'Also called homo sapiens',
             'displayField' => 'name',
             'fields' => [
-                'name' => new MockField('name', 'Name', 'Text', ['required' => \true]),
+                'name' => new MockField('name', 'Name', 'Text', ['required' => true]),
                 'likes' => new MockField('likes', 'Likes', 'Array', ['itemsType' => 'Symbol']),
-                'image' => new MockField('image', 'Image', 'Array', ['itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => \true]),
+                'image' => new MockField('image', 'Image', 'Array', ['itemsType' => 'Link', 'itemsLinkType' => 'Asset', 'disabled' => true]),
             ],
         ]);
 

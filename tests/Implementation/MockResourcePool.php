@@ -21,7 +21,7 @@ class MockResourcePool implements ResourcePoolInterface
      */
     public function save(ResourceInterface $resource): bool
     {
-        return \false;
+        return false;
     }
 
     /**
@@ -37,7 +37,7 @@ class MockResourcePool implements ResourcePoolInterface
      */
     public function has(string $type, string $id, array $options = []): bool
     {
-        return \false;
+        return false;
     }
 
     /**

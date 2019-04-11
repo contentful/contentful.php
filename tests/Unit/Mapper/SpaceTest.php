@@ -29,7 +29,7 @@ class SpaceTest extends TestCase
         );
 
         /** @var Space $resource */
-        $resource = $mapper->map(\null, [
+        $resource = $mapper->map(null, [
             'sys' => [
                 'id' => 'spaceId',
                 'type' => 'Space',

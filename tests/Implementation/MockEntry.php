@@ -34,7 +34,7 @@ class MockEntry extends Entry
      *
      * @return MockEntry
      */
-    public static function withSys(string $id = 'entryId', array $data = [], string $locale = \null): self
+    public static function withSys(string $id = 'entryId', array $data = [], string $locale = null): self
     {
         return new static(\array_merge($data, [
             'sys' => new SystemProperties([
@@ -54,7 +54,7 @@ class MockEntry extends Entry
     /**
      * @param ClientInterface|null $client
      */
-    public function setClient(ClientInterface $client = \null)
+    public function setClient(ClientInterface $client = null)
     {
         $this->client = $client;
     }

@@ -41,32 +41,32 @@ class AssetTest extends TestCase
                 MockLocale::withSys('en-US', [
                     'code' => 'en-US',
                     'name' => 'English (United States)',
-                    'fallbackCode' => \null,
-                    'default' => \true,
+                    'fallbackCode' => null,
+                    'default' => true,
                 ]),
                 MockLocale::withSys('it-IT', [
                     'code' => 'it-IT',
                     'name' => 'Italian (Italy)',
-                    'fallbackCode' => \null,
-                    'default' => \false,
+                    'fallbackCode' => null,
+                    'default' => false,
                 ]),
                 MockLocale::withSys('fr-FR', [
                     'code' => 'fr-FR',
                     'name' => 'French (France)',
-                    'fallbackCode' => \null,
-                    'default' => \false,
+                    'fallbackCode' => null,
+                    'default' => false,
                 ]),
                 MockLocale::withSys('es-ES', [
                     'code' => 'es-ES',
                     'name' => 'Spanish (Spain)',
-                    'fallbackCode' => \null,
-                    'default' => \false,
+                    'fallbackCode' => null,
+                    'default' => false,
                 ]),
             ],
         ]);
 
         /** @var Asset $resource */
-        $resource = $mapper->map(\null, [
+        $resource = $mapper->map(null, [
             'sys' => [
                 'id' => 'assetId',
                 'type' => 'Asset',

@@ -75,7 +75,7 @@ class EntryTest extends TestCase
         $this->assertInstanceOf(Entry::class, $fields['bestFriend']);
         $this->assertSame('happycat', $fields['bestFriend']->getId());
         $this->assertSame('2011-04-04T22:00:00Z', (string) $fields['birthday']);
-        $this->assertSame(\null, $fields['lifes']);
+        $this->assertNull($fields['lifes']);
         $this->assertSame(1337, $fields['lives']);
         $this->assertInstanceOf(Asset::class, $fields['image']);
         $this->assertSame('nyancat', $fields['image']->getId());
@@ -284,11 +284,11 @@ class EntryTest extends TestCase
         $this->assertSame(11.2556199, $location->getLongitude());
 
         $this->assertTrue($entry->has('link'));
-        $link = $entry->get('link', \null, \false);
+        $link = $entry->get('link', null, false);
         $this->assertLink('SQOIQ1rZMQQUeyoyGiEUq', 'Asset', $link);
 
         $this->assertTrue($entry->has('arrayOfLinks'));
-        $arrayOfLinks = $entry->get('arrayOfLinks', \null, \false);
+        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
         $this->assertLink('5teS5mSVJ66qg6QOIY0SWI', 'Entry', $arrayOfLinks[0]);
 
         $this->assertFalse($entry->has('text'));
@@ -310,11 +310,11 @@ class EntryTest extends TestCase
         $this->assertSame(11.2556199, $location->getLongitude());
 
         $this->assertTrue($entry->has('link'));
-        $link = $entry->get('link', \null, \false);
+        $link = $entry->get('link', null, false);
         $this->assertLink('SQOIQ1rZMQQUeyoyGiEUq', 'Asset', $link);
 
         $this->assertTrue($entry->has('arrayOfLinks'));
-        $arrayOfLinks = $entry->get('arrayOfLinks', \null, \false);
+        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
         $this->assertLink('5teS5mSVJ66qg6QOIY0SWI', 'Entry', $arrayOfLinks[0]);
 
         $this->assertTrue($entry->has('text'));
@@ -349,11 +349,11 @@ class EntryTest extends TestCase
         $this->assertSame(11.2556199, $location->getLongitude());
 
         $this->assertTrue($entry->has('link'));
-        $link = $entry->get('link', \null, \false);
+        $link = $entry->get('link', null, false);
         $this->assertLink('SQOIQ1rZMQQUeyoyGiEUq', 'Asset', $link);
 
         $this->assertTrue($entry->has('arrayOfLinks'));
-        $arrayOfLinks = $entry->get('arrayOfLinks', \null, \false);
+        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
         $this->assertLink('5teS5mSVJ66qg6QOIY0SWI', 'Entry', $arrayOfLinks[0]);
 
         $this->assertFalse($entry->has('text'));
@@ -376,11 +376,11 @@ class EntryTest extends TestCase
         $this->assertSame(11.2556199, $location->getLongitude());
 
         $this->assertTrue($entry->has('link'));
-        $link = $entry->get('link', \null, \false);
+        $link = $entry->get('link', null, false);
         $this->assertLink('SQOIQ1rZMQQUeyoyGiEUq', 'Asset', $link);
 
         $this->assertTrue($entry->has('arrayOfLinks'));
-        $arrayOfLinks = $entry->get('arrayOfLinks', \null, \false);
+        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
         $this->assertLink('5teS5mSVJ66qg6QOIY0SWI', 'Entry', $arrayOfLinks[0]);
 
         $this->assertTrue($entry->has('text'));
@@ -414,11 +414,11 @@ class EntryTest extends TestCase
         $this->assertSame(11.2556199, $location->getLongitude());
 
         $this->assertTrue($entry->has('link'));
-        $link = $entry->get('link', \null, \false);
+        $link = $entry->get('link', null, false);
         $this->assertLink('SQOIQ1rZMQQUeyoyGiEUq', 'Asset', $link);
 
         $this->assertTrue($entry->has('arrayOfLinks'));
-        $arrayOfLinks = $entry->get('arrayOfLinks', \null, \false);
+        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
         $this->assertLink('5teS5mSVJ66qg6QOIY0SWI', 'Entry', $arrayOfLinks[0]);
 
         $this->assertFalse($entry->has('text'));
@@ -441,11 +441,11 @@ class EntryTest extends TestCase
         $this->assertSame(11.2556199, $location->getLongitude());
 
         $this->assertTrue($entry->has('link'));
-        $link = $entry->get('link', \null, \false);
+        $link = $entry->get('link', null, false);
         $this->assertLink('SQOIQ1rZMQQUeyoyGiEUq', 'Asset', $link);
 
         $this->assertTrue($entry->has('arrayOfLinks'));
-        $arrayOfLinks = $entry->get('arrayOfLinks', \null, \false);
+        $arrayOfLinks = $entry->get('arrayOfLinks', null, false);
         $this->assertLink('5teS5mSVJ66qg6QOIY0SWI', 'Entry', $arrayOfLinks[0]);
 
         $this->assertTrue($entry->has('text'));

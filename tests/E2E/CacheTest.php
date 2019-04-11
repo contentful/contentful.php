@@ -38,7 +38,7 @@ class CacheTest extends TestCase
         );
         $this->assertTrue($cacheItem->isHit());
 
-        $rawSpace = guzzle_json_decode($cacheItem->get(), \true);
+        $rawSpace = guzzle_json_decode($cacheItem->get(), true);
         $this->assertSame('cfexampleapi', $rawSpace['sys']['id']);
 
         $clearer->clear();
@@ -100,7 +100,7 @@ class CacheTest extends TestCase
         $cacheItem = self::$cache->getItem($resourcePool->generateKey('Space', 'cfexampleapi'));
         $this->assertTrue($cacheItem->isHit());
 
-        $resource = guzzle_json_decode($cacheItem->get(), \true);
+        $resource = guzzle_json_decode($cacheItem->get(), true);
         $this->assertSame('cfexampleapi', $resource['sys']['id']);
 
         self::$cache->clear();
@@ -123,25 +123,25 @@ class CacheTest extends TestCase
 
         $cacheItem = self::$cache->getItem($resourcePool->generateKey('Space', 'cfexampleapi'));
         $this->assertTrue($cacheItem->isHit());
-        $resource = guzzle_json_decode($cacheItem->get(), \true);
+        $resource = guzzle_json_decode($cacheItem->get(), true);
         $this->assertSame('cfexampleapi', $resource['sys']['id']);
         $this->assertSame('Space', $resource['sys']['type']);
 
         $cacheItem = self::$cache->getItem($resourcePool->generateKey('ContentType', 'cat'));
         $this->assertTrue($cacheItem->isHit());
-        $resource = guzzle_json_decode($cacheItem->get(), \true);
+        $resource = guzzle_json_decode($cacheItem->get(), true);
         $this->assertSame('cat', $resource['sys']['id']);
         $this->assertSame('ContentType', $resource['sys']['type']);
 
         $cacheItem = self::$cache->getItem($resourcePool->generateKey('Entry', 'nyancat'));
         $this->assertTrue($cacheItem->isHit());
-        $resource = guzzle_json_decode($cacheItem->get(), \true);
+        $resource = guzzle_json_decode($cacheItem->get(), true);
         $this->assertSame('nyancat', $resource['sys']['id']);
         $this->assertSame('Entry', $resource['sys']['type']);
 
         $cacheItem = self::$cache->getItem($resourcePool->generateKey('Asset', 'nyancat'));
         $this->assertTrue($cacheItem->isHit());
-        $resource = guzzle_json_decode($cacheItem->get(), \true);
+        $resource = guzzle_json_decode($cacheItem->get(), true);
         $this->assertSame('nyancat', $resource['sys']['id']);
         $this->assertSame('Asset', $resource['sys']['type']);
 
