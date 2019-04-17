@@ -42,7 +42,7 @@ interface ClientInterface extends ScopedClientInterface
      *
      * @return Asset
      */
-    public function getAsset(string $assetId, string $locale = \null): Asset;
+    public function getAsset(string $assetId, string $locale = null): Asset;
 
     /**
      * Returns a collection of Asset objects wrapped in a ResourceArray instance.
@@ -51,7 +51,7 @@ interface ClientInterface extends ScopedClientInterface
      *
      * @return ResourceArray|Asset[]
      */
-    public function getAssets(Query $query = \null): ResourceArray;
+    public function getAssets(Query $query = null): ResourceArray;
 
     /**
      * Returns a single ContentType object corresponding to the given ID.
@@ -71,7 +71,7 @@ interface ClientInterface extends ScopedClientInterface
      *
      * @return ResourceArray|ContentType[]
      */
-    public function getContentTypes(Query $query = \null): ResourceArray;
+    public function getContentTypes(Query $query = null): ResourceArray;
 
     /**
      * Returns the Environment object corresponding to the one in use.
@@ -90,7 +90,7 @@ interface ClientInterface extends ScopedClientInterface
      *
      * @return Entry
      */
-    public function getEntry(string $entryId, string $locale = \null): Entry;
+    public function getEntry(string $entryId, string $locale = null): Entry;
 
     /**
      * Returns a collection of Entry objects wrapped in a ResourceArray instance.
@@ -99,7 +99,7 @@ interface ClientInterface extends ScopedClientInterface
      *
      * @return ResourceArray|Entry[]
      */
-    public function getEntries(Query $query = \null): ResourceArray;
+    public function getEntries(Query $query = null): ResourceArray;
 
     /**
      * Returns the Space object corresponding to the one in use.
@@ -118,7 +118,7 @@ interface ClientInterface extends ScopedClientInterface
      *
      * @return ResourceInterface
      */
-    public function resolveLink(Link $link, string $locale = \null): ResourceInterface;
+    public function resolveLink(Link $link, string $locale = null): ResourceInterface;
 
     /**
      * Resolves an array of links.
@@ -130,5 +130,5 @@ interface ClientInterface extends ScopedClientInterface
      *
      * @return ResourceInterface[]
      */
-    public function resolveLinkCollection(array $links, string $locale = \null): array;
+    public function resolveLinkCollection(array $links, string $locale = null): array;
 }

@@ -123,7 +123,7 @@ class ContentType extends BaseResource implements ContentTypeInterface
      *
      * @return Field|null
      */
-    public function getField(string $fieldId, bool $tryCaseInsensitive = \false)
+    public function getField(string $fieldId, bool $tryCaseInsensitive = false)
     {
         if (isset($this->fields[$fieldId])) {
             return $this->fields[$fieldId];
@@ -137,7 +137,7 @@ class ContentType extends BaseResource implements ContentTypeInterface
             }
         }
 
-        return \null;
+        return null;
     }
 
     /**
@@ -149,8 +149,8 @@ class ContentType extends BaseResource implements ContentTypeInterface
      */
     public function getDisplayField()
     {
-        if (\null === $this->displayField) {
-            return \null;
+        if (null === $this->displayField) {
+            return null;
         }
 
         return $this->getField($this->displayField);

@@ -32,12 +32,12 @@ class ClientOptions
     /**
      * @var bool
      */
-    private $cacheAutoWarmup = \false;
+    private $cacheAutoWarmup = false;
 
     /**
      * @var bool
      */
-    private $cacheContent = \false;
+    private $cacheContent = false;
 
     /**
      * @var LoggerInterface
@@ -57,7 +57,7 @@ class ClientOptions
     /**
      * @var bool
      */
-    private $usesLowMemoryResourcePool = \false;
+    private $usesLowMemoryResourcePool = false;
 
     /**
      * ClientOptions constructor.
@@ -150,8 +150,8 @@ class ClientOptions
      */
     public function withCache(
         CacheItemPoolInterface $cacheItemPool,
-        bool $autoWarmup = \false,
-        bool $cacheContent = \false
+        bool $autoWarmup = false,
+        bool $cacheContent = false
     ): self {
         $this->cacheItemPool = $cacheItemPool;
         $this->cacheAutoWarmup = $autoWarmup;
@@ -234,7 +234,7 @@ class ClientOptions
      */
     public function withNormalResourcePool(): self
     {
-        $this->usesLowMemoryResourcePool = \false;
+        $this->usesLowMemoryResourcePool = false;
 
         return $this;
     }
@@ -249,7 +249,7 @@ class ClientOptions
      */
     public function withLowMemoryResourcePool(): self
     {
-        $this->usesLowMemoryResourcePool = \true;
+        $this->usesLowMemoryResourcePool = true;
 
         return $this;
     }

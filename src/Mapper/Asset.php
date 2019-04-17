@@ -42,13 +42,13 @@ class Asset extends BaseMapper
             'sys' => $sys,
             'title' => isset($data['fields']['title'])
                 ? $this->normalizeFieldData($data['fields']['title'], $locale)
-                : \null,
+                : null,
             'description' => isset($data['fields']['description'])
                 ? $this->normalizeFieldData($data['fields']['description'], $locale)
-                : \null,
+                : null,
             'file' => isset($data['fields']['file'])
                 ? \array_map([$this, 'buildFile'], $this->normalizeFieldData($data['fields']['file'], $locale))
-                : \null,
+                : null,
         ]);
 
         $asset->initLocales($asset->getSystemProperties()->getEnvironment()->getLocales());

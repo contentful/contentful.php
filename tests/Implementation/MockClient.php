@@ -54,7 +54,7 @@ class MockClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function getAsset(string $assetId, string $locale = \null): Asset
+    public function getAsset(string $assetId, string $locale = null): Asset
     {
         return MockAsset::withSys($assetId, [], $locale);
     }
@@ -62,7 +62,7 @@ class MockClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function getAssets(Query $query = \null): ResourceArray
+    public function getAssets(Query $query = null): ResourceArray
     {
         $this->lastQuery = $query;
 
@@ -85,7 +85,7 @@ class MockClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function getContentTypes(Query $query = \null): ResourceArray
+    public function getContentTypes(Query $query = null): ResourceArray
     {
         $this->lastQuery = $query;
 
@@ -108,7 +108,7 @@ class MockClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function getEntry(string $entryId, string $locale = \null): Entry
+    public function getEntry(string $entryId, string $locale = null): Entry
     {
         return MockEntry::withSys($entryId, [], $locale);
     }
@@ -116,7 +116,7 @@ class MockClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function getEntries(Query $query = \null): ResourceArray
+    public function getEntries(Query $query = null): ResourceArray
     {
         $this->lastQuery = $query;
 
@@ -139,7 +139,7 @@ class MockClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function resolveLink(Link $link, string $locale = \null): ResourceInterface
+    public function resolveLink(Link $link, string $locale = null): ResourceInterface
     {
         return MockEntry::withSys($link->getId());
     }
@@ -147,7 +147,7 @@ class MockClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function resolveLinkCollection(array $links, string $locale = \null): array
+    public function resolveLinkCollection(array $links, string $locale = null): array
     {
         return \array_map(function (Link $link): Entry {
             return MockEntry::withSys($link->getId());

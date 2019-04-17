@@ -43,7 +43,7 @@ class NotWorkingCacheItem implements CacheItemInterface
      */
     public function get()
     {
-        return \null;
+        return null;
     }
 
     /**
@@ -51,7 +51,7 @@ class NotWorkingCacheItem implements CacheItemInterface
      */
     public function isHit(): bool
     {
-        return \false;
+        return false;
     }
 
     /**

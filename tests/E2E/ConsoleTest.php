@@ -69,7 +69,7 @@ class ConsoleTest extends TestCase
             '--space-id' => 'cfexampleapi',
             '--environment-id' => 'master',
             '--factory-class' => CacheItemPoolFactory::class,
-            '--use-preview' => \true,
+            '--use-preview' => true,
         ]);
 
         $this->assertContains('Cache warmed up for space "cfexampleapi" on environment "master" using API "PREVIEW".', $output);
@@ -140,7 +140,7 @@ class ConsoleTest extends TestCase
             '--space-id' => 'cfexampleapi',
             '--environment-id' => 'master',
             '--factory-class' => CacheItemPoolFactory::class,
-            '--use-preview' => \true,
+            '--use-preview' => true,
         ]);
 
         $this->assertContains('Cache cleared for space "cfexampleapi" on environment "master" using API "PREVIEW".', $output);
@@ -188,7 +188,7 @@ class ConsoleTest extends TestCase
             '--space-id' => 'cfexampleapi',
             '--environment-id' => 'master',
             '--factory-class' => CacheItemPoolFactory::class,
-            '--cache-content' => \true,
+            '--cache-content' => true,
         ]);
 
         $this->assertContains('Cache warmed up for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
@@ -216,7 +216,7 @@ class ConsoleTest extends TestCase
             '--space-id' => 'cfexampleapi',
             '--environment-id' => 'master',
             '--factory-class' => CacheItemPoolFactory::class,
-            '--cache-content' => \true,
+            '--cache-content' => true,
         ]);
 
         $this->assertContains('Cache cleared for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);

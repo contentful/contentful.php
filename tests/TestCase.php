@@ -69,11 +69,11 @@ class TestCase extends BaseTestCase
             ],
             'default_cache_autowarmup' => [
                 'options' => ClientOptions::create()
-                    ->withCache(self::$cache, \true),
+                    ->withCache(self::$cache, true),
             ],
             'default_cache_autowarmup_content' => [
                 'options' => ClientOptions::create()
-                    ->withCache(self::$cache, \true, \true),
+                    ->withCache(self::$cache, true, true),
             ],
             'default_klingon' => [
                 'options' => ClientOptions::create()
@@ -143,7 +143,7 @@ class TestCase extends BaseTestCase
     protected function getJsonDecoderClient(
         string $spaceId,
         string $environment = 'master',
-        ClientOptions $options = \null
+        ClientOptions $options = null
     ): JsonDecoderClientInterface {
         return new Client('irrelevant', $spaceId, $environment, $options);
     }
@@ -170,9 +170,9 @@ class TestCase extends BaseTestCase
         if (!\getenv(self::ENV_VAR_HOST)) {
             $this->markTestAsPassed();
 
-            return \false;
+            return false;
         }
 
-        return \true;
+        return true;
     }
 }

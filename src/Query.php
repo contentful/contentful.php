@@ -40,10 +40,10 @@ class Query extends BaseQuery
     public function getQueryData(): array
     {
         $query = parent::getQueryData();
-        if (\null !== $this->include) {
+        if (null !== $this->include) {
             $query['include'] = $this->include;
         }
-        if (\null !== $this->locale) {
+        if (null !== $this->locale) {
             $query['locale'] = $this->locale;
         }
 
@@ -57,7 +57,7 @@ class Query extends BaseQuery
      *
      * @return $this
      */
-    public function setInclude(int $include = \null)
+    public function setInclude(int $include = null)
     {
         $this->include = $include;
 
@@ -71,7 +71,7 @@ class Query extends BaseQuery
      *
      * @return $this
      */
-    public function setLocale(string $locale = \null)
+    public function setLocale(string $locale = null)
     {
         $this->locale = $locale;
 

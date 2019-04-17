@@ -30,7 +30,7 @@ class EnvironmentTest extends TestCase
         );
 
         /** @var Environment $resource */
-        $resource = $mapper->map(\null, [
+        $resource = $mapper->map(null, [
             'sys' => [
                 'id' => 'master',
                 'type' => 'Environment',
@@ -44,8 +44,8 @@ class EnvironmentTest extends TestCase
                     ],
                     'code' => 'en-US',
                     'name' => 'English (United States)',
-                    'default' => \true,
-                    'fallbackCode' => \null,
+                    'default' => true,
+                    'fallbackCode' => null,
                 ],
             ],
         ]);

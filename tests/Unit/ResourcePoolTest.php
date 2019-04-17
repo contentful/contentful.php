@@ -21,7 +21,7 @@ class ResourcePoolTest extends TestCase
 {
     public function testGetSetData()
     {
-        $resourcePool = new ResourcePool(new JsonDecoderClient(), new ArrayCachePool(), \true);
+        $resourcePool = new ResourcePool(new JsonDecoderClient(), new ArrayCachePool(), true);
 
         $this->assertFalse($resourcePool->has('Entry', 'entryId', ['locale' => 'en-US']));
         $entry = MockEntry::withSys('entryId', [], 'en-US');

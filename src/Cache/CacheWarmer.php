@@ -28,7 +28,7 @@ class CacheWarmer extends BaseCacheHandler
      *
      * @return bool
      */
-    public function warmUp($cacheContent = \false): bool
+    public function warmUp($cacheContent = false): bool
     {
         foreach ($this->fetchResources($cacheContent) as $resource) {
             /** @var SystemPropertiesInterface $sys */

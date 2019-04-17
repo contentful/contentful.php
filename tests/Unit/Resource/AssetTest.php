@@ -47,7 +47,7 @@ class AssetTest extends TestCase
 
     private function createMockEnvironment()
     {
-        $defaultLocale = new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => \true]);
+        $defaultLocale = new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]);
         $klingonLocale = new MockLocale(['code' => 'tlh', 'name' => 'Klingon', 'fallbackCode' => 'en-US']);
         $italianLocale = new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']);
 

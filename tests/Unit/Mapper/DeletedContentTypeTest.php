@@ -34,7 +34,7 @@ class DeletedContentTypeTest extends TestCase
         $environment = MockEnvironment::withSys('environmentId');
 
         /** @var DeletedContentType $resource */
-        $resource = $mapper->map(\null, [
+        $resource = $mapper->map(null, [
             'sys' => [
                 'id' => 'deletedContentTypeId',
                 'type' => 'DeletedContentType',

@@ -22,9 +22,9 @@ class FieldTest extends TestCase
             'linkType' => 'linkType',
             'itemsType' => 'itemsType',
             'itemsLinkType' => 'itemsLinkType',
-            'required' => \true,
-            'localized' => \false,
-            'disabled' => \false,
+            'required' => true,
+            'localized' => false,
+            'disabled' => false,
         ]);
 
         $this->assertSame('id', $field->getId());
@@ -42,21 +42,21 @@ class FieldTest extends TestCase
     {
         $field1 = new MockField('one', 'oneField', 'Link', [
             'linkType' => 'Asset',
-            'itemsType' => \null,
-            'itemsLinkType' => \null,
-            'required' => \true,
-            'localized' => \true,
-            'disabled' => \true,
+            'itemsType' => null,
+            'itemsLinkType' => null,
+            'required' => true,
+            'localized' => true,
+            'disabled' => true,
         ]);
         $this->assertJsonFixtureEqualsJsonObject('serialize_one.json', $field1);
 
         $field2 = new MockField('many', 'manyField', 'Array', [
-            'linkType' => \null,
+            'linkType' => null,
             'itemsType' => 'Link',
             'itemsLinkType' => 'Asset',
-            'required' => \false,
-            'localized' => \true,
-            'disabled' => \false,
+            'required' => false,
+            'localized' => true,
+            'disabled' => false,
         ]);
         $this->assertJsonFixtureEqualsJsonObject('serialize_many.json', $field2);
     }

@@ -46,7 +46,7 @@ class LinkResolver implements LinkResolverInterface
      */
     public function resolveLink(Link $link, array $parameters = []): ResourceInterface
     {
-        $locale = $parameters['locale'] ?? \null;
+        $locale = $parameters['locale'] ?? null;
 
         switch ($link->getLinkType()) {
             case 'Asset':
@@ -72,7 +72,7 @@ class LinkResolver implements LinkResolverInterface
      */
     public function resolveLinkCollection(array $links, array $parameters = []): array
     {
-        $locale = $parameters['locale'] ?? \null;
+        $locale = $parameters['locale'] ?? null;
 
         // We load all resources for the given resource types
         $types = \array_unique(\array_map(function (Link $link) {
@@ -105,7 +105,7 @@ class LinkResolver implements LinkResolverInterface
      *
      * @return ResourceInterface[]
      */
-    private function resolveLinksForResourceType(string $type, array $links, string $locale = \null): array
+    private function resolveLinksForResourceType(string $type, array $links, string $locale = null): array
     {
         $resourceIds = \array_map(function (Link $link): string {
             return $link->getId();
@@ -131,7 +131,7 @@ class LinkResolver implements LinkResolverInterface
      *
      * @return ResourceInterface[]
      */
-    private function fetchResourcesForGivenIds(array $resourceIds, string $type, string $locale = \null): array
+    private function fetchResourcesForGivenIds(array $resourceIds, string $type, string $locale = null): array
     {
         $resources = [];
         $resourcePoolOptions = ['locale' => $locale];
@@ -188,7 +188,7 @@ class LinkResolver implements LinkResolverInterface
      *
      * @return ResourceInterface[]
      */
-    private function fetchCollectionFromApi(array $resourceIds, string $type, string $locale = \null): array
+    private function fetchCollectionFromApi(array $resourceIds, string $type, string $locale = null): array
     {
         $query = (new Query())
             ->where('sys.id[in]', $resourceIds)

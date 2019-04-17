@@ -23,7 +23,7 @@ trait LocaleTrait
      */
     protected function initLocale(array $data)
     {
-        $this->locale = $data['locale'] ?? \null;
+        $this->locale = $data['locale'] ?? null;
     }
 
     /**

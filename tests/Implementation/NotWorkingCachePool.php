@@ -37,7 +37,7 @@ class NotWorkingCachePool implements CacheItemPoolInterface
      */
     public function hasItem($key): bool
     {
-        return \false;
+        return false;
     }
 
     /**
@@ -45,7 +45,7 @@ class NotWorkingCachePool implements CacheItemPoolInterface
      */
     public function clear(): bool
     {
-        return \false;
+        return false;
     }
 
     /**
@@ -53,7 +53,7 @@ class NotWorkingCachePool implements CacheItemPoolInterface
      */
     public function deleteItem($key): bool
     {
-        return \false;
+        return false;
     }
 
     /**
@@ -61,7 +61,7 @@ class NotWorkingCachePool implements CacheItemPoolInterface
      */
     public function deleteItems(array $keys): bool
     {
-        return \false;
+        return false;
     }
 
     /**
@@ -69,7 +69,7 @@ class NotWorkingCachePool implements CacheItemPoolInterface
      */
     public function save(CacheItemInterface $item): bool
     {
-        return \false;
+        return false;
     }
 
     /**
@@ -77,7 +77,7 @@ class NotWorkingCachePool implements CacheItemPoolInterface
      */
     public function saveDeferred(CacheItemInterface $item): bool
     {
-        return \false;
+        return false;
     }
 
     /**
@@ -85,6 +85,6 @@ class NotWorkingCachePool implements CacheItemPoolInterface
      */
     public function commit(): bool
     {
-        return \false;
+        return false;
     }
 }

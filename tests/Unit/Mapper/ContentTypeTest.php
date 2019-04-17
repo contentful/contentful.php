@@ -39,66 +39,66 @@ class ContentTypeTest extends TestCase
                 'id' => 'name',
                 'name' => 'Name',
                 'type' => 'Symbol',
-                'required' => \false,
-                'localized' => \false,
+                'required' => false,
+                'localized' => false,
             ],
             'description' => [
                 'id' => 'description',
                 'name' => 'Description',
                 'type' => 'Text',
-                'required' => \false,
-                'localized' => \false,
+                'required' => false,
+                'localized' => false,
             ],
             'age' => [
                 'id' => 'age',
                 'name' => 'Age',
                 'type' => 'Integer',
-                'required' => \false,
-                'localized' => \false,
+                'required' => false,
+                'localized' => false,
             ],
             'favoriteNumber' => [
                 'id' => 'favoriteNumber',
                 'name' => 'Favorite number',
                 'type' => 'Number',
-                'required' => \false,
-                'localized' => \false,
+                'required' => false,
+                'localized' => false,
             ],
             'city' => [
                 'id' => 'city',
                 'name' => 'City',
                 'type' => 'Location',
-                'required' => \false,
-                'localized' => \false,
+                'required' => false,
+                'localized' => false,
             ],
             'birthday' => [
                 'id' => 'birthday',
                 'name' => 'Birthday',
                 'type' => 'Date',
-                'required' => \true,
-                'localized' => \true,
+                'required' => true,
+                'localized' => true,
             ],
             'isActive' => [
                 'id' => 'isActive',
                 'name' => 'Is active',
                 'type' => 'Boolean',
-                'required' => \false,
-                'localized' => \false,
-                'disabled' => \true,
+                'required' => false,
+                'localized' => false,
+                'disabled' => true,
             ],
             'bestFriend' => [
                 'id' => 'bestFriend',
                 'name' => 'Best friend',
                 'type' => 'Link',
-                'required' => \false,
-                'localized' => \false,
+                'required' => false,
+                'localized' => false,
                 'linkType' => 'Entry',
             ],
             'pictures' => [
                 'id' => 'pictures',
                 'name' => 'Pictures',
                 'type' => 'Array',
-                'required' => \false,
-                'localized' => \false,
+                'required' => false,
+                'localized' => false,
                 'items' => [
                     'type' => 'Link',
                     'linkType' => 'Asset',
@@ -108,12 +108,12 @@ class ContentTypeTest extends TestCase
                 'id' => 'custom',
                 'name' => 'Custom',
                 'type' => 'Object',
-                'required' => \false,
-                'localized' => \false,
+                'required' => false,
+                'localized' => false,
             ],
         ];
         /** @var ContentType $resource */
-        $resource = $mapper->map(\null, [
+        $resource = $mapper->map(null, [
             'sys' => [
                 'id' => 'contentTypeId',
                 'type' => 'ContentType',
@@ -151,11 +151,11 @@ class ContentTypeTest extends TestCase
         $this->assertSame($values['id'], $field->getId());
         $this->assertSame($values['name'], $field->getName());
         $this->assertSame($values['type'], $field->getType());
-        $this->assertSame($values['required'] ?? \false, $field->isRequired());
-        $this->assertSame($values['localized'] ?? \false, $field->isLocalized());
-        $this->assertSame($values['disabled'] ?? \false, $field->isDisabled());
-        $this->assertSame($values['linkType'] ?? \null, $field->getLinkType());
-        $this->assertSame($values['items']['type'] ?? \null, $field->getItemsType());
-        $this->assertSame($values['items']['linkType'] ?? \null, $field->getItemsLinkType());
+        $this->assertSame($values['required'] ?? false, $field->isRequired());
+        $this->assertSame($values['localized'] ?? false, $field->isLocalized());
+        $this->assertSame($values['disabled'] ?? false, $field->isDisabled());
+        $this->assertSame($values['linkType'] ?? null, $field->getLinkType());
+        $this->assertSame($values['items']['type'] ?? null, $field->getItemsType());
+        $this->assertSame($values['items']['linkType'] ?? null, $field->getItemsLinkType());
     }
 }

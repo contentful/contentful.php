@@ -23,13 +23,13 @@ class EnvironmentTest extends TestCase
             'code' => 'en-US',
             'name' => 'English (United States)',
             'fallbackCode' => 'it-IT',
-            'default' => \false,
+            'default' => false,
         ]);
         $localeIt = MockLocale::withSys('it-IT', [
             'code' => 'it-IT',
             'name' => 'Italian (Italy)',
-            'fallbackCode' => \null,
-            'default' => \true,
+            'fallbackCode' => null,
+            'default' => true,
         ]);
         $environment = MockEnvironment::withSys('master', ['locales' => [$localeEn, $localeIt]]);
 
@@ -66,13 +66,13 @@ class EnvironmentTest extends TestCase
             'code' => 'en-US',
             'name' => 'English (United States)',
             'fallbackCode' => 'it-IT',
-            'default' => \false,
+            'default' => false,
         ]);
         $localeIt = MockLocale::withSys('it-IT', [
             'code' => 'it-IT',
             'name' => 'Italian (Italy)',
-            'fallbackCode' => \null,
-            'default' => \true,
+            'fallbackCode' => null,
+            'default' => true,
         ]);
         $environment = MockEnvironment::withSys('master', ['locales' => [$localeEn, $localeIt]]);
 

@@ -83,21 +83,21 @@ class Field implements \JsonSerializable
      *
      * @var bool
      */
-    protected $required = \false;
+    protected $required = false;
 
     /**
      * Describes whether the Field is localized.
      *
      * @var bool
      */
-    protected $localized = \false;
+    protected $localized = false;
 
     /**
      * Describes whether the Field is disabled.
      *
      * @var bool
      */
-    protected $disabled = \false;
+    protected $disabled = false;
 
     /**
      * Regular field construction should happen through the field mapper.
@@ -247,10 +247,10 @@ class Field implements \JsonSerializable
         ];
 
         if ($this->disabled) {
-            $field['disabled'] = \true;
+            $field['disabled'] = true;
         }
 
-        if (\null !== $this->linkType) {
+        if (null !== $this->linkType) {
             $field['linkType'] = $this->linkType;
         }
 
