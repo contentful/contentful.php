@@ -144,7 +144,7 @@ class LinkResolver implements LinkResolverInterface
         }
 
         foreach ($this->createIdChunks($resourceIds) as $chunk) {
-            $resources += $this->fetchCollectionFromApi($chunk, $type, $locale);
+            $resources = \array_merge($resources, $this->fetchCollectionFromApi($chunk, $type, $locale));
         }
 
         return $resources;
