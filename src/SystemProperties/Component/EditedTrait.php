@@ -27,9 +27,6 @@ trait EditedTrait
      */
     protected $updatedAt;
 
-    /**
-     * @param array $data
-     */
     protected function initEdited(array $data)
     {
         $this->initRevision($data);
@@ -37,9 +34,6 @@ trait EditedTrait
         $this->updatedAt = new DateTimeImmutable($data['updatedAt']);
     }
 
-    /**
-     * @return array
-     */
     protected function jsonSerializeEdited(): array
     {
         return \array_merge($this->jsonSerializeRevision(), [
@@ -48,17 +42,11 @@ trait EditedTrait
         ]);
     }
 
-    /**
-     * @return DateTimeImmutable
-     */
     public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return DateTimeImmutable
-     */
     public function getUpdatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;

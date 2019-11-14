@@ -17,8 +17,6 @@ class DeletedEntry extends Entry
 
     /**
      * DeletedEntry constructor.
-     *
-     * @param array $sys
      */
     public function __construct(array $sys)
     {

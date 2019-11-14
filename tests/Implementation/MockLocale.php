@@ -18,8 +18,6 @@ class MockLocale extends Locale
 {
     /**
      * MockLocale constructor.
-     *
-     * @param array $data
      */
     public function __construct(array $data)
     {
@@ -29,9 +27,6 @@ class MockLocale extends Locale
     }
 
     /**
-     * @param string $id
-     * @param array  $data
-     *
      * @return MockLocale
      */
     public static function withSys(string $id = 'localeId', array $data = []): self

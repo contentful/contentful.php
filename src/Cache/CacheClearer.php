@@ -24,8 +24,6 @@ class CacheClearer extends BaseCacheHandler
 {
     /**
      * @param bool $cacheContent
-     *
-     * @return bool
      */
     public function clear($cacheContent = false): bool
     {

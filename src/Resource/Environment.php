@@ -45,8 +45,6 @@ class Environment extends BaseResource
      * @param string $code Code of the locale to fetch the object for
      *
      * @throws \InvalidArgumentException When no locale with the given code exists
-     *
-     * @return Locale
      */
     public function getLocale(string $code): Locale
     {
@@ -56,18 +54,13 @@ class Environment extends BaseResource
             }
         }
 
-        throw new \InvalidArgumentException(\sprintf(
-            'No locale with code "%s" exists in this environment.',
-            $code
-        ));
+        throw new \InvalidArgumentException(\sprintf('No locale with code "%s" exists in this environment.', $code));
     }
 
     /**
      * Returns the default locale for this space.
      *
      * @throws \RuntimeException
-     *
-     * @return Locale
      */
     public function getDefaultLocale(): Locale
     {

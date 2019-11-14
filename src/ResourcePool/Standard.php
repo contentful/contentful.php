@@ -41,10 +41,6 @@ class Standard extends BaseResourcePool
 
     /**
      * Simple constructor.
-     *
-     * @param string $api
-     * @param string $spaceId
-     * @param string $environmentId
      */
     public function __construct(string $api, string $spaceId, string $environmentId)
     {
@@ -55,10 +51,6 @@ class Standard extends BaseResourcePool
 
     /**
      * Determines whether the given resource type must be actually stored.
-     *
-     * @param string $type
-     *
-     * @return bool
      */
     protected function savesResource(string $type): bool
     {
@@ -66,8 +58,6 @@ class Standard extends BaseResourcePool
     }
 
     /**
-     * @param ResourceInterface $resource
-     *
      * @return string|null
      */
     protected function getResourceLocale(ResourceInterface $resource)
@@ -81,9 +71,6 @@ class Standard extends BaseResourcePool
 
     /**
      * Skeleton method which a can be overridden.
-     *
-     * @param string $key
-     * @param string $type
      */
     protected function warmUp(string $key, string $type)
     {
@@ -135,12 +122,7 @@ class Standard extends BaseResourcePool
         $this->warmUp($key, $type);
 
         if (!$this->savesResource($type) || !isset($this->resources[$key])) {
-            throw new \OutOfBoundsException(\sprintf(
-                'Resource pool could not find a resource with type "%s", ID "%s"%s.',
-                $type,
-                $id,
-                $locale ? ', and locale "'.$locale.'"' : ''
-            ));
+            throw new \OutOfBoundsException(\sprintf('Resource pool could not find a resource with type "%s", ID "%s"%s.', $type, $id, $locale ? ', and locale "'.$locale.'"' : ''));
         }
 
         return $this->resources[$key];

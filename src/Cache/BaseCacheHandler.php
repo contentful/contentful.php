@@ -37,10 +37,6 @@ abstract class BaseCacheHandler
 
     /**
      * CacheWarmer constructor.
-     *
-     * @param ClientInterface        $client
-     * @param ResourcePoolInterface  $resourcePool
-     * @param CacheItemPoolInterface $cacheItemPool
      */
     public function __construct(
         ClientInterface $client,
@@ -53,8 +49,6 @@ abstract class BaseCacheHandler
     }
 
     /**
-     * @param bool $cacheContent
-     *
      * @return ResourceInterface[]
      */
     protected function fetchResources(bool $cacheContent = false)
@@ -94,8 +88,6 @@ abstract class BaseCacheHandler
     /**
      * @param string   $type    Either 'Entry' or 'Asset'
      * @param string[] $locales
-     *
-     * @return \Generator
      */
     private function fetchCollection(string $type, array $locales): \Generator
     {

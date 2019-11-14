@@ -18,8 +18,6 @@ class MockAsset extends Asset
 {
     /**
      * MockAsset constructor.
-     *
-     * @param array $data
      */
     public function __construct(array $data)
     {
@@ -27,10 +25,6 @@ class MockAsset extends Asset
     }
 
     /**
-     * @param string      $id
-     * @param array       $data
-     * @param string|null $locale
-     *
      * @return MockAsset
      */
     public static function withSys(string $id = 'assetId', array $data = [], string $locale = null): self

@@ -17,8 +17,6 @@ class Locale extends BaseSystemProperties
 
     /**
      * Locale constructor.
-     *
-     * @param array $sys
      */
     public function __construct(array $sys)
     {

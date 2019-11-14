@@ -31,9 +31,6 @@ class LinkResolver implements LinkResolverInterface
 
     /**
      * LinkResolver constructor.
-     *
-     * @param ClientInterface       $client
-     * @param ResourcePoolInterface $resourcePool
      */
     public function __construct(ClientInterface $client, ResourcePoolInterface $resourcePool)
     {
@@ -60,10 +57,7 @@ class LinkResolver implements LinkResolverInterface
             case 'Space':
                 return $this->client->getSpace();
             default:
-                throw new \InvalidArgumentException(\sprintf(
-                    'Trying to resolve link for unknown type "%s".',
-                    $link->getLinkType()
-                ));
+                throw new \InvalidArgumentException(\sprintf('Trying to resolve link for unknown type "%s".', $link->getLinkType()));
         }
     }
 
@@ -99,9 +93,7 @@ class LinkResolver implements LinkResolverInterface
     /**
      * Loads resources for a certain type only.
      *
-     * @param string      $type
-     * @param Link[]      $links
-     * @param string|null $locale
+     * @param Link[] $links
      *
      * @return ResourceInterface[]
      */
@@ -124,10 +116,6 @@ class LinkResolver implements LinkResolverInterface
 
     /**
      * Loads resources in the current cache pool and fetches the missing ones from the API.
-     *
-     * @param array       $resourceIds
-     * @param string      $type
-     * @param string|null $locale
      *
      * @return ResourceInterface[]
      */
@@ -182,9 +170,7 @@ class LinkResolver implements LinkResolverInterface
     /**
      * Actually make the relevant API calls.
      *
-     * @param string[]    $resourceIds
-     * @param string      $type
-     * @param string|null $locale
+     * @param string[] $resourceIds
      *
      * @return ResourceInterface[]
      */
@@ -210,10 +196,7 @@ class LinkResolver implements LinkResolverInterface
             case 'Space':
                 return [$this->client->getSpace()];
             default:
-                throw new \InvalidArgumentException(\sprintf(
-                    'Trying to resolve link for unknown type "%s".',
-                    $type
-                ));
+                throw new \InvalidArgumentException(\sprintf('Trying to resolve link for unknown type "%s".', $type));
         }
     }
 }

@@ -46,11 +46,6 @@ class ContentType extends BaseMapper
         return $contentType;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return ResourceContentTypeField
-     */
     protected function mapField(array $data): ResourceContentTypeField
     {
         /** @var ResourceContentTypeField $field */

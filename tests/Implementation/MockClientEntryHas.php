@@ -25,8 +25,6 @@ class MockClientEntryHas extends MockClient
      * MockClient constructor.
      *
      * @param string[] $availableLinks
-     * @param string   $spaceId
-     * @param string   $environmentId
      */
     public function __construct(array $availableLinks, string $spaceId = 'spaceId', string $environmentId = 'environmentId')
     {

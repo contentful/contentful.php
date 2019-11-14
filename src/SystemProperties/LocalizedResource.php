@@ -13,15 +13,16 @@ namespace Contentful\Delivery\SystemProperties;
 
 abstract class LocalizedResource extends BaseSystemProperties
 {
-    use Component\EditedTrait,
-        Component\EnvironmentTrait,
-        Component\LocaleTrait,
+    use Component\EditedTrait;
+    use
+        Component\EnvironmentTrait;
+    use
+        Component\LocaleTrait;
+    use
         Component\SpaceTrait;
 
     /**
      * LocalizedResource constructor.
-     *
-     * @param array $sys
      */
     public function __construct(array $sys)
     {

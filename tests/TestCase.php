@@ -32,11 +32,6 @@ class TestCase extends BaseTestCase
         self::$cache = new ArrayCachePool();
     }
 
-    /**
-     * @param string $key
-     *
-     * @return Client
-     */
     protected function getClient(string $key): Client
     {
         $config = $this->getClientConfiguration($key);
@@ -49,11 +44,6 @@ class TestCase extends BaseTestCase
         );
     }
 
-    /**
-     * @param string $key
-     *
-     * @return array
-     */
     private function getClientConfiguration(string $key): array
     {
         $config = [
@@ -112,10 +102,7 @@ class TestCase extends BaseTestCase
         ];
 
         if (!isset($config[$key])) {
-            throw new \InvalidArgumentException(\sprintf(
-                'Key "%s" is not a valid value.',
-                $key
-            ));
+            throw new \InvalidArgumentException(\sprintf('Key "%s" is not a valid value.', $key));
         }
 
         $defaultOptions = ClientOptions::create();
@@ -134,11 +121,7 @@ class TestCase extends BaseTestCase
     }
 
     /**
-     * @param string        $spaceId
-     * @param string        $environment
      * @param ClientOptions $options
-     *
-     * @return JsonDecoderClientInterface
      */
     protected function getJsonDecoderClient(
         string $spaceId,
@@ -148,11 +131,6 @@ class TestCase extends BaseTestCase
         return new Client('irrelevant', $spaceId, $environment, $options);
     }
 
-    /**
-     * @param string $default
-     *
-     * @return string
-     */
     protected function getHost(string $default = 'https://cdn.contentful.com/'): string
     {
         return \getenv(self::ENV_VAR_HOST) ?: $default;

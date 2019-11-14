@@ -41,9 +41,6 @@ class MockClient implements ClientInterface
 
     /**
      * MockClient constructor.
-     *
-     * @param string $spaceId
-     * @param string $environmentId
      */
     public function __construct(string $spaceId = 'spaceId', string $environmentId = 'environmentId')
     {

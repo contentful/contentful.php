@@ -18,8 +18,6 @@ class MockContentType extends ContentType
 {
     /**
      * MockContentType constructor.
-     *
-     * @param array $data
      */
     public function __construct(array $data)
     {
@@ -27,9 +25,6 @@ class MockContentType extends ContentType
     }
 
     /**
-     * @param string $id
-     * @param array  $data
-     *
      * @return MockContentType
      */
     public static function withSys(string $id = 'contentTypeId', array $data = []): self

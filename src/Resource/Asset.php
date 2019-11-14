@@ -47,8 +47,6 @@ class Asset extends LocalizedResource implements AssetInterface
 
     /**
      * Returns the space this asset belongs to.
-     *
-     * @return Space
      */
     public function getSpace(): Space
     {
@@ -57,8 +55,6 @@ class Asset extends LocalizedResource implements AssetInterface
 
     /**
      * Returns the environment this asset belongs to.
-     *
-     * @return Environment
      */
     public function getEnvironment(): Environment
     {
@@ -105,7 +101,6 @@ class Asset extends LocalizedResource implements AssetInterface
     }
 
     /**
-     * @param string             $property
      * @param Locale|string|null $locale
      *
      * @throws \InvalidArgumentException when $locale is not one of the locales supported by the space

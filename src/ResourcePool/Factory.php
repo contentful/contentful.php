@@ -23,11 +23,6 @@ class Factory
 {
     /**
      * Creates the appropriate ResourcePool object using the given client and options.
-     *
-     * @param JsonDecoderClientInterface $client
-     * @param ClientOptions              $options
-     *
-     * @return ResourcePoolInterface
      */
     public static function create(JsonDecoderClientInterface $client, ClientOptions $options): ResourcePoolInterface
     {

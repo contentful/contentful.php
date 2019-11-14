@@ -57,12 +57,6 @@ class Extended extends Standard
      */
     protected $autoWarmup;
 
-    /**
-     * @param JsonDecoderClientInterface $client
-     * @param CacheItemPoolInterface     $cacheItemPool
-     * @param bool                       $autoWarmup
-     * @param bool                       $cacheContent
-     */
     public function __construct(
         JsonDecoderClientInterface $client,
         CacheItemPoolInterface $cacheItemPool,
