@@ -300,17 +300,6 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
             return $value[$locale];
         }
 
-        // If a field is not localized, it means that there are no values besides
-        // $value[$defaultLocale], so because that check has already happened, we know
-        // we're trying to access an invalid locale which is not correctly set.
-        if (!$field->isLocalized()) {
-            throw new \InvalidArgumentException(\sprintf(
-                'Trying to access the non-localized field "%s" on content type "%s" using the non-default locale "%s".',
-                $field->getName(),
-                $this->sys->getContentType()->getName(),
-                $locale
-            ));
-        }
 
         // If we reach this point, it means:
         // * the field is localized

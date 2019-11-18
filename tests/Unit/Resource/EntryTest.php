@@ -562,14 +562,6 @@ class EntryTest extends TestCase
         $this->assertSame('Nyan vIghro\'', $this->entry->get('name', 'tlh'));
     }
 
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to access the non-localized field "Likes" on content type "Cat" using the non-default locale "tlh".
-     */
-    public function testAccessNonLocalizedFieldWithNonDefaultLocale()
-    {
-        $this->entry->get('likes', 'tlh');
-    }
 
     public function testLinksToEntry()
     {
