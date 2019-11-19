@@ -58,10 +58,6 @@ class Asset extends BaseMapper
 
     /**
      * Creates a File or a subclass thereof.
-     *
-     * @param array $data
-     *
-     * @return FileInterface
      */
     protected function buildFile(array $data): FileInterface
     {

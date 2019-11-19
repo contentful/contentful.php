@@ -36,8 +36,6 @@ class Query
 
     /**
      * Returns the parameters to execute this query.
-     *
-     * @return array
      */
     public function getQueryData(): array
     {
@@ -52,8 +50,6 @@ class Query
 
     /**
      * The urlencoded query string for this query.
-     *
-     * @return string
      */
     public function getQueryString(): string
     {
@@ -73,8 +69,6 @@ class Query
      *  - DeletedAsset
      *  - DeletedEntry
      *
-     * @param string|null $type
-     *
      * @throws \InvalidArgumentException when an invalid $type is set
      *
      * @return $this
@@ -83,10 +77,7 @@ class Query
     {
         $validTypes = ['all', 'Asset', 'Entry', 'Deletion', 'DeletedAsset', 'DeletedEntry'];
         if (!\in_array($type, $validTypes, true)) {
-            throw new \InvalidArgumentException(\sprintf(
-                'Unexpected type "%s".',
-                $type
-            ));
+            throw new \InvalidArgumentException(\sprintf('Unexpected type "%s".', $type));
         }
 
         $this->type = $type;

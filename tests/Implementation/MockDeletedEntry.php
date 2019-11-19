@@ -17,8 +17,6 @@ class MockDeletedEntry extends DeletedEntry
 {
     /**
      * MockDeletedEntry constructor.
-     *
-     * @param array $data
      */
     public function __construct(array $data)
     {

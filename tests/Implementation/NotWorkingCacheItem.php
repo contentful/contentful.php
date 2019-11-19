@@ -22,8 +22,6 @@ class NotWorkingCacheItem implements CacheItemInterface
 
     /**
      * NotWorkingCacheItem constructor.
-     *
-     * @param string $key
      */
     public function __construct(string $key)
     {

@@ -19,8 +19,6 @@ if ('code-coverage' === \getenv('CONTENTFUL_SDK_ENV')) {
 }
 
 /**
- * @param \VCR\Request $request
- *
  * @return array
  */
 function clean_headers_array(Request $request)

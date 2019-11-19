@@ -46,8 +46,6 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
 
     /**
      * Returns the space this entry belongs to.
-     *
-     * @return Space
      */
     public function getSpace(): Space
     {
@@ -56,26 +54,18 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
 
     /**
      * Returns the environment this entry belongs to.
-     *
-     * @return Environment
      */
     public function getEnvironment(): Environment
     {
         return $this->sys->getEnvironment();
     }
 
-    /**
-     * @return ContentType
-     */
     public function getContentType(): ContentType
     {
         return $this->sys->getContentType();
     }
 
     /**
-     * @param string $name
-     * @param array  $arguments
-     *
      * @return mixed
      */
     public function __call(string $name, array $arguments)
@@ -114,8 +104,6 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
     /**
      * Shortcut for accessing fields using $entry->fieldName.
      * It will use the locale currently defined.
-     *
-     * @param string $name
      *
      * @return mixed
      */
@@ -158,12 +146,6 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
 
     /**
      * Checks whether the current entry has a field with a certain ID.
-     *
-     * @param string      $name
-     * @param string|null $locale
-     * @param bool        $checkLinksAreResolved
-     *
-     * @return bool
      */
     public function has(string $name, string $locale = null, bool $checkLinksAreResolved = true): bool
     {
@@ -190,8 +172,6 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
     }
 
     /**
-     * @param string $name
-     *
      * @return bool
      */
     public function __isset(string $name)
@@ -203,11 +183,6 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * Returns all fields of the current entry, with some optimizations applied.
      * Links are resolved by default. If you want to get raw link objects rather than
      * complete resources, set the $resolveLinks parameter to false.
-     *
-     * @param string|null $locale
-     * @param bool        $resolveLinks
-     *
-     * @return array
      */
     public function all(string $locale = null, bool $resolveLinks = true): array
     {
@@ -234,9 +209,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * $id = $entry->get('authorId');
      * ```
      *
-     * @param string      $name
-     * @param string|null $locale
-     * @param bool        $resolveLinks If set to false, links and array of links will not be resolved
+     * @param bool $resolveLinks If set to false, links and array of links will not be resolved
      *
      * @return mixed
      */
@@ -258,21 +231,13 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
             return $value;
         }
 
-        throw new \InvalidArgumentException(\sprintf(
-            'Trying to access non existent field "%s" on an entry with content type "%s" ("%s").',
-            $name,
-            $this->sys->getContentType()->getName(),
-            $this->sys->getContentType()->getSystemProperties()->getId()
-        ));
+        throw new \InvalidArgumentException(\sprintf('Trying to access non existent field "%s" on an entry with content type "%s" ("%s").', $name, $this->sys->getContentType()->getName(), $this->sys->getContentType()->getSystemProperties()->getId()));
     }
 
     /**
      * Attempts to fetch a value given the current configuration.
      * It will return the raw field value,
      * without applying any transformation to it.
-     *
-     * @param Field       $field
-     * @param string|null $locale
      *
      * @return mixed
      */
@@ -304,12 +269,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
         // $value[$defaultLocale], so because that check has already happened, we know
         // we're trying to access an invalid locale which is not correctly set.
         if (!$field->isLocalized()) {
-            throw new \InvalidArgumentException(\sprintf(
-                'Trying to access the non-localized field "%s" on content type "%s" using the non-default locale "%s".',
-                $field->getName(),
-                $this->sys->getContentType()->getName(),
-                $locale
-            ));
+            throw new \InvalidArgumentException(\sprintf('Trying to access the non-localized field "%s" on content type "%s" using the non-default locale "%s".', $field->getName(), $this->sys->getContentType()->getName(), $locale));
         }
 
         // If we reach this point, it means:
@@ -330,8 +290,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * Given a field value, this method will resolve links
      * if it's a Link object or an array of links.
      *
-     * @param mixed       $field
-     * @param string|null $locale
+     * @param mixed $field
      *
      * @return mixed
      */
@@ -359,9 +318,6 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
     /**
      * Checks whether the given $name parameter corresponds to an attempt
      * of fetching the ID of a link (or array of links).
-     *
-     * @param string      $name
-     * @param string|null $locale
      *
      * @return string|string[]|null Returns null if $name is not a valid field ID string
      */
@@ -394,10 +350,6 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * Gets all entries that contain links to the current one.
      * You can provide a Query object in order to set parameters
      * such as locale, include, and sorting.
-     *
-     * @param Query|null $query
-     *
-     * @return ResourceArray
      */
     public function getReferences(Query $query = null): ResourceArray
     {

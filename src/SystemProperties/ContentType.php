@@ -13,14 +13,14 @@ namespace Contentful\Delivery\SystemProperties;
 
 class ContentType extends BaseSystemProperties
 {
-    use Component\EditedTrait,
-        Component\EnvironmentTrait,
+    use Component\EditedTrait;
+    use
+        Component\EnvironmentTrait;
+    use
         Component\SpaceTrait;
 
     /**
      * ContentType constructor.
-     *
-     * @param array $sys
      */
     public function __construct(array $sys)
     {

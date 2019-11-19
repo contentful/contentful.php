@@ -18,17 +18,11 @@ trait LocaleTrait
      */
     protected $locale;
 
-    /**
-     * @param array $data
-     */
     protected function initLocale(array $data)
     {
         $this->locale = $data['locale'] ?? null;
     }
 
-    /**
-     * @return array
-     */
     protected function jsonSerializeLocale(): array
     {
         return [

@@ -60,10 +60,6 @@ class ResourceBuilder extends BaseResourceBuilder
 
     /**
      * ResourceBuilder constructor.
-     *
-     * @param ClientInterface       $client
-     * @param ResourcePoolInterface $resourcePool
-     * @param ParserInterface       $richTextParser
      */
     public function __construct(
         ClientInterface $client,
@@ -106,10 +102,7 @@ class ResourceBuilder extends BaseResourceBuilder
             return $data['sys']['type'];
         }
 
-        throw new \InvalidArgumentException(\sprintf(
-            'Unexpected system type "%s" while trying to build a resource.',
-            $data['sys']['type']
-        ));
+        throw new \InvalidArgumentException(\sprintf('Unexpected system type "%s" while trying to build a resource.', $data['sys']['type']));
     }
 
     /**
@@ -160,8 +153,6 @@ class ResourceBuilder extends BaseResourceBuilder
      * We extract content types that need to be fetched from a response array.
      * This way we can use a collective query rather than making separate queries
      * for every content type.
-     *
-     * @param array $data
      */
     private function buildContentTypeCollection(array $data)
     {
@@ -188,9 +179,6 @@ class ResourceBuilder extends BaseResourceBuilder
         }
     }
 
-    /**
-     * @param array $data
-     */
     private function buildIncludes(array $data)
     {
         $items = \array_merge(

@@ -114,10 +114,9 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     /**
      * Client constructor.
      *
-     * @param string             $token         Delivery API Access Token for the space used with this Client
-     * @param string             $spaceId       ID of the space used with this Client
-     * @param string             $environmentId ID of the environment used with this Client
-     * @param ClientOptions|null $options
+     * @param string $token         Delivery API Access Token for the space used with this Client
+     * @param string $spaceId       ID of the space used with this Client
+     * @param string $environmentId ID of the environment used with this Client
      */
     public function __construct(
         string $token,
@@ -153,33 +152,21 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         return $this->isDeliveryApi ? self::API_DELIVERY : self::API_PREVIEW;
     }
 
-    /**
-     * @return string
-     */
     public function getSpaceId(): string
     {
         return $this->spaceId;
     }
 
-    /**
-     * @return string
-     */
     public function getEnvironmentId(): string
     {
         return $this->environmentId;
     }
 
-    /**
-     * @return ResourceBuilderInterface
-     */
     public function getResourceBuilder(): ResourceBuilderInterface
     {
         return $this->builder;
     }
 
-    /**
-     * @return Parser
-     */
     public function getRichTextParser(): Parser
     {
         return $this->richTextParser;
@@ -211,8 +198,6 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
 
     /**
      * Returns the resource pool currently in use.
-     *
-     * @return ResourcePoolInterface
      */
     public function getResourcePool(): ResourcePoolInterface
     {
@@ -221,10 +206,6 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
 
     /**
      * Returns the locale to be used in a cache key.
-     *
-     * @param string|null $locale
-     *
-     * @return string
      */
     private function getLocaleForCacheKey(string $locale = null): string
     {
@@ -431,8 +412,6 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     /**
      * Parse a JSON string.
      *
-     * @param string $json
-     *
      * @throws \InvalidArgumentException When attempting to parse JSON belonging to a different space or environment
      *
      * @return ResourceInterface|ResourceArray
@@ -446,8 +425,6 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
 
     /**
      * Returns true when using the Delivery API.
-     *
-     * @return bool
      */
     public function isDeliveryApi(): bool
     {
@@ -456,8 +433,6 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
 
     /**
      * Returns true when using the Preview API.
-     *
-     * @return bool
      */
     public function isPreviewApi(): bool
     {
@@ -493,12 +468,6 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     }
 
     /**
-     * @param string      $uri
-     * @param array       $query
-     * @param string|null $type
-     * @param string|null $resourceId
-     * @param string|null $locale
-     *
      * @return ResourceInterface|ResourceArray
      */
     private function requestWithCache(

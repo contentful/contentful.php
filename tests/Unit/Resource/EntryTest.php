@@ -158,9 +158,7 @@ class EntryTest extends TestCase
                     }
                 }
 
-                throw new NotFoundException(
-                    new ClientException('Exception message', new Request('GET', ''))
-                );
+                throw new NotFoundException(new ClientException('Exception message', new Request('GET', '')));
             }
 
             public function resolveLinkCollection(array $links, string $locale = null): array

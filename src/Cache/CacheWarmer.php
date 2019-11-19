@@ -25,8 +25,6 @@ class CacheWarmer extends BaseCacheHandler
 {
     /**
      * @param bool $cacheContent
-     *
-     * @return bool
      */
     public function warmUp($cacheContent = false): bool
     {

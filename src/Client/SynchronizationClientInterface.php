@@ -19,18 +19,12 @@ interface SynchronizationClientInterface
      * Get an instance of the synchronization manager.
      * Note that with the Preview API only an initial sync gives valid results.
      *
-     * @return Manager
-     *
      * @see https://www.contentful.com/developers/docs/concepts/sync/ Sync API
      */
     public function getSynchronizationManager(): Manager;
 
     /**
      * Internal method for the sync manager.
-     *
-     * @param array $queryData
-     *
-     * @return array
      */
     public function syncRequest(array $queryData): array;
 }

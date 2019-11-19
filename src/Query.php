@@ -34,8 +34,6 @@ class Query extends BaseQuery
 
     /**
      * Returns the parameters to execute this query.
-     *
-     * @return array
      */
     public function getQueryData(): array
     {
@@ -53,8 +51,6 @@ class Query extends BaseQuery
     /**
      * Set the amount of levels of links that should be resolved.
      *
-     * @param int|null $include
-     *
      * @return $this
      */
     public function setInclude(int $include = null)
@@ -66,8 +62,6 @@ class Query extends BaseQuery
 
     /**
      * Sets the locale for which content should be retrieved. Set it to `*` to retrieve all locales.
-     *
-     * @param string|null $locale
      *
      * @return $this
      */

@@ -63,13 +63,6 @@ class Entry extends BaseMapper
         return $entry;
     }
 
-    /**
-     * @param ResourceContentType $contentType
-     * @param array               $fields
-     * @param ResourceClass|null  $previous
-     *
-     * @return array
-     */
     private function buildFields(
         ResourceContentType $contentType,
         array $fields,
@@ -118,8 +111,6 @@ class Entry extends BaseMapper
      *
      * @param array         $fields The field values that have been returned by the API
      * @param ResourceClass $entry  The previous entry object that was already built, if present
-     *
-     * @return array
      */
     private function mergePreviousFields(array $fields, ResourceClass $entry): array
     {
@@ -146,7 +137,6 @@ class Entry extends BaseMapper
     /**
      * Transforms values from the original JSON representation to an appropriate PHP representation.
      *
-     * @param string      $type
      * @param mixed       $value
      * @param string|null $itemsType The type of the items in the array, if it's an array field
      *

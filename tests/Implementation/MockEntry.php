@@ -19,8 +19,6 @@ class MockEntry extends Entry
 {
     /**
      * MockEntry constructor.
-     *
-     * @param array $data
      */
     public function __construct(array $data)
     {
@@ -28,10 +26,6 @@ class MockEntry extends Entry
     }
 
     /**
-     * @param string      $id
-     * @param array       $data
-     * @param string|null $locale
-     *
      * @return MockEntry
      */
     public static function withSys(string $id = 'entryId', array $data = [], string $locale = null): self
@@ -51,9 +45,6 @@ class MockEntry extends Entry
         ]));
     }
 
-    /**
-     * @param ClientInterface|null $client
-     */
     public function setClient(ClientInterface $client = null)
     {
         $this->client = $client;

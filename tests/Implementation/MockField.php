@@ -17,11 +17,6 @@ class MockField extends Field
 {
     /**
      * MockField constructor.
-     *
-     * @param string $id
-     * @param string $name
-     * @param string $type
-     * @param array  $data
      */
     public function __construct(string $id, string $name, string $type, array $data = [])
     {

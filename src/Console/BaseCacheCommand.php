@@ -38,9 +38,6 @@ abstract class BaseCacheCommand extends Command
      */
     protected $cacheItemPool;
 
-    /**
-     * @return string
-     */
     abstract protected function getCommandName(): string;
 
     /**
@@ -64,9 +61,6 @@ abstract class BaseCacheCommand extends Command
         ;
     }
 
-    /**
-     * @param InputInterface $input
-     */
     protected function initClient(InputInterface $input)
     {
         /** @var string $accessToken */
@@ -87,21 +81,12 @@ abstract class BaseCacheCommand extends Command
         $this->cacheItemPool = $this->getCacheItemPool($input, $client);
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param ClientInterface $client
-     *
-     * @return CacheItemPoolInterface
-     */
     private function getCacheItemPool(InputInterface $input, ClientInterface $client): CacheItemPoolInterface
     {
         $factoryClass = $input->getOption('factory-class');
         $cacheItemPoolFactory = new $factoryClass();
         if (!$cacheItemPoolFactory instanceof CacheItemPoolFactoryInterface) {
-            throw new \InvalidArgumentException(\sprintf(
-                'Cache item pool factory must implement "%s".',
-                CacheItemPoolFactoryInterface::class
-            ));
+            throw new \InvalidArgumentException(\sprintf('Cache item pool factory must implement "%s".', CacheItemPoolFactoryInterface::class));
         }
 
         return $cacheItemPoolFactory->getCacheItemPool(

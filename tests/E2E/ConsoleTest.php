@@ -19,12 +19,6 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class ConsoleTest extends TestCase
 {
-    /**
-     * @param string $commandName
-     * @param array  $params
-     *
-     * @return string
-     */
     private function getConsoleOutput(string $commandName, array $params): string
     {
         $application = new Application();

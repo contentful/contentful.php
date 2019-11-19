@@ -64,8 +64,6 @@ class ContentType extends BaseResource implements ContentTypeInterface
 
     /**
      * Returns the space this content type belongs to.
-     *
-     * @return Space
      */
     public function getSpace(): Space
     {
@@ -74,8 +72,6 @@ class ContentType extends BaseResource implements ContentTypeInterface
 
     /**
      * Returns the environment this content type belongs to.
-     *
-     * @return Environment
      */
     public function getEnvironment(): Environment
     {
@@ -84,8 +80,6 @@ class ContentType extends BaseResource implements ContentTypeInterface
 
     /**
      * Returns the name of this content type.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -117,9 +111,6 @@ class ContentType extends BaseResource implements ContentTypeInterface
      * Returns the field for the passed id.
      *
      * If the field does not exist, null is returned.
-     *
-     * @param string $fieldId
-     * @param bool   $tryCaseInsensitive
      *
      * @return Field|null
      */
@@ -158,10 +149,6 @@ class ContentType extends BaseResource implements ContentTypeInterface
 
     /**
      * Adds a runtime field, of type unknown.
-     *
-     * @param string $name
-     *
-     * @return Field
      */
     public function addUnknownField(string $name): Field
     {

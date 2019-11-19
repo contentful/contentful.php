@@ -18,8 +18,6 @@ class MockSpace extends Space
 {
     /**
      * MockSpace constructor.
-     *
-     * @param array $data
      */
     public function __construct(array $data)
     {
@@ -27,9 +25,6 @@ class MockSpace extends Space
     }
 
     /**
-     * @param string $id
-     * @param array  $data
-     *
      * @return MockSpace
      */
     public static function withSys(string $id = 'spaceId', array $data = []): self

@@ -18,8 +18,6 @@ class MockEnvironment extends Environment
 {
     /**
      * MockEnvironment constructor.
-     *
-     * @param array $data
      */
     public function __construct(array $data)
     {
@@ -27,9 +25,6 @@ class MockEnvironment extends Environment
     }
 
     /**
-     * @param string $id
-     * @param array  $data
-     *
      * @return MockEnvironment
      */
     public static function withSys(string $id = 'environmentId', array $data = []): self

@@ -32,8 +32,6 @@ interface CacheItemPoolFactoryInterface
      *                              it's the result of calling $client->getApi()
      * @param string $spaceId       The ID of the space
      * @param string $environmentId The ID of the environment
-     *
-     * @return CacheItemPoolInterface
      */
     public function getCacheItemPool(string $api, string $spaceId, string $environmentId): CacheItemPoolInterface;
 }
