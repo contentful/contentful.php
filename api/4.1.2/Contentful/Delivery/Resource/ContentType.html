@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Contentful\Delivery\Resource\ContentType | Contentful CDA SDK for PHP</title>
+
+            <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/sami.css">
+        <script src="../../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../../js/bootstrap.min.js"></script>
+        <script src="../../../js/typeahead.min.js"></script>
+        <script src="../../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:Contentful_Delivery_Resource_ContentType" data-root-path="../../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                    <form action="#" method="GET">
+                <select id="version-switcher" name="version">
+                                            <option value="../../../../3.3.0/index.html" data-version="3.3.0">3.3.0</option>
+                                            <option value="../../../../3.4.0/index.html" data-version="3.4.0">3.4.0</option>
+                                            <option value="../../../../4.0.0/index.html" data-version="4.0.0">4.0.0</option>
+                                            <option value="../../../../4.0.1/index.html" data-version="4.0.1">4.0.1</option>
+                                            <option value="../../../../4.0.2/index.html" data-version="4.0.2">4.0.2</option>
+                                            <option value="../../../../4.1.0/index.html" data-version="4.1.0">4.1.0</option>
+                                            <option value="../../../../4.1.1/index.html" data-version="4.1.1">4.1.1</option>
+                                            <option value="../../../../4.1.2/index.html" data-version="4.1.2">4.1.2</option>
+                                            <option value="../../../../master/index.html" data-version="master">Master branch</option>
+                                    </select>
+            </form>
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="../../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../../index.html">Contentful CDA SDK for PHP</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../../classes.html">Classes</a></li>
+                                            <li><a href="../../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../../traits.html">Traits</a></li>
+                    <li><a href="../../../doc-index.html">Index</a></li>
+                    <li><a href="../../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                        <li><a href="../../../Contentful.html">Contentful</a></li><li class="backslash">\</li><li><a href="../../../Contentful/Delivery.html">Delivery</a></li><li class="backslash">\</li><li><a href="../../../Contentful/Delivery/Resource.html">Resource</a></li><li class="backslash">\</li><li>ContentType</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            ContentType
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>ContentType</strong>        extends <a href="../../../Contentful/Delivery/Resource/BaseResource.html"><abbr title="Contentful\Delivery\Resource\BaseResource">BaseResource</abbr></a>        implements
+        <abbr title="Contentful\Core\Resource\ContentTypeInterface">ContentTypeInterface</abbr>
+</p>
+
+        
+    
+
+            <div class="description">
+            <p>Content Types are schemas that define the fields of Entries. Every Entry can only contain values in the fields
+defined by its Content Type, and the values of those fields must match the data type defined in the Content Type.</p>                                </div>
+    
+    
+    
+            <h2>Properties</h2>
+
+            <table class="table table-condensed">
+                    <tr>
+                <td class="type" id="property_sys">
+                                        protected                                        <a href="../../../Contentful/Delivery/SystemProperties/ContentType.html"><abbr title="Contentful\Delivery\SystemProperties\ContentType">ContentType</abbr></a>
+                </td>
+                <td>$sys</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_name">
+                                        protected                                        string
+                </td>
+                <td>$name</td>
+                <td class="last">Name of the Content Type.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_description">
+                                        protected                                        string|null
+                </td>
+                <td>$description</td>
+                <td class="last">Description of the Content Type.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_fields">
+                                        protected                                        <a href="../../../Contentful/Delivery/Resource/ContentType/Field.html"><abbr title="Contentful\Delivery\Resource\ContentType\Field">Field</abbr></a>[]
+                </td>
+                <td>$fields</td>
+                <td class="last">The fields, keyed by ID.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_displayField">
+                                        protected                                        string|null
+                </td>
+                <td>$displayField</td>
+                <td class="last">ID of main field used for display.</td>
+                <td></td>
+            </tr>
+            </table>
+
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___construct">__construct</a>(array $data)
+        
+                                            <p>Resources in this SDK should not be built using <code>$new Class()</code>.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Resource/BaseResource.html#method___construct"><abbr title="Contentful\Delivery\Resource\BaseResource">BaseResource</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Contentful\Core\Api\Link">Link</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_asLink">asLink</a>()
+        
+                                            <p>{@inheritdoc}</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Resource/BaseResource.html#method_asLink"><abbr title="Contentful\Delivery\Resource\BaseResource">BaseResource</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getId">getId</a>()
+        
+                                            <p>{@inheritdoc}</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Resource/BaseResource.html#method_getId"><abbr title="Contentful\Delivery\Resource\BaseResource">BaseResource</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getType">getType</a>()
+        
+                                            <p>{@inheritdoc}</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Resource/BaseResource.html#method_getType"><abbr title="Contentful\Delivery\Resource\BaseResource">BaseResource</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Contentful/Delivery/SystemProperties/ContentType.html"><abbr title="Contentful\Delivery\SystemProperties\ContentType">ContentType</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getSystemProperties">getSystemProperties</a>()
+        
+                                            <p>{@inheritdoc}</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Contentful/Delivery/Resource/Space.html"><abbr title="Contentful\Delivery\Resource\Space">Space</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getSpace">getSpace</a>()
+        
+                                            <p>Returns the space this content type belongs to.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Contentful/Delivery/Resource/Environment.html"><abbr title="Contentful\Delivery\Resource\Environment">Environment</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getEnvironment">getEnvironment</a>()
+        
+                                            <p>Returns the environment this content type belongs to.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getName">getName</a>()
+        
+                                            <p>Returns the name of this content type.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getFields">getFields</a>()
+        
+                                            <p>Returns all the fields of this content type as an associative array.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDescription">getDescription</a>()
+        
+                                            <p>Returns the content type's description.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Contentful/Delivery/Resource/ContentType/Field.html"><abbr title="Contentful\Delivery\Resource\ContentType\Field">Field</abbr></a>|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getField">getField</a>(string $fieldId, bool $tryCaseInsensitive = false)
+        
+                                            <p>Returns the field for the passed id.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Contentful/Delivery/Resource/ContentType/Field.html"><abbr title="Contentful\Delivery\Resource\ContentType\Field">Field</abbr></a>|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDisplayField">getDisplayField</a>()
+        
+                                            <p>Returns the the display field of a content type. Commonly this is the title.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Contentful/Delivery/Resource/ContentType/Field.html"><abbr title="Contentful\Delivery\Resource\ContentType\Field">Field</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addUnknownField">addUnknownField</a>(string $name)
+        
+                                            <p>Adds a runtime field, of type unknown.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_jsonSerialize">jsonSerialize</a>()
+        
+                                            <p>{@inheritdoc}</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">in <a href="../../../Contentful/Delivery/Resource/BaseResource.html#method___construct"><abbr title="Contentful\Delivery\Resource\BaseResource">BaseResource</abbr></a> at         line 24</div>
+        <code>            protected        
+    <strong>__construct</strong>(array $data)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Resources in this SDK should not be built using <code>$new Class()</code>.</p>                    <p>This method is only useful in testing environments, where the resource
+needs to be subclasses and this method made public.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_asLink">
+        <div class="location">in <a href="../../../Contentful/Delivery/Resource/BaseResource.html#method_asLink"><abbr title="Contentful\Delivery\Resource\BaseResource">BaseResource</abbr></a> at         line 36</div>
+        <code>                    <abbr title="Contentful\Core\Api\Link">Link</abbr>
+    <strong>asLink</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>{@inheritdoc}</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Contentful\Core\Api\Link">Link</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getId">
+        <div class="location">in <a href="../../../Contentful/Delivery/Resource/BaseResource.html#method_getId"><abbr title="Contentful\Delivery\Resource\BaseResource">BaseResource</abbr></a> at         line 47</div>
+        <code>                    string
+    <strong>getId</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>{@inheritdoc}</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getType">
+        <div class="location">in <a href="../../../Contentful/Delivery/Resource/BaseResource.html#method_getType"><abbr title="Contentful\Delivery\Resource\BaseResource">BaseResource</abbr></a> at         line 55</div>
+        <code>                    string
+    <strong>getType</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>{@inheritdoc}</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getSystemProperties">
+        <div class="location">at         line 60</div>
+        <code>                    <a href="../../../Contentful/Delivery/SystemProperties/ContentType.html"><abbr title="Contentful\Delivery\SystemProperties\ContentType">ContentType</abbr></a>
+    <strong>getSystemProperties</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>{@inheritdoc}</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Contentful/Delivery/SystemProperties/ContentType.html"><abbr title="Contentful\Delivery\SystemProperties\ContentType">ContentType</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getSpace">
+        <div class="location">at         line 68</div>
+        <code>                    <a href="../../../Contentful/Delivery/Resource/Space.html"><abbr title="Contentful\Delivery\Resource\Space">Space</abbr></a>
+    <strong>getSpace</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the space this content type belongs to.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Contentful/Delivery/Resource/Space.html"><abbr title="Contentful\Delivery\Resource\Space">Space</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getEnvironment">
+        <div class="location">at         line 76</div>
+        <code>                    <a href="../../../Contentful/Delivery/Resource/Environment.html"><abbr title="Contentful\Delivery\Resource\Environment">Environment</abbr></a>
+    <strong>getEnvironment</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the environment this content type belongs to.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Contentful/Delivery/Resource/Environment.html"><abbr title="Contentful\Delivery\Resource\Environment">Environment</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getName">
+        <div class="location">at         line 84</div>
+        <code>                    string
+    <strong>getName</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the name of this content type.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getFields">
+        <div class="location">at         line 95</div>
+        <code>                    array
+    <strong>getFields</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns all the fields of this content type as an associative array.</p>                    <p>The key is the ID of the field.</p>                            </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDescription">
+        <div class="location">at         line 105</div>
+        <code>                    string|null
+    <strong>getDescription</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the content type's description.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getField">
+        <div class="location">at         line 117</div>
+        <code>                    <a href="../../../Contentful/Delivery/Resource/ContentType/Field.html"><abbr title="Contentful\Delivery\Resource\ContentType\Field">Field</abbr></a>|null
+    <strong>getField</strong>(string $fieldId, bool $tryCaseInsensitive = false)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the field for the passed id.</p>                    <p>If the field does not exist, null is returned.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$fieldId</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$tryCaseInsensitive</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Contentful/Delivery/Resource/ContentType/Field.html"><abbr title="Contentful\Delivery\Resource\ContentType\Field">Field</abbr></a>|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDisplayField">
+        <div class="location">at         line 141</div>
+        <code>                    <a href="../../../Contentful/Delivery/Resource/ContentType/Field.html"><abbr title="Contentful\Delivery\Resource\ContentType\Field">Field</abbr></a>|null
+    <strong>getDisplayField</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the the display field of a content type. Commonly this is the title.</p>                    <p>Returns null if not display field is set.</p>                            </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Contentful/Delivery/Resource/ContentType/Field.html"><abbr title="Contentful\Delivery\Resource\ContentType\Field">Field</abbr></a>|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addUnknownField">
+        <div class="location">at         line 153</div>
+        <code>                    <a href="../../../Contentful/Delivery/Resource/ContentType/Field.html"><abbr title="Contentful\Delivery\Resource\ContentType\Field">Field</abbr></a>
+    <strong>addUnknownField</strong>(string $name)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Adds a runtime field, of type unknown.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Contentful/Delivery/Resource/ContentType/Field.html"><abbr title="Contentful\Delivery\Resource\ContentType\Field">Field</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_jsonSerialize">
+        <div class="location">at         line 163</div>
+        <code>                    array
+    <strong>jsonSerialize</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>{@inheritdoc}</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>

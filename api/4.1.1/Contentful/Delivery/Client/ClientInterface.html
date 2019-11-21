@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Contentful\Delivery\Client\ClientInterface | Contentful CDA SDK for PHP</title>
+
+            <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/sami.css">
+        <script src="../../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../../js/bootstrap.min.js"></script>
+        <script src="../../../js/typeahead.min.js"></script>
+        <script src="../../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:Contentful_Delivery_Client_ClientInterface" data-root-path="../../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                    <form action="#" method="GET">
+                <select id="version-switcher" name="version">
+                                            <option value="../../../../3.3.0/index.html" data-version="3.3.0">3.3.0</option>
+                                            <option value="../../../../3.4.0/index.html" data-version="3.4.0">3.4.0</option>
+                                            <option value="../../../../4.0.0/index.html" data-version="4.0.0">4.0.0</option>
+                                            <option value="../../../../4.0.1/index.html" data-version="4.0.1">4.0.1</option>
+                                            <option value="../../../../4.0.2/index.html" data-version="4.0.2">4.0.2</option>
+                                            <option value="../../../../4.1.0/index.html" data-version="4.1.0">4.1.0</option>
+                                            <option value="../../../../4.1.1/index.html" data-version="4.1.1">4.1.1</option>
+                                            <option value="../../../../4.1.2/index.html" data-version="4.1.2">4.1.2</option>
+                                            <option value="../../../../master/index.html" data-version="master">Master branch</option>
+                                    </select>
+            </form>
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="../../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../../index.html">Contentful CDA SDK for PHP</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../../classes.html">Classes</a></li>
+                                            <li><a href="../../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../../traits.html">Traits</a></li>
+                    <li><a href="../../../doc-index.html">Index</a></li>
+                    <li><a href="../../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">interface</span></li>
+                        <li><a href="../../../Contentful.html">Contentful</a></li><li class="backslash">\</li><li><a href="../../../Contentful/Delivery.html">Delivery</a></li><li class="backslash">\</li><li><a href="../../../Contentful/Delivery/Client.html">Client</a></li><li class="backslash">\</li><li>ClientInterface</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            ClientInterface
+                
+        </h1>
+    </div>
+
+    <p>    interface
+    <strong>ClientInterface</strong>        implements
+        <a href="../../../Contentful/Delivery/Client/ScopedClientInterface.html"><abbr title="Contentful\Delivery\Client\ScopedClientInterface">ScopedClientInterface</abbr></a>
+</p>
+
+        
+    
+
+            <div class="description">
+            <p>ClientInterface.</p>            <p>This interface should be used whenever referring to a client object instance,
+as it decouples the method signatures from the actual implementation.</p>
+
+<p>It provides definitions for all methods which return API resources.</p>                    </div>
+    
+    
+    
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getApi">getApi</a>()
+        
+                                            <p>Returns a string representation of the API currently in use.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Client/ScopedClientInterface.html#method_getApi"><abbr title="Contentful\Delivery\Client\ScopedClientInterface">ScopedClientInterface</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getSpaceId">getSpaceId</a>()
+        
+                                            <p>Returns the ID of the space currently in use.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Client/ScopedClientInterface.html#method_getSpaceId"><abbr title="Contentful\Delivery\Client\ScopedClientInterface">ScopedClientInterface</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getEnvironmentId">getEnvironmentId</a>()
+        
+                                            <p>Returns the ID of the environment currently in use.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Client/ScopedClientInterface.html#method_getEnvironmentId"><abbr title="Contentful\Delivery\Client\ScopedClientInterface">ScopedClientInterface</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Contentful/Delivery/Resource/Asset.html"><abbr title="Contentful\Delivery\Resource\Asset">Asset</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getAsset">getAsset</a>(string $assetId, string $locale = \null)
+        
+                                            <p>Returns a single Asset object corresponding to the given ID.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getAssets">getAssets</a>(<a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = \null)
+        
+                                            <p>Returns a collection of Asset objects wrapped in a ResourceArray instance.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Contentful/Delivery/Resource/ContentType.html"><abbr title="Contentful\Delivery\Resource\ContentType">ContentType</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getContentType">getContentType</a>(string $contentTypeId)
+        
+                                            <p>Returns a single ContentType object corresponding to the given ID.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getContentTypes">getContentTypes</a>(<a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = \null)
+        
+                                            <p>Returns a collection of ContentType objects wrapped in a ResourceArray instance.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Contentful/Delivery/Resource/Environment.html"><abbr title="Contentful\Delivery\Resource\Environment">Environment</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getEnvironment">getEnvironment</a>()
+        
+                                            <p>Returns the Environment object corresponding to the one in use.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Contentful/Delivery/Resource/Entry.html"><abbr title="Contentful\Delivery\Resource\Entry">Entry</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getEntry">getEntry</a>(string $entryId, string $locale = \null)
+        
+                                            <p>Returns a single Entry object corresponding to the given ID.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getEntries">getEntries</a>(<a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = \null)
+        
+                                            <p>Returns a collection of Entry objects wrapped in a ResourceArray instance.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Contentful/Delivery/Resource/Space.html"><abbr title="Contentful\Delivery\Resource\Space">Space</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getSpace">getSpace</a>()
+        
+                                            <p>Returns the Space object corresponding to the one in use.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Contentful\Core\Resource\ResourceInterface">ResourceInterface</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_resolveLink">resolveLink</a>(<abbr title="Contentful\Core\Api\Link">Link</abbr> $link, string $locale = \null)
+        
+                                            <p>Resolve a link to its actual resource.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_resolveLinkCollection">resolveLinkCollection</a>(array $links, string $locale = \null)
+        
+                                            <p>Resolves an array of links.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method_getApi">
+        <div class="location">in <a href="../../../Contentful/Delivery/Client/ScopedClientInterface.html#method_getApi"><abbr title="Contentful\Delivery\Client\ScopedClientInterface">ScopedClientInterface</abbr></a> at         line 21</div>
+        <code>                    string
+    <strong>getApi</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a string representation of the API currently in use.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getSpaceId">
+        <div class="location">in <a href="../../../Contentful/Delivery/Client/ScopedClientInterface.html#method_getSpaceId"><abbr title="Contentful\Delivery\Client\ScopedClientInterface">ScopedClientInterface</abbr></a> at         line 28</div>
+        <code>                    string
+    <strong>getSpaceId</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the ID of the space currently in use.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getEnvironmentId">
+        <div class="location">in <a href="../../../Contentful/Delivery/Client/ScopedClientInterface.html#method_getEnvironmentId"><abbr title="Contentful\Delivery\Client\ScopedClientInterface">ScopedClientInterface</abbr></a> at         line 35</div>
+        <code>                    string
+    <strong>getEnvironmentId</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the ID of the environment currently in use.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAsset">
+        <div class="location">at         line 45</div>
+        <code>                    <a href="../../../Contentful/Delivery/Resource/Asset.html"><abbr title="Contentful\Delivery\Resource\Asset">Asset</abbr></a>
+    <strong>getAsset</strong>(string $assetId, string $locale = \null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a single Asset object corresponding to the given ID.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$assetId</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$locale</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Contentful/Delivery/Resource/Asset.html"><abbr title="Contentful\Delivery\Resource\Asset">Asset</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Contentful\Core\Exception\NotFoundException">NotFoundException</abbr></td>
+                <td>If no asset is found with the given ID</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAssets">
+        <div class="location">at         line 54</div>
+        <code>                    <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>
+    <strong>getAssets</strong>(<a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = \null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a collection of Asset objects wrapped in a ResourceArray instance.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a></td>
+                <td>$query</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getContentType">
+        <div class="location">at         line 65</div>
+        <code>                    <a href="../../../Contentful/Delivery/Resource/ContentType.html"><abbr title="Contentful\Delivery\Resource\ContentType">ContentType</abbr></a>
+    <strong>getContentType</strong>(string $contentTypeId)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a single ContentType object corresponding to the given ID.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$contentTypeId</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Contentful/Delivery/Resource/ContentType.html"><abbr title="Contentful\Delivery\Resource\ContentType">ContentType</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Contentful\Core\Exception\NotFoundException">NotFoundException</abbr></td>
+                <td>If no content type is found with the given ID</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getContentTypes">
+        <div class="location">at         line 74</div>
+        <code>                    <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>
+    <strong>getContentTypes</strong>(<a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = \null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a collection of ContentType objects wrapped in a ResourceArray instance.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a></td>
+                <td>$query</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getEnvironment">
+        <div class="location">at         line 81</div>
+        <code>                    <a href="../../../Contentful/Delivery/Resource/Environment.html"><abbr title="Contentful\Delivery\Resource\Environment">Environment</abbr></a>
+    <strong>getEnvironment</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the Environment object corresponding to the one in use.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Contentful/Delivery/Resource/Environment.html"><abbr title="Contentful\Delivery\Resource\Environment">Environment</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getEntry">
+        <div class="location">at         line 93</div>
+        <code>                    <a href="../../../Contentful/Delivery/Resource/Entry.html"><abbr title="Contentful\Delivery\Resource\Entry">Entry</abbr></a>
+    <strong>getEntry</strong>(string $entryId, string $locale = \null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a single Entry object corresponding to the given ID.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$entryId</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$locale</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Contentful/Delivery/Resource/Entry.html"><abbr title="Contentful\Delivery\Resource\Entry">Entry</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Contentful\Core\Exception\NotFoundException">NotFoundException</abbr></td>
+                <td>If no entry is found with the given ID</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getEntries">
+        <div class="location">at         line 102</div>
+        <code>                    <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>
+    <strong>getEntries</strong>(<a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = \null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a collection of Entry objects wrapped in a ResourceArray instance.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a></td>
+                <td>$query</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getSpace">
+        <div class="location">at         line 109</div>
+        <code>                    <a href="../../../Contentful/Delivery/Resource/Space.html"><abbr title="Contentful\Delivery\Resource\Space">Space</abbr></a>
+    <strong>getSpace</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the Space object corresponding to the one in use.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Contentful/Delivery/Resource/Space.html"><abbr title="Contentful\Delivery\Resource\Space">Space</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_resolveLink">
+        <div class="location">at         line 121</div>
+        <code>                    <abbr title="Contentful\Core\Resource\ResourceInterface">ResourceInterface</abbr>
+    <strong>resolveLink</strong>(<abbr title="Contentful\Core\Api\Link">Link</abbr> $link, string $locale = \null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Resolve a link to its actual resource.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Contentful\Core\Api\Link">Link</abbr></td>
+                <td>$link</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$locale</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Contentful\Core\Resource\ResourceInterface">ResourceInterface</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/InvalidArgumentException">InvalidArgumentException</a></td>
+                <td>when encountering an unexpected link type</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_resolveLinkCollection">
+        <div class="location">at         line 133</div>
+        <code>                    array
+    <strong>resolveLinkCollection</strong>(array $links, string $locale = \null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Resolves an array of links.</p>                    <p>A method implementing this may apply some optimizations
+to reduce the amount of necessary API calls.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$links</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$locale</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>
