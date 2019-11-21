@@ -6,7 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased](https://github.com/contentful/contentful.php/compare/4.1.1...HEAD)
 
 <!-- PENDING-CHANGES -->
-> No meaningful changes since last release.
+
+### Fixed
+* Fixed issue with link resolution.
+* Addressed cs-fixer syntax issues.
+
 <!-- /PENDING-CHANGES -->
 
 ## [4.1.1](https://github.com/contentful/contentful.php/tree/4.1.1) (2019-01-18)
