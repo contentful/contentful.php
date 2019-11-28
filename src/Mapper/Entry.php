@@ -28,11 +28,15 @@ use function GuzzleHttp\json_encode as guzzle_json_encode;
  */
 class Entry extends BaseMapper
 {
+    const MAX_DEPTH = 20;
+    protected $currentDepth = 0;
+
     /**
      * {@inheritdoc}
      */
     public function map($resource, array $data): ResourceClass
     {
+        $this->currentDepth++;
         /** @var SystemProperties $sys */
         $sys = $this->createSystemProperties(SystemProperties::class, $data);
         $locale = $sys->getLocale();
@@ -167,7 +171,12 @@ class Entry extends BaseMapper
             case 'Location':
                 return new Location($value['lat'], $value['lon']);
             case 'RichText':
-                return $this->richTextParser->parse($value);
+                if($this->currentDepth >= self::MAX_DEPTH) {
+                    return $value;
+                }
+                else {
+                    return $this->richTextParser->parse($value);
+                }
             default:
                 return $value;
         }
