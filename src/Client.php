@@ -42,6 +42,13 @@ use Contentful\RichText\Parser;
  */
 class Client extends BaseClient implements ClientInterface, SynchronizationClientInterface, JsonDecoderClientInterface
 {
+    const MAX_DEPTH = 20;
+
+    /**
+     * @var int
+     */
+    protected $currentDepth = 1;
+
     /**
      * @var string
      */
@@ -326,6 +333,13 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
      */
     public function getEntry(string $entryId, string $locale = null): Entry
     {
+        if($this->currentDepth > self::MAX_DEPTH) {
+            $this->currentDepth = 1;
+            return new Entry($entryId,'Link');
+        }
+
+        $this->currentDepth++;
+
         $locale = $locale ?: $this->defaultLocale;
 
         /** @var Entry $entry */
