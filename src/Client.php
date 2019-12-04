@@ -42,6 +42,13 @@ use Contentful\RichText\Parser;
  */
 class Client extends BaseClient implements ClientInterface, SynchronizationClientInterface, JsonDecoderClientInterface
 {
+    const MAX_DEPTH = 20;
+
+    /**
+     * @var int
+     */
+    protected $currentDepth = 1;
+
     /**
      * @var string
      */
@@ -328,14 +335,22 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     {
         $locale = $locale ?: $this->defaultLocale;
 
-        /** @var Entry $entry */
-        $entry = $this->requestWithCache(
-            '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries/'.$entryId,
-            ['locale' => $locale],
-            'Entry',
-            $entryId,
-            $this->getLocaleForCacheKey($locale)
-        );
+        if ($this->currentDepth > self::MAX_DEPTH) {
+            $this->currentDepth = 1;
+
+            /** @var Entry $entry */
+            $entry = $this->resourcePool->get('Entry', $entryId, ['locale' => $locale]);
+        } else {
+            ++$this->currentDepth;
+            /** @var Entry $entry */
+            $entry = $this->requestWithCache(
+                '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries/'.$entryId,
+                ['locale' => $locale],
+                'Entry',
+                $entryId,
+                $this->getLocaleForCacheKey($locale)
+            );
+        }
 
         return $entry;
     }
