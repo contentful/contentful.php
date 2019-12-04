@@ -44,4 +44,21 @@ class EntryRichTextTest extends TestCase
 
         $this->assertSame($fixture, $result);
     }
+
+    public function testSelfReference() {
+        $client = $this->getClient('new');
+        $query = (new Query())
+            ->where('sys.id', '7ypRwyhY3CIsmvUByCca9i');
+
+        $entry = $client->getEntries($query)[0];
+
+
+        $currentDepth = 1;
+        while($currentDepth<21) {
+            $entry = $entry->get('content')->getContent()[1]->getEntry();
+            $currentDepth++;
+        }
+
+        $this->assertInstanceOf(\Contentful\RichText\Node\Nothing::class,$entry->get('content')->getContent()[1]);
+    }
 }

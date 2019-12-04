@@ -28,7 +28,6 @@ use function GuzzleHttp\json_encode as guzzle_json_encode;
  */
 class Entry extends BaseMapper
 {
-
     /**
      * {@inheritdoc}
      */
