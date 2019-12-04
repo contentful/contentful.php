@@ -336,7 +336,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         if ($this->currentDepth > self::MAX_DEPTH) {
             $this->currentDepth = 1;
 
-            return new Link($entryId, 'Link');
+            return $this->resourcePool->get('Entry', $entryId, ['locale' => $locale]);
         }
 
         ++$this->currentDepth;
