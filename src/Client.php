@@ -333,12 +333,13 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
      */
     public function getEntry(string $entryId, string $locale = null): Entry
     {
-        if($this->currentDepth > self::MAX_DEPTH) {
+        if ($this->currentDepth > self::MAX_DEPTH) {
             $this->currentDepth = 1;
-            return new Entry($entryId,'Link');
+
+            return new Entry($entryId, 'Link');
         }
 
-        $this->currentDepth++;
+        ++$this->currentDepth;
 
         $locale = $locale ?: $this->defaultLocale;
 

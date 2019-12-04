@@ -14,6 +14,7 @@ namespace Contentful\Tests\Delivery\E2E;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\RichText\Node\Document;
+use Contentful\RichText\Node\Nothing;
 use Contentful\RichText\Renderer;
 use Contentful\Tests\Delivery\TestCase;
 
@@ -45,20 +46,26 @@ class EntryRichTextTest extends TestCase
         $this->assertSame($fixture, $result);
     }
 
-    public function testSelfReference() {
+    public function testSelfReference()
+    {
         $client = $this->getClient('new');
         $query = (new Query())
-            ->where('sys.id', '7ypRwyhY3CIsmvUByCca9i');
+            ->where('sys.id', '7ypRwyhY3CIsmvUByCca9i')
+        ;
 
         $entry = $client->getEntries($query)[0];
 
-
         $currentDepth = 1;
-        while($currentDepth<21) {
-            $entry = $entry->get('content')->getContent()[1]->getEntry();
-            $currentDepth++;
+        while ($currentDepth < 100) {
+            $entry = $entry->get('content')->getContent()[1];
+            if ($entry instanceof Nothing) {
+                break;
+            }
+
+            $entry = $entry->getEntry();
+            ++$currentDepth;
         }
 
-        $this->assertInstanceOf(\Contentful\RichText\Node\Nothing::class,$entry->get('content')->getContent()[1]);
+        $this->assertInstanceOf(Nothing::class, $entry);
     }
 }
