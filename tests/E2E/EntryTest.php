@@ -847,4 +847,20 @@ class EntryTest extends TestCase
             (string) $client->getMessages()[5]->getRequest()->getUri()
         );
     }
+
+    /**
+     * @vcr entry_test_get_lots_of_entries.json
+     */
+    public function testGetLotsOfEntries() {
+        $client = $this->getClient('new');
+        $resourcePool = $client->getResourcePool();
+
+        for($i=0;$i<100;$i++) {
+            $entry = $client->getEntry('4mJOqrfVEQWCs8iIYU4qkG','*');
+        }
+
+        $this->assertTrue($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => '*',
+        ]));
+    }
 }

@@ -46,6 +46,9 @@ class EntryRichTextTest extends TestCase
         $this->assertSame($fixture, $result);
     }
 
+    /**
+     * @vcr entry_rich_text_self_reference.json
+     */
     public function testSelfReference()
     {
         $client = $this->getClient('new');

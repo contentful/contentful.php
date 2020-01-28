@@ -350,6 +350,8 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
                 $entryId,
                 $this->getLocaleForCacheKey($locale)
             );
+
+            --$this->currentDepth;
         }
 
         return $entry;
