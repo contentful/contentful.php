@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2019 Contentful GmbH
+ * @copyright 2015-2020 Contentful GmbH
  * @license   MIT
  */
 
@@ -846,5 +846,22 @@ class EntryTest extends TestCase
             $this->getHost().'spaces/88dyiqcr7go8/environments/master/entries/4mJOqrfVEQWCs8iIYU4qkG?locale=%2A',
             (string) $client->getMessages()[5]->getRequest()->getUri()
         );
+    }
+
+    /**
+     * @vcr entry_test_get_lots_of_entries.json
+     */
+    public function testGetLotsOfEntries()
+    {
+        $client = $this->getClient('new');
+        $resourcePool = $client->getResourcePool();
+
+        for ($i = 0; $i < 100; ++$i) {
+            $entry = $client->getEntry('4mJOqrfVEQWCs8iIYU4qkG', '*');
+        }
+
+        $this->assertTrue($resourcePool->has('Entry', '4mJOqrfVEQWCs8iIYU4qkG', [
+            'locale' => '*',
+        ]));
     }
 }

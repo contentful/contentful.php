@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2019 Contentful GmbH
+ * @copyright 2015-2020 Contentful GmbH
  * @license   MIT
  */
 
@@ -350,6 +350,8 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
                 $entryId,
                 $this->getLocaleForCacheKey($locale)
             );
+
+            --$this->currentDepth;
         }
 
         return $entry;

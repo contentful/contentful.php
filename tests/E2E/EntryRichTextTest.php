@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2019 Contentful GmbH
+ * @copyright 2015-2020 Contentful GmbH
  * @license   MIT
  */
 
@@ -46,6 +46,9 @@ class EntryRichTextTest extends TestCase
         $this->assertSame($fixture, $result);
     }
 
+    /**
+     * @vcr entry_rich_text_self_reference.json
+     */
     public function testSelfReference()
     {
         $client = $this->getClient('new');
