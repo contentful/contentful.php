@@ -3,11 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/4.1.3...HEAD)
+## [Unreleased](https://github.com/contentful/contentful.php/compare/4.1.4...HEAD)
 
 <!-- PENDING-CHANGES -->
 > No meaningful changes since last release.
 <!-- /PENDING-CHANGES -->
+
+## [4.1.4](https://github.com/contentful/contentful.php/tree/4.1.4) (2020-02-06)
+
+### Fixed
+
+* Cannot fetch large number of independent entries
 
 ## [4.1.3](https://github.com/contentful/contentful.php/tree/4.1.3) (2019-12-04)
 
