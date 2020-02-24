@@ -14,7 +14,6 @@ namespace Contentful\Tests\Delivery\E2E;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\RichText\Node\Document;
-use Contentful\RichText\Node\Nothing;
 use Contentful\RichText\Renderer;
 use Contentful\Tests\Delivery\TestCase;
 
@@ -61,14 +60,11 @@ class EntryRichTextTest extends TestCase
         $currentDepth = 1;
         while ($currentDepth < 100) {
             $entry = $entry->get('content')->getContent()[1];
-            if ($entry instanceof Nothing) {
-                break;
-            }
 
             $entry = $entry->getEntry();
             ++$currentDepth;
         }
 
-        $this->assertInstanceOf(Nothing::class, $entry);
+        $this->assertInstanceOf(Entry::class, $entry);
     }
 }
