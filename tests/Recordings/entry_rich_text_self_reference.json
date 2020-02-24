@@ -4,8 +4,8 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/88dyiqcr7go8\/environments\/master\/entries?sys.id=7ypRwyhY3CIsmvUByCca9i",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.5.1 curl\/7.65.1 PHP\/7.1.30",
-            "X-Contentful-User-Agent": "sdk contentful.php\/4.2.0-dev; platform PHP\/7.1.30; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.5.1 curl\/7.65.1 PHP\/7.2.22",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.2.0-dev; platform PHP\/7.2.22; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756"
@@ -36,15 +36,15 @@
             "X-Contentful-Region": "us-east-1",
             "Content-Length": "538",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 28 Jan 2020 14:01:27 GMT",
+            "Date": "Mon, 24 Feb 2020 14:05:18 GMT",
             "Via": "1.1 varnish",
-            "Age": "609",
+            "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-fra19129-FRA",
-            "X-Cache": "HIT",
-            "X-Cache-Hits": "1",
+            "X-Served-By": "cache-fra19153-FRA",
+            "X-Cache": "MISS",
+            "X-Cache-Hits": "0",
             "Vary": "Accept-Encoding",
-            "x-contentful-request-id": "75d916fb-e4ae-4a3b-b679-f8a2b372e351"
+            "x-contentful-request-id": "eabd7444-a57e-4841-8029-a0d8a2f41001"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 1,\n  \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"88dyiqcr7go8\"\n          }\n        },\n        \"id\": \"7ypRwyhY3CIsmvUByCca9i\",\n        \"type\": \"Entry\",\n        \"createdAt\": \"2019-12-04T10:21:46.239Z\",\n        \"updatedAt\": \"2019-12-04T10:21:46.239Z\",\n        \"environment\": {\n          \"sys\": {\n            \"id\": \"master\",\n            \"type\": \"Link\",\n            \"linkType\": \"Environment\"\n          }\n        },\n        \"revision\": 1,\n        \"contentType\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"ContentType\",\n            \"id\": \"richTextContentType\"\n          }\n        },\n        \"locale\": \"en-US\"\n      },\n      \"fields\": {\n        \"content\": {\n          \"data\": {},\n          \"content\": [\n            {\n              \"data\": {},\n              \"content\": [\n                {\n                  \"data\": {},\n                  \"marks\": [],\n                  \"value\": \"Self reference\",\n                  \"nodeType\": \"text\"\n                }\n              ],\n              \"nodeType\": \"paragraph\"\n            },\n            {\n              \"data\": {\n                \"target\": {\n                  \"sys\": {\n                    \"id\": \"7ypRwyhY3CIsmvUByCca9i\",\n                    \"type\": \"Link\",\n                    \"linkType\": \"Entry\"\n                  }\n                }\n              },\n              \"content\": [],\n              \"nodeType\": \"embedded-entry-block\"\n            },\n            {\n              \"data\": {},\n              \"content\": [\n                {\n                  \"data\": {},\n                  \"marks\": [],\n                  \"value\": \"\",\n                  \"nodeType\": \"text\"\n                }\n              ],\n              \"nodeType\": \"paragraph\"\n            }\n          ],\n          \"nodeType\": \"document\"\n        }\n      }\n    }\n  ]\n}\n"
     }
@@ -54,8 +54,8 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/88dyiqcr7go8\/environments\/master\/content_types?sys.id%5Bin%5D=richTextContentType",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.5.1 curl\/7.65.1 PHP\/7.1.30",
-            "X-Contentful-User-Agent": "sdk contentful.php\/4.2.0-dev; platform PHP\/7.1.30; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.5.1 curl\/7.65.1 PHP\/7.2.22",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.2.0-dev; platform PHP\/7.2.22; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756"
@@ -85,15 +85,15 @@
             "X-Contentful-Region": "us-east-1",
             "Content-Length": "980",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 28 Jan 2020 14:01:27 GMT",
+            "Date": "Mon, 24 Feb 2020 14:05:19 GMT",
             "Via": "1.1 varnish",
-            "Age": "607",
+            "Age": "0",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-fra19123-FRA",
-            "X-Cache": "HIT",
-            "X-Cache-Hits": "1",
+            "X-Served-By": "cache-fra19142-FRA",
+            "X-Cache": "MISS",
+            "X-Cache-Hits": "0",
             "Vary": "Accept-Encoding",
-            "x-contentful-request-id": "51f53f56-47f3-476f-a230-2b53820fd15b"
+            "x-contentful-request-id": "53e7ef31-ad49-4da8-a76b-6a54925db60a"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 1,\n  \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"88dyiqcr7go8\"\n          }\n        },\n        \"id\": \"richTextContentType\",\n        \"type\": \"ContentType\",\n        \"createdAt\": \"2018-10-25T09:24:55.893Z\",\n        \"updatedAt\": \"2018-10-25T09:24:55.893Z\",\n        \"environment\": {\n          \"sys\": {\n            \"id\": \"master\",\n            \"type\": \"Link\",\n            \"linkType\": \"Environment\"\n          }\n        },\n        \"revision\": 1\n      },\n      \"displayField\": null,\n      \"name\": \"Rich Text Content Type\",\n      \"description\": \"\",\n      \"fields\": [\n        {\n          \"id\": \"content\",\n          \"name\": \"Content\",\n          \"type\": \"RichText\",\n          \"localized\": false,\n          \"required\": false,\n          \"disabled\": false,\n          \"omitted\": false\n        }\n      ]\n    }\n  ]\n}\n"
     }
@@ -103,8 +103,8 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/88dyiqcr7go8",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.5.1 curl\/7.65.1 PHP\/7.1.30",
-            "X-Contentful-User-Agent": "sdk contentful.php\/4.2.0-dev; platform PHP\/7.1.30; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.5.1 curl\/7.65.1 PHP\/7.2.22",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.2.0-dev; platform PHP\/7.2.22; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756"
@@ -134,15 +134,15 @@
             "X-Contentful-Region": "us-east-1",
             "Content-Length": "442",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 28 Jan 2020 14:01:28 GMT",
+            "Date": "Mon, 24 Feb 2020 14:05:19 GMT",
             "Via": "1.1 varnish",
-            "Age": "608",
+            "Age": "719",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-fra19140-FRA",
+            "X-Served-By": "cache-fra19144-FRA",
             "X-Cache": "HIT",
             "X-Cache-Hits": "1",
             "Vary": "Accept-Encoding",
-            "x-contentful-request-id": "fdae63d6-b8ad-47e0-bfaa-1fc0cd10c41c"
+            "x-contentful-request-id": "826caffe-2dd3-4128-b26c-91c1dac0a931"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Space\",\n    \"id\": \"88dyiqcr7go8\"\n  },\n  \"name\": \"PHP CDA\",\n  \"locales\": [\n    {\n      \"code\": \"en-US\",\n      \"default\": true,\n      \"name\": \"U.S. English\",\n      \"fallbackCode\": null\n    },\n    {\n      \"code\": \"it\",\n      \"default\": false,\n      \"name\": \"Italian\",\n      \"fallbackCode\": \"en-US\"\n    },\n    {\n      \"code\": \"es\",\n      \"default\": false,\n      \"name\": \"Spanish\",\n      \"fallbackCode\": \"it\"\n    }\n  ]\n}\n"
     }
@@ -152,8 +152,8 @@
         "url": "https:\/\/cdn.contentful.com\/spaces\/88dyiqcr7go8\/environments\/master\/locales",
         "headers": {
             "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.5.1 curl\/7.65.1 PHP\/7.1.30",
-            "X-Contentful-User-Agent": "sdk contentful.php\/4.2.0-dev; platform PHP\/7.1.30; os macOS;",
+            "User-Agent": "GuzzleHttp\/6.5.1 curl\/7.65.1 PHP\/7.2.22",
+            "X-Contentful-User-Agent": "sdk contentful.php\/4.2.0-dev; platform PHP\/7.2.22; os macOS;",
             "Accept": "application\/vnd.contentful.delivery.v1+json",
             "Accept-Encoding": "gzip",
             "Authorization": "Bearer 668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756"
@@ -183,66 +183,16 @@
             "X-Contentful-Region": "us-east-1",
             "Content-Length": "770",
             "Accept-Ranges": "bytes",
-            "Date": "Tue, 28 Jan 2020 14:01:28 GMT",
+            "Date": "Mon, 24 Feb 2020 14:05:20 GMT",
             "Via": "1.1 varnish",
-            "Age": "608",
+            "Age": "718",
             "Connection": "keep-alive",
-            "X-Served-By": "cache-fra19120-FRA",
+            "X-Served-By": "cache-fra19151-FRA",
             "X-Cache": "HIT",
             "X-Cache-Hits": "1",
             "Vary": "Accept-Encoding",
-            "x-contentful-request-id": "11d90c2b-8690-4199-872e-a5f3c6485b00"
+            "x-contentful-request-id": "999a0989-9807-44ef-8396-7e84115528ea"
         },
         "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 3,\n  \"skip\": 0,\n  \"limit\": 1000,\n  \"items\": [\n    {\n      \"code\": \"en-US\",\n      \"name\": \"U.S. English\",\n      \"default\": true,\n      \"fallbackCode\": null,\n      \"sys\": {\n        \"id\": \"19xQBLD6FTsStnt6P5MsyW\",\n        \"type\": \"Locale\",\n        \"version\": 0\n      }\n    },\n    {\n      \"code\": \"it\",\n      \"name\": \"Italian\",\n      \"default\": false,\n      \"fallbackCode\": \"en-US\",\n      \"sys\": {\n        \"id\": \"3UbY70KDWtQQ38TxF5mdeQ\",\n        \"type\": \"Locale\",\n        \"version\": 0\n      }\n    },\n    {\n      \"code\": \"es\",\n      \"name\": \"Spanish\",\n      \"default\": false,\n      \"fallbackCode\": \"it\",\n      \"sys\": {\n        \"id\": \"3Yd7Swgn13v6FPE2LHyvQ2\",\n        \"type\": \"Locale\",\n        \"version\": 0\n      }\n    }\n  ]\n}\n"
-    }
-},{
-    "request": {
-        "method": "GET",
-        "url": "https:\/\/cdn.contentful.com\/spaces\/88dyiqcr7go8\/environments\/master\/entries\/7ypRwyhY3CIsmvUByCca9i",
-        "headers": {
-            "Host": "cdn.contentful.com",
-            "User-Agent": "GuzzleHttp\/6.5.1 curl\/7.65.1 PHP\/7.1.30",
-            "X-Contentful-User-Agent": "sdk contentful.php\/4.2.0-dev; platform PHP\/7.1.30; os macOS;",
-            "Accept": "application\/vnd.contentful.delivery.v1+json",
-            "Accept-Encoding": "gzip",
-            "Authorization": "Bearer 668efbfd9e398181166dec5df5a500aded96dbca2916646a3c7ec37082a7b756"
-        }
-    },
-    "response": {
-        "status": {
-            "http_version": "1.1",
-            "code": "200",
-            "message": "OK"
-        },
-        "headers": {
-            "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature",
-            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Expose-Headers": "Etag",
-            "Access-Control-Max-Age": "86400",
-            "CF-Environment-Id": "master",
-            "CF-Environment-Uuid": "28ed9502-e68a-4bc0-a9d5-7bc9197251b6",
-            "CF-Organization-Id": "3ubGFD1MWA6VgVYbIwSBg8",
-            "CF-Space-Id": "88dyiqcr7go8",
-            "Content-Encoding": "gzip",
-            "Content-Type": "application\/vnd.contentful.delivery.v1+json",
-            "Contentful-Api": "cda_cached",
-            "ETag": "W\/\"13764643557092867691\"",
-            "Server": "Contentful",
-            "X-Content-Type-Options": "nosniff",
-            "X-Contentful-Region": "us-east-1",
-            "Content-Length": "470",
-            "Accept-Ranges": "bytes",
-            "Date": "Tue, 28 Jan 2020 14:01:29 GMT",
-            "Via": "1.1 varnish",
-            "Age": "609",
-            "Connection": "keep-alive",
-            "X-Served-By": "cache-fra19143-FRA",
-            "X-Cache": "HIT",
-            "X-Cache-Hits": "1",
-            "Vary": "Accept-Encoding",
-            "x-contentful-request-id": "a5b30be9-f3c9-42c6-bb58-7f0d4fbaa3b7"
-        },
-        "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"88dyiqcr7go8\"\n      }\n    },\n    \"id\": \"7ypRwyhY3CIsmvUByCca9i\",\n    \"type\": \"Entry\",\n    \"createdAt\": \"2019-12-04T10:21:46.239Z\",\n    \"updatedAt\": \"2019-12-04T10:21:46.239Z\",\n    \"environment\": {\n      \"sys\": {\n        \"id\": \"master\",\n        \"type\": \"Link\",\n        \"linkType\": \"Environment\"\n      }\n    },\n    \"revision\": 1,\n    \"contentType\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"ContentType\",\n        \"id\": \"richTextContentType\"\n      }\n    },\n    \"locale\": \"en-US\"\n  },\n  \"fields\": {\n    \"content\": {\n      \"data\": {},\n      \"content\": [\n        {\n          \"data\": {},\n          \"content\": [\n            {\n              \"data\": {},\n              \"marks\": [],\n              \"value\": \"Self reference\",\n              \"nodeType\": \"text\"\n            }\n          ],\n          \"nodeType\": \"paragraph\"\n        },\n        {\n          \"data\": {\n            \"target\": {\n              \"sys\": {\n                \"id\": \"7ypRwyhY3CIsmvUByCca9i\",\n                \"type\": \"Link\",\n                \"linkType\": \"Entry\"\n              }\n            }\n          },\n          \"content\": [],\n          \"nodeType\": \"embedded-entry-block\"\n        },\n        {\n          \"data\": {},\n          \"content\": [\n            {\n              \"data\": {},\n              \"marks\": [],\n              \"value\": \"\",\n              \"nodeType\": \"text\"\n            }\n          ],\n          \"nodeType\": \"paragraph\"\n        }\n      ],\n      \"nodeType\": \"document\"\n    }\n  }\n}\n"
     }
 }]
