@@ -81,7 +81,7 @@
 
 ## Getting started
 
-In order to get started with the Contentful PHP SDK you'll need not only to install it, but also to get credentials which will allow you to have access to your content in Contentful. This package requires PHP 7.0 or higher.
+In order to get started with the Contentful PHP SDK you'll need not only to install it, but also to get credentials which will allow you to have access to your content in Contentful. This package requires PHP 7.2 or higher.
 
 ### Installation
 

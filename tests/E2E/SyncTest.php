@@ -63,7 +63,6 @@ class SyncTest extends TestCase
 
     /**
      * @vcr sync_preview_continue.json
-     * @expectedException \RuntimeException
      */
     public function testPreviewContinue()
     {

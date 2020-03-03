@@ -42,7 +42,7 @@ class ConsoleTest extends TestCase
             '--factory-class' => CacheItemPoolFactory::class,
         ]);
 
-        $this->assertContains('Cache warmed up for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
+        $this->assertStringContainsStringIgnoringCase('Cache warmed up for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
 
         $cachePool = CacheItemPoolFactory::$pools['DELIVERY.cfexampleapi.master'];
 
@@ -66,7 +66,7 @@ class ConsoleTest extends TestCase
             '--use-preview' => true,
         ]);
 
-        $this->assertContains('Cache warmed up for space "cfexampleapi" on environment "master" using API "PREVIEW".', $output);
+        $this->assertStringContainsStringIgnoringCase('Cache warmed up for space "cfexampleapi" on environment "master" using API "PREVIEW".', $output);
 
         $cachePool = CacheItemPoolFactory::$pools['PREVIEW.cfexampleapi.master'];
 
@@ -119,7 +119,7 @@ class ConsoleTest extends TestCase
             '--factory-class' => CacheItemPoolFactory::class,
         ]);
 
-        $this->assertContains('Cache cleared for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
+        $this->assertStringContainsStringIgnoringCase('Cache cleared for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
 
         $cachePool = CacheItemPoolFactory::$pools['DELIVERY.cfexampleapi.master'];
         $this->assertFalse($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Space.cfexampleapi.__ALL__'));
@@ -138,7 +138,7 @@ class ConsoleTest extends TestCase
             '--use-preview' => true,
         ]);
 
-        $this->assertContains('Cache cleared for space "cfexampleapi" on environment "master" using API "PREVIEW".', $output);
+        $this->assertStringContainsStringIgnoringCase('Cache cleared for space "cfexampleapi" on environment "master" using API "PREVIEW".', $output);
 
         $cachePool = CacheItemPoolFactory::$pools['PREVIEW.cfexampleapi.master'];
         $this->assertFalse($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.Space.cfexampleapi.__ALL__'));
@@ -186,7 +186,7 @@ class ConsoleTest extends TestCase
             '--cache-content' => true,
         ]);
 
-        $this->assertContains('Cache warmed up for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
+        $this->assertStringContainsStringIgnoringCase('Cache warmed up for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
 
         $cachePool = CacheItemPoolFactory::$pools['DELIVERY.cfexampleapi.master'];
 
@@ -214,7 +214,7 @@ class ConsoleTest extends TestCase
             '--cache-content' => true,
         ]);
 
-        $this->assertContains('Cache cleared for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
+        $this->assertStringContainsStringIgnoringCase('Cache cleared for space "cfexampleapi" on environment "master" using API "DELIVERY".', $output);
 
         $cachePool = CacheItemPoolFactory::$pools['DELIVERY.cfexampleapi.master'];
         $this->assertFalse($cachePool->hasItem('contentful.DELIVERY.cfexampleapi.master.Space.cfexampleapi.__ALL__'));

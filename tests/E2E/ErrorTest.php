@@ -16,7 +16,7 @@ use Contentful\Core\Exception\InvalidQueryException;
 use Contentful\Core\Exception\NotFoundException;
 use Contentful\Core\Exception\RateLimitExceededException;
 use Contentful\Delivery\Query;
-use Contentful\Tests\Core\Implementation\Exception\BadRequestException;
+use Contentful\Core\Exception\BadRequestException;
 use Contentful\Tests\Delivery\TestCase;
 
 class ErrorTest extends TestCase
@@ -78,7 +78,7 @@ class ErrorTest extends TestCase
                 $client->getEntries($query);
             }
         } catch (RateLimitExceededException $exception) {
-            $this->assertInternalType('int', $exception->getRateLimitReset());
+            $this->assertIsInt($exception->getRateLimitReset());
 
             throw $exception;
         }
