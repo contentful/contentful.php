@@ -59,7 +59,7 @@ class ContentTypeTest extends TestCase
         $this->assertSame('Likes', $contentType->getField('likes')->getName());
 
         $fields = $contentType->getFields();
-        $this->assertIsArray( $fields);
+        $this->assertIsArray($fields);
         $this->assertCount(3, $fields);
         $this->assertArrayHasKey('name', $fields);
         $this->assertSame('name', $fields['name']->getId());

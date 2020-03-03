@@ -155,13 +155,13 @@ class EntryTest extends TestCase
         $this->assertIsString($resource->get('name'));
         $this->assertSame('Saitama', $resource->get('name'));
 
-        $this->assertIsString( $resource->get('description'));
+        $this->assertIsString($resource->get('description'));
         $this->assertSame('One-Punch Man', $resource->get('description'));
 
-        $this->assertIsInt( $resource->get('age'));
+        $this->assertIsInt($resource->get('age'));
         $this->assertSame(25, $resource->get('age'));
 
-        $this->assertIsFloat( $resource->get('favoriteNumber'));
+        $this->assertIsFloat($resource->get('favoriteNumber'));
         $this->assertSame(1.0, $resource->get('favoriteNumber'));
 
         /** @var Location $city */
@@ -173,7 +173,7 @@ class EntryTest extends TestCase
         $this->assertInstanceOf(DateTimeImmutable::class, $resource->get('birthday'));
         $this->assertSame('2012-12-12T12:00:00.123Z', (string) $resource->get('birthday'));
 
-        $this->assertIsBool( $resource->get('isActive'));
+        $this->assertIsBool($resource->get('isActive'));
         $this->assertTrue($resource->get('isActive'));
 
         $this->assertInstanceOf(Link::class, $resource->get('bestFriend', null, false));
@@ -185,7 +185,7 @@ class EntryTest extends TestCase
 
         $this->assertNull($resource->get('nullValue'));
 
-        $this->assertIsString( $resource->get('extraField'));
+        $this->assertIsString($resource->get('extraField'));
         $this->assertSame('Some extra field', $resource->get('extraField'));
 
         $this->assertInstanceOf(NodeInterface::class, $resource->get('richText'));

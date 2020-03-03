@@ -67,7 +67,7 @@ class SyncTest extends TestCase
     public function testPreviewContinue()
     {
         $this->skipIfApiCoverage();
-        
+
         $this->expectException(\RuntimeException::class);
 
         $manager = $this->getClient('default_preview')

@@ -31,12 +31,11 @@ class ResourcePoolTest extends TestCase
         $this->assertSame($entry, $resourcePool->get('Entry', 'entryId', ['locale' => 'en-US']));
     }
 
-
     public function testGetInvalidKey()
     {
         $this->expectException(\OutOfBoundsException::class);
-        $this->expectExceptionMessage("Resource pool could not find a resource with type \"Entry\", ID \"invalidId\", and locale \"en-US\".");
-        
+        $this->expectExceptionMessage('Resource pool could not find a resource with type "Entry", ID "invalidId", and locale "en-US".');
+
         $instanceRepository = new ResourcePool(new JsonDecoderClient(), new ArrayCachePool());
 
         $instanceRepository->get('Entry', 'invalidId', ['locale' => 'en-US']);

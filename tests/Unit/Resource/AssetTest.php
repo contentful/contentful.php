@@ -155,18 +155,18 @@ class AssetTest extends TestCase
         $this->assertSame('Una foto del Gatto Nyan', $asset->getDescription('it-IT'));
         $this->assertSame('A picture of Nyan Cat', $asset->getDescription('en-US'));
     }
-    
+
     public function testGetTitleWithInvalidLocale()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Trying to use invalid locale \"xyz\", available locales are \"en-US, tlh, it-IT\".");
+        $this->expectExceptionMessage('Trying to use invalid locale "xyz", available locales are "en-US, tlh, it-IT".');
         $this->asset->getTitle('xyz');
     }
-    
+
     public function testGetDescriptionWithInvalidLocale()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Trying to use invalid locale \"xyz\", available locales are \"en-US, tlh, it-IT\".");
+        $this->expectExceptionMessage('Trying to use invalid locale "xyz", available locales are "en-US, tlh, it-IT".');
         $this->asset->getDescription('xyz');
     }
 

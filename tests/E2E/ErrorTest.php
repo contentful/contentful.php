@@ -12,11 +12,11 @@ declare(strict_types=1);
 namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Core\Exception\AccessTokenInvalidException;
+use Contentful\Core\Exception\BadRequestException;
 use Contentful\Core\Exception\InvalidQueryException;
 use Contentful\Core\Exception\NotFoundException;
 use Contentful\Core\Exception\RateLimitExceededException;
 use Contentful\Delivery\Query;
-use Contentful\Core\Exception\BadRequestException;
 use Contentful\Tests\Delivery\TestCase;
 
 class ErrorTest extends TestCase
@@ -49,7 +49,7 @@ class ErrorTest extends TestCase
     public function testInvalidQuery()
     {
         $this->expectException(InvalidQueryException::class);
-        
+
         $client = $this->getClient('default');
 
         $query = (new Query())
@@ -65,7 +65,7 @@ class ErrorTest extends TestCase
     public function testRateLimitExceeded()
     {
         $this->expectException(RateLimitExceededException::class);
-        
+
         $this->skipIfApiCoverage();
 
         $client = $this->getClient('rate_limit');
@@ -90,7 +90,7 @@ class ErrorTest extends TestCase
     public function testBadRequest()
     {
         $this->expectException(BadRequestException::class);
-        
+
         $client = $this->getClient('default');
 
         $client->getEntry('nyancat', 'invalidLocale');

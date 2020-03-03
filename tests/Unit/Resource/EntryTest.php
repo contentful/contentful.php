@@ -255,11 +255,11 @@ class EntryTest extends TestCase
         $this->assertSame('happycat', $this->entry->bestFriendId);
         $this->assertSame('garfield', $this->entry['enemyId']);
     }
-    
+
     public function testIdGetterInvalidField()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Trying to access non existent field \"invalidFieldId\" on an entry with content type \"Cat\" (\"cat\").");
+        $this->expectExceptionMessage('Trying to access non existent field "invalidFieldId" on an entry with content type "Cat" ("cat").');
         $this->entry->get('invalidFieldId');
     }
 
@@ -407,39 +407,39 @@ class EntryTest extends TestCase
         $this->assertSame(['rainbows', 'fish'], $entry->likes);
         $this->assertSame(['rainbows', 'fish'], $entry['likes']);
     }
-    
+
     public function testNonExistingMethod()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Trying to access non existent field \"noSuchMethod\" on an entry with content type \"Cat\" (\"cat\").");
+        $this->expectExceptionMessage('Trying to access non existent field "noSuchMethod" on an entry with content type "Cat" ("cat").');
         $this->entry->noSuchMethod();
     }
-    
+
     public function testNonExistingField()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Trying to access non existent field \"NoSuchField\" on an entry with content type \"Cat\" (\"cat\").");
+        $this->expectExceptionMessage('Trying to access non existent field "NoSuchField" on an entry with content type "Cat" ("cat").');
         $this->entry->getNoSuchField();
     }
-    
+
     public function testGetIdOnNonLinkField()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Trying to access non existent field \"BirthdayId\" on an entry with content type \"Cat\" (\"cat\").");
+        $this->expectExceptionMessage('Trying to access non existent field "BirthdayId" on an entry with content type "Cat" ("cat").');
         $this->entry->getBirthdayId();
     }
-    
+
     public function testOffsetSetThrows()
     {
         $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage("Entry class does not support setting fields.");
+        $this->expectExceptionMessage('Entry class does not support setting fields.');
         $this->entry['fieldName'] = 'someValue';
     }
-    
+
     public function testOffsetUnsetThrows()
     {
         $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage("Entry class does not support unsetting fields.");
+        $this->expectExceptionMessage('Entry class does not support unsetting fields.');
         unset($this->entry['fieldName']);
     }
 
@@ -547,11 +547,11 @@ class EntryTest extends TestCase
         $this->assertSame('Nyan vIghro\'', $this->entry->getName('tlh'));
         $this->assertSame('Nyan vIghro\'', $this->entry->get('name', 'tlh'));
     }
-    
+
     public function testAccessNonLocalizedFieldWithNonDefaultLocale()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Trying to access the non-localized field \"Likes\" on content type \"Cat\" using the non-default locale \"tlh\".");
+        $this->expectExceptionMessage('Trying to access the non-localized field "Likes" on content type "Cat" using the non-default locale "tlh".');
         $this->entry->get('likes', 'tlh');
     }
 

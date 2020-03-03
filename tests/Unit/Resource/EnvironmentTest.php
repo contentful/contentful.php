@@ -39,19 +39,18 @@ class EnvironmentTest extends TestCase
         $this->assertSame($localeIt, $environment->getDefaultLocale());
         $this->assertSame($localeEn, $environment->getLocale('en-US'));
     }
-    
+
     public function testInvalidLocale()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("No locale with code \"invalid\" exists in this environment.");
+        $this->expectExceptionMessage('No locale with code "invalid" exists in this environment.');
         MockEnvironment::withSys('master', ['locales' => []])->getLocale('invalid');
     }
 
-    
     public function testInvalidDefault()
     {
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage("No locale marked as default exists in this environment.");
+        $this->expectExceptionMessage('No locale marked as default exists in this environment.');
         MockEnvironment::withSys('master', ['locales' => []])
             ->getDefaultLocale()
         ;
