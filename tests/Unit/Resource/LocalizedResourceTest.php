@@ -52,12 +52,12 @@ class LocalizedResourceTest extends TestCase
         $this->assertSame('it-IT', $resource->getLocale());
     }
 
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to use invalid locale "fr-FR", available locales are "it-IT, en-US".
-     */
+    
     public function testSetGetLocaleInvalid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Trying to use invalid locale \"fr-FR\", available locales are \"it-IT, en-US\".");
+        
         $resource = new MockLocalizedResource([
             new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
             new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
@@ -66,12 +66,12 @@ class LocalizedResourceTest extends TestCase
         $resource->setLocale('fr-FR');
     }
 
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Entry with ID "resourceId" was built using locale "it-IT", but now access using locale "en-US" is being attempted.
-     */
+    
     public function testAccessInvalidLocale()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Entry with ID \"resourceId\" was built using locale \"it-IT\", but now access using locale \"en-US\" is being attempted.");
+        
         $resource = new MockLocalizedResource([
             new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
             new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
@@ -112,13 +112,12 @@ class LocalizedResourceTest extends TestCase
 
         $this->assertSame('it-IT', $resource->getLocaleFromInput($itLocale));
     }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to use invalid locale "en-GB", available locales are "it-IT, en-US".
-     */
+    
     public function testGetLocaleFromInputInvalid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Trying to use invalid locale \"en-GB\", available locales are \"it-IT, en-US\".");
+        
         $resource = new MockLocalizedResource([
             new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),
             new MockLocale(['code' => 'en-US', 'name' => 'English (United States)', 'default' => true]),
@@ -127,12 +126,12 @@ class LocalizedResourceTest extends TestCase
         $resource->getLocaleFromInput('en-GB');
     }
 
-    /**
-     * @expectedException        \RuntimeException
-     * @expectedExceptionMessage Possible endless loop when trying to walk the locale fallback chain.
-     */
+    
     public function testInfiniteLoopDetected()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("Possible endless loop when trying to walk the locale fallback chain.");
+        
         $environment = new MockEnvironment([
             'locales' => [
                 new MockLocale(['code' => 'it-IT', 'name' => 'Italian (Italy)', 'fallbackCode' => 'en-US']),

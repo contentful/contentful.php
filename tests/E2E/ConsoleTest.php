@@ -76,13 +76,13 @@ class ConsoleTest extends TestCase
         $this->assertTrue($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.ContentType.dog.__ALL__'));
         $this->assertTrue($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.ContentType.human.__ALL__'));
     }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Cache item pool factory must implement "Contentful\Delivery\Cache\CacheItemPoolFactoryInterface".
-     */
+    
     public function testCacheWarmupInvalidFactory()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Cache item pool factory must implement \"Contentful\Delivery\Cache\CacheItemPoolFactoryInterface\".");
+        
+        
         $this->getConsoleOutput('delivery:cache:warmup', [
             '--access-token' => 'b4c0n73n7fu1',
             '--space-id' => 'cfexampleapi',
@@ -93,11 +93,12 @@ class ConsoleTest extends TestCase
 
     /**
      * @vcr console_cache_warmup_not_working.json
-     * @expectedException        \RuntimeException
-     * @expectedExceptionMessage The SDK could not warm up the cache. Try checking your PSR-6 implementation (class "Contentful\Tests\Delivery\Implementation\NotWorkingCachePool").
      */
     public function testCacheWarmupNotWorking()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("The SDK could not warm up the cache. Try checking your PSR-6 implementation (class \"Contentful\Tests\Delivery\Implementation\NotWorkingCachePool\").");
+        
         $this->getConsoleOutput('delivery:cache:warmup', [
             '--access-token' => 'b4c0n73n7fu1',
             '--space-id' => 'cfexampleapi',
@@ -142,13 +143,12 @@ class ConsoleTest extends TestCase
         $cachePool = CacheItemPoolFactory::$pools['PREVIEW.cfexampleapi.master'];
         $this->assertFalse($cachePool->hasItem('contentful.PREVIEW.cfexampleapi.master.Space.cfexampleapi.__ALL__'));
     }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Cache item pool factory must implement "Contentful\Delivery\Cache\CacheItemPoolFactoryInterface".
-     */
+    
     public function testCacheClearInvalidFactory()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Cache item pool factory must implement \"Contentful\Delivery\Cache\CacheItemPoolFactoryInterface\".");
+        
         $this->getConsoleOutput('delivery:cache:clear', [
             '--access-token' => 'b4c0n73n7fu1',
             '--space-id' => 'cfexampleapi',
@@ -159,11 +159,12 @@ class ConsoleTest extends TestCase
 
     /**
      * @vcr console_cache_clear_not_working.json
-     * @expectedException        \RuntimeException
-     * @expectedExceptionMessage The SDK could not clear the cache. Try checking your PSR-6 implementation (class "Contentful\Tests\Delivery\Implementation\NotWorkingCachePool").
      */
     public function testCacheClearNotWorking()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("The SDK could not clear the cache. Try checking your PSR-6 implementation (class \"Contentful\Tests\Delivery\Implementation\NotWorkingCachePool\").");
+        
         $this->getConsoleOutput('delivery:cache:clear', [
             '--access-token' => 'b4c0n73n7fu1',
             '--space-id' => 'cfexampleapi',

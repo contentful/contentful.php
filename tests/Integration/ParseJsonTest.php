@@ -22,7 +22,7 @@ class ParseJsonTest extends TestCase
      */
     private $client;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->client = $this->getJsonDecoderClient('cfexampleapi', 'master');
 

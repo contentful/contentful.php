@@ -23,12 +23,11 @@ class QueryTest extends TestCase
 
         $this->assertSame('initial=true', $query->getQueryString());
     }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
+    
     public function testSetTypeInvalidValue()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         (new Query())
             ->setType('Invalid')
         ;

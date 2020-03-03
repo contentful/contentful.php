@@ -73,11 +73,14 @@ class EntryLocaleTest extends TestCase
 
     /**
      * @vcr entry_locale_get_from_client.json
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Entry with ID "nyancat" was built using locale "tlh", but now access using locale "en-US" is being attempted.
      */
     public function testGetFromClient()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Entry with ID \"nyancat\" was built using locale \"tlh\", but now access using locale \"en-US\" is being attempted.");
+        
+        
+        
         $client = $this->getClient('default_klingon');
 
         $query = (new Query())

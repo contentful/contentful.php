@@ -20,12 +20,11 @@ use Contentful\Tests\Delivery\TestCase;
 
 class InvalidBuilderTypeTest extends TestCase
 {
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Unexpected system type "invalidType" while trying to build a resource.
-     */
     public function testExceptionOnInvalidSysType()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Unexpected system type \"invalidType\" while trying to build a resource.");
+        
         $builder = new ResourceBuilder(
             new MockClient(),
             new MockResourcePool(),

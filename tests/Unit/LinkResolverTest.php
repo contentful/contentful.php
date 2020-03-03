@@ -61,13 +61,12 @@ class LinkResolverTest extends TestCase
         $this->assertInstanceOf(Space::class, $resource);
         $this->assertSame($spaceId, $resource->getId());
     }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to resolve link for unknown type "InvalidType".
-     */
+    
     public function testInvalidLink()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Trying to resolve link for unknown type \"InvalidType\".");
+        
         $linkResolver = new LinkResolver(new MockClient(), new MockResourcePool());
 
         $linkResolver->resolveLink(new Link('irrelevant', 'InvalidType'));
@@ -95,13 +94,12 @@ class LinkResolverTest extends TestCase
         $this->assertInstanceOf(ContentType::class, $results[3]);
         $this->assertInstanceOf(Asset::class, $results[4]);
     }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to resolve link for unknown type "InvalidType".
-     */
+    
     public function testInvalidLinkCollection()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Trying to resolve link for unknown type \"InvalidType\".");
+        
         $linkResolver = new LinkResolver(new MockClient(), new MockResourcePool());
 
         $linkResolver->resolveLinkCollection([new Link('irrelevant', 'InvalidType')], []);

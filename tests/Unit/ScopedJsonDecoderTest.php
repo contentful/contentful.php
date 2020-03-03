@@ -21,54 +21,48 @@ class ScopedJsonDecoderTest extends TestCase
      */
     private $scopedJsonDecoder;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->scopedJsonDecoder = new ScopedJsonDecoder('cfexampleapi', 'master');
 
         parent::setUp();
     }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
+    
     public function testParseJsonInvalid()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->scopedJsonDecoder->decode('{"sys": {"type": "}}');
     }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi" and environment "master", but space "wrongspace" and environment "master" were detected.
-     */
+    
     public function testParseJsonSpaceMismatch()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Trying to parse and build a JSON structure with a client configured for handling space \"cfexampleapi\" and environment \"master\", but space \"wrongspace\" and environment \"master\" were detected.");
+        
         $this->scopedJsonDecoder->decode($this->getFixtureContent('space_mismatch.json'));
     }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi" and environment "master", but space "wrongspace" and environment "master" were detected.
-     */
+    
     public function testParseJsonContentTypeSpaceMismatch()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Trying to parse and build a JSON structure with a client configured for handling space \"cfexampleapi\" and environment \"master\", but space \"wrongspace\" and environment \"master\" were detected.");
+        
         $this->scopedJsonDecoder->decode($this->getFixtureContent('content_type_space_mismatch.json'));
     }
-
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi" and environment "master", but space "[blank]" and environment "master" were detected.
-     */
+    
     public function testParseJsonEmptyObject()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Trying to parse and build a JSON structure with a client configured for handling space \"cfexampleapi\" and environment \"master\", but space \"[blank]\" and environment \"master\" were detected.");
+        
         $this->scopedJsonDecoder->decode('{}');
     }
 
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to parse and build a JSON structure with a client configured for handling space "cfexampleapi" and environment "master", but space "invalidSpace" and environment "invalidEnvironment" were detected.
-     */
     public function testParseJsonInvalidArray()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Trying to parse and build a JSON structure with a client configured for handling space \"cfexampleapi\" and environment \"master\", but space \"invalidSpace\" and environment \"invalidEnvironment\" were detected.");
+        
         $this->scopedJsonDecoder->decode($this->getFixtureContent('invalid_array.json'));
     }
 }
