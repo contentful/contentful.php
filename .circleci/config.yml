@@ -58,7 +58,7 @@ jobs:
 
   test74:
     docker:
-      - image: circleci/php:7.3-cli
+      - image: circleci/php:7.4-cli
     steps:
       - checkout
       - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist" }
