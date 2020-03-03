@@ -5,10 +5,9 @@ workflows:
   lint_and_test:
     jobs:
       - lint
-      - test70
-      - test71
       - test72
       - test73
+      - test74
 
 jobs:
   lint:
@@ -27,22 +26,6 @@ jobs:
           command: |
             wget https://github.com/phpstan/phpstan/releases/download/0.10.3/phpstan.phar -q -O phpstan.phar
             composer run lint-static-analysis
-
-  test70:
-    docker:
-      - image: circleci/php:7.0-cli
-    steps:
-      - checkout
-      - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist" }
-      - run: { name: "Test suite", command: "composer test-quick-fail" }
-
-  test71:
-    docker:
-      - image: circleci/php:7.1-cli
-    steps:
-      - checkout
-      - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist" }
-      - run: { name: "Test suite", command: "composer test-quick-fail" }
 
   test72:
     environment:
@@ -66,6 +49,14 @@ jobs:
             ./cc-test-reporter after-build --coverage-input-type clover --exit-code $?
 
   test73:
+    docker:
+      - image: circleci/php:7.3-cli
+    steps:
+      - checkout
+      - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist" }
+      - run: { name: "Test suite", command: "composer test-quick-fail" }
+
+  test74:
     docker:
       - image: circleci/php:7.3-cli
     steps:
