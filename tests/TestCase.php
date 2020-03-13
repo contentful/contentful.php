@@ -27,7 +27,7 @@ class TestCase extends BaseTestCase
      */
     protected static $cache;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$cache = new ArrayCachePool();
     }

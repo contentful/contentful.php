@@ -56,7 +56,7 @@ class AssetTest extends TestCase
         ]);
     }
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->space = MockSpace::withSys('spaceId');
         $this->environment = $this->createMockEnvironment();
@@ -156,21 +156,17 @@ class AssetTest extends TestCase
         $this->assertSame('A picture of Nyan Cat', $asset->getDescription('en-US'));
     }
 
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to use invalid locale "xyz", available locales are "en-US, tlh, it-IT".
-     */
     public function testGetTitleWithInvalidLocale()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Trying to use invalid locale "xyz", available locales are "en-US, tlh, it-IT".');
         $this->asset->getTitle('xyz');
     }
 
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage Trying to use invalid locale "xyz", available locales are "en-US, tlh, it-IT".
-     */
     public function testGetDescriptionWithInvalidLocale()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Trying to use invalid locale "xyz", available locales are "en-US, tlh, it-IT".');
         $this->asset->getDescription('xyz');
     }
 

@@ -63,11 +63,12 @@ class SyncTest extends TestCase
 
     /**
      * @vcr sync_preview_continue.json
-     * @expectedException \RuntimeException
      */
     public function testPreviewContinue()
     {
         $this->skipIfApiCoverage();
+
+        $this->expectException(\RuntimeException::class);
 
         $manager = $this->getClient('default_preview')
             ->getSynchronizationManager()
