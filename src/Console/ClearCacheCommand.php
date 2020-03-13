@@ -44,5 +44,7 @@ class ClearCacheCommand extends BaseCacheCommand
             $this->client->getEnvironmentId(),
             $this->client->getApi()
         ));
+
+        return 0;
     }
 }
