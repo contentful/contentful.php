@@ -336,22 +336,22 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         $locale = $locale ?: $this->defaultLocale;
 
         if ($this->currentDepth > self::MAX_DEPTH) {
-            $this->currentDepth = 1;
-
             /** @var Entry $entry */
             $entry = $this->resourcePool->get('Entry', $entryId, ['locale' => $locale]);
         } else {
             ++$this->currentDepth;
-            /** @var Entry $entry */
-            $entry = $this->requestWithCache(
-                '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries/'.$entryId,
-                ['locale' => $locale],
-                'Entry',
-                $entryId,
-                $this->getLocaleForCacheKey($locale)
-            );
-
-            --$this->currentDepth;
+            try {
+                /** @var Entry $entry */
+                $entry = $this->requestWithCache(
+                    '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries/'.$entryId,
+                    ['locale' => $locale],
+                    'Entry',
+                    $entryId,
+                    $this->getLocaleForCacheKey($locale)
+                );
+            } finally {
+                --$this->currentDepth;
+            }
         }
 
         return $entry;
