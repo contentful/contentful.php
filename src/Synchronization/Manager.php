@@ -137,7 +137,11 @@ class Manager
         $url = $data['nextSyncUrl'] ?? $data['nextPageUrl'];
 
         $queryValues = [];
-        \parse_str(\parse_url($url, \PHP_URL_QUERY), $queryValues);
+        $parsedUrl = \parse_url($url, \PHP_URL_QUERY);
+        if (null === $parsedUrl) {
+            $parsedUrl = '';
+        }
+        \parse_str($parsedUrl, $queryValues);
 
         return $queryValues['sync_token'];
     }

@@ -66,7 +66,7 @@ class Entry extends BaseMapper
     private function buildFields(
         ResourceContentType $contentType,
         array $fields,
-        ResourceClass $previous = null
+        $previous = null
     ): array {
         if ($previous) {
             $fields = $this->mergePreviousFields($fields, $previous);
