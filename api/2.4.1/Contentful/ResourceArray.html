@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Contentful\ResourceArray | Contentful CDA SDK for PHP</title>
+
+            <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/sami.css">
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/typeahead.min.js"></script>
+        <script src="../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:Contentful_ResourceArray" data-root-path="../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                    <form action="#" method="GET">
+                <select id="version-switcher" name="version">
+                                            <option value="../../0.6.0-beta/index.html" data-version="0.6.0-beta">0.6.0-beta</option>
+                                            <option value="../../0.6.1-beta/index.html" data-version="0.6.1-beta">0.6.1-beta</option>
+                                            <option value="../../0.6.2-beta/index.html" data-version="0.6.2-beta">0.6.2-beta</option>
+                                            <option value="../../0.6.3-beta/index.html" data-version="0.6.3-beta">0.6.3-beta</option>
+                                            <option value="../../0.6.4-beta/index.html" data-version="0.6.4-beta">0.6.4-beta</option>
+                                            <option value="../../0.6.5-beta/index.html" data-version="0.6.5-beta">0.6.5-beta</option>
+                                            <option value="../../0.7.0-beta/index.html" data-version="0.7.0-beta">0.7.0-beta</option>
+                                            <option value="../../0.8.0-beta/index.html" data-version="0.8.0-beta">0.8.0-beta</option>
+                                            <option value="../../0.8.1-beta/index.html" data-version="0.8.1-beta">0.8.1-beta</option>
+                                            <option value="../../1.0.0/index.html" data-version="1.0.0">1.0.0</option>
+                                            <option value="../../1.1.0/index.html" data-version="1.1.0">1.1.0</option>
+                                            <option value="../../1.2.0/index.html" data-version="1.2.0">1.2.0</option>
+                                            <option value="../../2.0.0/index.html" data-version="2.0.0">2.0.0</option>
+                                            <option value="../../2.0.1/index.html" data-version="2.0.1">2.0.1</option>
+                                            <option value="../../2.1.0/index.html" data-version="2.1.0">2.1.0</option>
+                                            <option value="../../2.2.0/index.html" data-version="2.2.0">2.2.0</option>
+                                            <option value="../../2.3.0/index.html" data-version="2.3.0">2.3.0</option>
+                                            <option value="../../2.4.0/index.html" data-version="2.4.0">2.4.0</option>
+                                            <option value="../../2.4.1/index.html" data-version="2.4.1">2.4.1</option>
+                                            <option value="../../3.0.0-beta1/index.html" data-version="3.0.0-beta1">3.0.0-beta1</option>
+                                            <option value="../../3.0.0/index.html" data-version="3.0.0">3.0.0</option>
+                                            <option value="../../3.0.1/index.html" data-version="3.0.1">3.0.1</option>
+                                            <option value="../../3.0.2/index.html" data-version="3.0.2">3.0.2</option>
+                                            <option value="../../3.1.0/index.html" data-version="3.1.0">3.1.0</option>
+                                            <option value="../../3.2.0/index.html" data-version="3.2.0">3.2.0</option>
+                                            <option value="../../3.2.1/index.html" data-version="3.2.1">3.2.1</option>
+                                            <option value="../../3.2.2/index.html" data-version="3.2.2">3.2.2</option>
+                                            <option value="../../3.2.3/index.html" data-version="3.2.3">3.2.3</option>
+                                            <option value="../../3.3.0/index.html" data-version="3.3.0">3.3.0</option>
+                                            <option value="../../3.4.0/index.html" data-version="3.4.0">3.4.0</option>
+                                            <option value="../../4.0.0/index.html" data-version="4.0.0">4.0.0</option>
+                                            <option value="../../4.0.1/index.html" data-version="4.0.1">4.0.1</option>
+                                            <option value="../../4.0.2/index.html" data-version="4.0.2">4.0.2</option>
+                                            <option value="../../4.1.0/index.html" data-version="4.1.0">4.1.0</option>
+                                            <option value="../../4.1.1/index.html" data-version="4.1.1">4.1.1</option>
+                                            <option value="../../4.1.2/index.html" data-version="4.1.2">4.1.2</option>
+                                            <option value="../../4.1.3/index.html" data-version="4.1.3">4.1.3</option>
+                                            <option value="../../4.1.4/index.html" data-version="4.1.4">4.1.4</option>
+                                            <option value="../../5.0.0/index.html" data-version="5.0.0">5.0.0</option>
+                                            <option value="../../5.0.2/index.html" data-version="5.0.2">5.0.2</option>
+                                            <option value="../../6.0.0/index.html" data-version="6.0.0">6.0.0</option>
+                                            <option value="../../6.0.1/index.html" data-version="6.0.1">6.0.1</option>
+                                            <option value="../../6.0.2/index.html" data-version="6.0.2">6.0.2</option>
+                                            <option value="../../6.0.3/index.html" data-version="6.0.3">6.0.3</option>
+                                            <option value="../../master/index.html" data-version="master">Master branch</option>
+                                    </select>
+            </form>
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Contentful CDA SDK for PHP</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../classes.html">Classes</a></li>
+                                            <li><a href="../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../interfaces.html">Interfaces</a></li>
+                    <li><a href="../traits.html">Traits</a></li>
+                    <li><a href="../doc-index.html">Index</a></li>
+                    <li><a href="../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                        <li><a href="../Contentful.html">Contentful</a></li><li class="backslash">\</li><li>ResourceArray</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            ResourceArray
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>ResourceArray</strong>        implements
+        <a target="_blank" href="http://php.net/Countable">Countable</a>, <a target="_blank" href="http://php.net/ArrayAccess">ArrayAccess</a>, <a target="_blank" href="http://php.net/IteratorAggregate">IteratorAggregate</a>, <a target="_blank" href="http://php.net/JsonSerializable">JsonSerializable</a>
+</p>
+
+        
+    
+
+            <div class="description">
+            <p>A ResourceArray holds the response of an API request if more than one resource has been requested.</p>            <p>In addition to the retrieved items themselves it also provides some access to metadata.</p>                    </div>
+    
+    
+    
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___construct">__construct</a>(array $items, int $total, int $limit, int $skip)
+        
+                                            <p>ResourceArray constructor.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    int
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTotal">getTotal</a>()
+        
+                                            <p>Returns the total amount of resources matching the filter.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    int
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getLimit">getLimit</a>()
+        
+                                            <p>The limit used when retrieving this ResourceArray.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    int
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getSkip">getSkip</a>()
+        
+                                            <p>The number of skipped resources when retrieving this  ResourceArray.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getItems">getItems</a>()
+        
+                                            <p>Get the returned values as a PHP array.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    object
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_jsonSerialize">jsonSerialize</a>()
+        
+                                            <p>Returns an object to be used by <code>json_encode</code> to serialize objects of this class.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    int
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_count">count</a>()
+        
+                                            <p>Returns the number of resources in this array.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a target="_blank" href="http://php.net/Traversable">Traversable</a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getIterator">getIterator</a>()
+        
+                                            <p>Returns a \Traversable to allow iterating the ResourceArray.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_offsetExists">offsetExists</a>(mixed $offset)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    mixed
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_offsetGet">offsetGet</a>(mixed $offset)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_offsetSet">offsetSet</a>(mixed $offset, mixed $value)
+        
+                                            <p>This method is not implemented since a ResourceArray is read-only.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_offsetUnset">offsetUnset</a>(mixed $offset)
+        
+                                            <p>This method is not implemented since a ResourceArray is read-only.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at         line 47</div>
+        <code>                    
+    <strong>__construct</strong>(array $items, int $total, int $limit, int $skip)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>ResourceArray constructor.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$items</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$total</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$limit</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$skip</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getTotal">
+        <div class="location">at         line 60</div>
+        <code>                    int
+    <strong>getTotal</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the total amount of resources matching the filter.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getLimit">
+        <div class="location">at         line 70</div>
+        <code>                    int
+    <strong>getLimit</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>The limit used when retrieving this ResourceArray.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getSkip">
+        <div class="location">at         line 80</div>
+        <code>                    int
+    <strong>getSkip</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>The number of skipped resources when retrieving this  ResourceArray.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getItems">
+        <div class="location">at         line 90</div>
+        <code>                    array
+    <strong>getItems</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the returned values as a PHP array.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_jsonSerialize">
+        <div class="location">at         line 102</div>
+        <code>                    object
+    <strong>jsonSerialize</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns an object to be used by <code>json_encode</code> to serialize objects of this class.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>object</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="http://php.net/manual/en/jsonserializable.jsonserialize.php">http://php.net/manual/en/jsonserializable.jsonserialize.php</a>
+                                    </td>
+                <td>JsonSerializable::jsonSerialize</td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_count">
+        <div class="location">at         line 122</div>
+        <code>                    int
+    <strong>count</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the number of resources in this array.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="http://php.net/manual/en/countable.count.php">http://php.net/manual/en/countable.count.php</a>
+                                    </td>
+                <td>Countable::count</td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getIterator">
+        <div class="location">at         line 134</div>
+        <code>                    <a target="_blank" href="http://php.net/Traversable">Traversable</a>
+    <strong>getIterator</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a \Traversable to allow iterating the ResourceArray.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a target="_blank" href="http://php.net/Traversable">Traversable</a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="http://php.net/manual/en/iteratoraggregate.getiterator.php">http://php.net/manual/en/iteratoraggregate.getiterator.php</a>
+                                    </td>
+                <td>IteratorAggregate::getIterator</td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_offsetExists">
+        <div class="location">at         line 146</div>
+        <code>                    bool
+    <strong>offsetExists</strong>(mixed $offset)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>mixed</td>
+                <td>$offset</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="http://php.net/manual/en/arrayaccess.offsetexists.php">http://php.net/manual/en/arrayaccess.offsetexists.php</a>
+                                    </td>
+                <td>ArrayAccess::offsetExists</td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_offsetGet">
+        <div class="location">at         line 158</div>
+        <code>                    mixed
+    <strong>offsetGet</strong>(mixed $offset)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>mixed</td>
+                <td>$offset</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>mixed</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="http://php.net/manual/en/arrayaccess.offsetget.php">http://php.net/manual/en/arrayaccess.offsetget.php</a>
+                                    </td>
+                <td>ArrayAccess::offsetGet</td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_offsetSet">
+        <div class="location">at         line 173</div>
+        <code>                    
+    <strong>offsetSet</strong>(mixed $offset, mixed $value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This method is not implemented since a ResourceArray is read-only.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>mixed</td>
+                <td>$offset</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/BadMethodCallException">BadMethodCallException</a></td>
+                <td>always thrown since ResourceArray is read-only</td>
+            </tr>
+            </table>
+
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="http://php.net/manual/en/arrayaccess.offsetset.php">http://php.net/manual/en/arrayaccess.offsetset.php</a>
+                                    </td>
+                <td>ArrayAccess::offsetSet</td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_offsetUnset">
+        <div class="location">at         line 187</div>
+        <code>                    
+    <strong>offsetUnset</strong>(mixed $offset)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This method is not implemented since a ResourceArray is read-only.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>mixed</td>
+                <td>$offset</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/BadMethodCallException">BadMethodCallException</a></td>
+                <td>always thrown since ResourceArray is read-only</td>
+            </tr>
+            </table>
+
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="http://php.net/manual/en/arrayaccess.offsetunset.php">http://php.net/manual/en/arrayaccess.offsetunset.php</a>
+                                    </td>
+                <td>ArrayAccess::offsetUnset</td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>
