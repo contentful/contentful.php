@@ -8,28 +8,6 @@
  */
 
 declare(strict_types=1);
-
-/**
- * Version 3 of the SDK moves some classes to a different location.
- * This file provides an easy drop-in compatibility layer which allows you
- * to not having to worry about renaming all classes.
- * Bear in mind, this is *not* the recommended approach.
- * A simple search/replace in your project should be enough to adapt to the new changes.
- * If for whatever reason you don't want to do that, you can include this file
- * in the "autoload" section of your composer.json file.
- *
- * {
- *     // ...
- *     "autoload": {
- *         // ...
- *         "files": ["vendor/contentful/contentful/extra/class_aliases.php"],
- *     }
- * }
- *
- * This file will stay the same throughout the lifecycle of a major version,
- * but its contents could be modified any time a new major version is released
- * and possibly new changes are necessary.
- */
 $classes = [
     'Contentful\\Exception\\AccessTokenInvalidException' => 'Contentful\\Core\\Exception\\AccessTokenInvalidException',
     'Contentful\\Exception\\ApiException' => 'Contentful\\Core\\Api\\Exception',
