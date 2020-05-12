@@ -1,13 +1,26 @@
-version: 2
+orbs:
+  gh-pages: sugarshin/gh-pages@0.0.6
+
+version: 2.1
 
 workflows:
   version: 2
-  lint_and_test:
+  
+  main:
     jobs:
       - lint
       - test72
       - test73
       - test74
+      - docs_build:
+          requires:
+            - lint
+            - test72
+            - test73
+            - test74
+          filters:
+            branches:
+              only: master
 
 jobs:
   lint:
@@ -63,3 +76,15 @@ jobs:
       - checkout
       - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist" }
       - run: { name: "Test suite", command: "composer test-quick-fail" }
+        
+  docs_build:
+    environment:
+      TRAVIS_REPO_SLUG: contentful/contentful.php
+    docker:
+      - image: circleci/php:7.2-cli
+    steps:
+      - checkout
+      - run: {name: "Make docs", command: "sh ./scripts/prepare-docs.sh" }
+      - gh-pages/deploy:
+          build-dir: build/docs
+          ssh-fingerprints: 7b:3b:4d:ee:f1:4d:45:db:8f:51:d6:78:32:fb:12:b2
