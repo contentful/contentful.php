@@ -34,12 +34,16 @@ class ScopedJsonDecoder
         $this->environmentId = $environmentId;
     }
 
-    public function decode(string $json): array
+    public function decode(string $json)
     {
         $data = guzzle_json_decode($json, true);
 
-        $spaceId = $this->extractSpaceId($data);
-        $environmentId = $this->extractEnvironmentId($data);
+        $spaceId = '';
+        $environmentId = '';
+        if (\is_array($data)) {
+            $spaceId = $this->extractSpaceId($data);
+            $environmentId = $this->extractEnvironmentId($data);
+        }
 
         if ($spaceId !== $this->spaceId || $environmentId !== $this->environmentId) {
             throw new \InvalidArgumentException(\sprintf('Trying to parse and build a JSON structure with a client configured for handling space "%s" and environment "%s", but space "%s" and environment "%s" were detected.', $this->spaceId, $this->environmentId, $spaceId, $environmentId));

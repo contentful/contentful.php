@@ -33,6 +33,7 @@ use Contentful\Tests\Delivery\Implementation\MockSpace;
 use Contentful\Tests\Delivery\TestCase;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 class EntryTest extends TestCase
 {
@@ -158,7 +159,7 @@ class EntryTest extends TestCase
                     }
                 }
 
-                throw new NotFoundException(new ClientException('Exception message', new Request('GET', '')));
+                throw new NotFoundException(new ClientException('Exception message', new Request('GET', ''), new Response()));
             }
 
             public function resolveLinkCollection(array $links, string $locale = null): array

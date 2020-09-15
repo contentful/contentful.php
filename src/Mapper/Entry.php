@@ -41,7 +41,7 @@ class Entry extends BaseMapper
         foreach ($data['fields'] ?? [] as $name => $value) {
             // If the value is an empty array, and no locale was used,
             // we remove the value as the entry itself will handle default values.
-            if (!$locale && $value === []) {
+            if (!$locale && [] === $value) {
                 unset($data['fields'][$name]);
                 continue;
             }
