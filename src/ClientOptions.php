@@ -60,6 +60,11 @@ class ClientOptions
     private $usesLowMemoryResourcePool = false;
 
     /**
+     * @var bool
+     */
+    private $messageLogging = true;
+
+    /**
      * ClientOptions constructor.
      */
     public function __construct()
@@ -207,5 +212,17 @@ class ClientOptions
     public function usesLowMemoryResourcePool(): bool
     {
         return $this->usesLowMemoryResourcePool;
+    }
+
+    public function withoutMessageLogging(): self
+    {
+        $this->messageLogging = false;
+
+        return $this;
+    }
+
+    public function usesMessageLogging(): bool
+    {
+        return $this->messageLogging;
     }
 }

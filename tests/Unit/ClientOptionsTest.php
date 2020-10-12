@@ -32,6 +32,7 @@ class ClientOptionsTest extends TestCase
         $this->assertFalse($options->hasCacheContent());
         $this->assertNull($options->getDefaultLocale());
         $this->assertFalse($options->usesLowMemoryResourcePool());
+        $this->assertTrue($options->usesMessageLogging());
     }
 
     public function testGetSet()
@@ -69,5 +70,8 @@ class ClientOptionsTest extends TestCase
 
         $options->withNormalResourcePool();
         $this->assertFalse($options->usesLowMemoryResourcePool());
+
+        $options->withoutMessageLogging();
+        $this->assertFalse($options->usesMessageLogging());
     }
 }
