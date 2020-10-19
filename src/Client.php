@@ -148,7 +148,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         $this->richTextParser = new Parser($this->linkResolver);
         $this->builder = new ResourceBuilder($this, $this->resourcePool, $this->richTextParser);
 
-        parent::__construct($token, $options->getHost(), $options->getLogger(), $options->getHttpClient());
+        parent::__construct($token, $options->getHost(), $options->getLogger(), $options->getHttpClient(), $options->usesMessageLogging());
     }
 
     /**

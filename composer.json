@@ -16,7 +16,7 @@
         "phpunit/phpunit": "^8.5",
         "php-vcr/phpunit-testlistener-vcr": "3.0.0|^3.2",
         "cache/array-adapter": "^1.0",
-        "php-vcr/php-vcr": "dev-issues/289 as 1.4.5"
+        "php-vcr/php-vcr": "^1.5"
     },
     "autoload": {
         "psr-4": {
