@@ -3,11 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/6.0.4...HEAD)
+## [Unreleased](https://github.com/contentful/contentful.php/compare/6.0.5...HEAD)
 
 <!-- PENDING-CHANGES -->
 > No meaningful changes since last release.
 <!-- /PENDING-CHANGES -->
+
+## [6.0.5](https://github.com/contentful/contentful.php/tree/6.0.5) (2020-10-19)
+
+## Added
+
+> withoutMessageLogging option
 
 ## [6.0.4](https://github.com/contentful/contentful.php/tree/6.0.4) (2020-09-15)
 
