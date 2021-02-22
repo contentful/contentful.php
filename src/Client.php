@@ -145,8 +145,6 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         $this->resourcePool = Factory::create($this, $options);
         $this->scopedJsonDecoder = new ScopedJsonDecoder($this->spaceId, $this->environmentId);
         $this->linkResolver = new LinkResolver($this, $this->resourcePool);
-        $this->richTextParser = new Parser($this->linkResolver);
-        $this->builder = new ResourceBuilder($this, $this->resourcePool, $this->richTextParser);
 
         parent::__construct($token, $options->getHost(), $options->getLogger(), $options->getHttpClient(), $options->usesMessageLogging());
     }
@@ -171,11 +169,19 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
 
     public function getResourceBuilder(): ResourceBuilderInterface
     {
+        if ($this->builder === null) {
+            $this->builder = new ResourceBuilder($this, $this->getResourcePool(), $this->getRichTextParser());
+        }
+
         return $this->builder;
     }
 
     public function getRichTextParser(): Parser
     {
+        if ($this->richTextParser === null) {
+            $this->richTextParser = new Parser($this->linkResolver);
+        }
+
         return $this->richTextParser;
     }
 
@@ -323,7 +329,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         ];
 
         /** @var Environment $environment */
-        $environment = $this->builder->build($environmentData);
+        $environment = $this->getResourceBuilder()->build($environmentData);
 
         return $environment;
     }
@@ -394,7 +400,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
             // An edge case with environments might result in space data not being available.
             // As it *is* technically needed, we provide a fake space object.
             /** @var Space $space */
-            $space = $this->builder->build([
+            $space = $this->getResourceBuilder()->build([
                 'sys' => [
                     'id' => $this->spaceId,
                     'type' => 'Space',
@@ -435,7 +441,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
      */
     public function parseJson(string $json)
     {
-        return $this->builder->build(
+        return $this->getResourceBuilder()->build(
             $this->scopedJsonDecoder->decode($json)
         );
     }
@@ -461,7 +467,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
      */
     public function getSynchronizationManager(): Manager
     {
-        return new Manager($this, $this->builder, $this->isDeliveryApi);
+        return new Manager($this, $this->getResourceBuilder(), $this->isDeliveryApi);
     }
 
     /**
@@ -481,7 +487,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     {
         $response = $this->callApi('GET', $uri, $options);
 
-        return $this->builder->build($response);
+        return $this->getResourceBuilder()->build($response);
     }
 
     /**
