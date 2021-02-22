@@ -76,7 +76,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     /**
      * @var ResourceBuilderInterface
      */
-    private $builder;
+    protected $builder;
 
     /**
      * @var ResourcePoolInterface
@@ -116,7 +116,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     /**
      * @var Parser
      */
-    private $richTextParser;
+    protected $richTextParser;
 
     /**
      * Client constructor.
