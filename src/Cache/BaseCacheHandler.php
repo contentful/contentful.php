@@ -49,7 +49,7 @@ abstract class BaseCacheHandler
     }
 
     /**
-     * @return ResourceInterface[]
+     * @return \Generator|ResourceInterface[]
      */
     protected function fetchResources(bool $cacheContent = false)
     {
