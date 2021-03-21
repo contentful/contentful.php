@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2020 Contentful GmbH
+ * @copyright 2015-2021 Contentful GmbH
  * @license   MIT
  */
 
@@ -42,7 +42,7 @@ use Contentful\RichText\Parser;
  */
 class Client extends BaseClient implements ClientInterface, SynchronizationClientInterface, JsonDecoderClientInterface
 {
-    const MAX_DEPTH = 20;
+    public const MAX_DEPTH = 20;
 
     /**
      * @var int
@@ -52,26 +52,26 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     /**
      * @var string
      */
-    const API_DELIVERY = 'DELIVERY';
+    public const API_DELIVERY = 'DELIVERY';
 
     /**
      * @var string
      */
-    const API_PREVIEW = 'PREVIEW';
+    public const API_PREVIEW = 'PREVIEW';
 
     /**
      * The URI for the Delivery API.
      *
      * @var string
      */
-    const URI_DELIVERY = 'https://cdn.contentful.com';
+    public const URI_DELIVERY = 'https://cdn.contentful.com';
 
     /**
      * The URI for the Preview API.
      *
      * @var string
      */
-    const URI_PREVIEW = 'https://preview.contentful.com';
+    public const URI_PREVIEW = 'https://preview.contentful.com';
 
     /**
      * @var ResourceBuilderInterface

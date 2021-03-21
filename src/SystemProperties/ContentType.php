@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2020 Contentful GmbH
+ * @copyright 2015-2021 Contentful GmbH
  * @license   MIT
  */
 
@@ -14,10 +14,8 @@ namespace Contentful\Delivery\SystemProperties;
 class ContentType extends BaseSystemProperties
 {
     use Component\EditedTrait;
-    use
-        Component\EnvironmentTrait;
-    use
-        Component\SpaceTrait;
+    use Component\EnvironmentTrait;
+    use Component\SpaceTrait;
 
     /**
      * ContentType constructor.

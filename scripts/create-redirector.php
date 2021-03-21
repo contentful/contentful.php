@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2020 Contentful GmbH
+ * @copyright 2015-2021 Contentful GmbH
  * @license   MIT
  */
 
@@ -27,7 +27,7 @@ $tags = \array_filter($tags, function ($tag) {
     return \version_compare($b, $a);
 });
 
-\array_push($tags, 'master');
+$tags[] = 'master';
 
 $newestTag = $tags[0];
 $repoParts = \explode('/', $travisRepoSlug);
