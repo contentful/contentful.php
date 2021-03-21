@@ -12,6 +12,7 @@ workflows:
       - test72
       - test73
       - test74
+      - test80
       - docs_build:
           requires:
             - lint
@@ -26,7 +27,7 @@ workflows:
 jobs:
   lint:
     docker:
-      - image: circleci/php:7.2-cli
+      - image: circleci/php:7.4-cli
     steps:
       - checkout
       - run: { name: "Install dependencies", command: sudo composer self-update && composer install -n --prefer-dist }
@@ -44,6 +45,7 @@ jobs:
   test72:
     environment:
       CC_TEST_REPORTER_ID: 3e327765f90cbf31f2ce055b1506d4e754fcd766395dca015fa87cc7f7cc469f
+      XDEBUG_MODE: coverage
     docker:
       - image: circleci/php:7.2-cli
     steps:
@@ -77,6 +79,17 @@ jobs:
       - checkout
       - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist" }
       - run: { name: "Test suite", command: "composer test-quick-fail" }
+
+  test80:
+    docker:
+      - image: circleci/php:8.0-cli
+    steps:
+      - checkout
+      # we ignore the php8 platform reqs for now, since php-vcr is not updated for php8, but works
+      # as this is only used for unit tests, running with it should be fine for now
+      - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist --ignore-platform-reqs" }
+      - run: { name: "Test suite", command: "composer test-quick-fail" }
+ 
         
   docs_build:
     environment:

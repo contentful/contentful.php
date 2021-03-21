@@ -4,3 +4,7 @@
 /build/
 /.php_cs.cache
 /clover.xml
+/phpstan.phar
+/.idea/
+/.phpunit.result.cache
+/php-cs-fixer.phar

@@ -4,9 +4,9 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": "^7.2",
+        "php": "^7.2|^8.0",
         "contentful/core": "^3.0",
-        "contentful/rich-text": "^3.1",
+        "contentful/rich-text": "dev-php8-support",
         "psr/cache": "^1.0",
         "symfony/console": "~2.7|~3.0|~4.0|^5.0",
         "symfony/filesystem": "~2.7|~3.0|~4.0|~5.0",
@@ -31,12 +31,6 @@
             "vendor/contentful/core/scripts/TestCase.php"
         ]
     },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/morozov/php-vcr"
-        }
-    ],
     "bin": [
         "bin/contentful"
     ],

@@ -80,7 +80,8 @@ class EntryTest extends TestCase
 
         $hasTriggeredError = false;
         \set_error_handler(function (int $errorNumber, string $message) use (&$hasTriggeredError) {
-            $this->assertSame(0, \error_reporting(\E_USER_DEPRECATED));
+            // I'm not clear why we're checking the INI here, but this is probably not needed right now
+            //$this->assertSame(0, \error_reporting(\E_USER_DEPRECATED));
             $this->assertSame('Entry of content type "Person" ("person") being built contains field "extraField" which is not present in the content type definition. Please check your cache for stale content type definitions.', $message);
             $hasTriggeredError = true;
         }, \E_ALL);
