@@ -197,6 +197,8 @@ For details about how to upgrade from version 2.x to version 3, please check the
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?maxAge=31557600)](http://makeapullrequest.com)
 
+**Important**: Right now, the API has `php-vcr` as a development dependency, which does not officially support PHP8 yet. If you want to develop on PHP8, you will need to install the dependencies with `composer install --ignore-platform-reqs` to overwrite this requirement.
+
 ## License
 
 This repository is published under the [MIT](LICENSE) license.
