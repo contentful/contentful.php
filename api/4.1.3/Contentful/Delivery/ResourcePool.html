@@ -71,6 +71,7 @@
                                             <option value="../../../6.0.3/index.html" data-version="6.0.3">6.0.3</option>
                                             <option value="../../../6.0.4/index.html" data-version="6.0.4">6.0.4</option>
                                             <option value="../../../6.0.5/index.html" data-version="6.0.5">6.0.5</option>
+                                            <option value="../../../6.1.0/index.html" data-version="6.1.0">6.1.0</option>
                                             <option value="../../../master/index.html" data-version="master">Master branch</option>
                                     </select>
             </form>
@@ -229,9 +230,10 @@ skip the process if we track that we're already in the process of doing so.</td>
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method___construct">__construct</a>(<a href="../../Contentful/Delivery/Client/JsonDecoderClientInterface.html"><abbr title="Contentful\Delivery\Client\JsonDecoderClientInterface">JsonDecoderClientInterface</abbr></a> $client, <abbr title="Psr\Cache\CacheItemPoolInterface">CacheItemPoolInterface</abbr> $cacheItemPool, bool $autoWarmup = false, bool $cacheContent = false)
+                    <a href="#method___construct">__construct</a>(<a href="../../Contentful/Delivery/Client/JsonDecoderClientInterface.html"><abbr title="Contentful\Delivery\Client\JsonDecoderClientInterface">JsonDecoderClientInterface</abbr></a> $client, <abbr title="Psr\Cache\CacheItemPoolInterface">CacheItemPoolInterface</abbr> $cacheItemPool, bool $autoWarmup = \false, bool $cacheContent = \false)
         
-                                            <p>Simple constructor.</p>                </div>
+                                            <p class="no-description">No description</p>
+                                    </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Contentful/Delivery/ResourcePool/Extended.html#method___construct"><abbr title="Contentful\Delivery\ResourcePool\Extended">Extended</abbr></a></small></div>
             </div>
                     <div class="row">
@@ -267,7 +269,7 @@ skip the process if we track that we're already in the process of doing so.</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    bool
+                    
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_has">has</a>(string $type, string $id, array $options = [])
@@ -277,7 +279,7 @@ skip the process if we track that we're already in the process of doing so.</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    bool
+                    
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_save">save</a>(<abbr title="Contentful\Core\Resource\ResourceInterface">ResourceInterface</abbr> $resource)
@@ -287,7 +289,7 @@ skip the process if we track that we're already in the process of doing so.</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    <abbr title="Contentful\Core\Resource\ResourceInterface">ResourceInterface</abbr>
+                    
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_get">get</a>(string $type, string $id, array $options = [])
@@ -297,7 +299,7 @@ skip the process if we track that we're already in the process of doing so.</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    string
+                    
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_generateKey">generateKey</a>(string $type, string $id, array $options = [])
@@ -313,17 +315,15 @@ skip the process if we track that we're already in the process of doing so.</td>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Extended.html#method___construct"><abbr title="Contentful\Delivery\ResourcePool\Extended">Extended</abbr></a> at         line 60</div>
+        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Extended.html#method___construct"><abbr title="Contentful\Delivery\ResourcePool\Extended">Extended</abbr></a> at         line 66</div>
         <code>                    
-    <strong>__construct</strong>(<a href="../../Contentful/Delivery/Client/JsonDecoderClientInterface.html"><abbr title="Contentful\Delivery\Client\JsonDecoderClientInterface">JsonDecoderClientInterface</abbr></a> $client, <abbr title="Psr\Cache\CacheItemPoolInterface">CacheItemPoolInterface</abbr> $cacheItemPool, bool $autoWarmup = false, bool $cacheContent = false)
+    <strong>__construct</strong>(<a href="../../Contentful/Delivery/Client/JsonDecoderClientInterface.html"><abbr title="Contentful\Delivery\Client\JsonDecoderClientInterface">JsonDecoderClientInterface</abbr></a> $client, <abbr title="Psr\Cache\CacheItemPoolInterface">CacheItemPoolInterface</abbr> $cacheItemPool, bool $autoWarmup = \false, bool $cacheContent = \false)
         </code>
     </h3>
     <div class="details">
             
     
 
-                    <div class="method-description">
-                                    <p>Simple constructor.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -359,7 +359,7 @@ skip the process if we track that we're already in the process of doing so.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_savesResource">
-        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Extended.html#method_savesResource"><abbr title="Contentful\Delivery\ResourcePool\Extended">Extended</abbr></a> at         line 84</div>
+        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Extended.html#method_savesResource"><abbr title="Contentful\Delivery\ResourcePool\Extended">Extended</abbr></a> at         line 90</div>
         <code>            protected        bool
     <strong>savesResource</strong>(string $type)
         </code>
@@ -399,7 +399,7 @@ skip the process if we track that we're already in the process of doing so.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getResourceLocale">
-        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Standard.html#method_getResourceLocale"><abbr title="Contentful\Delivery\ResourcePool\Standard">Standard</abbr></a> at         line 63</div>
+        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Standard.html#method_getResourceLocale"><abbr title="Contentful\Delivery\ResourcePool\Standard">Standard</abbr></a> at         line 73</div>
         <code>            protected        string|null
     <strong>getResourceLocale</strong>(<abbr title="Contentful\Core\Resource\ResourceInterface">ResourceInterface</abbr> $resource)
         </code>
@@ -437,7 +437,7 @@ skip the process if we track that we're already in the process of doing so.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_warmUp">
-        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Extended.html#method_warmUp"><abbr title="Contentful\Delivery\ResourcePool\Extended">Extended</abbr></a> at         line 92</div>
+        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Extended.html#method_warmUp"><abbr title="Contentful\Delivery\ResourcePool\Extended">Extended</abbr></a> at         line 98</div>
         <code>            protected        
     <strong>warmUp</strong>(string $key, string $type)
         </code>
@@ -473,8 +473,8 @@ skip the process if we track that we're already in the process of doing so.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_has">
-        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Standard.html#method_has"><abbr title="Contentful\Delivery\ResourcePool\Standard">Standard</abbr></a> at         line 82</div>
-        <code>                    bool
+        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Standard.html#method_has"><abbr title="Contentful\Delivery\ResourcePool\Standard">Standard</abbr></a> at         line 95</div>
+        <code>                    
     <strong>has</strong>(string $type, string $id, array $options = [])
         </code>
     </h3>
@@ -506,15 +506,6 @@ skip the process if we track that we're already in the process of doing so.</td>
             </table>
 
             
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
             
             
                     </div>
@@ -523,8 +514,8 @@ skip the process if we track that we're already in the process of doing so.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_save">
-        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Extended.html#method_save"><abbr title="Contentful\Delivery\ResourcePool\Extended">Extended</abbr></a> at         line 114</div>
-        <code>                    bool
+        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Extended.html#method_save"><abbr title="Contentful\Delivery\ResourcePool\Extended">Extended</abbr></a> at         line 120</div>
+        <code>                    
     <strong>save</strong>(<abbr title="Contentful\Core\Resource\ResourceInterface">ResourceInterface</abbr> $resource)
         </code>
     </h3>
@@ -546,15 +537,6 @@ skip the process if we track that we're already in the process of doing so.</td>
             </table>
 
             
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
             
             
                     </div>
@@ -563,8 +545,8 @@ skip the process if we track that we're already in the process of doing so.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_get">
-        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Standard.html#method_get"><abbr title="Contentful\Delivery\ResourcePool\Standard">Standard</abbr></a> at         line 118</div>
-        <code>                    <abbr title="Contentful\Core\Resource\ResourceInterface">ResourceInterface</abbr>
+        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Standard.html#method_get"><abbr title="Contentful\Delivery\ResourcePool\Standard">Standard</abbr></a> at         line 131</div>
+        <code>                    
     <strong>get</strong>(string $type, string $id, array $options = [])
         </code>
     </h3>
@@ -596,15 +578,6 @@ skip the process if we track that we're already in the process of doing so.</td>
             </table>
 
             
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><abbr title="Contentful\Core\Resource\ResourceInterface">ResourceInterface</abbr></td>
-            <td></td>
-        </tr>
-    </table>
-
             
             
                     </div>
@@ -613,8 +586,8 @@ skip the process if we track that we're already in the process of doing so.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_generateKey">
-        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Standard.html#method_generateKey"><abbr title="Contentful\Delivery\ResourcePool\Standard">Standard</abbr></a> at         line 134</div>
-        <code>                    string
+        <div class="location">in <a href="../../Contentful/Delivery/ResourcePool/Standard.html#method_generateKey"><abbr title="Contentful\Delivery\ResourcePool\Standard">Standard</abbr></a> at         line 152</div>
+        <code>                    
     <strong>generateKey</strong>(string $type, string $id, array $options = [])
         </code>
     </h3>
@@ -646,15 +619,6 @@ skip the process if we track that we're already in the process of doing so.</td>
             </table>
 
             
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
             
             
                     </div>

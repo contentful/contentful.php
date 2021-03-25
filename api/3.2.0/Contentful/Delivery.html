@@ -71,6 +71,7 @@
                                             <option value="../../6.0.3/index.html" data-version="6.0.3">6.0.3</option>
                                             <option value="../../6.0.4/index.html" data-version="6.0.4">6.0.4</option>
                                             <option value="../../6.0.5/index.html" data-version="6.0.5">6.0.5</option>
+                                            <option value="../../6.1.0/index.html" data-version="6.1.0">6.1.0</option>
                                             <option value="../../master/index.html" data-version="master">Master branch</option>
                                     </select>
             </form>
@@ -128,11 +129,20 @@
 
             <h2>Namespaces</h2>
         <div class="namespace-list">
-            <a href="../Contentful/Delivery/Cache.html">Contentful\Delivery\Cache</a><a href="../Contentful/Delivery/Console.html">Contentful\Delivery\Console</a><a href="../Contentful/Delivery/Mapper.html">Contentful\Delivery\Mapper</a><a href="../Contentful/Delivery/Resource.html">Contentful\Delivery\Resource</a><a href="../Contentful/Delivery/Synchronization.html">Contentful\Delivery\Synchronization</a>        </div>
+            <a href="../Contentful/Delivery/Console.html">Contentful\Delivery\Console</a><a href="../Contentful/Delivery/Synchronization.html">Contentful\Delivery\Synchronization</a><a href="../Contentful/Delivery/Tool.html">Contentful\Delivery\Tool</a>        </div>
     
             <h2>Classes</h2>
         
     <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Contentful/Delivery/Asset.html"><abbr title="Contentful\Delivery\Asset">Asset</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
                     <div class="row">
                 <div class="col-md-6">
                                             <a href="../Contentful/Delivery/Client.html"><abbr title="Contentful\Delivery\Client">Client</abbr></a>
@@ -144,11 +154,93 @@
             </div>
                     <div class="row">
                 <div class="col-md-6">
-                                            <a href="../Contentful/Delivery/InstanceRepository.html"><abbr title="Contentful\Delivery\InstanceRepository">InstanceRepository</abbr></a>
+                                            <a href="../Contentful/Delivery/ContentType.html"><abbr title="Contentful\Delivery\ContentType">ContentType</abbr></a>
                                             
                 </div>
                 <div class="col-md-6">
-                    InstanceRepository class.
+                    Content Types are schemas that define the fields of Entries. Every Entry can only contain values in the fields
+defined by it's Content Type, and the values of those fields must match the data type defined in the Content Type.
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Contentful/Delivery/ContentTypeField.html"><abbr title="Contentful\Delivery\ContentTypeField">ContentTypeField</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    A ContentTypeField describes one field of a ContentType. This includes essential information for the display of the field's value.
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Contentful/Delivery/DynamicEntry.html"><abbr title="Contentful\Delivery\DynamicEntry">DynamicEntry</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Contentful/Delivery/File.html"><abbr title="Contentful\Delivery\File">File</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Contentful/Delivery/ImageFile.html"><abbr title="Contentful\Delivery\ImageFile">ImageFile</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Contentful/Delivery/ImageOptions.html"><abbr title="Contentful\Delivery\ImageOptions">ImageOptions</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    ImageOptions allows specifying extended options to the Contentful Image API .
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Contentful/Delivery/InstanceCache.html"><abbr title="Contentful\Delivery\InstanceCache">InstanceCache</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Contentful/Delivery/Link.html"><abbr title="Contentful\Delivery\Link">Link</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    A link encodes a reference to a resource.
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Contentful/Delivery/Locale.html"><abbr title="Contentful\Delivery\Locale">Locale</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    Value object encoding a locale.
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Contentful/Delivery/LocalizedResource.html"><abbr title="Contentful\Delivery\LocalizedResource">LocalizedResource</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    A LocalizedResource can store information for multiple locales. The methods in this base class allow switching between the locales.
                 </div>
             </div>
                     <div class="row">
@@ -166,7 +258,25 @@
                                             
                 </div>
                 <div class="col-md-6">
-                    ResourceBuilder class.
+                    The ResourceBuilder is responsible for turning the responses from the API into instances of PHP classes.
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Contentful/Delivery/Space.html"><abbr title="Contentful\Delivery\Space">Space</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    The Space class represents a single space identified by it's ID and holding some metadata.
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Contentful/Delivery/SpaceMismatchException.html"><abbr title="Contentful\Delivery\SpaceMismatchException">SpaceMismatchException</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    A SpaceMismatchException is thrown when attempting to create a Resource for a different Space than the one configured for the client.
                 </div>
             </div>
                     <div class="row">
@@ -180,6 +290,19 @@
             </div>
             </div>
     
+            <h2>Interfaces</h2>
+        
+    <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="../Contentful/Delivery/EntryInterface.html"><abbr title="Contentful\Delivery\EntryInterface">EntryInterface</abbr></a></em>
+                                            
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+            </div>
     
     
             </div>

@@ -71,6 +71,7 @@
                                             <option value="../../../../6.0.3/index.html" data-version="6.0.3">6.0.3</option>
                                             <option value="../../../../6.0.4/index.html" data-version="6.0.4">6.0.4</option>
                                             <option value="../../../../6.0.5/index.html" data-version="6.0.5">6.0.5</option>
+                                            <option value="../../../../6.1.0/index.html" data-version="6.1.0">6.1.0</option>
                                             <option value="../../../../master/index.html" data-version="master">Master branch</option>
                                     </select>
             </form>
@@ -215,6 +216,46 @@
         
                                             <p>{@inheritdoc}</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Resource/BaseResource.html#method_getType"><abbr title="Contentful\Delivery\Resource\BaseResource">BaseResource</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    int|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getRevision">getRevision</a>()
+        
+                                            <p>Returns the last revision of the resource before it was deleted.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Resource/DeletedResource.html#method_getRevision"><abbr title="Contentful\Delivery\Resource\DeletedResource">DeletedResource</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Contentful\Core\Api\DateTimeImmutable">DateTimeImmutable</abbr>|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getUpdatedAt">getUpdatedAt</a>()
+        
+                                            <p>Returns the time when the resource was updated.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Resource/DeletedResource.html#method_getUpdatedAt"><abbr title="Contentful\Delivery\Resource\DeletedResource">DeletedResource</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Contentful\Core\Api\DateTimeImmutable">DateTimeImmutable</abbr>|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getCreatedAt">getCreatedAt</a>()
+        
+                                            <p>Returns the time when the resource was created.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Resource/DeletedResource.html#method_getCreatedAt"><abbr title="Contentful\Delivery\Resource\DeletedResource">DeletedResource</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Contentful\Core\Api\DateTimeImmutable">DateTimeImmutable</abbr>|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDeletedAt">getDeletedAt</a>()
+        
+                                            <p>Returns the time when the resource was deleted.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Resource/DeletedResource.html#method_getDeletedAt"><abbr title="Contentful\Delivery\Resource\DeletedResource">DeletedResource</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -368,8 +409,128 @@ needs to be subclasses and this method made public.</p>                         
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getRevision">
+        <div class="location">in <a href="../../../Contentful/Delivery/Resource/DeletedResource.html#method_getRevision"><abbr title="Contentful\Delivery\Resource\DeletedResource">DeletedResource</abbr></a> at         line 24</div>
+        <code>                    int|null
+    <strong>getRevision</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the last revision of the resource before it was deleted.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getUpdatedAt">
+        <div class="location">in <a href="../../../Contentful/Delivery/Resource/DeletedResource.html#method_getUpdatedAt"><abbr title="Contentful\Delivery\Resource\DeletedResource">DeletedResource</abbr></a> at         line 34</div>
+        <code>                    <abbr title="Contentful\Core\Api\DateTimeImmutable">DateTimeImmutable</abbr>|null
+    <strong>getUpdatedAt</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the time when the resource was updated.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Contentful\Core\Api\DateTimeImmutable">DateTimeImmutable</abbr>|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCreatedAt">
+        <div class="location">in <a href="../../../Contentful/Delivery/Resource/DeletedResource.html#method_getCreatedAt"><abbr title="Contentful\Delivery\Resource\DeletedResource">DeletedResource</abbr></a> at         line 44</div>
+        <code>                    <abbr title="Contentful\Core\Api\DateTimeImmutable">DateTimeImmutable</abbr>|null
+    <strong>getCreatedAt</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the time when the resource was created.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Contentful\Core\Api\DateTimeImmutable">DateTimeImmutable</abbr>|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDeletedAt">
+        <div class="location">in <a href="../../../Contentful/Delivery/Resource/DeletedResource.html#method_getDeletedAt"><abbr title="Contentful\Delivery\Resource\DeletedResource">DeletedResource</abbr></a> at         line 54</div>
+        <code>                    <abbr title="Contentful\Core\Api\DateTimeImmutable">DateTimeImmutable</abbr>|null
+    <strong>getDeletedAt</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the time when the resource was deleted.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Contentful\Core\Api\DateTimeImmutable">DateTimeImmutable</abbr>|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_jsonSerialize">
-        <div class="location">in <a href="../../../Contentful/Delivery/Resource/DeletedResource.html#method_jsonSerialize"><abbr title="Contentful\Delivery\Resource\DeletedResource">DeletedResource</abbr></a> at         line 20</div>
+        <div class="location">in <a href="../../../Contentful/Delivery/Resource/DeletedResource.html#method_jsonSerialize"><abbr title="Contentful\Delivery\Resource\DeletedResource">DeletedResource</abbr></a> at         line 62</div>
         <code>                    
     <strong>jsonSerialize</strong>()
         </code>
