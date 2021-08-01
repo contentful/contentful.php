@@ -183,12 +183,26 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * Returns all fields of the current entry, with some optimizations applied.
      * Links are resolved by default. If you want to get raw link objects rather than
      * complete resources, set the $resolveLinks parameter to false.
+     *
+     * @param string|null $locale The locale to access the fields with.
+     * @param bool $resolveLinks Whether to resolve the links in the response.
+     * @param bool $ignoreLocaleForNonLocalizedFields Whether to access non-localized fields using the given locale.
+     *        Unless this parameter is set, doing so will result in an exception. This behaviour is breaking to older
+     *        versions and therefore not default.
      */
-    public function all(string $locale = null, bool $resolveLinks = true): array
+    public function all(string $locale = null, bool $resolveLinks = true, bool $ignoreLocaleForNonLocalizedFields = false): array
     {
         $values = [];
         foreach ($this->getContentType()->getFields() as $field) {
-            $result = $this->getUnresolvedField($field, $locale);
+            $result = null;
+            if ($ignoreLocaleForNonLocalizedFields && !$field->isLocalized()) {
+                // If this field is non-localized, accessing it with a locale would result in an error. Therefore, we
+                // need to access if without any locale, to fall back to it's only value.
+                $result = $this->getUnresolvedField($field);
+            }
+            else {
+                $result = $this->getUnresolvedField($field, $locale);
+            }
 
             $values[$field->getId()] = $resolveLinks
                 ? $this->resolveFieldLinks($result, $locale)
@@ -196,6 +210,23 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
         }
 
         return $values;
+    }
+
+    /**
+     * Returns true if the field contains locale dependent content.
+     *
+     * @param string $name The name of the field.
+     * @return bool Whether the given field is localized.
+     */
+    public function isFieldLocalized(string $name): bool
+    {
+        $field = $this->sys->getContentType()->getField($name, true);
+
+        if ($field) {
+            return $field->isLocalized();
+        }
+
+        throw new \InvalidArgumentException(\sprintf('Trying to access non existent field "%s" on an entry with content type "%s" ("%s").', $name, $this->sys->getContentType()->getName(), $this->sys->getContentType()->getSystemProperties()->getId()));
     }
 
     /**
@@ -238,6 +269,9 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * Attempts to fetch a value given the current configuration.
      * It will return the raw field value,
      * without applying any transformation to it.
+     *
+     * @param Field $field The field to access.
+     * @param string|null $locale The locale to access the field with. Falls back to the default locale.
      *
      * @return mixed
      */
