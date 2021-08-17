@@ -11,7 +11,7 @@
   </a>
 </p>
 
-# contentful.php — Contentful PHP Delivery SDK
+# contentful.php — Contentful PHP Delivery Library
 
 
 [![Packagist](https://img.shields.io/packagist/v/contentful/contentful.svg?style=for-the-badge)](https://packagist.org/packages/contentful/contentful)
@@ -20,7 +20,7 @@
 [![CircleCI](https://circleci.com/gh/contentful/contentful.php.svg?style=shield)](https://circleci.com/gh/contentful/contentful.php)
 
 
-> PHP SDK for the Contentful [Content Delivery API](https://www.contentful.com/developers/docs/references/content-delivery-api/) and [Content Preview API](https://www.contentful.com/developers/docs/references/content-preview-api/). It helps you to easily access your Content stored in Contentful with your PHP applications.
+> PHP library for the Contentful [Content Delivery API](https://www.contentful.com/developers/docs/references/content-delivery-api/) and [Content Preview API](https://www.contentful.com/developers/docs/references/content-preview-api/). It helps you to easily access your Content stored in Contentful with your PHP applications.
 
 ## What is Contentful?
 
@@ -29,23 +29,23 @@
 <details>
 <summary>Table of contents</summary>
 
-- [contentful.php — Contentful PHP Delivery SDK](#contentfulphp-contentful-php-delivery-sdk)
+- [contentful.php — Contentful PHP Delivery library](#contentfulphp-contentful-php-delivery-library)
   - [What is Contentful?](#what-is-contentful)
   - [Core Features](#core-features)
   - [Getting started](#getting-started)
-	- [Installation](#installation)
-	- [Your first request](#your-first-request)
-	- [Using this SDK with the Preview API](#using-this-sdk-with-the-preview-api)
-	- [Authentication](#authentication)
+  - [Installation](#installation)
+  - [Your first request](#your-first-request)
+  - [Using this library with the Preview API](#using-this-library-with-the-preview-api)
+  - [Authentication](#authentication)
   - [Documentation & References](#documentation-references)
-	- [Configuration](#configuration)
-	- [Reference documentation](#reference-documentation)
-	- [Tutorials & other resources](#tutorials-other-resources)
-	- [Upgrade](#upgrade)
+  - [Configuration](#configuration)
+  - [Reference documentation](#reference-documentation)
+  - [Tutorials & other resources](#tutorials-other-resources)
+  - [Upgrade](#upgrade)
   - [Reach out to us](#reach-out-to-us)
-	- [You have questions about how to use this library?](#you-have-questions-about-how-to-use-this-library)
-	- [You found a bug or want to propose a feature?](#you-found-a-bug-or-want-to-propose-a-feature)
-	- [You need to share confidential information or have other questions?](#you-need-to-share-confidential-information-or-have-other-questions)
+  - [You have questions about how to use this library?](#you-have-questions-about-how-to-use-this-library)
+  - [You found a bug or want to propose a feature?](#you-found-a-bug-or-want-to-propose-a-feature)
+  - [You need to share confidential information or have other questions?](#you-need-to-share-confidential-information-or-have-other-questions)
   - [Get involved](#get-involved)
   - [License](#license)
   - [Code of Conduct](#code-of-conduct)
@@ -61,7 +61,7 @@
 
 ## Getting started
 
-In order to get started with the Contentful PHP SDK you'll need not only to install it, but also to get credentials which will allow you to have access to your content in Contentful. This package requires PHP 7.2 or higher or PHP 8.0 or higher.
+In order to get started with the Contentful PHP library you'll need not only to install it, but also to get credentials which will allow you to have access to your content in Contentful. This package requires PHP 7.2 or higher or PHP 8.0 or higher.
 
 ### Installation
 
@@ -73,8 +73,8 @@ composer require contentful/contentful
 
 ### Your first request
 
-The following code snippet is the most basic one you can use to get some content from Contentful with this SDK:
-All interactions with the SDK go through `Contentful\Delivery\Client`. To create a new client an access token and a space ID have to be passed to the constructor.
+The following code snippet is the most basic one you can use to get some content from Contentful with this library:
+All interactions with the library go through `Contentful\Delivery\Client`. To create a new client an access token and a space ID have to be passed to the constructor.
 
 ``` php
 $client = new \Contentful\Delivery\Client(
@@ -89,9 +89,9 @@ try {
 }
 ```
 
-### Using this SDK with the Preview API
+### Using this library with the Preview API
 
-This SDK can also be used with the Preview API. In order to do so, you need to use the Preview API access token, available on the same page where you get the Delivery API token, and tell the client to use the different API:
+This library can also be used with the Preview API. In order to do so, you need to use the Preview API access token, available on the same page where you get the Delivery API token, and tell the client to use the different API:
 
 ``` php
 $options = \Contentful\Delivery\ClientOptions::create()
@@ -163,7 +163,7 @@ $client = new \Contentful\Delivery\Client(
 
 ### Reference documentation
 
-The [PHP SDK reference](https://contentful.github.io/contentful.php) documents what objects and methods are exposed by this library, what arguments they expect and what kind of data is returned.
+The [PHP library reference](https://contentful.github.io/contentful.php) documents what objects and methods are exposed by this library, what arguments they expect and what kind of data is returned.
 
 Most methods also have examples which show you how to use them.
 
