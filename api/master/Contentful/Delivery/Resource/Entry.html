@@ -139,6 +139,20 @@
     
 
     
+            <h2>Traits</h2>
+
+        
+    <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../../../Contentful/Delivery/SystemProperties/Component/TagTrait.html"><abbr title="Contentful\Delivery\SystemProperties\Component\TagTrait">TagTrait</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+            </div>
     
     
             <h2>Properties</h2>
@@ -161,6 +175,14 @@
                 <td></td>
             </tr>
                     <tr>
+                <td class="type" id="property_tags">
+                                        protected                                        <a href="../../../Contentful/Delivery/Resource/Tag.html"><abbr title="Contentful\Delivery\Resource\Tag">Tag</abbr></a>[]
+                </td>
+                <td>$tags</td>
+                <td class="last"></td>
+                <td><small>from&nbsp;<a href="../../../Contentful/Delivery/SystemProperties/Component/TagTrait.html#property_tags"><abbr title="Contentful\Delivery\SystemProperties\Component\TagTrait">TagTrait</abbr></a></small></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_fields">
                                         protected                                        array
                 </td>
@@ -173,6 +195,14 @@
                                         protected                                        <a href="../../../Contentful/Delivery/Client/ClientInterface.html"><abbr title="Contentful\Delivery\Client\ClientInterface">ClientInterface</abbr></a>
                 </td>
                 <td>$client</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_disableTags">
+                                        protected                                        bool
+                </td>
+                <td>$disableTags</td>
                 <td class="last"></td>
                 <td></td>
             </tr>
@@ -274,6 +304,37 @@
                                             <p class="no-description">No description</p>
                                     </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Resource/LocalizedResource.html#method_walkFallbackChain"><abbr title="Contentful\Delivery\Resource\LocalizedResource">LocalizedResource</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_initTags">initTags</a>(array $tags)
+        
+                                            <p>Initialize an entries tags.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_jsonSerializeSpace">jsonSerializeSpace</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/SystemProperties/Component/TagTrait.html#method_jsonSerializeSpace"><abbr title="Contentful\Delivery\SystemProperties\Component\TagTrait">TagTrait</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTags">getTags</a>()
+        
+                                            <p>Get all tags of the entry.</p>                </div>
+                <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -403,9 +464,19 @@
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_all">all</a>(string $locale = null, bool $resolveLinks = true)
+                    <a href="#method_all">all</a>(string $locale = null, bool $resolveLinks = true, bool $ignoreLocaleForNonLocalizedFields = false)
         
                                             <p>Returns all fields of the current entry, with some optimizations applied.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_isFieldLocalized">isFieldLocalized</a>(string $name)
+        
+                                            <p>Returns true if the field contains locale dependent content.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -726,8 +797,79 @@ or the one that was used in the API request.</p>                            </di
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_initTags">
+        <div class="location">at         line 412</div>
+        <code>                    
+    <strong>initTags</strong>(array $tags)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Initialize an entries tags.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$tags</td>
+                <td>the tags to set</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_jsonSerializeSpace">
+        <div class="location">in <a href="../../../Contentful/Delivery/SystemProperties/Component/TagTrait.html#method_jsonSerializeSpace"><abbr title="Contentful\Delivery\SystemProperties\Component\TagTrait">TagTrait</abbr></a> at         line 28</div>
+        <code>            protected        
+    <strong>jsonSerializeSpace</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getTags">
+        <div class="location">at         line 434</div>
+        <code>                    
+    <strong>getTags</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get all tags of the entry.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getSystemProperties">
-        <div class="location">at         line 42</div>
+        <div class="location">at         line 53</div>
         <code>                    
     <strong>getSystemProperties</strong>()
         </code>
@@ -748,7 +890,7 @@ or the one that was used in the API request.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_getSpace">
-        <div class="location">at         line 50</div>
+        <div class="location">at         line 61</div>
         <code>                    
     <strong>getSpace</strong>()
         </code>
@@ -769,7 +911,7 @@ or the one that was used in the API request.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_getEnvironment">
-        <div class="location">at         line 58</div>
+        <div class="location">at         line 69</div>
         <code>                    
     <strong>getEnvironment</strong>()
         </code>
@@ -790,7 +932,7 @@ or the one that was used in the API request.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_getContentType">
-        <div class="location">at         line 63</div>
+        <div class="location">at         line 74</div>
         <code>                    
     <strong>getContentType</strong>()
         </code>
@@ -809,7 +951,7 @@ or the one that was used in the API request.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method___call">
-        <div class="location">at         line 71</div>
+        <div class="location">at         line 82</div>
         <code>                    mixed
     <strong>__call</strong>(string $name, array $arguments)
         </code>
@@ -852,7 +994,7 @@ or the one that was used in the API request.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method___get">
-        <div class="location">at         line 110</div>
+        <div class="location">at         line 121</div>
         <code>                    mixed
     <strong>__get</strong>(string $name)
         </code>
@@ -892,7 +1034,7 @@ or the one that was used in the API request.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_offsetGet">
-        <div class="location">at         line 118</div>
+        <div class="location">at         line 129</div>
         <code>                    
     <strong>offsetGet</strong>($name)
         </code>
@@ -923,7 +1065,7 @@ or the one that was used in the API request.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_offsetExists">
-        <div class="location">at         line 126</div>
+        <div class="location">at         line 137</div>
         <code>                    
     <strong>offsetExists</strong>($name)
         </code>
@@ -954,7 +1096,7 @@ or the one that was used in the API request.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_offsetSet">
-        <div class="location">at         line 134</div>
+        <div class="location">at         line 145</div>
         <code>                    
     <strong>offsetSet</strong>($name, $value)
         </code>
@@ -990,7 +1132,7 @@ or the one that was used in the API request.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_offsetUnset">
-        <div class="location">at         line 142</div>
+        <div class="location">at         line 153</div>
         <code>                    
     <strong>offsetUnset</strong>($name)
         </code>
@@ -1021,7 +1163,7 @@ or the one that was used in the API request.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_has">
-        <div class="location">at         line 150</div>
+        <div class="location">at         line 161</div>
         <code>                    
     <strong>has</strong>(string $name, string $locale = null, bool $checkLinksAreResolved = true)
         </code>
@@ -1062,7 +1204,7 @@ or the one that was used in the API request.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method___isset">
-        <div class="location">at         line 177</div>
+        <div class="location">at         line 188</div>
         <code>                    bool
     <strong>__isset</strong>(string $name)
         </code>
@@ -1100,9 +1242,9 @@ or the one that was used in the API request.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_all">
-        <div class="location">at         line 187</div>
+        <div class="location">at         line 204</div>
         <code>                    
-    <strong>all</strong>(string $locale = null, bool $resolveLinks = true)
+    <strong>all</strong>(string $locale = null, bool $resolveLinks = true, bool $ignoreLocaleForNonLocalizedFields = false)
         </code>
     </h3>
     <div class="details">
@@ -1119,12 +1261,19 @@ complete resources, set the $resolveLinks parameter to false.</p>               
                     <tr>
                 <td>string</td>
                 <td>$locale</td>
-                <td></td>
+                <td>the locale to access the fields with</td>
             </tr>
                     <tr>
                 <td>bool</td>
                 <td>$resolveLinks</td>
-                <td></td>
+                <td>whether to resolve the links in the response</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$ignoreLocaleForNonLocalizedFields</td>
+                <td>Whether to access non-localized fields using the given locale.
+                                                      Unless this parameter is set, doing so will result in an exception. This behaviour is breaking to older
+                                                      versions and therefore not default.</td>
             </tr>
             </table>
 
@@ -1136,8 +1285,48 @@ complete resources, set the $resolveLinks parameter to false.</p>               
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_isFieldLocalized">
+        <div class="location">at         line 232</div>
+        <code>                    bool
+    <strong>isFieldLocalized</strong>(string $name)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns true if the field contains locale dependent content.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td>the name of the field</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>whether the given field is localized</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_get">
-        <div class="location">at         line 216</div>
+        <div class="location">at         line 258</div>
         <code>                    mixed
     <strong>get</strong>(string $name, string $locale = null, bool $resolveLinks = true)
         </code>
@@ -1194,7 +1383,7 @@ $id = $entry-&gt;get('authorId');
             </div>
                     <div class="method-item">
                     <h3 id="method_getReferences">
-        <div class="location">at         line 354</div>
+        <div class="location">at         line 399</div>
         <code>                    
     <strong>getReferences</strong>(<a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = null)
         </code>
@@ -1226,7 +1415,7 @@ such as locale, include, and sorting.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_jsonSerialize">
-        <div class="location">at         line 365</div>
+        <div class="location">at         line 446</div>
         <code>                    
     <strong>jsonSerialize</strong>()
         </code>

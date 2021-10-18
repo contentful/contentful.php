@@ -265,6 +265,26 @@ as it decouples the method signatures from the actual implementation.</p>
                     
                 </div>
                 <div class="col-md-8 type">
+                    <a href="#method_getTag">getTag</a>(string $tagId)
+        
+                                            <p>Find a specific tag by its id.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Contentful/Delivery/Resource/Tag.html"><abbr title="Contentful\Delivery\Resource\Tag">Tag</abbr></a>[]
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getAllTags">getAllTags</a>()
+        
+                                            <p>Returns all tags in the current space and environment.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_resolveLink">resolveLink</a>(<abbr title="Contentful\Core\Api\Link">Link</abbr> $link, string $locale = null)
         
                                             <p>Resolve a link to its actual resource.</p>                </div>
@@ -351,7 +371,7 @@ as it decouples the method signatures from the actual implementation.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getAsset">
-        <div class="location">at         line 40</div>
+        <div class="location">at         line 41</div>
         <code>                    
     <strong>getAsset</strong>(string $assetId, string $locale = null)
         </code>
@@ -396,7 +416,7 @@ as it decouples the method signatures from the actual implementation.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getAssets">
-        <div class="location">at         line 47</div>
+        <div class="location">at         line 48</div>
         <code>                    <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>|<a href="../../../Contentful/Delivery/Resource/Asset.html"><abbr title="Contentful\Delivery\Resource\Asset">Asset</abbr></a>[]
     <strong>getAssets</strong>(<a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = null)
         </code>
@@ -436,7 +456,7 @@ as it decouples the method signatures from the actual implementation.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getContentType">
-        <div class="location">at         line 54</div>
+        <div class="location">at         line 55</div>
         <code>                    
     <strong>getContentType</strong>(string $contentTypeId)
         </code>
@@ -476,7 +496,7 @@ as it decouples the method signatures from the actual implementation.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getContentTypes">
-        <div class="location">at         line 61</div>
+        <div class="location">at         line 62</div>
         <code>                    <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>|<a href="../../../Contentful/Delivery/Resource/ContentType.html"><abbr title="Contentful\Delivery\Resource\ContentType">ContentType</abbr></a>[]
     <strong>getContentTypes</strong>(<a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = null)
         </code>
@@ -516,7 +536,7 @@ as it decouples the method signatures from the actual implementation.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getEnvironment">
-        <div class="location">at         line 66</div>
+        <div class="location">at         line 67</div>
         <code>                    
     <strong>getEnvironment</strong>()
         </code>
@@ -537,7 +557,7 @@ as it decouples the method signatures from the actual implementation.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getEntry">
-        <div class="location">at         line 73</div>
+        <div class="location">at         line 74</div>
         <code>                    
     <strong>getEntry</strong>(string $entryId, string $locale = null)
         </code>
@@ -582,7 +602,7 @@ as it decouples the method signatures from the actual implementation.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getEntries">
-        <div class="location">at         line 80</div>
+        <div class="location">at         line 81</div>
         <code>                    <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>|<a href="../../../Contentful/Delivery/Resource/Entry.html"><abbr title="Contentful\Delivery\Resource\Entry">Entry</abbr></a>[]
     <strong>getEntries</strong>(<a href="../../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = null)
         </code>
@@ -622,7 +642,7 @@ as it decouples the method signatures from the actual implementation.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getSpace">
-        <div class="location">at         line 85</div>
+        <div class="location">at         line 86</div>
         <code>                    
     <strong>getSpace</strong>()
         </code>
@@ -642,8 +662,69 @@ as it decouples the method signatures from the actual implementation.</p>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getTag">
+        <div class="location">at         line 93</div>
+        <code>                    
+    <strong>getTag</strong>(string $tagId)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Find a specific tag by its id.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tagId</td>
+                <td>the id of the tag</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAllTags">
+        <div class="location">at         line 100</div>
+        <code>                    <a href="../../../Contentful/Delivery/Resource/Tag.html"><abbr title="Contentful\Delivery\Resource\Tag">Tag</abbr></a>[]
+    <strong>getAllTags</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns all tags in the current space and environment.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Contentful/Delivery/Resource/Tag.html"><abbr title="Contentful\Delivery\Resource\Tag">Tag</abbr></a>[]</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_resolveLink">
-        <div class="location">at         line 94</div>
+        <div class="location">at         line 109</div>
         <code>                    
     <strong>resolveLink</strong>(<abbr title="Contentful\Core\Api\Link">Link</abbr> $link, string $locale = null)
         </code>
@@ -688,7 +769,7 @@ as it decouples the method signatures from the actual implementation.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_resolveLinkCollection">
-        <div class="location">at         line 105</div>
+        <div class="location">at         line 120</div>
         <code>                    <abbr title="Contentful\Core\Resource\ResourceInterface">ResourceInterface</abbr>[]
     <strong>resolveLinkCollection</strong>(array $links, string $locale = null)
         </code>

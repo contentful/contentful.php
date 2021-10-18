@@ -368,6 +368,26 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTag">getTag</a>(string $tagId)
+        
+                                            <p>Find a specific tag by its id.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Contentful/Delivery/Resource/Tag.html"><abbr title="Contentful\Delivery\Resource\Tag">Tag</abbr></a>[]
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getAllTags">getAllTags</a>()
+        
+                                            <p>Returns all tags in the current space and environment.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>|<a href="../../Contentful/Delivery/Resource/Entry.html"><abbr title="Contentful\Delivery\Resource\Entry">Entry</abbr></a>[]
                 </div>
                 <div class="col-md-8 type">
@@ -474,7 +494,7 @@ This grants access to not yet published content.</p>                    </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 128</div>
+        <div class="location">at         line 129</div>
         <code>                    
     <strong>__construct</strong>(string $token, string $spaceId, string $environmentId = &#039;master&#039;, <a href="../../Contentful/Delivery/ClientOptions.html"><abbr title="Contentful\Delivery\ClientOptions">ClientOptions</abbr></a> $options = null)
         </code>
@@ -520,7 +540,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getApi">
-        <div class="location">at         line 157</div>
+        <div class="location">at         line 158</div>
         <code>                    
     <strong>getApi</strong>()
         </code>
@@ -541,7 +561,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getSpaceId">
-        <div class="location">at         line 162</div>
+        <div class="location">at         line 163</div>
         <code>                    
     <strong>getSpaceId</strong>()
         </code>
@@ -562,7 +582,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getEnvironmentId">
-        <div class="location">at         line 167</div>
+        <div class="location">at         line 168</div>
         <code>                    
     <strong>getEnvironmentId</strong>()
         </code>
@@ -583,7 +603,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getResourceBuilder">
-        <div class="location">at         line 172</div>
+        <div class="location">at         line 173</div>
         <code>                    
     <strong>getResourceBuilder</strong>()
         </code>
@@ -602,7 +622,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getRichTextParser">
-        <div class="location">at         line 177</div>
+        <div class="location">at         line 178</div>
         <code>                    
     <strong>getRichTextParser</strong>()
         </code>
@@ -621,7 +641,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getSdkName">
-        <div class="location">at         line 185</div>
+        <div class="location">at         line 186</div>
         <code>        static    protected        
     <strong>getSdkName</strong>()
         </code>
@@ -642,7 +662,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getPackageName">
-        <div class="location">at         line 193</div>
+        <div class="location">at         line 194</div>
         <code>        static    protected        
     <strong>getPackageName</strong>()
         </code>
@@ -663,7 +683,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getApiContentType">
-        <div class="location">at         line 201</div>
+        <div class="location">at         line 202</div>
         <code>        static    protected        
     <strong>getApiContentType</strong>()
         </code>
@@ -684,7 +704,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getResourcePool">
-        <div class="location">at         line 209</div>
+        <div class="location">at         line 210</div>
         <code>                    
     <strong>getResourcePool</strong>()
         </code>
@@ -705,7 +725,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getAsset">
-        <div class="location">at         line 229</div>
+        <div class="location">at         line 230</div>
         <code>                    
     <strong>getAsset</strong>(string $assetId, string $locale = null)
         </code>
@@ -750,7 +770,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getAssets">
-        <div class="location">at         line 248</div>
+        <div class="location">at         line 249</div>
         <code>                    <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>|<a href="../../Contentful/Delivery/Resource/Asset.html"><abbr title="Contentful\Delivery\Resource\Asset">Asset</abbr></a>[]
     <strong>getAssets</strong>(<a href="../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = null)
         </code>
@@ -790,7 +810,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getContentType">
-        <div class="location">at         line 268</div>
+        <div class="location">at         line 269</div>
         <code>                    
     <strong>getContentType</strong>(string $contentTypeId)
         </code>
@@ -830,7 +850,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getContentTypes">
-        <div class="location">at         line 284</div>
+        <div class="location">at         line 285</div>
         <code>                    <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>|<a href="../../Contentful/Delivery/Resource/ContentType.html"><abbr title="Contentful\Delivery\Resource\ContentType">ContentType</abbr></a>[]
     <strong>getContentTypes</strong>(<a href="../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = null)
         </code>
@@ -870,7 +890,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getEnvironment">
-        <div class="location">at         line 299</div>
+        <div class="location">at         line 300</div>
         <code>                    
     <strong>getEnvironment</strong>()
         </code>
@@ -891,7 +911,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getEntry">
-        <div class="location">at         line 334</div>
+        <div class="location">at         line 335</div>
         <code>                    
     <strong>getEntry</strong>(string $entryId, string $locale = null)
         </code>
@@ -935,8 +955,69 @@ This grants access to not yet published content.</p>                    </div>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getTag">
+        <div class="location">at         line 364</div>
+        <code>                    
+    <strong>getTag</strong>(string $tagId)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Find a specific tag by its id.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tagId</td>
+                <td>the id of the tag</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAllTags">
+        <div class="location">at         line 380</div>
+        <code>                    <a href="../../Contentful/Delivery/Resource/Tag.html"><abbr title="Contentful\Delivery\Resource\Tag">Tag</abbr></a>[]
+    <strong>getAllTags</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns all tags in the current space and environment.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Contentful/Delivery/Resource/Tag.html"><abbr title="Contentful\Delivery\Resource\Tag">Tag</abbr></a>[]</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getEntries">
-        <div class="location">at         line 363</div>
+        <div class="location">at         line 396</div>
         <code>                    <abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>|<a href="../../Contentful/Delivery/Resource/Entry.html"><abbr title="Contentful\Delivery\Resource\Entry">Entry</abbr></a>[]
     <strong>getEntries</strong>(<a href="../../Contentful/Delivery/Query.html"><abbr title="Contentful\Delivery\Query">Query</abbr></a> $query = null)
         </code>
@@ -976,7 +1057,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getSpace">
-        <div class="location">at         line 383</div>
+        <div class="location">at         line 416</div>
         <code>                    
     <strong>getSpace</strong>()
         </code>
@@ -997,7 +1078,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_resolveLink">
-        <div class="location">at         line 412</div>
+        <div class="location">at         line 445</div>
         <code>                    
     <strong>resolveLink</strong>(<abbr title="Contentful\Core\Api\Link">Link</abbr> $link, string $locale = null)
         </code>
@@ -1042,7 +1123,7 @@ This grants access to not yet published content.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_resolveLinkCollection">
-        <div class="location">at         line 422</div>
+        <div class="location">at         line 455</div>
         <code>                    <abbr title="Contentful\Core\Resource\ResourceInterface">ResourceInterface</abbr>[]
     <strong>resolveLinkCollection</strong>(array $links, string $locale = null)
         </code>
@@ -1088,7 +1169,7 @@ to reduce the amount of necessary API calls.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_parseJson">
-        <div class="location">at         line 436</div>
+        <div class="location">at         line 469</div>
         <code>                    <abbr title="Contentful\Core\Resource\ResourceInterface">ResourceInterface</abbr>|<abbr title="Contentful\Core\Resource\ResourceArray">ResourceArray</abbr>
     <strong>parseJson</strong>(string $json)
         </code>
@@ -1137,7 +1218,7 @@ to reduce the amount of necessary API calls.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_isDeliveryApi">
-        <div class="location">at         line 446</div>
+        <div class="location">at         line 479</div>
         <code>                    
     <strong>isDeliveryApi</strong>()
         </code>
@@ -1158,7 +1239,7 @@ to reduce the amount of necessary API calls.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_isPreviewApi">
-        <div class="location">at         line 454</div>
+        <div class="location">at         line 487</div>
         <code>                    
     <strong>isPreviewApi</strong>()
         </code>
@@ -1179,7 +1260,7 @@ to reduce the amount of necessary API calls.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_getSynchronizationManager">
-        <div class="location">at         line 462</div>
+        <div class="location">at         line 495</div>
         <code>                    
     <strong>getSynchronizationManager</strong>()
         </code>
@@ -1200,7 +1281,7 @@ to reduce the amount of necessary API calls.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_syncRequest">
-        <div class="location">at         line 470</div>
+        <div class="location">at         line 503</div>
         <code>                    
     <strong>syncRequest</strong>(array $queryData)
         </code>
@@ -1231,7 +1312,7 @@ to reduce the amount of necessary API calls.</p>                            </di
             </div>
                     <div class="method-item">
                     <h3 id="method_request">
-        <div class="location">at         line 480</div>
+        <div class="location">at         line 513</div>
         <code>                    
     <strong>request</strong>(string $method, string $uri, array $options = [])
         </code>

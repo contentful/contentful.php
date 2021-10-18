@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="index, follow, all" />
-    <title>Contentful\Delivery\Mapper\Entry | Contentful CDA SDK for PHP</title>
+    <title>Contentful\Delivery\Mapper\BaseTaggedMapper | Contentful CDA SDK for PHP</title>
 
             <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../../css/bootstrap-theme.min.css">
@@ -19,7 +19,7 @@
     
     </head>
 
-    <body id="class" data-name="class:Contentful_Delivery_Mapper_Entry" data-root-path="../../../">
+    <body id="class" data-name="class:Contentful_Delivery_Mapper_BaseTaggedMapper" data-root-path="../../../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
@@ -118,28 +118,27 @@
                         <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../../Contentful.html">Contentful</a></li><li class="backslash">\</li><li><a href="../../../Contentful/Delivery.html">Delivery</a></li><li class="backslash">\</li><li><a href="../../../Contentful/Delivery/Mapper.html">Mapper</a></li><li class="backslash">\</li><li>Entry</li>
+                        <li><a href="../../../Contentful.html">Contentful</a></li><li class="backslash">\</li><li><a href="../../../Contentful/Delivery.html">Delivery</a></li><li class="backslash">\</li><li><a href="../../../Contentful/Delivery/Mapper.html">Mapper</a></li><li class="backslash">\</li><li>BaseTaggedMapper</li>
             </ol>
         </div>
                 <div id="page-content">
                 
     <div class="page-header">
         <h1>
-            Entry
+            BaseTaggedMapper
                 
         </h1>
     </div>
 
     <p>    class
-    <strong>Entry</strong>        extends <a href="../../../Contentful/Delivery/Mapper/BaseTaggedMapper.html"><abbr title="Contentful\Delivery\Mapper\BaseTaggedMapper">BaseTaggedMapper</abbr></a>
+    <strong>BaseTaggedMapper</strong>        extends <a href="../../../Contentful/Delivery/Mapper/BaseMapper.html"><abbr title="Contentful\Delivery\Mapper\BaseMapper">BaseMapper</abbr></a>
 </p>
 
         
     
 
             <div class="description">
-            <p>Entry class.</p>            <p>This class is responsible for converting raw API data into a PHP object
-of class Contentful\Delivery\Resource\Entry.</p>                    </div>
+            <p>Class BaseTaggedMapper.</p>            <p>Extension of the BaseMapper for tagged types.</p>                    </div>
     
     
     
@@ -225,16 +224,6 @@ of class Contentful\Delivery\Resource\Entry.</p>                    </div>
         
                                             <p class="no-description">No description</p>
                                     </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../../Contentful/Delivery/Mapper/BaseTaggedMapper.html#method_createTags"><abbr title="Contentful\Delivery\Mapper\BaseTaggedMapper">BaseTaggedMapper</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_map">map</a>($resource, array $data)
-        
-                                            <p>{@inheritdoc}</p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -363,7 +352,7 @@ of class Contentful\Delivery\Resource\Entry.</p>                    </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_createTags">
-        <div class="location">in <a href="../../../Contentful/Delivery/Mapper/BaseTaggedMapper.html#method_createTags"><abbr title="Contentful\Delivery\Mapper\BaseTaggedMapper">BaseTaggedMapper</abbr></a> at         line 23</div>
+        <div class="location">at         line 23</div>
         <code>            protected        
     <strong>createTags</strong>(array $data)
         </code>
@@ -376,42 +365,6 @@ of class Contentful\Delivery\Resource\Entry.</p>                    </div>
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
-                    <tr>
-                <td>array</td>
-                <td>$data</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_map">
-        <div class="location">at         line 34</div>
-        <code>                    
-    <strong>map</strong>($resource, array $data)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>{@inheritdoc}</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td></td>
-                <td>$resource</td>
-                <td></td>
-            </tr>
                     <tr>
                 <td>array</td>
                 <td>$data</td>
