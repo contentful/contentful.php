@@ -3,11 +3,25 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/6.1.0...HEAD)
+## [Unreleased](https://github.com/contentful/contentful.php/compare/6.2.0...HEAD)
 
 <!-- PENDING-CHANGES -->
 > No meaningful changes since last release.
 <!-- /PENDING-CHANGES -->
+
+## [6.2.0](https://github.com/contentful/contentful.php/tree/6.1.0) (2021-10-17)
+
+## Added
+
+> Support for content tags
+
+## Fixed
+
+> Access to localized fields with a non-standard locale (see [#270](https://github.com/contentful/contentful.php/issues/270))
+
+## Changed
+
+> Name changed from "SDK" to "Library" to clarify distinction
 
 ## [6.1.0](https://github.com/contentful/contentful.php/tree/6.1.0) (2021-03-20)
 
