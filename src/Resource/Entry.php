@@ -17,10 +17,16 @@ use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Client\ClientInterface;
 use Contentful\Delivery\Query;
 use Contentful\Delivery\Resource\ContentType\Field;
+use Contentful\Delivery\SystemProperties\Component\TagTrait;
 use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
 
 class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
 {
+    use TagTrait {
+        getTags as getContentfulTags;
+        initTags as initContentfulTags;
+    }
+
     /**
      * @var array
      */
@@ -35,6 +41,11 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * @var ClientInterface
      */
     protected $client;
+
+    /**
+     * @var bool
+     */
+    protected $disableTags = false;
 
     /**
      * {@inheritdoc}
@@ -184,11 +195,11 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * Links are resolved by default. If you want to get raw link objects rather than
      * complete resources, set the $resolveLinks parameter to false.
      *
-     * @param string|null $locale The locale to access the fields with.
-     * @param bool $resolveLinks Whether to resolve the links in the response.
-     * @param bool $ignoreLocaleForNonLocalizedFields Whether to access non-localized fields using the given locale.
-     *        Unless this parameter is set, doing so will result in an exception. This behaviour is breaking to older
-     *        versions and therefore not default.
+     * @param string|null $locale                            the locale to access the fields with
+     * @param bool        $resolveLinks                      whether to resolve the links in the response
+     * @param bool        $ignoreLocaleForNonLocalizedFields Whether to access non-localized fields using the given locale.
+     *                                                       Unless this parameter is set, doing so will result in an exception. This behaviour is breaking to older
+     *                                                       versions and therefore not default.
      */
     public function all(string $locale = null, bool $resolveLinks = true, bool $ignoreLocaleForNonLocalizedFields = false): array
     {
@@ -199,8 +210,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
                 // If this field is non-localized, accessing it with a locale would result in an error. Therefore, we
                 // need to access if without any locale, to fall back to it's only value.
                 $result = $this->getUnresolvedField($field);
-            }
-            else {
+            } else {
                 $result = $this->getUnresolvedField($field, $locale);
             }
 
@@ -215,8 +225,9 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
     /**
      * Returns true if the field contains locale dependent content.
      *
-     * @param string $name The name of the field.
-     * @return bool Whether the given field is localized.
+     * @param string $name the name of the field
+     *
+     * @return bool whether the given field is localized
      */
     public function isFieldLocalized(string $name): bool
     {
@@ -270,12 +281,12 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * It will return the raw field value,
      * without applying any transformation to it.
      *
-     * @param Field $field The field to access.
+     * @param Field       $field  the field to access
      * @param string|null $locale The locale to access the field with. Falls back to the default locale.
      *
      * @return mixed
      */
-    private function getUnresolvedField(Field $field, string $locale = null)
+    private function getUnresolvedField(Field $field, string $locale = null, bool $ignoreLocaleOnNonLocalizedFields = false)
     {
         // The field is not currently available on this resource,
         // but it exists in the content type, so we return an appropriate
@@ -391,6 +402,42 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
         $query->linksToEntry($this->getId());
 
         return $this->client->getEntries($query);
+    }
+
+    /**
+     * Initialize an entries tags.
+     *
+     * @param Tag[] $tags the tags to set
+     */
+    public function initTags(array $tags)
+    {
+        $this->initContentfulTags($tags);
+        // We need to check that the content type does not have a "tags" field, since we would otherwise shadow the
+        // getter method used for that and possibly break existing code. Therefore, if we have that field, we emit a
+        // warning and let the user fall back to the alternate method.
+        if ($this->has('tags')) {
+            \error_log(
+                "Warning: Content type '".
+                $this->getType().
+                "' has a field 'tags', which shadows Contentful tags. ".
+                'You can call Entry::getContentfulTags() or change the field name to access them.'
+            );
+            $this->disableTags = true;
+        } else {
+            $this->disableTags = false;
+        }
+    }
+
+    /**
+     * Get all tags of the entry.
+     */
+    public function getTags(): array
+    {
+        if ($this->disableTags) {
+            return $this->get('Tags');
+        }
+
+        return $this->getContentfulTags();
     }
 
     /**

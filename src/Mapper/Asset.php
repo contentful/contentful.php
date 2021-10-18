@@ -26,7 +26,7 @@ use Contentful\Delivery\SystemProperties\Asset as SystemProperties;
  * This class is responsible for converting raw API data into a PHP object
  * of class Contentful\Delivery\Resource\Asset.
  */
-class Asset extends BaseMapper
+class Asset extends BaseTaggedMapper
 {
     /**
      * {@inheritdoc}
@@ -52,6 +52,9 @@ class Asset extends BaseMapper
         ]);
 
         $asset->initLocales($asset->getSystemProperties()->getEnvironment()->getLocales());
+
+        $tags = $this->createTags($data);
+        $asset->initTags($tags);
 
         return $asset;
     }

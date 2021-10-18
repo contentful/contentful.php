@@ -56,6 +56,7 @@ class ResourceBuilder extends BaseResourceBuilder
         'Entry',
         'Locale',
         'Space',
+        'Tag',
     ];
 
     /**

@@ -56,6 +56,8 @@ class LinkResolver implements LinkResolverInterface
                 return $this->client->getEnvironment();
             case 'Space':
                 return $this->client->getSpace();
+            case 'Tag':
+                return $this->client->getTag($link->getId());
             default:
                 throw new \InvalidArgumentException(\sprintf('Trying to resolve link for unknown type "%s".', $link->getLinkType()));
         }

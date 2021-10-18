@@ -21,6 +21,7 @@ use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
+use Contentful\Delivery\Resource\Tag;
 
 /**
  * ClientInterface.
@@ -83,6 +84,20 @@ interface ClientInterface extends ScopedClientInterface
      * Returns the Space object corresponding to the one in use.
      */
     public function getSpace(): Space;
+
+    /**
+     * Find a specific tag by its id.
+     *
+     * @param string $tagId the id of the tag
+     */
+    public function getTag(string $tagId): Tag;
+
+    /**
+     * Returns all tags in the current space and environment.
+     *
+     * @return Tag[]
+     */
+    public function getAllTags(): array;
 
     /**
      * Resolve a link to its actual resource.

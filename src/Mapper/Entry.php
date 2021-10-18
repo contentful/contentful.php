@@ -26,7 +26,7 @@ use function GuzzleHttp\json_encode as guzzle_json_encode;
  * This class is responsible for converting raw API data into a PHP object
  * of class Contentful\Delivery\Resource\Entry.
  */
-class Entry extends BaseMapper
+class Entry extends BaseTaggedMapper
 {
     /**
      * {@inheritdoc}
@@ -59,6 +59,9 @@ class Entry extends BaseMapper
         ]);
 
         $entry->initLocales($entry->getSystemProperties()->getEnvironment()->getLocales());
+
+        $tags = $this->createTags($data);
+        $entry->initTags($tags);
 
         return $entry;
     }

@@ -27,6 +27,7 @@ use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
+use Contentful\Delivery\Resource\Tag;
 use Contentful\Delivery\ResourcePool\Factory;
 use Contentful\Delivery\Synchronization\Manager;
 use Contentful\RichText\Parser;
@@ -355,6 +356,38 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         }
 
         return $entry;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTag(string $tagId): Tag
+    {
+        /** @var Tag $tag */
+        $tag = $this->requestWithCache(
+            '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/tags/'.$tagId,
+            [],
+            'Tag',
+            $tagId
+        );
+
+        return $tag;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAllTags(): array
+    {
+        /** @var ResourceArray $tagRessources */
+        $tagRessources = $this->requestWithCache(
+            '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/tags'
+        );
+
+        /** @var Tag[] $tags */
+        $tags = $tagRessources->getItems();
+
+        return $tags;
     }
 
     /**

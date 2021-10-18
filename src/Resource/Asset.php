@@ -14,9 +14,12 @@ namespace Contentful\Delivery\Resource;
 use Contentful\Core\File\FileInterface;
 use Contentful\Core\Resource\AssetInterface;
 use Contentful\Delivery\SystemProperties\Asset as SystemProperties;
+use Contentful\Delivery\SystemProperties\Component\TagTrait;
 
 class Asset extends LocalizedResource implements AssetInterface
 {
+    use TagTrait;
+
     /**
      * @var SystemProperties
      */

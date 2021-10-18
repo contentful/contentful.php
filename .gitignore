@@ -8,3 +8,4 @@
 /.idea/
 /.phpunit.result.cache
 /php-cs-fixer.phar
+/dev-scripts
