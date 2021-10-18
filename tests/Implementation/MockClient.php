@@ -21,6 +21,7 @@ use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
+use Contentful\Delivery\Resource\Tag;
 
 class MockClient implements ClientInterface
 {
@@ -181,5 +182,15 @@ class MockClient implements ClientInterface
     public function getLastQuery()
     {
         return $this->lastQuery;
+    }
+
+    public function getTag(string $tagId): Tag
+    {
+        throw new \Exception('Not yet implemented in mock tests!');
+    }
+
+    public function getAllTags(): array
+    {
+        return [];
     }
 }
