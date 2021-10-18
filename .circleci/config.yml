@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Syntax tests
           command: |
-            cp vendor/contentful/core/.circleci/php-cs-fixer.phar .
+            cp .circleci/php-cs-fixer.phar .
             composer run lint-syntax
       - run:
           name: Static analysis
