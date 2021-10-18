@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Syntax tests
           command: |
-            wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -q -O php-cs-fixer.phar
+            cp vendor/contentful/core/.circleci/php-cs-fixer.phar .
             composer run lint-syntax
       - run:
           name: Static analysis
