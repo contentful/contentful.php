@@ -21,7 +21,6 @@ use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
 use Contentful\Delivery\Resource\Environment;
 use Contentful\Delivery\Resource\Space;
-use Contentful\Delivery\Resource\Tag;
 
 /**
  * ClientInterface.
