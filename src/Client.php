@@ -22,6 +22,7 @@ use Contentful\Core\ResourceBuilder\ResourceBuilderInterface;
 use Contentful\Delivery\Client\ClientInterface;
 use Contentful\Delivery\Client\JsonDecoderClientInterface;
 use Contentful\Delivery\Client\SynchronizationClientInterface;
+use Contentful\Delivery\QueryPool\Standard;
 use Contentful\Delivery\Resource\Asset;
 use Contentful\Delivery\Resource\ContentType;
 use Contentful\Delivery\Resource\Entry;
@@ -120,6 +121,11 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
     private $richTextParser;
 
     /**
+     * @var QueryPoolInterface
+     */
+    private $queryPool;
+
+    /**
      * Client constructor.
      *
      * @param string $token         Delivery API Access Token for the space used with this Client
@@ -148,6 +154,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         $this->linkResolver = new LinkResolver($this, $this->resourcePool);
         $this->richTextParser = new Parser($this->linkResolver);
         $this->builder = new ResourceBuilder($this, $this->resourcePool, $this->richTextParser);
+        $this->queryPool = new Standard($this, $options->getQueryCacheItemPool(), $options->getQueryCacheLifetime());
 
         parent::__construct($token, $options->getHost(), $options->getLogger(), $options->getHttpClient(), $options->usesMessageLogging());
     }
@@ -395,6 +402,10 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
      */
     public function getEntries(Query $query = null): ResourceArray
     {
+        if ($this->queryPool->has($query)) {
+            return $this->queryPool->get($query);
+        }
+
         $queryData = $query ? $query->getQueryData() : [];
         if (!isset($queryData['locale'])) {
             $queryData['locale'] = $this->defaultLocale;
@@ -406,6 +417,8 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries',
             ['query' => $queryData]
         );
+
+        $this->queryPool->save($query, $entries);
 
         return $entries;
     }
@@ -515,6 +528,14 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         $response = $this->callApi('GET', $uri, $options);
 
         return $this->builder->build($response);
+    }
+
+    /**
+     * Returns the query pool currently in use.
+     */
+    public function getQueryPool(): QueryPoolInterface
+    {
+        return $this->queryPool;
     }
 
     /**

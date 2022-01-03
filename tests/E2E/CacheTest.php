@@ -13,6 +13,7 @@ namespace Contentful\Tests\Delivery\E2E;
 
 use Contentful\Delivery\Cache\CacheClearer;
 use Contentful\Delivery\Cache\CacheWarmer;
+use Contentful\Delivery\Query;
 use Contentful\Tests\Delivery\TestCase;
 use function GuzzleHttp\json_decode as guzzle_json_decode;
 
@@ -186,5 +187,116 @@ class CacheTest extends TestCase
                 'id' => 'SQOIQ1rZMQQUeyoyGiEUq',
             ],
         ], $entry->getPicture());
+    }
+
+    /**
+     * @vcr cache_queries.json
+     */
+    public function testGetEntriesIsCached()
+    {
+        self::$cache->clear();
+
+        $client = $this->getClient('default');
+        $queryPool = $client->getQueryPool();
+
+        $query = new Query();
+        $query->setContentType('cat');
+
+        $this->assertFalse($queryPool->has($query));
+
+        $entries = $client->getEntries($query);
+
+        $this->assertTrue($queryPool->has($query));
+
+        $cachedEntries = $queryPool->get($query);
+        $this->assertEquals($entries, $cachedEntries);
+    }
+
+    /**
+     * @vcr cache_queries.json
+     */
+    public function testGetEntriesIsNotCachedAcrossClients()
+    {
+        self::$cache->clear();
+
+        $firstClient = $this->getClient('default');
+        $firstQueryPool = $firstClient->getQueryPool();
+
+        $query = new Query();
+        $query->setContentType('cat');
+
+        $this->assertFalse($firstQueryPool->has($query));
+
+        $entries = $firstClient->getEntries($query);
+
+        $this->assertTrue($firstQueryPool->has($query));
+
+        $cachedEntries = $firstQueryPool->get($query);
+        $this->assertEquals($entries, $cachedEntries);
+
+        $secondClient = $this->getClient('default');
+        $secondQueryPool = $secondClient->getQueryPool();
+
+        $this->assertFalse($secondQueryPool->has($query));
+    }
+
+    /**
+     * @vcr cache_queries.json
+     */
+    public function testGetEntriesIsCachedAcrossClientsWithQueryCache()
+    {
+        self::$cache->clear();
+
+        $query = new Query();
+        $query->setContentType('cat');
+
+        $firstClient = $this->getClient('default_cache_query');
+        $firstQueryPool = $firstClient->getQueryPool();
+        $this->assertFalse($firstQueryPool->has($query));
+
+        $firstClientEntries = $firstClient->getEntries($query);
+
+        $this->assertTrue($firstQueryPool->has($query));
+        $firstClientCachedEntries = $firstQueryPool->get($query);
+        $this->assertEquals($firstClientEntries, $firstClientCachedEntries);
+
+        $secondClient = $this->getClient('default_cache_query');
+        $secondQueryPool = $secondClient->getQueryPool();
+
+        $this->assertTrue($secondQueryPool->has($query));
+
+        $secondClientCachedEntries = $secondQueryPool->get($query);
+        $this->assertEquals($secondClient->getEntries($query), $secondClientCachedEntries);
+
+        foreach ($firstClientCachedEntries->getItems() as $i => $firstClientCachedEntry) {
+            $this->assertEquals($firstClientCachedEntry->getId(), $secondClientCachedEntries[$i]->getId());
+        }
+    }
+
+    /**
+     * @vcr cache_queries.json
+     */
+    public function testGetEntriesCacheExpiresAfterLifetime()
+    {
+        self::$cache->clear();
+
+        $client = $this->getClient('2_seconds_lifetime_cache_query');
+        $queryPool = $client->getQueryPool();
+
+        $query = new Query();
+        $query->setContentType('cat');
+
+        $this->assertFalse($queryPool->has($query));
+
+        $client->getEntries($query);
+
+        $this->assertTrue($queryPool->has($query));
+
+        sleep(2);
+
+        $client = $this->getClient('2_seconds_lifetime_cache_query');
+        $queryPool = $client->getQueryPool();
+
+        $this->assertFalse($queryPool->has($query));
     }
 }

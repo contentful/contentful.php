@@ -99,6 +99,14 @@ class TestCase extends BaseTestCase
                 'options' => ClientOptions::create()
                     ->withLowMemoryResourcePool(),
             ],
+            'default_cache_query' => [
+                'options' => ClientOptions::create()
+                    ->withQueryCache(self::$cache, 60),
+            ],
+            '2_seconds_lifetime_cache_query' => [
+                'options' => ClientOptions::create()
+                    ->withQueryCache(self::$cache, 2),
+            ]
         ];
 
         if (!isset($config[$key])) {

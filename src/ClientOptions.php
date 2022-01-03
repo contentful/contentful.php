@@ -65,6 +65,16 @@ class ClientOptions
     private $messageLogging = true;
 
     /**
+     * @var CacheItemPoolInterface
+     */
+    private $queryCacheItemPool;
+
+    /**
+     * @var int
+     */
+    private $queryCacheLifetime = 0;
+
+    /**
      * ClientOptions constructor.
      */
     public function __construct()
@@ -72,6 +82,7 @@ class ClientOptions
         $this->cacheItemPool = new VoidCachePool();
         $this->logger = new NullLogger();
         $this->httpClient = new HttpClient();
+        $this->queryCacheItemPool = new VoidCachePool();
     }
 
     public static function create(): self
@@ -224,5 +235,23 @@ class ClientOptions
     public function usesMessageLogging(): bool
     {
         return $this->messageLogging;
+    }
+
+    public function withQueryCache(CacheItemPoolInterface $queryCacheItemPool, int $queryCacheLifetime = 0): self
+    {
+        $this->queryCacheItemPool = $queryCacheItemPool;
+        $this->queryCacheLifetime = $queryCacheLifetime;
+
+        return $this;
+    }
+
+    public function getQueryCacheItemPool(): CacheItemPoolInterface
+    {
+        return $this->queryCacheItemPool;
+    }
+
+    public function getQueryCacheLifetime(): int
+    {
+        return $this->queryCacheLifetime;
     }
 }
