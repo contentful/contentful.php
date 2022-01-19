@@ -3,13 +3,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/6.2.0...HEAD)
+## [Unreleased](https://github.com/contentful/contentful.php/compare/6.3.0...HEAD)
 
 <!-- PENDING-CHANGES -->
 > No meaningful changes since last release.
 <!-- /PENDING-CHANGES -->
 
-## [6.2.0](https://github.com/contentful/contentful.php/tree/6.1.0) (2021-10-17)
+## [6.3.0](https://github.com/contentful/contentful.php/tree/6.3.0) (2022-01-19)
+
+> Updated Symfony dependencies to allow for Symfony 6
+> Added support for psr/cache version 3
+> Added support for a backwards-compatibility breakage check
+
+## [6.2.0](https://github.com/contentful/contentful.php/tree/6.2.0) (2021-10-17)
 
 ## Added
 
