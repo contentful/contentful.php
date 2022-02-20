@@ -11,11 +11,11 @@ declare(strict_types=1);
 
 namespace Contentful\Delivery;
 
-use Cache\Adapter\Void\VoidCachePool;
-use Contentful\Core\Log\NullLogger;
 use GuzzleHttp\Client as HttpClient;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+use Symfony\Component\Cache\Adapter\NullAdapter;
 
 class ClientOptions
 {
@@ -69,7 +69,7 @@ class ClientOptions
      */
     public function __construct()
     {
-        $this->cacheItemPool = new VoidCachePool();
+        $this->cacheItemPool = new NullAdapter();
         $this->logger = new NullLogger();
         $this->httpClient = new HttpClient();
     }

@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Unit;
 
-use Cache\Adapter\PHPArray\ArrayCachePool;
-use Contentful\Core\Log\NullLogger;
 use Contentful\Delivery\ClientOptions;
 use Contentful\Tests\Delivery\TestCase;
 use GuzzleHttp\Client as HttpClient;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 class ClientOptionsTest extends TestCase
 {
@@ -51,7 +51,7 @@ class ClientOptionsTest extends TestCase
         $options->withDefaultLocale('it-IT');
         $this->assertSame('it-IT', $options->getDefaultLocale());
 
-        $cachePool = new ArrayCachePool();
+        $cachePool = new ArrayAdapter();
         $options->withCache($cachePool, true, true);
         $this->assertSame($cachePool, $options->getCacheItemPool());
         $this->assertTrue($options->hasCacheAutoWarmup());
