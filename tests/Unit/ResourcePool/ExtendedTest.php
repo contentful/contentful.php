@@ -11,17 +11,17 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Unit\ResourcePool;
 
-use Cache\Adapter\PHPArray\ArrayCachePool;
 use Contentful\Delivery\ResourcePool\Extended;
 use Contentful\Tests\Delivery\Implementation\JsonDecoderClient;
 use Contentful\Tests\Delivery\Implementation\MockEntry;
 use Contentful\Tests\Delivery\TestCase;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 class ExtendedTest extends TestCase
 {
     public function testGetSetData()
     {
-        $resourcePool = new Extended(new JsonDecoderClient(), new ArrayCachePool(), true);
+        $resourcePool = new Extended(new JsonDecoderClient(), new ArrayAdapter(), true);
 
         $this->assertFalse($resourcePool->has('Entry', 'entryId', ['locale' => 'en-US']));
         $entry = MockEntry::withSys('entryId', [], 'en-US');
@@ -36,14 +36,14 @@ class ExtendedTest extends TestCase
         $this->expectException(\OutOfBoundsException::class);
         $this->expectExceptionMessage('Resource pool could not find a resource with type "Entry", ID "invalidId", and locale "en-US".');
 
-        $instanceRepository = new Extended(new JsonDecoderClient(), new ArrayCachePool());
+        $instanceRepository = new Extended(new JsonDecoderClient(), new ArrayAdapter());
 
         $instanceRepository->get('Entry', 'invalidId', ['locale' => 'en-US']);
     }
 
     public function testGenerateKey()
     {
-        $instanceRepository = new Extended(new JsonDecoderClient(), new ArrayCachePool());
+        $instanceRepository = new Extended(new JsonDecoderClient(), new ArrayAdapter());
 
         $key = $instanceRepository->generateKey(
             'Entry',

@@ -11,14 +11,14 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Implementation;
 
-use Cache\Adapter\PHPArray\ArrayCachePool;
 use Contentful\Delivery\Cache\CacheItemPoolFactoryInterface;
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 class CacheItemPoolFactory implements CacheItemPoolFactoryInterface
 {
     /**
-     * @var ArrayCachePool[]
+     * @var CacheItemPoolInterface[]
      */
     public static $pools = [];
 
@@ -37,7 +37,7 @@ class CacheItemPoolFactory implements CacheItemPoolFactoryInterface
     {
         $key = $api.'.'.$spaceId.'.'.$environmentId;
         if (!isset(self::$pools[$key])) {
-            self::$pools[$key] = new ArrayCachePool();
+            self::$pools[$key] = new ArrayAdapter();
         }
 
         return self::$pools[$key];

@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery;
 
-use Cache\Adapter\PHPArray\ArrayCachePool;
 use Contentful\Delivery\Client;
 use Contentful\Delivery\Client\JsonDecoderClientInterface;
 use Contentful\Delivery\ClientOptions;
 use Contentful\Tests\TestCase as BaseTestCase;
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 class TestCase extends BaseTestCase
 {
@@ -29,7 +29,7 @@ class TestCase extends BaseTestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$cache = new ArrayCachePool();
+        self::$cache = new ArrayAdapter();
     }
 
     protected function getClient(string $key): Client
