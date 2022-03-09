@@ -97,7 +97,7 @@ jobs:
 
   test80:
     docker:
-      - image: circleci/php:8.0-cli
+      - image: cimg/php:8.0
     steps:
       - checkout
       # we ignore the php8 platform reqs for now, since php-vcr is not updated for php8, but works
@@ -107,7 +107,7 @@ jobs:
  
   test81:
     docker:
-      - image: circleci/php:8.1-cli
+      - image: cimg/php:8.1
     steps:
       - checkout
       # we ignore the php8 platform reqs for now, since php-vcr is not updated for php8, but works
