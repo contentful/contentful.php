@@ -280,8 +280,8 @@ class EntryTest extends TestCase
 
         $this->assertTrue($entry->has('location'));
         $location = $entry->get('location');
-        $this->assertSame(43.7682899, $location->getLatitude());
-        $this->assertSame(11.2556199, $location->getLongitude());
+        $this->assertEqualsWithDelta(43.7682899, $location->getLatitude(), 0.0001);
+        $this->assertEqualsWithDelta(11.2556199, $location->getLongitude(), 0.0001);
 
         $this->assertTrue($entry->has('link'));
         $link = $entry->get('link', null, false);
@@ -306,8 +306,8 @@ class EntryTest extends TestCase
 
         $this->assertTrue($entry->has('location'));
         $location = $entry->get('location');
-        $this->assertSame(43.7682899, $location->getLatitude());
-        $this->assertSame(11.2556199, $location->getLongitude());
+        $this->assertEqualsWithDelta(43.7682899, $location->getLatitude(), 0.0001);
+        $this->assertEqualsWithDelta(11.2556199, $location->getLongitude(), 0.0001);
 
         $this->assertTrue($entry->has('link'));
         $link = $entry->get('link', null, false);
@@ -345,8 +345,8 @@ class EntryTest extends TestCase
 
         $this->assertTrue($entry->has('location'));
         $location = $entry->get('location');
-        $this->assertSame(43.7682899, $location->getLatitude());
-        $this->assertSame(11.2556199, $location->getLongitude());
+        $this->assertEqualsWithDelta(43.7682899, $location->getLatitude(), 0.0001);
+        $this->assertEqualsWithDelta(11.2556199, $location->getLongitude(), 0.0001);
 
         $this->assertTrue($entry->has('link'));
         $link = $entry->get('link', null, false);
@@ -372,8 +372,8 @@ class EntryTest extends TestCase
 
         $this->assertTrue($entry->has('location'));
         $location = $entry->get('location');
-        $this->assertSame(43.7682899, $location->getLatitude());
-        $this->assertSame(11.2556199, $location->getLongitude());
+        $this->assertEqualsWithDelta(43.7682899, $location->getLatitude(), 0.0001);
+        $this->assertEqualsWithDelta(11.2556199, $location->getLongitude(), 0.0001);
 
         $this->assertTrue($entry->has('link'));
         $link = $entry->get('link', null, false);
@@ -410,8 +410,8 @@ class EntryTest extends TestCase
 
         $this->assertTrue($entry->has('location'));
         $location = $entry->get('location');
-        $this->assertSame(43.7682899, $location->getLatitude());
-        $this->assertSame(11.2556199, $location->getLongitude());
+        $this->assertEqualsWithDelta(43.7682899, $location->getLatitude(), 0.0001);
+        $this->assertEqualsWithDelta(11.2556199, $location->getLongitude(), 0.0001);
 
         $this->assertTrue($entry->has('link'));
         $link = $entry->get('link', null, false);
@@ -437,8 +437,8 @@ class EntryTest extends TestCase
 
         $this->assertTrue($entry->has('location'));
         $location = $entry->get('location');
-        $this->assertSame(43.7682899, $location->getLatitude());
-        $this->assertSame(11.2556199, $location->getLongitude());
+        $this->assertEqualsWithDelta(43.7682899, $location->getLatitude(), 0.0001);
+        $this->assertEqualsWithDelta(11.2556199, $location->getLongitude(), 0.0001);
 
         $this->assertTrue($entry->has('link'));
         $link = $entry->get('link', null, false);
