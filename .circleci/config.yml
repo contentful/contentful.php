@@ -9,16 +9,20 @@ workflows:
   main:
     jobs:
       - lint
+      - checkBcBreaks
       - test72
       - test73
       - test74
       - test80
+      - test81
       - docs_build:
           requires:
             - lint
             - test72
             - test73
             - test74
+            - test80
+            - test81
           filters:
             branches:
               only: master
@@ -41,6 +45,17 @@ jobs:
           command: |
             wget https://github.com/phpstan/phpstan/releases/download/0.10.3/phpstan.phar -q -O phpstan.phar
             composer run lint-static-analysis
+
+  checkBcBreaks:
+    docker:
+      - image: circleci/php:7.4-cli
+    steps:
+      - checkout
+      - run: { name: "Install dependencies", command: sudo composer self-update && composer install -n --prefer-dist }
+      - run:
+          name: Check for backwards-compatibility breaks
+          command: |
+            php -d memory_limit=-1 vendor/bin/roave-backward-compatibility-check
 
   test72:
     environment:
@@ -90,7 +105,16 @@ jobs:
       - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist --ignore-platform-reqs" }
       - run: { name: "Test suite", command: "composer test-quick-fail" }
  
-        
+  test81:
+    docker:
+      - image: circleci/php:8.1-cli
+    steps:
+      - checkout
+      # we ignore the php8 platform reqs for now, since php-vcr is not updated for php8, but works
+      # as this is only used for unit tests, running with it should be fine for now
+      - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist --ignore-platform-reqs" }
+      - run: { name: "Test suite", command: "composer test-quick-fail" }
+
   docs_build:
     environment:
       TRAVIS_REPO_SLUG: contentful/contentful.php
