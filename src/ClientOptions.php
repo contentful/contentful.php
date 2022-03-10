@@ -82,7 +82,7 @@ class ClientOptions
         $this->cacheItemPool = new NullAdapter();
         $this->logger = new NullLogger();
         $this->httpClient = new HttpClient();
-        $this->queryCacheItemPool = new VoidCachePool();
+        $this->queryCacheItemPool = new NullAdapter();
     }
 
     public static function create(): self
