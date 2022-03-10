@@ -38,7 +38,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function get() : mixed
+    public function get()
     {
         return null;
     }
@@ -54,7 +54,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function set(mixed $value)
+    public function set($value)
     {
         return $this;
     }
@@ -62,7 +62,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAt(mixed $expiration)
+    public function expiresAt($expiration)
     {
         return $this;
     }
@@ -70,7 +70,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAfter(mixed $time)
+    public function expiresAfter($time)
     {
         return $this;
     }
