@@ -1,13 +1,22 @@
 <?php
 
+/**
+ * This file is part of the contentful/contentful package.
+ *
+ * @copyright 2015-2022 Contentful GmbH
+ * @license   MIT
+ */
+
+declare(strict_types=1);
+
 namespace Contentful\Delivery\QueryPool;
 
 use Contentful\Core\Api\BaseQuery;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Client\JsonDecoderClientInterface;
 use Contentful\Delivery\QueryPoolInterface;
-use Psr\Cache\CacheItemPoolInterface;
 use function GuzzleHttp\json_encode as guzzle_json_encode;
+use Psr\Cache\CacheItemPoolInterface;
 
 class Standard implements QueryPoolInterface
 {
@@ -42,7 +51,7 @@ class Standard implements QueryPoolInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function save(?BaseQuery $query, ResourceArray $entries): bool
     {
@@ -54,7 +63,7 @@ class Standard implements QueryPoolInterface
             return false;
         }
 
-        if ($this->lifetime === 0) {
+        if (0 === $this->lifetime) {
             return true;
         }
 
@@ -90,12 +99,12 @@ class Standard implements QueryPoolInterface
 
     public function generateKey(?BaseQuery $query): string
     {
-        return 'QUERY__' . sha1(serialize($query));
+        return 'QUERY__'.\sha1(\serialize($query));
     }
 
     protected function warmUp(string $key): void
     {
-        if ($this->lifetime === 0) {
+        if (0 === $this->lifetime) {
             return;
         }
 
@@ -103,14 +112,8 @@ class Standard implements QueryPoolInterface
 
         if ($item->isHit()) {
             $resourceArray = $this->client->parseJson($item->get());
-            if (!$resourceArray instanceof  ResourceArray) {
-                throw new \RuntimeException(
-                    sprintf(
-                        'Invalid query cache hit. Expected to be "%s", "%s" given.',
-                        ResourceArray::class,
-                        is_object($resourceArray) ? get_class($resourceArray) : gettype($resourceArray)
-                    )
-                );
+            if (!$resourceArray instanceof ResourceArray) {
+                throw new \RuntimeException(\sprintf('Invalid query cache hit. Expected to be "%s", "%s" given.', ResourceArray::class, \is_object($resourceArray) ? \get_class($resourceArray) : \gettype($resourceArray)));
             }
             $this->queries[$key] = $resourceArray;
         }

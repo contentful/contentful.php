@@ -106,7 +106,7 @@ class TestCase extends BaseTestCase
             '2_seconds_lifetime_cache_query' => [
                 'options' => ClientOptions::create()
                     ->withQueryCache(self::$cache, 2),
-            ]
+            ],
         ];
 
         if (!isset($config[$key])) {
