@@ -209,7 +209,7 @@ class CacheTest extends TestCase
         $this->assertTrue($queryPool->has($query));
 
         $cachedEntries = $queryPool->get($query);
-        $this->assertSame($entries, $cachedEntries);
+        $this->assertEquals($entries, $cachedEntries);
     }
 
     /**
@@ -232,7 +232,7 @@ class CacheTest extends TestCase
         $this->assertTrue($firstQueryPool->has($query));
 
         $cachedEntries = $firstQueryPool->get($query);
-        $this->assertSame($entries, $cachedEntries);
+        $this->assertEquals($entries, $cachedEntries);
 
         $secondClient = $this->getClient('default');
         $secondQueryPool = $secondClient->getQueryPool();
@@ -258,7 +258,7 @@ class CacheTest extends TestCase
 
         $this->assertTrue($firstQueryPool->has($query));
         $firstClientCachedEntries = $firstQueryPool->get($query);
-        $this->assertSame($firstClientEntries, $firstClientCachedEntries);
+        $this->assertEquals($firstClientEntries, $firstClientCachedEntries);
 
         $secondClient = $this->getClient('default_cache_query');
         $secondQueryPool = $secondClient->getQueryPool();
@@ -266,10 +266,10 @@ class CacheTest extends TestCase
         $this->assertTrue($secondQueryPool->has($query));
 
         $secondClientCachedEntries = $secondQueryPool->get($query);
-        $this->assertSame($secondClient->getEntries($query), $secondClientCachedEntries);
+        $this->assertEquals($secondClient->getEntries($query), $secondClientCachedEntries);
 
         foreach ($firstClientCachedEntries->getItems() as $i => $firstClientCachedEntry) {
-            $this->assertSame($firstClientCachedEntry->getId(), $secondClientCachedEntries[$i]->getId());
+            $this->assertEquals($firstClientCachedEntry->getId(), $secondClientCachedEntries[$i]->getId());
         }
     }
 
