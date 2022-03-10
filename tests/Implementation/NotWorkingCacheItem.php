@@ -7,7 +7,6 @@
  * @license   MIT
  */
 
-declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Implementation;
 
@@ -55,7 +54,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function set(mixed $value) : CacheItemInterface
+    public function set(mixed $value)
     {
         return $this;
     }
@@ -63,7 +62,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAt(mixed $expiration) : CacheItemInterface
+    public function expiresAt(mixed $expiration)
     {
         return $this;
     }
@@ -71,7 +70,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAfter(mixed $time) : CacheItemInterface
+    public function expiresAfter(mixed $time)
     {
         return $this;
     }
