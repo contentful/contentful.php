@@ -39,6 +39,7 @@ function clean_headers_array(Request $request)
 // The VCR needs to be loaded before the Client is loaded for the first time or it will fail
 VCR::configure()
     ->setMode('once')
+//    ->setMode('new_episodes')
     ->setStorage('json')
     ->enableLibraryHooks(['stream_wrapper', 'curl'])
     ->setCassettePath('tests/Recordings')
