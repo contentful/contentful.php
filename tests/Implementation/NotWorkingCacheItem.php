@@ -54,7 +54,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function set($value) : CacheItemInterface
+    public function set($value) : NotWorkingCacheItem
     {
         return $this;
     }
@@ -62,7 +62,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAt($expiration) : CacheItemInterface
+    public function expiresAt($expiration) : NotWorkingCacheItem
     {
         return $this;
     }
@@ -70,7 +70,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAfter($time) : CacheItemInterface
+    public function expiresAfter($time) : NotWorkingCacheItem
     {
         return $this;
     }
