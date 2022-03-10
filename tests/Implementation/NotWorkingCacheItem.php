@@ -38,7 +38,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function get()
+    public function get() : ?self
     {
         return null;
     }
