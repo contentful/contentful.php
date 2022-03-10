@@ -7,6 +7,7 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
 
 namespace Contentful\Tests\Delivery\Implementation;
 
@@ -38,7 +39,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function get() : ?self
+    public function get(): ?self
     {
         return null;
     }
