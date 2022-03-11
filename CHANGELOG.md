@@ -3,11 +3,27 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/6.3.0...HEAD)
+## [Unreleased](https://github.com/contentful/contentful.php/compare/6.4.0...HEAD)
 
 <!-- PENDING-CHANGES -->
 > No meaningful changes since last release.
 <!-- /PENDING-CHANGES -->
+
+## [6.4.0](https://github.com/contentful/contentful.php/tree/6.4.0) (2022-03-11)
+
+### Added
+
+* Support for caching of Client::getEntries() - thanks @mmenozzi !
+* Support for psr/cache v2.0 - thanks @kwivix !
+
+### Internal
+
+* Small CI fixes
+* Switched to new CircleCI PHP images
+
+### Notes
+
+* Due to some interface incompatibility, this version does currently not support psr/cache 3.0 - if you need 3.0, you can stay on 6.3.0 for now. We plan on supporting version 3 again in the future.
 
 ## [6.3.0](https://github.com/contentful/contentful.php/tree/6.3.0) (2022-01-19)
 
