@@ -132,6 +132,7 @@ $options = \Contentful\Delivery\ClientOptions::create()
     ->withCache(Psr\Cache\CacheItemPoolInterface $cache, bool $autoWarmup = false, bool $cacheContent = false)
     ->withHttpClient(GuzzleHttp\Client $client)
     ->withoutMessageLogging()
+    ->withQueryCache(Psr\Cache\CacheItemPoolInterface $queryCacheItemPool, int $queryCacheLifetime = 0)
 ;
 
 $client = new \Contentful\Delivery\Client(
@@ -160,6 +161,8 @@ $client = new \Contentful\Delivery\Client(
 | `withCache()` | `bool $cacheContent = false` | When using a cache pool with `$autoWarmup` set to true, se this to true to fill the cache with entries and assets during runtime. This may speed up execution when calling `$client->getEntry($entryId)` and `$client->getAsset($assetId)`, but *not* when calling the `getEntries()` and `getAssets()` methods, as the client can't reliably know which entries or assets will be returned by the API, and for this reason the cache can't intercept the call. |
 | `withHttpClient()` | `GuzzleHttp\Client $client` | A Guzzle client instance, which can be configured with custom middleware |
 | `withoutMessageLogging()` | - | Do not store API requests and responses (which can use a lot of memory). If messages are not stored, they will not be retrievable from `Client::getMessages()` for debugging and inspection purposes |
+| `withQueryCache()` | `Psr\Cache\CacheItemPoolInterface $queryCacheItemPool` | A PSR-6 cache item pool. This will be used to cache items retrieved with queries when calling `$client->getEntries($query)`. |
+| `withQueryCache()` | `int $queryCacheLifetime = 0` | The number of seconds of lifetime for `$client->getEntries($query)` cache items. There's no invalidation mechanism on these cache items so consider to set a low lifetime (for example 60 seconds). |
 
 ### Reference documentation
 
