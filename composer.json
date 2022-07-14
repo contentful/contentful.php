@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2|^8.0",
-        "contentful/core": "^3.0",
+        "contentful/core": "^3.1",
         "contentful/rich-text": "^3.1",
         "psr/cache": "^1.0|^2.0",
         "psr/log": "^1.1|^2.0|^3.0",
