@@ -417,10 +417,10 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
         // warning and let the user fall back to the alternate method.
         if ($this->has('tags')) {
             \error_log(
-                "Warning: Content type '" .
-                    $this->getType() .
-                    "' has a field 'tags', which shadows Contentful tags. " .
-                    'You can call Entry::getContentfulTags() or change the field name to access them.'
+                "Warning: Content type '".
+                $this->getType().
+                "' has a field 'tags', which shadows Contentful tags. ".
+                'You can call Entry::getContentfulTags() or change the field name to access them.'
             );
             $this->disableTags = true;
         } else {
