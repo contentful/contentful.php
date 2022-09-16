@@ -126,7 +126,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetGet($name)
+    public function offsetGet($name): mixed
     {
         return $this->get($name);
     }
@@ -134,7 +134,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($name)
+    public function offsetExists($name): bool
     {
         return $this->has($name);
     }
@@ -142,7 +142,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($name, $value)
+    public function offsetSet($name, $value): void
     {
         throw new \LogicException('Entry class does not support setting fields.');
     }
@@ -150,7 +150,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($name)
+    public function offsetUnset($name): void
     {
         throw new \LogicException('Entry class does not support unsetting fields.');
     }
@@ -417,10 +417,10 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
         // warning and let the user fall back to the alternate method.
         if ($this->has('tags')) {
             \error_log(
-                "Warning: Content type '".
-                $this->getType().
-                "' has a field 'tags', which shadows Contentful tags. ".
-                'You can call Entry::getContentfulTags() or change the field name to access them.'
+                "Warning: Content type '" .
+                    $this->getType() .
+                    "' has a field 'tags', which shadows Contentful tags. " .
+                    'You can call Entry::getContentfulTags() or change the field name to access them.'
             );
             $this->disableTags = true;
         } else {
