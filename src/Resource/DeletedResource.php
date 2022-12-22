@@ -19,7 +19,7 @@ abstract class DeletedResource extends BaseResource
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'sys' => $this->getSystemProperties(),
