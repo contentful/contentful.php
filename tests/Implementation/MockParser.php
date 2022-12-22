@@ -32,4 +32,14 @@ class MockParser implements ParserInterface
     {
         return array_map([$this, 'parse'], $data);
     }
+
+    public function parseLocalized(array $data, ?string $locale): NodeInterface
+    {
+        return new Text('Some text');
+    }
+
+    public function parseCollectionLocalized(array $data, ?string $locale): array
+    {
+        return array_map([$this, 'parse'], $data);
+    }
 }
