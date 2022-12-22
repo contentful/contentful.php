@@ -3,11 +3,29 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/6.4.0...HEAD)
+## [Unreleased](https://github.com/contentful/contentful.php/compare/7.0.0...HEAD)
 
 <!-- PENDING-CHANGES -->
 > No meaningful changes since last release.
 <!-- /PENDING-CHANGES -->
+
+## [7.0.0](https://github.com/contentful/contentful.php/tree/6.4.0) (2022-12-22)
+
+### Changed
+
+* **Breaking change**: Dropped support for PHP7
+* **Breaking change**: Updated depdency for contentful/rich-text to 4.0, which has breaking changes - see [here](https://github.com/contentful/rich-text.php/releases/tag/4.0.0).
+* Minor docs updates - thanks @mmenozzi !
+* Fixed several deprecation warnings.
+
+### Internal
+
+* CI pipelines slightly reworked
+
+### Notes
+
+* The unit tests currently segfault on PHP8.2. This is a known PHP bug - see [here](https://github.com/php-vcr/php-vcr/issues/373).
+
 
 ## [6.4.0](https://github.com/contentful/contentful.php/tree/6.4.0) (2022-03-11)
 
