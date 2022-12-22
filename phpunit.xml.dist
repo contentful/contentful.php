@@ -18,7 +18,7 @@
     </logging>
 
     <listeners>
-        <listener class="VCR\PHPUnit\TestListener\VCRTestListener" file="vendor/php-vcr/phpunit-testlistener-vcr/src/VCRTestListener.php" />
+        <listener class="VCR\PHPUnit\TestListener\VCRTestListener" file="vendor/covergenius/phpunit-testlistener-vcr/src/VCRTestListener.php" />
     </listeners>
 
     <filter>
