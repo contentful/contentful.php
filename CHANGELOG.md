@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 > No meaningful changes since last release.
 <!-- /PENDING-CHANGES -->
 
-## [7.0.0](https://github.com/contentful/contentful.php/tree/6.4.0) (2022-12-22)
+## [7.0.0](https://github.com/contentful/contentful.php/tree/7.0.0) (2022-12-22)
 
 ### Changed
 
