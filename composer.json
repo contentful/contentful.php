@@ -4,11 +4,11 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": "^7.2|^8.0",
-        "contentful/core": "^3.0",
-        "contentful/rich-text": "^3.1",
-        "psr/cache": "^1.0|^2.0",
-        "psr/log": "^1.1|^2.0|^3.0",
+        "php": "^8.0",
+        "contentful/core": "^4.0",
+        "contentful/rich-text": "^4.0",
+        "psr/cache": "^2.0|^3.0",
+        "psr/log": "^2.0|^3.0",
         "symfony/cache": "^5.0|^6.0",
         "symfony/console": "~2.7|~3.0|~4.0|^5.0|^6.0",
         "symfony/filesystem": "~2.7|~3.0|~4.0|~5.0|^6.0"
@@ -16,8 +16,9 @@
     "require-dev": {
         "php-vcr/php-vcr": "^1.5",
         "php-vcr/phpunit-testlistener-vcr": "3.0.0|^3.2",
+        "phpstan/phpstan": "^1.9",
         "phpunit/phpunit": "^8.5",
-        "roave/backward-compatibility-check": "^3.0|^5.0|^6.1"
+        "roave/backward-compatibility-check": "^7.1|^8.0"
     },
     "autoload": {
         "psr-4": {
@@ -38,15 +39,9 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-quick-fail": "php vendor/bin/phpunit --stop-on-error --stop-on-failure -v",
-        "test-for-bc-breaks": "php vendor/bin/roave-backward-compatibility-check",
-        "lint-syntax": "$([ -f php-cs-fixer.phar ] && echo \"php php-cs-fixer.phar\" || echo \"php-cs-fixer\") fix --dry-run --stop-on-violation --show-progress=none --verbose",
-        "lint-static-analysis": "$([ -f phpstan.phar ] && echo \"php phpstan.phar\" || echo \"phpstan\") analyse --no-progress --level=max src/",
-        "release": "php vendor/contentful/core/scripts/release.php"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "6.3.x-dev"
-        }
+        "test-for-bc-breaks": "php -d memory_limit=-1  vendor/bin/roave-backward-compatibility-check",
+        "lint-static-analysis": "php vendor/bin/phpstan analyse src --level=5",
+	"release": "php vendor/contentful/core/scripts/release.php"
     },
     "config": {
         "allow-plugins": {
