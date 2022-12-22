@@ -55,7 +55,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function set(mixed $value) : static
+    public function set(mixed $value): static
     {
         return $this;
     }
@@ -63,7 +63,7 @@ class NotWorkingCacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAt(?\DateTimeInterface $expiration) : static
+    public function expiresAt(?\DateTimeInterface $expiration): static
     {
         return $this;
     }

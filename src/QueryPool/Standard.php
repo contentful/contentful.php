@@ -115,7 +115,7 @@ class Standard implements QueryPoolInterface
         if ($item->isHit()) {
             $resourceArray = $this->client->parseJson($item->get());
             if (!$resourceArray instanceof ResourceArray) {
-                throw new \RuntimeException(sprintf('Invalid query cache hit. Expected to be "%s", "%s" given.', ResourceArray::class, \is_object($resourceArray) ? \get_class($resourceArray) : \gettype($resourceArray)));
+                throw new \RuntimeException(sprintf('Invalid query cache hit. Expected to be "%s", "%s" given.', ResourceArray::class, \get_class($resourceArray)));
             }
             $this->queries[$key] = $resourceArray;
         }
