@@ -554,4 +554,12 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
 
         return $this->request('GET', $uri, ['query' => $query]);
     }
+
+    /**
+     * @return LinkResolverInterface
+     */
+    public function getLinkResolver(): LinkResolverInterface
+    {
+        return $this->linkResolver;
+    }
 }
