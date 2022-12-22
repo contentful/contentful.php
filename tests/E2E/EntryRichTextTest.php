@@ -40,7 +40,7 @@ class EntryRichTextTest extends TestCase
 
         // Fixture is stored using extra whitespace to improve readability
         $fixture = $this->getFixtureContent('rendered.html');
-        $fixture = \trim(\preg_replace('/>\s+</', '><', $fixture));
+        $fixture = trim(preg_replace('/>\s+</', '><', $fixture));
 
         $this->assertSame($fixture, $result);
     }

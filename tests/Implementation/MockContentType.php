@@ -24,12 +24,9 @@ class MockContentType extends ContentType
         parent::__construct($data);
     }
 
-    /**
-     * @return MockContentType
-     */
     public static function withSys(string $id = 'contentTypeId', array $data = []): self
     {
-        return new static(\array_merge($data, [
+        return new static(array_merge($data, [
             'sys' => new SystemProperties([
                 'id' => $id,
                 'type' => 'ContentType',

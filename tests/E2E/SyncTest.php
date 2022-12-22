@@ -32,7 +32,7 @@ class SyncTest extends TestCase
         $result = $manager->startSync();
 
         $this->assertInstanceOf(Result::class, $result);
-        $this->assertGreaterThan(40, \mb_strlen($result->getToken()));
+        $this->assertGreaterThan(40, mb_strlen($result->getToken()));
         $this->assertTrue($result->isDone());
 
         $items = $result->getItems();
@@ -96,7 +96,7 @@ class SyncTest extends TestCase
 
         $this->assertCount(1, $results);
         $this->assertTrue($result->isDone());
-        $this->assertGreaterThan(40, \mb_strlen($result->getToken()));
+        $this->assertGreaterThan(40, mb_strlen($result->getToken()));
     }
 
     /**
@@ -113,7 +113,7 @@ class SyncTest extends TestCase
         $result = $manager->startSync($query);
 
         $this->assertInstanceOf(Result::class, $result);
-        $this->assertGreaterThan(40, \mb_strlen($result->getToken()));
+        $this->assertGreaterThan(40, mb_strlen($result->getToken()));
         $this->assertTrue($result->isDone());
 
         $items = $result->getItems();
@@ -126,7 +126,7 @@ class SyncTest extends TestCase
         $result = $manager->startSync($query);
 
         $this->assertInstanceOf(Result::class, $result);
-        $this->assertGreaterThan(40, \mb_strlen($result->getToken()));
+        $this->assertGreaterThan(40, mb_strlen($result->getToken()));
         $this->assertTrue($result->isDone());
 
         $items = $result->getItems();

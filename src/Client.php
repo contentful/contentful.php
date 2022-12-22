@@ -141,7 +141,7 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
         $this->spaceId = $spaceId;
         $this->environmentId = $environmentId;
 
-        $options = $options ?? new ClientOptions();
+        $options ??= new ClientOptions();
 
         // This works best as a negation:
         // We consider all as Delivery API except for those

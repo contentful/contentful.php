@@ -13,7 +13,9 @@ namespace Contentful\Delivery\ResourcePool;
 
 use Contentful\Core\Resource\ResourceInterface;
 use Contentful\Delivery\Client\JsonDecoderClientInterface;
+
 use function GuzzleHttp\json_encode as guzzle_json_encode;
+
 use Psr\Cache\CacheItemPoolInterface;
 
 /**

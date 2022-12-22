@@ -30,6 +30,6 @@ class MockParser implements ParserInterface
      */
     public function parseCollection(array $data): array
     {
-        return \array_map([$this, 'parse'], $data);
+        return array_map([$this, 'parse'], $data);
     }
 }

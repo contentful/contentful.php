@@ -46,7 +46,7 @@ class ScopedJsonDecoder
         }
 
         if ($spaceId !== $this->spaceId || $environmentId !== $this->environmentId) {
-            throw new \InvalidArgumentException(\sprintf('Trying to parse and build a JSON structure with a client configured for handling space "%s" and environment "%s", but space "%s" and environment "%s" were detected.', $this->spaceId, $this->environmentId, $spaceId, $environmentId));
+            throw new \InvalidArgumentException(sprintf('Trying to parse and build a JSON structure with a client configured for handling space "%s" and environment "%s", but space "%s" and environment "%s" were detected.', $this->spaceId, $this->environmentId, $spaceId, $environmentId));
         }
 
         return $data;

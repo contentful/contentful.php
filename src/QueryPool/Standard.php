@@ -15,7 +15,9 @@ use Contentful\Core\Api\BaseQuery;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Client\JsonDecoderClientInterface;
 use Contentful\Delivery\QueryPoolInterface;
+
 use function GuzzleHttp\json_encode as guzzle_json_encode;
+
 use Psr\Cache\CacheItemPoolInterface;
 
 class Standard implements QueryPoolInterface
@@ -83,7 +85,7 @@ class Standard implements QueryPoolInterface
         $this->warmUp($key);
 
         if (!isset($this->queries[$key])) {
-            throw new \OutOfBoundsException(\sprintf('Query pool could not find a query with key "%s".', $key));
+            throw new \OutOfBoundsException(sprintf('Query pool could not find a query with key "%s".', $key));
         }
 
         return $this->queries[$key];
@@ -99,7 +101,7 @@ class Standard implements QueryPoolInterface
 
     public function generateKey(?BaseQuery $query): string
     {
-        return 'QUERY__'.\sha1(\serialize($query));
+        return 'QUERY__'.sha1(serialize($query));
     }
 
     protected function warmUp(string $key): void
@@ -113,7 +115,7 @@ class Standard implements QueryPoolInterface
         if ($item->isHit()) {
             $resourceArray = $this->client->parseJson($item->get());
             if (!$resourceArray instanceof ResourceArray) {
-                throw new \RuntimeException(\sprintf('Invalid query cache hit. Expected to be "%s", "%s" given.', ResourceArray::class, \is_object($resourceArray) ? \get_class($resourceArray) : \gettype($resourceArray)));
+                throw new \RuntimeException(sprintf('Invalid query cache hit. Expected to be "%s", "%s" given.', ResourceArray::class, \is_object($resourceArray) ? \get_class($resourceArray) : \gettype($resourceArray)));
             }
             $this->queries[$key] = $resourceArray;
         }

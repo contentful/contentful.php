@@ -120,7 +120,7 @@ class Manager
         $token = $this->getTokenFromResponse($data);
         $done = isset($data['nextSyncUrl']);
 
-        $items = \array_map(function (array $item): ResourceInterface {
+        $items = array_map(function (array $item): ResourceInterface {
             return $this->builder->build($item);
         }, $data['items']);
 
@@ -137,11 +137,11 @@ class Manager
         $url = $data['nextSyncUrl'] ?? $data['nextPageUrl'];
 
         $queryValues = [];
-        $parsedUrl = \parse_url($url, \PHP_URL_QUERY);
+        $parsedUrl = parse_url($url, \PHP_URL_QUERY);
         if (null === $parsedUrl) {
             $parsedUrl = '';
         }
-        \parse_str($parsedUrl, $queryValues);
+        parse_str($parsedUrl, $queryValues);
 
         return $queryValues['sync_token'];
     }

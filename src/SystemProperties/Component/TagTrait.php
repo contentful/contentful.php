@@ -28,7 +28,7 @@ trait TagTrait
     protected function jsonSerializeSpace(): array
     {
         return [
-            'tags' => \array_map(function ($tag) { return $tag->asLink(); }, $this->tags),
+            'tags' => array_map(function ($tag) { return $tag->asLink(); }, $this->tags),
         ];
     }
 

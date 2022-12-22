@@ -70,7 +70,7 @@ abstract class BaseCacheHandler
         }
 
         if ($cacheContent) {
-            $locales = \array_map(function (Locale $locale) {
+            $locales = array_map(function (Locale $locale) {
                 return $locale->getCode();
             }, $this->client->getEnvironment()->getLocales());
             $locales[] = '*';

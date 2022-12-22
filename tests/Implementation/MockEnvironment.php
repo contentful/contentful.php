@@ -24,12 +24,9 @@ class MockEnvironment extends Environment
         parent::__construct($data);
     }
 
-    /**
-     * @return MockEnvironment
-     */
     public static function withSys(string $id = 'environmentId', array $data = []): self
     {
-        return new static(\array_merge($data, [
+        return new static(array_merge($data, [
             'sys' => new SystemProperties([
                 'id' => $id,
                 'type' => 'Environment',

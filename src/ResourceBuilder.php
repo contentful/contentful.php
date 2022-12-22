@@ -103,7 +103,7 @@ class ResourceBuilder extends BaseResourceBuilder
             return $data['sys']['type'];
         }
 
-        throw new \InvalidArgumentException(\sprintf('Unexpected system type "%s" while trying to build a resource.', $data['sys']['type']));
+        throw new \InvalidArgumentException(sprintf('Unexpected system type "%s" while trying to build a resource.', $data['sys']['type']));
     }
 
     /**
@@ -157,24 +157,24 @@ class ResourceBuilder extends BaseResourceBuilder
      */
     private function buildContentTypeCollection(array $data)
     {
-        $items = \array_merge(
+        $items = array_merge(
             $data['items'],
             $data['includes']['Entry'] ?? []
         );
 
-        $ids = \array_map(function (array $item) {
+        $ids = array_map(function (array $item) {
             return 'Entry' === $item['sys']['type']
                 ? $item['sys']['contentType']['sys']['id']
                 : null;
         }, $items);
 
-        $ids = \array_filter(\array_unique($ids), function ($id): bool {
+        $ids = array_filter(array_unique($ids), function ($id): bool {
             return $id && !$this->resourcePool->has('ContentType', $id);
         });
 
         if ($ids) {
             $query = (new Query())
-                ->where('sys.id[in]', \implode(',', $ids))
+                ->where('sys.id[in]', implode(',', $ids))
             ;
             $this->client->getContentTypes($query);
         }
@@ -182,7 +182,7 @@ class ResourceBuilder extends BaseResourceBuilder
 
     private function buildIncludes(array $data)
     {
-        $items = \array_merge(
+        $items = array_merge(
             $data['includes']['Entry'] ?? [],
             $data['includes']['Asset'] ?? []
         );

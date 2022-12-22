@@ -25,7 +25,7 @@ class ConsoleTest extends TestCase
         $command = $application->find($commandName);
 
         $tester = new CommandTester($command);
-        $tester->execute(\array_merge(['command' => $command->getName()], $params));
+        $tester->execute(array_merge(['command' => $command->getName()], $params));
 
         return $tester->getDisplay();
     }

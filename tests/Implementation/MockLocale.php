@@ -21,17 +21,14 @@ class MockLocale extends Locale
      */
     public function __construct(array $data)
     {
-        $data['sys'] = $data['sys'] ?? new SystemProperties(['id' => $data['code'], 'type' => 'Locale']);
+        $data['sys'] ??= new SystemProperties(['id' => $data['code'], 'type' => 'Locale']);
 
         parent::__construct($data);
     }
 
-    /**
-     * @return MockLocale
-     */
     public static function withSys(string $id = 'localeId', array $data = []): self
     {
-        return new static(\array_merge($data, [
+        return new static(array_merge($data, [
             'sys' => new SystemProperties([
                 'id' => $id,
                 'type' => 'Locale',

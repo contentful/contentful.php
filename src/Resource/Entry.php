@@ -81,14 +81,14 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      */
     public function __call(string $name, array $arguments)
     {
-        if (0 === \mb_strpos($name, 'has')) {
+        if (0 === mb_strpos($name, 'has')) {
             $field = $this->sys->getContentType()->getField($name, true);
 
             // Only works if the "has" is "magic", i.e.
             // the field is not actually called hasSomething.
             if (!$field) {
                 return $this->has(
-                    \mb_substr($name, 3),
+                    mb_substr($name, 3),
                     $this->getLocaleFromInput($arguments[0] ?? null),
                     $arguments[1] ?? true
                 );
@@ -99,8 +99,8 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
         // using a method-like syntax "$entry->field()".
         // Even though it's not the suggested approach, we allow that syntax
         // for maximum compatibility purposes.
-        if (0 === \mb_strpos($name, 'get')) {
-            $name = \mb_substr($name, 3);
+        if (0 === mb_strpos($name, 'get')) {
+            $name = mb_substr($name, 3);
         }
 
         $locale = $this->getLocaleFromInput($arguments[0] ?? null);
@@ -237,7 +237,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
             return $field->isLocalized();
         }
 
-        throw new \InvalidArgumentException(\sprintf('Trying to access non existent field "%s" on an entry with content type "%s" ("%s").', $name, $this->sys->getContentType()->getName(), $this->sys->getContentType()->getSystemProperties()->getId()));
+        throw new \InvalidArgumentException(sprintf('Trying to access non existent field "%s" on an entry with content type "%s" ("%s").', $name, $this->sys->getContentType()->getName(), $this->sys->getContentType()->getSystemProperties()->getId()));
     }
 
     /**
@@ -273,7 +273,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
             return $value;
         }
 
-        throw new \InvalidArgumentException(\sprintf('Trying to access non existent field "%s" on an entry with content type "%s" ("%s").', $name, $this->sys->getContentType()->getName(), $this->sys->getContentType()->getSystemProperties()->getId()));
+        throw new \InvalidArgumentException(sprintf('Trying to access non existent field "%s" on an entry with content type "%s" ("%s").', $name, $this->sys->getContentType()->getName(), $this->sys->getContentType()->getSystemProperties()->getId()));
     }
 
     /**
@@ -314,7 +314,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
         // $value[$defaultLocale], so because that check has already happened, we know
         // we're trying to access an invalid locale which is not correctly set.
         if (!$field->isLocalized()) {
-            throw new \InvalidArgumentException(\sprintf('Trying to access the non-localized field "%s" on content type "%s" using the non-default locale "%s".', $field->getName(), $this->sys->getContentType()->getName(), $locale));
+            throw new \InvalidArgumentException(sprintf('Trying to access the non-localized field "%s" on content type "%s" using the non-default locale "%s".', $field->getName(), $this->sys->getContentType()->getName(), $locale));
         }
 
         // If we reach this point, it means:
@@ -368,11 +368,11 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      */
     private function getFieldWithId(string $name, string $locale = null)
     {
-        if ('Id' !== \mb_substr($name, -2)) {
+        if ('Id' !== mb_substr($name, -2)) {
             return null;
         }
 
-        $field = $this->sys->getContentType()->getField(\mb_substr($name, 0, -2), true);
+        $field = $this->sys->getContentType()->getField(mb_substr($name, 0, -2), true);
         if (!$field) {
             return null;
         }
@@ -386,7 +386,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
             return $value->getId();
         }
 
-        return \array_map(function (Link $link) {
+        return array_map(function (Link $link) {
             return $link->getId();
         }, $value);
     }
@@ -416,7 +416,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
         // getter method used for that and possibly break existing code. Therefore, if we have that field, we emit a
         // warning and let the user fall back to the alternate method.
         if ($this->has('tags')) {
-            \error_log(
+            error_log(
                 "Warning: Content type '".
                 $this->getType().
                 "' has a field 'tags', which shadows Contentful tags. ".

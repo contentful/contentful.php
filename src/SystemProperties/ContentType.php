@@ -34,7 +34,7 @@ class ContentType extends BaseSystemProperties
      */
     public function jsonSerialize(): array
     {
-        return \array_filter(\array_merge(
+        return array_filter(array_merge(
             parent::jsonSerialize(),
             $this->jsonSerializeEdited(),
             $this->jsonSerializeEnvironment(),

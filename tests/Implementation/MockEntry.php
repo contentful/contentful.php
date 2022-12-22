@@ -25,12 +25,9 @@ class MockEntry extends Entry
         parent::__construct($data);
     }
 
-    /**
-     * @return MockEntry
-     */
     public static function withSys(string $id = 'entryId', array $data = [], string $locale = null): self
     {
-        return new static(\array_merge($data, [
+        return new static(array_merge($data, [
             'sys' => new SystemProperties([
                 'id' => $id,
                 'type' => 'Entry',

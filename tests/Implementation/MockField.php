@@ -23,7 +23,7 @@ class MockField extends Field
         parent::__construct($id, $name, $type);
 
         foreach ($data as $property => $value) {
-            if (\property_exists($this, $property)) {
+            if (property_exists($this, $property)) {
                 $this->$property = $value;
             }
         }

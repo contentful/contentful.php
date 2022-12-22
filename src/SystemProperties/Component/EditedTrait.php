@@ -36,7 +36,7 @@ trait EditedTrait
 
     protected function jsonSerializeEdited(): array
     {
-        return \array_merge($this->jsonSerializeRevision(), [
+        return array_merge($this->jsonSerializeRevision(), [
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
         ]);

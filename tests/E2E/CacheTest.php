@@ -15,6 +15,7 @@ use Contentful\Delivery\Cache\CacheClearer;
 use Contentful\Delivery\Cache\CacheWarmer;
 use Contentful\Delivery\Query;
 use Contentful\Tests\Delivery\TestCase;
+
 use function GuzzleHttp\json_decode as guzzle_json_decode;
 
 class CacheTest extends TestCase
@@ -165,8 +166,8 @@ class CacheTest extends TestCase
         $errorFields = ['name', 'jobTitle', 'picture'];
         // When building entries, missing fields are supposed to trigger
         // a silenced error message for every missing field.
-        \set_error_handler(function ($errorCode, $errorMessage) use (&$errorFields) {
-            $field = \array_shift($errorFields);
+        set_error_handler(function ($errorCode, $errorMessage) use (&$errorFields) {
+            $field = array_shift($errorFields);
 
             $this->assertSame(
                 'Entry of content type "Person" ("person") being built contains field "'.$field.'" which is not present in the content type definition. Please check your cache for stale content type definitions.',
@@ -176,7 +177,7 @@ class CacheTest extends TestCase
         }, \E_USER_WARNING);
 
         $entry = $client->getEntry('Kpwt1njxgAm04oQYyUScm');
-        \restore_error_handler();
+        restore_error_handler();
 
         $this->assertSame('Ben Chang', $entry->getName());
         $this->assertSame('Señor', $entry->getJobTitle());
@@ -292,7 +293,7 @@ class CacheTest extends TestCase
 
         $this->assertTrue($queryPool->has($query));
 
-        \sleep(2);
+        sleep(2);
 
         $client = $this->getClient('2_seconds_lifetime_cache_query');
         $queryPool = $client->getQueryPool();

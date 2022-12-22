@@ -27,18 +27,18 @@ class LinkResolverTest extends TestCase
 {
     public function testLinksAreResolved()
     {
-        $spaceId = \bin2hex(\random_bytes(5));
-        $environmentId = \bin2hex(\random_bytes(5));
+        $spaceId = bin2hex(random_bytes(5));
+        $environmentId = bin2hex(random_bytes(5));
         $linkResolver = new LinkResolver(new MockClient($spaceId, $environmentId), new MockResourcePool());
 
-        $resourceId = \bin2hex(\random_bytes(5));
+        $resourceId = bin2hex(random_bytes(5));
         /** @var Asset $resource */
         $resource = $linkResolver->resolveLink(new Link($resourceId, 'Asset'), ['locale' => 'it-IT']);
         $this->assertInstanceOf(Asset::class, $resource);
         $this->assertSame($resourceId, $resource->getId());
         $this->assertSame('it-IT', $resource->getSystemProperties()->getLocale());
 
-        $resourceId = \bin2hex(\random_bytes(5));
+        $resourceId = bin2hex(random_bytes(5));
         /** @var ContentType $resource */
         $resource = $linkResolver->resolveLink(new Link($resourceId, 'ContentType'));
         $this->assertInstanceOf(ContentType::class, $resource);
@@ -49,7 +49,7 @@ class LinkResolverTest extends TestCase
         $this->assertInstanceOf(Environment::class, $resource);
         $this->assertSame($environmentId, $resource->getId());
 
-        $resourceId = \bin2hex(\random_bytes(5));
+        $resourceId = bin2hex(random_bytes(5));
         /** @var Entry $resource */
         $resource = $linkResolver->resolveLink(new Link($resourceId, 'Entry'), ['locale' => 'it-IT']);
         $this->assertInstanceOf(Entry::class, $resource);

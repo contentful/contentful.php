@@ -31,7 +31,7 @@ class Environment extends BaseMapper
         /** @var ResourceClass $environment */
         $environment = $this->hydrator->hydrate($resource ?: ResourceClass::class, [
             'sys' => $this->createSystemProperties(SystemProperties::class, $data),
-            'locales' => \array_map(function (array $localeData): Locale {
+            'locales' => array_map(function (array $localeData): Locale {
                 /** @var Locale $locale */
                 $locale = $this->builder->build($localeData);
 

@@ -124,8 +124,8 @@ class ClientOptions
 
     public function withHost(string $host): self
     {
-        if ('/' === \mb_substr($host, -1)) {
-            $host = \mb_substr($host, 0, -1);
+        if ('/' === mb_substr($host, -1)) {
+            $host = mb_substr($host, 0, -1);
         }
 
         $this->host = $host;
@@ -195,8 +195,6 @@ class ClientOptions
     /**
      * Configures the client to use the default resource pool implementation,
      * which may use more memory in extreme scenarios (tens of thousands of resources).
-     *
-     * @return ClientOptions
      */
     public function withNormalResourcePool(): self
     {
@@ -210,8 +208,6 @@ class ClientOptions
      * which is useful when handling tens of thousand of resources,
      * but it may cause extra API calls in normal scenarios.
      * Use this option only if the default resource pool is causing you memory errors.
-     *
-     * @return ClientOptions
      */
     public function withLowMemoryResourcePool(): self
     {

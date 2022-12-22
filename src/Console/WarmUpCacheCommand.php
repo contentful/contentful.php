@@ -35,10 +35,10 @@ class WarmUpCacheCommand extends BaseCacheCommand
 
         $warmer = new CacheWarmer($this->client, $this->resourcePool, $this->cacheItemPool);
         if (!$warmer->warmUp($cacheContent)) {
-            throw new \RuntimeException(\sprintf('The SDK could not warm up the cache. Try checking your PSR-6 implementation (class "%s").', \get_class($this->cacheItemPool)));
+            throw new \RuntimeException(sprintf('The SDK could not warm up the cache. Try checking your PSR-6 implementation (class "%s").', \get_class($this->cacheItemPool)));
         }
 
-        $output->writeln(\sprintf(
+        $output->writeln(sprintf(
             '<info>Cache warmed up for space "%s" on environment "%s" using API "%s".</info>',
             $this->client->getSpaceId(),
             $this->client->getEnvironmentId(),

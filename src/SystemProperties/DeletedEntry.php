@@ -30,7 +30,7 @@ class DeletedEntry extends Entry
      */
     public function jsonSerialize(): array
     {
-        return \array_merge(
+        return array_merge(
             parent::jsonSerialize(),
             $this->jsonSerializeDeletedAt()
         );

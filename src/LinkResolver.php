@@ -59,7 +59,7 @@ class LinkResolver implements LinkResolverInterface
             case 'Tag':
                 return $this->client->getTag($link->getId());
             default:
-                throw new \InvalidArgumentException(\sprintf('Trying to resolve link for unknown type "%s".', $link->getLinkType()));
+                throw new \InvalidArgumentException(sprintf('Trying to resolve link for unknown type "%s".', $link->getLinkType()));
         }
     }
 
@@ -71,13 +71,13 @@ class LinkResolver implements LinkResolverInterface
         $locale = $parameters['locale'] ?? null;
 
         // We load all resources for the given resource types
-        $types = \array_unique(\array_map(function (Link $link) {
+        $types = array_unique(array_map(function (Link $link) {
             return $link->getLinkType();
         }, $links));
 
         $resources = [];
         foreach ($types as $type) {
-            $resources = \array_merge($resources, $this->resolveLinksForResourceType($type, $links, $locale));
+            $resources = array_merge($resources, $this->resolveLinksForResourceType($type, $links, $locale));
         }
 
         $collection = [];
@@ -101,9 +101,9 @@ class LinkResolver implements LinkResolverInterface
      */
     private function resolveLinksForResourceType(string $type, array $links, string $locale = null): array
     {
-        $resourceIds = \array_map(function (Link $link): string {
+        $resourceIds = array_map(function (Link $link): string {
             return $link->getId();
-        }, \array_filter($links, function (Link $link) use ($type): bool {
+        }, array_filter($links, function (Link $link) use ($type): bool {
             return $link->getLinkType() === $type;
         }));
 
@@ -134,7 +134,7 @@ class LinkResolver implements LinkResolverInterface
         }
 
         foreach ($this->createIdChunks($resourceIds) as $chunk) {
-            $resources = \array_merge($resources, $this->fetchCollectionFromApi($chunk, $type, $locale));
+            $resources = array_merge($resources, $this->fetchCollectionFromApi($chunk, $type, $locale));
         }
 
         return $resources;
@@ -156,7 +156,7 @@ class LinkResolver implements LinkResolverInterface
     {
         $chunks = [];
         $chunkId = -1;
-        $resourceIds = \array_values($resourceIds);
+        $resourceIds = array_values($resourceIds);
         foreach ($resourceIds as $index => $resourceId) {
             if (0 === $index % 30) {
                 ++$chunkId;
@@ -198,7 +198,7 @@ class LinkResolver implements LinkResolverInterface
             case 'Space':
                 return [$this->client->getSpace()];
             default:
-                throw new \InvalidArgumentException(\sprintf('Trying to resolve link for unknown type "%s".', $type));
+                throw new \InvalidArgumentException(sprintf('Trying to resolve link for unknown type "%s".', $type));
         }
     }
 }

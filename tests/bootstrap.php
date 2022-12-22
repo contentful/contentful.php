@@ -12,9 +12,9 @@ declare(strict_types=1);
 use VCR\Request;
 use VCR\VCR;
 
-\date_default_timezone_set('UTC');
+date_default_timezone_set('UTC');
 
-if ('code-coverage' === \getenv('CONTENTFUL_SDK_ENV')) {
+if ('code-coverage' === getenv('CONTENTFUL_SDK_ENV')) {
     return;
 }
 
@@ -24,10 +24,10 @@ if ('code-coverage' === \getenv('CONTENTFUL_SDK_ENV')) {
 function clean_headers_array(Request $request)
 {
     // @todo This can be done much more nicely with PHP 5.6 and ARRAY_FILTER_USE_BOTH
-    $headers = \array_filter($request->getHeaders());
+    $headers = array_filter($request->getHeaders());
 
     foreach ($headers as $name => $value) {
-        $lcName = \mb_strtolower($name);
+        $lcName = mb_strtolower($name);
         if ('user-agent' === $lcName || 'x-contentful-user-agent' === $lcName) {
             unset($headers[$name]);
         }

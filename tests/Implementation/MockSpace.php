@@ -24,12 +24,9 @@ class MockSpace extends Space
         parent::__construct($data);
     }
 
-    /**
-     * @return MockSpace
-     */
     public static function withSys(string $id = 'spaceId', array $data = []): self
     {
-        return new static(\array_merge($data, [
+        return new static(array_merge($data, [
             'sys' => new SystemProperties([
                 'id' => $id,
                 'type' => 'Space',

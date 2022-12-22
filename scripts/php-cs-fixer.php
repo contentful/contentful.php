@@ -13,7 +13,7 @@ use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
 return function (string $packageName, bool $usePhp7, array $directories, array $exclude = []): Config {
-    $year = \date('Y');
+    $year = date('Y');
 
     $fileHeaderComment = <<<COMMENT
         This file is part of the contentful/$packageName package.
@@ -76,9 +76,9 @@ return function (string $packageName, bool $usePhp7, array $directories, array $
         $rules['ternary_to_null_coalescing'] = true;
     }
 
-    $cache = \tempnam(\sys_get_temp_dir(), $packageName).'-php_cs.cache';
+    $cache = tempnam(sys_get_temp_dir(), $packageName).'-php_cs.cache';
 
-    return Config::create()
+    return (new Config())
         ->setFinder($finder)
         ->setRiskyAllowed(true)
         ->setCacheFile($cache)

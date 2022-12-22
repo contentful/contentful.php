@@ -47,7 +47,7 @@ class Asset extends BaseTaggedMapper
                 ? $this->normalizeFieldData($data['fields']['description'], $locale)
                 : null,
             'file' => isset($data['fields']['file'])
-                ? \array_map([$this, 'buildFile'], $this->normalizeFieldData($data['fields']['file'], $locale))
+                ? array_map([$this, 'buildFile'], $this->normalizeFieldData($data['fields']['file'], $locale))
                 : null,
         ]);
 

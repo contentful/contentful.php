@@ -110,11 +110,11 @@ class TestCase extends BaseTestCase
         ];
 
         if (!isset($config[$key])) {
-            throw new \InvalidArgumentException(\sprintf('Key "%s" is not a valid value.', $key));
+            throw new \InvalidArgumentException(sprintf('Key "%s" is not a valid value.', $key));
         }
 
         $defaultOptions = ClientOptions::create();
-        if ($testingUrl = \getenv(self::ENV_VAR_HOST)) {
+        if ($testingUrl = getenv(self::ENV_VAR_HOST)) {
             $defaultOptions->withHost($testingUrl);
         }
 
@@ -125,7 +125,7 @@ class TestCase extends BaseTestCase
             'options' => $defaultOptions,
         ];
 
-        return \array_merge($default, $config[$key]);
+        return array_merge($default, $config[$key]);
     }
 
     /**
@@ -141,19 +141,19 @@ class TestCase extends BaseTestCase
 
     protected function getHost(string $default = 'https://cdn.contentful.com/'): string
     {
-        return \getenv(self::ENV_VAR_HOST) ?: $default;
+        return getenv(self::ENV_VAR_HOST) ?: $default;
     }
 
     protected function skipIfApiCoverage()
     {
-        if (\getenv(self::ENV_VAR_HOST)) {
+        if (getenv(self::ENV_VAR_HOST)) {
             $this->markTestSkipped('This configuration blocks tests that should not be run when in the coverage proxy environment.');
         }
     }
 
     protected function runOnApiCoverage(): bool
     {
-        if (!\getenv(self::ENV_VAR_HOST)) {
+        if (!getenv(self::ENV_VAR_HOST)) {
             $this->markTestAsPassed();
 
             return false;

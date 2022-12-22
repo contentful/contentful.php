@@ -13,6 +13,7 @@ namespace Contentful\Delivery\Cache;
 
 use Contentful\Core\Resource\SystemPropertiesInterface;
 use Contentful\Delivery\SystemProperties\LocalizedResource as LocalizedResourceSystemProperties;
+
 use function GuzzleHttp\json_encode as guzzle_json_encode;
 
 /**

@@ -122,7 +122,7 @@ class ContentType extends BaseResource implements ContentTypeInterface
 
         if ($tryCaseInsensitive) {
             foreach ($this->fields as $name => $field) {
-                if (\mb_strtolower($name) === \mb_strtolower($fieldId)) {
+                if (mb_strtolower($name) === mb_strtolower($fieldId)) {
                     return $field;
                 }
             }
@@ -167,7 +167,7 @@ class ContentType extends BaseResource implements ContentTypeInterface
             'name' => $this->name,
             'description' => $this->description,
             'displayField' => $this->displayField,
-            'fields' => \array_values($this->fields),
+            'fields' => array_values($this->fields),
         ];
     }
 }

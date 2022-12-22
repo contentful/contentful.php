@@ -30,7 +30,7 @@ class Entry extends LocalizedResource
      */
     public function jsonSerialize(): array
     {
-        return \array_merge(
+        return array_merge(
             parent::jsonSerialize(),
             $this->jsonSerializeContentType()
         );

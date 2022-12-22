@@ -17,6 +17,7 @@ use Contentful\Core\Api\Location;
 use Contentful\Delivery\Resource\ContentType as ResourceContentType;
 use Contentful\Delivery\Resource\Entry as ResourceClass;
 use Contentful\Delivery\SystemProperties\Entry as SystemProperties;
+
 use function GuzzleHttp\json_decode as guzzle_json_decode;
 use function GuzzleHttp\json_encode as guzzle_json_encode;
 
@@ -83,7 +84,7 @@ class Entry extends BaseTaggedMapper
             // Instead of failing and causing a type error, we fallback on a simple
             // field, and leave the handling of those edge cases to the user.
             if (!$field) {
-                @\trigger_error(\sprintf(
+                @trigger_error(sprintf(
                     'Entry of content type "%s" ("%s") being built contains field "%s" which is not present in the content type definition.'
                     .' Please check your cache for stale content type definitions.',
                     $contentType->getName(),
@@ -160,7 +161,7 @@ class Entry extends BaseTaggedMapper
 
         switch ($type) {
             case 'Array':
-                return \array_map(function ($value) use ($itemsType) {
+                return array_map(function ($value) use ($itemsType) {
                     return $this->formatValue((string) $itemsType, $value);
                 }, $value);
             case 'Date':
