@@ -402,20 +402,20 @@ class Client extends BaseClient implements ClientInterface, SynchronizationClien
      */
     public function getEntries(Query $query = null): ResourceArray
     {
-        if ($this->queryPool->has($query)) {
-            return $this->queryPool->get($query);
-        }
-
         $queryData = $query ? $query->getQueryData() : [];
         if (!isset($queryData['locale'])) {
-            $queryData['locale'] = $this->defaultLocale;
+            $query->setLocale($this->defaultLocale);
+        }
+
+        if ($this->queryPool->has($query)) {
+            return $this->queryPool->get($query);
         }
 
         /** @var ResourceArray $entries */
         $entries = $this->request(
             'GET',
             '/spaces/'.$this->spaceId.'/environments/'.$this->environmentId.'/entries',
-            ['query' => $queryData]
+            ['query' => $query->getQueryData()]
         );
 
         $this->queryPool->save($query, $entries);
