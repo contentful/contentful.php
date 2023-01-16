@@ -4,7 +4,7 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": "^8.0 <8.2",
+        "php": "^8.0",
         "contentful/core": "^4.0",
         "contentful/rich-text": "^4.0",
         "psr/cache": "^2.0|^3.0",
