@@ -8,7 +8,7 @@
         "contentful/core": "^4.0",
         "contentful/rich-text": "^4.0",
         "psr/cache": "^2.0|^3.0",
-        "psr/log": "^2.0|^3.0",
+        "psr/log": "^1.0|^2.0|^3.0",
         "symfony/cache": "^5.0|^6.0",
         "symfony/console": "~2.7|~3.0|~4.0|^5.0|^6.0",
         "symfony/filesystem": "~2.7|~3.0|~4.0|~5.0|^6.0"
