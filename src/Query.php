@@ -71,4 +71,12 @@ class Query extends BaseQuery
 
         return $this;
     }
+
+    /**
+     * Get the locale currently set for this query.
+     */
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
 }
