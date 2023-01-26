@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 * Added support for PHP8.2
 * Fixed cache handling for queries with default locale, see [#320](https://github.com/contentful/contentful.php/issues/320) - thanks @fabianaromagnoli !
+* Re-added support for psr/log v1 - see [#322](https://github.com/contentful/contentful.php/issues/322)
 
 ### Internal
 
