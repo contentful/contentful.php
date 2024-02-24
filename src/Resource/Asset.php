@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -40,9 +40,6 @@ class Asset extends LocalizedResource implements AssetInterface
      */
     protected $file;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSystemProperties(): SystemProperties
     {
         return $this->sys;
@@ -127,9 +124,6 @@ class Asset extends LocalizedResource implements AssetInterface
             : $this->{$property}[$localeCode];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function jsonSerialize(): array
     {
         $locale = $this->sys->getLocale();

@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -53,7 +53,7 @@ class Query extends BaseQuery
      *
      * @return $this
      */
-    public function setInclude(int $include = null)
+    public function setInclude(?int $include = null)
     {
         $this->include = $include;
 
@@ -65,7 +65,7 @@ class Query extends BaseQuery
      *
      * @return $this
      */
-    public function setLocale(string $locale = null)
+    public function setLocale(?string $locale = null)
     {
         $this->locale = $locale;
 

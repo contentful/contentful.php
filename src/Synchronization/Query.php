@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -16,7 +16,7 @@ use Contentful\Delivery\Resource\ContentType;
 /**
  * A sync Query can be used to limit what type of resources and events should be synced.
  *
- * @see \Contentful\Delivery\Synchronization\Mananager Synchronization\Mananager
+ * @see Mananager Synchronization\Mananager
  */
 class Query
 {
@@ -73,7 +73,7 @@ class Query
      *
      * @return $this
      */
-    public function setType(string $type = null)
+    public function setType(?string $type = null)
     {
         $validTypes = ['all', 'Asset', 'Entry', 'Deletion', 'DeletedAsset', 'DeletedEntry'];
         if (!\in_array($type, $validTypes, true)) {

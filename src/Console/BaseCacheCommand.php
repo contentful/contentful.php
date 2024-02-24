@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -40,9 +40,6 @@ abstract class BaseCacheCommand extends Command
 
     abstract protected function getCommandName(): string;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure()
     {
         $this

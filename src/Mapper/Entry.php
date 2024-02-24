@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -29,9 +29,6 @@ use function GuzzleHttp\json_encode as guzzle_json_encode;
  */
 class Entry extends BaseTaggedMapper
 {
-    /**
-     * {@inheritdoc}
-     */
     public function map($resource, array $data): ResourceClass
     {
         /** @var SystemProperties $sys */
@@ -141,12 +138,9 @@ class Entry extends BaseTaggedMapper
     /**
      * Transforms values from the original JSON representation to an appropriate PHP representation.
      *
-     * @param mixed       $value
      * @param string|null $itemsType The type of the items in the array, if it's an array field
-     *
-     * @return mixed
      */
-    private function formatValue(string $type, $value, string $itemsType = null)
+    private function formatValue(string $type, $value, ?string $itemsType = null)
     {
         // Certain fields are already built as objects (Location, Link, DateTimeImmutable)
         // if the entry has already been built partially.

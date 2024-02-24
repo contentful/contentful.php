@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -128,13 +128,10 @@ class TestCase extends BaseTestCase
         return array_merge($default, $config[$key]);
     }
 
-    /**
-     * @param ClientOptions $options
-     */
     protected function getJsonDecoderClient(
         string $spaceId,
         string $environment = 'master',
-        ClientOptions $options = null
+        ?ClientOptions $options = null
     ): JsonDecoderClientInterface {
         return new Client('irrelevant', $spaceId, $environment, $options);
     }

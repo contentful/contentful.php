@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -16,9 +16,6 @@ namespace Contentful\Delivery\Resource;
  */
 abstract class DeletedResource extends BaseResource
 {
-    /**
-     * {@inheritdoc}
-     */
     public function jsonSerialize(): array
     {
         return [

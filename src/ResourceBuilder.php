@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -74,25 +74,16 @@ class ResourceBuilder extends BaseResourceBuilder
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getMapperNamespace(): string
     {
         return __NAMESPACE__.'\\Mapper';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createMapper($fqcn): MapperInterface
     {
         return new $fqcn($this, $this->client, $this->richTextParser);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getSystemType(array $data): string
     {
         if ('Array' === $data['sys']['type']) {
@@ -106,10 +97,7 @@ class ResourceBuilder extends BaseResourceBuilder
         throw new \InvalidArgumentException(sprintf('Unexpected system type "%s" while trying to build a resource.', $data['sys']['type']));
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function build(array $data, ResourceInterface $resource = null)
+    public function build(array $data, ?ResourceInterface $resource = null)
     {
         $type = $data['sys']['type'];
 

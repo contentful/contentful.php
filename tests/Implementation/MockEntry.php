@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -25,7 +25,7 @@ class MockEntry extends Entry
         parent::__construct($data);
     }
 
-    public static function withSys(string $id = 'entryId', array $data = [], string $locale = null): self
+    public static function withSys(string $id = 'entryId', array $data = [], ?string $locale = null): self
     {
         return new static(array_merge($data, [
             'sys' => new SystemProperties([
@@ -42,7 +42,7 @@ class MockEntry extends Entry
         ]));
     }
 
-    public function setClient(ClientInterface $client = null)
+    public function setClient(?ClientInterface $client = null)
     {
         $this->client = $client;
     }

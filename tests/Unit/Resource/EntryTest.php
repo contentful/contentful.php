@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -151,7 +151,7 @@ class EntryTest extends TestCase
                 parent::__construct($spaceId, $environmentId);
             }
 
-            public function resolveLink(Link $link, string $locale = null): ResourceInterface
+            public function resolveLink(Link $link, ?string $locale = null): ResourceInterface
             {
                 foreach ($this->entries as $id => $entry) {
                     if ($id === $link->getId()) {
@@ -162,7 +162,7 @@ class EntryTest extends TestCase
                 throw new NotFoundException(new ClientException('Exception message', new Request('GET', ''), new Response()));
             }
 
-            public function resolveLinkCollection(array $links, string $locale = null): array
+            public function resolveLinkCollection(array $links, ?string $locale = null): array
             {
                 $resources = [];
                 foreach ($links as $link) {

@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -16,10 +16,7 @@ use Contentful\Core\ResourceBuilder\ResourceBuilderInterface;
 
 class MockResourceBuilder implements ResourceBuilderInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function build(array $data, ResourceInterface $resource = null)
+    public function build(array $data, ?ResourceInterface $resource = null)
     {
         if ($resource) {
             return $resource;

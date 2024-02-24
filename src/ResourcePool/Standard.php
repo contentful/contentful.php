@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -76,9 +76,6 @@ class Standard extends BaseResourcePool
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function has(string $type, string $id, array $options = []): bool
     {
         if (!$this->savesResource($type)) {
@@ -91,9 +88,6 @@ class Standard extends BaseResourcePool
         return isset($this->resources[$key]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function save(ResourceInterface $resource): bool
     {
         if (!$this->savesResource($resource->getType())) {
@@ -112,9 +106,6 @@ class Standard extends BaseResourcePool
         return !$exists;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function get(string $type, string $id, array $options = []): ResourceInterface
     {
         $locale = $options['locale'] ?? null;
@@ -128,9 +119,6 @@ class Standard extends BaseResourcePool
         return $this->resources[$key];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function generateKey(string $type, string $id, array $options = []): string
     {
         $locale = strtr($options['locale'] ?? '__ALL__', [

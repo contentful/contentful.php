@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -60,7 +60,7 @@ class Manager
     /**
      * @return \Generator An instance of Result wrapped in a Generator object
      */
-    public function sync(string $token = null, Query $query = null): \Generator
+    public function sync(?string $token = null, ?Query $query = null): \Generator
     {
         do {
             $result = $token ? $this->continueSync($token) : $this->startSync($query);
@@ -81,7 +81,7 @@ class Manager
      *
      * @return Result
      */
-    public function startSync(Query $query = null)
+    public function startSync(?Query $query = null)
     {
         $query = null !== $query ? $query : new Query();
         $response = $this->client->syncRequest($query->getQueryData());

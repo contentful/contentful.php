@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -22,9 +22,6 @@ use Contentful\Delivery\SystemProperties\DeletedContentType as SystemProperties;
  */
 class DeletedContentType extends BaseMapper
 {
-    /**
-     * {@inheritdoc}
-     */
     public function map($resource, array $data): ResourceClass
     {
         /** @var ResourceClass $deletedContentType */

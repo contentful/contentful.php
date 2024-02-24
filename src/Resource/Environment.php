@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -25,9 +25,6 @@ class Environment extends BaseResource
      */
     protected $locales = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSystemProperties(): SystemProperties
     {
         return $this->sys;
@@ -73,9 +70,6 @@ class Environment extends BaseResource
         throw new \RuntimeException('No locale marked as default exists in this environment.');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function jsonSerialize(): array
     {
         return [

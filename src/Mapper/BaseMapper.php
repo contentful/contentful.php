@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -75,11 +75,9 @@ abstract class BaseMapper implements MapperInterface
     }
 
     /**
-     * @param mixed $fieldData
-     *
      * @return array
      */
-    protected function normalizeFieldData($fieldData, string $locale = null)
+    protected function normalizeFieldData($fieldData, ?string $locale = null)
     {
         if (!$locale) {
             return $fieldData;

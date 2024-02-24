@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -24,7 +24,7 @@ class MockAsset extends Asset
         parent::__construct($data);
     }
 
-    public static function withSys(string $id = 'assetId', array $data = [], string $locale = null): self
+    public static function withSys(string $id = 'assetId', array $data = [], ?string $locale = null): self
     {
         return new static(array_merge($data, [
             'sys' => new SystemProperties([

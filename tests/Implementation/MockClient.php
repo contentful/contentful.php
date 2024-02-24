@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -49,18 +49,12 @@ class MockClient implements ClientInterface
         $this->environmentId = $environmentId;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getAsset(string $assetId, string $locale = null): Asset
+    public function getAsset(string $assetId, ?string $locale = null): Asset
     {
         return MockAsset::withSys($assetId, [], $locale);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getAssets(Query $query = null): ResourceArray
+    public function getAssets(?Query $query = null): ResourceArray
     {
         $this->lastQuery = $query;
 
@@ -72,18 +66,12 @@ class MockClient implements ClientInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getContentType(string $contentTypeId): ContentType
     {
         return MockContentType::withSys($contentTypeId);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getContentTypes(Query $query = null): ResourceArray
+    public function getContentTypes(?Query $query = null): ResourceArray
     {
         $this->lastQuery = $query;
 
@@ -95,26 +83,17 @@ class MockClient implements ClientInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getEnvironment(): Environment
     {
         return MockEnvironment::withSys($this->environmentId);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getEntry(string $entryId, string $locale = null): Entry
+    public function getEntry(string $entryId, ?string $locale = null): Entry
     {
         return MockEntry::withSys($entryId, [], $locale);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getEntries(Query $query = null): ResourceArray
+    public function getEntries(?Query $query = null): ResourceArray
     {
         $this->lastQuery = $query;
 
@@ -126,51 +105,33 @@ class MockClient implements ClientInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSpace(): Space
     {
         return MockSpace::withSys($this->spaceId);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function resolveLink(Link $link, string $locale = null): ResourceInterface
+    public function resolveLink(Link $link, ?string $locale = null): ResourceInterface
     {
         return MockEntry::withSys($link->getId());
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function resolveLinkCollection(array $links, string $locale = null): array
+    public function resolveLinkCollection(array $links, ?string $locale = null): array
     {
         return array_map(function (Link $link): Entry {
             return MockEntry::withSys($link->getId());
         }, $links);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getApi(): string
     {
         return 'DELIVERY';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSpaceId(): string
     {
         return $this->spaceId;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getEnvironmentId(): string
     {
         return $this->environmentId;

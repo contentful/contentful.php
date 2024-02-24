@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -30,9 +30,6 @@ class CacheItemPoolFactory implements CacheItemPoolFactoryInterface
         self::$pools = [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCacheItemPool(string $api, string $spaceId, string $environmentId): CacheItemPoolInterface
     {
         $key = $api.'.'.$spaceId.'.'.$environmentId;

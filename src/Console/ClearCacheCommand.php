@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -17,17 +17,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ClearCacheCommand extends BaseCacheCommand
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function getCommandName(): string
     {
         return 'delivery:cache:clear';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->initClient($input);

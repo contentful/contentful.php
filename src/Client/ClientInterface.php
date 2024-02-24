@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -38,14 +38,14 @@ interface ClientInterface extends ScopedClientInterface
      *
      * @throws NotFoundException If no asset is found with the given ID
      */
-    public function getAsset(string $assetId, string $locale = null): Asset;
+    public function getAsset(string $assetId, ?string $locale = null): Asset;
 
     /**
      * Returns a collection of Asset objects wrapped in a ResourceArray instance.
      *
      * @return ResourceArray|Asset[]
      */
-    public function getAssets(Query $query = null): ResourceArray;
+    public function getAssets(?Query $query = null): ResourceArray;
 
     /**
      * Returns a single ContentType object corresponding to the given ID.
@@ -59,7 +59,7 @@ interface ClientInterface extends ScopedClientInterface
      *
      * @return ResourceArray|ContentType[]
      */
-    public function getContentTypes(Query $query = null): ResourceArray;
+    public function getContentTypes(?Query $query = null): ResourceArray;
 
     /**
      * Returns the Environment object corresponding to the one in use.
@@ -71,14 +71,14 @@ interface ClientInterface extends ScopedClientInterface
      *
      * @throws NotFoundException If no entry is found with the given ID
      */
-    public function getEntry(string $entryId, string $locale = null): Entry;
+    public function getEntry(string $entryId, ?string $locale = null): Entry;
 
     /**
      * Returns a collection of Entry objects wrapped in a ResourceArray instance.
      *
      * @return ResourceArray|Entry[]
      */
-    public function getEntries(Query $query = null): ResourceArray;
+    public function getEntries(?Query $query = null): ResourceArray;
 
     /**
      * Returns the Space object corresponding to the one in use.
@@ -102,11 +102,9 @@ interface ClientInterface extends ScopedClientInterface
     /**
      * Resolve a link to its actual resource.
      *
-     * @param string $locale
-     *
      * @throws \InvalidArgumentException when encountering an unexpected link type
      */
-    public function resolveLink(Link $link, string $locale = null): ResourceInterface;
+    public function resolveLink(Link $link, ?string $locale = null): ResourceInterface;
 
     /**
      * Resolves an array of links.
@@ -117,5 +115,5 @@ interface ClientInterface extends ScopedClientInterface
      *
      * @return ResourceInterface[]
      */
-    public function resolveLinkCollection(array $links, string $locale = null): array;
+    public function resolveLinkCollection(array $links, ?string $locale = null): array;
 }

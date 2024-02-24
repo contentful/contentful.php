@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -52,9 +52,6 @@ class Standard implements QueryPoolInterface
         $this->lifetime = $lifetime;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function save(?BaseQuery $query, ResourceArray $entries): bool
     {
         $key = $this->generateKey($query);
@@ -115,7 +112,7 @@ class Standard implements QueryPoolInterface
         if ($item->isHit()) {
             $resourceArray = $this->client->parseJson($item->get());
             if (!$resourceArray instanceof ResourceArray) {
-                throw new \RuntimeException(sprintf('Invalid query cache hit. Expected to be "%s", "%s" given.', ResourceArray::class, \get_class($resourceArray)));
+                throw new \RuntimeException(sprintf('Invalid query cache hit. Expected to be "%s", "%s" given.', ResourceArray::class, $resourceArray::class));
             }
             $this->queries[$key] = $resourceArray;
         }

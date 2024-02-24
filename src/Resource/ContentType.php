@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -54,9 +54,6 @@ class ContentType extends BaseResource implements ContentTypeInterface
      */
     protected $displayField;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSystemProperties(): SystemProperties
     {
         return $this->sys;
@@ -157,9 +154,6 @@ class ContentType extends BaseResource implements ContentTypeInterface
         return $this->fields[$name];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function jsonSerialize(): array
     {
         return [

@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -32,9 +32,6 @@ class DeletedEntry extends BaseMapper
      */
     private $contentType;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(
         ResourceBuilderInterface $builder,
         ClientInterface $client,
@@ -60,9 +57,6 @@ class DeletedEntry extends BaseMapper
         $this->contentType = $contentType;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function map($resource, array $data): ResourceClass
     {
         if (!isset($data['sys']['contentType'])) {

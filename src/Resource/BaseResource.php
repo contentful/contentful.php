@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -30,9 +30,6 @@ abstract class BaseResource implements ResourceInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function asLink(): Link
     {
         return new Link(
@@ -41,17 +38,11 @@ abstract class BaseResource implements ResourceInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getId(): string
     {
         return $this->getSystemProperties()->getId();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getType(): string
     {
         return $this->getSystemProperties()->getType();

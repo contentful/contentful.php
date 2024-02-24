@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -32,10 +32,7 @@ class MockClientEntryHas extends MockClient
         parent::__construct($spaceId, $environmentId);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function resolveLink(Link $link, string $locale = null): ResourceInterface
+    public function resolveLink(Link $link, ?string $locale = null): ResourceInterface
     {
         $id = $link->getId();
         if (\in_array($id, $this->availableLinks, true)) {

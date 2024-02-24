@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -80,17 +80,11 @@ class Extended extends Standard
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function savesResource(string $type): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function warmUp(string $key, string $type)
     {
         $currentlyWarmingUp = isset($this->warmupStack[$key]);
@@ -110,9 +104,6 @@ class Extended extends Standard
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function save(ResourceInterface $resource): bool
     {
         if (!parent::save($resource)) {

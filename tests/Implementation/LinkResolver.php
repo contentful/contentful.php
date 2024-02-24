@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2023 Contentful GmbH
+ * @copyright 2015-2024 Contentful GmbH
  * @license   MIT
  */
 
@@ -17,17 +17,11 @@ use Contentful\Core\Resource\ResourceInterface;
 
 class LinkResolver implements LinkResolverInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function resolveLink(Link $link, array $parameters = []): ResourceInterface
     {
         return MockEntry::withSys();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function resolveLinkCollection(array $links, array $parameters = []): array
     {
         return array_map(function (Link $link) use ($parameters): ResourceInterface {
