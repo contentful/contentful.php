@@ -14,11 +14,13 @@ workflows:
       - test80
       - test81
       - test82
+      - test83
       - docs_build:
           requires:
             - test80
             - test81
             - test82
+            - test83
           filters:
             branches:
               only: master
@@ -87,8 +89,15 @@ jobs:
       - checkout
       - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist" }
       # This test is knee-kapped for now, since a PHP bug causes the tests to segfault. See v7.0.0 changelog.
-      - run: { name: "Test suite", command: "composer test-quick-fail || true" }
+      - run: { name: "Test suite", command: "composer test-quick-fail" }
 
+  test83:
+    docker:
+      - image: cimg/php:8.3
+    steps:
+      - checkout
+      - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist" }
+      - run: { name: "Test suite", command: "composer test-quick-fail" }
 
   docs_build:
     environment:
