@@ -9,6 +9,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 > No meaningful changes since last release.
 <!-- /PENDING-CHANGES -->
 
+## [7.0.2](https://github.com/contentful/contentful.php/tree/7.0.2) (2024-02-24)
+
+### Changed
+
+* Added support for PHP8.3
+* Added support for Symfony 7
+
+### Internal
+
+* Updated header comments
+* Re-enabled unit tests for PHP8.2
+
+
 ## [7.0.1](https://github.com/contentful/contentful.php/tree/7.0.1) (2023-01-26)
 
 ### Changed
