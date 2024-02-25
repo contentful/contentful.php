@@ -22,7 +22,7 @@ class WarmUpCacheCommand extends BaseCacheCommand
         return 'delivery:cache:warmup';
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->initClient($input);
         $cacheContent = (bool) $input->getOption('cache-content');
