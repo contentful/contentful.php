@@ -22,7 +22,7 @@ class ClearCacheCommand extends BaseCacheCommand
         return 'delivery:cache:clear';
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->initClient($input);
         $cacheContent = (bool) $input->getOption('cache-content');
