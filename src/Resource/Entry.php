@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Contentful\Delivery\Resource;
 
 use Contentful\Core\Api\Link;
+use Contentful\Core\Exception\NotFoundException;
 use Contentful\Core\Resource\EntryInterface;
 use Contentful\Core\Resource\ResourceArray;
 use Contentful\Delivery\Client\ClientInterface;
@@ -322,7 +323,11 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
         }
 
         if ($field instanceof Link) {
-            return $this->client->resolveLink($field, $locale);
+            try {
+                return $this->client->resolveLink($field, $locale);
+            } catch (NotFoundException) {
+                return null;
+            }
         }
 
         if (\is_array($field) && isset($field[0]) && $field[0] instanceof Link) {
