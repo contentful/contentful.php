@@ -175,7 +175,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * Links are resolved by default. If you want to get raw link objects rather than
      * complete resources, set the $resolveLinks parameter to false.
      *
-     * @param string|null $locale                            The locale to access the fields with.
+     * @param string|null $locale                            the locale to access the fields with
      * @param bool|int    $resolveLinkDepth                  Whether to resolve links and, if so, how deep.
      *                                                       Set to false or zero to disable link resolution.
      *                                                       You can also set it to true, which is treated as 1 for backwards-compatible reasons.
@@ -185,10 +185,9 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      */
     public function all(?string $locale = null, bool|int $resolveLinkDepth = 1, bool $ignoreLocaleForNonLocalizedFields = false): array
     {
-        if ($resolveLinkDepth === false) {
+        if (false === $resolveLinkDepth) {
             $resolveLinkDepth = 0;
-        }
-        elseif ($resolveLinkDepth === true) {
+        } elseif (true === $resolveLinkDepth) {
             $resolveLinkDepth = 1;
         }
 
@@ -252,10 +251,9 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      */
     public function get(string $name, ?string $locale = null, bool|int $resolveLinkDepth = 1)
     {
-        if ($resolveLinkDepth === false) {
+        if (false === $resolveLinkDepth) {
             $resolveLinkDepth = 0;
-        }
-        elseif ($resolveLinkDepth === true) {
+        } elseif (true === $resolveLinkDepth) {
             $resolveLinkDepth = 1;
         }
 
@@ -268,7 +266,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
                 if ($resolveLinkDepth > 1) {
                     // The first layer of links is the links in this Entry, so we'll only resolve the links in our links
                     // if the link depth is over one.
-                    $result = $this->resolveLinksIfEntryOrEntryArray($result, $resolveLinkDepth - 1, $ignoreLocaleForNonLocalizedFields, $locale);
+                    $result = $this->resolveLinksIfEntryOrEntryArray($result, $resolveLinkDepth - 1, true, $locale);
                 }
             }
 
@@ -340,16 +338,16 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
 
     /**
      * Resolves all link fields recursively.
-     * @param int         $depth Max iteration depth to resolve links into.
-     * @param bool        $ignoreLocaleForNonLocalizedFields Whether to access non-localized fields using the given locale.
-     * @param string|null $locale
+     *
+     * @param int  $depth                             max iteration depth to resolve links into
+     * @param bool $ignoreLocaleForNonLocalizedFields whether to access non-localized fields using the given locale
      */
     private function resolveAllFieldLinks(int $depth, bool $ignoreLocaleForNonLocalizedFields, ?string $locale = null)
     {
         if ($depth < 1) {
             return;
         }
-        $depth -= 1;
+        --$depth;
 
         foreach ($this->getContentType()->getFields() as $field) {
             $result = null;
@@ -368,23 +366,25 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
 
     /**
      * Resolves all links on an item if it's an instance of Entry or an array containing Entry.
-     * @param mixed  $item The item in question.
-     * @param int    $depth How deep to recurse.
-     * @param bool   $ignoreLocaleForNonLocalizedFields Whether to access non-localized fields using the given locale.
-     * @return mixed The item, with resolved links if so.
+     *
+     * @param mixed $item                              the item in question
+     * @param int   $depth                             how deep to recurse
+     * @param bool  $ignoreLocaleForNonLocalizedFields whether to access non-localized fields using the given locale
+     *
+     * @return mixed the item, with resolved links if so
      */
-    private function resolveLinksIfEntryOrEntryArray(mixed $item, int $depth, bool $ignoreLocaleForNonLocalizedFields, ?string $locale) : mixed
+    private function resolveLinksIfEntryOrEntryArray(mixed $item, int $depth, bool $ignoreLocaleForNonLocalizedFields, ?string $locale): mixed
     {
-        if ($item instanceof Entry) {
+        if ($item instanceof self) {
             $item->resolveAllFieldLinks($depth, $ignoreLocaleForNonLocalizedFields, $locale);
-        }
-        elseif (\is_array($item)) {
+        } elseif (\is_array($item)) {
             foreach ($item as $element) {
-                if ($element instanceof Entry) {
+                if ($element instanceof self) {
                     $element->resolveAllFieldLinks($depth, $ignoreLocaleForNonLocalizedFields, $locale);
                 }
             }
         }
+
         return $item;
     }
 
