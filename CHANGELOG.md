@@ -3,11 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/7.0.1...HEAD)
+## [Unreleased](https://github.com/contentful/contentful.php/compare/7.1.0...HEAD)
 
 <!-- PENDING-CHANGES -->
 > No meaningful changes since last release.
 <!-- /PENDING-CHANGES -->
+
+## [7.1.0](https://github.com/contentful/contentful.php/tree/7.1.0) (2024-07-25)
+
+### Added
+
+* Support for recursive resolution of Entry links
 
 ## [7.0.2](https://github.com/contentful/contentful.php/tree/7.0.2) (2024-02-24)
 
