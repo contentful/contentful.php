@@ -3,11 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/contentful/contentful.php/compare/7.1.0...HEAD)
+## [Unreleased](https://github.com/contentful/contentful.php/compare/7.1.1...HEAD)
 
 <!-- PENDING-CHANGES -->
 > No meaningful changes since last release.
 <!-- /PENDING-CHANGES -->
+
+## [7.1.1](https://github.com/contentful/contentful.php/tree/7.1.1) (2024-09-09)
+
+### Changed
+
+* The library will now call `trigger_error` instead of `error_log` when a content type has a field called tags, which allows users to easily suppress the warning. The severity was also reduced to `E_NOTICE`.
+
 
 ## [7.1.0](https://github.com/contentful/contentful.php/tree/7.1.0) (2024-07-25)
 
