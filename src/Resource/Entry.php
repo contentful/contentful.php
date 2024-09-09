@@ -469,11 +469,12 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
         // getter method used for that and possibly break existing code. Therefore, if we have that field, we emit a
         // warning and let the user fall back to the alternate method.
         if ($this->has('tags')) {
-            error_log(
+            trigger_error(
                 "Warning: Content type '".
                 $this->getType().
                 "' has a field 'tags', which shadows Contentful tags. ".
-                'You can call Entry::getContentfulTags() or change the field name to access them.'
+                'You can call Entry::getContentfulTags() or change the field name to access them.',
+                E_USER_NOTICE
             );
             $this->disableTags = true;
         } else {
