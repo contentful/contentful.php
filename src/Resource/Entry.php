@@ -474,7 +474,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
                 $this->getType().
                 "' has a field 'tags', which shadows Contentful tags. ".
                 'You can call Entry::getContentfulTags() or change the field name to access them.',
-                E_USER_NOTICE
+                \E_USER_NOTICE
             );
             $this->disableTags = true;
         } else {
