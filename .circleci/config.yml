@@ -15,12 +15,14 @@ workflows:
       - test81
       - test82
       - test83
+      - test84
       - docs_build:
           requires:
             - test80
             - test81
             - test82
             - test83
+            - test84
           filters:
             branches:
               only: master
@@ -94,6 +96,14 @@ jobs:
   test83:
     docker:
       - image: cimg/php:8.3
+    steps:
+      - checkout
+      - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist" }
+      - run: { name: "Test suite", command: "composer test-quick-fail" }
+
+  test84:
+    docker:
+      - image: cimg/php:8.4
     steps:
       - checkout
       - run: { name: "Install dependencies", command: "sudo composer self-update && composer install -n --prefer-dist" }
