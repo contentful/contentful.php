@@ -48,7 +48,7 @@ abstract class BaseCacheCommand extends Command
                 new InputOption('access-token', 't', InputOption::VALUE_REQUIRED, 'Token to access the space.'),
                 new InputOption('space-id', 's', InputOption::VALUE_REQUIRED, 'ID of the space to use.'),
                 new InputOption('environment-id', 'e', InputOption::VALUE_REQUIRED, 'ID of the environment to use', 'master'),
-                new InputOption('factory-class', 'f', InputOption::VALUE_REQUIRED, sprintf(
+                new InputOption('factory-class', 'f', InputOption::VALUE_REQUIRED, \sprintf(
                     'The FQCN of a factory class which implements "%s".',
                     CacheItemPoolFactoryInterface::class
                 )),
@@ -83,7 +83,7 @@ abstract class BaseCacheCommand extends Command
         $factoryClass = $input->getOption('factory-class');
         $cacheItemPoolFactory = new $factoryClass();
         if (!$cacheItemPoolFactory instanceof CacheItemPoolFactoryInterface) {
-            throw new \InvalidArgumentException(sprintf('Cache item pool factory must implement "%s".', CacheItemPoolFactoryInterface::class));
+            throw new \InvalidArgumentException(\sprintf('Cache item pool factory must implement "%s".', CacheItemPoolFactoryInterface::class));
         }
 
         return $cacheItemPoolFactory->getCacheItemPool(

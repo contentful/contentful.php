@@ -45,7 +45,7 @@ class QueryTest extends TestCase
     public function testGetSetContentTypeFromObject()
     {
         $query = (new Query())
-            ->setContentType(new class() extends ContentType {
+            ->setContentType(new class extends ContentType {
                 public function __construct()
                 {
                 }

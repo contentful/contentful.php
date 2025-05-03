@@ -56,7 +56,7 @@ class LinkResolver implements LinkResolverInterface
             case 'Tag':
                 return $this->client->getTag($link->getId());
             default:
-                throw new \InvalidArgumentException(sprintf('Trying to resolve link for unknown type "%s".', $link->getLinkType()));
+                throw new \InvalidArgumentException(\sprintf('Trying to resolve link for unknown type "%s".', $link->getLinkType()));
         }
     }
 
@@ -192,7 +192,7 @@ class LinkResolver implements LinkResolverInterface
             case 'Space':
                 return [$this->client->getSpace()];
             default:
-                throw new \InvalidArgumentException(sprintf('Trying to resolve link for unknown type "%s".', $type));
+                throw new \InvalidArgumentException(\sprintf('Trying to resolve link for unknown type "%s".', $type));
         }
     }
 }

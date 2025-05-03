@@ -113,7 +113,7 @@ class Standard extends BaseResourcePool
         $this->warmUp($key, $type);
 
         if (!$this->savesResource($type) || !isset($this->resources[$key])) {
-            throw new \OutOfBoundsException(sprintf('Resource pool could not find a resource with type "%s", ID "%s"%s.', $type, $id, $locale ? ', and locale "'.$locale.'"' : ''));
+            throw new \OutOfBoundsException(\sprintf('Resource pool could not find a resource with type "%s", ID "%s"%s.', $type, $id, $locale ? ', and locale "'.$locale.'"' : ''));
         }
 
         return $this->resources[$key];
