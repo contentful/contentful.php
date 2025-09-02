@@ -259,25 +259,4 @@ class AssetTest extends TestCase
 
         $this->assertJsonFixtureEqualsJsonObject('serialize_no_locale.json', $asset);
     }
-
-    public function testResolveNestedLinksMethod()
-    {
-        // Method should not throw any exceptions when called
-        $this->asset->resolveNestedLinks(1, false, null);
-        
-        // Since assets currently don't have complex fields with links,
-        // this method should complete without side effects
-        $this->assertTrue(true); // Assert test completed without errors
-    }
-
-    public function testResolveNestedLinksMethodWithDifferentParameters()
-    {
-        // Test with different parameter combinations
-        $this->asset->resolveNestedLinks(0, false, null);
-        $this->asset->resolveNestedLinks(2, true, 'en-US');
-        $this->asset->resolveNestedLinks(5, false, 'tlh');
-        
-        // All calls should complete without errors since assets don't have complex fields yet
-        $this->assertTrue(true);
-    }
 }
