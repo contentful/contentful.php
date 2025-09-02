@@ -182,8 +182,10 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * @param bool        $ignoreLocaleForNonLocalizedFields Whether to access non-localized fields using the given locale.
      *                                                       Unless this parameter is set, doing so will result in an exception. This behaviour is breaking to older
      *                                                       versions and therefore not default.
+     * @param bool        $resolveNestedAssetLinks           Whether to recursively resolve links within assets and other nested resources.
+     *                                                       Default is false for backward compatibility.
      */
-    public function all(?string $locale = null, bool|int $resolveLinkDepth = 1, bool $ignoreLocaleForNonLocalizedFields = false): array
+    public function all(?string $locale = null, bool|int $resolveLinkDepth = 1, bool $ignoreLocaleForNonLocalizedFields = false, bool $resolveNestedAssetLinks = false): array
     {
         if (false === $resolveLinkDepth) {
             $resolveLinkDepth = 0;
@@ -207,7 +209,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
                 if ($resolveLinkDepth > 1) {
                     // The first layer of links is the links in this Entry, so we'll only resolve the links in our links
                     // if the link depth is over one.
-                    $result = $this->resolveLinksIfEntryOrEntryArray($result, $resolveLinkDepth - 1, $ignoreLocaleForNonLocalizedFields, $locale);
+                    $result = $this->resolveLinksInNestedResources($result, $resolveLinkDepth - 1, $ignoreLocaleForNonLocalizedFields, $locale, $resolveNestedAssetLinks);
                 }
             }
             $values[$field->getId()] = $result;
@@ -245,11 +247,13 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * $id = $entry->get('authorId');
      * ```
      *
-     * @param bool|int $resolveLinkDepth Whether to resolve links and, if so, how deep.
-     *                                   Set to false or zero to disable link resolution.
-     *                                   You can also set it to true, which is treated as 1 for backwards-compatible reasons.
+     * @param bool|int $resolveLinkDepth      Whether to resolve links and, if so, how deep.
+     *                                        Set to false or zero to disable link resolution.
+     *                                        You can also set it to true, which is treated as 1 for backwards-compatible reasons.
+     * @param bool     $resolveNestedAssetLinks Whether to recursively resolve links within assets and other nested resources.
+     *                                        Default is false for backward compatibility.
      */
-    public function get(string $name, ?string $locale = null, bool|int $resolveLinkDepth = 1)
+    public function get(string $name, ?string $locale = null, bool|int $resolveLinkDepth = 1, bool $resolveNestedAssetLinks = false)
     {
         if (false === $resolveLinkDepth) {
             $resolveLinkDepth = 0;
@@ -266,7 +270,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
                 if ($resolveLinkDepth > 1) {
                     // The first layer of links is the links in this Entry, so we'll only resolve the links in our links
                     // if the link depth is over one.
-                    $result = $this->resolveLinksIfEntryOrEntryArray($result, $resolveLinkDepth - 1, true, $locale);
+                    $result = $this->resolveLinksInNestedResources($result, $resolveLinkDepth - 1, true, $locale, $resolveNestedAssetLinks);
                 }
             }
 
@@ -341,8 +345,9 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      *
      * @param int  $depth                             max iteration depth to resolve links into
      * @param bool $ignoreLocaleForNonLocalizedFields whether to access non-localized fields using the given locale
+     * @param bool $resolveNestedAssetLinks           whether to recursively resolve links within assets and other nested resources
      */
-    private function resolveAllFieldLinks(int $depth, bool $ignoreLocaleForNonLocalizedFields, ?string $locale = null)
+    private function resolveAllFieldLinks(int $depth, bool $ignoreLocaleForNonLocalizedFields, ?string $locale = null, bool $resolveNestedAssetLinks = false)
     {
         if ($depth < 1) {
             return;
@@ -360,12 +365,13 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
             }
 
             $result = $this->resolveFieldLinks($result, $locale);
-            $this->resolveLinksIfEntryOrEntryArray($result, $depth, $ignoreLocaleForNonLocalizedFields, $locale);
+            $this->resolveLinksInNestedResources($result, $depth, $ignoreLocaleForNonLocalizedFields, $locale, $resolveNestedAssetLinks);
         }
     }
 
     /**
      * Resolves all links on an item if it's an instance of Entry or an array containing Entry.
+     * This method is kept for backward compatibility. Use resolveLinksInNestedResources instead.
      *
      * @param mixed $item                              the item in question
      * @param int   $depth                             how deep to recurse
@@ -375,12 +381,33 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      */
     private function resolveLinksIfEntryOrEntryArray(mixed $item, int $depth, bool $ignoreLocaleForNonLocalizedFields, ?string $locale): mixed
     {
+        return $this->resolveLinksInNestedResources($item, $depth, $ignoreLocaleForNonLocalizedFields, $locale, false);
+    }
+
+    /**
+     * Resolves all links on an item if it's an instance of Entry, Asset, or an array containing such resources.
+     *
+     * @param mixed $item                              the item in question
+     * @param int   $depth                             how deep to recurse
+     * @param bool  $ignoreLocaleForNonLocalizedFields whether to access non-localized fields using the given locale
+     * @param bool  $resolveNestedAssetLinks           whether to recursively resolve links within assets and other nested resources
+     *
+     * @return mixed the item, with resolved links if so
+     */
+    private function resolveLinksInNestedResources(mixed $item, int $depth, bool $ignoreLocaleForNonLocalizedFields, ?string $locale, bool $resolveNestedAssetLinks): mixed
+    {
         if ($item instanceof self) {
-            $item->resolveAllFieldLinks($depth, $ignoreLocaleForNonLocalizedFields, $locale);
+            $item->resolveAllFieldLinks($depth, $ignoreLocaleForNonLocalizedFields, $locale, $resolveNestedAssetLinks);
+        } elseif ($resolveNestedAssetLinks && $item instanceof Asset) {
+            // Assets don't have complex fields like entries, but we call this for consistency
+            // and in case future versions add more complex asset field types
+            $item->resolveNestedLinks($depth, $ignoreLocaleForNonLocalizedFields, $locale);
         } elseif (\is_array($item)) {
             foreach ($item as $element) {
                 if ($element instanceof self) {
-                    $element->resolveAllFieldLinks($depth, $ignoreLocaleForNonLocalizedFields, $locale);
+                    $element->resolveAllFieldLinks($depth, $ignoreLocaleForNonLocalizedFields, $locale, $resolveNestedAssetLinks);
+                } elseif ($resolveNestedAssetLinks && $element instanceof Asset) {
+                    $element->resolveNestedLinks($depth, $ignoreLocaleForNonLocalizedFields, $locale);
                 }
             }
         }

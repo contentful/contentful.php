@@ -124,6 +124,22 @@ class Asset extends LocalizedResource implements AssetInterface
             : $this->{$property}[$localeCode];
     }
 
+    /**
+     * Resolves nested links within the asset's fields.
+     * Currently assets have basic fields (title, description, file) that don't contain links,
+     * but this method is provided for consistency with Entry and future extensibility.
+     *
+     * @param int  $depth                             max iteration depth to resolve links into
+     * @param bool $ignoreLocaleForNonLocalizedFields whether to access non-localized fields using the given locale
+     */
+    public function resolveNestedLinks(int $depth, bool $ignoreLocaleForNonLocalizedFields, ?string $locale = null): void
+    {
+        // Assets currently don't have complex fields that can contain links,
+        // but this method is provided for future extensibility and consistency.
+        // If assets gain rich text fields or other complex types in the future,
+        // link resolution logic would be added here.
+    }
+
     public function jsonSerialize(): array
     {
         $locale = $this->sys->getLocale();
