@@ -233,7 +233,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
             return $field->isLocalized();
         }
 
-        throw new \InvalidArgumentException(\sprintf('Trying to access non existent field "%s" on an entry with content type "%s" ("%s").', $name, $this->sys->getContentType()->getName(), $this->sys->getContentType()->getSystemProperties()->getId()));
+        throw new \InvalidArgumentException(sprintf('Trying to access non existent field "%s" on an entry with content type "%s" ("%s").', $name, $this->sys->getContentType()->getName(), $this->sys->getContentType()->getSystemProperties()->getId()));
     }
 
     /**
@@ -247,11 +247,11 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * $id = $entry->get('authorId');
      * ```
      *
-     * @param bool|int $resolveLinkDepth      Whether to resolve links and, if so, how deep.
-     *                                        Set to false or zero to disable link resolution.
-     *                                        You can also set it to true, which is treated as 1 for backwards-compatible reasons.
+     * @param bool|int $resolveLinkDepth        Whether to resolve links and, if so, how deep.
+     *                                          Set to false or zero to disable link resolution.
+     *                                          You can also set it to true, which is treated as 1 for backwards-compatible reasons.
      * @param bool     $resolveNestedAssetLinks Whether to recursively resolve links within assets and other nested resources.
-     *                                        Default is false for backward compatibility.
+     *                                          Default is false for backward compatibility.
      */
     public function get(string $name, ?string $locale = null, bool|int $resolveLinkDepth = 1, bool $resolveNestedAssetLinks = false)
     {
@@ -284,7 +284,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
             return $value;
         }
 
-        throw new \InvalidArgumentException(\sprintf('Trying to access non existent field "%s" on an entry with content type "%s" ("%s").', $name, $this->sys->getContentType()->getName(), $this->sys->getContentType()->getSystemProperties()->getId()));
+        throw new \InvalidArgumentException(sprintf('Trying to access non existent field "%s" on an entry with content type "%s" ("%s").', $name, $this->sys->getContentType()->getName(), $this->sys->getContentType()->getSystemProperties()->getId()));
     }
 
     /**
@@ -323,7 +323,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
         // $value[$defaultLocale], so because that check has already happened, we know
         // we're trying to access an invalid locale which is not correctly set.
         if (!$field->isLocalized()) {
-            throw new \InvalidArgumentException(\sprintf('Trying to access the non-localized field "%s" on content type "%s" using the non-default locale "%s".', $field->getName(), $this->sys->getContentType()->getName(), $locale));
+            throw new \InvalidArgumentException(sprintf('Trying to access the non-localized field "%s" on content type "%s" using the non-default locale "%s".', $field->getName(), $this->sys->getContentType()->getName(), $locale));
         }
 
         // If we reach this point, it means:
@@ -377,7 +377,9 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
      * @param int   $depth                             how deep to recurse
      * @param bool  $ignoreLocaleForNonLocalizedFields whether to access non-localized fields using the given locale
      *
+     * @deprecated This method is kept for backward compatibility. Use resolveLinksInNestedResources instead.
      * @return mixed the item, with resolved links if so
+     * @phpstan-ignore-next-line
      */
     private function resolveLinksIfEntryOrEntryArray(mixed $item, int $depth, bool $ignoreLocaleForNonLocalizedFields, ?string $locale): mixed
     {
@@ -418,6 +420,8 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
     /**
      * Given a field value, this method will resolve links
      * if it's a Link object or an array of links.
+     *
+     * @param mixed $field
      */
     private function resolveFieldLinks($field, ?string $locale = null)
     {
