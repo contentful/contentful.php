@@ -82,7 +82,7 @@ class Standard implements QueryPoolInterface
         $this->warmUp($key);
 
         if (!isset($this->queries[$key])) {
-            throw new \OutOfBoundsException(sprintf('Query pool could not find a query with key "%s".', $key));
+            throw new \OutOfBoundsException(\sprintf('Query pool could not find a query with key "%s".', $key));
         }
 
         return $this->queries[$key];
@@ -112,7 +112,7 @@ class Standard implements QueryPoolInterface
         if ($item->isHit()) {
             $resourceArray = $this->client->parseJson($item->get());
             if (!$resourceArray instanceof ResourceArray) {
-                throw new \RuntimeException(sprintf('Invalid query cache hit. Expected to be "%s", "%s" given.', ResourceArray::class, $resourceArray::class));
+                throw new \RuntimeException(\sprintf('Invalid query cache hit. Expected to be "%s", "%s" given.', ResourceArray::class, $resourceArray::class));
             }
             $this->queries[$key] = $resourceArray;
         }

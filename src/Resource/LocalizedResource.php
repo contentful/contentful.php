@@ -95,11 +95,11 @@ abstract class LocalizedResource extends BaseResource
         }
 
         if ($this->sys->getLocale() && $input !== $this->sys->getLocale()) {
-            throw new \InvalidArgumentException(sprintf('Entry with ID "%s" was built using locale "%s", but now access using locale "%s" is being attempted.', $this->sys->getId(), $this->sys->getLocale(), $input));
+            throw new \InvalidArgumentException(\sprintf('Entry with ID "%s" was built using locale "%s", but now access using locale "%s" is being attempted.', $this->sys->getId(), $this->sys->getLocale(), $input));
         }
 
         if (!\in_array($input, $this->localeCodes, true)) {
-            throw new \InvalidArgumentException(sprintf('Trying to use invalid locale "%s", available locales are "%s".', $input, implode(', ', $this->localeCodes)));
+            throw new \InvalidArgumentException(\sprintf('Trying to use invalid locale "%s", available locales are "%s".', $input, implode(', ', $this->localeCodes)));
         }
 
         return $input;

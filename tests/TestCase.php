@@ -110,7 +110,7 @@ class TestCase extends BaseTestCase
         ];
 
         if (!isset($config[$key])) {
-            throw new \InvalidArgumentException(sprintf('Key "%s" is not a valid value.', $key));
+            throw new \InvalidArgumentException(\sprintf('Key "%s" is not a valid value.', $key));
         }
 
         $defaultOptions = ClientOptions::create();

@@ -51,7 +51,7 @@ class Environment extends BaseResource
             }
         }
 
-        throw new \InvalidArgumentException(sprintf('No locale with code "%s" exists in this environment.', $code));
+        throw new \InvalidArgumentException(\sprintf('No locale with code "%s" exists in this environment.', $code));
     }
 
     /**

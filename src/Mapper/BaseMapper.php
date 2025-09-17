@@ -75,8 +75,6 @@ abstract class BaseMapper implements MapperInterface
     }
 
     /**
-     * @param mixed $fieldData
-     *
      * @return array
      */
     protected function normalizeFieldData($fieldData, ?string $locale = null)

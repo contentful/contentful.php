@@ -81,7 +81,7 @@ class Entry extends BaseTaggedMapper
             // Instead of failing and causing a type error, we fallback on a simple
             // field, and leave the handling of those edge cases to the user.
             if (!$field) {
-                @trigger_error(sprintf(
+                @trigger_error(\sprintf(
                     'Entry of content type "%s" ("%s") being built contains field "%s" which is not present in the content type definition.'
                     .' Please check your cache for stale content type definitions.',
                     $contentType->getName(),
@@ -139,7 +139,6 @@ class Entry extends BaseTaggedMapper
      * Transforms values from the original JSON representation to an appropriate PHP representation.
      *
      * @param string|null $itemsType The type of the items in the array, if it's an array field
-     * @param mixed       $value
      */
     private function formatValue(string $type, $value, ?string $itemsType = null)
     {

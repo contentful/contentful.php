@@ -55,8 +55,6 @@ class ParseJsonTest extends TestCase
 
     /**
      * @dataProvider parseJsonDataProvider
-     *
-     * @param mixed $file
      */
     public function testParseAndEncodeJson($file)
     {
