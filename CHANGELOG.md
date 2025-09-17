@@ -9,6 +9,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 > No meaningful changes since last release.
 <!-- /PENDING-CHANGES -->
 
+
+## [7.2.0](https://github.com/contentful/contentful.php/tree/7.2.0) (2025-09-17)
+
+### Added
+
+* New parameter to Entry::all() to resolve nested assets links
+* Support & tests for PHP8.4
+
+### Internal
+
+* Minor code cleanups and metadata files
+* Updated headers for current year
+
 ## [7.1.1](https://github.com/contentful/contentful.php/tree/7.1.1) (2024-09-09)
 
 ### Changed
