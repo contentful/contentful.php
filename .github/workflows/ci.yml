@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  lint-syntax:
+    name: Lint syntax (PHP 8.1)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run syntax checks in dev container
+        uses: devcontainers/ci@v0.3
+        env:
+          PHP_VERSION: "8.1"
+        with:
+          push: never
+          runCmd: >-
+            bash -lc "mkdir -p tools/php-cs-fixer &&
+            composer require --working-dir=tools/php-cs-fixer
+            friendsofphp/php-cs-fixer &&
+            tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --dry-run
+            --stop-on-violation -v"
+
+  static-analysis:
+    name: Static analysis (PHP 8.1)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run static analysis in dev container
+        uses: devcontainers/ci@v0.3
+        env:
+          PHP_VERSION: "8.1"
+        with:
+          push: never
+          runCmd: composer run lint-static-analysis
+
+  backwards-compatibility:
+    name: Backwards compatibility (PHP 8.1)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check backwards compatibility in dev container
+        uses: devcontainers/ci@v0.3
+        env:
+          PHP_VERSION: "8.1"
+        with:
+          push: never
+          runCmd: bash -lc "composer run test-for-bc-breaks || true"
+
+  test:
+    name: Test (PHP ${{ matrix.php-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ["8.0", "8.1", "8.2", "8.3", "8.4"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run test suite in dev container
+        uses: devcontainers/ci@v0.3
+        env:
+          PHP_VERSION: ${{ matrix.php-version }}
+        with:
+          push: never
+          runCmd: composer test-quick-fail
