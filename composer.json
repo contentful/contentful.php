@@ -40,7 +40,7 @@
         "test": "vendor/bin/phpunit",
         "test-quick-fail": "php vendor/bin/phpunit --stop-on-error --stop-on-failure -v",
         "test-for-bc-breaks": "php -d memory_limit=-1  vendor/bin/roave-backward-compatibility-check",
-        "lint-static-analysis": "php vendor/bin/phpstan analyse src --level=5",
+        "lint-static-analysis": "php -d memory_limit=-1 vendor/bin/phpstan analyse src --level=5",
 	"release": "php vendor/contentful/core/scripts/release.php"
     },
     "config": {

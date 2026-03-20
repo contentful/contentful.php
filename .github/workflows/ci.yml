@@ -61,7 +61,7 @@ jobs:
           PHP_VERSION: "8.1"
         with:
           push: never
-          runCmd: bash -lc "composer run test-for-bc-breaks || true"
+          runCmd: bash -lc "composer install -n --prefer-dist && composer run test-for-bc-breaks || true"
 
   test:
     name: Test (PHP ${{ matrix.php-version }})
