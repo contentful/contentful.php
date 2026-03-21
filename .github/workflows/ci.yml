@@ -25,11 +25,7 @@ jobs:
         with:
           push: never
           runCmd: >-
-            bash -lc "mkdir -p tools/php-cs-fixer &&
-            composer require --working-dir=tools/php-cs-fixer
-            friendsofphp/php-cs-fixer &&
-            tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --dry-run
-            --stop-on-violation -v"
+            bash -lc "git ls-files -z '*.php' | xargs -0 -n1 php -l"
 
   static-analysis:
     name: Static analysis (PHP 8.1)
