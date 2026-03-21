@@ -14,50 +14,55 @@ jobs:
     name: Lint syntax (PHP 8.1)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
+      - name: Install devcontainer CLI
+        run: npm install -g @devcontainers/cli@0
+
       - name: Run syntax checks in dev container
-        uses: devcontainers/ci@v0.3
         env:
           PHP_VERSION: "8.1"
-        with:
-          push: never
-          runCmd: >-
-            bash -lc "git ls-files -z '*.php' | xargs -0 -n1 php -l"
+        run: |
+          devcontainer up --workspace-folder .
+          devcontainer exec --workspace-folder . bash -lc "git ls-files -z '*.php' | xargs -0 -n1 php -l"
 
   static-analysis:
     name: Static analysis (PHP 8.1)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
+      - name: Install devcontainer CLI
+        run: npm install -g @devcontainers/cli@0
+
       - name: Run static analysis in dev container
-        uses: devcontainers/ci@v0.3
         env:
           PHP_VERSION: "8.1"
-        with:
-          push: never
-          runCmd: composer run lint-static-analysis
+        run: |
+          devcontainer up --workspace-folder .
+          devcontainer exec --workspace-folder . bash -lc "composer run lint-static-analysis"
 
   backwards-compatibility:
     name: Backwards compatibility (PHP 8.1)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
+      - name: Install devcontainer CLI
+        run: npm install -g @devcontainers/cli@0
+
       - name: Check backwards compatibility in dev container
-        uses: devcontainers/ci@v0.3
         env:
           PHP_VERSION: "8.1"
-        with:
-          push: never
-          runCmd: bash -lc "composer install -n --prefer-dist && composer run test-for-bc-breaks || true"
+        run: |
+          devcontainer up --workspace-folder .
+          devcontainer exec --workspace-folder . bash -lc "composer install -n --prefer-dist && composer run test-for-bc-breaks || true"
 
   test:
     name: Test (PHP ${{ matrix.php-version }})
@@ -67,14 +72,16 @@ jobs:
       matrix:
         php-version: ["8.0", "8.1", "8.2", "8.3", "8.4"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
+      - name: Install devcontainer CLI
+        run: npm install -g @devcontainers/cli@0
+
       - name: Run test suite in dev container
-        uses: devcontainers/ci@v0.3
         env:
           PHP_VERSION: ${{ matrix.php-version }}
-        with:
-          push: never
-          runCmd: composer test-quick-fail
+        run: |
+          devcontainer up --workspace-folder .
+          devcontainer exec --workspace-folder . bash -lc "composer test-quick-fail"
