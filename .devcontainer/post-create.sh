@@ -10,6 +10,10 @@ cleanup() {
 
 trap cleanup EXIT
 
+# Install a devcontainer-only dependency set without the BC checker. This repo
+# does not commit a lockfile, and roave/backward-compatibility-check can force
+# incompatible resolutions during post-create; the dedicated BC CI job still
+# exercises that tooling separately.
 php <<'PHP'
 <?php
 
