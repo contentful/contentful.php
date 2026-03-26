@@ -17,7 +17,7 @@
 [![Packagist](https://img.shields.io/packagist/v/contentful/contentful.svg?style=for-the-badge)](https://packagist.org/packages/contentful/contentful)
 [![PHP version](https://img.shields.io/packagist/php-v/contentful/contentful.svg?style=for-the-badge)](https://packagist.org/packages/contentful/contentful)
 [![Packagist](https://img.shields.io/github/license/contentful/contentful.php.svg?style=for-the-badge)](https://packagist.org/packages/contentful/contentful)
-[![CircleCI](https://circleci.com/gh/contentful/contentful.php.svg?style=shield)](https://circleci.com/gh/contentful/contentful.php)
+[![CI](https://github.com/contentful/contentful.php/actions/workflows/ci.yml/badge.svg)](https://github.com/contentful/contentful.php/actions/workflows/ci.yml)
 
 
 > PHP library for the Contentful [Content Delivery API](https://www.contentful.com/developers/docs/references/content-delivery-api/) and [Content Preview API](https://www.contentful.com/developers/docs/references/content-preview-api/). It helps you to easily access your Content stored in Contentful with your PHP applications.
@@ -200,7 +200,15 @@ For details about how to upgrade from version 2.x to version 3, please check the
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?maxAge=31557600)](http://makeapullrequest.com)
 
-**Important**: Right now, the API has `php-vcr` as a development dependency, which does not officially support PHP8 yet. If you want to develop on PHP8, you will need to install the dependencies with `composer install --ignore-platform-reqs` to overwrite this requirement.
+For a reproducible local setup, open this repository in its included dev container. The container installs the project dependencies automatically when it is created.
+
+After the container is ready, run:
+
+```bash
+composer test-quick-fail
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
 
 ## License
 
