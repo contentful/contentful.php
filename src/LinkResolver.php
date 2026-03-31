@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2025 Contentful GmbH
+ * @copyright 2015-2026 Contentful GmbH
  * @license   MIT
  */
 
@@ -65,7 +65,7 @@ class LinkResolver implements LinkResolverInterface
         $locale = $parameters['locale'] ?? null;
 
         // We load all resources for the given resource types
-        $types = array_unique(array_map(function (Link $link) {
+        $types = array_unique(array_map(static function (Link $link) {
             return $link->getLinkType();
         }, $links));
 
@@ -95,9 +95,9 @@ class LinkResolver implements LinkResolverInterface
      */
     private function resolveLinksForResourceType(string $type, array $links, ?string $locale = null): array
     {
-        $resourceIds = array_map(function (Link $link): string {
+        $resourceIds = array_map(static function (Link $link): string {
             return $link->getId();
-        }, array_filter($links, function (Link $link) use ($type): bool {
+        }, array_filter($links, static function (Link $link) use ($type): bool {
             return $link->getLinkType() === $type;
         }));
 

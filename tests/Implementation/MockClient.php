@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2025 Contentful GmbH
+ * @copyright 2015-2026 Contentful GmbH
  * @license   MIT
  */
 
@@ -117,7 +117,7 @@ class MockClient implements ClientInterface
 
     public function resolveLinkCollection(array $links, ?string $locale = null): array
     {
-        return array_map(function (Link $link): Entry {
+        return array_map(static function (Link $link): Entry {
             return MockEntry::withSys($link->getId());
         }, $links);
     }

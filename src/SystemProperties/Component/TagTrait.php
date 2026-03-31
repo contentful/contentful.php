@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2025 Contentful GmbH
+ * @copyright 2015-2026 Contentful GmbH
  * @license   MIT
  */
 
@@ -28,7 +28,7 @@ trait TagTrait
     protected function jsonSerializeSpace(): array
     {
         return [
-            'tags' => array_map(function ($tag) { return $tag->asLink(); }, $this->tags),
+            'tags' => array_map(static function ($tag) { return $tag->asLink(); }, $this->tags),
         ];
     }
 

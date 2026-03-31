@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2025 Contentful GmbH
+ * @copyright 2015-2026 Contentful GmbH
  * @license   MIT
  */
 
@@ -470,7 +470,7 @@ class Entry extends LocalizedResource implements EntryInterface, \ArrayAccess
             return $value->getId();
         }
 
-        return array_map(function (Link $link) {
+        return array_map(static function (Link $link) {
             return $link->getId();
         }, $value);
     }

@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2025 Contentful GmbH
+ * @copyright 2015-2026 Contentful GmbH
  * @license   MIT
  */
 
@@ -150,7 +150,7 @@ class ResourceBuilder extends BaseResourceBuilder
             $data['includes']['Entry'] ?? []
         );
 
-        $ids = array_map(function (array $item) {
+        $ids = array_map(static function (array $item) {
             return 'Entry' === $item['sys']['type']
                 ? $item['sys']['contentType']['sys']['id']
                 : null;

@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2025 Contentful GmbH
+ * @copyright 2015-2026 Contentful GmbH
  * @license   MIT
  */
 
@@ -43,7 +43,7 @@ VCR::configure()
     ->setStorage('json')
     ->enableLibraryHooks(['stream_wrapper', 'curl'])
     ->setCassettePath('tests/Recordings')
-    ->addRequestMatcher('custom_headers', function (Request $first, Request $second) {
+    ->addRequestMatcher('custom_headers', static function (Request $first, Request $second) {
         $first = clean_headers_array($first);
         $second = clean_headers_array($second);
 

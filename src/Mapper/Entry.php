@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2025 Contentful GmbH
+ * @copyright 2015-2026 Contentful GmbH
  * @license   MIT
  */
 
@@ -117,7 +117,7 @@ class Entry extends BaseTaggedMapper
     {
         // Entry fields have private access, so we use this trick to fetch them.
         // https://ocramius.github.io/blog/accessing-private-php-class-members-without-reflection/
-        $extractor = \Closure::bind(function (ResourceClass $entry) {
+        $extractor = \Closure::bind(static function (ResourceClass $entry) {
             return $entry->fields;
         }, null, $entry);
         $currentFields = $extractor($entry);

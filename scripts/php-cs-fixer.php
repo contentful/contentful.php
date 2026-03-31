@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2025 Contentful GmbH
+ * @copyright 2015-2026 Contentful GmbH
  * @license   MIT
  */
 
@@ -12,7 +12,7 @@ declare(strict_types=1);
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
-return function (string $packageName, bool $usePhp7, array $directories, array $exclude = []): Config {
+return static function (string $packageName, bool $usePhp7, array $directories, array $exclude = []): Config {
     $year = date('Y');
 
     $fileHeaderComment = <<<COMMENT
@@ -34,7 +34,7 @@ return function (string $packageName, bool $usePhp7, array $directories, array $
     $rules = [
         '@Symfony' => true,
         '@Symfony:risky' => true,
-        '@PHP80Migration' => true,
+        '@PHP8x0Migration' => true,
         'array_syntax' => [
             'syntax' => 'short',
         ],

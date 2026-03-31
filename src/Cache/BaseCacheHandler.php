@@ -3,7 +3,7 @@
 /**
  * This file is part of the contentful/contentful package.
  *
- * @copyright 2015-2025 Contentful GmbH
+ * @copyright 2015-2026 Contentful GmbH
  * @license   MIT
  */
 
@@ -70,7 +70,7 @@ abstract class BaseCacheHandler
         }
 
         if ($cacheContent) {
-            $locales = array_map(function (Locale $locale) {
+            $locales = array_map(static function (Locale $locale) {
                 return $locale->getCode();
             }, $this->client->getEnvironment()->getLocales());
             $locales[] = '*';
