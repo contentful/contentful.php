@@ -106,9 +106,7 @@ class Extended extends Standard
 
     public function save(ResourceInterface $resource): bool
     {
-        if (!parent::save($resource)) {
-            return false;
-        }
+        parent::save($resource);
 
         $key = $this->generateKey(
             $resource->getType(),
@@ -118,10 +116,8 @@ class Extended extends Standard
 
         if ($this->autoWarmup && \in_array($resource->getType(), $this->warmupTypes, true)) {
             $cacheItem = $this->cacheItemPool->getItem($key);
-            if (!$cacheItem->isHit()) {
-                $cacheItem->set(guzzle_json_encode($resource));
-                $this->cacheItemPool->save($cacheItem);
-            }
+            $cacheItem->set(guzzle_json_encode($resource));
+            $this->cacheItemPool->save($cacheItem);
         }
 
         return true;
